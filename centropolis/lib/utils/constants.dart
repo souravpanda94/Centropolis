@@ -64,12 +64,7 @@ String base64Enecode(String id) {
 }
 
 class ConstantsData {
-  static const apiKey = 'api_key';
-  static const userId = 'user_id';
-  static const apartmentId = 'apartment_id';
-  static const appOpenTime = 'app_open_time';
-  static const appOpenTimeStamp = 'app_open_time_stamp';
-  static const serverTypeLive = 'live';
+  static const dummy = 'dummy';
 }
 
 class TimeAgo {
@@ -161,5 +156,3 @@ class HexColor extends Color {
 
   HexColor(final String hexColor) : super(_getColorFromHex(hexColor));
 }
-
-
