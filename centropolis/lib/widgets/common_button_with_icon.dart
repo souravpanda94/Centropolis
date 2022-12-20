@@ -26,6 +26,9 @@ class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      onTap: (){
+        widget.onCommonButtonTap();
+      },
       child: Container(
         height: 60,
         decoration: BoxDecoration(
@@ -40,7 +43,7 @@ class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
             Text(
               widget.buttonName,
               style: const TextStyle(
-                fontSize: 15,
+                fontSize: 14,
                 color: CustomColors.whiteColor,
                 fontFamily: 'SemiBold',
               ),

@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../utils/custom_colors.dart';
 import '../widgets/common_app_bar.dart';
 import '../widgets/common_button.dart';
+import '../widgets/common_button_with_border.dart';
 import '../widgets/home_page_app_bar.dart';
 
 
@@ -55,13 +56,19 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
         //     onCommonButtonTap: (){}
         // ),
 
-        child: CommonButton(
+        // child: CommonButton(
+        //     buttonName: "Visit Reservation Application",
+        //     isIconVisible: true,
+        //     buttonColor: CustomColors.buttonBackgroundColor,
+        //     onCommonButtonTap: (){}
+        // ),
+
+        child: CommonButtonWithBorder(
             buttonName: "Visit Reservation Application",
-            isIconVisible: false,
-            buttonColor: CustomColors.buttonBackgroundColor,
+            buttonColor: CustomColors.whiteColor,
+            buttonBorderColor: CustomColors.borderColor,
             onCommonButtonTap: (){}
         ),
-
 
 
       ),

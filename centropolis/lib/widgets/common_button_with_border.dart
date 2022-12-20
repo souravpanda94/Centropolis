@@ -4,25 +4,26 @@ import 'package:flutter_svg/svg.dart';
 import '../utils/constants.dart';
 import '../utils/custom_colors.dart';
 
-class CommonButton extends StatefulWidget {
+class CommonButtonWithBorder extends StatefulWidget {
   final buttonName;
-  final isIconVisible;
   final buttonColor;
+  final buttonBorderColor;
   final Function onCommonButtonTap;
 
-  const CommonButton(
+  const CommonButtonWithBorder(
       {Key? key,
         this.buttonName,
-        this.isIconVisible,
         this.buttonColor,
+        this.buttonBorderColor,
         required this.onCommonButtonTap})
       : super(key: key);
 
   @override
-  _CommonButtonState createState() => _CommonButtonState();
+  _CommonButtonWithBorderState createState() => _CommonButtonWithBorderState();
+
 }
 
-class _CommonButtonState extends State<CommonButton> {
+class _CommonButtonWithBorderState extends State<CommonButtonWithBorder> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -34,6 +35,7 @@ class _CommonButtonState extends State<CommonButton> {
         decoration: BoxDecoration(
           color: widget.buttonColor,
           borderRadius: BorderRadius.circular(5),
+          border: Border.all(color: widget.buttonBorderColor, width: 1.0),
         ),
         padding: const EdgeInsets.only(left: 20, right: 20),
         child: Row(
@@ -44,24 +46,11 @@ class _CommonButtonState extends State<CommonButton> {
               widget.buttonName,
               style: const TextStyle(
                 fontSize: 14,
-                color: CustomColors.whiteColor,
+                color: CustomColors.textColor1,
                 fontFamily: 'SemiBold',
               ),
               textAlign: TextAlign.center,
             ),
-
-            widget.isIconVisible ?
-            Container(
-              margin: const EdgeInsets.only(left: 15.0),
-              child: SvgPicture.asset(
-                'assets/images/ic_right_arrow_white.svg',
-                semanticsLabel: 'Back',
-                width: 10,
-                height: 10,
-                alignment: Alignment.center,
-              ),
-            ) : Container()
-
           ],
         ),
       ),
