@@ -1,8 +1,11 @@
 import 'dart:convert';
+import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../utils/custom_colors.dart';
 import '../widgets/common_app_bar.dart';
+import '../widgets/common_button.dart';
+import '../widgets/common_button_with_border.dart';
 import '../widgets/home_page_app_bar.dart';
 
 
@@ -42,15 +45,32 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
         ),
       ),
 
-      body: const Center(
-        child: Text(
-          "visitor reservations screen",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.orange,
-            fontFamily: 'Regular',
-          ),
+      body:  Container(
+        margin: const EdgeInsets.only(left: 20,right: 20),
+
+
+        // child: CommonButtonWithIcon(
+        //   buttonName: "Visit Reservation Application",
+        //     isEnable: true,
+        //     buttonColor: CustomColors.buttonBackgroundColor,
+        //     onCommonButtonTap: (){}
+        // ),
+
+        // child: CommonButton(
+        //     buttonName: "Visit Reservation Application",
+        //     isIconVisible: true,
+        //     buttonColor: CustomColors.buttonBackgroundColor,
+        //     onCommonButtonTap: (){}
+        // ),
+
+        child: CommonButtonWithBorder(
+            buttonName: "Visit Reservation Application",
+            buttonColor: CustomColors.whiteColor,
+            buttonBorderColor: CustomColors.borderColor,
+            onCommonButtonTap: (){}
         ),
+
+
       ),
     );
   }

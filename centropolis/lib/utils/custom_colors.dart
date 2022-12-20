@@ -11,4 +11,5 @@ class CustomColors {
   static const textColor1 = Color(0xFF222722);
   static const selectedColor = Color(0xFFB25A42);
   static const unSelectedColor = Color(0xFFB1B3B2);
+  static const buttonBackgroundColor = Color(0xFFCC6047);
 }
