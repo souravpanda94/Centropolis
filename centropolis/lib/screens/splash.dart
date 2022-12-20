@@ -1,11 +1,7 @@
 import 'dart:async';
-import 'dart:io';
-import 'package:centropolis/screens/home.dart';
-import 'package:centropolis/screens/visitor_reservations.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-
+import '../widgets/bottom_bar.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -29,7 +25,6 @@ class _SplashScreenState extends State<SplashScreen> {
     super.dispose();
   }
 
-
   startTime() async {
     var _duration = const Duration(seconds: 2);
     return Timer(_duration, navigationPage);
@@ -39,8 +34,8 @@ class _SplashScreenState extends State<SplashScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        // builder: (context) => const HomeScreen(),
-        builder: (context) => const VisitorReservationsScreen(),
+        builder: (context) => const BottomBar(),
+        //builder: (context) => const VisitorReservationsScreen(),
       ),
     );
   }
@@ -67,5 +62,4 @@ class _SplashScreenState extends State<SplashScreen> {
       ),
     );
   }
-
 }

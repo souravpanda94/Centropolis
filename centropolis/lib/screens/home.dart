@@ -1,9 +1,6 @@
-import 'dart:async';
-import 'dart:io';
-import 'package:flutter/foundation.dart';
+import 'package:centropolis/utils/custom_colors.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:flutter_svg/flutter_svg.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -25,22 +22,33 @@ class _HomeScreenState extends State<HomeScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        child: Text(
-            "Home screen",
-          style: TextStyle(
-            fontSize: 25,
-            color: Colors.orange,
-            fontFamily: 'Regular',
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        centerTitle: true,
+        backgroundColor: CustomColors.appBackgroundColor,
+        leading: IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset('assets/images/ic_drawer.svg')),
+        title: Image.asset('assets/images/logo_image.png'),
+        actions: [
+          IconButton(
+              onPressed: () {},
+              icon: SvgPicture.asset(
+                'assets/images/ic_notification_with_indicator.svg',
+              ))
+        ],
+      ),
+      body: Column(
+        children: [
+          Image.asset(
+            'assets/images/home_image.png',
+            height: 510,
           ),
-        ),
+        ],
       ),
     );
   }
-
 }

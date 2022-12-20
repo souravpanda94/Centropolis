@@ -1,5 +1,9 @@
 {
   "lang": "en",
   "login": "login",
-  "visitorReservations" : "Visitor Reservations"
+  "visitorReservations" : "Visitor Reservations",
+  "home" : "Home",
+  "amenity" : "Amenity",
+  "visitor" : "Visitor",
+  "myPage" : "My Page"
 }
