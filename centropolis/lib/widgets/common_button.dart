@@ -6,14 +6,14 @@ import '../utils/custom_colors.dart';
 
 class CommonButton extends StatefulWidget {
   final buttonName;
-  final isEnable;
+  final isIconVisible;
   final buttonColor;
   final Function onCommonButtonTap;
 
   const CommonButton(
       {Key? key,
         this.buttonName,
-        this.isEnable,
+        this.isIconVisible,
         this.buttonColor,
         required this.onCommonButtonTap})
       : super(key: key);
@@ -46,8 +46,10 @@ class _CommonButtonState extends State<CommonButton> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(width: 15,),
-            SizedBox(
+
+            widget.isIconVisible ?
+            Container(
+              margin: const EdgeInsets.only(left: 15.0),
               child: SvgPicture.asset(
                 'assets/images/ic_right_arrow_white.svg',
                 semanticsLabel: 'Back',
@@ -55,7 +57,9 @@ class _CommonButtonState extends State<CommonButton> {
                 height: 10,
                 alignment: Alignment.center,
               ),
-            )
+            ) : Container()
+
+
           ],
         ),
       ),

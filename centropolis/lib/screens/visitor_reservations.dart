@@ -57,7 +57,7 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
 
         child: CommonButton(
             buttonName: "Visit Reservation Application",
-            isEnable: true,
+            isIconVisible: false,
             buttonColor: CustomColors.buttonBackgroundColor,
             onCommonButtonTap: (){}
         ),
