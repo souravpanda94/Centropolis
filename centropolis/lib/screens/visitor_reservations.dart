@@ -1,9 +1,10 @@
 import 'dart:convert';
-import 'package:centropolis/widgets/CommonButtonWithIcon.dart';
+import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../utils/custom_colors.dart';
 import '../widgets/common_app_bar.dart';
+import '../widgets/common_button.dart';
 import '../widgets/home_page_app_bar.dart';
 
 
@@ -45,22 +46,22 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
 
       body:  Container(
         margin: const EdgeInsets.only(left: 20,right: 20),
-        // child: Text(
-        //   "visitor reservations screen",
-        //   style: TextStyle(
-        //     fontSize: 25,
-        //     color: Colors.orange,
-        //     fontFamily: 'Regular',
-        //   ),
+
+
+        // child: CommonButtonWithIcon(
+        //   buttonName: "Visit Reservation Application",
+        //     isEnable: true,
+        //     buttonColor: CustomColors.buttonBackgroundColor,
+        //     onCommonButtonTap: (){}
         // ),
 
-
-        child: CommonButtonWithIcon(
-          buttonName: "Visit Reservation Application",
+        child: CommonButton(
+            buttonName: "Visit Reservation Application",
             isEnable: true,
             buttonColor: CustomColors.buttonBackgroundColor,
             onCommonButtonTap: (){}
         ),
+
 
 
       ),
