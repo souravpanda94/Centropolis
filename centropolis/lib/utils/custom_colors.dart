@@ -6,6 +6,7 @@ class CustomColors {
   static const whiteColor = Color(0xFFffffff);
   static const blackColor = Color(0xFF000000);
   static const borderColor = Color(0xFFE0E0E0);
-
   static const textColor1 = Color(0xFF222722);
+  static const buttonBackgroundColor = Color(0xFFCC6047);
+
 }
