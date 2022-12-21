@@ -93,6 +93,13 @@ flutter:
     - family: Regular
       fonts:
         - asset: fonts/SUIT-Regular.ttf
+
+    - family: Pretendard-Bold
+      fonts:
+        - asset: fonts/Pretendard-Bold.ttf
+    - family: Pretendard-Regular
+      fonts:
+        - asset: fonts/Pretendard-Regular.ttf
     # - family: Light
     #   fonts:
     #     - asset: fonts/SUIT-Light.ttf

@@ -12,4 +12,11 @@ class CustomColors {
   static const selectedColor = Color(0xFFB25A42);
   static const unSelectedColor = Color(0xFFB1B3B2);
   static const buttonBackgroundColor = Color(0xFFCC6047);
+
+  static const textColorBlack1 = Color(0xFF222722);
+  static const textColorBlack2 = Color(0xFF333333);
+  static const textColorGrey = Color(0xFF414341);
+  static const dividerGreyColor = Color(0xFFCFCFCF);
+  static const cardBackgroundGreyColor = Color(0xFFFAFAFA);
+  static const textGreyColor = Color(0xFF868484);
 }

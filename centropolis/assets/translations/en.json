@@ -17,7 +17,19 @@
   "home" : "Home",
   "amenity" : "Amenity",
   "visitor" : "Visitor",
-  "myPage" : "My Page"
+  "myPage" : "My Page",
+  "heading1" : "역사와 문화가 살아 숨 쉬는",
+  "heading2" : " 프라임 오피스 빌딩 센트로폴리스",
+  "conference" : "Conference",
+  "conferenceRoom" : "Conference Room 2",
+  "visitReservation" : "Visit Reservation",
+  "lobby" : "Lobby",
+  "otherReservation" : "Others reservation",
+  "otherReservationSubtitle" : "기타 예약",
+  "otherReservationCard1" : "소등 신청",
+  "otherReservationCard2" : "냉난방 신청",
+  "otherReservationCard3" : "불편사항접수"
+
 
 
 }

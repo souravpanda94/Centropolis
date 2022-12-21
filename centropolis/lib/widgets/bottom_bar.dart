@@ -30,7 +30,7 @@ class _BottomBarState extends State<BottomBar> {
         backgroundColor: CustomColors.whiteColor,
         body: bottomBarPages[selectedPageIndex],
         bottomNavigationBar: SizedBox(
-          height: MediaQuery.of(context).size.height / 8,
+          height: 84,
           child: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(
@@ -81,7 +81,6 @@ class _BottomBarState extends State<BottomBar> {
                 ),
               ),
             ],
-            elevation: 10.0,
             currentIndex: selectedPageIndex,
             backgroundColor: CustomColors.whiteColor,
             showSelectedLabels: true,
