@@ -9,6 +9,7 @@ class CustomColors {
   static const appBackgroundColor = Color(0x00181818);
 
   static const textColor1 = Color(0xFF222722);
+  static const textColor2 = Color(0xFF333333);
   static const selectedColor = Color(0xFFB25A42);
   static const unSelectedColor = Color(0xFFB1B3B2);
   static const buttonBackgroundColor = Color(0xFFCC6047);
