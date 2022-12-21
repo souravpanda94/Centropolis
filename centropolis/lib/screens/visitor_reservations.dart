@@ -8,8 +8,6 @@ import '../widgets/common_button.dart';
 import '../widgets/common_button_with_border.dart';
 import '../widgets/home_page_app_bar.dart';
 
-
-
 class VisitorReservationsScreen extends StatefulWidget {
   const VisitorReservationsScreen({Key? key}) : super(key: key);
 
@@ -30,7 +28,6 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,15 +35,31 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(
-          child:  Container(
+          child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("visitorReservations"),true,() {}, (){} ),
+            child: HomePageAppBar(tr("visitorReservations"), () {}, () {}),
           ),
         ),
       ),
+      body: Container(
+        margin: const EdgeInsets.only(left: 20, right: 20,bottom: 20),
+        child: Column(
+          children: [
+            Expanded(
+              child: Align(
+                alignment: FractionalOffset.bottomCenter,
+                child: CommonButtonWithIcon(
+                      buttonName: tr("visitReservationApplication"),
+                      isEnable: true,
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      onCommonButtonTap: () {},
+                    )),
+            )
+          ],
+        ),
 
-      body:  Container(
-        margin: const EdgeInsets.only(left: 20,right: 20),
+
+
 
 
         // child: CommonButtonWithIcon(
@@ -56,21 +69,19 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
         //     onCommonButtonTap: (){}
         // ),
 
-        // child: CommonButton(
+        // // child: CommonButton(
+        // //     buttonName: "Visit Reservation Application",
+        // //     isIconVisible: true,
+        // //     buttonColor: CustomColors.buttonBackgroundColor,
+        // //     onCommonButtonTap: (){}
+        // // ),
+        //
+        // child: CommonButtonWithBorder(
         //     buttonName: "Visit Reservation Application",
-        //     isIconVisible: true,
-        //     buttonColor: CustomColors.buttonBackgroundColor,
+        //     buttonColor: CustomColors.whiteColor,
+        //     buttonBorderColor: CustomColors.borderColor,
         //     onCommonButtonTap: (){}
         // ),
-
-        child: CommonButtonWithBorder(
-            buttonName: "Visit Reservation Application",
-            buttonColor: CustomColors.whiteColor,
-            buttonBorderColor: CustomColors.borderColor,
-            onCommonButtonTap: (){}
-        ),
-
-
       ),
     );
   }

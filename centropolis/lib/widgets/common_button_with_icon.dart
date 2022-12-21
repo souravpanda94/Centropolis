@@ -25,42 +25,46 @@ class CommonButtonWithIcon extends StatefulWidget {
 class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: (){
-        widget.onCommonButtonTap();
-      },
-      child: Container(
-        height: 60,
-        decoration: BoxDecoration(
-          color: widget.buttonColor,
-          borderRadius: BorderRadius.circular(5),
-        ),
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              widget.buttonName,
-              style: const TextStyle(
-                fontSize: 14,
-                color: CustomColors.whiteColor,
-                fontFamily: 'SemiBold',
+    return Material(
+      color: Colors.transparent,
+      child: Ink(
+          height: 60,
+          decoration: BoxDecoration(
+            color: widget.buttonColor,
+            borderRadius: BorderRadius.circular(5),
+          ),
+          child: InkWell(
+            onTap: () {
+              widget.onCommonButtonTap();
+            },
+            child: Padding(
+              padding: const EdgeInsets.only(left: 20, right: 20),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                    widget.buttonName,
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: CustomColors.whiteColor,
+                      fontFamily: 'SemiBold',
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  SizedBox(
+                    child: SvgPicture.asset(
+                      'assets/images/ic_single_right_arrow.svg',
+                      semanticsLabel: 'Back',
+                      width: 10,
+                      height: 10,
+                      alignment: Alignment.center,
+                    ),
+                  ),
+                ],
               ),
-              textAlign: TextAlign.center,
             ),
-            SizedBox(
-              child: SvgPicture.asset(
-                'assets/images/ic_single_right_arrow.svg',
-                semanticsLabel: 'Back',
-                width: 10,
-                height: 10,
-                alignment: Alignment.center,
-              ),
-            )
-          ],
-        ),
-      ),
+          )),
     );
   }
 }

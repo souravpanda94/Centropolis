@@ -1,9 +1,23 @@
 {
   "lang": "en",
-  "login": "login",
+
+
+  "mondira" : "=============================MONDIRA SECTION=========================================",
   "visitorReservations" : "Visitor Reservations",
+  "visitReservationApplication": "Visit Reservation Application",
+
+
+
+  "sourav" : "=============================SOURAV SECTION=========================================",
+
+
+
+
+  "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "Home",
   "amenity" : "Amenity",
   "visitor" : "Visitor",
   "myPage" : "My Page"
+
+
 }

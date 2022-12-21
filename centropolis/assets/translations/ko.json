@@ -1,9 +1,23 @@
 {
   "lang": "ko",
-  "login": "로그인",
+
+  "mondira" : "=============================MONDIRA SECTION=========================================",
   "visitorReservations" : "Visitor Reservations",
+  "visitReservationApplication": "Visit Reservation Application",
+
+
+
+
+
+  "sourav" : "=============================SOURAV SECTION=========================================",
+
+
+
+
+  "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "홈",
   "amenity" : "어메니티",
   "visitor" : "방문 예약",
   "myPage" : "마이페이지"
+
 }
