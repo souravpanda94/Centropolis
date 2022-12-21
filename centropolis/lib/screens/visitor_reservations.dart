@@ -7,6 +7,7 @@ import '../utils/custom_colors.dart';
 import '../widgets/common_app_bar.dart';
 import '../widgets/common_button.dart';
 import '../widgets/common_button_with_border.dart';
+import '../widgets/common_modal.dart';
 import '../widgets/home_page_app_bar.dart';
 
 class VisitorReservationsScreen extends StatefulWidget {
@@ -27,6 +28,25 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
   @override
   void dispose() {
     super.dispose();
+  }
+
+  void showModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: "Your reservation is complete.",
+            description: "The conference room reservation is complete. \nPlease pay the payment amount on site. \nIf the meeting room is not used without cancellation, the free deduction time will be automatically deducted.",
+            buttonName: tr("confirm"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: (){// use it
+              },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   @override
@@ -90,7 +110,7 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
                       buttonName: tr("visitReservationApplication"),
                       isEnable: true,
                       buttonColor: CustomColors.buttonBackgroundColor,
-                      onCommonButtonTap: () {},
+                      onCommonButtonTap: () {showModal();},
                     )),
             )
           ],
