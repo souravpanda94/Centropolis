@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
-import 'screens/splash.dart';
+import 'screens/common_module/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 class MyHttpOverrides extends HttpOverrides {

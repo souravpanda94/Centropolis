@@ -3,9 +3,10 @@ import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../utils/custom_colors.dart';
-import '../widgets/common_modal.dart';
-import '../widgets/home_page_app_bar.dart';
+import '../../utils/custom_colors.dart';
+import '../../widgets/common_modal.dart';
+import '../../widgets/home_page_app_bar.dart';
+import 'VisitReservationViewAll.dart';
 
 class VisitorReservationsScreen extends StatefulWidget {
   const VisitorReservationsScreen({Key? key}) : super(key: key);
@@ -108,37 +109,43 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
           margin: const EdgeInsets.only(bottom: 20),
           child: Column(
             children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 30,
-                  bottom: 20.0,
-                  left: 20,
-                  right: 20,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text(
-                      "TODAY",
-                      style: TextStyle(
-                        fontSize: 26,
-                        color: CustomColors.textColor1,
-                        fontFamily: 'SemiBold',
+              InkWell(
+                onTap: (){
+                  goToViewAllVisitorReservation();
+                },
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    top: 30,
+                    bottom: 20.0,
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      const Text(
+                        "TODAY",
+                        style: TextStyle(
+                          fontSize: 26,
+                          color: CustomColors.textColor1,
+                          fontFamily: 'SemiBold',
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      child: SvgPicture.asset(
-                        'assets/images/ic_right_arrow.svg',
-                        semanticsLabel: 'Back',
-                        width: 15,
-                        height: 15,
-                        alignment: Alignment.center,
+                      SizedBox(
+                        child: SvgPicture.asset(
+                          'assets/images/ic_right_arrow.svg',
+                          semanticsLabel: 'Back',
+                          width: 15,
+                          height: 15,
+                          alignment: Alignment.center,
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
               ),
+
               Container(
                 margin: const EdgeInsets.only(
                   left: 20,
@@ -383,4 +390,14 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
       ),
     );
   }
+
+  void goToViewAllVisitorReservation() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VisitorReservationsViewAllScreen(),
+      ),
+    );
+  }
+
 }
