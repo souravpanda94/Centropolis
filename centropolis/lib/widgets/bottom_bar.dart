@@ -6,7 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../screens/amenity.dart';
 import '../screens/home.dart';
 import '../screens/my_page.dart';
-import '../screens/visitor_reservations.dart';
+import '../screens/visitor_reservations/visitor_reservations.dart';
 
 class BottomBar extends StatefulWidget {
   const BottomBar({super.key});

@@ -9,8 +9,6 @@ class CommonModal extends StatefulWidget {
   final heading, description, buttonName, firstButtonName, secondButtonName;
 
   final Function onConfirmBtnTap;
-  final Function onFirstBtnTap;
-  final Function onSecondBtnTap;
 
   const CommonModal({
     Key? key,
@@ -20,8 +18,6 @@ class CommonModal extends StatefulWidget {
     this.firstButtonName,
     this.secondButtonName,
     required this.onConfirmBtnTap,
-    required this.onFirstBtnTap,
-    required this.onSecondBtnTap,
   }) : super(key: key);
 
   @override
