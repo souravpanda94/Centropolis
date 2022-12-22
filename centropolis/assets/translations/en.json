@@ -8,7 +8,14 @@
   "today": "TODAY",
   "confirm" : "Confirm",
   "visitReservationViewAll" : "Visit Reservation View All",
-
+  "lookupCondition" : "Lookup condition",
+  "reservationStatus" : "Reservation status",
+  "periodOfUse" : "Period of use",
+  "lookup": "Lookup",
+  "oneWeek" : "one week",
+  "oneMonth" : "one month",
+  "monthly" : "Monthly",
+  "directInput" : "Direct input",
 
 
   "sourav" : "=============================SOURAV SECTION=========================================",

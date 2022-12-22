@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/home_page_app_bar.dart';
+import 'lookup_condition.dart';
 
 class VisitorReservationsViewAllScreen extends StatefulWidget {
   const VisitorReservationsViewAllScreen({Key? key}) : super(key: key);
@@ -103,6 +104,15 @@ class _VisitorReservationsViewAllScreenState
     super.dispose();
   }
 
+  void goToLookupCondition() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LookupConditionScreen(),
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -165,7 +175,9 @@ class _VisitorReservationsViewAllScreenState
                   itemCount: todayList.length,
                   itemBuilder: (BuildContext ctxt, int index) {
                     return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          goToLookupCondition();
+                        },
                         child: Container(
                             margin:
                                 const EdgeInsets.only(top: 5.0, bottom: 5.0),
