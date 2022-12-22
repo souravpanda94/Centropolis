@@ -20,4 +20,5 @@ class CustomColors {
   static const dividerGreyColor = Color(0xFFCFCFCF);
   static const cardBackgroundGreyColor = Color(0xFFFAFAFA);
   static const textGreyColor = Color(0xFF868484);
+  static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
 }

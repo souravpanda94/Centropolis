@@ -17,8 +17,6 @@ class MyHttpOverrides extends HttpOverrides {
   }
 }
 
-
-
 void main() async {
   HttpOverrides.global = MyHttpOverrides();
 
@@ -29,7 +27,7 @@ void main() async {
       statusBarIconBrightness: Brightness.dark,
       /* set Status bar icons color in Android devices.*/
       statusBarBrightness:
-      Platform.isAndroid ? Brightness.dark : Brightness.light,
+          Platform.isAndroid ? Brightness.dark : Brightness.light,
     ),
   );
 
@@ -39,12 +37,11 @@ void main() async {
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ko')],
       path:
-      'assets/translations', // <-- change the path of the translation files
+          'assets/translations', // <-- change the path of the translation files
       fallbackLocale: const Locale('en-US'),
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
-
         ],
         child: const MyApp(),
       ),

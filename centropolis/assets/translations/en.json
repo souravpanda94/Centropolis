@@ -18,19 +18,22 @@
   "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "Home",
   "amenity" : "Amenity",
-  "visitor" : "Visitor",
+  "visitor" : "Visit Reservations",
   "myPage" : "My Page",
-  "heading1" : "역사와 문화가 살아 숨 쉬는",
-  "heading2" : " 프라임 오피스 빌딩 센트로폴리스",
+  "homeTitle" : "History and culture are alive and breathing",
+  "homeSubtitle" : "Prime Office Building Centropolis",
   "conference" : "Conference",
+  "conferenceSubTitle" : "conference",
   "conferenceRoom" : "Conference Room 2",
   "visitReservation" : "Visit Reservation",
   "lobby" : "Lobby",
   "otherReservation" : "Others reservation",
-  "otherReservationSubtitle" : "기타 예약",
-  "otherReservationCard1" : "소등 신청",
-  "otherReservationCard2" : "냉난방 신청",
-  "otherReservationCard3" : "불편사항접수"
+  "otherReservationSubtitle" : "Other reservations",
+  "otherReservationCard1" : "Request for lights out",
+  "otherReservationCard2" : "air conditioning application",
+  "otherReservationCard3" : "Complaints received",
+  "otherReservationCardBook" : "Shortcuts",
+  "homeRowBook" : "Make a reservation"
 
 
 
