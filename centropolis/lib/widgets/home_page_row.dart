@@ -1,3 +1,5 @@
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../utils/custom_colors.dart';
@@ -24,7 +26,7 @@ class _HomePageRowState extends State<HomePageRow> {
   Widget build(BuildContext context) {
     return Container(
       width: MediaQuery.of(context).size.width,
-      margin: const EdgeInsets.only(left: 16, top: 60),
+      margin: const EdgeInsets.only(left: 16, top: 60, right: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisAlignment: MainAxisAlignment.start,
@@ -54,91 +56,122 @@ class _HomePageRowState extends State<HomePageRow> {
             ],
           ),
           Container(
-            margin: const EdgeInsets.only(top: 5),
-            child: Image.asset(
-              widget.image,
-              fit: BoxFit.fitWidth,
-              width: MediaQuery.of(context).size.width,
-            ),
-          ),
-          Container(
-            height: 20,
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(top: 12, right: 16),
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
+              margin: const EdgeInsets.only(top: 5),
+              child: ImageSlideshow(
+                  height: 350,
+                  initialPage: 0,
+                  indicatorBackgroundColor:
+                      CustomColors.indicatorDotBackgroundColor,
+                  indicatorColor: CustomColors.selectedColor,
                   children: [
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Text(
-                          widget.min,
+                    Image.asset(
+                      widget.image,
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                    Image.asset(
+                      widget.image,
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                    Image.asset(
+                      widget.image,
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.of(context).size.width,
+                    ),
+                    Image.asset(
+                      widget.image,
+                      fit: BoxFit.fitWidth,
+                      width: MediaQuery.of(context).size.width,
+                    )
+                  ])),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.only(top: 12),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                Expanded(
+                  flex: 2,
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        widget.min,
+                        style: const TextStyle(
+                          color: CustomColors.textColorBlack2,
+                          fontSize: 13,
+                          fontFamily: 'Pretendard-Regular',
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(left: 4, right: 4),
+                        child: const Text('-',
+                            style: TextStyle(
+                              color: CustomColors.blackColor,
+                            )),
+                      ),
+                      Text(widget.max,
                           style: const TextStyle(
                             color: CustomColors.textColorBlack2,
                             fontSize: 13,
                             fontFamily: 'Pretendard-Regular',
                             fontWeight: FontWeight.w400,
+                          )),
+                      Container(
+                        margin: const EdgeInsets.only(left: 12, right: 12),
+                        child: const VerticalDivider(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                      ),
+                      Text(widget.name,
+                          style: const TextStyle(
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Pretendard-Regular',
+                            fontWeight: FontWeight.w700,
+                          ))
+                    ],
+                  ),
+                ),
+                Expanded(
+                  flex: 1,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Text(
+                          tr('homeRowBook'),
+                          maxLines: 1,
+                          style: const TextStyle(
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Pretendard-Regular',
+                            fontWeight: FontWeight.w700,
+                          ),
+                          textAlign: TextAlign.end,
+                          overflow: TextOverflow.ellipsis,
+                          softWrap: true,
+                        ),
+                      ),
+                      Flexible(
+                        fit: FlexFit.loose,
+                        child: Container(
+                          margin: const EdgeInsets.only(left: 8),
+                          child: SvgPicture.asset(
+                            'assets/images/ic_right_arrow_white.svg',
+                            color: CustomColors.textColorBlack2,
                           ),
                         ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        const Text('-',
-                            style: TextStyle(
-                              color: CustomColors.blackColor,
-                            )),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(widget.max,
-                            style: const TextStyle(
-                              color: CustomColors.textColorBlack2,
-                              fontSize: 13,
-                              fontFamily: 'Pretendard-Regular',
-                              fontWeight: FontWeight.w400,
-                            )),
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    const VerticalDivider(
-                      color: CustomColors.dividerGreyColor,
-                    ),
-                    const SizedBox(
-                      width: 12,
-                    ),
-                    Text(widget.name,
-                        style: const TextStyle(
-                          color: CustomColors.textColorBlack2,
-                          fontSize: 14,
-                          fontFamily: 'Pretendard-Regular',
-                          fontWeight: FontWeight.w700,
-                        ))
-                  ],
+                      )
+                    ],
+                  ),
                 ),
-                Row(
-                  children: [
-                    const Text('예약하기',
-                        style: TextStyle(
-                          color: CustomColors.textColorBlack2,
-                          fontSize: 14,
-                          fontFamily: 'Pretendard-Regular',
-                          fontWeight: FontWeight.w700,
-                        )),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    SvgPicture.asset(
-                      'assets/images/ic_right_arrow_white.svg',
-                      color: CustomColors.textColorBlack2,
-                    )
-                  ],
-                )
               ],
             ),
           )

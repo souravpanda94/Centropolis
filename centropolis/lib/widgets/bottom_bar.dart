@@ -83,12 +83,13 @@ class _BottomBarState extends State<BottomBar> {
             ],
             currentIndex: selectedPageIndex,
             backgroundColor: CustomColors.whiteColor,
-            showSelectedLabels: true,
-            showUnselectedLabels: true,
             selectedItemColor: CustomColors.selectedColor,
             unselectedItemColor: CustomColors.unSelectedColor,
-            selectedFontSize: 11,
-            unselectedFontSize: 11,
+            showSelectedLabels: true,
+            showUnselectedLabels: true,
+            selectedFontSize: 10,
+            unselectedFontSize: 10,
+            type: BottomNavigationBarType.fixed,
             onTap: (index) {
               setState(() {
                 selectedPageIndex = index;

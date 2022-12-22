@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../utils/custom_colors.dart';
@@ -15,7 +16,6 @@ class _OtherReservationCardState extends State<OtherReservationCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 100,
       margin: const EdgeInsets.only(top: 15),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(10),
@@ -28,20 +28,25 @@ class _OtherReservationCardState extends State<OtherReservationCard> {
           Padding(
             padding:
                 const EdgeInsets.only(top: 10, left: 10, right: 48, bottom: 36),
-            child: Text(widget.title,
-                style: const TextStyle(
-                  color: CustomColors.textColor1,
-                  fontSize: 14,
-                  fontFamily: 'Pretendard-Regular',
-                  fontWeight: FontWeight.w600,
-                )),
+            child: Text(
+              widget.title,
+              style: const TextStyle(
+                color: CustomColors.textColor1,
+                fontSize: 14,
+                fontFamily: 'Pretendard-Regular',
+                fontWeight: FontWeight.w600,
+              ),
+              maxLines: 3,
+              softWrap: true,
+              overflow: TextOverflow.ellipsis,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(bottom: 10, left: 10),
             child: Row(
               children: [
-                const Text('바로가기',
-                    style: TextStyle(
+                Text(tr('otherReservationCardBook'),
+                    style: const TextStyle(
                       color: CustomColors.textGreyColor,
                       fontSize: 12,
                       fontFamily: 'Pretendard-Regular',

@@ -66,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           height: 18,
                         ),
                         Text(
-                          tr('heading1'),
+                          tr('homeTitle'),
                           style: const TextStyle(
                               color: CustomColors.whiteColor,
                               fontSize: 16,
@@ -75,7 +75,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         const SizedBox(
                           height: 2,
                         ),
-                        Text(tr('heading2'),
+                        Text(tr('homeSubtitle'),
                             style: const TextStyle(
                                 color: CustomColors.whiteColor,
                                 fontSize: 16,
@@ -86,71 +86,74 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 HomePageRow(
                     title: tr('conference'),
-                    subtitle: '컨퍼런스',
+                    subtitle: tr('conferenceSubTitle'),
                     image: 'assets/images/conference.png',
                     min: '02',
                     max: '04',
                     name: tr('conferenceRoom')),
                 HomePageRow(
                     title: tr('visitReservation'),
-                    subtitle: '방문 예약',
+                    subtitle: tr('visitor'),
                     image: 'assets/images/visitor_reservation.png',
                     min: '01',
                     max: '08',
                     name: tr('lobby')),
                 Container(
-                  height: 150,
                   width: MediaQuery.of(context).size.width,
                   margin:
                       const EdgeInsets.symmetric(vertical: 60, horizontal: 16),
-                  child: Expanded(
-                    child: Column(
-                      children: [
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              tr('otherReservation'),
-                              style: const TextStyle(
-                                  color: CustomColors.textColorBlack1,
-                                  fontSize: 24,
-                                  fontFamily: 'Pretendard-Regular',
-                                  fontWeight: FontWeight.w700),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: Text(tr('otherReservationSubtitle'),
-                                  style: const TextStyle(
-                                      fontFamily: 'Pretendard-Regular',
-                                      color: CustomColors.textColorGrey,
-                                      fontSize: 14)),
-                            )
-                          ],
-                        ),
-                        Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            OtherReservationCard(
+                  child: Column(
+                    children: [
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Text(
+                            tr('otherReservation'),
+                            style: const TextStyle(
+                                color: CustomColors.textColorBlack1,
+                                fontSize: 24,
+                                fontFamily: 'Pretendard-Regular',
+                                fontWeight: FontWeight.w700),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(tr('otherReservationSubtitle'),
+                                style: const TextStyle(
+                                    fontFamily: 'Pretendard-Regular',
+                                    color: CustomColors.textColorGrey,
+                                    fontSize: 14)),
+                          )
+                        ],
+                      ),
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            child: OtherReservationCard(
                                 title: tr('otherReservationCard1')),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            OtherReservationCard(
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: OtherReservationCard(
                                 title: tr('otherReservationCard2')),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            OtherReservationCard(
-                                title: tr('otherReservationCard3'))
-                          ],
-                        )
-                      ],
-                    ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: OtherReservationCard(
+                                title: tr('otherReservationCard3')),
+                          )
+                        ],
+                      )
+                    ],
                   ),
                 )
               ],
