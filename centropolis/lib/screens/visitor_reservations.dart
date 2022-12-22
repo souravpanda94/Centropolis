@@ -41,10 +41,7 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
             buttonName: tr("confirm"),
             firstButtonName: "",
             secondButtonName: "",
-            onConfirmBtnTap: (){// use it
-              },
-            onFirstBtnTap: () {},
-            onSecondBtnTap: () {},
+            onConfirmBtnTap: (){},
           );
         });
   }
