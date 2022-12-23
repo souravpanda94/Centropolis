@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visitor_reservations/visit_reservation_application.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -379,7 +380,8 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
                       isEnable: true,
                       buttonColor: CustomColors.buttonBackgroundColor,
                       onCommonButtonTap: () {
-                        showModal();
+                        // showModal();
+                        goToVisitReservationApplicationScreen();
                       },
                     )),
               ),
@@ -396,6 +398,15 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => const VisitorReservationsViewAllScreen(),
+      ),
+    );
+  }
+
+  void goToVisitReservationApplicationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VisitReservationApplicationScreen(),
       ),
     );
   }

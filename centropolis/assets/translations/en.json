@@ -1,48 +1,63 @@
 {
   "lang": "en",
-
-
-  "mondira" : "=============================MONDIRA SECTION=========================================",
-  "visitorReservations" : "Visitor Reservations",
+  "mondira": "=============================MONDIRA SECTION=========================================",
+  "visitorReservations": "Visitor Reservations",
   "visitReservationApplication": "Visit Reservation Application",
   "today": "TODAY",
-  "confirm" : "Confirm",
-  "visitReservationViewAll" : "Visit Reservation View All",
-  "lookupCondition" : "Lookup condition",
-  "reservationStatus" : "Reservation status",
-  "periodOfUse" : "Period of use",
+  "confirm": "Confirm",
+  "visitReservationViewAll": "Visit Reservation View All",
+  "lookupCondition": "Lookup condition",
+  "reservationStatus": "Reservation status",
+  "periodOfUse": "Period of use",
   "lookup": "Lookup",
-  "oneWeek" : "one week",
-  "oneMonth" : "one month",
-  "monthly" : "Monthly",
-  "directInput" : "Direct input",
-
-
-  "sourav" : "=============================SOURAV SECTION=========================================",
-
-
-
-
-  "aditi" : "=============================Aditi SECTION=========================================",
-  "home" : "Home",
-  "amenity" : "Amenity",
-  "visitor" : "Visit Reservations",
-  "myPage" : "My Page",
-  "homeTitle" : "History and culture are alive and breathing",
-  "homeSubtitle" : "Prime Office Building Centropolis",
-  "conference" : "Conference",
-  "conferenceSubTitle" : "conference",
-  "conferenceRoom" : "Conference Room 2",
-  "visitReservation" : "Visit Reservation",
-  "lobby" : "Lobby",
-  "otherReservation" : "Others reservation",
-  "otherReservationSubtitle" : "Other reservations",
-  "otherReservationCard1" : "Request for lights out",
-  "otherReservationCard2" : "air conditioning application",
-  "otherReservationCard3" : "Complaints received",
-  "otherReservationCardBook" : "Shortcuts",
-  "homeRowBook" : "Make a reservation"
+  "oneWeek": "one week",
+  "oneMonth": "one month",
+  "monthly": "Monthly",
+  "directInput": "Direct input",
+  "required": "* Required",
+  "visitorName": "Visitor Name *",
+  "pleaseEnterTheCorrectVisitorName": "Please enter the correct visitor name",
+  "companyName": "Company Name *",
+  "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
+  "mobilePhoneNumber" : "Mobile Phone Number *",
+  "pleaseEnterOnlyNumbersWithout" : "Please enter only numbers without “-”",
+  "email" : "e-mail *",
+  "emailExample" : "ex) welcome@centropolis.com",
+  "buildingVisited" : "Building visited *",
+  "pleaseSelectBuildingToVisit" : "Please select a building to visit",
+  "landingFloor" : "landing floor *",
+  "pleaseSelectFloorToVisit" : "Please select a floor to visit",
+  "dateAndTimeOfVisitWithStar": "Date and time of visit *",
+  "dateAndTimeOfVisit" : "Date and time of visit",
+  "visitTime" : "visit time",
+  "choose" : "choose",
+  "purposeOfVisit" : "purpose of visit",
+  "businessDiscussion" : "business discussion",
 
 
 
+
+
+  "sourav": "=============================SOURAV SECTION=========================================",
+
+
+  "aditi": "=============================Aditi SECTION=========================================",
+  "home": "Home",
+  "amenity": "Amenity",
+  "visitor": "Visit Reservations",
+  "myPage": "My Page",
+  "homeTitle": "History and culture are alive and breathing",
+  "homeSubtitle": "Prime Office Building Centropolis",
+  "conference": "Conference",
+  "conferenceSubTitle": "conference",
+  "conferenceRoom": "Conference Room 2",
+  "visitReservation": "Visit Reservation",
+  "lobby": "Lobby",
+  "otherReservation": "Others reservation",
+  "otherReservationSubtitle": "Other reservations",
+  "otherReservationCard1": "Request for lights out",
+  "otherReservationCard2": "air conditioning application",
+  "otherReservationCard3": "Complaints received",
+  "otherReservationCardBook": "Shortcuts",
+  "homeRowBook": "Make a reservation"
 }
