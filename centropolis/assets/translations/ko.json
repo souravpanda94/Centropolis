@@ -15,6 +15,26 @@
   "oneMonth" : "one month",
   "monthly" : "Monthly",
   "directInput" : "Direct input",
+  "required": "* Required",
+  "visitorName": "Visitor Name *",
+  "pleaseEnterTheCorrectVisitorName": "Please enter the correct visitor name",
+  "companyName": "Company Name *",
+  "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
+  "mobilePhoneNumber" : "Mobile Phone Number *",
+  "pleaseEnterOnlyNumbersWithout" : "Please enter only numbers without “-”",
+  "email" : "e-mail *",
+  "emailExample" : "ex) welcome@centropolis.com",
+  "buildingVisited" : "Building visited *",
+  "pleaseSelectBuildingToVisit" : "Please select a building to visit",
+  "landingFloor" : "landing floor *",
+  "pleaseSelectFloorToVisit" : "Please select a floor to visit",
+  "dateAndTimeOfVisitWithStar": "Date and time of visit *",
+  "dateAndTimeOfVisit" : "Date and time of visit",
+  "visitTime" : "visit time",
+  "choose" : "choose",
+  "purposeOfVisit" : "purpose of visit",
+  "businessDiscussion" : "business discussion",
+
 
 
 

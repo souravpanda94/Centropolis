@@ -1,10 +1,12 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visitor_reservations/visit_reservation_application.dart';
 import 'package:centropolis/widgets/common_app_bar.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/utils.dart';
 import '../../widgets/home_page_app_bar.dart';
 import 'lookup_condition.dart';
 
@@ -123,7 +125,9 @@ class _VisitorReservationsViewAllScreenState
           child: Container(
             color: CustomColors.whiteColor,
             child:
-                CommonAppBar(tr("visitReservationViewAll"), true, () {}, () {}),
+                CommonAppBar(tr("lookupCondition"), true, () {
+                  onBackButtonPress(context);
+                }, () {}),
           ),
         ),
       ),
@@ -259,7 +263,9 @@ class _VisitorReservationsViewAllScreenState
                       buttonName: tr("visitReservationApplication"),
                       isEnable: true,
                       buttonColor: CustomColors.buttonBackgroundColor,
-                      onCommonButtonTap: () {},
+                      onCommonButtonTap: () {
+                        goToVisitReservationApplicationScreen();
+                      },
                     )),
               ),
             ],
@@ -269,4 +275,14 @@ class _VisitorReservationsViewAllScreenState
       ),
     );
   }
+
+  void goToVisitReservationApplicationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VisitReservationApplicationScreen(),
+      ),
+    );
+  }
+
 }
