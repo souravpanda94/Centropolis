@@ -1,9 +1,10 @@
-import 'package:centropolis/widgets/other_reservation_card.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/custom_colors.dart';
 import '../widgets/home_page_row.dart';
+import '../widgets/other_reservation_card.dart';
+import 'common_module/bar_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -34,7 +35,14 @@ class _HomeScreenState extends State<HomeScreen> {
           centerTitle: true,
           backgroundColor: CustomColors.blackColor.withOpacity(0.5),
           leading: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BarCodeScreen(),
+                  ),
+                );
+              },
               icon: SvgPicture.asset('assets/images/ic_drawer.svg')),
           title: Image.asset('assets/images/logo_image.png'),
           actions: [

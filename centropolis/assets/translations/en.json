@@ -47,27 +47,30 @@
 
 
 
+  "aditi" : "=============================Aditi SECTION=========================================",
+  "home" : "Home",
+  "amenity" : "Amenity",
+  "visitor" : "Visit Reservations",
+  "myPage" : "My Page",
+  "homeTitle" : "History and culture are alive and breathing",
+  "homeSubtitle" : "Prime Office Building Centropolis",
+  "conference" : "Conference",
+  "conferenceSubTitle" : "conference",
+  "conferenceRoom" : "Conference Room 2",
+  "visitReservation" : "Visit Reservation",
+  "lobby" : "Lobby",
+  "otherReservation" : "Others reservation",
+  "otherReservationSubtitle" : "Other reservations",
+  "otherReservationCard1" : "Request for lights out",
+  "otherReservationCard2" : "air conditioning application",
+  "otherReservationCard3" : "Complaints received",
+  "otherReservationCardBook" : "Shortcuts",
+  "homeRowBook" : "Make a reservation",
+  "barCodeHeader" : "QR check-in",
+  "barCodeTitle" : "QR code for entry",
+  "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
 
-  "sourav": "=============================SOURAV SECTION=========================================",
 
+  "sourav": "=============================SOURAV SECTION========================================="
 
-  "aditi": "=============================Aditi SECTION=========================================",
-  "home": "Home",
-  "amenity": "Amenity",
-  "visitor": "Visit Reservations",
-  "myPage": "My Page",
-  "homeTitle": "History and culture are alive and breathing",
-  "homeSubtitle": "Prime Office Building Centropolis",
-  "conference": "Conference",
-  "conferenceSubTitle": "conference",
-  "conferenceRoom": "Conference Room 2",
-  "visitReservation": "Visit Reservation",
-  "lobby": "Lobby",
-  "otherReservation": "Others reservation",
-  "otherReservationSubtitle": "Other reservations",
-  "otherReservationCard1": "Request for lights out",
-  "otherReservationCard2": "air conditioning application",
-  "otherReservationCard3": "Complaints received",
-  "otherReservationCardBook": "Shortcuts",
-  "homeRowBook": "Make a reservation"
 }

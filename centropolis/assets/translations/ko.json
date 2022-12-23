@@ -73,6 +73,11 @@
   "otherReservationCard2" : "냉난방 신청",
   "otherReservationCard3" : "불편사항접수",
   "otherReservationCardBook" : "바로가기",
-  "homeRowBook" : "예약하기"
+  "homeRowBook" : "예약하기",
+  "barCodeHeader" : "QR 체크인",
+  "barCodeTitle" : "입장을 위한 QR 코드",
+  "barCodeSubTitle" : "이용하려는 시설에 QR코드로 체크인 하세요."
+
+
 
 }

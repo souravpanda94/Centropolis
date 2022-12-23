@@ -10,8 +10,6 @@ class MyPageScreen extends StatefulWidget {
 class _MyPageScreenState extends State<MyPageScreen> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('My Page'),
-    );
+    return const Scaffold(body: Text('My Page'));
   }
 }
