@@ -18,6 +18,7 @@ class LookupConditionScreen extends StatefulWidget {
 }
 
 class _LookupConditionScreenState extends State<LookupConditionScreen> {
+  DateTime selectedDate = DateTime.now();
   List<dynamic> periodOfUseList = [
     {
       "id": 1,
@@ -154,40 +155,46 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
               //   },
               // ),
 
-              Container(
-                  margin: const EdgeInsets.only(top: 8.0, bottom: 30),
-                  decoration: BoxDecoration(
-                    color: CustomColors.whiteColor,
-                    borderRadius: BorderRadius.circular(8),
-                    border:
-                        Border.all(color: CustomColors.borderColor, width: 1.0),
-                  ),
-                  padding: const EdgeInsets.only(
-                      top: 16.0, bottom: 16.0, left: 12.0, right: 12.0),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          "00/00/2022 - 00/00/2022",
-                          style: TextStyle(
-                            fontSize: 14,
-                            color: CustomColors.textColor4,
-                            fontFamily: 'Regular',
+              InkWell(
+                onTap: (){
+                  _selectDate(context);
+                },
+                child: Container(
+                    margin: const EdgeInsets.only(top: 8.0, bottom: 30),
+                    decoration: BoxDecoration(
+                      color: CustomColors.whiteColor,
+                      borderRadius: BorderRadius.circular(8),
+                      border:
+                      Border.all(color: CustomColors.borderColor, width: 1.0),
+                    ),
+                    padding: const EdgeInsets.only(
+                        top: 16.0, bottom: 16.0, left: 12.0, right: 12.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        const Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            "00/00/2022 - 00/00/2022",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: CustomColors.textColor4,
+                              fontFamily: 'Regular',
+                            ),
+                            textAlign: TextAlign.left,
                           ),
-                          textAlign: TextAlign.left,
                         ),
-                      ),
-                      SvgPicture.asset(
-                        'assets/images/ic_calender.svg',
-                        semanticsLabel: 'Back',
-                        width: 15,
-                        height: 15,
-                        alignment: Alignment.center,
-                      ),
-                    ],
-                  )),
+                        SvgPicture.asset(
+                          'assets/images/ic_calender.svg',
+                          semanticsLabel: 'Back',
+                          width: 15,
+                          height: 15,
+                          alignment: Alignment.center,
+                        ),
+                      ],
+                    )),
+              ),
+
 
               Expanded(
                 child: Align(
@@ -196,11 +203,30 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                       buttonName: tr("lookup"),
                       isIconVisible: false,
                       buttonColor: CustomColors.buttonBackgroundColor,
-                      onCommonButtonTap: () {},
+                      onCommonButtonTap: () {
+
+                      },
                     )),
               ),
             ],
           ),
         ));
   }
+
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDate,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101));
+    if (picked != null && picked != selectedDate) {
+      setState(() {
+        selectedDate = picked;
+      });
+    }
+  }
+
+
+
+
 }
