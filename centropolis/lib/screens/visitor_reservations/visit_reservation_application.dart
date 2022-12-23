@@ -217,7 +217,7 @@ class _VisitReservationApplicationScreenState
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
-                  tr("email"),
+                  tr("emailWithStar"),
                   style: const TextStyle(
                     fontSize: 16,
                     color: CustomColors.textColor1,

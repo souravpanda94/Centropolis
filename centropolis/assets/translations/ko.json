@@ -35,6 +35,16 @@
   "purposeOfVisit" : "purpose of visit",
   "businessDiscussion" : "business discussion",
 
+  "reservationDetails" : "Reservation details",
+  "visitorInformation": "visitor information",
+  "visitors" : "visitors",
+  "dateOfVisit" : "date of visit",
+  "contactPersonInformation": "Contact person information",
+  "personInCharge": "person in charge",
+  "TenantCompanyName" : "Tenant company name",
+  "reservationApproved": "Reservation approved",
+  "cancelReservation": "cancel reservation",
+
 
 
 

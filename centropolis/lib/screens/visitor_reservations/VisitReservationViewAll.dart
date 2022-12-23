@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visitor_reservations/reservation_details.dart';
 import 'package:centropolis/screens/visitor_reservations/visit_reservation_application.dart';
 import 'package:centropolis/widgets/common_app_bar.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
@@ -115,6 +116,16 @@ class _VisitorReservationsViewAllScreenState
     );
   }
 
+  void goToReservationDetailsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ReservationDetailsScreen(),
+      ),
+    );
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -180,7 +191,8 @@ class _VisitorReservationsViewAllScreenState
                   itemBuilder: (BuildContext ctxt, int index) {
                     return InkWell(
                         onTap: () {
-                          goToLookupCondition();
+                          // goToLookupCondition();
+                          goToReservationDetailsScreen();
                         },
                         child: Container(
                             margin:

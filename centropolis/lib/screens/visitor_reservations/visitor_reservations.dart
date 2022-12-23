@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visitor_reservations/reservation_details.dart';
 import 'package:centropolis/screens/visitor_reservations/visit_reservation_application.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -159,7 +160,9 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
                   itemCount: todayList.length,
                   itemBuilder: (BuildContext ctxt, int index) {
                     return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          goToReservationDetailsScreen();
+                        },
                         child: Container(
                             margin:
                                 const EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -296,7 +299,9 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
                   itemCount: fullHistoryList.length,
                   itemBuilder: (BuildContext ctxt, int index) {
                     return InkWell(
-                        onTap: () {},
+                        onTap: () {
+                          goToReservationDetailsScreen();
+                        },
                         child: Container(
                             margin:
                                 const EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -407,6 +412,15 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => const VisitReservationApplicationScreen(),
+      ),
+    );
+  }
+
+  void goToReservationDetailsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ReservationDetailsScreen(),
       ),
     );
   }
