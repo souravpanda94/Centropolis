@@ -33,7 +33,6 @@
   "choose" : "choose",
   "purposeOfVisit" : "purpose of visit",
   "businessDiscussion" : "business discussion",
-
   "reservationDetails" : "Reservation details",
   "visitorInformation": "visitor information",
   "visitors" : "visitors",
@@ -44,6 +43,9 @@
   "reservationApproved": "Reservation approved",
   "cancelReservation": "cancel reservation",
   "email" : "e-mail",
+
+  "requestForLightsOut" : "Request for lights out",
+  "providedByTheTenantCompany" : "Provided by the tenant company",
 
 
 
