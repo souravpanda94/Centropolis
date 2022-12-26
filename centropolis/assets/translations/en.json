@@ -33,7 +33,6 @@
   "choose" : "choose",
   "purposeOfVisit" : "purpose of visit",
   "businessDiscussion" : "business discussion",
-
   "reservationDetails" : "Reservation details",
   "visitorInformation": "visitor information",
   "visitors" : "visitors",
@@ -44,6 +43,21 @@
   "reservationApproved": "Reservation approved",
   "cancelReservation": "cancel reservation",
   "email" : "e-mail",
+  "requestForLightsOut" : "Request for lights out",
+  "providedByTheTenantCompany" : "Provided by the tenant company",
+  "applyForHeatingAndCooling" : "Apply for heating and cooling",
+
+
+  "tenantCompanyInformation" : "Tenant company information",
+  "applicantName" : "Applicant name",
+  "selectDate" : "select date",
+  "timeSelection" : "time selection",
+  "lightsOutStart" : "lights out start",
+  "lights out end" : "lights out end",
+  "amountOfPayment" : "Amount of payment",
+  "cooling": "cooling",
+  "theTotalAmount" : "The total amount",
+  "apply" : "Apply",
 
 
 

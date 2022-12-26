@@ -13,6 +13,7 @@ class CustomColors {
   static const textColor3 = Color(0xFFA4A4A4);
   static const textColor4 = Color(0xFF504D58);
   static const textColor5 = Color(0xFF4C4C4C);
+  static const textColor6 = Color(0xFFD24545);
 
   static const selectedColor = Color(0xFFB25A42);
   static const unSelectedColor = Color(0xFFB1B3B2);

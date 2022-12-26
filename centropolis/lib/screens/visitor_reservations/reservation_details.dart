@@ -21,6 +21,9 @@ class ReservationDetailsScreen extends StatefulWidget {
 }
 
 class _ReservationDetailsScreenState extends State<ReservationDetailsScreen> {
+  bool isCancelReservationButtonVisible = true;
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -352,6 +355,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen> {
                           },
                         )),
                 ),
+                isCancelReservationButtonVisible ?
                 Container(
                   margin: const EdgeInsets.only(top: 12) ,
                   child: Align(
@@ -364,7 +368,7 @@ class _ReservationDetailsScreenState extends State<ReservationDetailsScreen> {
 
                         },
                       )),
-                )
+                ) : Container()
               ],
             ),
           ),
