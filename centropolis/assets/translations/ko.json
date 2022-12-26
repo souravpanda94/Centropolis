@@ -50,6 +50,24 @@
 
 
 
+  "tenantCompanyInformation" : "Tenant company information",
+  "applicantName" : "Applicant name",
+  "selectDate" : "select date",
+  "timeSelection" : "time selection",
+  "lightsOutStart" : "lights out start",
+  "lights out end" : "lights out end",
+  "amountOfPayment" : "Amount of payment",
+  "cooling": "cooling",
+  "theTotalAmount" : "The total amount",
+  "apply" : "Apply",
+
+
+
+
+
+
+
+
 
 
   "sourav" : "=============================SOURAV SECTION=========================================",

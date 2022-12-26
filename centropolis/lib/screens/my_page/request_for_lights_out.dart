@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/screens/my_page/request_for_lights_out_details.dart';
 import 'package:centropolis/utils/utils.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -133,7 +134,9 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
                     itemCount: requestList.length,
                     itemBuilder: (BuildContext ctxt, int index) {
                       return InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            goToRequestForLightsOutDetailsScreen();
+                          },
                           child: Container(
                               margin:
                                   const EdgeInsets.only(top: 5.0, bottom: 5.0),
@@ -195,7 +198,7 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
                           isEnable: true,
                           buttonColor: CustomColors.buttonBackgroundColor,
                           onCommonButtonTap: () {
-                            // goToVisitReservationApplicationScreen();
+
                           },
                         )),
                   ),
@@ -204,4 +207,16 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
               )),
         ));
   }
+
+
+  void goToRequestForLightsOutDetailsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const RequestForLightsOutDetailsScreen(),
+      ),
+    );
+  }
+
+
 }
