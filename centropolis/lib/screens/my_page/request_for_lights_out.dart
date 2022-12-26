@@ -125,6 +125,7 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
                       ),
                     ),
                   ),
+
                   ListView.builder(
                     physics: const NeverScrollableScrollPhysics(),
                     scrollDirection: Axis.vertical,
@@ -184,6 +185,21 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
                               )));
                     },
                   ),
+
+                  Container(
+                    margin: const EdgeInsets.only(top: 30),
+                    child: Align(
+                        alignment: FractionalOffset.bottomCenter,
+                        child: CommonButtonWithIcon(
+                          buttonName: tr("applyForHeatingAndCooling"),
+                          isEnable: true,
+                          buttonColor: CustomColors.buttonBackgroundColor,
+                          onCommonButtonTap: () {
+                            // goToVisitReservationApplicationScreen();
+                          },
+                        )),
+                  ),
+
                 ],
               )),
         ));

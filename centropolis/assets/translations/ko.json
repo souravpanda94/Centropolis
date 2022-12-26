@@ -22,7 +22,7 @@
   "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
   "mobilePhoneNumber" : "Mobile Phone Number *",
   "pleaseEnterOnlyNumbersWithout" : "Please enter only numbers without “-”",
-  "email" : "e-mail *",
+  "emailWithStar" : "e-mail *",
   "emailExample" : "ex) welcome@centropolis.com",
   "buildingVisited" : "Building visited *",
   "pleaseSelectBuildingToVisit" : "Please select a building to visit",
@@ -34,7 +34,6 @@
   "choose" : "choose",
   "purposeOfVisit" : "purpose of visit",
   "businessDiscussion" : "business discussion",
-
   "reservationDetails" : "Reservation details",
   "visitorInformation": "visitor information",
   "visitors" : "visitors",
@@ -44,7 +43,10 @@
   "TenantCompanyName" : "Tenant company name",
   "reservationApproved": "Reservation approved",
   "cancelReservation": "cancel reservation",
-
+  "email" : "e-mail",
+  "requestForLightsOut" : "Request for lights out",
+  "providedByTheTenantCompany" : "Provided by the tenant company",
+  "applyForHeatingAndCooling" : "Apply for heating and cooling",
 
 
 
