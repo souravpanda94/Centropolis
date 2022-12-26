@@ -41,7 +41,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
           tr('barCodeHeader'),
           style: const TextStyle(
               fontSize: 16,
-              color: CustomColors.textColorBlack1,
+              color: CustomColors.textColor1,
               fontFamily: 'Regular',
               fontWeight: FontWeight.w600),
         ),
@@ -78,7 +78,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                         fontFamily: 'Regular',
                         fontSize: 18,
                         fontWeight: FontWeight.w500,
-                        color: CustomColors.textColorBlack1),
+                        color: CustomColors.textColor1),
                   ),
                 ),
                 Container(

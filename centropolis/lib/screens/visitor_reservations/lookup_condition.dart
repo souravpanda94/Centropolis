@@ -51,8 +51,7 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child:
-              CommonAppBar(tr("visitReservationViewAll"), true, () {
+              child: CommonAppBar(tr("visitReservationViewAll"), true, () {
                 onBackButtonPress(context);
               }, () {}),
             ),
@@ -75,7 +74,6 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                   textAlign: TextAlign.left,
                 ),
               ),
-
               Container(
                 margin: const EdgeInsets.only(top: 8.0, bottom: 30),
                 child: TextField(
@@ -113,7 +111,6 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                   },
                 ),
               ),
-
               Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
@@ -126,9 +123,10 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                   textAlign: TextAlign.left,
                 ),
               ),
-
               Container(
-                margin: const EdgeInsets.only(bottom: 8.0,),
+                margin: const EdgeInsets.only(
+                  bottom: 8.0,
+                ),
                 // child: ListView.builder(
                 //   physics: const AlwaysScrollableScrollPhysics(),
                 //   shrinkWrap: true,
@@ -164,30 +162,29 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                 //   },
                 // ),
               ),
-
-
               InkWell(
-                onTap: (){
+                onTap: () {
                   _selectDate(context);
                 },
                 child: Container(
                     decoration: BoxDecoration(
                       color: CustomColors.whiteColor,
                       borderRadius: BorderRadius.circular(8),
-                      border:
-                      Border.all(color: CustomColors.borderColor, width: 1.0),
+                      border: Border.all(
+                          color: CustomColors.borderColor, width: 1.0),
                     ),
                     padding: const EdgeInsets.only(
                         top: 16.0, bottom: 16.0, left: 12.0, right: 12.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                         Align(
+                        Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
                             // "00/00/2022 - 00/00/2022",
-                            startDate != "" && endDate!= "" ?
-                            "$startDate - $endDate" : "Please select date",
+                            startDate != "" && endDate != ""
+                                ? "$startDate - $endDate"
+                                : "Please select date",
                             style: const TextStyle(
                               fontSize: 14,
                               color: CustomColors.textColor4,
@@ -206,8 +203,6 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                       ],
                     )),
               ),
-
-
               Expanded(
                 child: Align(
                     alignment: FractionalOffset.bottomCenter,
@@ -215,9 +210,7 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                       buttonName: tr("lookup"),
                       isIconVisible: false,
                       buttonColor: CustomColors.buttonBackgroundColor,
-                      onCommonButtonTap: () {
-
-                      },
+                      onCommonButtonTap: () {},
                     )),
               ),
             ],
@@ -227,23 +220,22 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
 
   Future<void> _selectDate(BuildContext context) async {
     setState(() {
-      startDate = "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+      startDate =
+          "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
     });
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         // firstDate: DateTime(2015, 8),
-        firstDate: DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
+        firstDate:
+            DateTime(selectedDate.year, selectedDate.month, selectedDate.day),
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       setState(() {
         selectedDate = picked;
-        endDate = "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
+        endDate =
+            "${selectedDate.day}/${selectedDate.month}/${selectedDate.year}";
       });
     }
   }
-
-
-
-
 }

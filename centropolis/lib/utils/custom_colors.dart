@@ -10,7 +10,6 @@ class CustomColors {
   static const appBackgroundColor = Color(0x00181818);
 
   static const textColor1 = Color(0xFF222722);
-  static const textColor2 = Color(0xFF333333);
   static const textColor3 = Color(0xFFA4A4A4);
   static const textColor4 = Color(0xFF504D58);
   static const textColor5 = Color(0xFF4C4C4C);
@@ -19,11 +18,9 @@ class CustomColors {
   static const unSelectedColor = Color(0xFFB1B3B2);
   static const buttonBackgroundColor = Color(0xFFCC6047);
   static const backgroundColor = Color(0xFFFAFAFA);
-  static const textColorBlack1 = Color(0xFF222722);
   static const textColorBlack2 = Color(0xFF333333);
   static const textColorGrey = Color(0xFF414341);
   static const dividerGreyColor = Color(0xFFCFCFCF);
-  static const cardBackgroundGreyColor = Color(0xFFFAFAFA);
   static const textGreyColor = Color(0xFF868484);
   static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
 }

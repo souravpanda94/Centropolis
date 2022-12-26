@@ -3,7 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../screens/amenity.dart';
+import '../screens/amenity/amenity.dart';
 import '../screens/home.dart';
 import '../screens/my_page.dart';
 import '../screens/visitor_reservations/visitor_reservations.dart';

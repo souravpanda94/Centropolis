@@ -69,7 +69,7 @@ class _CommonModalState extends State<CommonModal> {
                 child: Text(
                   widget.description,
                   style: const TextStyle(
-                    color: CustomColors.textColor2,
+                    color: CustomColors.textColorBlack2,
                     fontSize: 15,
                     fontFamily: 'Regular',
                   ),
@@ -89,7 +89,7 @@ class _CommonModalState extends State<CommonModal> {
                 child: Text(
                   widget.buttonName,
                   style: const TextStyle(
-                    color: CustomColors.textColor2,
+                    color: CustomColors.textColorBlack2,
                     fontSize: 16,
                     fontFamily: 'Regular',
                   ),

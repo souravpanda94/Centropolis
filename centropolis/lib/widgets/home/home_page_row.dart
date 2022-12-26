@@ -2,7 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_image_slideshow/flutter_image_slideshow.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../utils/custom_colors.dart';
+import '../../utils/custom_colors.dart';
 
 class HomePageRow extends StatefulWidget {
   final String title, subtitle, name, image, min, max;
@@ -37,7 +37,7 @@ class _HomePageRowState extends State<HomePageRow> {
               Text(
                 widget.title,
                 style: const TextStyle(
-                    color: CustomColors.textColorBlack1,
+                    color: CustomColors.textColor1,
                     fontSize: 24,
                     fontFamily: 'Pretendard-Regular',
                     fontWeight: FontWeight.w700),

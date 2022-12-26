@@ -1,9 +1,10 @@
+import 'package:centropolis/widgets/home/home_logo.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/custom_colors.dart';
-import '../widgets/home_page_row.dart';
-import '../widgets/other_reservation_card.dart';
+import '../widgets/home/home_page_row.dart';
+import '../widgets/home/other_reservation_card.dart';
 import 'common_module/bar_code.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -57,41 +58,7 @@ class _HomeScreenState extends State<HomeScreen> {
           children: [
             Column(
               children: [
-                Stack(
-                  alignment: Alignment.center,
-                  children: [
-                    Image.asset(
-                      'assets/images/home_image.png',
-                      fit: BoxFit.fitWidth,
-                      width: MediaQuery.of(context).size.width,
-                    ),
-                    Column(
-                      children: [
-                        Image.asset(
-                          'assets/images/centropolis_logo.png',
-                        ),
-                        const SizedBox(
-                          height: 18,
-                        ),
-                        Text(
-                          tr('homeTitle'),
-                          style: const TextStyle(
-                              color: CustomColors.whiteColor,
-                              fontSize: 16,
-                              fontWeight: FontWeight.w500),
-                        ),
-                        const SizedBox(
-                          height: 2,
-                        ),
-                        Text(tr('homeSubtitle'),
-                            style: const TextStyle(
-                                color: CustomColors.whiteColor,
-                                fontSize: 16,
-                                fontWeight: FontWeight.w500)),
-                      ],
-                    ),
-                  ],
-                ),
+                const HomeLogo(),
                 HomePageRow(
                     title: tr('conference'),
                     subtitle: tr('conferenceSubTitle'),
@@ -118,7 +85,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           Text(
                             tr('otherReservation'),
                             style: const TextStyle(
-                                color: CustomColors.textColorBlack1,
+                                color: CustomColors.textColor1,
                                 fontSize: 24,
                                 fontFamily: 'Pretendard-Regular',
                                 fontWeight: FontWeight.w700),
