@@ -9,6 +9,7 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/home_page_app_bar.dart';
+import 'lookup_condition.dart';
 
 class VisitReservationApplicationScreen extends StatefulWidget {
   const VisitReservationApplicationScreen({Key? key}) : super(key: key);
@@ -521,11 +522,24 @@ class _VisitReservationApplicationScreenState
                   buttonName: tr("lookup"),
                   isIconVisible: false,
                   buttonColor: CustomColors.buttonBackgroundColor,
-                  onCommonButtonTap: () {},
+                  onCommonButtonTap: () {
+                    goToLookupCondition();
+                  },
                 )),
           ],
         ),
       )),
     );
   }
+
+
+  void goToLookupCondition() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LookupConditionScreen(),
+      ),
+    );
+  }
+
 }
