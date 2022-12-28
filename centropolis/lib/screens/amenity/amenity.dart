@@ -33,74 +33,72 @@ class _AmenityScreenState extends State<AmenityScreen> {
       ),
       body: DefaultTabController(
           length: 4,
-          child: ListView(
-            children: [
-              Column(
-                children: [
-                  const TabBar(
-                    isScrollable: true,
-                    labelColor: CustomColors.buttonBackgroundColor,
-                    indicatorColor: CustomColors.buttonBackgroundColor,
-                    unselectedLabelColor: CustomColors.textColor1,
-                    tabs: [
-                      Tab(
-                        child: Text(
-                          'Meeting room',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Regular',
-                              fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                        ),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                const TabBar(
+                  isScrollable: true,
+                  labelColor: CustomColors.buttonBackgroundColor,
+                  indicatorColor: CustomColors.buttonBackgroundColor,
+                  unselectedLabelColor: CustomColors.textColor1,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'Meeting room',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Regular',
+                            fontWeight: FontWeight.w400),
+                        textAlign: TextAlign.center,
                       ),
-                      Tab(
-                        child: Text(
-                          'Fitness',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Regular',
-                              fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                        ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Fitness',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Regular',
+                            fontWeight: FontWeight.w400),
+                        textAlign: TextAlign.center,
                       ),
-                      Tab(
-                        child: Text(
-                          'Facilities',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Regular',
-                              fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                        ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Facilities',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Regular',
+                            fontWeight: FontWeight.w400),
+                        textAlign: TextAlign.center,
                       ),
-                      Tab(
-                        child: Text(
-                          'Lounge',
-                          style: TextStyle(
-                              fontSize: 16,
-                              fontFamily: 'Regular',
-                              fontWeight: FontWeight.w400),
-                          textAlign: TextAlign.center,
-                        ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Lounge',
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontFamily: 'Regular',
+                            fontWeight: FontWeight.w400),
+                        textAlign: TextAlign.center,
                       ),
-                    ],
-                  ),
-                  SizedBox(
-                    height: MediaQuery.of(context).size.height -
-                        kToolbarHeight -
-                        MediaQuery.of(context).padding.top -
-                        kBottomNavigationBarHeight -
-                        kTextTabBarHeight,
-                    child: const TabBarView(children: <Widget>[
-                      MeetingRoom(),
-                      Fitness(),
-                      Facilities(),
-                      Lounge()
-                    ]),
-                  )
-                ],
-              )
-            ],
+                    ),
+                  ],
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height -
+                      kToolbarHeight -
+                      MediaQuery.of(context).padding.top -
+                      kBottomNavigationBarHeight -
+                      kTextTabBarHeight,
+                  child: const TabBarView(children: <Widget>[
+                    MeetingRoom(),
+                    Fitness(),
+                    Facilities(),
+                    Lounge()
+                  ]),
+                )
+              ],
+            ),
           )),
     );
   }

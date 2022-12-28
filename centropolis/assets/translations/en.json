@@ -83,6 +83,7 @@
   "barCodeHeader" : "QR check-in",
   "barCodeTitle" : "QR code for entry",
   "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
+  "bookmeetingRoom" : "Book a meeting room",
 
 
   "sourav": "=============================SOURAV SECTION========================================="

@@ -59,48 +59,46 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
         ],
       ),
       body: Center(
-          child: ListView(
-        children: [
-          Container(
-            margin: const EdgeInsets.symmetric(horizontal: 20),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  margin: const EdgeInsets.only(top: 118),
-                  child: Text(
-                    tr('barCodeTitle'),
-                    textAlign: TextAlign.center,
-                    maxLines: 1,
-                    style: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 18,
-                        fontWeight: FontWeight.w500,
-                        color: CustomColors.textColor1),
-                  ),
+          child: SingleChildScrollView(
+        child: Container(
+          margin: const EdgeInsets.symmetric(horizontal: 20),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                margin: const EdgeInsets.only(top: 118),
+                child: Text(
+                  tr('barCodeTitle'),
+                  textAlign: TextAlign.center,
+                  maxLines: 1,
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 18,
+                      fontWeight: FontWeight.w500,
+                      color: CustomColors.textColor1),
                 ),
-                Container(
-                  margin: const EdgeInsets.only(top: 18),
-                  child: Text(
-                    tr('barCodeSubTitle'),
-                    textAlign: TextAlign.center,
-                    maxLines: 2,
-                    style: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 15,
-                        fontWeight: FontWeight.w400,
-                        color: CustomColors.textGreyColor),
-                  ),
+              ),
+              Container(
+                margin: const EdgeInsets.only(top: 18),
+                child: Text(
+                  tr('barCodeSubTitle'),
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: CustomColors.textGreyColor),
                 ),
-                Container(
-                    margin: const EdgeInsets.all(74),
-                    child: Image.asset('assets/images/bar_code.png'))
-              ],
-            ),
+              ),
+              Container(
+                  margin: const EdgeInsets.all(74),
+                  child: Image.asset('assets/images/bar_code.png'))
+            ],
           ),
-        ],
+        ),
       )),
     );
   }
