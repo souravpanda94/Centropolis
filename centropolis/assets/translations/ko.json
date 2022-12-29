@@ -97,7 +97,26 @@
   "barCodeHeader" : "QR 체크인",
   "barCodeTitle" : "입장을 위한 QR 코드",
   "barCodeSubTitle" : "이용하려는 시설에 QR코드로 체크인 하세요.",
-  "bookmeetingRoom" : "회의실 예약하기"
+  "bookmeetingRoom" : "회의실 예약하기",
+  "meetingInformation" : "회의 정보",
+  "meetingDate" : "회의 일시 ",
+  "conferenceRoomType" : "회의실 타입",
+  "meetingName" : "회의명",
+  "meetingHint" : "회의실 앞 화면에 명시될 회의명을 입력해 주세요.",
+  "hostingMeeting" : "회의 주최",
+  "additionalEquipment" : "추가장비",
+  "reservationInformation" : "예약자 정보",
+  "tenantCompany" : "입주사 ",
+  "reservationAgent" : "예약 담당자",
+  "paymentDetails" : "결제 세부정보",
+  "paymentTerms" : "개인정보이용에 동의합니다.",
+  "makePayment" : "결제하기",
+  "selectMeetingDate" : "회의 날짜 선택",
+  "meetingStart" : "회의 시작",
+  "endOfMeeting" : "회의  종료 ",
+  "numberOfParticipants" : "참여 인원",
+  "additionalRequirements" : "추가 장비 (무료/유료)",
+  "next" : "다음 >"
 
 
 

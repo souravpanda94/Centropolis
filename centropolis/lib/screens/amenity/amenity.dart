@@ -9,6 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/home_page_app_bar.dart';
+import '../common_module/bar_code.dart';
 
 class AmenityScreen extends StatefulWidget {
   const AmenityScreen({super.key});
@@ -27,7 +28,14 @@ class _AmenityScreenState extends State<AmenityScreen> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: HomePageAppBar(tr("amenity"), () {}, () {}),
+            child: HomePageAppBar(tr("amenity"), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BarCodeScreen(),
+                ),
+              );
+            }, () {}),
           ),
         ),
       ),

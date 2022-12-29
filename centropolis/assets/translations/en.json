@@ -84,6 +84,26 @@
   "barCodeTitle" : "QR code for entry",
   "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
   "bookmeetingRoom" : "Book a meeting room",
+  "meetingInformation" : "meeting information",
+  "meetingDate" : "meeting date",
+  "conferenceRoomType" : "conference room type",
+  "meetingName" : "meeting name",
+  "meetingHint" : "Enter the meeting name that will be displayed on the screen in front of the meeting room.",
+  "hostingMeeting" : "hosting a meeting",
+  "additionalEquipment" : "additional equipment",
+  "reservationInformation" : "Reservation information",
+  "tenantCompany" : "tenant company",
+  "reservationAgent" : "Reservations agent",
+  "paymentDetails" : "payment details",
+  "paymentTerms" : "I agree to the use of personal information.",
+  "makePayment" : "make a payment",
+  "selectMeetingDate" : "Select meeting date",
+  "meetingStart" : "meeting start",
+  "endOfMeeting" : "end of meeting",
+  "numberOfParticipants" : "number of participants",
+  "additionalRequirements" : "Additional equipment (free/paid)",
+  "next" : "next >",
+  
 
 
   "sourav": "=============================SOURAV SECTION========================================="
