@@ -55,7 +55,7 @@
   "selectDate" : "select date",
   "timeSelection" : "time selection",
   "lightsOutStart" : "lights out start",
-  "lights out end" : "lights out end",
+  "lightsOutEnd" : "lights out end",
   "amountOfPayment" : "Amount of payment",
   "cooling": "cooling",
   "theTotalAmount" : "The total amount",
@@ -118,7 +118,14 @@
   "additionalRequirements" : "추가 장비 (무료/유료)",
   "next" : "다음 >",
   "heatingCoolingExtensionApplication" : "냉난방 신청하기",
-  "choiceOfAirConditioner" : "냉낸방 선택"
+  "choiceOfAirConditioner" : "냉낸방 선택",
+  "extensionStart" : "연장 시작",
+  "extensionEnd" : "연장 종료 ",
+  "heatingAndCooling" : "냉난방 일시",
+    "lightsOut" : "소등 일시",
+      "heating" : "난방"
+
+
   
 
 
