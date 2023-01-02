@@ -14,6 +14,7 @@ class CustomColors {
   static const textColor4 = Color(0xFF504D58);
   static const textColor5 = Color(0xFF4C4C4C);
   static const textColor6 = Color(0xFFD24545);
+  static const textColor7 = Color(0xFF828282);
 
   static const selectedColor = Color(0xFFB25A42);
   static const unSelectedColor = Color(0xFFB1B3B2);
@@ -24,4 +25,6 @@ class CustomColors {
   static const dividerGreyColor = Color(0xFFCFCFCF);
   static const textGreyColor = Color(0xFF868484);
   static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
+  static const heatingColor = Color(0xFFEB5757);
+  static const coolingColor = Color(0xFF2F80ED);
 }

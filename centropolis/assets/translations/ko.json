@@ -116,7 +116,10 @@
   "endOfMeeting" : "회의  종료 ",
   "numberOfParticipants" : "참여 인원",
   "additionalRequirements" : "추가 장비 (무료/유료)",
-  "next" : "다음 >"
+  "next" : "다음 >",
+  "heatingCoolingExtensionApplication" : "냉난방 신청하기",
+  "choiceOfAirConditioner" : "냉낸방 선택"
+  
 
 
 
