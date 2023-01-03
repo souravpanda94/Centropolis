@@ -1,11 +1,13 @@
 import 'package:centropolis/screens/my_page/request_for_lights_out_details.dart';
 import 'package:centropolis/utils/utils.dart';
+import 'package:centropolis/widgets/bottom_bar.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:centropolis/widgets/my_page/my_page_row.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_app_bar.dart';
+import '../home.dart';
 import 'apply_heating_cooling.dart';
 
 class RequestForLightsOutScreen extends StatefulWidget {
@@ -95,7 +97,13 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("requestForLightsOut"), true, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const BottomBar(),
+                  ),
+                );
               }, () {}),
             ),
           ),

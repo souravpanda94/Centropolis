@@ -65,10 +65,9 @@ class _VisitReservationApplicationScreenState
                 textAlign: TextAlign.right,
               ),
             ),
-
             Container(
               margin: const EdgeInsets.only(top: 20.0),
-              child:  Align(
+              child: Align(
                 alignment: Alignment.centerLeft,
                 child: Text(
                   tr("visitorName"),
@@ -93,7 +92,10 @@ class _VisitReservationApplicationScreenState
                   horizontal: 12.0,
                 ),
                 enabledBorder: const UnderlineInputBorder(
-                  //<-- SEE HERE
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
+                focusedBorder: const UnderlineInputBorder(
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
@@ -146,6 +148,10 @@ class _VisitReservationApplicationScreenState
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
                 hintText: tr("pleaseEnterTheCorrectCompanyName"),
                 hintStyle: const TextStyle(
                   color: CustomColors.unSelectedColor,
@@ -192,6 +198,10 @@ class _VisitReservationApplicationScreenState
                 ),
                 enabledBorder: const UnderlineInputBorder(
                   //<-- SEE HERE
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
+                focusedBorder: const UnderlineInputBorder(
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
@@ -243,6 +253,10 @@ class _VisitReservationApplicationScreenState
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
                 hintText: tr("emailExample"),
                 hintStyle: const TextStyle(
                   color: CustomColors.unSelectedColor,
@@ -291,12 +305,16 @@ class _VisitReservationApplicationScreenState
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
                 suffixIcon: SvgPicture.asset(
                   'assets/images/ic_drop_down_arrow.svg',
                   semanticsLabel: 'Back',
                 ),
                 suffixIconConstraints:
-                const BoxConstraints.tightFor(width: 15, height: 15),
+                    const BoxConstraints.tightFor(width: 15, height: 15),
                 hintText: tr("pleaseSelectBuildingToVisit"),
                 hintStyle: const TextStyle(
                   color: CustomColors.unSelectedColor,
@@ -345,12 +363,16 @@ class _VisitReservationApplicationScreenState
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
                 suffixIcon: SvgPicture.asset(
                   'assets/images/ic_drop_down_arrow.svg',
                   semanticsLabel: 'Back',
                 ),
                 suffixIconConstraints:
-                const BoxConstraints.tightFor(width: 15, height: 15),
+                    const BoxConstraints.tightFor(width: 15, height: 15),
                 hintText: tr("pleaseSelectFloorToVisit"),
                 hintStyle: const TextStyle(
                   color: CustomColors.unSelectedColor,
@@ -399,6 +421,10 @@ class _VisitReservationApplicationScreenState
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
                 suffixText: tr("choose"),
                 suffixStyle: const TextStyle(
                   color: CustomColors.buttonBackgroundColor,
@@ -435,6 +461,10 @@ class _VisitReservationApplicationScreenState
                   horizontal: 12.0,
                 ),
                 enabledBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
+                focusedBorder: const UnderlineInputBorder(
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
@@ -492,6 +522,10 @@ class _VisitReservationApplicationScreenState
                   borderSide:
                       BorderSide(width: 1, color: CustomColors.borderColor2),
                 ),
+                focusedBorder: const UnderlineInputBorder(
+                  borderSide:
+                      BorderSide(width: 1, color: CustomColors.borderColor2),
+                ),
                 suffixIcon: SvgPicture.asset(
                   'assets/images/ic_drop_down_arrow.svg',
                   semanticsLabel: 'Back',
@@ -532,7 +566,6 @@ class _VisitReservationApplicationScreenState
     );
   }
 
-
   void goToLookupCondition() {
     Navigator.push(
       context,
@@ -541,5 +574,4 @@ class _VisitReservationApplicationScreenState
       ),
     );
   }
-
 }

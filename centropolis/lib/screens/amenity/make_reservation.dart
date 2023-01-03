@@ -119,6 +119,11 @@ class _AmenityMakeReservationState extends State<AmenityMakeReservation> {
                               borderSide: const BorderSide(
                                   color: CustomColors.borderColor, width: 1.0),
                             ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.borderColor, width: 1.0),
+                            ),
                             suffixIcon: Padding(
                               padding: const EdgeInsets.all(17.0),
                               child: SvgPicture.asset(
@@ -167,6 +172,11 @@ class _AmenityMakeReservationState extends State<AmenityMakeReservation> {
                               horizontal: 12.0,
                             ),
                             enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(8),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.borderColor, width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(8),
                               borderSide: const BorderSide(
                                   color: CustomColors.borderColor, width: 1.0),

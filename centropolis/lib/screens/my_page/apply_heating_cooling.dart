@@ -116,15 +116,7 @@ class _ApplyForHeatingCoolingState extends State<ApplyForHeatingCooling> {
                       buttonName: tr("applyForHeatingAndCooling"),
                       isEnable: true,
                       buttonColor: CustomColors.buttonBackgroundColor,
-                      onCommonButtonTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const ApplyForHeatingCooling(),
-                          ),
-                        );
-                      },
+                      onCommonButtonTap: () {},
                     )),
               ),
             ],

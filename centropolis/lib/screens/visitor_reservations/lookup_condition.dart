@@ -92,6 +92,11 @@ class _LookupConditionScreenState extends State<LookupConditionScreen> {
                       borderSide: const BorderSide(
                           color: CustomColors.borderColor, width: 1.0),
                     ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(8),
+                      borderSide: const BorderSide(
+                          color: CustomColors.borderColor, width: 1.0),
+                    ),
                     hintText: "before approval",
                     hintStyle: const TextStyle(
                       color: CustomColors.textColorBlack2,

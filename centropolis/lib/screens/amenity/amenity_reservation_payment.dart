@@ -130,6 +130,12 @@ class _AmenityReservationPaymentState extends State<AmenityReservationPayment> {
                                       color: CustomColors.borderColor,
                                       width: 1.0),
                                 ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(8),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.borderColor,
+                                      width: 1.0),
+                                ),
                                 hintText: tr('meetingHint'),
                                 hintStyle: const TextStyle(
                                   color: CustomColors.unSelectedColor,

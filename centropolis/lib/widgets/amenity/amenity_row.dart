@@ -32,7 +32,7 @@ class AmenityRow extends StatelessWidget {
               width: MediaQuery.of(context).size.width,
             ),
             Container(
-              height: 60,
+              height: 62,
               margin: const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
               child: Row(
                 children: [

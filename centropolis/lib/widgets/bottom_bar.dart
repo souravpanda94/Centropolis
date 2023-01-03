@@ -5,7 +5,6 @@ import 'package:flutter_svg/svg.dart';
 
 import '../screens/amenity/amenity.dart';
 import '../screens/home.dart';
-import '../screens/my_page.dart';
 import '../screens/my_page/request_for_lights_out.dart';
 import '../screens/visitor_reservations/visitor_reservations.dart';
 
@@ -22,7 +21,6 @@ class _BottomBarState extends State<BottomBar> {
     const HomeScreen(),
     const AmenityScreen(),
     const VisitorReservationsScreen(),
-    // const MyPageScreen(),
     const RequestForLightsOutScreen(),
   ];
 

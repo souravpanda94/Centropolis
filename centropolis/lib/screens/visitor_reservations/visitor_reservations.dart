@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/home_page_app_bar.dart';
+import '../common_module/bar_code.dart';
 import 'VisitReservationViewAll.dart';
 
 class VisitorReservationsScreen extends StatefulWidget {
@@ -102,7 +103,14 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: HomePageAppBar(tr("visitorReservations"), () {}, () {}),
+            child: HomePageAppBar(tr("visitorReservations"), () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const BarCodeScreen(),
+                ),
+              );
+            }, () {}),
           ),
         ),
       ),
@@ -112,7 +120,7 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
           child: Column(
             children: [
               InkWell(
-                onTap: (){
+                onTap: () {
                   goToViewAllVisitorReservation();
                 },
                 child: Container(
@@ -147,7 +155,6 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
                   ),
                 ),
               ),
-
               Container(
                 margin: const EdgeInsets.only(
                   left: 20,
@@ -424,5 +431,4 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
       ),
     );
   }
-
 }
