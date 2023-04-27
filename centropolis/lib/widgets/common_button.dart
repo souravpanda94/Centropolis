@@ -12,10 +12,10 @@ class CommonButton extends StatefulWidget {
 
   const CommonButton(
       {Key? key,
-        this.buttonName,
-        this.isIconVisible,
-        this.buttonColor,
-        required this.onCommonButtonTap})
+      this.buttonName,
+      this.isIconVisible,
+      this.buttonColor,
+      required this.onCommonButtonTap})
       : super(key: key);
 
   @override
@@ -26,16 +26,16 @@ class _CommonButtonState extends State<CommonButton> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: (){
+      onTap: () {
         widget.onCommonButtonTap();
       },
       child: Container(
-        height: 47,
+        //height: 47,
         decoration: BoxDecoration(
           color: widget.buttonColor,
-          borderRadius: BorderRadius.circular(5),
+          borderRadius: BorderRadius.circular(4),
         ),
-        padding: const EdgeInsets.only(left: 20, right: 20),
+        padding: const EdgeInsets.all(16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,19 +49,18 @@ class _CommonButtonState extends State<CommonButton> {
               ),
               textAlign: TextAlign.center,
             ),
-
-            widget.isIconVisible ?
-            Container(
-              margin: const EdgeInsets.only(left: 15.0),
-              child: SvgPicture.asset(
-                'assets/images/ic_right_arrow_white.svg',
-                semanticsLabel: 'Back',
-                width: 10,
-                height: 10,
-                alignment: Alignment.center,
-              ),
-            ) : Container()
-
+            widget.isIconVisible
+                ? Container(
+                    margin: const EdgeInsets.only(left: 15.0),
+                    child: SvgPicture.asset(
+                      'assets/images/ic_right_arrow_white.svg',
+                      semanticsLabel: 'Back',
+                      width: 10,
+                      height: 10,
+                      alignment: Alignment.center,
+                    ),
+                  )
+                : Container()
           ],
         ),
       ),

@@ -42,7 +42,6 @@
   "tenantCompanyName" : "Tenant company name",
   "reservationApproved": "Reservation approved",
   "cancelReservation": "cancel reservation",
-  "email" : "e-mail",
   "requestForLightsOut" : "Request for lights out",
   "providedByTheTenantCompany" : "Provided by the tenant company",
   "applyForHeatingAndCooling" : "Apply for heating and cooling",
@@ -110,6 +109,9 @@
   "heatingAndCooling" : "heating and cooling",
   "lightsOut" : "lights out",
   "heating" : "heating",
+
+
+
   "login" : "Login",
   "id" : "ID",
   "password" : "Password",
@@ -118,6 +120,12 @@
   "findID" : "Find ID",
   "passwordReset" : "Password Reset",
   "signUp" : "Sign Up",
+  "findID/Password" : "Find ID/Password",
+  "findPassword" : "Find Password",
+  "email" : "Email",
+  "emailHint" : "Please enter the email you entered when signing up",
+  "IDHint" : "Please enter your ID",
+
   
   
 

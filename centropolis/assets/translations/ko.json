@@ -43,7 +43,6 @@
   "TenantCompanyName" : "Tenant company name",
   "reservationApproved": "Reservation approved",
   "cancelReservation": "cancel reservation",
-  "email" : "e-mail",
   "requestForLightsOut" : "Request for lights out",
   "providedByTheTenantCompany" : "Provided by the tenant company",
   "applyForHeatingAndCooling" : "Apply for heating and cooling",
@@ -124,6 +123,8 @@
   "heatingAndCooling" : "냉난방 일시",
   "lightsOut" : "소등 일시",
   "heating" : "난방",
+
+  
   "login" : "로그인",
   "id" : "ID",
   "password" : "Password",
@@ -131,7 +132,13 @@
   "btnLogin" : "로그인",
   "findID" : "아이디 찾기",
   "passwordReset" : "비밀번호 재설정",
-  "signUp" : "회원가입"
+  "signUp" : "회원가입",
+  "findID/Password" : "Find ID/Password",
+  "findPassword" : "Find Password",
+  "email" : "Email",
+  "emailHint" : "Please enter the email you entered when signing up",
+  "IDHint" : "Please enter your ID"
+
 
 
   

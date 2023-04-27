@@ -27,4 +27,9 @@ class CustomColors {
   static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
   static const heatingColor = Color(0xFFEB5757);
   static const coolingColor = Color(0xFF2F80ED);
+
+  //newly added colors
+  static const buttonColor = Color(0xFFB9644C);
+  static const greyColor = Color(0xFF505050);
+  static const greyColor1 = Color(0xFF666666);
 }
