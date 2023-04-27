@@ -5,7 +5,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../utils/custom_colors.dart';
 import '../widgets/home/home_page_row.dart';
 import '../widgets/home/other_reservation_card.dart';
-import 'common_module/bar_code.dart';
+import 'home/bar_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

@@ -8,7 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/home_page_app_bar.dart';
-import '../common_module/bar_code.dart';
+import '../home/bar_code.dart';
 import 'VisitReservationViewAll.dart';
 
 class VisitorReservationsScreen extends StatefulWidget {
