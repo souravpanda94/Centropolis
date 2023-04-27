@@ -22,7 +22,7 @@ void main() async {
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
-      statusBarColor: Colors.white,
+      statusBarColor: Colors.transparent,
       /* set Status bar color in Android devices. */
       statusBarIconBrightness: Brightness.dark,
       /* set Status bar icons color in Android devices.*/

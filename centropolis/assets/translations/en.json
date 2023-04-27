@@ -110,6 +110,14 @@
   "heatingAndCooling" : "heating and cooling",
   "lightsOut" : "lights out",
   "heating" : "heating",
+  "login" : "Login",
+  "id" : "ID",
+  "password" : "Password",
+  "saveLoginInformation" : "Save login information",
+  "btnLogin" : "Log In",
+  "findID" : "Find ID",
+  "passwordReset" : "Password Reset",
+  "signUp" : "Sign Up",
   
   
 

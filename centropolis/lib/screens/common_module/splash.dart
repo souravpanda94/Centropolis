@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 
-import '../../widgets/bottom_bar.dart';
+import 'login.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -26,40 +26,33 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   startTime() async {
-    var _duration = const Duration(seconds: 2);
-    return Timer(_duration, navigationPage);
+    var duration = const Duration(seconds: 10);
+    return Timer(duration, navigationPage);
   }
 
   void navigationPage() {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const BottomBar(),
-        //builder: (context) => const VisitorReservationsScreen(),
+        builder: (context) => const LoginScreen(),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      backgroundColor: Colors.white,
-      body: Center(
-        // child: Image.asset(
-        //   'assets/images/app_logo_orange.png',
-        //   fit: BoxFit.contain,
-        //   width: 210,
-        //   height: 65,
-        // ),
-        child: Text(
-          "Splash screen",
-          style: TextStyle(
-            fontSize: 40,
-            color: Colors.purple,
-            fontFamily: 'Regular',
+    return Scaffold(
+        backgroundColor: Colors.white,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          decoration: const BoxDecoration(
+            image: DecorationImage(
+              alignment: Alignment.center,
+              image: AssetImage("assets/images/splash_image.png"),
+              fit: BoxFit.fill,
+            ),
           ),
-        ),
-      ),
-    );
+        ));
   }
 }

@@ -122,8 +122,16 @@
   "extensionStart" : "연장 시작",
   "extensionEnd" : "연장 종료 ",
   "heatingAndCooling" : "냉난방 일시",
-    "lightsOut" : "소등 일시",
-      "heating" : "난방"
+  "lightsOut" : "소등 일시",
+  "heating" : "난방",
+  "login" : "로그인",
+  "id" : "ID",
+  "password" : "Password",
+  "saveLoginInformation" : "로그인정보 저장",
+  "btnLogin" : "로그인",
+  "findID" : "아이디 찾기",
+  "passwordReset" : "비밀번호 재설정",
+  "signUp" : "회원가입"
 
 
   

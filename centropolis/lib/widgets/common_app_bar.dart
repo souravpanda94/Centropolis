@@ -11,7 +11,9 @@ class CommonAppBar extends StatelessWidget {
   final Function onBackBtnTap;
   final Function onFilterBtnTap;
 
-  const CommonAppBar(this.title,this.isFilterVisible, this.onBackBtnTap,this.onFilterBtnTap, {Key? key})
+  const CommonAppBar(
+      this.title, this.isFilterVisible, this.onBackBtnTap, this.onFilterBtnTap,
+      {Key? key})
       : super(key: key);
 
   @override
@@ -32,7 +34,7 @@ class CommonAppBar extends StatelessWidget {
             title: Text(
               title,
               style: const TextStyle(
-                color: CustomColors.textColor1,
+                color: CustomColors.textColor8,
                 fontFamily: 'SemiBold',
                 fontSize: 16.0,
                 // fontWeight: AppTranslations.of(context).currentLanguage == "ko" ? FontWeight.w800 : FontWeight.bold,
@@ -48,22 +50,23 @@ class CommonAppBar extends StatelessWidget {
                 onBackBtnTap();
               },
             ),
-            actions:  isFilterVisible ?
-            [
-              IconButton(
-                icon: SvgPicture.asset(
-                  "assets/images/ic_filter.svg",
-                  semanticsLabel: 'Back',
-                ),
-                onPressed: () {
-                  onFilterBtnTap();
-                },
-              )
-            ] : null ),
-        const Divider(
-          color: CustomColors.borderColor,
-          height: 2,
-        ),
+            actions: isFilterVisible
+                ? [
+                    IconButton(
+                      icon: SvgPicture.asset(
+                        "assets/images/ic_filter.svg",
+                        semanticsLabel: 'Back',
+                      ),
+                      onPressed: () {
+                        onFilterBtnTap();
+                      },
+                    )
+                  ]
+                : null),
+        // const Divider(
+        //   color: CustomColors.borderColor,
+        //   height: 2,
+        // ),
       ],
     );
   }

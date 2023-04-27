@@ -7,7 +7,6 @@ class CustomColors {
   static const blackColor = Color(0xFF000000);
   static const borderColor = Color(0xFFE0E0E0);
   static const borderColor2 = Color(0xFFF1F0EE);
-  static const appBackgroundColor = Color(0x00181818);
 
   static const textColor1 = Color(0xFF222722);
   static const textColor3 = Color(0xFFA4A4A4);
@@ -15,6 +14,7 @@ class CustomColors {
   static const textColor5 = Color(0xFF4C4C4C);
   static const textColor6 = Color(0xFFD24545);
   static const textColor7 = Color(0xFF828282);
+  static const textColor8 = Color(0xFF181818);
 
   static const selectedColor = Color(0xFFB25A42);
   static const unSelectedColor = Color(0xFFB1B3B2);
