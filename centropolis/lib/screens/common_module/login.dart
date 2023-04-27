@@ -41,7 +41,7 @@ class _LoginScreenState extends State<LoginScreen> {
             children: [
               Image.asset(
                 'assets/images/centropolis_logo.png',
-                height: 69.38,
+                height: 69,
                 fit: BoxFit.fill,
               ),
               const SizedBox(
@@ -119,8 +119,8 @@ class _LoginScreenState extends State<LoginScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   SizedBox(
-                    height: 14.6,
-                    width: 14.67,
+                    height: 15,
+                    width: 15,
                     child: Checkbox(
                       checkColor: CustomColors.whiteColor,
                       activeColor: CustomColors.buttonColor,
@@ -137,7 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     ),
                   ),
                   const SizedBox(
-                    width: 8.67,
+                    width: 9,
                   ),
                   Text(
                     tr("saveLoginInformation"),
