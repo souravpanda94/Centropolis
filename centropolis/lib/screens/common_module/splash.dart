@@ -17,7 +17,6 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     startTime();
-    // initializeNotifications();
   }
 
   @override
@@ -26,7 +25,7 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   startTime() async {
-    var duration = const Duration(seconds: 10);
+    var duration = const Duration(seconds: 3);
     return Timer(duration, navigationPage);
   }
 
