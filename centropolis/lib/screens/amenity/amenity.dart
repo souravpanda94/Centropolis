@@ -9,7 +9,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/home_page_app_bar.dart';
-import '../common_module/bar_code.dart';
+import '../home/bar_code.dart';
 
 class AmenityScreen extends StatefulWidget {
   const AmenityScreen({super.key});
