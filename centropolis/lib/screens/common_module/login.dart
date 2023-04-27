@@ -6,6 +6,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import 'find_ID_password.dart';
+import 'signup.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -168,7 +169,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const FindIDPassword(),
+                              builder: (context) =>
+                                  const FindIDPassword(page: 0),
                             ),
                           );
                         },
@@ -194,7 +196,8 @@ class _LoginScreenState extends State<LoginScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const FindIDPassword(),
+                              builder: (context) =>
+                                  const FindIDPassword(page: 1),
                             ),
                           );
                         },
@@ -215,12 +218,22 @@ class _LoginScreenState extends State<LoginScreen> {
                           color: CustomColors.borderColor,
                         ),
                       ),
-                      Text(
-                        tr("signUp"),
-                        style: const TextStyle(
-                            color: CustomColors.greyColor1,
-                            fontFamily: 'Regular',
-                            fontSize: 14),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignupScreen(),
+                            ),
+                          );
+                        },
+                        child: Text(
+                          tr("signUp"),
+                          style: const TextStyle(
+                              color: CustomColors.greyColor1,
+                              fontFamily: 'Regular',
+                              fontSize: 14),
+                        ),
                       )
                     ],
                   ),

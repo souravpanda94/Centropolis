@@ -7,7 +7,8 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 
 class FindIDPassword extends StatefulWidget {
-  const FindIDPassword({super.key});
+  final int page;
+  const FindIDPassword({super.key, required this.page});
 
   @override
   State<FindIDPassword> createState() => _FindIDPasswordState();
@@ -20,6 +21,7 @@ class _FindIDPasswordState extends State<FindIDPassword>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    _tabController.index = widget.page;
     super.initState();
   }
 
@@ -33,6 +35,7 @@ class _FindIDPasswordState extends State<FindIDPassword>
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
+      initialIndex: widget.page,
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
@@ -159,7 +162,7 @@ class _FindIDPasswordState extends State<FindIDPassword>
                         children: [
                           RichText(
                             text: TextSpan(
-                                text: tr("id"),
+                                text: tr("IDHeading"),
                                 style: const TextStyle(
                                     fontFamily: 'Bold',
                                     fontWeight: FontWeight.w600,
