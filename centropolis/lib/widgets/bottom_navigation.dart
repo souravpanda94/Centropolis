@@ -39,7 +39,14 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   child: HomePageAppBar(
                       title: setTitle(_selectedIndex),
                       onSettingBtnTap: () {},
-                      onNotificationBtnTap: () {}),
+                      onNotificationBtnTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NotificationScreen(),
+                          ),
+                        );
+                      }),
                 ),
               ),
             ),
