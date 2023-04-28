@@ -23,8 +23,8 @@ class _FitnessScreenState extends State<FitnessScreen> {
             child: Text(
               tr("fitness"),
               style: const TextStyle(
-                  fontFamily: 'Regular',
-                  fontSize: 14,
+                  fontFamily: 'SemiBold',
+                  fontSize: 20,
                   color: CustomColors.textColor8),
             )
         ));

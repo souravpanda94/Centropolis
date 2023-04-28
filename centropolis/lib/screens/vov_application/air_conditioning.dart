@@ -6,14 +6,14 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 
 
-class FacilitiesScreen extends StatefulWidget {
-  const FacilitiesScreen({super.key});
+class AirConditioningScreen extends StatefulWidget {
+  const AirConditioningScreen({super.key});
 
   @override
-  State<FacilitiesScreen> createState() => _FacilitiesScreenState();
+  State<AirConditioningScreen> createState() => _AirConditioningScreenState();
 }
 
-class _FacilitiesScreenState extends State<FacilitiesScreen> {
+class _AirConditioningScreenState extends State<AirConditioningScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
         backgroundColor: Colors.white,
         body: Center(
             child: Text(
-              tr("facilities"),
+              tr("airConditioning"),
               style: const TextStyle(
                   fontFamily: 'SemiBold',
                   fontSize: 20,
