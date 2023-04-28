@@ -33,4 +33,5 @@ class CustomColors {
   static const greyColor = Color(0xFF505050);
   static const greyColor1 = Color(0xFF666666);
   static const greyColor2 = Color(0xFFFBFAF7);
+  static const backgroundColor2 = Color(0xFFF2F2F2);
 }
