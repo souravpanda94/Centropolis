@@ -4,9 +4,14 @@ import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
 
-class FindPassword extends StatelessWidget {
+class FindPassword extends StatefulWidget {
   const FindPassword({super.key});
 
+  @override
+  State<FindPassword> createState() => _FindPasswordState();
+}
+
+class _FindPasswordState extends State<FindPassword> {
   @override
   Widget build(BuildContext context) {
     return Container(
