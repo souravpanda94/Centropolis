@@ -2,10 +2,10 @@ import 'package:centropolis/widgets/amenity/amenity_detail_row.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-import '../../utils/custom_colors.dart';
-import '../../widgets/common_button.dart';
-import '../../widgets/common_button_with_border.dart';
-import '../../widgets/my_page/my_page_detail_info.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/common_button_with_border.dart';
+import '../../../widgets/my_page/my_page_detail_info.dart';
+
 
 class CancelReservation extends StatefulWidget {
   final bool showAirConditionerChoice;

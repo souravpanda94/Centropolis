@@ -1,13 +1,14 @@
-import 'package:centropolis/screens/amenity/amenity_reservation_payment.dart';
 import 'package:centropolis/widgets/amenity/amenity_detail_row.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../utils/custom_colors.dart';
-import '../../utils/utils.dart';
-import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_button.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../utils/utils.dart';
+import '../../../widgets/common_app_bar.dart';
+import '../../../widgets/common_button.dart';
+import 'amenity_reservation_payment.dart';
+
 
 class AmenityMakeReservation extends StatefulWidget {
   const AmenityMakeReservation({super.key});

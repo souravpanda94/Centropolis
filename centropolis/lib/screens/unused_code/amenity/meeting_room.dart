@@ -1,7 +1,6 @@
-import 'package:centropolis/screens/amenity/detail_page.dart';
 import 'package:flutter/material.dart';
-
-import '../../widgets/amenity/amenity_row.dart';
+import '../../../widgets/amenity/amenity_row.dart';
+import 'detail_page.dart';
 
 class MeetingRoom extends StatelessWidget {
   const MeetingRoom({super.key});

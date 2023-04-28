@@ -1,12 +1,13 @@
+import 'package:centropolis/widgets/bottom_navigation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import 'find_ID_password.dart';
 import 'signup.dart';
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -152,7 +153,9 @@ class _LoginScreenState extends State<LoginScreen> {
               Container(
                 margin: const EdgeInsets.only(top: 32, bottom: 16),
                 child: CommonButton(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      goToHomeScreen();
+                    },
                     buttonColor: CustomColors.buttonColor,
                     buttonName: tr("btnLogin"),
                     isIconVisible: false),
@@ -245,4 +248,15 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  void goToHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(0),
+      ),
+    );
+  }
+
+
 }

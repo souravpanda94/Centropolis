@@ -1,15 +1,17 @@
-import 'package:centropolis/screens/amenity/facilities.dart';
-import 'package:centropolis/screens/amenity/fitness.dart';
-import 'package:centropolis/screens/amenity/lounge.dart';
-import 'package:centropolis/screens/amenity/meeting_room.dart';
+
 import 'package:centropolis/widgets/amenity/amenity_row.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../utils/custom_colors.dart';
-import '../../widgets/home_page_app_bar.dart';
-import '../home/bar_code.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/home_page_app_bar.dart';
+import '../../home/bar_code.dart';
+import 'facilities.dart';
+import 'fitness.dart';
+import 'lounge.dart';
+import 'meeting_room.dart';
+
 
 class AmenityScreen extends StatefulWidget {
   const AmenityScreen({super.key});

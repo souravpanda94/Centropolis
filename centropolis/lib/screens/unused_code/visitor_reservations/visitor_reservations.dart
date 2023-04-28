@@ -1,15 +1,16 @@
 import 'dart:convert';
-import 'package:centropolis/screens/visitor_reservations/reservation_details.dart';
-import 'package:centropolis/screens/visitor_reservations/visit_reservation_application.dart';
+import 'package:centropolis/screens/unused_code/visitor_reservations/reservation_details.dart';
+import 'package:centropolis/screens/unused_code/visitor_reservations/visit_reservation_application.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../utils/custom_colors.dart';
-import '../../widgets/common_modal.dart';
-import '../../widgets/home_page_app_bar.dart';
-import '../home/bar_code.dart';
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/common_modal.dart';
+import '../../../widgets/home_page_app_bar.dart';
+import '../../home/bar_code.dart';
 import 'VisitReservationViewAll.dart';
+
 
 class VisitorReservationsScreen extends StatefulWidget {
   const VisitorReservationsScreen({Key? key}) : super(key: key);

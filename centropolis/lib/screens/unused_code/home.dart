@@ -2,10 +2,10 @@ import 'package:centropolis/widgets/home/home_logo.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import '../utils/custom_colors.dart';
-import '../widgets/home/home_page_row.dart';
-import '../widgets/home/other_reservation_card.dart';
-import 'home/bar_code.dart';
+import '../../utils/custom_colors.dart';
+import '../../widgets/home/home_page_row.dart';
+import '../../widgets/home/other_reservation_card.dart';
+import '../home/bar_code.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);

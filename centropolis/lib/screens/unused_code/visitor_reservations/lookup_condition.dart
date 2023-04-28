@@ -4,11 +4,11 @@ import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import '../../utils/custom_colors.dart';
-import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_button.dart';
-import '../../widgets/common_modal.dart';
-import '../../widgets/home_page_app_bar.dart';
+
+import '../../../utils/custom_colors.dart';
+import '../../../widgets/common_app_bar.dart';
+import '../../../widgets/common_button.dart';
+
 
 class LookupConditionScreen extends StatefulWidget {
   const LookupConditionScreen({Key? key}) : super(key: key);

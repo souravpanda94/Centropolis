@@ -38,15 +38,15 @@ class HomePageAppBar extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
             ),
-            leading: IconButton(
-              icon: SvgPicture.asset(
-                "assets/images/ic_scanner.svg",
-                semanticsLabel: 'Back',
-              ),
-              onPressed: () {
-                onScannerBtnTap();
-              },
-            ),
+            // leading: IconButton(
+            //   icon: SvgPicture.asset(
+            //     "assets/images/ic_scanner.svg",
+            //     semanticsLabel: 'Back',
+            //   ),
+            //   onPressed: () {
+            //     onScannerBtnTap();
+            //   },
+            // ),
             actions: [
               IconButton(
                 icon: SvgPicture.asset(
