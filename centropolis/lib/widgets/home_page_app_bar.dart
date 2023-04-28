@@ -31,7 +31,7 @@ class HomePageAppBar extends StatelessWidget {
             title: Text(
               title,
               style: const TextStyle(
-                color: CustomColors.textColor1,
+                color: CustomColors.textColor8,
                 fontFamily: 'SemiBold',
                 fontSize: 16.0,
                 // fontWeight: AppTranslations.of(context).currentLanguage == "ko" ? FontWeight.w800 : FontWeight.bold,
