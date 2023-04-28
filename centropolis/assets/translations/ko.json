@@ -46,9 +46,6 @@
   "requestForLightsOut" : "Request for lights out",
   "providedByTheTenantCompany" : "Provided by the tenant company",
   "applyForHeatingAndCooling" : "Apply for heating and cooling",
-
-
-
   "tenantCompanyInformation" : "Tenant company information",
   "applicantName" : "Applicant name",
   "selectDate" : "select date",
@@ -62,7 +59,11 @@
 
 
 
-
+  "tenantService" : "Tenant service",
+  "vocApplication" : "VOC Application",
+  "lounge" : "Lounge",
+  "fitness" : "Fitness",
+  "facilities" : "Facilities",
 
 
 

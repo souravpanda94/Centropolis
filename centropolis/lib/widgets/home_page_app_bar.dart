@@ -58,10 +58,10 @@ class HomePageAppBar extends StatelessWidget {
                 },
               )
             ]),
-        const Divider(
-          color: CustomColors.borderColor,
-          height: 2,
-        ),
+        // const Divider(
+        //   color: CustomColors.borderColor,
+        //   height: 2,
+        // ),
       ],
     );
   }
