@@ -93,20 +93,20 @@ class _FindIDPasswordState extends State<FindIDPassword> with SingleTickerProvid
                     labelColor: CustomColors.textColor8,
                     labelStyle: const TextStyle(
                       color: CustomColors.textColor8,
-                      fontSize: 15,
+                      fontSize: 14,
                       fontFamily: 'SemiBold',
                     ),
                     unselectedLabelColor: CustomColors.greyColor1,
                     unselectedLabelStyle: const TextStyle(
                       color: CustomColors.greyColor1,
-                      fontSize: 15,
-                      fontFamily: 'SemiBold',
+                      fontSize: 14,
+                      fontFamily: 'Regular',
                     ),
-                    indicatorColor: CustomColors.buttonColor,
+                    indicatorColor: CustomColors.buttonBackgroundColor,
                     indicator:  const UnderlineTabIndicator(
                       borderSide: BorderSide(
-                          width: 3.0,
-                          color: CustomColors.buttonColor),
+                          width: 2.0,
+                          color: CustomColors.buttonBackgroundColor),
                       // insets: EdgeInsets.symmetric(horizontal:16.0)
                     ),
                   ),

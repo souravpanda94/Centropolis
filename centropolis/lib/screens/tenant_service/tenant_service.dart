@@ -62,7 +62,7 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
               labelStyle: const TextStyle(
                 color: CustomColors.textColor8,
                 fontSize: 14,
-                fontFamily: 'Medium',
+                fontFamily: 'SemiBold',
               ),
               unselectedLabelColor: CustomColors.greyColor1,
               unselectedLabelStyle: const TextStyle(
