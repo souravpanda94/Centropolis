@@ -35,9 +35,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               child: SafeArea(
                 child: Container(
                   color: CustomColors.whiteColor,
-                  child: HomePageAppBar(setTitle(_selectedIndex), (){
-
-                  },(){}
+                  child: HomePageAppBar(title: setTitle(_selectedIndex),
+                      onSettingBtnTap: (){},
+                      onNotificationBtnTap: (){}
                 ),),
               ),
             ),

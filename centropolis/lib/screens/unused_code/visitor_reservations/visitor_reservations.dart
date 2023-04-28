@@ -104,14 +104,10 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: HomePageAppBar(tr("visitorReservations"), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BarCodeScreen(),
-                ),
-              );
-            }, () {}),
+            child: HomePageAppBar(title: tr("visitorReservations"),
+                onSettingBtnTap: (){},
+                onNotificationBtnTap: (){}
+            ),
           ),
         ),
       ),
