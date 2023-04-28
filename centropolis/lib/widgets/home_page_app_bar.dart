@@ -5,18 +5,24 @@ import 'package:flutter_svg/svg.dart';
 import '../utils/constants.dart';
 import '../utils/custom_colors.dart';
 
-class HomePageAppBar extends StatelessWidget {
+class HomePageAppBar extends StatefulWidget {
   final String title;
   final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
   const HomePageAppBar(
-      {Key? key,
+      {super.key,
       required this.title,
       required this.onSettingBtnTap,
-      required this.onNotificationBtnTap})
-      : super(key: key);
+      required this.onNotificationBtnTap});
 
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageAppBarState();
+  }
+}
+
+class _HomePageAppBarState extends State<HomePageAppBar> {
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -33,7 +39,7 @@ class HomePageAppBar extends StatelessWidget {
             elevation: 0,
             backgroundColor: CustomColors.whiteColor,
             title: Text(
-              title,
+              widget.title,
               style: const TextStyle(
                 color: CustomColors.textColor8,
                 fontFamily: 'SemiBold',
@@ -52,24 +58,24 @@ class HomePageAppBar extends StatelessWidget {
             //   },
             // ),
             actions: [
-              if (title == tr("myPage"))
+              if (widget.title == tr("myPage"))
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_setting.svg",
                     semanticsLabel: 'Back',
                   ),
                   onPressed: () {
-                    onSettingBtnTap();
+                    widget.onSettingBtnTap();
                   },
                 ),
-              if (title != tr("myPage"))
+              if (widget.title != tr("myPage"))
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_notification_with_indicator.svg",
                     semanticsLabel: 'Back',
                   ),
                   onPressed: () {
-                    onNotificationBtnTap.call();
+                    widget.onNotificationBtnTap();
                   },
                 )
             ]),
