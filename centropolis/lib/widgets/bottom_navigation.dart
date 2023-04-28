@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../screens/home/home.dart';
+import '../screens/home/notifications.dart';
 import '../screens/my_page/my_page.dart';
 import '../screens/tenant_service/tenant_service.dart';
 import '../screens/visit_reservations/visit_reservations.dart';
@@ -35,10 +36,15 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               child: SafeArea(
                 child: Container(
                   color: CustomColors.whiteColor,
-                  child: HomePageAppBar(setTitle(_selectedIndex), (){
-
-                  },(){}
-                ),),
+                  child: HomePageAppBar(setTitle(_selectedIndex), () {}, () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const NotificationScreen(),
+                      ),
+                    );
+                  }),
+                ),
               ),
             ),
       body: Container(
@@ -99,7 +105,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               ),
               label: tr("vocApplication"),
               backgroundColor: CustomColors.whiteColor),
-
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
                 _selectedIndex == 4
@@ -122,10 +127,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ),
         unselectedItemColor: CustomColors.textColor3,
         unselectedLabelStyle: const TextStyle(
-          fontSize: 12.0,
-          fontFamily: 'Regular',
-            color: CustomColors.textColor3
-        ),
+            fontSize: 12.0,
+            fontFamily: 'Regular',
+            color: CustomColors.textColor3),
         onTap: _onItemTapped,
         elevation: 5,
       ),
@@ -141,20 +145,14 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   setTitle(int selectedIndex) {
     if (selectedIndex == 1) {
       return tr("tenantService");
-    }
-    else if (selectedIndex == 2) {
+    } else if (selectedIndex == 2) {
       return tr("visitor");
-    }
-    else if (selectedIndex == 3) {
+    } else if (selectedIndex == 3) {
       return tr("vocApplication");
-    }
-    else if (selectedIndex == 4) {
+    } else if (selectedIndex == 4) {
       return tr("myPage");
-    }
-    else {
+    } else {
       return "";
     }
   }
-
-
 }
