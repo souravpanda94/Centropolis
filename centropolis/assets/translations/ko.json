@@ -105,7 +105,6 @@
   "hostingMeeting" : "회의 주최",
   "additionalEquipment" : "추가장비",
   "reservationInformation" : "예약자 정보",
-  "tenantCompany" : "입주사 ",
   "reservationAgent" : "예약 담당자",
   "paymentDetails" : "결제 세부정보",
   "paymentTerms" : "개인정보이용에 동의합니다.",
@@ -145,13 +144,13 @@
   "signUpConsentConfirmation" : "개인정보 수집·이용에 동의합니다(필수)",
   "enterPersonalInformation" : "개인정보 입력",
   "requiredInput" : "필수입력사항",
-  "tenantCompany " : "입주사명",
-  "tenantCompanyHint " : "소속 입주사명을 선택해 주세요.",
+  "tenantCompany" : "입주사명",
+  "tenantCompanyHint" : "소속 입주사명을 선택해 주세요.",
   "floor" : "층 수",
-  "floorHint " : "소속 회사의 층 수를 선택해 주세요.",
-  "name " : "이름",
-  "nameHint " : "이름을 입력해 주세요.",
-  "verify " : "중복확인",
+  "floorHint" : "소속 회사의 층 수를 선택해 주세요.",
+  "name" : "이름",
+  "nameHint" : "이름을 입력해 주세요.",
+  "verify" : "중복확인",
   "verifyPassword" : "비밀번호 확인",
   "emailDemoHint" : "예) test1@centropolis.com",
   "verifyPasswordHint" : "비밀번호를 한번 더 입력해 주세요.",
@@ -162,7 +161,7 @@
   "female" : "여성",
   "cancel" : "취소",
   "warning" : "본 사이트는 회원가입승인 절차를 거쳐 승인된 아이디에 한해 사용 가능합니다. 승인은 소속되신 입주사 관리자에게 있으며, 승인 거절시 사용 불가능합니다.",
-  "passwordHint " : "영문/숫자/특수문자 포함 8자 이상 16자 미만"
+  "passwordHint" : "영문/숫자/특수문자 포함 8자 이상 16자 미만"
 
 
 
