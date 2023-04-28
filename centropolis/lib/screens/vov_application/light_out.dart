@@ -6,14 +6,14 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 
 
-class FacilitiesScreen extends StatefulWidget {
-  const FacilitiesScreen({super.key});
+class LightOutScreen extends StatefulWidget {
+  const LightOutScreen({super.key});
 
   @override
-  State<FacilitiesScreen> createState() => _FacilitiesScreenState();
+  State<LightOutScreen> createState() => _LightOutScreenState();
 }
 
-class _FacilitiesScreenState extends State<FacilitiesScreen> {
+class _LightOutScreenState extends State<LightOutScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
         backgroundColor: Colors.white,
         body: Center(
             child: Text(
-              tr("facilities"),
+              tr("lightOut"),
               style: const TextStyle(
                   fontFamily: 'SemiBold',
                   fontSize: 20,

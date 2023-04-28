@@ -5,13 +5,27 @@ import 'package:flutter_svg/svg.dart';
 import '../utils/constants.dart';
 import '../utils/custom_colors.dart';
 
-class HomePageAppBar extends StatelessWidget {
+
+class HomePageAppBar extends StatefulWidget {
   final String title;
-  final Function onScannerBtnTap;
+  final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
-  const HomePageAppBar(this.title, this.onScannerBtnTap,this.onNotificationBtnTap, {Key? key})
-      : super(key: key);
+  const HomePageAppBar({
+    super.key,
+    required this.title,
+    required this.onSettingBtnTap,
+    required this.onNotificationBtnTap
+  });
+
+
+  @override
+  State<StatefulWidget> createState() {
+    return _HomePageAppBarState();
+  }
+}
+
+class _HomePageAppBarState extends State<HomePageAppBar> {
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +43,7 @@ class HomePageAppBar extends StatelessWidget {
             elevation: 0,
             backgroundColor: CustomColors.whiteColor,
             title: Text(
-              title,
+              widget.title,
               style: const TextStyle(
                 color: CustomColors.textColor8,
                 fontFamily: 'SemiBold',
@@ -48,15 +62,28 @@ class HomePageAppBar extends StatelessWidget {
             //   },
             // ),
             actions: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  "assets/images/ic_notification_with_indicator.svg",
-                  semanticsLabel: 'Back',
+              if(widget.title == tr("myPage"))
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/images/ic_setting.svg",
+                    semanticsLabel: 'Back',
+                  ),
+                  onPressed: () {
+                    widget.onSettingBtnTap();
+                  },
                 ),
-                onPressed: () {
-                  onNotificationBtnTap();
-                },
-              )
+
+              if(widget.title != tr("myPage"))
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/images/ic_notification_with_indicator.svg",
+                    semanticsLabel: 'Back',
+                  ),
+                  onPressed: () {
+                    widget.onNotificationBtnTap();
+                  },
+                )
+
             ]),
         // const Divider(
         //   color: CustomColors.borderColor,

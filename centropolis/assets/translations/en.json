@@ -63,8 +63,9 @@
   "lounge" : "Lounge",
   "fitness" : "Fitness",
   "facilities" : "Facilities",
-
-
+  "inconvenience" : "Inconvenience",
+  "lightOut" : "Light-Out",
+  "airConditioning" : "Air Conditioning",
 
 
   "aditi" : "=============================Aditi SECTION=========================================",
@@ -156,6 +157,7 @@
   "cancel" : "Cancel",
   "warning" : "This site can only be used by IDs that have been approved through the membership sign-up approval process. Approval belongs to the manager of the tenant company to which you belong, and if approval is rejected, it cannot be used.",
   "passwordHint" : "More than 8 characters and less than 16 characters including English/number/special characters",
+  "notificationHistory" : "Notification History",
 
   
   

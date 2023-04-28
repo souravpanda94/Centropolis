@@ -30,14 +30,10 @@ class _AmenityScreenState extends State<AmenityScreen> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: HomePageAppBar(tr("amenity"), () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) => const BarCodeScreen(),
-                ),
-              );
-            }, () {}),
+            child: HomePageAppBar(title: tr("amenity"),
+                onSettingBtnTap: (){},
+                onNotificationBtnTap: (){}
+            ),
           ),
         ),
       ),
