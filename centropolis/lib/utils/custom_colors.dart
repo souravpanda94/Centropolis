@@ -32,4 +32,5 @@ class CustomColors {
   static const buttonColor = Color(0xFFB9644C);
   static const greyColor = Color(0xFF505050);
   static const greyColor1 = Color(0xFF666666);
+  static const greyColor2 = Color(0xFFFBFAF7);
 }

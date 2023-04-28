@@ -131,13 +131,13 @@
   "signUpConsentConfirmation" : "I agree to the collection and use of personal information (required)",
   "enterPersonalInformation" : "Enter Personal Information",
   "requiredInput" : "Required input",
-  "tenantCompany " : "Tenant Company",
-  "tenantCompanyHint " : "Please select your company Name",
+  "tenantCompany" : "Tenant Company",
+  "tenantCompanyHint" : "Please select your company Name",
   "floor" : "Floor",
-  "floorHint " : "Please select your company’s Floor",
-  "name " : "Name",
-  "nameHint " : "Please enter your name",
-  "verify " : "Verify",
+  "floorHint" : "Please select your company’s Floor",
+  "name" : "Name",
+  "nameHint" : "Please enter your name",
+  "verify" : "Verify",
   "verifyPassword" : "Verify Password",
   "emailDemoHint" : "Ex) test1@centropolis.com",
   "verifyPasswordHint" : "Please enter your password once more",
@@ -148,7 +148,7 @@
   "female" : "Female",
   "cancel" : "Cancel",
   "warning" : "This site can only be used by IDs that have been approved through the membership sign-up approval process. Approval belongs to the manager of the tenant company to which you belong, and if approval is rejected, it cannot be used.",
-  "passwordHint " : "More than 8 characters and less than 16 characters including English/number/special characters",
+  "passwordHint" : "More than 8 characters and less than 16 characters including English/number/special characters",
 
   
   

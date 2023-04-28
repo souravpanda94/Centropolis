@@ -150,6 +150,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 ],
               ),
               Container(
+                width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(top: 32, bottom: 16),
                 child: CommonButton(
                     onCommonButtonTap: () {},
