@@ -6,14 +6,14 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 
 
-class FacilitiesScreen extends StatefulWidget {
-  const FacilitiesScreen({super.key});
+class InconvenienceScreen extends StatefulWidget {
+  const InconvenienceScreen({super.key});
 
   @override
-  State<FacilitiesScreen> createState() => _FacilitiesScreenState();
+  State<InconvenienceScreen> createState() => _InconvenienceScreenState();
 }
 
-class _FacilitiesScreenState extends State<FacilitiesScreen> {
+class _InconvenienceScreenState extends State<InconvenienceScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +21,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
         backgroundColor: Colors.white,
         body: Center(
             child: Text(
-              tr("facilities"),
+              tr("inconvenience"),
               style: const TextStyle(
                   fontFamily: 'SemiBold',
                   fontSize: 20,

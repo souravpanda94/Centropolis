@@ -7,10 +7,14 @@ import '../utils/custom_colors.dart';
 
 class HomePageAppBar extends StatelessWidget {
   final String title;
-  final Function onScannerBtnTap;
+  final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
-  const HomePageAppBar(this.title, this.onScannerBtnTap,this.onNotificationBtnTap, {Key? key})
+  const HomePageAppBar({Key? key,
+    required this.title,
+    required this.onSettingBtnTap,
+    required this.onNotificationBtnTap
+  })
       : super(key: key);
 
   @override
@@ -48,15 +52,28 @@ class HomePageAppBar extends StatelessWidget {
             //   },
             // ),
             actions: [
-              IconButton(
-                icon: SvgPicture.asset(
-                  "assets/images/ic_notification_with_indicator.svg",
-                  semanticsLabel: 'Back',
+              if(title == tr("myPage"))
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/images/ic_setting.svg",
+                    semanticsLabel: 'Back',
+                  ),
+                  onPressed: () {
+                    onSettingBtnTap();
+                  },
                 ),
-                onPressed: () {
-                  onNotificationBtnTap();
-                },
-              )
+
+              if(title != tr("myPage"))
+                IconButton(
+                  icon: SvgPicture.asset(
+                    "assets/images/ic_notification_with_indicator.svg",
+                    semanticsLabel: 'Back',
+                  ),
+                  onPressed: () {
+                    onNotificationBtnTap();
+                  },
+                )
+
             ]),
         // const Divider(
         //   color: CustomColors.borderColor,

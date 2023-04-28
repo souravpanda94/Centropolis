@@ -23,8 +23,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
             child: Text(
               tr("lounge"),
               style: const TextStyle(
-                  fontFamily: 'Regular',
-                  fontSize: 14,
+                  fontFamily: 'SemiBold',
+                  fontSize: 20,
                   color: CustomColors.textColor8),
             )
         ));
