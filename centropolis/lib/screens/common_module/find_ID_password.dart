@@ -2,6 +2,7 @@ import 'package:centropolis/screens/common_module/findID.dart';
 import 'package:centropolis/screens/common_module/findPassword.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
@@ -16,21 +17,22 @@ class FindIDPassword extends StatefulWidget {
   State<FindIDPassword> createState() => _FindIDPasswordState();
 }
 
-class _FindIDPasswordState extends State<FindIDPassword>
-    with SingleTickerProviderStateMixin {
-  late TabController _tabController;
+class _FindIDPasswordState extends State<FindIDPassword> with SingleTickerProviderStateMixin {
+
+  final List<Tab> myTabs = <Tab>[
+    Tab(text: tr("findID")),
+    Tab(text: tr("findPassword")),
+  ];
+
 
   @override
   void initState() {
-    _tabController = TabController(length: 2, vsync: this);
-    _tabController.index = widget.page;
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    _tabController.dispose();
   }
 
   @override
@@ -40,51 +42,88 @@ class _FindIDPasswordState extends State<FindIDPassword>
       initialIndex: widget.page,
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("findID/Password"), false, () {
+
+        appBar: AppBar(
+            toolbarHeight: 54,
+            centerTitle: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+            ),
+            elevation: 0,
+            backgroundColor: CustomColors.whiteColor,
+            title: Text(
+              tr("findID/Password"),
+              style: const TextStyle(
+                color: CustomColors.textColor8,
+                fontFamily: 'SemiBold',
+                fontSize: 16.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            leading: IconButton(
+              icon: SvgPicture.asset(
+                "assets/images/ic_back.svg",
+                semanticsLabel: 'Back',
+              ),
+              onPressed: () {
                 onBackButtonPress(context);
-              }, () {}),
+              },
+            ),
+
+          bottom: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: Column(
+              children: [
+                // const Divider(
+                //   color: CustomColors.borderColor,
+                //   height: 1.0,
+                // ),
+                DecoratedBox(
+                  decoration:  const BoxDecoration(
+                    color: CustomColors.whiteColor,
+                    border: Border(
+                        bottom: BorderSide(
+                            color: CustomColors.backgroundColor2, width: 0.5)),
+                  ),
+                  child: TabBar(
+                    tabs: myTabs,
+                    labelColor: CustomColors.textColor8,
+                    labelStyle: const TextStyle(
+                      color: CustomColors.textColor8,
+                      fontSize: 15,
+                      fontFamily: 'SemiBold',
+                    ),
+                    unselectedLabelColor: CustomColors.greyColor1,
+                    unselectedLabelStyle: const TextStyle(
+                      color: CustomColors.greyColor1,
+                      fontSize: 15,
+                      fontFamily: 'SemiBold',
+                    ),
+                    indicatorColor: CustomColors.buttonColor,
+                    indicator:  const UnderlineTabIndicator(
+                      borderSide: BorderSide(
+                          width: 3.0,
+                          color: CustomColors.buttonColor),
+                      // insets: EdgeInsets.symmetric(horizontal:16.0)
+                    ),
+                  ),
+                )
+              ],
             ),
           ),
         ),
-        body: Column(
+
+        body: const TabBarView(
+          // physics: const NeverScrollableScrollPhysics(),
           children: [
-            TabBar(
-              controller: _tabController,
-              indicatorColor: CustomColors.buttonColor,
-              unselectedLabelColor: CustomColors.greyColor1,
-              labelColor: CustomColors.textColor8,
-              labelStyle: const TextStyle(
-                  fontFamily: 'Bold', fontWeight: FontWeight.w600),
-              unselectedLabelStyle: const TextStyle(
-                  fontFamily: 'Regular', fontWeight: FontWeight.w500),
-              tabs: [
-                Tab(
-                  child: Text(
-                    tr("findID"),
-                    style: const TextStyle(fontFamily: 'Regular', fontSize: 14),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    tr("findPassword"),
-                    style: const TextStyle(fontFamily: 'Regular', fontSize: 14),
-                  ),
-                ),
-              ],
-            ),
-            Expanded(
-              child: TabBarView(
-                controller: _tabController,
-                children: const [FindID(), FindPassword()],
-              ),
-            )
+            FindID(),
+            FindPassword(),
           ],
         ),
+
       ),
     );
   }
