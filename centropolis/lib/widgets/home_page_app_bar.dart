@@ -10,11 +10,11 @@ class HomePageAppBar extends StatelessWidget {
   final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
-  const HomePageAppBar({Key? key,
-    required this.title,
-    required this.onSettingBtnTap,
-    required this.onNotificationBtnTap
-  })
+  const HomePageAppBar(
+      {Key? key,
+      required this.title,
+      required this.onSettingBtnTap,
+      required this.onNotificationBtnTap})
       : super(key: key);
 
   @override
@@ -52,7 +52,7 @@ class HomePageAppBar extends StatelessWidget {
             //   },
             // ),
             actions: [
-              if(title == tr("myPage"))
+              if (title == tr("myPage"))
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_setting.svg",
@@ -62,18 +62,16 @@ class HomePageAppBar extends StatelessWidget {
                     onSettingBtnTap();
                   },
                 ),
-
-              if(title != tr("myPage"))
+              if (title != tr("myPage"))
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_notification_with_indicator.svg",
                     semanticsLabel: 'Back',
                   ),
                   onPressed: () {
-                    onNotificationBtnTap();
+                    onNotificationBtnTap.call();
                   },
                 )
-
             ]),
         // const Divider(
         //   color: CustomColors.borderColor,

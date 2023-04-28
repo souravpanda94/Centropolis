@@ -38,8 +38,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
             ),
           ),
         ),
-        body: ListView.builder(itemBuilder: ((context, index) {
-          return Container();
-        })));
+        body: Container(
+            margin: const EdgeInsets.only(top: 32, left: 16, right: 16),
+            child: ListView.builder(itemBuilder: ((context, index) {
+              return Container(
+                padding: const EdgeInsets.all(16),
+              );
+            }))));
   }
 }
