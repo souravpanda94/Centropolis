@@ -45,7 +45,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoginScreen(),
+                            builder: (context) => const NotificationScreen(),
                           ),
                         );
                       }),
