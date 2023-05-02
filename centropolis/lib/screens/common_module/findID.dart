@@ -1,11 +1,20 @@
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_modal.dart';
 
-class FindID extends StatelessWidget {
+
+
+class FindID extends StatefulWidget {
   const FindID({super.key});
+
+  @override
+  State<FindID> createState() => _FindIdScreenState();
+}
+
+class _FindIdScreenState extends State<FindID> {
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +78,9 @@ class FindID extends StatelessWidget {
             Container(
               margin: const EdgeInsets.only(top: 32, bottom: 16),
               child: CommonButton(
-                  onCommonButtonTap: () {},
+                  onCommonButtonTap: () {
+                    showMyModal();
+                  },
                   buttonColor: CustomColors.buttonColor,
                   buttonName: tr("findID"),
                   isIconVisible: false),
@@ -79,4 +90,26 @@ class FindID extends StatelessWidget {
       ),
     );
   }
+
+
+
+  void showMyModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("identificationHasBeenCompleted"),
+            description: "identificationHasBeenCompleted",
+            buttonName: tr("confirm"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: (){},
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+  
+
 }
