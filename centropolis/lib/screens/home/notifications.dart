@@ -149,9 +149,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
-                                    fontFamily: 'Regular',
+                                    fontFamily: 'SemiBold',
                                     fontSize: 14,
-                                    fontWeight: FontWeight.w600,
                                     color: CustomColors.textColor8),
                               ),
                               Container(
@@ -168,7 +167,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                         style: const TextStyle(
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w400,
                                             color:
                                                 CustomColors.textColorBlack2),
                                       ),
@@ -183,7 +181,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       style: const TextStyle(
                                           fontFamily: 'Regular',
                                           fontSize: 14,
-                                          fontWeight: FontWeight.w400,
                                           color: CustomColors.textColorBlack2),
                                     ),
                                   ],
@@ -196,7 +193,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 style: const TextStyle(
                                     fontFamily: 'Regular',
                                     fontSize: 12,
-                                    fontWeight: FontWeight.w500,
                                     color: CustomColors.textColor3),
                               ),
                             ],

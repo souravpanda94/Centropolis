@@ -93,12 +93,30 @@ flutter:
     - family: Bold
       fonts:
         - asset: fonts/SUIT-Bold.ttf
-    # - family: Medium
-    #   fonts:
-    #     - asset: fonts/SUIT-Medium.ttf
+    - family: Medium
+      fonts:
+        - asset: fonts/SUIT-Medium.ttf
     - family: Regular
       fonts:
         - asset: fonts/SUIT-Regular.ttf
+    - family: ExtraBold
+      fonts:
+        - asset: fonts/SUIT-ExtraBold.ttf
+    - family: ExtraLight
+      fonts:
+        - asset: fonts/SUIT-ExtraLight.ttf
+    - family: Heavy
+      fonts:
+        - asset: fonts/SUIT-Heavy.ttf
+    - family: Light
+      fonts:
+        - asset: fonts/SUIT-Light.ttf
+    - family: SemiBold
+      fonts:
+        - asset: fonts/SUIT-SemiBold.ttf
+    - family: Thin
+      fonts:
+        - asset: fonts/SUIT-Thin.ttf
 
     - family: Pretendard-Bold
       fonts:

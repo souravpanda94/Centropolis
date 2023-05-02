@@ -52,8 +52,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 Text(
                   tr("signUpConsent"),
                   style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontWeight: FontWeight.w600,
+                      fontFamily: 'Bold',
                       fontSize: 16,
                       color: CustomColors.textColor8),
                 ),
@@ -123,7 +122,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         tr("signUpConsentConfirmation"),
                         style: const TextStyle(
                             fontFamily: 'Regular',
-                            fontWeight: FontWeight.w400,
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
@@ -149,8 +147,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       Text(
                         tr("enterPersonalInformation"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Bold',
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
@@ -165,7 +162,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                 text: tr("requiredInput"),
                                 style: const TextStyle(
                                     fontFamily: 'Regular',
-                                    fontWeight: FontWeight.w400,
                                     fontSize: 12,
                                     color: CustomColors.textColor8),
                               )
@@ -182,7 +178,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           text: tr("tenantCompany"),
                           style: const TextStyle(
                               fontFamily: 'Bold',
-                              fontWeight: FontWeight.w600,
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -219,7 +214,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         hintStyle: const TextStyle(
                           color: CustomColors.textColorBlack2,
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                           fontFamily: 'Regular',
                         ),
                         suffixIcon: Padding(
@@ -254,7 +248,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                   text: tr("floor"),
                                   style: const TextStyle(
                                       fontFamily: 'Bold',
-                                      fontWeight: FontWeight.w600,
                                       fontSize: 14,
                                       color: CustomColors.textColor8),
                                   children: const [
@@ -307,7 +300,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                         hintStyle: const TextStyle(
                                           color: CustomColors.textColorBlack2,
                                           fontSize: 14,
-                                          fontWeight: FontWeight.w400,
                                           fontFamily: 'Regular',
                                         ),
                                         suffixIcon: Padding(
@@ -334,7 +326,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("name"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -374,7 +365,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                       hintStyle: const TextStyle(
                                         color: CustomColors.textColor3,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w400,
                                         fontFamily: 'Regular',
                                       ),
                                     ),
@@ -393,7 +383,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("IDHeading"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -440,7 +429,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                             hintStyle: const TextStyle(
                                               color: CustomColors.textColor3,
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w400,
                                               fontFamily: 'Regular',
                                             ),
                                           ),
@@ -473,7 +461,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("passwordHeading"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -516,7 +503,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                       hintStyle: const TextStyle(
                                         color: CustomColors.textColor3,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w400,
                                         fontFamily: 'Regular',
                                       ),
                                     ),
@@ -535,7 +521,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("verifyPassword"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -578,7 +563,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                       hintStyle: const TextStyle(
                                         color: CustomColors.textColor3,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w400,
                                         fontFamily: 'Regular',
                                       ),
                                     ),
@@ -597,7 +581,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("email"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -637,7 +620,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                       hintStyle: const TextStyle(
                                         color: CustomColors.textColor3,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w400,
                                         fontFamily: 'Regular',
                                       ),
                                     ),
@@ -656,7 +638,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("contactNo"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -696,7 +677,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                       hintStyle: const TextStyle(
                                         color: CustomColors.textColor3,
                                         fontSize: 14,
-                                        fontWeight: FontWeight.w400,
                                         fontFamily: 'Regular',
                                       ),
                                     ),
@@ -715,7 +695,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           text: tr("gender"),
                                           style: const TextStyle(
                                               fontFamily: 'Bold',
-                                              fontWeight: FontWeight.w600,
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                           children: const [
@@ -761,7 +740,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 tr("male"),
                                                 style: const TextStyle(
                                                     fontFamily: 'Regular',
-                                                    fontWeight: FontWeight.w500,
                                                     color: CustomColors
                                                         .textColorBlack2,
                                                     fontSize: 14),
@@ -799,7 +777,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 tr("female"),
                                                 style: const TextStyle(
                                                     fontFamily: 'Regular',
-                                                    fontWeight: FontWeight.w500,
                                                     color: CustomColors
                                                         .textColorBlack2,
                                                     fontSize: 14),
@@ -844,7 +821,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                               tr("warning"),
                                               style: const TextStyle(
                                                   fontFamily: 'Regular',
-                                                  fontWeight: FontWeight.w400,
                                                   color: CustomColors
                                                       .textColorBlack2,
                                                   fontSize: 12),
@@ -888,8 +864,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                                   style: const TextStyle(
                                                       fontFamily: 'Regular',
                                                       fontSize: 14,
-                                                      fontWeight:
-                                                          FontWeight.w400,
                                                       color: CustomColors
                                                           .textColorBlack2),
                                                 ),
@@ -943,7 +917,6 @@ class _SignupScreenState extends State<SignupScreen> {
                                           style: const TextStyle(
                                               fontFamily: 'Regular',
                                               fontSize: 14,
-                                              fontWeight: FontWeight.w400,
                                               color:
                                                   CustomColors.textColorBlack2),
                                         ),

@@ -1,11 +1,8 @@
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
-
-
 
 class FindID extends StatefulWidget {
   const FindID({super.key});
@@ -15,7 +12,6 @@ class FindID extends StatefulWidget {
 }
 
 class _FindIdScreenState extends State<FindID> {
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -30,7 +26,6 @@ class _FindIdScreenState extends State<FindID> {
                   text: tr("email"),
                   style: const TextStyle(
                       fontFamily: 'Bold',
-                      fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: CustomColors.textColor8),
                   children: const [
@@ -91,8 +86,6 @@ class _FindIdScreenState extends State<FindID> {
     );
   }
 
-
-
   void showMyModal() {
     showDialog(
         barrierDismissible: false,
@@ -104,12 +97,10 @@ class _FindIdScreenState extends State<FindID> {
             buttonName: tr("confirm"),
             firstButtonName: "",
             secondButtonName: "",
-            onConfirmBtnTap: (){},
+            onConfirmBtnTap: () {},
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
           );
         });
   }
-  
-
 }

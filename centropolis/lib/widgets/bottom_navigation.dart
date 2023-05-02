@@ -1,6 +1,3 @@
-import 'package:centropolis/screens/common_module/login.dart';
-import 'package:centropolis/screens/home/bar_code.dart';
-import 'package:centropolis/widgets/home_page_app_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -12,6 +9,7 @@ import '../screens/tenant_service/tenant_service.dart';
 import '../screens/visit_reservations/visit_reservations.dart';
 import '../screens/vov_application/voc_application.dart';
 import '../utils/custom_colors.dart';
+import 'home_page_app_bar.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   final int tabIndex;
@@ -46,7 +44,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const BarCodeScreen(),
+                            builder: (context) => const NotificationScreen(),
                           ),
                         );
                       }),

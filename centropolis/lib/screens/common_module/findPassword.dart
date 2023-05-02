@@ -26,7 +26,6 @@ class _FindPasswordState extends State<FindPassword> {
                   text: tr("IDHeading"),
                   style: const TextStyle(
                       fontFamily: 'Bold',
-                      fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: CustomColors.textColor8),
                   children: const [
@@ -79,7 +78,6 @@ class _FindPasswordState extends State<FindPassword> {
                   text: tr("email"),
                   style: const TextStyle(
                       fontFamily: 'Bold',
-                      fontWeight: FontWeight.w600,
                       fontSize: 14,
                       color: CustomColors.textColor8),
                   children: const [

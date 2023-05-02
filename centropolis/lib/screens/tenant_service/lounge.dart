@@ -1,8 +1,7 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
-import '../../utils/utils.dart';
-import '../../widgets/common_app_bar.dart';
+
 import '../../widgets/common_button.dart';
 import 'lounge_reservation.dart';
 
@@ -42,9 +41,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       Text(
                         tr("loungeTitle"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'SemiBold',
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
                             color: CustomColors.buttonBackgroundColor),
                       ),
                       const SizedBox(
@@ -53,9 +51,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       Text(
                         tr("loungeTitle"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'SemiBold',
                             fontSize: 22,
-                            fontWeight: FontWeight.w600,
                             color: CustomColors.textColorBlack2),
                       ),
                       const SizedBox(
@@ -64,9 +61,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       Text(
                         tr("operatingTime"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'SemiBold',
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
                             color: CustomColors.textColor8),
                       ),
                       const SizedBox(
@@ -77,7 +73,6 @@ class _LoungeScreenState extends State<LoungeScreen> {
                         style: TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
-                            fontWeight: FontWeight.w400,
                             color: CustomColors.textColorBlack2),
                       ),
                       const SizedBox(
@@ -86,9 +81,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       Text(
                         tr("availableMenu"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'SemiBold',
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
                             color: CustomColors.textColor8),
                       ),
                       const SizedBox(
@@ -99,7 +93,6 @@ class _LoungeScreenState extends State<LoungeScreen> {
                         style: TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
-                            fontWeight: FontWeight.w400,
                             color: CustomColors.textColorBlack2),
                       ),
                       const SizedBox(
@@ -108,9 +101,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       Text(
                         tr("loungeRental"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'SemiBold',
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
                             color: CustomColors.textColor8),
                       ),
                       const SizedBox(
@@ -121,7 +113,6 @@ class _LoungeScreenState extends State<LoungeScreen> {
                         style: TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
-                            fontWeight: FontWeight.w400,
                             color: CustomColors.textColorBlack2),
                       ),
                       const SizedBox(
@@ -130,9 +121,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       Text(
                         tr("inquiry"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'SemiBold',
                             fontSize: 14,
-                            fontWeight: FontWeight.w600,
                             color: CustomColors.textColor8),
                       ),
                       const SizedBox(
@@ -143,7 +133,6 @@ class _LoungeScreenState extends State<LoungeScreen> {
                         style: TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
-                            fontWeight: FontWeight.w400,
                             color: CustomColors.textColorBlack2),
                       ),
                     ],

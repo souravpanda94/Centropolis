@@ -24,7 +24,6 @@ class _ViewMoreWidgetState extends State<ViewMoreWidget> {
             style: const TextStyle(
                 fontFamily: 'Regular',
                 fontSize: 14,
-                fontWeight: FontWeight.w400,
                 color: CustomColors.textColorBlack2),
           ),
           const SizedBox(

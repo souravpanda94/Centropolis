@@ -68,9 +68,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 Text(
                   tr("reservationInformation"),
                   style: const TextStyle(
-                      fontFamily: 'Regular',
+                      fontFamily: 'SemiBold',
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
                       color: CustomColors.textColor8),
                 ),
                 const SizedBox(
@@ -82,9 +81,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                     Text(
                       tr("nameLounge"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'SemiBold',
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
                           color: CustomColors.textColorBlack2),
                     ),
                     const Text(
@@ -92,7 +90,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       style: TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                           color: CustomColors.textColorBlack2),
                     )
                   ],
@@ -111,9 +108,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                     Text(
                       tr("tenantCompanyLounge"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'SemiBold',
                           fontSize: 14,
-                          fontWeight: FontWeight.w600,
                           color: CustomColors.textColorBlack2),
                     ),
                     const Text(
@@ -121,7 +117,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       style: TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
-                          fontWeight: FontWeight.w400,
                           color: CustomColors.textColorBlack2),
                     )
                   ],
@@ -146,9 +141,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 Text(
                   tr("selectReservationDate"),
                   style: const TextStyle(
-                      fontFamily: 'Regular',
+                      fontFamily: 'SemiBold',
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
                       color: CustomColors.textColor8),
                 ),
                 const SizedBox(
@@ -168,9 +162,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                     formatButtonVisible: false,
                     titleCentered: true,
                     titleTextStyle: const TextStyle(
-                        fontFamily: 'Regular',
+                        fontFamily: 'SemiBold',
                         fontSize: 16,
-                        fontWeight: FontWeight.w500,
                         color: Colors.black),
                     titleTextFormatter: (date, locale) =>
                         DateFormat.yMMMM(locale).format(date),
@@ -207,9 +200,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       selectedDecoration: const BoxDecoration(
                           color: Color(0xffCC6047), shape: BoxShape.circle),
                       defaultTextStyle: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          fontWeight: FontWeight.w500)),
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                      )),
                   selectedDayPredicate: (day) {
                     if (isSameDay(day, _focusedDay)) {
                       return true;
@@ -266,9 +259,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 Text(
                   tr("timeSelection"),
                   style: const TextStyle(
-                      fontFamily: 'Regular',
+                      fontFamily: 'SemiBold',
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
                       color: CustomColors.textColor8),
                 ),
                 const SizedBox(
@@ -277,9 +269,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 Text(
                   tr("usageTime"),
                   style: const TextStyle(
-                      fontFamily: 'Regular',
+                      fontFamily: 'SemiBold',
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
                       color: CustomColors.textColor8),
                 ),
                 const SizedBox(
@@ -310,7 +301,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       hintStyle: const TextStyle(
                         color: CustomColors.textColorBlack2,
                         fontSize: 14,
-                        fontWeight: FontWeight.w400,
                         fontFamily: 'Regular',
                       ),
                       suffixIcon: Padding(
@@ -344,9 +334,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         Text(
                           tr("startTime"),
                           style: const TextStyle(
-                              fontFamily: 'Regular',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
-                              fontWeight: FontWeight.w600,
                               color: CustomColors.textColor8),
                         ),
                         const SizedBox(
@@ -379,7 +368,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                               hintStyle: const TextStyle(
                                 color: CustomColors.textColorBlack2,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
                                 fontFamily: 'Regular',
                               ),
                               suffixIcon: startTimeController.text.isEmpty
@@ -406,9 +394,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         Text(
                           tr("endTime"),
                           style: const TextStyle(
-                              fontFamily: 'Regular',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
-                              fontWeight: FontWeight.w600,
                               color: CustomColors.textColor8),
                         ),
                         const SizedBox(
@@ -441,7 +428,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                               hintStyle: const TextStyle(
                                 color: CustomColors.textColorBlack2,
                                 fontSize: 14,
-                                fontWeight: FontWeight.w400,
                                 fontFamily: 'Regular',
                               ),
                               suffixIcon: endTimeController.text.isEmpty
@@ -501,7 +487,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                         style: const TextStyle(
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            fontWeight: FontWeight.w400,
                                             color:
                                                 CustomColors.textColorBlack2),
                                       ),
@@ -537,7 +522,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 Padding(
                   padding: const EdgeInsets.only(top: 16),
                   child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
@@ -569,7 +554,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           tr("loungeReservationConsent"),
                           style: const TextStyle(
                               fontFamily: 'Regular',
-                              fontWeight: FontWeight.w400,
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
                         ),

@@ -1,11 +1,9 @@
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
-import '../../widgets/home_page_app_bar.dart';
 
 class BarCodeScreen extends StatefulWidget {
   const BarCodeScreen({super.key});
@@ -58,9 +56,8 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                   textAlign: TextAlign.center,
                   maxLines: 1,
                   style: const TextStyle(
-                      fontFamily: 'Regular',
+                      fontFamily: 'SemiBold',
                       fontSize: 16,
-                      fontWeight: FontWeight.w600,
                       color: CustomColors.textColorBlack2),
                 ),
               ),
@@ -71,7 +68,6 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                 style: const TextStyle(
                     fontFamily: 'Regular',
                     fontSize: 14,
-                    fontWeight: FontWeight.w400,
                     color: CustomColors.greyColor1),
               ),
               Container(

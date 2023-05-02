@@ -8,7 +8,6 @@ import '../../widgets/common_button.dart';
 import 'find_ID_password.dart';
 import 'signup.dart';
 
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -144,7 +143,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     tr("saveLoginInformation"),
                     style: const TextStyle(
                         fontFamily: 'Regular',
-                        fontWeight: FontWeight.w400,
                         fontSize: 14,
                         color: CustomColors.textColorBlack2),
                   )
@@ -258,6 +256,4 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-
 }
