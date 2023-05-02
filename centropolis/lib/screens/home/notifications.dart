@@ -13,7 +13,91 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  dynamic notificationList = [
+  List<dynamic> notificationList = [
+    {
+      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
+      "subtitle":
+          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "수면실",
+      "subtitle":
+          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
+      "subtitle":
+          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "수면실",
+      "subtitle":
+          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
+      "subtitle":
+          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
+      "subtitle":
+          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "수면실",
+      "subtitle":
+          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
+      "subtitle":
+          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "수면실",
+      "subtitle":
+          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "수면실",
+      "subtitle":
+          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "수면실",
+      "subtitle":
+          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
+    {
+      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
+      "subtitle":
+          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
+      "datetime": "2023.00.00 13:00",
+      "content": "Contents"
+    },
     {
       "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
       "subtitle":
@@ -26,7 +110,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: CustomColors.greyColor2,
+        backgroundColor: CustomColors.backgroundColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
@@ -41,7 +125,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         body: Container(
             margin: const EdgeInsets.only(top: 32, left: 16, right: 16),
             child: ListView.builder(
-                itemCount: 1,
+                itemCount: notificationList.length,
                 itemBuilder: ((context, index) {
                   return Container(
                     decoration: BoxDecoration(
@@ -52,11 +136,14 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         borderRadius:
                             const BorderRadius.all(Radius.circular(4))),
                     padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(bottom: 16),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
                           notificationList[index]["title"],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
@@ -68,6 +155,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                           child: Row(
                             children: [
                               Expanded(
+                                flex: 3,
                                 child: Text(
                                   notificationList[index]["subtitle"],
                                   maxLines: 1,
