@@ -33,6 +33,8 @@ class _AmenityReservationPaymentState extends State<AmenityReservationPayment> {
             firstButtonName: "",
             secondButtonName: "",
             onConfirmBtnTap: () {},
+            onFirstBtnTap: (){},
+            onSecondBtnTap: (){},
           );
         });
   }

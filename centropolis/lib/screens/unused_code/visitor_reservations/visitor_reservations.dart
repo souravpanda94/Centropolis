@@ -91,6 +91,8 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
             firstButtonName: "",
             secondButtonName: "",
             onConfirmBtnTap: () {},
+            onFirstBtnTap: (){},
+            onSecondBtnTap: (){},
           );
         });
   }
@@ -106,7 +108,7 @@ class _VisitorReservationsScreenState extends State<VisitorReservationsScreen> {
             color: CustomColors.whiteColor,
             child: HomePageAppBar(title: tr("visitorReservations"),
                 onSettingBtnTap: (){},
-                onNotificationBtnTap: (){}
+                onNotificationBtnTap: (){},
             ),
           ),
         ),

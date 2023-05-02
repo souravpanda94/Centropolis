@@ -6,18 +6,26 @@ import '../utils/constants.dart';
 import '../utils/custom_colors.dart';
 
 class CommonModal extends StatefulWidget {
-  final heading, description, buttonName, firstButtonName, secondButtonName;
+  final String heading;
+  final String description;
+  final String buttonName;
+  final String firstButtonName;
+  final String secondButtonName;
 
   final Function onConfirmBtnTap;
+  final Function onFirstBtnTap;
+  final Function onSecondBtnTap;
 
   const CommonModal({
     Key? key,
-    this.heading,
-    this.description,
-    this.buttonName,
-    this.firstButtonName,
-    this.secondButtonName,
+    required this.heading,
+    required this.description,
+    required this.buttonName,
+    required this.firstButtonName,
+    required this.secondButtonName,
     required this.onConfirmBtnTap,
+    required this.onFirstBtnTap,
+    required this.onSecondBtnTap,
   }) : super(key: key);
 
   @override
