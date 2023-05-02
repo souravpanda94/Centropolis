@@ -5,19 +5,16 @@ import 'package:flutter_svg/svg.dart';
 import '../utils/constants.dart';
 import '../utils/custom_colors.dart';
 
-
 class HomePageAppBar extends StatefulWidget {
   final String title;
   final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
-  const HomePageAppBar({
-    super.key,
-    required this.title,
-    required this.onSettingBtnTap,
-    required this.onNotificationBtnTap
-  });
-
+  const HomePageAppBar(
+      {super.key,
+      required this.title,
+      required this.onSettingBtnTap,
+      required this.onNotificationBtnTap});
 
   @override
   State<StatefulWidget> createState() {
@@ -26,7 +23,6 @@ class HomePageAppBar extends StatefulWidget {
 }
 
 class _HomePageAppBarState extends State<HomePageAppBar> {
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -62,7 +58,7 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
             //   },
             // ),
             actions: [
-              if(widget.title == tr("myPage"))
+              if (widget.title == tr("myPage"))
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_setting.svg",
@@ -72,8 +68,7 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
                     widget.onSettingBtnTap();
                   },
                 ),
-
-              if(widget.title != tr("myPage"))
+              if (widget.title != tr("myPage"))
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_notification_with_indicator.svg",
@@ -83,7 +78,6 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
                     widget.onNotificationBtnTap();
                   },
                 )
-
             ]),
         // const Divider(
         //   color: CustomColors.borderColor,
