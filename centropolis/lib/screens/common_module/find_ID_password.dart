@@ -102,11 +102,11 @@ class _FindIDPasswordState extends State<FindIDPassword> with SingleTickerProvid
                       fontSize: 14,
                       fontFamily: 'Regular',
                     ),
-                    indicatorColor: CustomColors.buttonBackgroundColor,
+                    indicatorColor: CustomColors.textColor9,
                     indicator:  const UnderlineTabIndicator(
                       borderSide: BorderSide(
                           width: 2.0,
-                          color: CustomColors.buttonBackgroundColor),
+                          color: CustomColors.textColor9),
                       // insets: EdgeInsets.symmetric(horizontal:16.0)
                     ),
                   ),

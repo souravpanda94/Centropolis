@@ -60,7 +60,7 @@ class MyPageRow extends StatelessWidget {
                                   color:
                                       requestList[index]["status"].toString() ==
                                               'heating'
-                                          ? CustomColors.heatingColor
+                                          ? CustomColors.headingColor
                                           : CustomColors.coolingColor,
                                 ),
                               ),

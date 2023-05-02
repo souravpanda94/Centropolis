@@ -1,6 +1,5 @@
 import 'package:centropolis/screens/unused_code/my_page_old/request_for_lights_out_details.dart';
 import 'package:centropolis/utils/utils.dart';
-import 'package:centropolis/widgets/bottom_bar.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:centropolis/widgets/my_page/my_page_row.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -98,12 +97,12 @@ class _RequestForLightsOutScreenState extends State<RequestForLightsOutScreen> {
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("requestForLightsOut"), true, () {
                 //onBackButtonPress(context);
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const BottomBar(),
-                  ),
-                );
+                // Navigator.pushReplacement(
+                //   context,
+                //   MaterialPageRoute(
+                //     builder: (context) => const BottomBar(),
+                //   ),
+                // );
               }, () {}),
             ),
           ),

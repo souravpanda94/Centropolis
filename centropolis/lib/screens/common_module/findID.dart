@@ -32,7 +32,7 @@ class _FindIdScreenState extends State<FindID> {
                     TextSpan(
                         text: ' *',
                         style: TextStyle(
-                            color: CustomColors.heatingColor, fontSize: 12))
+                            color: CustomColors.headingColor, fontSize: 12))
                   ]),
               maxLines: 1,
             ),
@@ -76,7 +76,7 @@ class _FindIdScreenState extends State<FindID> {
                   onCommonButtonTap: () {
                     showMyModal();
                   },
-                  buttonColor: CustomColors.buttonColor,
+                  buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("findID"),
                   isIconVisible: false),
             ),

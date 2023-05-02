@@ -43,7 +43,7 @@ class _LoungeScreenState extends State<LoungeScreen> {
                         style: const TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 14,
-                            color: CustomColors.buttonBackgroundColor),
+                            color: CustomColors.textColor9),
                       ),
                       const SizedBox(
                         height: 8,
@@ -153,7 +153,7 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       ),
                     );
                   },
-                  buttonColor: CustomColors.buttonColor,
+                  buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("makeALoungeReservation"),
                   isIconVisible: true,
                 ),

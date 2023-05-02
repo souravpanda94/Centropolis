@@ -532,7 +532,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           width: 15,
                           child: Checkbox(
                             checkColor: CustomColors.whiteColor,
-                            activeColor: CustomColors.buttonColor,
+                            activeColor: CustomColors.buttonBackgroundColor,
                             side: const BorderSide(
                                 color: CustomColors.greyColor, width: 1),
                             value: _isChecked,
@@ -565,7 +565,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   padding: const EdgeInsets.only(top: 24, bottom: 32),
                   child: CommonButton(
                     onCommonButtonTap: () {},
-                    buttonColor: CustomColors.buttonColor,
+                    buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("makeReservation"),
                     isIconVisible: false,
                   ),
