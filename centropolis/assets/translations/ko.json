@@ -1,7 +1,7 @@
 {
   "lang": "ko",
 
-  "mondira" : "=============================MONDIRA SECTION=========================================",
+  "mondira_old" : "=============================MONDIRA OLD SECTION=========================================",
   "visitorReservations" : "Visitor Reservations",
   "visitReservationApplication": "Visit Reservation Application",
   "today": "TODAY",
@@ -57,7 +57,7 @@
   "apply" : "Apply",
 
 
-
+  "mondira": "=============================MONDIRA SECTION=========================================",
   "tenantService" : "Tenant service",
   "vocApplication" : "VOC Application",
   "lounge" : "Lounge",
@@ -66,20 +66,12 @@
   "inconvenience" : "Inconvenience",
   "lightOut" : "Light-Out",
   "airConditioning" : "Air Conditioning",
-
-
-
-
-
-
-
-  "sourav" : "=============================SOURAV SECTION=========================================",
-
+  "loungeReservationComplete" : "Lounge reservation complete",
+  "check" : "확인",
 
 
 
   "aditi_old" : "=============================Aditi Old SECTION=========================================",
- 
   "homeTitle" : "역사와 문화가 살아 숨 쉬는",
   "homeSubtitle" : " 프라임 오피스 빌딩 센트로폴리스",
   "conferenceSubTitle" : "컨퍼런스",
@@ -164,7 +156,6 @@
   "passwordHint" : "영문/숫자/특수문자 포함 8자 이상 16자 미만",
   "notificationHistory" : "알림 내역",
   "viewMore" : "더보기",
-  "check" : "확인",
   "loungeTitle" : "센트로폴리스 이그제큐티브 라운지 바이 해비치",
   "operatingTime" : "운영시간",
   "availableMenu" : "이용가능메뉴",
@@ -194,16 +185,12 @@
   "randomChoice" : "임의 선택",
   "conference" : "컨퍼런스",
   "capacityByType" : "타입별 수용인원",
-  "makeConferenceRoomReservation" : "회의실 예약하기"
+  "makeConferenceRoomReservation" : "회의실 예약하기",
 
 
 
 
 
 
-  
-
-
-
-
+  "sourav" : "=============================SOURAV SECTION========================================="
 }

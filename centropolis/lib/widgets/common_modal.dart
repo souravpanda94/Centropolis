@@ -39,11 +39,11 @@ class _CommonModalState extends State<CommonModal> {
 
     return AlertDialog(
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(4),
         ),
         insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
         contentPadding: const EdgeInsets.only(
-            top: 45, bottom: 30.0, left: 16.0, right: 16.0),
+            top: 40, bottom: 30.0, left: 20.0, right: 20.0),
         scrollable: true,
         content: SizedBox(
           width: width,
@@ -54,15 +54,14 @@ class _CommonModalState extends State<CommonModal> {
                 style: const TextStyle(
                   color: CustomColors.textColor8,
                   fontSize: 16,
-                  fontFamily: 'SemiBold',
-                  // fontWeight: AppTranslations.of(context).currentLanguage == "ko" ? FontWeight.w800 : FontWeight.bold,
+                  fontFamily: 'Bold',
                 ),
                 textAlign: TextAlign.center,
               ),
             ),
             if (widget.description != "")
               Container(
-                margin: const EdgeInsets.only(top: 10.0),
+                margin: const EdgeInsets.only(top: 15.0),
                 child: Text(
                   widget.description,
                   style: const TextStyle(
@@ -76,7 +75,7 @@ class _CommonModalState extends State<CommonModal> {
             if (widget.buttonName != "")
               Container(
                   margin: const EdgeInsets.only(
-                    top: 20.0,
+                    top: 30.0,
                   ),
                   height: 50,
                   width: double.infinity,
@@ -104,7 +103,7 @@ class _CommonModalState extends State<CommonModal> {
             if (widget.firstButtonName != "" && widget.secondButtonName != "")
               Container(
                   margin: const EdgeInsets.only(
-                    top: 20.0,
+                    top: 30.0,
                   ),
                   width: double.infinity,
                   height: 52,

@@ -7,6 +7,7 @@ import 'package:table_calendar/table_calendar.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
 
 class LoungeReservation extends StatefulWidget {
   const LoungeReservation({super.key});
@@ -564,7 +565,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 Padding(
                   padding: const EdgeInsets.only(top: 24, bottom: 32),
                   child: CommonButton(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      showReservationModal();
+                    },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("makeReservation"),
                     isIconVisible: false,
@@ -577,4 +580,28 @@ class _LoungeReservationState extends State<LoungeReservation> {
       )),
     );
   }
+
+  void showReservationModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("loungeReservationComplete"),
+            description: "The lounge reservation is complete. \nPlease visit the lounge on the 3rd floor and fill out the payment and rental agreement.",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+
+
+
 }

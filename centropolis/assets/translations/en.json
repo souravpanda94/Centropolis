@@ -1,6 +1,6 @@
 {
   "lang": "en",
-  "mondira": "=============================MONDIRA SECTION=========================================",
+  "mondira_old": "=============================MONDIRA OLD SECTION=========================================",
   "visitorReservations": "Visitor Reservations",
   "visitReservationApplication": "Visit Reservation Application",
   "today": "TODAY",
@@ -57,6 +57,9 @@
 
 
 
+
+
+  "mondira": "=============================MONDIRA SECTION=========================================",
   "tenantService" : "Tenant service",
   "vocApplication" : "VOC Application",
   "lounge" : "Lounge",
@@ -65,10 +68,17 @@
   "inconvenience" : "Inconvenience",
   "lightOut" : "Light-Out",
   "airConditioning" : "Air Conditioning",
+  "loungeReservationComplete" : "Lounge reservation complete",
+  "check" : "Check",
+
+
+
+
+
+
 
 
   "aditi_old" : "=============================Aditi Old SECTION=========================================",
-  
   "homeTitle" : "History and culture are alive and breathing",
   "homeSubtitle" : "Prime Office Building Centropolis",
   "conferenceSubTitle" : "conference",
@@ -153,7 +163,6 @@
   "passwordHint" : "More than 8 characters and less than 16 characters including English/number/special characters",
   "notificationHistory" : "Notification History",
   "viewMore" : "View More",
-  "check" : "Check",
   "loungeTitle" : "Centropolis Executive Lounge by Haevichi",
   "operatingTime" : "Operating Time",
   "availableMenu" : "Available Menu",

@@ -97,7 +97,9 @@ class _FindIdScreenState extends State<FindID> {
             buttonName: tr("confirm"),
             firstButtonName: "",
             secondButtonName: "",
-            onConfirmBtnTap: () {},
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
           );
