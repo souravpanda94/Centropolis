@@ -48,7 +48,6 @@
   "tenantCompanyInformation" : "Tenant company information",
   "applicantName" : "Applicant name",
   "selectDate" : "select date",
-  "timeSelection" : "time selection",
   "lightsOutStart" : "lights out start",
   "lightsOutEnd" : "lights out end",
   "amountOfPayment" : "Amount of payment",
@@ -83,10 +82,6 @@
   "otherReservationCard2" : "air conditioning application",
   "otherReservationCard3" : "Complaints received",
   "otherReservationCardBook" : "Shortcuts",
-  "homeRowBook" : "Make a reservation",
-  "barCodeHeader" : "QR check-in",
-  "barCodeTitle" : "QR code for entry",
-  "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
   "bookmeetingRoom" : "Book a meeting room",
   "meetingInformation" : "meeting information",
   "meetingDate" : "meeting date",
@@ -95,7 +90,6 @@
   "meetingHint" : "Enter the meeting name that will be displayed on the screen in front of the meeting room.",
   "hostingMeeting" : "hosting a meeting",
   "additionalEquipment" : "additional equipment",
-  "reservationInformation" : "Reservation information",
   "reservationAgent" : "Reservations agent",
   "paymentDetails" : "payment details",
   "paymentTerms" : "I agree to the use of personal information.",
@@ -167,6 +161,31 @@
   "loungeRental" : "Lounge Rental",
   "inquiry" : "Inquiry",
   "makeALoungeReservation" : "Make a Lounge Reservation",
+  "barCodeHeader" : "QR check-in",
+  "barCodeTitle" : "QR code for entry",
+  "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
+  "loungeReservation" : "Lounge reservation",
+  "reservationInformation" : "Reservation information",
+  "selectReservationDate" : "Select Reservation Date",
+  "timeSelection" : "Time selection",
+  "usageTime" : "Usage Time",
+  "startTime" : "Start Time",
+  "endTime" : "End Time",
+  "selectUsageTime" : "Please select a usage time",
+  "selectStartTime" : "Please select a start time",
+  "selectEndTime" : "Please select an end time",
+  "loungeReservationConsent" : "I agree to the Executive Lounge Reservation Rules.",
+  "makeReservation" : "Make a reservation",
+  "nameLounge" : "Name",
+  "tenantCompanyLounge" : "Tenant Company",
+  "usageTimeDay" : "All day 9:00 ~ 18:00 (9 hours)",
+  "usageTimeMorning" : "AM 9:00 ~ 13:00 (4 hours)",
+  "usageTimeAfternoon" : "Afternoon 14:00 ~ 18:00 (4 hours)",
+  "randomChoice" : "Random Choice",
+
+
+
+
 
   
   

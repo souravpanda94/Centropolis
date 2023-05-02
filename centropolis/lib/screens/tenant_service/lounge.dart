@@ -1,10 +1,10 @@
-import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import 'lounge_reservation.dart';
 
 class LoungeScreen extends StatefulWidget {
   const LoungeScreen({super.key});
@@ -156,7 +156,14 @@ class _LoungeScreenState extends State<LoungeScreen> {
               child: Container(
                 margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                 child: CommonButton(
-                  onCommonButtonTap: () {},
+                  onCommonButtonTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const LoungeReservation(),
+                      ),
+                    );
+                  },
                   buttonColor: CustomColors.buttonColor,
                   buttonName: tr("makeALoungeReservation"),
                   isIconVisible: true,
