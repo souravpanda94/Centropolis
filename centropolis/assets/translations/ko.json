@@ -82,7 +82,6 @@
  
   "homeTitle" : "역사와 문화가 살아 숨 쉬는",
   "homeSubtitle" : " 프라임 오피스 빌딩 센트로폴리스",
-  "conference" : "Conference",
   "conferenceSubTitle" : "컨퍼런스",
   "conferenceRoom" : "Conference Room 2",
   "visitReservation" : "Visit Reservation",
@@ -192,7 +191,11 @@
   "usageTimeDay" : "전일 9:00 ~ 18:00 (9시간)",
   "usageTimeMorning" : "오전 9:00 ~ 13:00 (4시간)",
   "usageTimeAfternoon" : "오후 14:00 ~ 18:00 (4시간)",
-  "randomChoice" : "임의 선택"
+  "randomChoice" : "임의 선택",
+  "conference" : "컨퍼런스",
+  "capacityByType" : "타입별 수용인원",
+  "makeConferenceRoomReservation" : "회의실 예약하기"
+
 
 
 

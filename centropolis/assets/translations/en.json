@@ -71,7 +71,6 @@
   
   "homeTitle" : "History and culture are alive and breathing",
   "homeSubtitle" : "Prime Office Building Centropolis",
-  "conference" : "Conference",
   "conferenceSubTitle" : "conference",
   "conferenceRoom" : "Conference Room 2",
   "visitReservation" : "Visit Reservation",
@@ -182,6 +181,10 @@
   "usageTimeMorning" : "AM 9:00 ~ 13:00 (4 hours)",
   "usageTimeAfternoon" : "Afternoon 14:00 ~ 18:00 (4 hours)",
   "randomChoice" : "Random Choice",
+  "conference" : "Conference",
+  "capacityByType" : "Capacity by type",
+  "makeConferenceRoomReservation" : "Make a Conference Room Reservation",
+
 
 
 
