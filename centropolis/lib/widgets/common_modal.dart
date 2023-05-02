@@ -85,15 +85,15 @@ class _CommonModalState extends State<CommonModal> {
                       // padding: const EdgeInsets.only(left: 45.0, right: 45.0),
                         primary: CustomColors.buttonBackgroundColor,
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(50),
+                          borderRadius: BorderRadius.circular(4),
                         ),
                         shadowColor: Colors.transparent),
                     child: Text(
                       widget.buttonName,
                       style: const TextStyle(
-                        fontSize: 15,
+                        fontSize: 14,
                         color: CustomColors.whiteColor,
-                        fontFamily: 'SemiBold',
+                        fontFamily: 'Bold',
                       ),
                       textAlign: TextAlign.center,
                     ),
@@ -118,7 +118,7 @@ class _CommonModalState extends State<CommonModal> {
                               style: ElevatedButton.styleFrom(
                                 primary: CustomColors.whiteColor,
                                 shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(50),
+                                  borderRadius: BorderRadius.circular(4),
                                   side: const BorderSide(
                                       color: CustomColors.dividerGreyColor),
                                 ),
@@ -148,7 +148,7 @@ class _CommonModalState extends State<CommonModal> {
                             style: ElevatedButton.styleFrom(
                               primary: CustomColors.buttonBackgroundColor,
                               shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(50),
+                                borderRadius: BorderRadius.circular(4),
                               ),
                               shadowColor: Colors.transparent,
                             ),
@@ -172,76 +172,5 @@ class _CommonModalState extends State<CommonModal> {
           ]),
         ));
 
-
-
-    // return AlertDialog(
-    //     shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.circular(10),
-    //     ),
-    //     insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
-    //     contentPadding: const EdgeInsets.only(
-    //       top: 30,
-    //     ),
-    //     scrollable: true,
-    //     content: SizedBox(
-    //       width: width,
-    //       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
-    //         SvgPicture.asset(
-    //           'assets/images/ic_success.svg',
-    //           semanticsLabel: 'Back',
-    //           width: 40,
-    //           height: 40,
-    //           alignment: Alignment.center,
-    //         ),
-    //         Container(
-    //           margin: const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
-    //           child: Text(
-    //             widget.heading,
-    //             style: const TextStyle(
-    //               color: CustomColors.textColor1,
-    //               fontSize: 20,
-    //               fontFamily: 'Bold',
-    //               // fontWeight: AppTranslations.of(context).currentLanguage == "ko" ? FontWeight.w800 : FontWeight.bold,
-    //             ),
-    //             textAlign: TextAlign.center,
-    //           ),
-    //         ),
-    //         if (widget.description != "")
-    //           Container(
-    //             margin:
-    //                 const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
-    //             child: Text(
-    //               widget.description,
-    //               style: const TextStyle(
-    //                 color: CustomColors.textColorBlack2,
-    //                 fontSize: 15,
-    //                 fontFamily: 'Regular',
-    //               ),
-    //               textAlign: TextAlign.center,
-    //             ),
-    //           ),
-    //         Container(
-    //           margin: const EdgeInsets.only(top: 20),
-    //           height: 1,
-    //           color: CustomColors.borderColor,
-    //         ),
-    //         SizedBox(
-    //           width: double.infinity,
-    //           height: 55,
-    //           child: Align(
-    //             alignment: Alignment.center,
-    //             child: Text(
-    //               widget.buttonName,
-    //               style: const TextStyle(
-    //                 color: CustomColors.textColorBlack2,
-    //                 fontSize: 16,
-    //                 fontFamily: 'Regular',
-    //               ),
-    //               textAlign: TextAlign.center,
-    //             ),
-    //           ),
-    //         )
-    //       ]),
-    //     ));
   }
 }
