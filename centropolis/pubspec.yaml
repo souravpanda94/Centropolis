@@ -118,12 +118,14 @@ flutter:
       fonts:
         - asset: fonts/SUIT-Thin.ttf
 
-    - family: Pretendard-Bold
-      fonts:
-        - asset: fonts/Pretendard-Bold.ttf
-    - family: Pretendard-Regular
-      fonts:
-        - asset: fonts/Pretendard-Regular.ttf
+#    - family: Pretendard-Bold
+#      fonts:
+#        - asset: fonts/Pretendard-Bold.ttf
+#    - family: Pretendard-Regular
+#      fonts:
+#        - asset: fonts/Pretendard-Regular.ttf
+
+
     # - family: Light
     #   fonts:
     #     - asset: fonts/SUIT-Light.ttf
