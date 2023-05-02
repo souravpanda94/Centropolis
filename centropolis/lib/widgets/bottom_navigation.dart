@@ -1,4 +1,5 @@
 import 'package:centropolis/screens/common_module/login.dart';
+import 'package:centropolis/screens/home/bar_code.dart';
 import 'package:centropolis/widgets/home_page_app_bar.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -45,7 +46,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const NotificationScreen(),
+                            builder: (context) => const BarCodeScreen(),
                           ),
                         );
                       }),
