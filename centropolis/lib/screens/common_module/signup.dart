@@ -100,7 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         width: 15,
                         child: Checkbox(
                           checkColor: CustomColors.whiteColor,
-                          activeColor: CustomColors.buttonColor,
+                          activeColor: CustomColors.buttonBackgroundColor,
                           side: const BorderSide(
                               color: CustomColors.greyColor, width: 1),
                           value: _isChecked,
@@ -156,7 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         text: TextSpan(
                             text: '* ',
                             style: const TextStyle(
-                                color: CustomColors.heatingColor, fontSize: 12),
+                                color: CustomColors.headingColor, fontSize: 12),
                             children: [
                               TextSpan(
                                 text: tr("requiredInput"),
@@ -184,7 +184,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             TextSpan(
                                 text: ' *',
                                 style: TextStyle(
-                                    color: CustomColors.heatingColor,
+                                    color: CustomColors.headingColor,
                                     fontSize: 12))
                           ]),
                       maxLines: 1,
@@ -254,7 +254,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     TextSpan(
                                         text: ' *',
                                         style: TextStyle(
-                                            color: CustomColors.heatingColor,
+                                            color: CustomColors.headingColor,
                                             fontSize: 12))
                                   ]),
                               maxLines: 1,
@@ -333,7 +333,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -390,7 +390,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -446,9 +446,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                         onCommonButtonTap: () {},
                                         buttonName: tr("verify"),
                                         buttonBorderColor:
-                                            CustomColors.buttonColor,
+                                            CustomColors.buttonBackgroundColor,
                                         buttonTextColor:
-                                            CustomColors.buttonColor,
+                                            CustomColors.buttonBackgroundColor,
                                       )
                                     ],
                                   ),
@@ -468,7 +468,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -528,7 +528,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -588,7 +588,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -645,7 +645,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -702,7 +702,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 text: ' *',
                                                 style: TextStyle(
                                                     color: CustomColors
-                                                        .heatingColor,
+                                                        .headingColor,
                                                     fontSize: 12))
                                           ]),
                                       maxLines: 1,
@@ -720,7 +720,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                               width: 20,
                                               child: Radio<Gender>(
                                                 activeColor:
-                                                    CustomColors.buttonColor,
+                                                    CustomColors.buttonBackgroundColor,
                                                 materialTapTargetSize:
                                                     MaterialTapTargetSize
                                                         .shrinkWrap,
@@ -757,7 +757,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                               width: 20,
                                               child: Radio<Gender>(
                                                 activeColor:
-                                                    CustomColors.buttonColor,
+                                                    CustomColors.buttonBackgroundColor,
                                                 materialTapTargetSize:
                                                     MaterialTapTargetSize
                                                         .shrinkWrap,
@@ -793,7 +793,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         top: 34, bottom: 16),
                                     child: CommonButton(
                                         onCommonButtonTap: () {},
-                                        buttonColor: CustomColors.buttonColor,
+                                        buttonColor: CustomColors.buttonBackgroundColor,
                                         buttonName: tr("signUp"),
                                         isIconVisible: false),
                                   ),

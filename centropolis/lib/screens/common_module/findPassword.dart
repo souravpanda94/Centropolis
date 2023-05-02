@@ -32,7 +32,7 @@ class _FindPasswordState extends State<FindPassword> {
                     TextSpan(
                         text: ' *',
                         style: TextStyle(
-                            color: CustomColors.heatingColor, fontSize: 12))
+                            color: CustomColors.headingColor, fontSize: 12))
                   ]),
               maxLines: 1,
             ),
@@ -84,7 +84,7 @@ class _FindPasswordState extends State<FindPassword> {
                     TextSpan(
                         text: ' *',
                         style: TextStyle(
-                            color: CustomColors.heatingColor, fontSize: 12))
+                            color: CustomColors.headingColor, fontSize: 12))
                   ]),
               maxLines: 1,
             ),
@@ -126,7 +126,7 @@ class _FindPasswordState extends State<FindPassword> {
               margin: const EdgeInsets.only(top: 32, bottom: 16),
               child: CommonButton(
                   onCommonButtonTap: () {},
-                  buttonColor: CustomColors.buttonColor,
+                  buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("findPassword"),
                   isIconVisible: false),
             ),

@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     width: 15,
                     child: Checkbox(
                       checkColor: CustomColors.whiteColor,
-                      activeColor: CustomColors.buttonColor,
+                      activeColor: CustomColors.buttonBackgroundColor,
                       side: const BorderSide(
                           color: CustomColors.greyColor, width: 1),
                       value: _isChecked,
@@ -155,7 +155,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     onCommonButtonTap: () {
                       goToHomeScreen();
                     },
-                    buttonColor: CustomColors.buttonColor,
+                    buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("btnLogin"),
                     isIconVisible: false),
               ),

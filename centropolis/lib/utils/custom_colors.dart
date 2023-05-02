@@ -15,23 +15,32 @@ class CustomColors {
   static const textColor6 = Color(0xFFD24545);
   static const textColor7 = Color(0xFF828282);
   static const textColor8 = Color(0xFF181818);
+  static const textColor9 = Color(0xFFCC6047);
 
-  static const selectedColor = Color(0xFFB25A42);
-  static const unSelectedColor = Color(0xFFB1B3B2);
-  static const buttonBackgroundColor = Color(0xFFCC6047);
-  static const backgroundColor = Color(0xFFFAFAFA);
-  static const textColorBlack2 = Color(0xFF333333);
-  static const textColorGrey = Color(0xFF414341);
-  static const dividerGreyColor = Color(0xFFCFCFCF);
-  static const textGreyColor = Color(0xFF868484);
-  static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
-  static const heatingColor = Color(0xFFEB5757);
-  static const coolingColor = Color(0xFF2F80ED);
 
   //newly added colors
-  static const buttonColor = Color(0xFFB9644C);
+  static const buttonBackgroundColor = Color(0xFFB9644C);
   static const greyColor = Color(0xFF505050);
   static const greyColor1 = Color(0xFF666666);
   static const greyColor2 = Color(0xFFFBFAF7);
+  static const textColorBlack2 = Color(0xFF333333);
+  static const backgroundColor = Color(0xFFFAFAFA);
   static const backgroundColor2 = Color(0xFFF2F2F2);
+  static const dividerGreyColor = Color(0xFFCFCFCF);
+  static const headingColor = Color(0xFFEB5757);
+
+
+
+
+
+// ====================== Unused color code ================
+static const selectedColor = Color(0xFFB25A42);
+static const unSelectedColor = Color(0xFFB1B3B2);
+static const textColorGrey = Color(0xFF414341);
+static const textGreyColor = Color(0xFF868484);
+static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
+static const coolingColor = Color(0xFF2F80ED);
+
+
+
 }

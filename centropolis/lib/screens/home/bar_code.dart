@@ -85,7 +85,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                   child: CommonButton(
                     isIconVisible: false,
                     onCommonButtonTap: () {},
-                    buttonColor: CustomColors.buttonColor,
+                    buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("check"),
                   ))
             ],

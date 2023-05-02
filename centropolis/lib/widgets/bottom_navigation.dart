@@ -123,11 +123,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         ],
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        selectedItemColor: CustomColors.buttonBackgroundColor,
+        selectedItemColor: CustomColors.textColor9,
         selectedLabelStyle: const TextStyle(
           fontSize: 12.0,
           fontFamily: 'Regular',
-          color: CustomColors.buttonBackgroundColor,
+          color: CustomColors.textColor9,
         ),
         unselectedItemColor: CustomColors.textColor3,
         unselectedLabelStyle: const TextStyle(
