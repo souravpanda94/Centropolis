@@ -85,7 +85,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 width: 25,
                 height: 25,
               ),
-              label: tr("tenantService"),
+              label: tr("amenity"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -96,7 +96,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 width: 25,
                 height: 25,
               ),
-              label: tr("visitor"),
+              label: tr("visitRequest"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
@@ -107,7 +107,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 width: 25,
                 height: 25,
               ),
-              label: tr("vocApplication"),
+              label: tr("voc"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
