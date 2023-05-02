@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
+import '../../widgets/app_bar_for_dialog.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/view_more.dart';
 
@@ -117,9 +118,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("notificationHistory"), true, () {
+              child: AppBarForDialog(tr("notificationHistory"), () {
                 onBackButtonPress(context);
-              }, () {}),
+              }),
             ),
           ),
         ),

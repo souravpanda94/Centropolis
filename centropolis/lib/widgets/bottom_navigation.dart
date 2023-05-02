@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import '../screens/home/bar_code.dart';
 import '../screens/home/home.dart';
 import '../screens/home/notifications.dart';
 import '../screens/my_page/my_page.dart';
@@ -44,7 +45,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const NotificationScreen(),
+                            // builder: (context) => const NotificationScreen(),
+                            builder: (context) => const BarCodeScreen(),
                           ),
                         );
                       }),

@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
+import '../../widgets/app_bar_for_dialog.dart';
 import '../../widgets/common_app_bar.dart';
 
 class BarCodeScreen extends StatefulWidget {
@@ -32,9 +33,9 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("barCodeHeader"), true, () {
+            child: AppBarForDialog(tr("qrCheckIn"), () {
               onBackButtonPress(context);
-            }, () {}),
+            }),
           ),
         ),
       ),
