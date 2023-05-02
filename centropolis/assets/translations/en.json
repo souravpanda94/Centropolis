@@ -68,11 +68,8 @@
   "airConditioning" : "Air Conditioning",
 
 
-  "aditi" : "=============================Aditi SECTION=========================================",
-  "home" : "Home",
-  "amenity" : "Amenity",
-  "visitor" : "Visit Reservations",
-  "myPage" : "My Page",
+  "aditi_old" : "=============================Aditi Old SECTION=========================================",
+  
   "homeTitle" : "History and culture are alive and breathing",
   "homeSubtitle" : "Prime Office Building Centropolis",
   "conference" : "Conference",
@@ -118,7 +115,11 @@
   "heating" : "heating",
 
 
-
+  "aditi" : "=============================Aditi SECTION=========================================",
+  "home" : "Home",
+  "amenity" : "Amenity",
+  "visitor" : "Visit Reservations",
+  "myPage" : "My Page",
   "login" : "Login",
   "id" : "ID",
   "IDHeading" : "ID",
@@ -160,6 +161,12 @@
   "notificationHistory" : "Notification History",
   "viewMore" : "View More",
   "check" : "Check",
+  "loungeTitle" : "Centropolis Executive Lounge by Haevichi",
+  "operatingTime" : "Operating Time",
+  "availableMenu" : "Available Menu",
+  "loungeRental" : "Lounge Rental",
+  "inquiry" : "Inquiry",
+  "makeALoungeReservation" : "Make a Lounge Reservation",
 
   
   

@@ -79,11 +79,8 @@
 
 
 
-  "aditi" : "=============================Aditi SECTION=========================================",
-  "home" : "홈",
-  "amenity" : "어메니티",
-  "visitor" : "방문 예약",
-  "myPage" : "마이페이지",
+  "aditi_old" : "=============================Aditi Old SECTION=========================================",
+ 
   "homeTitle" : "역사와 문화가 살아 숨 쉬는",
   "homeSubtitle" : " 프라임 오피스 빌딩 센트로폴리스",
   "conference" : "Conference",
@@ -128,7 +125,11 @@
   "lightsOut" : "소등 일시",
   "heating" : "난방",
 
-  
+  "aditi" : "=============================Aditi SECTION=========================================",
+  "home" : "홈",
+  "amenity" : "어메니티",
+  "visitor" : "방문 예약",
+  "myPage" : "마이페이지",
   "login" : "로그인",
   "id" : "ID",
   "password" : "Password",
@@ -169,7 +170,13 @@
   "passwordHint" : "영문/숫자/특수문자 포함 8자 이상 16자 미만",
   "notificationHistory" : "알림 내역",
   "viewMore" : "더보기",
-  "check" : "확인"
+  "check" : "확인",
+  "loungeTitle" : "센트로폴리스 이그제큐티브 라운지 바이 해비치",
+  "operatingTime" : "운영시간",
+  "availableMenu" : "이용가능메뉴",
+  "loungeRental" : "라운지 대관",
+  "inquiry" : "문의",
+  "makeALoungeReservation" : "라운지 예약하기"
 
 
 
