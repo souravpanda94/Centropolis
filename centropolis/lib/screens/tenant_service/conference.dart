@@ -172,7 +172,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                     //   ),
                     // );
                   },
-                  buttonColor: CustomColors.buttonColor,
+                  buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("makeConferenceRoomReservation"),
                   isIconVisible: true,
                 ),
