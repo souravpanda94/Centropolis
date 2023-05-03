@@ -33,7 +33,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("conferenceRoomReservation"), true, () {
+            child: CommonAppBar(tr("conferenceRoomReservation"), false, () {
               onBackButtonPress(context);
             }, () {}),
           ),

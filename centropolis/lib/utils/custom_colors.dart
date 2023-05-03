@@ -5,7 +5,6 @@ class CustomColors {
   static const shadowColor = Color(0xFF00001A);
   static const whiteColor = Color(0xFFffffff);
   static const blackColor = Color(0xFF000000);
-  static const borderColor = Color(0xFFE0E0E0);
   static const borderColor2 = Color(0xFFF1F0EE);
 
   static const textColor1 = Color(0xFF222722);
@@ -14,9 +13,7 @@ class CustomColors {
   static const textColor5 = Color(0xFF4C4C4C);
   static const textColor6 = Color(0xFFD24545);
   static const textColor7 = Color(0xFF828282);
-  static const textColor8 = Color(0xFF181818);
   static const textColor9 = Color(0xFFCC6047);
-
 
   //newly added colors
   static const buttonBackgroundColor = Color(0xFFB9644C);
@@ -30,19 +27,19 @@ class CustomColors {
   static const backgroundColor4 = Color(0xFFFFF7F7);
   static const dividerGreyColor = Color(0xFFCFCFCF);
   static const headingColor = Color(0xFFEB5757);
-
-
-
-
+  static const spareColor = Color(0xFF93CC00);
+  static const commonlyColor = Color(0xFFF3C62A);
+  static const confusionColor = Color(0xFFFF9536);
+  static const fullColor = Color(0xFFD24545);
+  static const tabColor = Color(0xFF735440);
+  static const borderColor = Color(0xFFE0E0E0);
+  static const textColor8 = Color(0xFF181818);
 
 // ====================== Unused color code ================
-static const selectedColor = Color(0xFFB25A42);
-static const unSelectedColor = Color(0xFFB1B3B2);
-static const textColorGrey = Color(0xFF414341);
-static const textGreyColor = Color(0xFF868484);
-static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
-static const coolingColor = Color(0xFF2F80ED);
-
-
-
+  static const selectedColor = Color(0xFFB25A42);
+  static const unSelectedColor = Color(0xFFB1B3B2);
+  static const textColorGrey = Color(0xFF414341);
+  static const textGreyColor = Color(0xFF868484);
+  static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
+  static const coolingColor = Color(0xFF2F80ED);
 }
