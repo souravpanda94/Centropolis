@@ -5,7 +5,7 @@ import '../screens/home/bar_code.dart';
 import '../screens/home/home.dart';
 import '../screens/my_page/my_page.dart';
 import '../screens/tenant_service/tenant_service.dart';
-import '../screens/visit_reservations/visi_request.dart';
+import '../screens/visit_request/visi_request.dart';
 import '../screens/vov_application/voc_application.dart';
 import '../utils/custom_colors.dart';
 import 'home_page_app_bar.dart';

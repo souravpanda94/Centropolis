@@ -1,4 +1,4 @@
-import 'package:centropolis/screens/visit_reservations/visit_reservations.dart';
+import 'package:centropolis/screens/visit_request/visit_reservations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';

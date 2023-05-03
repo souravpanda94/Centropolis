@@ -1,5 +1,6 @@
-import 'package:centropolis/screens/visit_reservations/view_visit_reservation.dart';
-import 'package:centropolis/screens/visit_reservations/visit_inquiry.dart';
+
+import 'package:centropolis/screens/visit_request/view_visit_reservation.dart';
+import 'package:centropolis/screens/visit_request/visit_inquiry.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
