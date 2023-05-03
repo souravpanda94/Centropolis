@@ -232,6 +232,15 @@
   "application/NumberOfPeople" : "Application / number of people",
   "gxReservationConsent" : "I agree to the fitness reservation rules.",
   "selectPeriod" : "Select Period",
+  "howToUse" : "How to use",
+  "makeSleepingRoomReservation" : "Make a Sleeping Room Reservation",
+  "sleepingRoomReservationConsent" : "I agree to the sleeping room reservation rules.",
+  "sleepingRoomReservation" : "Sleeping Room Reservation",
+  "seatSelection" : "Seat Selection",
+  "select" : "Select",
+  "selectable" : "Selectable",
+  "closed" : "Closed",
+  "totalUsageTime" : "Total Usage Time",
 
 
 

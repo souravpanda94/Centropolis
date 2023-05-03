@@ -223,6 +223,15 @@
   "application/NumberOfPeople" : "신청 / 인원",
   "gxReservationConsent" : "피트니스 예약 규정에 동의합니다.",
   "selectPeriod" : "기간 선택",
+  "howToUse" : "이용방법",
+  "makeSleepingRoomReservation" : "수면실 예약하기",
+  "sleepingRoomReservationConsent" : "수면실 예약 규정에 동의합니다.",
+  "sleepingRoomReservation" : "수면실 예약",
+  "seatSelection" : "좌석 선택",
+  "select" : "선택",
+  "selectable" : "선택 가능",
+  "closed" : "선택 불가",
+  "totalUsageTime" : "총 사용 시간",
 
 
 
