@@ -2,9 +2,6 @@
   "lang": "en",
   "mondira_old": "=============================MONDIRA OLD SECTION=========================================",
   "visitorReservations": "Visitor Reservations",
-  "visitReservationApplication": "Visit Reservation Application",
-  "today": "TODAY",
-  "confirm": "Confirm",
   "visitReservationViewAll": "Visit Reservation View All",
   "lookupCondition": "Lookup condition",
   "reservationStatus": "Reservation status",
@@ -73,7 +70,16 @@
   "visitRequest" : "Visit Request",
   "voc" : "VOC",
   "qrCheckIn" : "QR Check-In",
-
+  "visitReservationApplication": "Visit Reservation Application",
+  "today": "TODAY",
+  "confirm": "Confirm",
+  "visitDate" : "Visit Date: ",
+  "thereAreNoScheduledVisitorReservations" : "There are no scheduled visitor reservations..",
+  "viewVisitReservation" : "View Visit Reservation",
+  "visitInquiry" : "Visit Inquiry",
+  "total" : "Total",
+  "all" : "All",
+  "noDataFound" : "No Data Found",
 
 
 
@@ -125,7 +131,7 @@
   "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "Home",
   "amenity" : "Amenity",
-  "visitor" : "Visit Reservations",
+  "visitor" : "Visit Reservation",
   "myPage" : "My Page",
   "login" : "Login",
   "id" : "ID",

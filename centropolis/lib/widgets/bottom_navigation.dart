@@ -1,13 +1,11 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-
 import '../screens/home/bar_code.dart';
 import '../screens/home/home.dart';
-import '../screens/home/notifications.dart';
 import '../screens/my_page/my_page.dart';
 import '../screens/tenant_service/tenant_service.dart';
-import '../screens/visit_reservations/visit_reservations.dart';
+import '../screens/visit_request/visi_request.dart';
 import '../screens/vov_application/voc_application.dart';
 import '../utils/custom_colors.dart';
 import 'home_page_app_bar.dart';
@@ -58,7 +56,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         child: <Widget>[
           const HomeScreen(),
           const TenantServiceScreen(),
-          const VisitReservationScreen(),
+          const VisitRequestScreen(),
           const VocApplicationScreen(),
           const MyPageScreen()
         ].elementAt(_selectedIndex),
