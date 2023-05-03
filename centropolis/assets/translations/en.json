@@ -199,6 +199,11 @@
   "conference" : "Conference",
   "capacityByType" : "Capacity by type",
   "makeConferenceRoomReservation" : "Make a Conference Room Reservation",
+  "conferenceRoomReservation" : "Conference Room Reservation",
+  "enterRentalInformation" : "Enter Rental Information",
+  "conferenceReservationConsent" : "I agree to the conference room reservation rules",
+  "rentalInformationHint" : "\u2022 Please enter rental information such as the number of people, purpose, and additional services.",
+  "conferenceReservationComplete" : "Conference Room Reservation Inquiry Received",
 
 
 
