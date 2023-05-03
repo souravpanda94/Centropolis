@@ -26,6 +26,8 @@ class CustomColors {
   static const textColorBlack2 = Color(0xFF333333);
   static const backgroundColor = Color(0xFFFAFAFA);
   static const backgroundColor2 = Color(0xFFF2F2F2);
+  static const backgroundColor3 = Color(0xFFFFF6F4);
+  static const backgroundColor4 = Color(0xFFFFF7F7);
   static const dividerGreyColor = Color(0xFFCFCFCF);
   static const headingColor = Color(0xFFEB5757);
 

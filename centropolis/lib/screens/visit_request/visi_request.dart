@@ -69,15 +69,15 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                 margin: const EdgeInsets.only(
                   top: 15.0,
                   bottom: 20.0,
-                  left: 20,
-                  right: 20,
+                  left: 16.0,
+                  right: 16.0,
                 ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      "TODAY",
-                      style: TextStyle(
+                     Text(
+                      tr("today"),
+                      style: const TextStyle(
                         fontSize: 22,
                         color: CustomColors.textColorBlack2,
                         fontFamily: 'SemiBold',
@@ -104,8 +104,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
               todayList.isNotEmpty
                   ? Container(
                       margin: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
+                        left: 16,
+                        right: 16,
                       ),
                       child: ListView.builder(
                         physics: const NeverScrollableScrollPhysics(),
@@ -234,8 +234,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                       ),
                       margin: const EdgeInsets.only(
                         top: 20,
-                        left: 20,
-                        right: 20,
+                        left: 16,
+                        right: 16,
                       ),
                       padding: const EdgeInsets.only(
                           top: 25, bottom: 25, left: 35, right: 35),
@@ -255,7 +255,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: Container(
         height: 46,
-        margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
+        margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
         child: CommonButtonWithIcon(
           buttonName: tr("visitReservationApplication"),
           isEnable: true,
