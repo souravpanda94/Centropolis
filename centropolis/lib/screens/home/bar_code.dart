@@ -1,3 +1,4 @@
+import 'package:barcode_widget/barcode_widget.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -72,14 +73,20 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                     color: CustomColors.greyColor1),
               ),
               Container(
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                      color: CustomColors.whiteColor,
-                      borderRadius: BorderRadius.circular(4)),
-                  margin: const EdgeInsets.only(top: 32, bottom: 122),
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 66, vertical: 32),
-                  child: Image.asset('assets/images/bar_code.png')),
+                width: MediaQuery.of(context).size.width,
+                decoration: BoxDecoration(
+                    color: CustomColors.whiteColor,
+                    borderRadius: BorderRadius.circular(4)),
+                margin: const EdgeInsets.only(top: 32, bottom: 122),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 66, vertical: 32),
+                child: BarcodeWidget(
+                  barcode: Barcode.qrCode(),
+                  data: 'Centropolis App QR code generator',
+                  height: 240,
+                  width: 210,
+                ),
+              ),
               Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(bottom: 40),

@@ -189,6 +189,13 @@
   "conference" : "컨퍼런스",
   "capacityByType" : "타입별 수용인원",
   "makeConferenceRoomReservation" : "회의실 예약하기",
+  "conferenceRoomReservation" : "회의실 예약",
+  "enterRentalInformation" : "대여 정보 입력",
+  "conferenceReservationConsent" : "회의실 예약 규정에 동의합니다.",
+  "rentalInformationHint" : "\u2022 인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
+  "conferenceReservationComplete" : "회의실 예약 문의가 접수되었습니다",
+
+
 
 
 
