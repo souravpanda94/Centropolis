@@ -50,7 +50,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("loungeReservation"), true, () {
+            child: CommonAppBar(tr("loungeReservation"), false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
@@ -588,7 +588,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
         builder: (BuildContext context) {
           return CommonModal(
             heading: tr("loungeReservationComplete"),
-            description: "The lounge reservation is complete. \nPlease visit the lounge on the 3rd floor and fill out the payment and rental agreement.",
+            description:
+                "The lounge reservation is complete. \nPlease visit the lounge on the 3rd floor and fill out the payment and rental agreement.",
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
@@ -600,8 +601,4 @@ class _LoungeReservationState extends State<LoungeReservation> {
           );
         });
   }
-
-
-
-
 }
