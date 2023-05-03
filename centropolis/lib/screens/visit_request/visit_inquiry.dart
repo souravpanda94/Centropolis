@@ -254,24 +254,19 @@ class _VisitInquiryScreenState extends State<VisitInquiryScreen> {
                             )));
                   },
                 ))
-                : Container(
-              decoration: BoxDecoration(
-                color: CustomColors.backgroundColor,
-                borderRadius: BorderRadius.circular(4),
-              ),
-              margin: const EdgeInsets.only(
-                top: 20,
-                left: 20,
-                right: 20,
-              ),
-              padding: const EdgeInsets.only(
-                  top: 25, bottom: 25, left: 35, right: 35),
-              child: Text(
-                tr("thereAreNoScheduledVisitorReservations"),
-                style: const TextStyle(
-                    fontSize: 14,
-                    fontFamily: "Regular",
-                    color: CustomColors.textColor5),
+                : Center(
+              child: Container(
+                margin: const EdgeInsets.only(
+                  left: 20,
+                  right: 20,
+                ),
+                child: Text(
+                  tr("noDataFound"),
+                  style: const TextStyle(
+                      fontSize: 14,
+                      fontFamily: "Regular",
+                      color: CustomColors.textColor5),
+                ),
               ),
             )
           ],

@@ -79,6 +79,7 @@
   "visitInquiry" : "Visit Inquiry",
   "total" : "Total",
   "all" : "All",
+  "noDataFound" : "No Data Found",
 
 
 
@@ -130,7 +131,7 @@
   "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "Home",
   "amenity" : "Amenity",
-  "visitor" : "Visit Reservations",
+  "visitor" : "Visit Reservation",
   "myPage" : "My Page",
   "login" : "Login",
   "id" : "ID",
