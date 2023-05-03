@@ -156,7 +156,7 @@ class _ViewVisitReservationScreenState
                       itemBuilder: (BuildContext ctxt, int index) {
                         return InkWell(
                             onTap: () {
-                              goToDetailsPage();
+                              goToDetailsPage(dataList[index]["status"]);
                             },
                             child: Container(
                                 margin: const EdgeInsets.only(
@@ -304,11 +304,11 @@ class _ViewVisitReservationScreenState
     );
   }
 
-  void goToDetailsPage() {
+  void goToDetailsPage(String status) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const VisitReservationDetailsScreen(),
+        builder: (context) =>  VisitReservationDetailsScreen(status),
       ),
     );
   }

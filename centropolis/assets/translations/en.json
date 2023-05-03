@@ -12,7 +12,6 @@
   "monthly": "Monthly",
   "directInput": "Direct input",
   "required": "* Required",
-  "visitorName": "Visitor Name *",
   "pleaseEnterTheCorrectVisitorName": "Please enter the correct visitor name",
   "companyName": "Company Name *",
   "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
@@ -22,18 +21,13 @@
   "emailExample" : "ex) welcome@centropolis.com",
   "buildingVisited" : "Building visited *",
   "pleaseSelectBuildingToVisit" : "Please select a building to visit",
-  "landingFloor" : "landing floor *",
   "pleaseSelectFloorToVisit" : "Please select a floor to visit",
   "dateAndTimeOfVisitWithStar": "Date and time of visit *",
   "dateAndTimeOfVisit" : "Date and time of visit",
-  "visitTime" : "visit time",
   "choose" : "choose",
-  "purposeOfVisit" : "purpose of visit",
   "businessDiscussion" : "business discussion",
   "reservationDetails" : "Reservation details",
-  "visitorInformation": "visitor information",
   "visitors" : "visitors",
-  "dateOfVisit" : "date of visit",
   "contactPersonInformation": "Contact person information",
   "personInCharge": "person in charge",
   "tenantCompanyName" : "Tenant company name",
@@ -51,6 +45,8 @@
   "cooling": "cooling",
   "theTotalAmount" : "The total amount",
   "apply" : "Apply",
+  "visitorName": "Visitor Name",
+  "company" : "Company",
 
 
 
@@ -80,6 +76,18 @@
   "total" : "Total",
   "all" : "All",
   "noDataFound" : "No Data Found",
+  "personInChargeInformation" : "Person in Charge Information",
+  "nameOfPersonInCharge" : "Name of person in charge",
+  "visitBuilding" : "Visit Building",
+  "landingFloor" : "Landing Floor",
+  "visitorInformation" : "Visitor Information",
+  "dateOfVisit" : "Date of Visit",
+  "visitTime" : "Visit Time",
+  "purposeOfVisit" : "Purpose of Visit",
+  "visitApproval" : "Visit Approval",
+  "approval" : "Approval",
+  "rejection" : "Rejection",
+
 
 
 
