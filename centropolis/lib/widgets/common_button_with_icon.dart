@@ -40,24 +40,25 @@ class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
             child: Padding(
               padding: const EdgeInsets.only(left: 20, right: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Text(
-                    widget.buttonName,
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: CustomColors.whiteColor,
-                      fontFamily: 'SemiBold',
+                  Expanded(
+                    child: Text(
+                      widget.buttonName,
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.whiteColor,
+                        fontFamily: 'SemiBold',
+                      ),
+                      textAlign: TextAlign.center,
                     ),
-                    textAlign: TextAlign.center,
                   ),
                   SizedBox(
                     child: SvgPicture.asset(
                       'assets/images/ic_single_right_arrow.svg',
                       semanticsLabel: 'Back',
-                      width: 10,
-                      height: 10,
+                      width: 13,
+                      height: 13,
                       alignment: Alignment.center,
                     ),
                   ),
