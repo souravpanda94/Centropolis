@@ -16,7 +16,12 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+  String emailId = "";
+  String password = "";
   bool _isChecked = false;
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,6 +77,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontFamily: 'Regular',
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    emailId = text;
+                  });
+                },
                 style: const TextStyle(
                   color: CustomColors.blackColor,
                   fontSize: 14,
@@ -106,6 +116,11 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontFamily: 'Regular',
                   ),
                 ),
+                onChanged: (text) {
+                  setState(() {
+                    password = text;
+                  });
+                },
                 style: const TextStyle(
                   color: CustomColors.blackColor,
                   fontSize: 14,
