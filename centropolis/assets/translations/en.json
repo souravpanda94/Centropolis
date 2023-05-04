@@ -10,7 +10,6 @@
   "monthly": "Monthly",
   "required": "* Required",
   "pleaseEnterTheCorrectVisitorName": "Please enter the correct visitor name",
-  "companyName": "Company Name *",
   "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
   "mobilePhoneNumber" : "Mobile Phone Number *",
   "pleaseEnterOnlyNumbersWithout" : "Please enter only numbers without “-”",
@@ -41,7 +40,6 @@
   "cooling": "cooling",
   "theTotalAmount" : "The total amount",
   "apply" : "Apply",
-  "visitorName": "Visitor Name",
   "company" : "Company",
 
 
@@ -265,6 +263,16 @@
   "month": "A Month",
   "year": "A Year",
   "directInput": "Direct Input",
+  "visitReservationApplicationWarning": "If you do not agree to the collection and use of personal information, it will not be accepted.",
+  "companyName": "Company Name",
+  "contact": "Contact",
+  "visitorName": "Visitor Name",
+  "visitorNameHint": "Please enter the correct visitor name.",
+  "companyNameHint": "Please enter the correct company name.",
+  "contactHint": "Please enter correct contact information.",
+  "visitTimeHint": "Please select a visit time.",
+
+  
 
 
 

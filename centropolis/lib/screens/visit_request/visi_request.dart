@@ -7,6 +7,8 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_icon.dart';
 import '../../widgets/common_modal.dart';
 import '../unused_code/visitor_reservations/VisitReservationViewAll.dart';
+import '../unused_code/visitor_reservations/visit_reservation_application.dart';
+import 'visit_reservation_application.dart';
 
 class VisitRequestScreen extends StatefulWidget {
   const VisitRequestScreen({Key? key}) : super(key: key);
@@ -75,7 +77,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                     Text(
+                    Text(
                       tr("today"),
                       style: const TextStyle(
                         fontSize: 22,
@@ -278,12 +280,12 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
   }
 
   void goToVisitReservationApplicationScreen() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const VisitReservationApplicationScreen(),
-    //   ),
-    // );
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VisitReservationApplication(),
+      ),
+    );
   }
 
   void goToReservationDetailsScreen() {
