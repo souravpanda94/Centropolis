@@ -22,6 +22,16 @@ enum Gender { male, female }
 class _SignupScreenState extends State<SignupScreen> {
   bool _isChecked = false, companyTapped = false, floorTapped = false;
   Gender? gender = Gender.male;
+  String genderValue = "", tenantCompany = "", floor = "";
+  TextEditingController tenantCompanyController = TextEditingController();
+  TextEditingController floorController = TextEditingController();
+  TextEditingController consentController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController idController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController verifyPasswordController = TextEditingController();
+  TextEditingController emailIDController = TextEditingController();
+  TextEditingController contactNoController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -67,6 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 264,
                   child: SingleChildScrollView(
                     child: TextField(
+                      controller: consentController,
                       cursorColor: CustomColors.textColorBlack2,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
@@ -191,6 +202,7 @@ class _SignupScreenState extends State<SignupScreen> {
                     ),
                   ),
                   TextField(
+                    controller: tenantCompanyController,
                     cursorColor: CustomColors.textColorBlack2,
                     keyboardType: TextInputType.text,
                     readOnly: true,
@@ -270,6 +282,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                         floorTapped = true;
                                       });
                                     },
+                                    controller: floorController,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.text,
                                     readOnly: true,
@@ -340,6 +353,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                   ),
                                   TextField(
+                                    controller: nameController,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
@@ -400,6 +414,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     children: [
                                       Expanded(
                                         child: TextField(
+                                          controller: idController,
                                           cursorColor:
                                               CustomColors.textColorBlack2,
                                           keyboardType: TextInputType.text,
@@ -475,6 +490,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                   ),
                                   TextField(
+                                    controller: passwordController,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.text,
                                     obscureText: true,
@@ -535,6 +551,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                   ),
                                   TextField(
+                                    controller: verifyPasswordController,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.text,
                                     obscureText: true,
@@ -595,6 +612,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                   ),
                                   TextField(
+                                    controller: emailIDController,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.emailAddress,
                                     decoration: InputDecoration(
@@ -652,6 +670,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                     ),
                                   ),
                                   TextField(
+                                    controller: contactNoController,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.number,
                                     decoration: InputDecoration(
@@ -719,8 +738,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                               height: 20,
                                               width: 20,
                                               child: Radio<Gender>(
-                                                activeColor:
-                                                    CustomColors.buttonBackgroundColor,
+                                                activeColor: CustomColors
+                                                    .buttonBackgroundColor,
                                                 materialTapTargetSize:
                                                     MaterialTapTargetSize
                                                         .shrinkWrap,
@@ -729,6 +748,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 onChanged: (Gender? value) {
                                                   setState(() {
                                                     gender = value;
+                                                    if (gender == Gender.male) {
+                                                      genderValue = "Male";
+                                                    } else {
+                                                      genderValue = "Female";
+                                                    }
                                                   });
                                                 },
                                               ),
@@ -756,8 +780,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                               height: 20,
                                               width: 20,
                                               child: Radio<Gender>(
-                                                activeColor:
-                                                    CustomColors.buttonBackgroundColor,
+                                                activeColor: CustomColors
+                                                    .buttonBackgroundColor,
                                                 materialTapTargetSize:
                                                     MaterialTapTargetSize
                                                         .shrinkWrap,
@@ -766,6 +790,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                                 onChanged: (Gender? value) {
                                                   setState(() {
                                                     gender = value;
+                                                    if (gender == Gender.male) {
+                                                      genderValue = "Male";
+                                                    } else {
+                                                      genderValue = "Female";
+                                                    }
                                                   });
                                                 },
                                               ),
@@ -793,7 +822,8 @@ class _SignupScreenState extends State<SignupScreen> {
                                         top: 34, bottom: 16),
                                     child: CommonButton(
                                         onCommonButtonTap: () {},
-                                        buttonColor: CustomColors.buttonBackgroundColor,
+                                        buttonColor:
+                                            CustomColors.buttonBackgroundColor,
                                         buttonName: tr("signUp"),
                                         isIconVisible: false),
                                   ),
@@ -853,13 +883,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                               onTap: () {
                                                 setState(() {
                                                   floorTapped = false;
+                                                  floorController.text =
+                                                      index.toString();
+                                                  floor = index.toString();
                                                 });
                                               },
                                               child: Container(
                                                 padding:
                                                     const EdgeInsets.all(16),
                                                 child: Text(
-                                                  "Floor ${index.toString()}",
+                                                  index.toString(),
                                                   textAlign: TextAlign.start,
                                                   style: const TextStyle(
                                                       fontFamily: 'Regular',
@@ -907,12 +940,15 @@ class _SignupScreenState extends State<SignupScreen> {
                                       onTap: () {
                                         setState(() {
                                           companyTapped = false;
+                                          tenantCompanyController.text =
+                                              index.toString();
+                                          tenantCompany = index.toString();
                                         });
                                       },
                                       child: Container(
                                         padding: const EdgeInsets.all(16),
                                         child: Text(
-                                          "Index ${index.toString()}",
+                                          index.toString(),
                                           textAlign: TextAlign.start,
                                           style: const TextStyle(
                                               fontFamily: 'Regular',

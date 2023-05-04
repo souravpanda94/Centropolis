@@ -12,6 +12,9 @@ class FindPassword extends StatefulWidget {
 }
 
 class _FindPasswordState extends State<FindPassword> {
+  TextEditingController emailIDController = TextEditingController();
+  TextEditingController idController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,6 +43,7 @@ class _FindPasswordState extends State<FindPassword> {
               height: 8,
             ),
             TextField(
+              controller: idController,
               cursorColor: CustomColors.textColorBlack2,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -92,6 +96,7 @@ class _FindPasswordState extends State<FindPassword> {
               height: 8,
             ),
             TextField(
+              controller: emailIDController,
               cursorColor: CustomColors.textColorBlack2,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(

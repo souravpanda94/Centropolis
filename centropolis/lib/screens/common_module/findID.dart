@@ -12,6 +12,8 @@ class FindID extends StatefulWidget {
 }
 
 class _FindIdScreenState extends State<FindID> {
+  TextEditingController emailIDController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -40,6 +42,7 @@ class _FindIdScreenState extends State<FindID> {
               height: 8,
             ),
             TextField(
+              controller: emailIDController,
               cursorColor: CustomColors.textColorBlack2,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
@@ -99,7 +102,7 @@ class _FindIdScreenState extends State<FindID> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              },
+            },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
           );
