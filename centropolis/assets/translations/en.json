@@ -93,10 +93,12 @@
   "versionInformation" : "Version information",
   "logOut" : "Log Out",
   "withdrawal" : "Withdrawal",
-
-
-
-
+  "numberOfRegisteredEmployee" : "Number of Registered Employee  >",
+  "people" : "People",
+  "qrCode" : "QR Code",
+  "freeParkingVehicleRegistration" : "Free parking vehicle registration",
+  "amenityReservationHistory" : "Amenity Reservation History",
+  "vocApplicationHistory" : "VOC Application History",
 
 
 
