@@ -148,11 +148,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   setTitle(int selectedIndex) {
     if (selectedIndex == 1) {
-      return tr("tenantService");
+      return tr("amenity");
     } else if (selectedIndex == 2) {
-      return tr("visitor");
+      return tr("visitRequest");
     } else if (selectedIndex == 3) {
-      return tr("vocApplication");
+      return tr("voc");
     } else if (selectedIndex == 4) {
       return tr("myPage");
     } else {

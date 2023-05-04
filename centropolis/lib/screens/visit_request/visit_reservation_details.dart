@@ -7,8 +7,7 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
-
-
+import '../../widgets/common_button_with_border.dart';
 
 enum StatusEnum { approval, rejection }
 
@@ -25,13 +24,10 @@ class VisitReservationDetailsScreen extends StatefulWidget {
       _VisitReservationDetailsScreenState();
 }
 
-class _VisitReservationDetailsScreenState extends State<VisitReservationDetailsScreen> {
+class _VisitReservationDetailsScreenState
+    extends State<VisitReservationDetailsScreen> {
   StatusEnum? _statusType = StatusEnum.approval;
   String statusTypeValue = "approval";
-
-
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -543,155 +539,212 @@ class _VisitReservationDetailsScreenState extends State<VisitReservationDetailsS
                 color: CustomColors.backgroundColor,
                 margin: const EdgeInsets.only(top: 20, bottom: 20),
               ),
-              Container(
-                margin: const EdgeInsets.only(left: 16.0, right: 16.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    tr("visitApproval"),
-                    style: const TextStyle(
-                        fontSize: 16,
-                        fontFamily: "SemiBold",
-                        color: CustomColors.textColor8),
-                  ),
-                ),
-              ),
-
-              if(widget.status == "In Progress")
-              Container(
-                margin:
-                    const EdgeInsets.only(top: 15.0, left: 16.0, right: 16.0),
-                child: Row(
-                  // mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    const SizedBox(
-                      width: 10.0,
-                    ),
-                    GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _statusType = StatusEnum.approval;
-                            statusTypeValue = "approval";
-                          });
-                        },
+              if (widget.status == "In Progress")
+                Container(
+                  margin: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  child: Column(
+                    children: [
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          tr("visitApproval"),
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColor8),
+                        ),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 15.0),
                         child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
+                          // mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.only(right: 10),
-                              child: SvgPicture.asset(
-                                _statusType == StatusEnum.approval
-                                    ? 'assets/images/ic_radio_check.svg'
-                                    : 'assets/images/ic_radio_uncheck.svg',
-                                semanticsLabel: 'Back',
-                                width: 20,
-                                height: 20,
-                              ),
+                            const SizedBox(
+                              width: 10.0,
                             ),
-                            Text(
-                              tr("approval"),
-                              style: const TextStyle(
-                                color: CustomColors.textColor4,
-                                fontSize: 14,
-                                fontFamily: 'Medium',
+                            GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    _statusType = StatusEnum.approval;
+                                    statusTypeValue = "approval";
+                                  });
+                                },
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(right: 10),
+                                      child: SvgPicture.asset(
+                                        _statusType == StatusEnum.approval
+                                            ? 'assets/images/ic_radio_check.svg'
+                                            : 'assets/images/ic_radio_uncheck.svg',
+                                        semanticsLabel: 'Back',
+                                        width: 20,
+                                        height: 20,
+                                      ),
+                                    ),
+                                    Text(
+                                      tr("approval"),
+                                      style: const TextStyle(
+                                        color: CustomColors.textColor4,
+                                        fontSize: 14,
+                                        fontFamily: 'Medium',
+                                      ),
+                                    ),
+                                  ],
+                                )),
+                            const SizedBox(
+                              width: 50.0,
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                setState(() {
+                                  _statusType = StatusEnum.rejection;
+                                  statusTypeValue = "rejection";
+                                });
+                              },
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(right: 10),
+                                    child: SvgPicture.asset(
+                                      _statusType == StatusEnum.rejection
+                                          ? 'assets/images/ic_radio_check.svg'
+                                          : 'assets/images/ic_radio_uncheck.svg',
+                                      semanticsLabel: 'Back',
+                                      width: 20,
+                                      height: 20,
+                                    ),
+                                  ),
+                                  Text(
+                                    tr("rejection"),
+                                    style: const TextStyle(
+                                      color: CustomColors.textColor4,
+                                      fontSize: 14,
+                                      fontFamily: 'Medium',
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
                           ],
-                        )),
-                    const SizedBox(
-                      width: 50.0,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          _statusType = StatusEnum.rejection;
-                          statusTypeValue = "rejection";
-                        });
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(right: 10),
-                            child: SvgPicture.asset(
-                              _statusType == StatusEnum.rejection
-                                  ? 'assets/images/ic_radio_check.svg'
-                                  : 'assets/images/ic_radio_uncheck.svg',
-                              semanticsLabel: 'Back',
-                              width: 20,
-                              height: 20,
-                            ),
-                          ),
-                          Text(
-                            tr("rejection"),
-                            style: const TextStyle(
-                              color: CustomColors.textColor4,
-                              fontSize: 14,
-                              fontFamily: 'Medium',
-                            ),
-                          ),
-                        ],
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              if(widget.status == "In Progress")
-              Container(
-                  margin:
-                  const EdgeInsets.only(top: 25.0, left: 16.0, right: 16.0),
-                child:  TextField(
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('id'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
+
+                      if(statusTypeValue == "rejection")
+                      Container(
+                        margin: const EdgeInsets.only(top: 25.0),
+                        child: TextField(
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            hintText: tr('id'),
+                            hintStyle: const TextStyle(
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          onChanged: (text) {},
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(top: 30, bottom: 30),
+                        child: CommonButton(
+                            onCommonButtonTap: () {},
+                            buttonColor: CustomColors.buttonBackgroundColor,
+                            buttonName: tr("check"),
+                            isIconVisible: false),
+                      ),
+                    ],
                   ),
-                  onChanged: (text){
-
-                  },
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
                 ),
-              ),
 
+              if (widget.status == "Approved")
+                Container(
+                    margin: const EdgeInsets.only(
+                        left: 16.0, right: 16.0, bottom: 25),
+                    height: 46,
+                    child: CommonButtonWithBorder(
+                      onCommonButtonTap: () {},
+                      buttonName: tr("cancelReservation"),
+                      buttonBorderColor: CustomColors.dividerGreyColor,
+                      buttonTextColor: CustomColors.textColor5,
+                    )),
 
-              Container(
-                width: MediaQuery.of(context).size.width,
-                height: 46,
-                margin: const EdgeInsets.only(top: 30, bottom: 30,left: 16.0, right: 16.0),
-                child: CommonButton(
-                    onCommonButtonTap: () {
-                    },
-                    buttonColor: CustomColors.buttonBackgroundColor,
-                    buttonName: tr("check"),
-                    isIconVisible: false),
-              ),
-
-
+              if (widget.status == "Rejected")
+                Container(
+                    margin: const EdgeInsets.only(left: 16.0, right: 16.0),
+                    child: Column(
+                      children: [
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            tr("reasonForRefusal"),
+                            style: const TextStyle(
+                                fontSize: 16,
+                                fontFamily: "SemiBold",
+                                color: CustomColors.textColor8),
+                          ),
+                        ),
+                        Container(
+                          margin: const EdgeInsets.only(
+                            top: 10.0,
+                          ),
+                          child: const Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              "A reason for rejection is entered.A reason for rejection is entered.A reason for rejection is entered.A reason for rejection is entered.A reason for rejection is entered.",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Regular",
+                                  color: CustomColors.textColor8),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: 10.0,
+                          color: CustomColors.backgroundColor,
+                          margin: const EdgeInsets.only(top: 20, bottom: 20),
+                        ),
+                        Container(
+                            margin:
+                                const EdgeInsets.only( bottom: 30),
+                            height: 46,
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("check"),
+                              buttonBorderColor: CustomColors.dividerGreyColor,
+                              buttonTextColor: CustomColors.textColor5,
+                            )),
+                      ],
+                    )),
             ],
           ),
         ));
