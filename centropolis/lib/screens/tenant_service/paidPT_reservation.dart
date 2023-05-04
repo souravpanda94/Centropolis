@@ -19,7 +19,16 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? _selectedDay;
-  bool _isChecked = false;
+  bool _isChecked = false, timeTapped = false;
+  TextEditingController timeController = TextEditingController();
+  String time = "";
+
+  List<dynamic> timeList = [
+    "10:00 ~ 14:00",
+    "12:00 ~ 13:00",
+    "11:00 ~ 15:00",
+    "13:00 ~ 16:00",
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -219,7 +228,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         ),
         Container(
           color: CustomColors.whiteColor,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -235,6 +244,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 height: 8,
               ),
               TextField(
+                controller: timeController,
                 cursorColor: CustomColors.textColorBlack2,
                 keyboardType: TextInputType.text,
                 readOnly: true,
@@ -274,8 +284,68 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                   fontSize: 14,
                   fontFamily: 'Regular',
                 ),
-                onTap: () {},
+                onTap: () {
+                  setState(() {
+                    timeTapped = true;
+                  });
+                },
               ),
+              Stack(
+                children: [
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  if (timeTapped)
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(top: 2),
+                      decoration: BoxDecoration(
+                        color: CustomColors.whiteColor,
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      child: SingleChildScrollView(
+                        child: Column(
+                          children: List.generate(4, (index) {
+                            return Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                InkWell(
+                                  onTap: () {
+                                    setState(() {
+                                      timeTapped = false;
+                                      timeController.text = timeList[index];
+
+                                      time = timeController.text.toString();
+                                    });
+                                  },
+                                  child: Container(
+                                    padding: const EdgeInsets.all(16),
+                                    child: Text(
+                                      timeList[index],
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                    ),
+                                  ),
+                                ),
+                                const Divider(
+                                  thickness: 1,
+                                  height: 1,
+                                  color: CustomColors.dividerGreyColor,
+                                )
+                              ],
+                            );
+                          }),
+                        ),
+                      ),
+                    ),
+                ],
+              )
             ],
           ),
         ),

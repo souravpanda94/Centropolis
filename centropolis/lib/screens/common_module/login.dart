@@ -16,11 +16,9 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  String emailId = "";
-  String password = "";
+  TextEditingController emailIDController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
   bool _isChecked = false;
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -53,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 32,
               ),
               TextField(
+                controller: emailIDController,
                 cursorColor: CustomColors.textColorBlack2,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -77,11 +76,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontFamily: 'Regular',
                   ),
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    emailId = text;
-                  });
-                },
                 style: const TextStyle(
                   color: CustomColors.blackColor,
                   fontSize: 14,
@@ -92,6 +86,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 height: 16,
               ),
               TextField(
+                controller: passwordController,
                 cursorColor: CustomColors.textColorBlack2,
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
@@ -116,11 +111,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     fontFamily: 'Regular',
                   ),
                 ),
-                onChanged: (text) {
-                  setState(() {
-                    password = text;
-                  });
-                },
                 style: const TextStyle(
                   color: CustomColors.blackColor,
                   fontSize: 14,

@@ -22,7 +22,18 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? _selectedDay;
-  bool _isChecked = false, usageTimeTapped = false;
+  bool _isChecked = false, startTimeTapped = false, endTimeTapped = false;
+  String startTime = "", endTime = "";
+  TextEditingController startTimeController = TextEditingController();
+  TextEditingController endTimeController = TextEditingController();
+  TextEditingController rentalInfoController = TextEditingController();
+
+  List<dynamic> timeList = [
+    {"startTime": "9:00", "endTime": "18:00"},
+    {"startTime": "9:00", "endTime": "13:00"},
+    {"startTime": "14:00", "endTime": "18:00"},
+    {"startTime": "14:00", "endTime": "18:00"},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -235,7 +246,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.all(16),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
             width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -261,6 +272,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                   height: 8,
                 ),
                 TextField(
+                  controller: startTimeController,
                   cursorColor: CustomColors.textColorBlack2,
                   keyboardType: TextInputType.text,
                   readOnly: true,
@@ -300,63 +312,196 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     fontSize: 14,
                     fontFamily: 'Regular',
                   ),
-                  onTap: () {},
+                  onTap: () {
+                    setState(() {
+                      startTimeTapped = true;
+                    });
+                  },
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  tr("endTime"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 14,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                TextField(
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  readOnly: true,
-                  showCursor: false,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('selectEndTime'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColorBlack2,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 4,
-                          color: CustomColors.textColorBlack2,
+                Stack(
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const SizedBox(
+                          height: 16,
                         ),
-                      )),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                  onTap: () {},
-                ),
+                        Text(
+                          tr("endTime"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        TextField(
+                          controller: endTimeController,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.text,
+                          readOnly: true,
+                          showCursor: false,
+                          decoration: InputDecoration(
+                              border: InputBorder.none,
+                              fillColor: CustomColors.whiteColor,
+                              filled: true,
+                              contentPadding: const EdgeInsets.all(16),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: CustomColors.dividerGreyColor,
+                                    width: 1.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: CustomColors.dividerGreyColor,
+                                    width: 1.0),
+                              ),
+                              hintText: tr('selectEndTime'),
+                              hintStyle: const TextStyle(
+                                color: CustomColors.textColorBlack2,
+                                fontSize: 14,
+                                fontFamily: 'Regular',
+                              ),
+                              suffixIcon: Padding(
+                                padding: const EdgeInsets.all(18.0),
+                                child: SvgPicture.asset(
+                                  "assets/images/ic_drop_down_arrow.svg",
+                                  width: 8,
+                                  height: 4,
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              )),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                          onTap: () {
+                            setState(() {
+                              endTimeTapped = true;
+                            });
+                          },
+                        ),
+                        Stack(
+                          children: [
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            if (endTimeTapped)
+                              Container(
+                                width: MediaQuery.of(context).size.width,
+                                margin: const EdgeInsets.only(top: 2),
+                                decoration: BoxDecoration(
+                                  color: CustomColors.whiteColor,
+                                  border: Border.all(
+                                    color: CustomColors.dividerGreyColor,
+                                  ),
+                                  borderRadius: BorderRadius.circular(4),
+                                ),
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: List.generate(4, (index) {
+                                      return Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              setState(() {
+                                                endTimeTapped = false;
+                                                endTimeController.text =
+                                                    timeList[index]["endTime"];
+
+                                                endTime = endTimeController.text
+                                                    .toString();
+                                              });
+                                            },
+                                            child: Container(
+                                              padding: const EdgeInsets.all(16),
+                                              child: Text(
+                                                timeList[index]["endTime"],
+                                                textAlign: TextAlign.start,
+                                                style: const TextStyle(
+                                                    fontFamily: 'Regular',
+                                                    fontSize: 14,
+                                                    color: CustomColors
+                                                        .textColorBlack2),
+                                              ),
+                                            ),
+                                          ),
+                                          const Divider(
+                                            thickness: 1,
+                                            height: 1,
+                                            color:
+                                                CustomColors.dividerGreyColor,
+                                          )
+                                        ],
+                                      );
+                                    }),
+                                  ),
+                                ),
+                              ),
+                          ],
+                        )
+                      ],
+                    ),
+                    if (startTimeTapped)
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(top: 2),
+                        decoration: BoxDecoration(
+                          color: CustomColors.whiteColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: List.generate(4, (index) {
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        startTimeTapped = false;
+                                        startTimeController.text =
+                                            timeList[index]["startTime"];
+
+                                        startTime =
+                                            startTimeController.text.toString();
+                                      });
+                                    },
+                                    child: Container(
+                                      padding: const EdgeInsets.all(16),
+                                      child: Text(
+                                        timeList[index]["startTime"],
+                                        textAlign: TextAlign.start,
+                                        style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 14,
+                                            color:
+                                                CustomColors.textColorBlack2),
+                                      ),
+                                    ),
+                                  ),
+                                  const Divider(
+                                    thickness: 1,
+                                    height: 1,
+                                    color: CustomColors.dividerGreyColor,
+                                  )
+                                ],
+                              );
+                            }),
+                          ),
+                        ),
+                      ),
+                  ],
+                )
               ],
             ),
           ),
@@ -387,6 +532,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                   height: 288,
                   child: SingleChildScrollView(
                     child: TextField(
+                      controller: rentalInfoController,
                       cursorColor: CustomColors.textColorBlack2,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,

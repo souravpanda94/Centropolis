@@ -31,15 +31,16 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<dynamic> listData = [];
   List<dynamic> femaleListData = [];
   int selectedIndex = 0;
+  TextEditingController usageTimeController = TextEditingController();
+  TextEditingController totalUsageTimeController = TextEditingController();
+  String type = "female", usageTime = "", totalUsageTime = "";
+
   List<dynamic> usageTimeList = [
     {"usageTime": "11:00", "total": "30 Minutes"},
     {"usageTime": "12:00", "total": "60 Minutes"},
     {"usageTime": "13:00", "total": "90 Minutes"},
     {"usageTime": "14:00", "total": "15 Minutes"},
   ];
-  TextEditingController usageTimeController = TextEditingController();
-  TextEditingController totalUsageTimeController = TextEditingController();
-  String type = "female";
 
   @override
   void initState() {
@@ -809,11 +810,15 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                         children: [
                                           InkWell(
                                             onTap: () {
-                                              totalUsageTimeController.text =
-                                                  usageTimeList[index]["total"];
-
                                               setState(() {
                                                 totalUsageTimeTapped = false;
+                                                totalUsageTimeController.text =
+                                                    usageTimeList[index]
+                                                        ["total"];
+
+                                                totalUsageTime =
+                                                    totalUsageTimeController
+                                                        .text;
                                               });
                                             },
                                             child: Container(
@@ -865,11 +870,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                 children: [
                                   InkWell(
                                     onTap: () {
-                                      usageTimeController.text =
-                                          usageTimeList[index]["usageTime"];
-
                                       setState(() {
                                         usageTimeTapped = false;
+                                        usageTimeController.text =
+                                            usageTimeList[index]["usageTime"];
+
+                                        usageTime = usageTimeController.text;
                                       });
                                     },
                                     child: Container(
