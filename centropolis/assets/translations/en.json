@@ -85,6 +85,14 @@
   "rejection" : "Rejection",
   "cancelReservation" : "Cancel Reservation",
   "reasonForRefusal" : "Reason for refusal",
+  "appSettings" : "App Settings",
+  "pushNotification" : "PUSH notification",
+  "changeLanguage" : "Change language",
+  "privacyPolicy" : "Privacy policy",
+  "termsOfUse" : "Terms of use",
+  "versionInformation" : "Version information",
+  "logOut" : "Log Out",
+  "withdrawal" : "Withdrawal",
 
 
 

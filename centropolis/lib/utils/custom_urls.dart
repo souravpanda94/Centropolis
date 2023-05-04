@@ -11,6 +11,8 @@ class WebViewLinks {
   // static String baseUrl = "https://www.google.com"; // Live server
   static String baseUrl = "https://www.google.com"; // Test server
 
-  static String privacyPolicyUrl = "$baseUrl/static-page/privacy-policy.html";
-  static String termsOfUseUrl = "$baseUrl/static-page/terms-of-use.html";
+  // static String privacyPolicyUrl = "$baseUrl/static-page/privacy-policy.html";
+  // static String termsOfUseUrl = "$baseUrl/static-page/terms-of-use.html";
+  static String privacyPolicyUrl = "https://docs.flutter.dev/reference/tutorials";
+  static String termsOfUseUrl = "https://docs.flutter.dev/reference/tutorials";
 }
