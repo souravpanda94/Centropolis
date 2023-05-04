@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../screens/home/bar_code.dart';
 import '../screens/home/home.dart';
+import '../screens/my_page/app_settings.dart';
 import '../screens/my_page/my_page.dart';
 import '../screens/tenant_service/tenant_service.dart';
 import '../screens/visit_request/visi_request.dart';
@@ -37,7 +38,14 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   color: CustomColors.whiteColor,
                   child: HomePageAppBar(
                       title: setTitle(_selectedIndex),
-                      onSettingBtnTap: () {},
+                      onSettingBtnTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AppSettingsScreen(),
+                          ),
+                        );
+                      },
                       onNotificationBtnTap: () {
                         debugPrint("notification tap");
                         Navigator.push(
