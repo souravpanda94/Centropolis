@@ -4,6 +4,7 @@ import '../../utils/custom_colors.dart';
 
 import '../../widgets/common_button.dart';
 import '../../widgets/fitness_congestion.dart';
+import 'sleeping_room_reservation.dart';
 
 class FacilitiesScreen extends StatefulWidget {
   const FacilitiesScreen({super.key});
@@ -272,12 +273,12 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                 margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
                 child: CommonButton(
                   onCommonButtonTap: () {
-                    // Navigator.push(
-                    //   context,
-                    //   MaterialPageRoute(
-                    //     builder: (context) => const FitnessReservation(),
-                    //   ),
-                    // );
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const SleepingRoomReservation(),
+                      ),
+                    );
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("makeSleepingRoomReservation"),

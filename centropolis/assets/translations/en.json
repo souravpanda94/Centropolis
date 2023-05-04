@@ -249,6 +249,9 @@
   "selectable" : "Selectable",
   "closed" : "Closed",
   "totalUsageTime" : "Total Usage Time",
+  "lockerSelection" : "Locker Selection",
+  "sleepingRoom(Male)" : "Sleeping Room(Male)",
+  "sleepingRoom(Female)" : "Sleeping Room(Female)",
 
 
 

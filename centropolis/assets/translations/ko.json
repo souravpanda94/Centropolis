@@ -232,6 +232,9 @@
   "selectable" : "선택 가능",
   "closed" : "선택 불가",
   "totalUsageTime" : "총 사용 시간",
+  "lockerSelection" : "사물함 선택",
+  "sleepingRoom(Male)" : "남성 수면실",
+  "sleepingRoom(Female)" : "여성 수면실",
 
 
 
