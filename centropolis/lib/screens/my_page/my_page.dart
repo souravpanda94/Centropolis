@@ -1,3 +1,4 @@
+import 'package:centropolis/screens/my_page/personal_information.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -65,32 +66,43 @@ class _MyPageScreenState extends State<MyPageScreen> {
                           ],
                         ),
                       ),
-                      Container(
-                        margin: const EdgeInsets.only(
-                          top: 12.0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            const Text(
-                              "Hong Gil Dong",
-                              style: TextStyle(
-                                fontSize: 22,
-                                fontFamily: "SemiBold",
-                                color: CustomColors.textColor8,
+                      InkWell(
+                        onTap: (){
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const PersonalInformationScreen(),
+                            ),
+                          );
+                        },
+                        child:  Container(
+                          margin: const EdgeInsets.only(
+                            top: 12.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              const Text(
+                                "Hong Gil Dong",
+                                style: TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColor8,
+                                ),
                               ),
-                            ),
-                            SvgPicture.asset(
-                              'assets/images/ic_right_arrow.svg',
-                              semanticsLabel: 'Back',
-                              width: 12,
-                              height: 12,
-                              alignment: Alignment.center,
-                            ),
-                          ],
+                              SvgPicture.asset(
+                                'assets/images/ic_right_arrow.svg',
+                                semanticsLabel: 'Back',
+                                width: 12,
+                                height: 12,
+                                alignment: Alignment.center,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
+
                       Container(
                           margin: const EdgeInsets.only(
                             top: 20.0,
