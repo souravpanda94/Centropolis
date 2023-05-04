@@ -1,11 +1,11 @@
-
-import 'package:centropolis/screens/visit_request/view_visit_reservation.dart';
-import 'package:centropolis/screens/visit_request/visit_inquiry.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
+import 'view_visit_reservation.dart';
+import 'visit_inquiry.dart';
+import 'visit_reservation_filter.dart';
 
 class VisitReservationsScreen extends StatefulWidget {
   const VisitReservationsScreen({super.key});
@@ -68,17 +68,22 @@ class _VisitReservationsScreenState extends State<VisitReservationsScreen> {
               onBackButtonPress(context);
             },
           ),
-            actions:  [
-              IconButton(
-                icon: SvgPicture.asset(
-                  "assets/images/ic_filter.svg",
-                  semanticsLabel: 'Back',
-                ),
-                onPressed: () {
-
-                },
-              )
-            ],
+          actions: [
+            IconButton(
+              icon: SvgPicture.asset(
+                "assets/images/ic_filter.svg",
+                semanticsLabel: 'Back',
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const VisitReservationFilter(),
+                  ),
+                );
+              },
+            )
+          ],
           bottom: PreferredSize(
             preferredSize: AppBar().preferredSize,
             child: Column(
@@ -120,7 +125,6 @@ class _VisitReservationsScreenState extends State<VisitReservationsScreen> {
             ),
           ),
         ),
-
         body: const TabBarView(
           // physics: const NeverScrollableScrollPhysics(),
           children: [

@@ -308,7 +308,7 @@ class _ViewVisitReservationScreenState
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  VisitReservationDetailsScreen(status),
+        builder: (context) => VisitReservationDetailsScreen(status),
       ),
     );
   }
