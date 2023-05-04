@@ -32,7 +32,6 @@
   "personInCharge": "person in charge",
   "tenantCompanyName" : "Tenant company name",
   "reservationApproved": "Reservation approved",
-  "cancelReservation": "cancel reservation",
   "requestForLightsOut" : "Request for lights out",
   "providedByTheTenantCompany" : "Provided by the tenant company",
   "applyForHeatingAndCooling" : "Apply for heating and cooling",
@@ -87,6 +86,8 @@
   "visitApproval" : "Visit Approval",
   "approval" : "Approval",
   "rejection" : "Rejection",
+  "cancelReservation" : "Cancel Reservation",
+  "reasonForRefusal" : "Reason for refusal",
 
 
 

@@ -13,6 +13,7 @@ class CustomColors {
   static const textColor5 = Color(0xFF4C4C4C);
   static const textColor6 = Color(0xFFD24545);
   static const textColor7 = Color(0xFF828282);
+  static const textColor8 = Color(0xFF181818);
   static const textColor9 = Color(0xFFCC6047);
 
   //newly added colors
@@ -33,7 +34,6 @@ class CustomColors {
   static const fullColor = Color(0xFFD24545);
   static const tabColor = Color(0xFF735440);
   static const borderColor = Color(0xFFE0E0E0);
-  static const textColor8 = Color(0xFF181818);
 
 // ====================== Unused color code ================
   static const selectedColor = Color(0xFFB25A42);
