@@ -34,6 +34,7 @@ class CustomColors {
   static const fullColor = Color(0xFFD24545);
   static const tabColor = Color(0xFF735440);
   static const borderColor = Color(0xFFE0E0E0);
+  static const homeButtonBackgroundColor = Color(0x1FB9644C);
 
 // ====================== Unused color code ================
   static const selectedColor = Color(0xFFB25A42);

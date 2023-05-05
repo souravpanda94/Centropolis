@@ -112,6 +112,10 @@
   "moreThan8Characters" : "More than 8 characters and less than 16 characters including English/number/special characters",
   "newPasswordConfirmation" : "New password confirmation",
   "pleaseEnterYourNewPasswordOneMoreTime" : "Please enter your new password one more time.",
+  "refresh" : "Refresh",
+  "centropolisExecutive" : "Centropolis Executive",
+  "sleepingRoom" : "Sleeping Room",
+  "facilityManagement" : "Facility Management",
 
 
 
@@ -226,7 +230,7 @@
   "selectStartTime" : "Please select a start time",
   "selectEndTime" : "Please select an end time",
   "loungeReservationConsent" : "I agree to the Executive Lounge Reservation Rules.",
-  "makeReservation" : "Make a reservation",
+  "makeReservation" : "Make a Reservation",
   "nameLounge" : "Name",
   "tenantCompanyLounge" : "Tenant Company",
   "usageTimeDay" : "All day 9:00 ~ 18:00 (9 hours)",
