@@ -64,17 +64,9 @@
   "thereAreNoScheduledVisitorReservations" : "There are no scheduled visitor reservations..",
   "viewVisitReservation" : "View Visit Reservation",
   "visitInquiry" : "Visit Inquiry",
-  "total" : "Total",
-  "all" : "All",
+  "total" : "총",
+  "all" : "전체",
   "noDataFound" : "No Data Found",
-  "personInChargeInformation" : "Person in Charge Information",
-  "nameOfPersonInCharge" : "Name of person in charge",
-  "visitBuilding" : "Visit Building",
-  "landingFloor" : "Landing Floor",
-  "visitorInformation" : "Visitor Information",
-  "dateOfVisit" : "Date of Visit",
-  "visitTime" : "Visit Time",
-  "purposeOfVisit" : "Purpose of Visit",
   "visitApproval" : "Visit Approval",
   "approval" : "Approval",
   "rejection" : "Rejection",
@@ -280,6 +272,26 @@
   "companyNameHint": "방문자명을 정확하게 입력해 주세요.",
   "contactHint": "정확한 연락처를 입력해 주세요.",
   "visitTimeHint": "방문시간을 선택해 주세요.",
+  "registeredEmployeeList": "등록직원 리스트",
+  "approved": "승인",
+  "beforeApproval": "승인 전",
+  "suspended": "정지",
+  "addMember": "직원 추가",
+  "registrationDate": "등록일",
+  "enterEmployeeDetails": "직원 상세 정보 입력",
+  "employeeNameHint": "이름을 입력해 주세요.",
+  "employeeIDHint": "아이디를 입력해 주세요.",
+  "save": "등록하기",
+  "before": "취소",
+  "employeeDetails": "직원 상세 정보",
+  "delete": "계정삭제",
+  "accountStatus": "계정 상태",
+  "accountType": "계정 유형",
+  "deleteTitle": "해당 직원의 계정을 삭제하시겠습니까?",
+  "deleteDesc": "삭제 후, 해당 사용자는 로그인되지 않습니다. 직원을 삭제하시겠습니까?",
+  "deleteSuccessful": "삭제 완료",
+  "deleted": "삭제 처리가 성공적으로 완료되었습니다.",
+  
 
 
 
@@ -289,5 +301,10 @@
 
 
 
-  "sourav" : "=============================SOURAV SECTION========================================="
+
+
+
+
+  "sourav" : "=============================SOURAV SECTION=========================================",
+  "AirConditioning":"Air conditioning & Heating application"
 }
