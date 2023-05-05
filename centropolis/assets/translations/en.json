@@ -101,6 +101,22 @@
   "changePassword" : "Change Password",
   "withdrawal" : "Withdrawal",
   "logOut" : "Log Out",
+  "withdrawAccount" : "Withdraw Account",
+  "withdrawalDetails" : "Once Withdrawn, your entire information will be deleted and not be restored. Do you want to withdraw your account?",
+  "logout" : "Logout",
+  "doYouWantToLogout" : "Do you want to logout?",
+  "save" : "Save",
+  "currentPassword" : "Current Password",
+  "pleaseEnterYourCurrentPassword" : "Please enter your current password.",
+  "newPassword": "New password",
+  "moreThan8Characters" : "More than 8 characters and less than 16 characters including English/number/special characters",
+  "newPasswordConfirmation" : "New password confirmation",
+  "pleaseEnterYourNewPasswordOneMoreTime" : "Please enter your new password one more time.",
+
+
+
+
+
 
 
 

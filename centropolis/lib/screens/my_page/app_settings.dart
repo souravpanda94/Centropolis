@@ -27,7 +27,7 @@ class AppSettingsScreen extends StatefulWidget {
 }
 
 class _AppSettingsScreenState extends State<AppSettingsScreen> {
-  late String apiKey, userId, deviceId, language, apartmentId;
+  late String apiKey, userId, deviceId, language;
   late FToast fToast;
   String appVersion = "";
   bool isSwitched = false;
@@ -45,7 +45,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     userId = user.userData['user_id'].toString();
     apiKey = user.userData['api_key'].toString();
     deviceId = user.userData['device_id'].toString();
-    apartmentId = user.userData['apartment_id'].toString();
     isPushAllow = user.userData['push_notification'].toString();
     user.addListener(() {
       isPushAllow = user.userData['push_notification'].toString();
@@ -356,147 +355,4 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         });
   }
 
-  // ----------Withdrawal section-----------
-  void showWithdrawalModal() {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CommonModal(
-            heading: tr("areYouSureYouWantToLeave"),
-            description: tr("withdrawModalDescription"),
-            buttonName: "",
-            firstButtonName: tr("no"),
-            secondButtonName: tr("toLeave"),
-            onConfirmBtnTap: () {},
-            onFirstBtnTap: () {
-              Navigator.of(context).pop();
-            },
-            onSecondBtnTap: () {
-              Navigator.of(context).pop();
-              callWithdrawalConfirm();
-            },
-          );
-        });
-  }
-
-  void callWithdrawalConfirm() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      // callWithdrawalApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
-
-  // void callWithdrawalApi() {
-  //   hideKeyboard();
-  //   setState(() {
-  //     isLoading = true;
-  //   });
-  //   Map<String, String> body = {
-  //     "user_id": base64Enecode(userId.trim()),
-  //     "language": language.trim()
-  //   };
-  //   debugPrint("input for Withdrawal ===> $body");
-  //
-  //   Future<http.Response> response = WebService().callPostMethodWithRawData(
-  //       ApiEndPoint.withdrawalUrl, body, apiKey.trim());
-  //   response.then((response) {
-  //     var responseJson = json.decode(response.body);
-  //
-  //     debugPrint("server response for Withdrawal ===> $responseJson");
-  //
-  //     if (responseJson != null) {
-  //       // if (responseJson['token_status']) {
-  //       if (response.statusCode == 200 && responseJson['success']) {
-  //         if (responseJson['message'] != null) {
-  //           showCustomToast(
-  //               fToast, context, responseJson['message'].toString(), "");
-  //         }
-  //
-  //         setFirebaseEvents(eventName: "hp_withdrawal");
-  //
-  //         removeLoginCredential(context);
-  //       } else {
-  //         if (responseJson['message'] != null) {
-  //           showCustomToast(
-  //               fToast, context, responseJson['message'].toString(), "");
-  //         }
-  //       }
-  //       // } else {
-  //       //   removeLoginCredential(context);
-  //       // }
-  //     }
-  //
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   }).catchError((onError) {
-  //     debugPrint("catchError ================> $onError");
-  //     setState(() {
-  //       isLoading = false;
-  //     });
-  //   });
-  // }
-
-  // ----------Logout section-----------
-  void callLogout() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      // doLogout();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
-
-// void doLogout() {
-//   hideKeyboard();
-//   setState(() {
-//     isLoading = true;
-//   });
-//   Map<String, String> body = {"language": language.trim()};
-//   debugPrint("input for logout ===> $body");
-//
-//   // String logOutUrl =
-//   //     "https://gscm-api.dvconsulting.org/api/v1/device/$deviceId";  // Test server
-//
-//   String logOutUrl = ApiEndPoint.logoutUrl + deviceId;
-//
-//   Future<http.Response> response =
-//   WebService().callDeleteMethod(logOutUrl, body, apiKey.trim());
-//   response.then((response) {
-//     var responseJson = json.decode(response.body);
-//
-//     debugPrint("server response for logout ===> $responseJson");
-//
-//     if (responseJson != null) {
-//       // if (responseJson['token_status']) {
-//       if (response.statusCode == 200 && responseJson['success']) {
-//         if (responseJson['message'] != null) {
-//           showCustomToast(fToast, context, responseJson['message'].toString(), "");
-//         }
-//         setFirebaseEvents(eventName: "hp_logout");
-//         removeLoginCredential(context);
-//       } else {
-//         if (responseJson['message'] != null) {
-//           showCustomToast(
-//               fToast, context, responseJson['message'].toString(), "");
-//         }
-//       }
-//       // } else {
-//       //   removeLoginCredential(context);
-//       // }
-//     }
-//
-//     setState(() {
-//       isLoading = false;
-//     });
-//   }).catchError((onError) {
-//     debugPrint("catchError ================> $onError");
-//     setState(() {
-//       isLoading = false;
-//     });
-//   });
-// }
 }
