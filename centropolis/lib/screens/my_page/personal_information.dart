@@ -17,6 +17,7 @@ import '../../widgets/common_modal.dart';
 import 'package:http/http.dart' as http;
 
 import 'change_password.dart';
+import 'edit_personal_information.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({super.key});
@@ -85,25 +86,35 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     height: 1.0,
                     color: CustomColors.dividerGreyColor,
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 15.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 15.0, bottom: 12.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          tr("editPersonalInformation"),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColor5,
+                  InkWell(
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const EditPersonalInformationScreen(),
+                        ),
+                      );
+                    },
+                    child: Container(
+                      margin: const EdgeInsets.only(top: 15.0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 12.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            tr("editPersonalInformation"),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColor5,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
@@ -111,7 +122,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         ),
                       );
                     },
-                    child:  Container(
+                    child: Container(
                       margin: const EdgeInsets.only(bottom: 12.0),
                       child: Padding(
                         padding: const EdgeInsets.only(top: 13.0, bottom: 15.0),
@@ -129,7 +140,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       ),
                     ),
                   )
-
                 ],
               ),
             ),
