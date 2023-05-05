@@ -28,7 +28,6 @@
   "personInCharge": "person in charge",
   "tenantCompanyName" : "Tenant company name",
   "reservationApproved": "Reservation approved",
-  "requestForLightsOut" : "Request for lights out",
   "providedByTheTenantCompany" : "Provided by the tenant company",
   "applyForHeatingAndCooling" : "Apply for heating and cooling",
   "tenantCompanyInformation" : "Tenant company information",
@@ -112,7 +111,16 @@
   "moreThan8Characters" : "More than 8 characters and less than 16 characters including English/number/special characters",
   "newPasswordConfirmation" : "New password confirmation",
   "pleaseEnterYourNewPasswordOneMoreTime" : "Please enter your new password one more time.",
-
+  "refresh" : "Refresh",
+  "centropolisExecutive" : "Centropolis Executive",
+  "sleepingRoom" : "Sleeping Room",
+  "facilityManagement" : "Facility Management",
+  "gxReservation" : "GX Reservation",
+  "paidPtReservation" : "Paid PT Reservation",
+  "paidLockersReservation": "Paid Lockers Reservation",
+  "customerComplaints" : "Customer Complaints",
+  "requestForLightsOut" : "Request for lights out",
+  "requestForHeatingAndCooling" : "Request for Heating and Cooling",
 
 
 
@@ -226,7 +234,7 @@
   "selectStartTime" : "Please select a start time",
   "selectEndTime" : "Please select an end time",
   "loungeReservationConsent" : "I agree to the Executive Lounge Reservation Rules.",
-  "makeReservation" : "Make a reservation",
+  "makeReservation" : "Make a Reservation",
   "nameLounge" : "Name",
   "tenantCompanyLounge" : "Tenant Company",
   "usageTimeDay" : "All day 9:00 ~ 18:00 (9 hours)",
