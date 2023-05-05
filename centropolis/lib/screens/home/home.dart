@@ -16,14 +16,6 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CarouselController controller = CarouselController();
-  List<String> imageList = [
-    "https://thumbs.dreamstime.com/b/red-flower-jpg-178844159.jpg",
-    "https://thumbs.dreamstime.com/b/hd-flower-wallpaper-closeup-jpg-nature-159668373.jpg",
-    "https://thumbs.dreamstime.com/b/red-flower-jpg-178844159.jpg",
-    "https://thumbs.dreamstime.com/b/hd-flower-wallpaper-closeup-jpg-nature-159668373.jpg",
-    "https://thumbs.dreamstime.com/b/yellow-orange-starburst-flower-nature-jpg-192959431.jpg"
-  ];
-
   List<dynamic> dataList = [
     {
       "id": 1,
@@ -48,16 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CarouselSlider(
         carouselController: controller,
         items: dataList.map((data) {
-          // return SizedBox(
-          //   width: MediaQuery.of(context).size.width,
-          //   child: Image.network(
-          //     data.trim().toString(),
-          //     fit: BoxFit.fill,
-          //     width: MediaQuery.of(context).size.width,
-          //     height: MediaQuery.of(context).size.height,
-          //   ),
-          // );
-
           return Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
@@ -160,31 +142,200 @@ class _HomeScreenState extends State<HomeScreen> {
                         )),
                   ],
                 ),
-                Align(
+                if (data["type"] == "visitorReservation" ||
+                    data["type"] == "centropolisExecutive" ||
+                    data["type"] == "conference" ||
+                    data["type"] == "refresh")
+                  Align(
+                      alignment: Alignment.bottomCenter,
+                      child: Container(
+                        margin: const EdgeInsets.only(
+                            left: 16, right: 16, bottom: 30),
+                        child: Container(
+                            height: 78,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              color: CustomColors.homeButtonBackgroundColor,
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                  color: CustomColors.whiteColor, width: 1.0),
+                            ),
+                            child: Center(
+                              child: Text(
+                                tr("makeReservation"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Bold",
+                                  color: CustomColors.whiteColor,
+                                ),
+                              ),
+                            )),
+                      )),
+                if (data["type"] == "fitness")
+                  Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       margin: const EdgeInsets.only(
                           left: 16, right: 16, bottom: 30),
-                      child: Container(
-                          height: 78,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: CustomColors.homeButtonBackgroundColor,
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                color: CustomColors.whiteColor, width: 1.0),
-                          ),
-                          child: Center(
-                            child: Text(
-                              tr("makeReservation"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.whiteColor,
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                              height: 78,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
                               ),
-                            ),
-                          )),
-                    )),
+                              child: Center(
+                                child: Text(
+                                  tr("gxReservation"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                          Container(
+                              height: 78,
+                              margin: const EdgeInsets.only(top: 10.0),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  tr("paidPtReservation"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                          Container(
+                              height: 78,
+                              margin: const EdgeInsets.only(top: 10.0),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  tr("fitnessReservation"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                          Container(
+                              height: 78,
+                              margin: const EdgeInsets.only(top: 10.0),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  tr("paidLockersReservation"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
+                if (data["type"] == "voc")
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      // color: Colors.purple,
+                      margin: const EdgeInsets.only(
+                          left: 16, right: 16, bottom: 30),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Container(
+                              height: 78,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  tr("customerComplaints"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                          Container(
+                              height: 78,
+                              margin: const EdgeInsets.only(top: 10.0),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  tr("requestForLightsOut"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                          Container(
+                              height: 78,
+                              margin: const EdgeInsets.only(top: 10.0),
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                color: CustomColors.homeButtonBackgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                                border: Border.all(
+                                    color: CustomColors.whiteColor, width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  tr("requestForHeatingAndCooling"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Bold",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                              )),
+                        ],
+                      ),
+                    ),
+                  ),
               ],
             ),
           );
@@ -199,7 +350,7 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             }),
       ),
-      floatingActionButton: yourButtonWidget(),
+      floatingActionButton: indicatorWidget(),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
@@ -239,6 +390,5 @@ class _HomeScreenState extends State<HomeScreen> {
       return "";
     }
   }
-
-  yourButtonWidget() {}
+  indicatorWidget() {}
 }
