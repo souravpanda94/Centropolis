@@ -28,7 +28,6 @@
   "personInCharge": "person in charge",
   "tenantCompanyName" : "Tenant company name",
   "reservationApproved": "Reservation approved",
-  "requestForLightsOut" : "Request for lights out",
   "providedByTheTenantCompany" : "Provided by the tenant company",
   "applyForHeatingAndCooling" : "Apply for heating and cooling",
   "tenantCompanyInformation" : "Tenant company information",
@@ -116,7 +115,12 @@
   "centropolisExecutive" : "Centropolis Executive",
   "sleepingRoom" : "Sleeping Room",
   "facilityManagement" : "Facility Management",
-
+  "gxReservation" : "GX Reservation",
+  "paidPtReservation" : "Paid PT Reservation",
+  "paidLockersReservation": "Paid Lockers Reservation",
+  "customerComplaints" : "Customer Complaints",
+  "requestForLightsOut" : "Request for lights out",
+  "requestForHeatingAndCooling" : "Request for Heating and Cooling",
 
 
 
@@ -305,7 +309,6 @@
   "enterEmployeeDetails": "Enter Employee Details",
   "employeeNameHint": "Please enter the employee's name.",
   "employeeIDHint": "Please enter the employee's ID.",
-  "save": "Save",
   "before": "Before",
   "employeeDetails": "Employee Details",
   "delete": "Delete",
