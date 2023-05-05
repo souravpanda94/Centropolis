@@ -318,6 +318,8 @@
   "deleteDesc": "After delete, the user will not be able to log - in, do you want to delete?",
   "deleteSuccessful": "Delete Successful",
   "deleted": "The account has been successfully deleted",
+  "noReservationHistory": "There is no reservation history.",
+  "reservationDate": "Reservation Date",
   
 
 
