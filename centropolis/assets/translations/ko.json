@@ -70,7 +70,7 @@
   "visitApproval" : "Visit Approval",
   "approval" : "Approval",
   "rejection" : "Rejection",
-  "cancelReservation" : "Cancel Reservation",
+  "cancelReservation" : "예약 취소",
   "reasonForRefusal" : "Reason for refusal",
   "appSettings" : "App Settings",
   "pushNotification" : "PUSH notification",
@@ -82,7 +82,7 @@
   "people" : "People",
   "qrCode" : "QR Code",
   "freeParkingVehicleRegistration" : "Free parking vehicle registration",
-  "amenityReservationHistory" : "Amenity Reservation History",
+  "amenityReservationHistory" : "어메니티 예약 내역",
   "vocApplicationHistory" : "VOC Application History",
   "personalInformationSetting" : "Personal information setting",
   "myProfile" : "My Profile",
@@ -291,7 +291,8 @@
   "deleteDesc": "삭제 후, 해당 사용자는 로그인되지 않습니다. 직원을 삭제하시겠습니까?",
   "deleteSuccessful": "삭제 완료",
   "deleted": "삭제 처리가 성공적으로 완료되었습니다.",
-  
+  "noReservationHistory": "예약 내역이 없습니다.",
+  "reservationDate": "예약 일시",  
 
 
 
