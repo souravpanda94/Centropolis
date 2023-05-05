@@ -1,11 +1,9 @@
-import 'package:centropolis/screens/my_page/personal_information.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
-import '../../utils/utils.dart';
-import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_button.dart';
+import 'personal_information.dart';
+import 'registered_employee_list.dart';
 
 class MyPageScreen extends StatefulWidget {
   const MyPageScreen({super.key});
@@ -67,15 +65,16 @@ class _MyPageScreenState extends State<MyPageScreen> {
                         ),
                       ),
                       InkWell(
-                        onTap: (){
+                        onTap: () {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const PersonalInformationScreen(),
+                              builder: (context) =>
+                                  const PersonalInformationScreen(),
                             ),
                           );
                         },
-                        child:  Container(
+                        child: Container(
                           margin: const EdgeInsets.only(
                             top: 12.0,
                           ),
@@ -102,7 +101,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
                           ),
                         ),
                       ),
-
                       Container(
                           margin: const EdgeInsets.only(
                             top: 20.0,
@@ -138,68 +136,79 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                 ),
                               ),
                               if (userType == "admin")
-                              SvgPicture.asset(
-                                'assets/images/ic_vertical_line.svg',
-                                semanticsLabel: 'Back',
-                                // width: 12,
-                                height: 60,
-                                alignment: Alignment.center,
-                              ),
+                                SvgPicture.asset(
+                                  'assets/images/ic_vertical_line.svg',
+                                  semanticsLabel: 'Back',
+                                  // width: 12,
+                                  height: 60,
+                                  alignment: Alignment.center,
+                                ),
                               if (userType == "admin")
-                              Flexible(
-                                  child: Column(
-                                children: [
-                                  Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      Flexible(
-                                        child: Text(
-                                          tr("numberOfRegisteredEmployee"),
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            fontFamily: "Regular",
-                                            color: CustomColors.greyColor1,
+                                Flexible(
+                                    child: Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegisteredEmployeeList(),
                                           ),
-                                        ),
-                                      ),
+                                        );
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              tr("numberOfRegisteredEmployee"),
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: "Regular",
+                                                color: CustomColors.greyColor1,
+                                              ),
+                                            ),
+                                          ),
 
-                                      // SvgPicture.asset(
-                                      //   'assets/images/ic_right_arrow.svg',
-                                      //   semanticsLabel: 'Back',
-                                      //   width: 8,
-                                      //   height: 8,
-                                      //   alignment: Alignment.center,
-                                      // ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        "2 ",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          color: CustomColors.textColor9,
-                                          fontFamily: 'SemiBold',
-                                        ),
-                                        textAlign: TextAlign.center,
+                                          // SvgPicture.asset(
+                                          //   'assets/images/ic_right_arrow.svg',
+                                          //   semanticsLabel: 'Back',
+                                          //   width: 8,
+                                          //   height: 8,
+                                          //   alignment: Alignment.center,
+                                          // ),
+                                        ],
                                       ),
-                                      Text(
-                                        tr("people"),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: CustomColors.textColorBlack2,
-                                          fontFamily: 'SemiBold',
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          "2 ",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            color: CustomColors.textColor9,
+                                            fontFamily: 'SemiBold',
+                                          ),
+                                          textAlign: TextAlign.center,
                                         ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ))
+                                        Text(
+                                          tr("people"),
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: CustomColors.textColorBlack2,
+                                            fontFamily: 'SemiBold',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ))
                             ],
                           )),
                       Container(
@@ -239,8 +248,6 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     ],
                   ),
                 ),
-
-
                 if (userType == "admin")
                   Container(
                     height: 78,

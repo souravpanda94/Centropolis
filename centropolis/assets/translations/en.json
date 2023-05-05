@@ -276,7 +276,25 @@
   "companyNameHint": "Please enter the correct company name.",
   "contactHint": "Please enter correct contact information.",
   "visitTimeHint": "Please select a visit time.",
-
+  "registeredEmployeeList": "Registered Employee List",
+  "approved": "Approved",
+  "beforeApproval": "Before Approval",
+  "suspended": "Suspended",
+  "addMember": "Add Member",
+  "registrationDate": "Registration date",
+  "enterEmployeeDetails": "Enter Employee Details",
+  "employeeNameHint": "Please enter the employee's name.",
+  "employeeIDHint": "Please enter the employee's ID.",
+  "save": "Save",
+  "before": "Before",
+  "employeeDetails": "Employee Details",
+  "delete": "Delete",
+  "accountStatus": "Account Status",
+  "accountType": "Account Type",
+  "deleteTitle": "Do you want to delete employee's account?",
+  "deleteDesc": "After delete, the user will not be able to log - in, do you want to delete?",
+  "deleteSuccessful": "Delete Successful",
+  "deleted": "The account has been successfully deleted",
   
 
 
