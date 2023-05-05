@@ -16,6 +16,8 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import 'package:http/http.dart' as http;
 
+import 'change_password.dart';
+
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({super.key});
 
@@ -100,23 +102,34 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       ),
                     ),
                   ),
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 12.0),
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 13.0, bottom: 15.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          tr("changePassword"),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColor5,
+                  InkWell(
+                    onTap: (){
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ChangePasswordScreen(),
+                        ),
+                      );
+                    },
+                    child:  Container(
+                      margin: const EdgeInsets.only(bottom: 12.0),
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 13.0, bottom: 15.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            tr("changePassword"),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColor5,
+                            ),
                           ),
                         ),
                       ),
                     ),
                   )
+
                 ],
               ),
             ),
