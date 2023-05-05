@@ -119,7 +119,7 @@ class _CommonModalState extends State<CommonModal> {
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   side: const BorderSide(
-                                      color: CustomColors.dividerGreyColor),
+                                      color: CustomColors.buttonBackgroundColor),
                                 ),
                                 shadowColor: Colors.transparent,
                               ),
@@ -127,7 +127,7 @@ class _CommonModalState extends State<CommonModal> {
                                 widget.firstButtonName,
                                 style: const TextStyle(
                                   fontSize: 14,
-                                  color: CustomColors.dividerGreyColor,
+                                  color: CustomColors.buttonBackgroundColor,
                                   fontFamily: 'Bold',
                                 ),
                                 textAlign: TextAlign.center,

@@ -101,6 +101,16 @@
   "changePassword" : "Change Password",
   "withdrawal" : "Withdrawal",
   "logOut" : "Log Out",
+  "withdrawAccount" : "Withdraw Account",
+  "withdrawalDetails" : "Once Withdrawn, your entire information will be deleted and not be restored. Do you want to withdraw your account?",
+  "logout" : "Logout",
+  "doYouWantToLogout" : "Do you want to logout?",
+
+
+
+
+
+
 
 
 
