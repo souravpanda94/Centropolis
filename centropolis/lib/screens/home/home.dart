@@ -332,8 +332,6 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             }),
       ),
-      floatingActionButton: indicatorWidget(),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
     );
   }
 
@@ -372,8 +370,6 @@ class _HomeScreenState extends State<HomeScreen> {
       return "";
     }
   }
-
-  indicatorWidget() {}
 
   void goToQrCodeScreen() {
     Navigator.push(
