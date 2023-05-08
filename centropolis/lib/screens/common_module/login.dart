@@ -154,9 +154,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    SizedBox(
-                      height: 15,
-                      width: 15,
+                    Container(
+                      height: 12,
+                      width: 12,
+                      margin: const EdgeInsets.only(left: 5.0,right: 5.0),
                       child: Checkbox(
                         checkColor: CustomColors.whiteColor,
                         activeColor: CustomColors.buttonBackgroundColor,
