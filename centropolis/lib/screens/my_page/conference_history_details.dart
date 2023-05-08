@@ -6,15 +6,16 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
-class LoungeHistoryDetails extends StatefulWidget {
+class ConferenceHistoryDetails extends StatefulWidget {
   final String type;
-  const LoungeHistoryDetails({super.key, required this.type});
+  const ConferenceHistoryDetails({super.key, required this.type});
 
   @override
-  State<LoungeHistoryDetails> createState() => _LoungeHistoryDetailsState();
+  State<ConferenceHistoryDetails> createState() =>
+      _ConferenceHistoryDetailsState();
 }
 
-class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
+class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +25,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("loungeReservation"), false, () {
+            child: CommonAppBar(tr("conferenceRoomReservation"), false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
@@ -191,7 +192,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                           ),
                         ),
                         Text(
-                          "All day 9:00 ~ 18:00 (9 hours)",
+                          "9:00 ~ 18:00",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -202,6 +203,38 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                       ],
                     ),
                   )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Container(
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.all(16),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("enterRentalInformation"),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    "It is scheduled to be used by 10 people for a regular meeting, and additional services are not used.",
+                    style: TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
                 ],
               ),
             )

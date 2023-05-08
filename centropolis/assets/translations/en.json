@@ -320,6 +320,8 @@
   "deleted": "The account has been successfully deleted",
   "noReservationHistory": "There is no reservation history.",
   "reservationDate": "Reservation Date",
+  "participants": "Participants:",
+  "seatNumber": "Seat Number",
   
 
 
