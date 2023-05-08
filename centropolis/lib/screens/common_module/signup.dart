@@ -7,6 +7,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -821,7 +822,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                     margin: const EdgeInsets.only(
                                         top: 34, bottom: 16),
                                     child: CommonButton(
-                                        onCommonButtonTap: () {},
+                                        onCommonButtonTap: () {
+                                          showSignUpSuccessModal();
+                                        },
                                         buttonColor:
                                             CustomColors.buttonBackgroundColor,
                                         buttonName: tr("signUp"),
@@ -979,4 +982,26 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
     );
   }
+
+  void showSignUpSuccessModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("memberRegistrationComplete"),
+            description: tr("signUpIsComplete"),
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+
 }

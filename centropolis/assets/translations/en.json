@@ -130,7 +130,8 @@
   "sentUserIdDescription" : "To the Email address you registered at the time of membership registration\nYour ID has been sent. Please check your Email.",
   "temporaryPasswordHasBeenSent" : "A temporary password has been sent.",
   "sentTemporaryPasswordDescription" : "To the Email address you registered at the time of membership registration\nA temporary password has been sent.\nYou can change your password on My Page.",
-
+  "memberRegistrationComplete" : "Member registration complete",
+  "signUpIsComplete": "Sign up is complete.\nYou can use the service after approval by the manager of the Tenant company.",
 
 
 
