@@ -5,8 +5,6 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import 'employee_approved.dart';
-import 'employee_before_approval.dart';
-import 'employee_suspended.dart';
 
 class RegisteredEmployeeList extends StatefulWidget {
   const RegisteredEmployeeList({super.key});
@@ -96,9 +94,9 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
           ),
           body: const TabBarView(
             children: [
-              EmployeeApproved(),
-              EmployeeBeforeApproval(),
-              EmployeeSuspended()
+              EmployeeApproved(status: "Approved"),
+              EmployeeApproved(status: "Before Approval"),
+              EmployeeApproved(status: "Suspended"),
             ],
           ),
         ));

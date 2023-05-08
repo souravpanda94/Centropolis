@@ -5,7 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import 'conference_history.dart';
-import 'facility_reservation.dart';
+import 'facility_history.dart';
 import 'fitness_history.dart';
 import 'lounge_history.dart';
 

@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/view_more.dart';
+import 'lounge_history_details.dart';
 
 class LoungeHistory extends StatefulWidget {
   const LoungeHistory({super.key});
@@ -174,13 +175,14 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) =>
-                            //         const RegisteredEmployeeDetails(),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => LoungeHistoryDetails(
+                                    type:
+                                        approvedList[index]["type"].toString()),
+                              ),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(
