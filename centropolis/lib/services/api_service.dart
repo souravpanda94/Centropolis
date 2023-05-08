@@ -44,6 +44,7 @@ class WebService {
 
   Future<http.Response> callPostMethodWithRawData(url, body, language, token) async {
     log("Calling url::::: $url");
+    String xApiKey = 'anE4ser6h1vIc2pM22weB02t02A2ipA8';
 
     http.Response response;
     if (token != null) {
@@ -52,7 +53,7 @@ class WebService {
             'Content-type': 'application/json',
             'Accept': 'application/json',
             'Authorization': 'Bearer $token',
-            'x-api-key': 'anE4ser6h1vIc2pM22weB02t02A2ipA8',
+            'x-api-key': xApiKey,
             'accept-language' : language
           },
           body: json.encode(body));
@@ -61,7 +62,7 @@ class WebService {
           headers: <String, String>{
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'x-api-key': 'anE4ser6h1vIc2pM22weB02t02A2ipA8',
+            'x-api-key': xApiKey,
             'accept-language' : language
           },
           body: json.encode(body));
