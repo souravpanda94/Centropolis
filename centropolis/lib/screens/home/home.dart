@@ -1,4 +1,7 @@
+import 'dart:ffi';
+
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -7,6 +10,8 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
+import 'bar_code.dart';
+import 'notifications.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -17,21 +22,22 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   CarouselController controller = CarouselController();
+  int pageIndex = 0;
   List<dynamic> dataList = [
     {
-      "id": 1,
+      "id": 0,
       "type": "visitorReservation",
       "image": 'assets/images/ic_slider_1.png'
     },
     {
-      "id": 2,
+      "id": 1,
       "type": "centropolisExecutive",
       "image": 'assets/images/ic_slider_2.png'
     },
-    {"id": 3, "type": "conference", "image": 'assets/images/ic_slider_3.png'},
-    {"id": 4, "type": "fitness", "image": 'assets/images/ic_slider_4.png'},
-    {"id": 5, "type": "refresh", "image": 'assets/images/ic_slider_5.png'},
-    {"id": 6, "type": "voc", "image": 'assets/images/ic_slider_6.png'},
+    {"id": 2, "type": "conference", "image": 'assets/images/ic_slider_3.png'},
+    {"id": 3, "type": "fitness", "image": 'assets/images/ic_slider_4.png'},
+    {"id": 4, "type": "refresh", "image": 'assets/images/ic_slider_5.png'},
+    {"id": 5, "type": "voc", "image": 'assets/images/ic_slider_6.png'},
   ];
 
   @override
@@ -41,6 +47,9 @@ class _HomeScreenState extends State<HomeScreen> {
       body: CarouselSlider(
         carouselController: controller,
         items: dataList.map((data) {
+          setState(() {
+            pageIndex = data["id"];
+          });
           return Container(
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
@@ -60,12 +69,17 @@ class _HomeScreenState extends State<HomeScreen> {
                           const EdgeInsets.only(left: 16, right: 16, top: 50),
                       child: Row(
                         children: [
-                          SvgPicture.asset(
-                            'assets/images/ic_qr_code_white.svg',
-                            semanticsLabel: 'Back',
-                            width: 25,
-                            height: 25,
-                            alignment: Alignment.center,
+                          IconButton(
+                            onPressed: () {
+                              goToQrCodeScreen();
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/images/ic_qr_code_white.svg',
+                              semanticsLabel: 'Back',
+                              width: 25,
+                              height: 25,
+                              alignment: Alignment.center,
+                            ),
                           ),
                           Expanded(
                             child: SvgPicture.asset(
@@ -76,13 +90,18 @@ class _HomeScreenState extends State<HomeScreen> {
                               alignment: Alignment.center,
                             ),
                           ),
-                          SvgPicture.asset(
-                            'assets/images/ic_notification_white.svg',
-                            semanticsLabel: 'Back',
-                            width: 25,
-                            height: 25,
-                            alignment: Alignment.center,
-                          ),
+                          IconButton(
+                            onPressed: () {
+                              goToNotificationScreen();
+                            },
+                            icon: SvgPicture.asset(
+                              'assets/images/ic_notification_white.svg',
+                              semanticsLabel: 'Back',
+                              width: 25,
+                              height: 25,
+                              alignment: Alignment.center,
+                            ),
+                          )
                         ],
                       ),
                     ),
@@ -151,7 +170,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       alignment: Alignment.bottomCenter,
                       child: Container(
                         margin: const EdgeInsets.only(
-                            left: 16, right: 16, bottom: 30),
+                            left: 16, right: 16, bottom: 65),
                         child: SizedBox(
                           height: 78,
                           child: CommonButtonWithBorder(
@@ -163,119 +182,142 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       )),
-
-
-
                 if (data["type"] == "fitness")
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       margin: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 30),
+                          left: 16, right: 16, bottom: 65),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                              height: 78,
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("gxReservation"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
+                            height: 78,
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("gxReservation"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
                           ),
                           Container(
-                              height: 78,
+                            height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("paidPtReservation"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
-
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("paidPtReservation"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
                           ),
                           Container(
-                              height: 78,
+                            height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("fitnessReservation"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
-
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("fitnessReservation"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
                           ),
                           Container(
-                              height: 78,
+                            height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("paidLockersReservation"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
-
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("paidLockersReservation"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
-
-
-
-
                 if (data["type"] == "voc")
                   Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
                       // color: Colors.purple,
                       margin: const EdgeInsets.only(
-                          left: 16, right: 16, bottom: 30),
+                          left: 16, right: 16, bottom: 65),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
                           SizedBox(
-                              height: 78,
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("customerComplaints"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
+                            height: 78,
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("customerComplaints"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
                           ),
                           Container(
-                              height: 78,
-                              margin: const EdgeInsets.only(top: 15.0),
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("requestForLightsOut"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
-
-                          ),
-                          Container(
-                              height: 78,
+                            height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {},
-                                buttonName: tr("requestForHeatingAndCooling"),
-                                buttonColor: CustomColors.homeButtonBackgroundColor,
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("requestForLightsOut"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
+                          ),
+                          Container(
+                            height: 78,
+                            margin: const EdgeInsets.only(top: 15.0),
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {},
+                              buttonName: tr("requestForHeatingAndCooling"),
+                              buttonColor:
+                                  CustomColors.homeButtonBackgroundColor,
+                              buttonBorderColor: CustomColors.whiteColor,
+                              buttonTextColor: CustomColors.whiteColor,
+                            ),
                           ),
                         ],
                       ),
                     ),
                   ),
+
+
+
+                Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      margin: const EdgeInsets.only(bottom: 25.0),
+                      child: DotsIndicator(
+                        dotsCount: dataList.length,
+                        position: pageIndex.toDouble(),
+                        decorator: const DotsDecorator(
+                          shape: Border(
+                              top: BorderSide(color: CustomColors.whiteColor,width: 1.0),
+                              bottom: BorderSide(color: CustomColors.whiteColor,width: 1.0),
+                              left: BorderSide(color: CustomColors.whiteColor,width: 1.0),
+                              right: BorderSide(color: CustomColors.whiteColor,width: 1.0)
+                          ),
+                          spacing: EdgeInsets.all(4),
+                          color: Colors.transparent, // Inactive color
+                          activeColor: Colors.white,
+                        ),
+                      ),
+                    )),
+
+
+
+
               ],
             ),
           );
@@ -330,5 +372,24 @@ class _HomeScreenState extends State<HomeScreen> {
       return "";
     }
   }
+
   indicatorWidget() {}
+
+  void goToQrCodeScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BarCodeScreen(),
+      ),
+    );
+  }
+
+  void goToNotificationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const NotificationScreen(),
+      ),
+    );
+  }
 }
