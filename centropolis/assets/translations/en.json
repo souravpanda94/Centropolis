@@ -132,7 +132,7 @@
   "sentTemporaryPasswordDescription" : "To the Email address you registered at the time of membership registration\nA temporary password has been sent.\nYou can change your password on My Page.",
   "memberRegistrationComplete" : "Member registration complete",
   "signUpIsComplete": "Sign up is complete.\nYou can use the service after approval by the manager of the Tenant company.",
-
+  "noInternetConnection": "No internet connection",
 
 
 

@@ -1,6 +1,10 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/user_provider.dart';
+import '../../utils/utils.dart';
+import '../../widgets/bottom_navigation.dart';
 import 'login.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -16,6 +20,8 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     super.initState();
+    var user = Provider.of<UserProvider>(context, listen: false);
+    user.initUserProvider();
     startTime();
   }
 
@@ -30,13 +36,40 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   void navigationPage() {
-    Navigator.pushReplacement(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoginScreen(),
-      ),
-    );
+    var user = Provider.of<UserProvider>(context, listen: false);
+    debugPrint(user.userData.toString());
+
+    if (user.userData.isEmpty) {
+      debugPrint("===============================");
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoginScreen(),
+        ),
+      );
+    } else {
+      String checkedSignedIn = user.userData['checked_signed_in'].toString();
+      if (checkedSignedIn == "true") {
+        debugPrint("&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const BottomNavigationScreen(0),
+          ),
+        );
+      } else {
+        debugPrint("******************************");
+        cleanLoginData(context);
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const LoginScreen(),
+          ),
+        );
+      }
+    }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -54,4 +87,5 @@ class _SplashScreenState extends State<SplashScreen> {
           ),
         ));
   }
+
 }

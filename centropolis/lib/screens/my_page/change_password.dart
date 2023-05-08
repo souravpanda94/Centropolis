@@ -416,7 +416,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     debugPrint("change password input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.changePasswordUrl, body, apiKey.trim());
+        ApiEndPoint.changePasswordUrl, body,language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 

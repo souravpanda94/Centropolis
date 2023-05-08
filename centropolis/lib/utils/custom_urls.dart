@@ -1,12 +1,14 @@
 
 class ApiEndPoint {
   // static String baseUrl = "https://www.google.com/api/"; // Live server
-  static String baseUrl = "https://www.google.com/api/"; // Test server
+  static String baseUrl = "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
 
-  static String loginUrl = "${baseUrl}v1/user/login";
-  static String withdrawalUrl = "${baseUrl}v1/user/login";
-  static String logoutUrl = "${baseUrl}v1/user/login";
-  static String changePasswordUrl = "${baseUrl}v1/user/login";
+  static String loginUrl = "${baseUrl}v1/login";
+
+
+  static String withdrawalUrl = "${baseUrl}v1";
+  static String logoutUrl = "${baseUrl}v1";
+  static String changePasswordUrl = "${baseUrl}v1";
 
 }
 
