@@ -126,7 +126,10 @@
   "pleaseCheckYourAccountAndTryAgain" : "Please check your account and try again.",
   "thisIsAnUnapprovedAccount" : "This is an unapproved account.",
   "pleaseLogInAfterApproval" : "This account has not been approved by the manager. Please log in after approval.",
-
+  "yourIdHasBeenSent" : "Your ID has been sent.",
+  "sentUserIdDescription" : "To the Email address you registered at the time of membership registration\nYour ID has been sent. Please check your Email.",
+  "temporaryPasswordHasBeenSent" : "A temporary password has been sent.",
+  "sentTemporaryPasswordDescription" : "To the Email address you registered at the time of membership registration\nA temporary password has been sent.\nYou can change your password on My Page.",
 
 
 

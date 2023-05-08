@@ -77,7 +77,8 @@ class _FindIdScreenState extends State<FindID> {
               margin: const EdgeInsets.only(top: 32, bottom: 16),
               child: CommonButton(
                   onCommonButtonTap: () {
-                    showMyModal();
+                    // showSentUserIdModal();
+                    showSentTemporaryPasswordModal();
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("findID"),
@@ -89,15 +90,15 @@ class _FindIdScreenState extends State<FindID> {
     );
   }
 
-  void showMyModal() {
+  void showSentUserIdModal() {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("identificationHasBeenCompleted"),
-            description: "identificationHasBeenCompleted",
-            buttonName: tr("confirm"),
+            heading: tr("yourIdHasBeenSent"),
+            description: tr("sentUserIdDescription"),
+            buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
             onConfirmBtnTap: () {
@@ -108,4 +109,26 @@ class _FindIdScreenState extends State<FindID> {
           );
         });
   }
+
+
+  void showSentTemporaryPasswordModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("temporaryPasswordHasBeenSent"),
+            description: tr("sentTemporaryPasswordDescription"),
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
 }
