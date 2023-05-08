@@ -6,6 +6,7 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_border.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -151,26 +152,20 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Container(
                         margin: const EdgeInsets.only(
                             left: 16, right: 16, bottom: 30),
-                        child: Container(
-                            height: 78,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              color: CustomColors.homeButtonBackgroundColor,
-                              borderRadius: BorderRadius.circular(4),
-                              border: Border.all(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                            ),
-                            child: Center(
-                              child: Text(
-                                tr("makeReservation"),
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  fontFamily: "Bold",
-                                  color: CustomColors.whiteColor,
-                                ),
-                              ),
-                            )),
+                        child: SizedBox(
+                          height: 78,
+                          child: CommonButtonWithBorder(
+                            onCommonButtonTap: () {},
+                            buttonName: tr("makeReservation"),
+                            buttonColor: CustomColors.homeButtonBackgroundColor,
+                            buttonBorderColor: CustomColors.whiteColor,
+                            buttonTextColor: CustomColors.whiteColor,
+                          ),
+                        ),
                       )),
+
+
+
                 if (data["type"] == "fitness")
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -180,89 +175,60 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          SizedBox(
+                              height: 78,
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("gxReservation"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
+                              ),
+                          ),
                           Container(
                               height: 78,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
+                            margin: const EdgeInsets.only(top: 15.0),
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("paidPtReservation"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
                               ),
-                              child: Center(
-                                child: Text(
-                                  tr("gxReservation"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
+
+                          ),
                           Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 10.0),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
+                            margin: const EdgeInsets.only(top: 15.0),
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("fitnessReservation"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
                               ),
-                              child: Center(
-                                child: Text(
-                                  tr("paidPtReservation"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
+
+                          ),
                           Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 10.0),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
+                            margin: const EdgeInsets.only(top: 15.0),
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("paidLockersReservation"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
                               ),
-                              child: Center(
-                                child: Text(
-                                  tr("fitnessReservation"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
-                          Container(
-                              height: 78,
-                              margin: const EdgeInsets.only(top: 10.0),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  tr("paidLockersReservation"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
+
+                          ),
                         ],
                       ),
                     ),
                   ),
+
+
+
+
                 if (data["type"] == "voc")
                   Align(
                     alignment: Alignment.bottomCenter,
@@ -273,65 +239,39 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         children: [
+                          SizedBox(
+                              height: 78,
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("customerComplaints"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
+                              ),
+                          ),
                           Container(
                               height: 78,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
+                              margin: const EdgeInsets.only(top: 15.0),
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("requestForLightsOut"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
                               ),
-                              child: Center(
-                                child: Text(
-                                  tr("customerComplaints"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
+
+                          ),
                           Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 10.0),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
+                            margin: const EdgeInsets.only(top: 15.0),
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {},
+                                buttonName: tr("requestForHeatingAndCooling"),
+                                buttonColor: CustomColors.homeButtonBackgroundColor,
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
                               ),
-                              child: Center(
-                                child: Text(
-                                  tr("requestForLightsOut"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
-                          Container(
-                              height: 78,
-                              margin: const EdgeInsets.only(top: 10.0),
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                color: CustomColors.homeButtonBackgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.whiteColor, width: 1.0),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  tr("requestForHeatingAndCooling"),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    fontFamily: "Bold",
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ),
-                              )),
+                          ),
                         ],
                       ),
                     ),
