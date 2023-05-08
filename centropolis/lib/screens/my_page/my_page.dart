@@ -5,6 +5,7 @@ import '../../utils/custom_colors.dart';
 import 'amenity_reservation_history.dart';
 import 'personal_information.dart';
 import 'registered_employee_list.dart';
+import 'voc_reservation_history.dart';
 
 class MyPageScreen extends StatefulWidget {
   const MyPageScreen({super.key});
@@ -346,55 +347,65 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     ),
                   ),
                 ),
-                Container(
-                  height: 78,
-                  width: double.infinity,
-                  margin:
-                      const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.whiteColor,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                          color: CustomColors.dividerGreyColor, width: 1.0)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/ic_light_bulb.svg',
-                        semanticsLabel: 'Back',
-                        width: 23,
-                        height: 23,
-                        alignment: Alignment.center,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const VOCReservationHistory(),
                       ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            tr("vocApplicationHistory"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "SemiBold",
-                              color: CustomColors.textColorBlack2,
+                    );
+                  },
+                  child: Container(
+                    height: 78,
+                    width: double.infinity,
+                    margin:
+                        const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
+                    decoration: BoxDecoration(
+                        color: CustomColors.whiteColor,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                            color: CustomColors.dividerGreyColor, width: 1.0)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/ic_light_bulb.svg',
+                          semanticsLabel: 'Back',
+                          width: 23,
+                          height: 23,
+                          alignment: Alignment.center,
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              tr("vocApplicationHistory"),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: "SemiBold",
+                                color: CustomColors.textColorBlack2,
+                              ),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 5,
-                          ),
-                          const Text(
-                            "16",
-                            style: TextStyle(
-                              fontSize: 14,
-                              fontFamily: "SemiBold",
-                              color: CustomColors.textColor9,
+                            const SizedBox(
+                              width: 5,
                             ),
-                          ),
-                        ],
-                      )
-                    ],
+                            const Text(
+                              "16",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontFamily: "SemiBold",
+                                color: CustomColors.textColor9,
+                              ),
+                            ),
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 )
               ],

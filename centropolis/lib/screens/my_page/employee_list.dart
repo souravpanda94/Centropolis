@@ -8,15 +8,15 @@ import '../../widgets/view_more.dart';
 import 'add_member.dart';
 import 'registered_employee_detail.dart';
 
-class EmployeeApproved extends StatefulWidget {
+class EmployeeList extends StatefulWidget {
   final String status;
-  const EmployeeApproved({super.key, required this.status});
+  const EmployeeList({super.key, required this.status});
 
   @override
-  State<EmployeeApproved> createState() => _EmployeeApprovedState();
+  State<EmployeeList> createState() => _EmployeeListState();
 }
 
-class _EmployeeApprovedState extends State<EmployeeApproved> {
+class _EmployeeListState extends State<EmployeeList> {
   List<dynamic> list = [
     {
       "name": "Hong Gil Dong",

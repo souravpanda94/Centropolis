@@ -1,23 +1,29 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
-import 'employee_list.dart';
+import 'air_conditioning_history.dart';
+import 'conference_history.dart';
+import 'facility_history.dart';
+import 'fitness_history.dart';
+import 'inconvenience_history.dart';
+import 'lights_out_history.dart';
+import 'lounge_history.dart';
 
-class RegisteredEmployeeList extends StatefulWidget {
-  const RegisteredEmployeeList({super.key});
+class VOCReservationHistory extends StatefulWidget {
+  const VOCReservationHistory({super.key});
 
   @override
-  State<RegisteredEmployeeList> createState() => _RegisteredEmployeeListState();
+  State<VOCReservationHistory> createState() => _VOCReservationHistoryState();
 }
 
-class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
+class _VOCReservationHistoryState extends State<VOCReservationHistory> {
   final List<Tab> myTabs = <Tab>[
-    Tab(text: tr("approved")),
-    Tab(text: tr("beforeApproval")),
-    Tab(text: tr("suspended")),
+    Tab(text: tr("inconvenience")),
+    Tab(text: tr("lightOut")),
+    Tab(text: tr("airConditioning")),
   ];
 
   @override
@@ -38,7 +44,7 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
             elevation: 0,
             backgroundColor: CustomColors.whiteColor,
             title: Text(
-              tr("registeredEmployeeList"),
+              tr("vocApplicationHistory"),
               style: const TextStyle(
                 color: CustomColors.textColor8,
                 fontFamily: 'SemiBold',
@@ -68,6 +74,7 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
                               width: 0.5)),
                     ),
                     child: TabBar(
+                      isScrollable: true,
                       tabs: myTabs,
                       labelColor: CustomColors.textColor8,
                       labelStyle: const TextStyle(
@@ -94,9 +101,9 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
           ),
           body: const TabBarView(
             children: [
-              EmployeeList(status: "Approved"),
-              EmployeeList(status: "Before Approval"),
-              EmployeeList(status: "Suspended"),
+              InconvenienceHistory(),
+              LightsOutHistory(),
+              AirConditioningHistory(),
             ],
           ),
         ));
