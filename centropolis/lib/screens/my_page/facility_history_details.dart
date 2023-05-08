@@ -6,15 +6,15 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
-class LoungeHistoryDetails extends StatefulWidget {
+class FacilityHistoryDetails extends StatefulWidget {
   final String type;
-  const LoungeHistoryDetails({super.key, required this.type});
+  const FacilityHistoryDetails({super.key, required this.type});
 
   @override
-  State<LoungeHistoryDetails> createState() => _LoungeHistoryDetailsState();
+  State<FacilityHistoryDetails> createState() => _FacilityHistoryDetails();
 }
 
-class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
+class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +24,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("loungeReservation"), false, () {
+            child: CommonAppBar(tr("sleepingRoomReservation"), false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
@@ -191,7 +191,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                           ),
                         ),
                         Text(
-                          "All day 9:00 ~ 18:00 (9 hours)",
+                          "9:00 ~ 18:00",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -202,6 +202,38 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                       ],
                     ),
                   )
+                ],
+              ),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Container(
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.all(16),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("seatNumber"),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  const Text(
+                    "22",
+                    style: TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
                 ],
               ),
             )

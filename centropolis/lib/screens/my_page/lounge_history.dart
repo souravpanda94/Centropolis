@@ -15,7 +15,7 @@ class LoungeHistory extends StatefulWidget {
 }
 
 class _LoungeHistoryState extends State<LoungeHistory> {
-  List<dynamic> approvedList = [
+  List<dynamic> list = [
     {
       "name": "Hong Gil Dong",
       "type": "Before Approval",
@@ -98,7 +98,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
 
   @override
   Widget build(BuildContext context) {
-    return approvedList.isEmpty
+    return list.isEmpty
         ? Container(
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -171,7 +171,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                 ),
                 Expanded(
                   child: ListView.builder(
-                      itemCount: approvedList.length,
+                      itemCount: list.length,
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
@@ -179,8 +179,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                               context,
                               MaterialPageRoute(
                                 builder: (context) => LoungeHistoryDetails(
-                                    type:
-                                        approvedList[index]["type"].toString()),
+                                    type: list[index]["type"].toString()),
                               ),
                             );
                           },
@@ -202,7 +201,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Text(
-                                      approvedList[index]["name"],
+                                      list[index]["name"],
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
@@ -210,26 +209,25 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                           fontSize: 14,
                                           color: CustomColors.textColor8),
                                     ),
-                                    if (approvedList[index]["type"]
+                                    if (list[index]["type"]
                                         .toString()
                                         .isNotEmpty)
                                       Container(
                                         decoration: BoxDecoration(
-                                          color: approvedList[index]["type"]
+                                          color: list[index]["type"]
                                                       .toString() ==
                                                   "Before Approval"
                                               ? CustomColors.backgroundColor3
-                                              : approvedList[index]["type"]
+                                              : list[index]["type"]
                                                           .toString() ==
                                                       "Approved"
                                                   ? CustomColors.backgroundColor
-                                                  : approvedList[index]["type"]
+                                                  : list[index]["type"]
                                                               .toString() ==
                                                           "Used"
                                                       ? CustomColors
                                                           .backgroundColor
-                                                      : approvedList[index]
-                                                                      ["type"]
+                                                      : list[index]["type"]
                                                                   .toString() ==
                                                               "Rejected"
                                                           ? CustomColors
@@ -245,26 +243,25 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                             left: 10.0,
                                             right: 10.0),
                                         child: Text(
-                                          approvedList[index]["type"],
+                                          list[index]["type"],
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontFamily: "SemiBold",
-                                            color: approvedList[index]["type"]
+                                            color: list[index]["type"]
                                                         .toString() ==
                                                     "Before Approval"
                                                 ? CustomColors.textColor9
-                                                : approvedList[index]["type"]
+                                                : list[index]["type"]
                                                             .toString() ==
                                                         "Approved"
                                                     ? CustomColors
                                                         .textColorBlack2
-                                                    : approvedList[index]
-                                                                    ["type"]
+                                                    : list[index]["type"]
                                                                 .toString() ==
                                                             "Used"
                                                         ? CustomColors
                                                             .textColor3
-                                                        : approvedList[index]
+                                                        : list[index]
                                                                         ["type"]
                                                                     .toString() ==
                                                                 "Rejected"
@@ -284,7 +281,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        approvedList[index]["date"],
+                                        list[index]["date"],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -303,7 +300,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                         width: 8,
                                       ),
                                       Text(
-                                        approvedList[index]["interval"],
+                                        list[index]["interval"],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
