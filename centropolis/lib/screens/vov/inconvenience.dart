@@ -1,4 +1,3 @@
-import 'package:centropolis/screens/vov_application/air_inc_light_list.dart';
 import 'package:centropolis/widgets/voc/voc_common_home.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +5,7 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import 'air_inc_light_list.dart';
 
 class InconvenienceScreen extends StatefulWidget {
   const InconvenienceScreen({super.key});

@@ -1,9 +1,9 @@
-import 'package:centropolis/screens/tenant_service/gx_reservation_detail.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/view_more.dart';
+import 'gx_reservation_detail.dart';
 
 class GXReservation extends StatefulWidget {
   const GXReservation({super.key});

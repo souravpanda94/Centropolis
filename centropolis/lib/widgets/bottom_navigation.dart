@@ -1,13 +1,13 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../screens/amenity/tenant_service.dart';
 import '../screens/home/bar_code.dart';
 import '../screens/home/home.dart';
 import '../screens/my_page/app_settings.dart';
 import '../screens/my_page/my_page.dart';
-import '../screens/tenant_service/tenant_service.dart';
 import '../screens/visit_request/visi_request.dart';
-import '../screens/vov_application/voc_application.dart';
+import '../screens/vov/voc_application.dart';
 import '../utils/custom_colors.dart';
 import 'home_page_app_bar.dart';
 
