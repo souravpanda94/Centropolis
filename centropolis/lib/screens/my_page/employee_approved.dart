@@ -9,60 +9,227 @@ import 'add_member.dart';
 import 'registered_employee_detail.dart';
 
 class EmployeeApproved extends StatefulWidget {
-  const EmployeeApproved({super.key});
+  final String status;
+  const EmployeeApproved({super.key, required this.status});
 
   @override
   State<EmployeeApproved> createState() => _EmployeeApprovedState();
 }
 
 class _EmployeeApprovedState extends State<EmployeeApproved> {
-  List<dynamic> approvedList = [
+  List<dynamic> list = [
     {
       "name": "Hong Gil Dong",
       "type": "Conference Room",
       "date": "2023.00.00",
+      "status": "Approved"
     },
     {
       "name": "Hong Gil Dong",
       "type": "Executive Lounge",
       "date": "2023.00.00",
+      "status": "Approved"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "Executive Lounge",
+      "date": "2023.00.00",
+      "status": "Approved"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "Executive Lounge",
+      "date": "2023.00.00",
+      "status": "Approved"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "Executive Lounge",
+      "date": "2023.00.00",
+      "status": "Approved"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "Executive Lounge",
+      "date": "2023.00.00",
+      "status": "Approved"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "Executive Lounge",
+      "date": "2023.00.00",
+      "status": "Approved"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "Executive Lounge",
+      "date": "2023.00.00",
+      "status": "Approved"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Approved"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Approved"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Suspended"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Suspended"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Suspended"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Suspended"
     },
     {
       "name": "Hong Gil Dong",
       "type": "",
       "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Suspended"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
+    },
+    {
+      "name": "Hong Gil Dong",
+      "type": "",
+      "date": "2023.00.00",
+      "status": "Before Approval"
     },
   ];
+  List<dynamic> approvedList = [];
+
+  @override
+  void initState() {
+    approvedList = list.where((map) => map["status"] == widget.status).toList();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
