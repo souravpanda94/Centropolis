@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/view_more.dart';
+import 'paid_pt_history_details.dart';
 
 class PaidPTReservationHistory extends StatefulWidget {
   const PaidPTReservationHistory({super.key});
@@ -188,13 +189,13 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ConferenceHistoryDetails(
-                            //         type: list[index]["type"].toString()),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => PaidPTHistoryDetails(
+                                    type: list[index]["type"].toString()),
+                              ),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(
