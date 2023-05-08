@@ -36,6 +36,8 @@ class CustomColors {
   static const borderColor = Color(0xFFE0E0E0);
   static const redColor = Color(0xFFFFF6F6);
   static const homeButtonBackgroundColor = Color(0x1FB9644C);
+  static const brownColor = Color(0xFFAC9573);
+  static const coolingColor = Color(0xFF2F80ED);
 
 // ====================== Unused color code ================
   static const selectedColor = Color(0xFFB25A42);
@@ -43,5 +45,4 @@ class CustomColors {
   static const textColorGrey = Color(0xFF414341);
   static const textGreyColor = Color(0xFF868484);
   static const indicatorDotBackgroundColor = Color(0xFFD9D9D9);
-  static const coolingColor = Color(0xFF2F80ED);
 }

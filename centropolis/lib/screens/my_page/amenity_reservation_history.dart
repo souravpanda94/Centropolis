@@ -22,7 +22,7 @@ class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
     Tab(text: tr("lounge")),
     Tab(text: tr("conference")),
     Tab(text: tr("fitness")),
-    Tab(text: tr("facilities")),
+    Tab(text: tr("sleepingRoom")),
   ];
 
   @override
@@ -73,6 +73,7 @@ class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
                               width: 0.5)),
                     ),
                     child: TabBar(
+                      isScrollable: true,
                       tabs: myTabs,
                       labelColor: CustomColors.textColor8,
                       labelStyle: const TextStyle(

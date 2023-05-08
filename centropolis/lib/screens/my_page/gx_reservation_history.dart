@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/view_more.dart';
+import 'gx_history_details.dart';
 
 class GXReservationHistory extends StatefulWidget {
   const GXReservationHistory({super.key});
@@ -162,13 +163,13 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ConferenceHistoryDetails(
-                            //         type: list[index]["type"].toString()),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => GXHistoryDetails(
+                                    type: list[index]["type"].toString()),
+                              ),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(

@@ -1,111 +1,117 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/view_more.dart';
-import 'paid_pt_history_details.dart';
 
-class PaidPTReservationHistory extends StatefulWidget {
-  const PaidPTReservationHistory({super.key});
+class AirConditioningHistory extends StatefulWidget {
+  const AirConditioningHistory({super.key});
 
   @override
-  State<PaidPTReservationHistory> createState() =>
-      _PaidPTReservationHistoryState();
+  State<AirConditioningHistory> createState() => _AirConditioningHistoryState();
 }
 
-class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
+class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   List<dynamic> list = [
     {
-      "title": "PT",
-      "type": "Before Approval",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
     },
     {
-      "title": "PT",
-      "type": "Before Approval",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
     },
     {
-      "title": "PT",
-      "type": "Before Approval",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
     {
-      "title": "PT",
-      "type": "Approved",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
     {
-      "title": "PT",
-      "type": "Used",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
     },
     {
-      "title": "PT",
-      "type": "Approved",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
     {
-      "title": "PT",
-      "type": "Rejected",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
     },
     {
-      "title": "PT",
-      "type": "Used",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
     {
-      "title": "PT",
-      "type": "Used",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
     },
     {
-      "title": "PT",
-      "type": "Used",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
     },
     {
-      "title": "PT",
-      "type": "Used",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
     {
-      "title": "PT",
-      "type": "Rejected",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
     {
-      "title": "PT",
-      "type": "Approved",
-      "date": "2023.00.00",
-      "startTime": "9:00",
-      "endTime": "18:00"
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Heating"
+    },
+    {
+      "title": "Centropolis",
+      "status": "Approved",
+      "date": "2023.00.00 13:00",
+      "floor": "11F",
+      "type": "Air Conditioning"
     },
   ];
 
@@ -126,8 +132,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
             ),
           )
         : Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.only(left: 16, right: 16, top: 33),
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -189,13 +194,13 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => PaidPTHistoryDetails(
-                                    type: list[index]["type"].toString()),
-                              ),
-                            );
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => ConferenceHistoryDetails(
+                            //         type: list[index]["type"].toString()),
+                            //   ),
+                            // );
                           },
                           child: Container(
                             decoration: BoxDecoration(
@@ -208,46 +213,68 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                             padding: const EdgeInsets.all(16),
                             margin: const EdgeInsets.only(bottom: 16),
                             child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
                                   children: [
+                                    Icon(
+                                      Icons.circle,
+                                      size: 8,
+                                      color: list[index]["type"] == "Heating"
+                                          ? CustomColors.headingColor
+                                          : CustomColors.coolingColor,
+                                    ),
+                                    const SizedBox(
+                                      width: 4,
+                                    ),
                                     Text(
-                                      list[index]["title"],
+                                      list[index]["type"],
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
                                           fontFamily: 'SemiBold',
-                                          fontSize: 14,
-                                          color: CustomColors.textColor8),
+                                          fontSize: 12,
+                                          color: CustomColors.textColorBlack2),
                                     ),
-                                    if (list[index]["type"]
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 18,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        list[index]["title"],
+                                        style: const TextStyle(
+                                            fontFamily: 'SemiBold',
+                                            fontSize: 14,
+                                            color: CustomColors.textColor8),
+                                      ),
+                                    ),
+                                    if (list[index]["status"]
                                         .toString()
                                         .isNotEmpty)
                                       Container(
                                         decoration: BoxDecoration(
-                                          color: list[index]["type"]
+                                          color: list[index]["status"]
                                                       .toString() ==
-                                                  "Before Approval"
+                                                  "Received"
                                               ? CustomColors.backgroundColor3
-                                              : list[index]["type"]
+                                              : list[index]["status"]
                                                           .toString() ==
                                                       "Approved"
                                                   ? CustomColors.backgroundColor
-                                                  : list[index]["type"]
+                                                  : list[index]["status"]
                                                               .toString() ==
-                                                          "Used"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : list[index]["type"]
-                                                                  .toString() ==
-                                                              "Rejected"
-                                                          ? CustomColors
-                                                              .redColor
-                                                          : CustomColors
-                                                              .textColorBlack2,
+                                                          "In Progress"
+                                                      ? CustomColors.greyColor2
+                                                      : CustomColors
+                                                          .textColorBlack2,
                                           borderRadius:
                                               BorderRadius.circular(4),
                                         ),
@@ -257,32 +284,26 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                             left: 10.0,
                                             right: 10.0),
                                         child: Text(
-                                          list[index]["type"],
+                                          list[index]["status"],
                                           style: TextStyle(
                                             fontSize: 12,
                                             fontFamily: "SemiBold",
-                                            color: list[index]["type"]
+                                            color: list[index]["status"]
                                                         .toString() ==
-                                                    "Before Approval"
+                                                    "Received"
                                                 ? CustomColors.textColor9
-                                                : list[index]["type"]
+                                                : list[index]["status"]
                                                             .toString() ==
-                                                        "Approved"
+                                                        "Answered"
                                                     ? CustomColors
                                                         .textColorBlack2
-                                                    : list[index]["type"]
+                                                    : list[index]["status"]
                                                                 .toString() ==
-                                                            "Used"
+                                                            "In Progress"
                                                         ? CustomColors
-                                                            .textColor3
-                                                        : list[index]
-                                                                        ["type"]
-                                                                    .toString() ==
-                                                                "Rejected"
-                                                            ? CustomColors
-                                                                .headingColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
+                                                            .brownColor
+                                                        : CustomColors
+                                                            .textColorBlack2,
                                           ),
                                         ),
                                       ),
@@ -295,7 +316,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                   child: Row(
                                     children: [
                                       Text(
-                                        list[index]["date"],
+                                        list[index]["floor"],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -314,31 +335,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                         width: 8,
                                       ),
                                       Text(
-                                        list[index]["startTime"],
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 12,
-                                            color: CustomColors.textColor3),
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      const Text(
-                                        "~",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 12,
-                                            color: CustomColors.textColor3),
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        list[index]["endTime"],
+                                        list[index]["date"],
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
