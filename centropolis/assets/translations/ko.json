@@ -109,6 +109,11 @@
   "customerComplaints" : "Customer Complaints",
   "requestForLightsOut" : "Request for lights out",
   "requestForHeatingAndCooling" : "Request for Heating and Cooling",
+  "pleaseEnterYourId" : "Please enter your ID.",
+  "pleaseEnterPassword" : "Please enter a password.",
+  "pleaseCheckYourAccountAndTryAgain" : "Please check your account and try again.",
+  "thisIsAnUnapprovedAccount" : "This is an unapproved account.",
+  "pleaseLogInAfterApproval" : "This account has not been approved by the manager. Please log in after approval.",
 
 
 

@@ -5,6 +5,7 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_modal.dart';
 import 'find_ID_password.dart';
 import 'signup.dart';
 
@@ -159,6 +160,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: CommonButton(
                     onCommonButtonTap: () {
                       goToHomeScreen();
+                      // showUserIdErrorModal();
+                      // showPasswordErrorModal();
+                      // showCredentialErrorModal();
+                      // showUnapprovedErrorModal();
                     },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("btnLogin"),
@@ -261,4 +266,90 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
+
+  void showUserIdErrorModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("pleaseEnterYourId"),
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: (){},
+            onSecondBtnTap: (){},
+          );
+        });
+  }
+
+  void showPasswordErrorModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("pleaseEnterPassword"),
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: (){},
+            onSecondBtnTap: (){},
+          );
+        });
+  }
+
+  void showCredentialErrorModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("pleaseCheckYourAccountAndTryAgain"),
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: (){},
+            onSecondBtnTap: (){},
+          );
+        });
+  }
+
+  void showUnapprovedErrorModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("thisIsAnUnapprovedAccount"),
+            description: tr("pleaseLogInAfterApproval"),
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: (){},
+            onSecondBtnTap: (){},
+          );
+        });
+  }
+
+
+
+
+
+
 }
