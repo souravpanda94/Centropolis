@@ -22,6 +22,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
+import 'login.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
@@ -61,8 +62,8 @@ class _SignupScreenState extends State<SignupScreen> {
   // List<FloorModel>? floorListItem;
   List<dynamic> companyList = [];
   List<dynamic> companyList2 = [
-    {"company_id": 9, "company_name": "testdemo123", "status": "active"},
-    {"company_id": 3, "company_name": "test_43", "status": "active"},
+    {"company_id": 9, "company_name": "testdemo123", },
+    {"company_id": 3, "company_name": "test_43", },
   ];
   List<dynamic> floorList = [];
   String currentSelectedCompanyNameId = "";
@@ -311,6 +312,21 @@ class _SignupScreenState extends State<SignupScreen> {
                         });
                       },
                     ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                     Stack(
                       children: [
                         Column(
@@ -1085,8 +1101,6 @@ class _SignupScreenState extends State<SignupScreen> {
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            // heading: tr("memberRegistrationComplete"),
-            // description: tr("signUpIsComplete"),
             heading: title,
             description: message,
             buttonName: tr("check"),
@@ -1094,6 +1108,12 @@ class _SignupScreenState extends State<SignupScreen> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const LoginScreen(),
+                ),
+              );
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
@@ -1102,6 +1122,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void signUpValidation() {
+    hideKeyboard();
     if (tenantCompany == -1) {
       showCustomToast(fToast, context, "Please select company name", "");
     } else if (floor == "") {
@@ -1152,7 +1173,6 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       isLoading = true;
     });
-    hideKeyboard();
     Map<String, dynamic> body = {
       "company_id": tenantCompany,
       "name": nameController.text.trim(),
@@ -1382,111 +1402,39 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget companyNameFieldWidget() {
+    companyList2 = [
+      {"company_id": 9, "company_name": "testdemo123", "status": "active"},
+      {"company_id": 3, "company_name": "test_43", "status": "active"},
+    ];
+
     return Container(
       height: 47,
       margin: const EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton2(
-          isExpanded: true,
-          hint: Row(
-            children: const [
-              Icon(
-                Icons.list,
-                size: 16,
-                color: Colors.yellow,
-              ),
-              SizedBox(
-                width: 4,
-              ),
-              Expanded(
-                child: Text(
-                  'Select Item',
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.yellow,
-                  ),
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-          items: companyList2
-              .map((item) => DropdownMenuItem<String>(
-                    value: item[''].toString(),
-                    child: Text(
-                      item[''],
-                      style: const TextStyle(
-                        fontSize: 14,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white,
-                      ),
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ))
-              .toList(),
-          value: currentSelectedCompanyNameId,
-          onChanged: (value) {
-            setState(() {
-              currentSelectedCompanyNameId = value as String;
-            });
-          },
-          buttonStyleData: ButtonStyleData(
-            height: 50,
-            width: 160,
-            padding: const EdgeInsets.only(left: 14, right: 14),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              border: Border.all(
-                color: Colors.black26,
-              ),
-              color: Colors.redAccent,
-            ),
-            elevation: 2,
-          ),
-          iconStyleData: const IconStyleData(
-            icon: Icon(
-              Icons.arrow_forward_ios_outlined,
-            ),
-            iconSize: 14,
-            iconEnabledColor: Colors.yellow,
-            iconDisabledColor: Colors.grey,
-          ),
-          dropdownStyleData: DropdownStyleData(
-            maxHeight: 200,
-            width: 200,
-            padding: null,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(14),
-              color: Colors.redAccent,
-            ),
-            elevation: 8,
-            offset: const Offset(-20, 0),
-            scrollbarTheme: ScrollbarThemeData(
-              radius: const Radius.circular(40),
-              thickness: MaterialStateProperty.all<double>(6),
-              thumbVisibility: MaterialStateProperty.all<bool>(true),
-            ),
-          ),
-          menuItemStyleData: const MenuItemStyleData(
-            height: 40,
-            padding: EdgeInsets.only(left: 14, right: 14),
-          ),
-        ),
-      ),
+      child:
+
+
+
 
       // DropdownButtonHideUnderline(
       //   child: DropdownButton2(
       //     isExpanded: true,
       //     hint: Row(
-      //       children: [
+      //       children: const [
+      //         Icon(
+      //           Icons.list,
+      //           size: 16,
+      //           color: Colors.yellow,
+      //         ),
+      //         SizedBox(
+      //           width: 4,
+      //         ),
       //         Expanded(
       //           child: Text(
-      //             tr('tenantCompanyHint'),
-      //             style: const TextStyle(
-      //               color: CustomColors.blackColor,
+      //             'Select Item',
+      //             style: TextStyle(
       //               fontSize: 14,
-      //               fontFamily: 'Regular',
+      //               fontWeight: FontWeight.bold,
+      //               color: Colors.yellow,
       //             ),
       //             overflow: TextOverflow.ellipsis,
       //           ),
@@ -1495,56 +1443,145 @@ class _SignupScreenState extends State<SignupScreen> {
       //     ),
       //     items: companyList2
       //         .map((item) => DropdownMenuItem<String>(
-      //       value: item['company_id'].toString(),
-      //       child: Text(
-      //         item['company_name'],
-      //         style: const TextStyle(
-      //           color: CustomColors.blackColor,
-      //           fontSize: 14,
-      //           fontFamily: 'Regular',
-      //         ),
-      //         overflow: TextOverflow.ellipsis,
-      //       ),
-      //     )).toList(),
+      //               value: item['company_id'].toString(),
+      //               child: Text(
+      //                 item['company_name'],
+      //                 style: const TextStyle(
+      //                   fontSize: 14,
+      //                   fontWeight: FontWeight.bold,
+      //                   color: Colors.white,
+      //                 ),
+      //                 overflow: TextOverflow.ellipsis,
+      //               ),
+      //             ))
+      //         .toList(),
       //     value: currentSelectedCompanyNameId,
       //     onChanged: (value) {
       //       setState(() {
       //         currentSelectedCompanyNameId = value as String;
       //       });
       //     },
-      //     icon: Padding(
-      //       padding: const EdgeInsets.only(left: 0, top: 5),
-      //       child: SvgPicture.asset(
-      //         "assets/images/ic_drop_down_arrow.svg",
-      //         fit: BoxFit.contain,
-      //         allowDrawingOutsideViewBox: true,
-      //         width: 5,
-      //         height: 5,
-      //         color: CustomColors.blackColor,
+      //     buttonStyleData: ButtonStyleData(
+      //       height: 50,
+      //       width: 160,
+      //       padding: const EdgeInsets.only(left: 14, right: 14),
+      //       decoration: BoxDecoration(
+      //         borderRadius: BorderRadius.circular(14),
+      //         border: Border.all(
+      //           color: Colors.black26,
+      //         ),
+      //         color: Colors.redAccent,
+      //       ),
+      //       elevation: 2,
+      //     ),
+      //     iconStyleData: const IconStyleData(
+      //       icon: Icon(
+      //         Icons.arrow_forward_ios_outlined,
+      //       ),
+      //       iconSize: 14,
+      //       iconEnabledColor: Colors.yellow,
+      //       iconDisabledColor: Colors.grey,
+      //     ),
+      //     dropdownStyleData: DropdownStyleData(
+      //       maxHeight: 200,
+      //       width: 200,
+      //       padding: null,
+      //       decoration: BoxDecoration(
+      //         borderRadius: BorderRadius.circular(14),
+      //         color: Colors.redAccent,
+      //       ),
+      //       elevation: 8,
+      //       offset: const Offset(-20, 0),
+      //       scrollbarTheme: ScrollbarThemeData(
+      //         radius: const Radius.circular(40),
+      //         thickness: MaterialStateProperty.all<double>(6),
+      //         thumbVisibility: MaterialStateProperty.all<bool>(true),
       //       ),
       //     ),
-      //     buttonHeight: 50,
-      //     buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-      //     buttonDecoration: BoxDecoration(
-      //       borderRadius: BorderRadius.circular(25),
-      //       border: Border.all(
-      //         // color: CustomColors.borderColor,
-      //           color:  CustomColors.borderColor,
-      //           width: 1.0),
-      //       color: Colors.white,
+      //     menuItemStyleData: const MenuItemStyleData(
+      //       height: 40,
+      //       padding: EdgeInsets.only(left: 14, right: 14),
       //     ),
-      //     buttonElevation: 0,
-      //     itemHeight: 40,
-      //     dropdownMaxHeight: 200,
-      //     dropdownPadding: const EdgeInsets.only(left: 14, right: 14),
-      //     dropdownDecoration: BoxDecoration(
-      //       borderRadius: BorderRadius.circular(14),
-      //       color: Colors.white,
-      //     ),
-      //     dropdownElevation: 8,
-      //     offset: const Offset(0, 0),
       //   ),
       // ),
+
+
+
+
+      DropdownButtonHideUnderline(
+        child: DropdownButton2(
+          isExpanded: true,
+          hint: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  tr('tenantCompanyHint'),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+          items: companyList2
+              .map((item) => DropdownMenuItem<String>(
+            value: item['company_id'].toString(),
+            child: Text(
+              item['company_name'],
+              style: const TextStyle(
+                color: CustomColors.blackColor,
+                fontSize: 14,
+                fontFamily: 'Regular',
+              ),
+              overflow: TextOverflow.ellipsis,
+            ),
+          )).toList(),
+          value: currentSelectedCompanyNameId,
+          onChanged: (value) {
+            setState(() {
+              currentSelectedCompanyNameId = value as String;
+            });
+          },
+          icon: Padding(
+            padding: const EdgeInsets.only(left: 0, top: 5),
+            child: SvgPicture.asset(
+              "assets/images/ic_drop_down_arrow.svg",
+              fit: BoxFit.contain,
+              allowDrawingOutsideViewBox: true,
+              width: 5,
+              height: 5,
+              color: CustomColors.blackColor,
+            ),
+          ),
+          buttonHeight: 50,
+          buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+          buttonDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(25),
+            border: Border.all(
+              // color: CustomColors.borderColor,
+                color:  CustomColors.borderColor,
+                width: 1.0),
+            color: Colors.white,
+          ),
+          buttonElevation: 0,
+          itemHeight: 40,
+          dropdownMaxHeight: 200,
+          dropdownPadding: const EdgeInsets.only(left: 14, right: 14),
+          dropdownDecoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(14),
+            color: Colors.white,
+          ),
+          dropdownElevation: 8,
+          offset: const Offset(0, 0),
+        ),
+      ),
+
+
+
+
     );
   }
 
