@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return LoadingOverlay(
       opacity: 0.5,
-      color: CustomColors.blackColor,
+      color: CustomColors.greyColor1,
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
       ),
@@ -424,6 +424,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          clearDataField();
           late String userId,
               apiKey,
               accessTokenExpiry,
@@ -505,4 +506,11 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
+
+
+  void clearDataField() {
+    emailIDController.clear();
+    passwordController.clear();
+  }
+
 }

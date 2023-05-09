@@ -38,7 +38,7 @@ class _FindIdScreenState extends State<FindID> {
   Widget build(BuildContext context) {
     return LoadingOverlay(
       opacity: 0.5,
-      color: CustomColors.blackColor,
+      color: CustomColors.greyColor1,
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
       ),
@@ -132,6 +132,7 @@ class _FindIdScreenState extends State<FindID> {
             firstButtonName: "",
             secondButtonName: "",
             onConfirmBtnTap: () {
+              clearDataField();
               Navigator.pop(context);
             },
             onFirstBtnTap: () {},
@@ -189,6 +190,7 @@ class _FindIdScreenState extends State<FindID> {
   }
 
   void callFindIdNetworkCheck() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callFindIdApi();
@@ -245,4 +247,10 @@ class _FindIdScreenState extends State<FindID> {
       }
     });
   }
+
+
+  void clearDataField() {
+    emailIDController.clear();
+  }
+
 }
