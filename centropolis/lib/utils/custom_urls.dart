@@ -5,6 +5,7 @@ class ApiEndPoint {
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
+  static String findPasswordUrl = "${baseUrl}v1/find-password";
 
 
   static String withdrawalUrl = "${baseUrl}v1";

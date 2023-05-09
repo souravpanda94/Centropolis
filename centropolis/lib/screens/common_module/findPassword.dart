@@ -1,8 +1,19 @@
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:http/http.dart' as http;
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
+import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_modal.dart';
+
+
 
 class FindPassword extends StatefulWidget {
   const FindPassword({super.key});
@@ -14,10 +25,28 @@ class FindPassword extends StatefulWidget {
 class _FindPasswordState extends State<FindPassword> {
   TextEditingController emailIDController = TextEditingController();
   TextEditingController idController = TextEditingController();
+  bool isLoading = false;
+  late String language;
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.greyColor1,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
       child: SingleChildScrollView(
@@ -130,7 +159,9 @@ class _FindPasswordState extends State<FindPassword> {
             Container(
               margin: const EdgeInsets.only(top: 32, bottom: 16),
               child: CommonButton(
-                  onCommonButtonTap: () {},
+                  onCommonButtonTap: () {
+                    findPasswordValidation();
+                  },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("findPassword"),
                   isIconVisible: false),
@@ -138,6 +169,148 @@ class _FindPasswordState extends State<FindPassword> {
           ],
         ),
       ),
-    );
+    ),);
   }
+
+  void showUserIdErrorModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("pleaseEnterYourId"),
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+  void showEmailErrorModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: "Please enter your email",
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+
+  void findPasswordValidation() {
+    if(idController.text == ""){
+      showUserIdErrorModal();
+    }
+    else if (!isValidEmail(emailIDController.text)) {
+      showEmailErrorModal();
+    }
+    else {
+      callFindPasswordNetworkCheck();
+    }
+  }
+
+  void callFindPasswordNetworkCheck() async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callFindIdApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callFindIdApi() async {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "username": idController.text.trim(),
+      "email": emailIDController.text.trim(),
+    };
+    debugPrint("find password input ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.findPasswordUrl, body, language.trim(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+      debugPrint("server response for find password ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          late String title, message;
+
+          if (responseJson['title'] != null) {
+            title = responseJson['title'].toString();
+          }
+          if (responseJson['message'] != null) {
+            message = responseJson['message'].toString();
+          }
+          showSentUserPasswordModal(title, message);
+        } else {
+          if (responseJson['message'] != null) {
+            debugPrint("Server error response ${responseJson['message']}");
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+  }
+
+  void showSentUserPasswordModal(String title, String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: title,
+            description: message,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              clearDataField();
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+  void clearDataField() {
+    idController.clear();
+    emailIDController.clear();
+  }
+
+
+
 }
