@@ -53,6 +53,8 @@ dependencies:
   mime: ^1.0.4
   mime_type: ^1.0.0
   dots_indicator: ^2.1.2
+#  dropdown_button2: ^1.8.5
+  dropdown_button2: ^2.1.0
 
 
 dev_dependencies:
