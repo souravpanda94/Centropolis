@@ -141,7 +141,6 @@
   "homeTitle" : "History and culture are alive and breathing",
   "homeSubtitle" : "Prime Office Building Centropolis",
   "conferenceSubTitle" : "conference",
-  "conferenceRoom" : "Conference Room 2",
   "visitReservation" : "Visit Reservation",
   "lobby" : "Lobby",
   "otherReservation" : "Others reservation",
@@ -344,6 +343,10 @@
   "airConditioning/Heading" : "Air conditioning / Heading",
   "dateOfApplication" : "Date of Application",
   "cancelRequest" : "Cancel Request",
+  "conferenceRoom" : "Conference Room",
+  "normalUser" : "Normal User",
+  "executiveLounge" : "Executive Lounge",
+  "items" : "Items",
 
   
 

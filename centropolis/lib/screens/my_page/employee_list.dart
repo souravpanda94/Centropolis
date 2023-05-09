@@ -260,13 +260,6 @@ class _EmployeeListState extends State<EmployeeList> {
                           color: CustomColors.textColor9),
                     ),
                   ),
-                  const Text(
-                    "명",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
                 ],
               ),
               Row(

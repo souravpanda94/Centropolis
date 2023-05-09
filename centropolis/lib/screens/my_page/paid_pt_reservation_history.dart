@@ -153,9 +153,9 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                 color: CustomColors.textColor9),
                           ),
                         ),
-                        const Text(
-                          "명",
-                          style: TextStyle(
+                        Text(
+                          tr("items"),
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),

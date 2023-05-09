@@ -127,7 +127,6 @@
   "homeTitle" : "역사와 문화가 살아 숨 쉬는",
   "homeSubtitle" : " 프라임 오피스 빌딩 센트로폴리스",
   "conferenceSubTitle" : "컨퍼런스",
-  "conferenceRoom" : "Conference Room 2",
   "visitReservation" : "Visit Reservation",
   "lobby" : "Lobby",
   "otherReservation" : "Others reservation",
@@ -339,6 +338,10 @@
   "airConditioning/Heading" : "냉 / 난방 선택",
   "dateOfApplication" : "가동 일시",
   "cancelRequest" : "신청 취소",
+  "conferenceRoom" : "회의실 담당자",
+  "normalUser" : "Normal User",
+  "executiveLounge" : "라운지 담당자",
+  "items" : "개",
 
 
 
