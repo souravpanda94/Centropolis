@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       height: 12,
                       width: 12,
-                      margin: const EdgeInsets.only(left: 5.0,right: 5.0),
+                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Checkbox(
                         checkColor: CustomColors.whiteColor,
                         activeColor: CustomColors.buttonBackgroundColor,
@@ -477,7 +477,6 @@ class _LoginScreenState extends State<LoginScreen> {
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);
           goToHomeScreen();
-
         } else {
           if (responseJson['message_code'] == "7004") {
             // if user input wrong email or password

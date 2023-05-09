@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/view_more.dart';
+import 'inconvenience_history_details.dart';
 
 class InconvenienceHistory extends StatefulWidget {
   const InconvenienceHistory({super.key});
@@ -169,13 +170,14 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ConferenceHistoryDetails(
-                            //         type: list[index]["type"].toString()),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    InconvenienceHistoryDetails(
+                                        type: list[index]["status"].toString()),
+                              ),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(

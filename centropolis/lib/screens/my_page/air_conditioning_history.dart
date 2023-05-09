@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../widgets/view_more.dart';
+import 'air_conditioning_history_details.dart';
 
 class AirConditioningHistory extends StatefulWidget {
   const AirConditioningHistory({super.key});
@@ -194,13 +195,14 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                       itemBuilder: ((context, index) {
                         return InkWell(
                           onTap: () {
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => ConferenceHistoryDetails(
-                            //         type: list[index]["type"].toString()),
-                            //   ),
-                            // );
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) =>
+                                    AirConditioningHistoryDetails(
+                                        type: list[index]["status"].toString()),
+                              ),
+                            );
                           },
                           child: Container(
                             decoration: BoxDecoration(
