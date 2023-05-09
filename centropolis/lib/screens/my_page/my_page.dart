@@ -2,8 +2,11 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../home/bar_code.dart';
 import 'amenity_reservation_history.dart';
 import 'personal_information.dart';
+import 'privacy_policy_and_terms_of_use.dart';
 import 'registered_employee_list.dart';
 import 'voc_reservation_history.dart';
 
@@ -213,77 +216,104 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                 ))
                             ],
                           )),
-                      Container(
-                        margin: const EdgeInsets.only(top: 20.0, bottom: 20),
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: CustomColors.whiteColor,
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                color: CustomColors.dividerGreyColor,
-                                width: 1.0)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/ic_qr_code.svg',
-                              semanticsLabel: 'Back',
-                              width: 23,
-                              height: 23,
-                              alignment: Alignment.center,
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BarCodeScreen(),
                             ),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            Text(
-                              tr("qrCode"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "SemiBold",
-                                color: CustomColors.textColorBlack2,
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 20.0, bottom: 20),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: CustomColors.whiteColor,
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/ic_qr_code.svg',
+                                semanticsLabel: 'Back',
+                                width: 23,
+                                height: 23,
+                                alignment: Alignment.center,
                               ),
-                            ),
-                          ],
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Text(
+                                tr("qrCode"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       )
                     ],
                   ),
                 ),
                 if (userType == "admin")
-                  Container(
-                    height: 78,
-                    width: double.infinity,
-                    margin:
-                        const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
-                    decoration: BoxDecoration(
-                        color: CustomColors.whiteColor,
-                        borderRadius: BorderRadius.circular(4),
-                        border: Border.all(
-                            color: CustomColors.dividerGreyColor, width: 1.0)),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SvgPicture.asset(
-                          'assets/images/ic_car.svg',
-                          semanticsLabel: 'Back',
-                          width: 23,
-                          height: 23,
-                          alignment: Alignment.center,
-                        ),
-                        const SizedBox(
-                          height: 7,
-                        ),
-                        Text(
-                          tr("freeParkingVehicleRegistration"),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColorBlack2,
+                  InkWell(
+                    onTap: () {
+                      showGeneralDialog(
+                          context: context,
+                          barrierColor: Colors.black12.withOpacity(0.6),
+                          // Background color
+                          barrierDismissible: false,
+                          barrierLabel: 'Dialog',
+                          transitionDuration: const Duration(milliseconds: 400),
+                          pageBuilder: (_, __, ___) {
+                            return PrivacyPolicyAndTermsOfUseScreen(
+                                tr("freeParkingVehicleRegistration"),
+                                WebViewLinks.termsOfUseUrl);
+                          });
+                    },
+                    child: Container(
+                      height: 78,
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(
+                          top: 20, left: 16.0, right: 16.0),
+                      decoration: BoxDecoration(
+                          color: CustomColors.whiteColor,
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                              color: CustomColors.dividerGreyColor,
+                              width: 1.0)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          SvgPicture.asset(
+                            'assets/images/ic_car.svg',
+                            semanticsLabel: 'Back',
+                            width: 23,
+                            height: 23,
+                            alignment: Alignment.center,
                           ),
-                        ),
-                      ],
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          Text(
+                            tr("freeParkingVehicleRegistration"),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColorBlack2,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 InkWell(

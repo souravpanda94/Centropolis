@@ -791,7 +791,9 @@ class _AddMemberState extends State<AddMember> {
                     isIconVisible: false),
               ),
               CommonButtonWithBorder(
-                onCommonButtonTap: () {},
+                onCommonButtonTap: () {
+                  Navigator.pop(context);
+                },
                 buttonBorderColor: CustomColors.dividerGreyColor,
                 buttonName: tr("before"),
                 buttonTextColor: CustomColors.textColor5,

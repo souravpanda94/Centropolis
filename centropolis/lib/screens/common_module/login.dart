@@ -47,7 +47,7 @@ class _LoginScreenState extends State<LoginScreen> {
   Widget build(BuildContext context) {
     return LoadingOverlay(
       opacity: 0.5,
-      color: CustomColors.greyColor1,
+      color: CustomColors.blackColor,
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
       ),
@@ -157,7 +157,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     Container(
                       height: 12,
                       width: 12,
-                      margin: const EdgeInsets.only(left: 5.0,right: 5.0),
+                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
                       child: Checkbox(
                         checkColor: CustomColors.whiteColor,
                         activeColor: CustomColors.buttonBackgroundColor,
@@ -424,7 +424,6 @@ class _LoginScreenState extends State<LoginScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          clearDataField();
           late String userId,
               apiKey,
               accessTokenExpiry,
@@ -478,7 +477,6 @@ class _LoginScreenState extends State<LoginScreen> {
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);
           goToHomeScreen();
-
         } else {
           if (responseJson['message_code'] == "7004") {
             // if user input wrong email or password
@@ -506,11 +504,4 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
-
-
-  void clearDataField() {
-    emailIDController.clear();
-    passwordController.clear();
-  }
-
 }

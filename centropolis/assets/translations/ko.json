@@ -127,14 +127,12 @@
   "homeTitle" : "역사와 문화가 살아 숨 쉬는",
   "homeSubtitle" : " 프라임 오피스 빌딩 센트로폴리스",
   "conferenceSubTitle" : "컨퍼런스",
-  "conferenceRoom" : "Conference Room 2",
   "visitReservation" : "Visit Reservation",
   "lobby" : "Lobby",
   "otherReservation" : "Others reservation",
   "otherReservationSubtitle" : "기타 예약",
   "otherReservationCard1" : "소등 신청",
   "otherReservationCard2" : "냉난방 신청",
-  "otherReservationCard3" : "불편사항접수",
   "otherReservationCardBook" : "바로가기",
   "homeRowBook" : "예약하기",
   "bookmeetingRoom" : "회의실 예약하기",
@@ -327,6 +325,25 @@
   "seatNumber": "좌석 번호",
   "lockerNumber": "사물함 번호",
   "newInquiry": "신규 문의",
+  "complaintsReceived" : "불편사항접수",
+  "applicantInformation" : "작성자 정보",
+  "typeOfComplaint" : "민원 종류 ",
+  "complaintTitle" : "불편사항 문의 제목이 들어갑니다. ",
+  "inquiryAnswer" : "문의 답변",
+  "addInquiry" : "추가 문의",
+  "toList" : "목록으로",
+  "applicationFloor" : "신청 층",
+  "lightsOutDate" : "소등 일시",
+  "otherRequests" : "기타 요청 사항 ",
+  "airConditioning/Heading" : "냉 / 난방 선택",
+  "dateOfApplication" : "가동 일시",
+  "cancelRequest" : "신청 취소",
+  "conferenceRoom" : "회의실 담당자",
+  "normalUser" : "Normal User",
+  "executiveLounge" : "라운지 담당자",
+  "items" : "개",
+
+
 
 
 
@@ -344,5 +361,5 @@
 
 
   "sourav" : "=============================SOURAV SECTION=========================================",
-  "AirConditioning":"Air conditioning & Heating application"
+  "AirConditioning":"냉 & 난방 신청"
 }
