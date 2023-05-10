@@ -172,7 +172,6 @@
   "extensionEnd" : "end of extension",
   "heatingAndCooling" : "heating and cooling",
   "lightsOut" : "lights out",
-  "heating" : "heating",
 
 
   "aditi" : "=============================Aditi SECTION=========================================",
@@ -340,13 +339,25 @@
   "applicationFloor" : "Application Floor",
   "lightsOutDate" : "Lights out Date",
   "otherRequests" : "Other Requests",
-  "airConditioning/Heading" : "Air conditioning / Heading",
+  "airConditioning/Heating" : "Air conditioning / Heating",
   "dateOfApplication" : "Date of Application",
   "cancelRequest" : "Cancel Request",
   "conferenceRoom" : "Conference Room",
   "normalUser" : "Normal User",
   "executiveLounge" : "Executive Lounge",
   "items" : "Items",
+  "lightOutEmptyText" : "There is no history of lights out.",
+  "airConditioningEmptyText" : "There is no cooling & heating application history.",
+  "inconvenienceEmptyText" : "There is no record of complaints received.",
+  "timeOfApplication" : "Time of Application",
+  "lightsOutStartTime" : "Lights Out Start Time",
+  "lightsOutEndTime" : "Lights Out End Time",
+  "otherRequestHint" : "Please enter any other requests.",
+  "lightOutCompleted" : "Lights out application completed",
+  "uptime" : "Uptime",
+  "heating" : "Heating",
+  "AirConditioningRequestCompleted" : "Request for Heating and Cooling completed",
+
 
   
 

@@ -1,11 +1,11 @@
 import 'package:centropolis/widgets/voc/voc_common_home.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
 import '../../utils/custom_colors.dart';
-import '../../utils/utils.dart';
-import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
-import 'air_inc_light_list.dart';
+import 'light_out_list.dart';
+import 'light_out_request.dart';
 
 class LightOutScreen extends StatefulWidget {
   const LightOutScreen({super.key});
@@ -16,54 +16,83 @@ class LightOutScreen extends StatefulWidget {
 
 class _LightOutScreenState extends State<LightOutScreen> {
   List<dynamic> itemList = [
+    // {
+    //   "id": 1,
+    //   "name": "Hong Gil Dong",
+    //   "businessType": "consulting",
+    //   "type": "business",
+    //   "dateTime": "2021.03.21 13:00",
+    //   "status": "before visit"
+    // },
+    // {
+    //   "id": 2,
+    //   "name": "Hong Gil Dong",
+    //   "businessType": "consulting",
+    //   "type": "business",
+    //   "dateTime": "2021.03.21 13:00",
+    //   "status": "before visit"
+    // },
+    // {
+    //   "id": 3,
+    //   "name": "Hong Gil Dong",
+    //   "businessType": "consulting",
+    //   "type": "business",
+    //   "dateTime": "2021.03.21 13:00",
+    //   "status": "before visit"
+    // }
     {
-      "id": 1,
-      "name": "Hong Gil Dong",
-      "businessType": "consulting",
-      "type": "business",
-      "dateTime": "2021.03.21 13:00",
-      "status": "before visit"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "module": "11F",
+      "type": ""
     },
     {
-      "id": 2,
-      "name": "Hong Gil Dong",
-      "businessType": "consulting",
-      "type": "business",
-      "dateTime": "2021.03.21 13:00",
-      "status": "before visit"
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "module": "11F",
+      "type": ""
     },
     {
-      "id": 3,
-      "name": "Hong Gil Dong",
-      "businessType": "consulting",
-      "type": "business",
-      "dateTime": "2021.03.21 13:00",
-      "status": "before visit"
-    }
+      "title": "Centropolis",
+      "status": "Received",
+      "date": "2023.00.00 13:00",
+      "module": "11F",
+      "type": ""
+    },
   ];
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Colors.white,
-        body: VocCommonHome(
-            image: 'assets/images/inconvenience_dummy_image.png',
-            title: 'Request for Light Out',
-            subTitle: 'Request for Light Out',
-            emptyTxt: "There is no history of lights out.",
-            buttonName: tr("requestForLightsOut"),
-            itemsList: itemList,
-            onDrawerClick: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (context) => AirIncLightList(
-                          emptyTxt: "There is no history of lights out.",
-                          itemsList: itemList,
-                        )),
-              );
-            },
-            onPressed: () {
-              debugPrint("===================================");
-            }));
+      backgroundColor: Colors.white,
+      body: VocCommonHome(
+        image: 'assets/images/inconvenience_dummy_image.png',
+        title: tr("requestForLightsOut"),
+        subTitle: tr("requestForLightsOut"),
+        emptyTxt: tr("lightOutEmptyText"),
+        itemsList: itemList,
+        onDrawerClick: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const LightsOutList()),
+          );
+        },
+      ),
+      bottomSheet: Container(
+        margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
+        child: CommonButton(
+          buttonName: tr("requestForLightsOut"),
+          buttonColor: CustomColors.buttonBackgroundColor,
+          isIconVisible: true,
+          onCommonButtonTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LightOutRequest()),
+            );
+          },
+        ),
+      ),
+    );
   }
 }

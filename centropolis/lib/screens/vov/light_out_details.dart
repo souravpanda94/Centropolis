@@ -6,17 +6,15 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
-class AirConditioningHistoryDetails extends StatefulWidget {
+class LightsOutDetails extends StatefulWidget {
   final String type;
-  const AirConditioningHistoryDetails({super.key, required this.type});
+  const LightsOutDetails({super.key, required this.type});
 
   @override
-  State<AirConditioningHistoryDetails> createState() =>
-      _AirConditioningHistoryDetailsState();
+  State<LightsOutDetails> createState() => _LightsOutDetailsState();
 }
 
-class _AirConditioningHistoryDetailsState
-    extends State<AirConditioningHistoryDetails> {
+class _LightsOutDetailsState extends State<LightsOutDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +24,7 @@ class _AirConditioningHistoryDetailsState
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("AirConditioning"), false, () {
+              child: CommonAppBar(tr("requestForLightsOut"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),
@@ -216,7 +214,7 @@ class _AirConditioningHistoryDetailsState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tr("airConditioning/Heating"),
+                      tr("lightsOutDate"),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
@@ -228,91 +226,11 @@ class _AirConditioningHistoryDetailsState
                       height: 8,
                     ),
                     const Text(
-                      "Air conditioning",
+                      "20:00 ~ 22:00",
                       style: TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColor8),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("dateOfApplication"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    IntrinsicHeight(
-                      child: Row(
-                        children: const [
-                          Expanded(
-                            child: Text(
-                              "2023.00.00",
-                              style: TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 4),
-                              child: VerticalDivider(
-                                thickness: 1,
-                                color: CustomColors.textColor3,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "20:00 ~ 22:00",
-                              style: TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                            ),
-                          ),
-                          Expanded(
-                            child: Padding(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 4),
-                              child: VerticalDivider(
-                                thickness: 1,
-                                color: CustomColors.textColor3,
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Text(
-                              "2 hours (--KRW)",
-                              style: TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                            ),
-                          ),
-                        ],
-                      ),
                     ),
                   ],
                 ),

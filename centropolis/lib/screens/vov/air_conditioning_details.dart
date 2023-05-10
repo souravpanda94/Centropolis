@@ -6,17 +6,15 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
-class AirConditioningHistoryDetails extends StatefulWidget {
+class AirConditioningDetails extends StatefulWidget {
   final String type;
-  const AirConditioningHistoryDetails({super.key, required this.type});
+  const AirConditioningDetails({super.key, required this.type});
 
   @override
-  State<AirConditioningHistoryDetails> createState() =>
-      _AirConditioningHistoryDetailsState();
+  State<AirConditioningDetails> createState() => _AirConditioningDetailsState();
 }
 
-class _AirConditioningHistoryDetailsState
-    extends State<AirConditioningHistoryDetails> {
+class _AirConditioningDetailsState extends State<AirConditioningDetails> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -216,7 +214,7 @@ class _AirConditioningHistoryDetailsState
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tr("airConditioning/Heating"),
+                      tr("airConditioning/Heading"),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

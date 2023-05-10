@@ -159,7 +159,6 @@
   "extensionEnd" : "연장 종료 ",
   "heatingAndCooling" : "냉난방 일시",
   "lightsOut" : "소등 일시",
-  "heating" : "난방",
 
   "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "홈",
@@ -335,13 +334,26 @@
   "applicationFloor" : "신청 층",
   "lightsOutDate" : "소등 일시",
   "otherRequests" : "기타 요청 사항 ",
-  "airConditioning/Heading" : "냉 / 난방 선택",
+  "airConditioning/Heating" : "냉 / 난방 선택",
   "dateOfApplication" : "가동 일시",
   "cancelRequest" : "신청 취소",
   "conferenceRoom" : "회의실 담당자",
   "normalUser" : "Normal User",
   "executiveLounge" : "라운지 담당자",
   "items" : "개",
+  "lightOutEmptyText" : "소등 신청 내역이 없습니다.",
+  "airConditioningEmptyText" : "냉 & 난방 신청 내역이 없습니다.",
+  "inconvenienceEmptyText" : "불편사항 접수 내역이 없습니다.",
+  "timeOfApplication" : "시간 선택",
+  "lightsOutStartTime" : "소등 시작 시간",
+  "lightsOutEndTime" : "소등 종료 시간",
+  "otherRequestHint" : "기타 요청 사항을 입력해 주세요.",
+  "lightOutCompleted" : "소등 신청 완료 ",
+  "uptime" : "가동 시작 시간",
+  "heating" : "난방",
+  "AirConditioningRequestCompleted" : "냉/난방 신청 완료 ",
+
+
 
 
 
