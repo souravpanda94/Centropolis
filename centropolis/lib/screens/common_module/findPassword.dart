@@ -212,7 +212,6 @@ class _FindPasswordState extends State<FindPassword> {
         });
   }
 
-
   void findPasswordValidation() {
     if(idController.text == ""){
       showUserIdErrorModal();

@@ -57,13 +57,20 @@ class _SignupScreenState extends State<SignupScreen> {
   int tenantCompany = 3;
   String floor = "5f";
   String platform = "";
+  String personalInfomationContent = "";
 
   // List<CompanyModel>? companyListItem;
   // List<FloorModel>? floorListItem;
   List<dynamic> companyList = [];
   List<dynamic> companyList2 = [
-    {"company_id": 9, "company_name": "testdemo123", },
-    {"company_id": 3, "company_name": "test_43", },
+    {
+      "company_id": 9,
+      "company_name": "testdemo123",
+    },
+    {
+      "company_id": 3,
+      "company_name": "test_43",
+    },
   ];
   List<dynamic> floorList = [];
   String currentSelectedCompanyNameId = "";
@@ -76,6 +83,7 @@ class _SignupScreenState extends State<SignupScreen> {
     language = tr("lang");
     loadCompanyList();
     loadFloorList();
+    loadPersonalInformation();
     setPlatform();
   }
 
@@ -133,28 +141,16 @@ class _SignupScreenState extends State<SignupScreen> {
                       borderRadius: BorderRadius.circular(4),
                     ),
                     height: 264,
+                    width: MediaQuery.of(context).size.width,
                     child: SingleChildScrollView(
-                      child: TextField(
-                        controller: consentController,
-                        cursorColor: CustomColors.textColorBlack2,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: null,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: CustomColors.whiteColor,
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(16),
-                          hintText: tr('signUpConsentHint'),
-                          hintStyle: const TextStyle(
-                            color: CustomColors.textColor3,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
-                          ),
-                        ),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Text(
+                          personalInfomationContent,
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor3),
                         ),
                       ),
                     ),
@@ -312,20 +308,6 @@ class _SignupScreenState extends State<SignupScreen> {
                         });
                       },
                     ),
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
                     Stack(
                       children: [
@@ -1127,32 +1109,25 @@ class _SignupScreenState extends State<SignupScreen> {
       showCustomToast(fToast, context, "Please select company name", "");
     } else if (floor == "") {
       showCustomToast(fToast, context, "Please select floor", "");
-    }
-    else if (nameController.text == "") {
+    } else if (nameController.text == "") {
       showCustomToast(fToast, context, "Please enter name", "");
-    }
-    else if (idController.text == "") {
+    } else if (idController.text == "") {
       showCustomToast(fToast, context, "Please enter id", "");
-    }
-    else if(!isUserIdVerified){
+    } else if (!isUserIdVerified) {
       showCustomToast(fToast, context, "user id is not verified", "");
-    }
-    else if (!isValidPassword(passwordController.text)) {
+    } else if (!isValidPassword(passwordController.text)) {
       showCustomToast(fToast, context, "Please enter password", "");
-    }
-    else if (!isValidPassword(verifyPasswordController.text)) {
+    } else if (!isValidPassword(verifyPasswordController.text)) {
       showCustomToast(fToast, context, "Please enter verify password", "");
-    }
-    else if (verifyPasswordController.text != passwordController.text) {
-      showCustomToast(fToast, context, "Password & verify password should be same", "");
-    }
-    else if (!isValidEmail(emailIDController.text)) {
+    } else if (verifyPasswordController.text != passwordController.text) {
+      showCustomToast(
+          fToast, context, "Password & verify password should be same", "");
+    } else if (!isValidEmail(emailIDController.text)) {
       showCustomToast(fToast, context, "Please enter proper email id", "");
-    }
-    else if (!isValidPhoneNumber(contactNoController.text)) {
-      showCustomToast(fToast, context, "Please enter proper contact number", "");
-    }
-    else if (genderValue == "") {
+    } else if (!isValidPhoneNumber(contactNoController.text)) {
+      showCustomToast(
+          fToast, context, "Please enter proper contact number", "");
+    } else if (genderValue == "") {
       showCustomToast(fToast, context, "Please select gender", "");
     } else {
       callSignupNetworkCheck();
@@ -1362,8 +1337,7 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "username": idController.text.trim()};
+    Map<String, String> body = {"username": idController.text.trim()};
 
     debugPrint("verify User Name input===> $body");
 
@@ -1412,103 +1386,97 @@ class _SignupScreenState extends State<SignupScreen> {
       margin: const EdgeInsets.only(top: 5.0, left: 15.0, right: 15.0),
       child:
 
+          // DropdownButtonHideUnderline(
+          //   child: DropdownButton2(
+          //     isExpanded: true,
+          //     hint: Row(
+          //       children: const [
+          //         Icon(
+          //           Icons.list,
+          //           size: 16,
+          //           color: Colors.yellow,
+          //         ),
+          //         SizedBox(
+          //           width: 4,
+          //         ),
+          //         Expanded(
+          //           child: Text(
+          //             'Select Item',
+          //             style: TextStyle(
+          //               fontSize: 14,
+          //               fontWeight: FontWeight.bold,
+          //               color: Colors.yellow,
+          //             ),
+          //             overflow: TextOverflow.ellipsis,
+          //           ),
+          //         ),
+          //       ],
+          //     ),
+          //     items: companyList2
+          //         .map((item) => DropdownMenuItem<String>(
+          //               value: item['company_id'].toString(),
+          //               child: Text(
+          //                 item['company_name'],
+          //                 style: const TextStyle(
+          //                   fontSize: 14,
+          //                   fontWeight: FontWeight.bold,
+          //                   color: Colors.white,
+          //                 ),
+          //                 overflow: TextOverflow.ellipsis,
+          //               ),
+          //             ))
+          //         .toList(),
+          //     value: currentSelectedCompanyNameId,
+          //     onChanged: (value) {
+          //       setState(() {
+          //         currentSelectedCompanyNameId = value as String;
+          //       });
+          //     },
+          //     buttonStyleData: ButtonStyleData(
+          //       height: 50,
+          //       width: 160,
+          //       padding: const EdgeInsets.only(left: 14, right: 14),
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(14),
+          //         border: Border.all(
+          //           color: Colors.black26,
+          //         ),
+          //         color: Colors.redAccent,
+          //       ),
+          //       elevation: 2,
+          //     ),
+          //     iconStyleData: const IconStyleData(
+          //       icon: Icon(
+          //         Icons.arrow_forward_ios_outlined,
+          //       ),
+          //       iconSize: 14,
+          //       iconEnabledColor: Colors.yellow,
+          //       iconDisabledColor: Colors.grey,
+          //     ),
+          //     dropdownStyleData: DropdownStyleData(
+          //       maxHeight: 200,
+          //       width: 200,
+          //       padding: null,
+          //       decoration: BoxDecoration(
+          //         borderRadius: BorderRadius.circular(14),
+          //         color: Colors.redAccent,
+          //       ),
+          //       elevation: 8,
+          //       offset: const Offset(-20, 0),
+          //       scrollbarTheme: ScrollbarThemeData(
+          //         radius: const Radius.circular(40),
+          //         thickness: MaterialStateProperty.all<double>(6),
+          //         thumbVisibility: MaterialStateProperty.all<bool>(true),
+          //       ),
+          //     ),
+          //     menuItemStyleData: const MenuItemStyleData(
+          //       height: 40,
+          //       padding: EdgeInsets.only(left: 14, right: 14),
+          //     ),
+          //   ),
+          // ),
 
-
-
-      // DropdownButtonHideUnderline(
-      //   child: DropdownButton2(
-      //     isExpanded: true,
-      //     hint: Row(
-      //       children: const [
-      //         Icon(
-      //           Icons.list,
-      //           size: 16,
-      //           color: Colors.yellow,
-      //         ),
-      //         SizedBox(
-      //           width: 4,
-      //         ),
-      //         Expanded(
-      //           child: Text(
-      //             'Select Item',
-      //             style: TextStyle(
-      //               fontSize: 14,
-      //               fontWeight: FontWeight.bold,
-      //               color: Colors.yellow,
-      //             ),
-      //             overflow: TextOverflow.ellipsis,
-      //           ),
-      //         ),
-      //       ],
-      //     ),
-      //     items: companyList2
-      //         .map((item) => DropdownMenuItem<String>(
-      //               value: item['company_id'].toString(),
-      //               child: Text(
-      //                 item['company_name'],
-      //                 style: const TextStyle(
-      //                   fontSize: 14,
-      //                   fontWeight: FontWeight.bold,
-      //                   color: Colors.white,
-      //                 ),
-      //                 overflow: TextOverflow.ellipsis,
-      //               ),
-      //             ))
-      //         .toList(),
-      //     value: currentSelectedCompanyNameId,
-      //     onChanged: (value) {
-      //       setState(() {
-      //         currentSelectedCompanyNameId = value as String;
-      //       });
-      //     },
-      //     buttonStyleData: ButtonStyleData(
-      //       height: 50,
-      //       width: 160,
-      //       padding: const EdgeInsets.only(left: 14, right: 14),
-      //       decoration: BoxDecoration(
-      //         borderRadius: BorderRadius.circular(14),
-      //         border: Border.all(
-      //           color: Colors.black26,
-      //         ),
-      //         color: Colors.redAccent,
-      //       ),
-      //       elevation: 2,
-      //     ),
-      //     iconStyleData: const IconStyleData(
-      //       icon: Icon(
-      //         Icons.arrow_forward_ios_outlined,
-      //       ),
-      //       iconSize: 14,
-      //       iconEnabledColor: Colors.yellow,
-      //       iconDisabledColor: Colors.grey,
-      //     ),
-      //     dropdownStyleData: DropdownStyleData(
-      //       maxHeight: 200,
-      //       width: 200,
-      //       padding: null,
-      //       decoration: BoxDecoration(
-      //         borderRadius: BorderRadius.circular(14),
-      //         color: Colors.redAccent,
-      //       ),
-      //       elevation: 8,
-      //       offset: const Offset(-20, 0),
-      //       scrollbarTheme: ScrollbarThemeData(
-      //         radius: const Radius.circular(40),
-      //         thickness: MaterialStateProperty.all<double>(6),
-      //         thumbVisibility: MaterialStateProperty.all<bool>(true),
-      //       ),
-      //     ),
-      //     menuItemStyleData: const MenuItemStyleData(
-      //       height: 40,
-      //       padding: EdgeInsets.only(left: 14, right: 14),
-      //     ),
-      //   ),
-      // ),
-
-
-
-
-      DropdownButtonHideUnderline(
+          DropdownButtonHideUnderline(
         child: DropdownButton2(
           isExpanded: true,
           hint: Row(
@@ -1528,17 +1496,18 @@ class _SignupScreenState extends State<SignupScreen> {
           ),
           items: companyList2
               .map((item) => DropdownMenuItem<String>(
-            value: item['company_id'].toString(),
-            child: Text(
-              item['company_name'],
-              style: const TextStyle(
-                color: CustomColors.blackColor,
-                fontSize: 14,
-                fontFamily: 'Regular',
-              ),
-              overflow: TextOverflow.ellipsis,
-            ),
-          )).toList(),
+                    value: item['company_id'].toString(),
+                    child: Text(
+                      item['company_name'],
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ))
+              .toList(),
           value: currentSelectedCompanyNameId,
           onChanged: (value) {
             setState(() {
@@ -1561,8 +1530,8 @@ class _SignupScreenState extends State<SignupScreen> {
           buttonDecoration: BoxDecoration(
             borderRadius: BorderRadius.circular(25),
             border: Border.all(
-              // color: CustomColors.borderColor,
-                color:  CustomColors.borderColor,
+                // color: CustomColors.borderColor,
+                color: CustomColors.borderColor,
                 width: 1.0),
             color: Colors.white,
           ),
@@ -1578,12 +1547,60 @@ class _SignupScreenState extends State<SignupScreen> {
           offset: const Offset(0, 0),
         ),
       ),
-
-
-
-
     );
   }
 
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
 
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "cms_key": "privacy_policy",
+    };
+
+    debugPrint("get Personal Information input ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInformationUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for get Personal Information ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['description_en'] != null) {
+            setState(() {
+              personalInfomationContent =
+                  responseJson['description_en'].toString();
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 }
