@@ -340,13 +340,14 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  void showCredentialErrorModal() {
+  void showCredentialErrorModal(String title) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("pleaseCheckYourAccountAndTryAgain"),
+            // heading: tr("pleaseCheckYourAccountAndTryAgain"),
+            heading: title,
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",
@@ -360,14 +361,16 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  void showUnapprovedErrorModal() {
+  void showUnapprovedErrorModal(title, description) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("thisIsAnUnapprovedAccount"),
-            description: tr("pleaseLogInAfterApproval"),
+            // heading: tr("thisIsAnUnapprovedAccount"),
+            // description: tr("pleaseLogInAfterApproval"),
+            heading: title,
+            description: description,
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
@@ -387,7 +390,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void loginValidation() async {
     hideKeyboard();
 
-    // if (!isValidEmail(emailIDController.text)) {
     if (emailIDController.text == "") {
       showUserIdErrorModal();
     } else if (passwordController.text == "") {
@@ -478,9 +480,11 @@ class _LoginScreenState extends State<LoginScreen> {
           user.doAddUser(loginData);
           goToHomeScreen();
         } else {
-          if (responseJson['message_code'] == "7004") {
-            // if user input wrong email or password
-            showCredentialErrorModal();
+          if (responseJson['status_code'] == 7001) {
+            showUnapprovedErrorModal(
+                responseJson['title'], responseJson['message']);
+          } else if (responseJson['status_code'] == 7002) {
+            showCredentialErrorModal(responseJson['message']);
           } else {
             if (responseJson['message'] != null) {
               debugPrint("Server error response ${responseJson['message']}");
