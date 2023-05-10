@@ -1,6 +1,8 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:syncfusion_flutter_datepicker/datepicker.dart';
+import 'package:table_calendar/table_calendar.dart';
 
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
@@ -15,11 +17,8 @@ class VisitReservationFilter extends StatefulWidget {
 }
 
 class _VisitReservationFilterState extends State<VisitReservationFilter> {
-  bool tappedWeek = false,
-      tappedMonth = false,
-      tappedYear = false,
-      tappedDirect = false,
-      statusTapped = false;
+  bool statusTapped = false;
+  int showIndex = 0;
 
   List<dynamic> statusList = [
     "In Progress",
@@ -27,7 +26,26 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     "Rejected",
     "Approved"
   ];
+  List<String> dateFilterList = [
+    tr("week"),
+    tr("month"),
+    tr("year"),
+    tr("directInput")
+  ];
   TextEditingController statusController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+
+  String _range = '';
+
+  void _onSelectionChanged(DateRangePickerSelectionChangedArgs args) {
+    setState(() {
+      // date range values
+      if (args.value is PickerDateRange) {
+        _range = '${DateFormat('yyyy.MM.dd').format(args.value.startDate)} -'
+            ' ${DateFormat('yyyy.MM.dd').format(args.value.endDate ?? args.value.startDate)}';
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -144,163 +162,54 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   ),
                   Container(
                     height: 50,
+                    padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: const BoxDecoration(
                       color: CustomColors.backgroundColor,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      children: [
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                tappedWeek = true;
-                                tappedMonth = false;
-                                tappedYear = false;
-                                tappedDirect = false;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: tappedWeek
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.backgroundColor,
-                                  border: tappedWeek
-                                      ? Border.all(
-                                          color: CustomColors.textColorBlack2,
-                                        )
-                                      : null,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50))),
-                              child: Text(
-                                tr("week"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: tappedWeek
-                                        ? CustomColors.textColorBlack2
-                                        : CustomColors.textColor3),
-                              ),
+                    child: ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: dateFilterList.length,
+                      itemBuilder: (context, index) {
+                        return InkWell(
+                          onTap: () {
+                            setState(() {
+                              showIndex = index;
+                            });
+                          },
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 8),
+                            decoration: BoxDecoration(
+                                color: showIndex == index
+                                    ? CustomColors.whiteColor
+                                    : CustomColors.backgroundColor,
+                                border: showIndex == index
+                                    ? Border.all(
+                                        color: CustomColors.textColorBlack2,
+                                      )
+                                    : null,
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(50))),
+                            child: Text(
+                              dateFilterList[index],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: showIndex == index
+                                      ? CustomColors.textColorBlack2
+                                      : CustomColors.textColor3),
                             ),
                           ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                tappedMonth = true;
-                                tappedWeek = false;
-                                tappedYear = false;
-                                tappedDirect = false;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: tappedMonth
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.backgroundColor,
-                                  border: tappedMonth
-                                      ? Border.all(
-                                          color: CustomColors.textColorBlack2,
-                                        )
-                                      : null,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50))),
-                              child: Text(
-                                tr("month"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: tappedMonth
-                                        ? CustomColors.textColorBlack2
-                                        : CustomColors.textColor3),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                tappedYear = true;
-                                tappedWeek = false;
-                                tappedMonth = false;
-                                tappedDirect = false;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: tappedYear
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.backgroundColor,
-                                  border: tappedYear
-                                      ? Border.all(
-                                          color: CustomColors.textColorBlack2,
-                                        )
-                                      : null,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50))),
-                              child: Text(
-                                tr("year"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: tappedYear
-                                        ? CustomColors.textColorBlack2
-                                        : CustomColors.textColor3),
-                              ),
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              setState(() {
-                                tappedDirect = true;
-                                tappedYear = false;
-                                tappedWeek = false;
-                                tappedMonth = false;
-                              });
-                            },
-                            child: Container(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 16, vertical: 8),
-                              decoration: BoxDecoration(
-                                  color: tappedDirect
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.backgroundColor,
-                                  border: tappedDirect
-                                      ? Border.all(
-                                          color: CustomColors.textColorBlack2,
-                                        )
-                                      : null,
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(50))),
-                              child: Text(
-                                tr("directInput"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                    color: tappedDirect
-                                        ? CustomColors.textColorBlack2
-                                        : CustomColors.textColor3),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
+                        );
+                      },
                     ),
                   ),
                   const SizedBox(
                     height: 8,
                   ),
                   TextField(
+                    controller: dateController,
                     cursorColor: CustomColors.textColorBlack2,
                     keyboardType: TextInputType.text,
                     readOnly: true,
@@ -340,7 +249,57 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       fontSize: 14,
                       fontFamily: 'Regular',
                     ),
-                    onTap: () {},
+                    onTap: () {
+                      showIndex == 3
+                          ? showDialog(
+                              barrierDismissible: false,
+                              context: context,
+                              builder: (BuildContext context) {
+                                return Dialog(
+                                  child: SfDateRangePicker(
+                                    enablePastDates: false,
+                                    selectionColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    view: DateRangePickerView.month,
+                                    todayHighlightColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    minDate: DateTime.now(),
+                                    showActionButtons: true,
+                                    onSelectionChanged: _onSelectionChanged,
+                                    selectionMode:
+                                        DateRangePickerSelectionMode.range,
+                                    rangeSelectionColor: const Color.fromARGB(
+                                        255, 245, 236, 231),
+                                    startRangeSelectionColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    endRangeSelectionColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    monthCellStyle:
+                                        const DateRangePickerMonthCellStyle(
+                                            todayTextStyle: TextStyle(
+                                                color: CustomColors
+                                                    .buttonBackgroundColor)),
+                                    // initialSelectedRange: PickerDateRange(
+                                    //     DateTime.now()
+                                    //         .subtract(const Duration(days: 0)),
+                                    //     DateTime.now()
+                                    //         .add(const Duration(days: 3))),
+                                    onCancel: () {
+                                      Navigator.pop(context);
+                                    },
+                                    onSubmit: (p0) {
+                                      debugPrint(" onSubmit ::: $p0");
+
+                                      setState(() {
+                                        dateController.text = _range;
+                                      });
+                                      Navigator.pop(context);
+                                    },
+                                  ),
+                                );
+                              })
+                          : null;
+                    },
                   ),
                 ],
               ),
