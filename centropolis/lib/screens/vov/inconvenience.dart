@@ -6,6 +6,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import 'air_inc_light_list.dart';
+import 'inconvenience_list.dart';
 
 class InconvenienceScreen extends StatefulWidget {
   const InconvenienceScreen({super.key});
@@ -15,31 +16,87 @@ class InconvenienceScreen extends StatefulWidget {
 }
 
 class _InconvenienceScreenState extends State<InconvenienceScreen> {
-  List<dynamic> itemList = [];
+  List<dynamic> itemList = [
+    // {
+    //   "id": 1,
+    //   "name": "heating",
+    //   "businessType": "Centropolis",
+    //   "type": "11F",
+    //   "dateTime": "2021.03.21 13:00",
+    //   "status": "Received"
+    // },
+    // {
+    //   "id": 2,
+    //   "name": "heating",
+    //   "businessType": "Centropolis",
+    //   "type": "11F",
+    //   "dateTime": "2021.03.21 13:00",
+    //   "status": "Received"
+    // },
+    // {
+    //   "id": 3,
+    //   "name": "Air conditioning",
+    //   "businessType": "Centropolis",
+    //   "type": "11F",
+    //   "dateTime": "2021.03.21 13:00",
+    //   "status": "Received"
+    // }
+
+    {
+      "title": "Enter the title of the complaint inquiry.",
+      "status": "Received",
+      "date": "2023.00.00",
+      "module": "maintenance",
+      "type": ""
+    },
+    {
+      "title": "Enter the title of the complaint inquiry.",
+      "status": "Received",
+      "date": "2023.00.00",
+      "module": "maintenance",
+      "type": ""
+    },
+    {
+      "title": "Enter the title of the complaint inquiry.",
+      "status": "Received",
+      "date": "2023.00.00",
+      "module": "construct",
+      "type": ""
+    },
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      body: VocCommonHome(
+        backgroundColor: Colors.white,
+        body: VocCommonHome(
           image: 'assets/images/inconvenience_dummy_image.png',
-          title: 'Customer Complaints',
-          subTitle: ' Customer Complaints',
-          emptyTxt: "There is no record of complaints received.",
-          buttonName: tr("otherReservationCard3"),
+          title: tr("customerComplaints"),
+          subTitle: tr("customerComplaints"),
+          emptyTxt: tr("inconvenienceEmptyText"),
           itemsList: itemList,
           onDrawerClick: () {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AirIncLightList(
-                        emptyTxt: "There is no history of lights out.",
-                        itemsList: itemList,
-                      )),
+                  builder: (context) => const InconvenienceList()),
             );
           },
-          onPressed: () {
-            debugPrint("===================================");
-          }),
-    );
+        ),
+        bottomSheet: Container(
+          margin:
+              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
+          child: CommonButton(
+            buttonName: tr("complaintsReceived"),
+            buttonColor: CustomColors.buttonBackgroundColor,
+            isIconVisible: true,
+            onCommonButtonTap: () {
+              // Navigator.push(
+              //   context,
+              //   MaterialPageRoute(builder: (context) => const LightOutRequest()),
+              // );
+            },
+          ),
+        ));
   }
 }
