@@ -110,7 +110,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             height: 10,
           ),
           Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+            padding: const EdgeInsets.all(16),
             width: MediaQuery.of(context).size.width,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -177,26 +177,61 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                   ),
                   onTap: () {},
                 ),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(tr("enterRentalInformation"),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(tr("title"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
-                        fontSize: 16,
+                        fontSize: 14,
+                        color: CustomColors.textColor8)),
+                const SizedBox(
+                  height: 8,
+                ),
+                TextField(
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.text,
+                  readOnly: true,
+                  showCursor: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    fillColor: CustomColors.whiteColor,
+                    filled: true,
+                    contentPadding: const EdgeInsets.all(16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    hintText: tr("titleHint"),
+                    hintStyle: const TextStyle(
+                      color: CustomColors.textColor3,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                  onTap: () {},
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(tr("detail"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 14,
                         color: CustomColors.textColor8)),
                 Container(
+                  width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(top: 8),
                   decoration: BoxDecoration(
                     border: Border.all(
@@ -216,9 +251,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         fillColor: CustomColors.whiteColor,
                         filled: true,
                         contentPadding: const EdgeInsets.all(16),
-                        hintText: tr('rentalInformationHint'),
+                        hintText: tr('detailHint'),
                         hintStyle: const TextStyle(
-                          color: CustomColors.textColorBlack2,
+                          color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
@@ -231,6 +266,53 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     ),
                   ),
                 ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(tr("attachment"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 14,
+                        color: CustomColors.textColor8)),
+                const SizedBox(
+                  height: 8,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: CustomColors.dividerGreyColor,
+                    ),
+                    borderRadius: BorderRadius.circular(4),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(tr("photo"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.buttonBackgroundColor)),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      const Icon(
+                        Icons.add,
+                        color: CustomColors.buttonBackgroundColor,
+                        size: 16,
+                      )
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                Text(tr("photoNote"),
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor3)),
               ],
             ),
           ),
@@ -265,7 +347,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: "Complaints have been received.",
+            heading: tr("complaintsReceivedCompleted"),
             description:
                 "Complaints have been submitted.After checking the manager, we will respond by e-mail or phone.",
             buttonName: tr("check"),

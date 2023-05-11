@@ -360,6 +360,14 @@
   "heating" : "Heating",
   "AirConditioningRequestCompleted" : "Request for Heating and Cooling completed",
   "enterComplaintDetails" : "Enter complaint details",
+  "detail" : "Detail",
+  "detailHint" : "Please enter your complaint",
+  "title" : "Title",
+  "titleHint" : "Please enter the title",
+  "attachment" : "Attachment",
+  "photo" : "Photo",
+  "complaintsReceivedCompleted" : "Complaints have been received.",
+  "photoNote" : "When registering a photo, please register the image size under 670X670 pixels and the file size under 1Mbyte.",
 
 
   
