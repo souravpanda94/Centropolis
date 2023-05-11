@@ -121,6 +121,8 @@
   "memberRegistrationComplete" : "Member registration complete",
   "signUpIsComplete": "Sign up is complete.\nYou can use the service after approval by the manager of the Tenant company.",
   "noInternetConnection": "네트워크 연결을 확인해주세요.",
+  "withdrawnSuccessful" : "Withdrawn Successful",
+  "youAccountHasBeenSuccessfullyWithdrawn" : "You account has been successfully withdrawn",
 
 
   "aditi_old" : "=============================Aditi Old SECTION=========================================",

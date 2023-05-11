@@ -133,6 +133,8 @@
   "memberRegistrationComplete" : "Member registration complete",
   "signUpIsComplete": "Sign up is complete.\nYou can use the service after approval by the manager of the Tenant company.",
   "noInternetConnection": "No internet connection",
+  "withdrawnSuccessful" : "Withdrawn Successful",
+  "youAccountHasBeenSuccessfullyWithdrawn" : "You account has been successfully withdrawn",
 
 
 

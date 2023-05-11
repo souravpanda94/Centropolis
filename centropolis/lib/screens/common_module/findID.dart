@@ -141,25 +141,25 @@ class _FindIdScreenState extends State<FindID> {
         });
   }
 
-  void showSentTemporaryPasswordModal() {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CommonModal(
-            heading: tr("temporaryPasswordHasBeenSent"),
-            description: tr("sentTemporaryPasswordDescription"),
-            buttonName: tr("check"),
-            firstButtonName: "",
-            secondButtonName: "",
-            onConfirmBtnTap: () {
-              Navigator.pop(context);
-            },
-            onFirstBtnTap: () {},
-            onSecondBtnTap: () {},
-          );
-        });
-  }
+  // void showSentTemporaryPasswordModal() {
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return CommonModal(
+  //           heading: tr("temporaryPasswordHasBeenSent"),
+  //           description: tr("sentTemporaryPasswordDescription"),
+  //           buttonName: tr("check"),
+  //           firstButtonName: "",
+  //           secondButtonName: "",
+  //           onConfirmBtnTap: () {
+  //             Navigator.pop(context);
+  //           },
+  //           onFirstBtnTap: () {},
+  //           onSecondBtnTap: () {},
+  //         );
+  //       });
+  // }
 
   void showEmailErrorModal() {
     showDialog(
@@ -247,7 +247,6 @@ class _FindIdScreenState extends State<FindID> {
       }
     });
   }
-
 
   void clearDataField() {
     emailIDController.clear();
