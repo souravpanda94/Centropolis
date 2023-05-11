@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../utils/custom_colors.dart';
@@ -17,6 +21,17 @@ class ComplaintsReceived extends StatefulWidget {
 }
 
 class _ComplaintsReceivedState extends State<ComplaintsReceived> {
+  final ImagePicker imagePicker = ImagePicker();
+  List<XFile>? imageFileList = [];
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -274,80 +289,95 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         fontFamily: 'SemiBold',
                         fontSize: 14,
                         color: CustomColors.textColor8)),
-                Container(
-                  height: 110,
-                  margin: const EdgeInsets.only(top: 8),
-                  child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    shrinkWrap: true,
-                    itemCount: 5,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        height: 110,
-                        width: 110,
-                        margin: const EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                color: CustomColors.dividerGreyColor)),
-                        child: Stack(
-                          children: [
-                            Image.asset(
-                              "assets/images/lounge.png",
-                              fit: BoxFit.fill,
-                              height: 110,
-                            ),
-                            Align(
-                                alignment: Alignment.topRight,
-                                child: Container(
-                                  decoration: BoxDecoration(
-                                    color: CustomColors.textColor3,
-                                    borderRadius: BorderRadius.circular(100),
-                                  ),
-                                  padding: const EdgeInsets.all(2),
-                                  margin: const EdgeInsets.symmetric(
-                                      vertical: 6, horizontal: 4),
-                                  child: const Icon(
-                                    Icons.close,
-                                    size: 20,
-                                    color: CustomColors.whiteColor,
-                                  ),
-                                ))
-                          ],
-                        ),
-                      );
-                    },
+                if (imageFileList != null && imageFileList!.isNotEmpty)
+                  Container(
+                    height: 110,
+                    margin: const EdgeInsets.only(top: 8),
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      shrinkWrap: true,
+                      itemCount: imageFileList!.length,
+                      itemBuilder: (context, index) {
+                        return Container(
+                          height: 110,
+                          width: 110,
+                          margin: const EdgeInsets.only(right: 10),
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                  color: CustomColors.dividerGreyColor)),
+                          child: Stack(
+                            children: [
+                              Image.file(
+                                File(imageFileList![index].path),
+                                fit: BoxFit.fill,
+                                width: 110,
+                                height: 110,
+                              ),
+                              Align(
+                                  alignment: Alignment.topRight,
+                                  child: InkWell(
+                                    onTap: () {
+                                      setState(() {
+                                        imageFileList!.removeAt(index);
+                                      });
+                                    },
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                        color: CustomColors.textColor3,
+                                        borderRadius:
+                                            BorderRadius.circular(100),
+                                      ),
+                                      padding: const EdgeInsets.all(2),
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 6, horizontal: 4),
+                                      child: const Icon(
+                                        Icons.close,
+                                        size: 20,
+                                        color: CustomColors.whiteColor,
+                                      ),
+                                    ),
+                                  ))
+                            ],
+                          ),
+                        );
+                      },
+                    ),
                   ),
-                ),
                 const SizedBox(
                   height: 8,
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(vertical: 16),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: CustomColors.dividerGreyColor,
-                    ),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(tr("photo"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.buttonBackgroundColor)),
-                      const SizedBox(
-                        width: 10,
+                InkWell(
+                  onTap: () {
+                    selectImages();
+                  },
+                  child: Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.symmetric(vertical: 16),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: CustomColors.dividerGreyColor,
                       ),
-                      const Icon(
-                        Icons.add,
-                        color: CustomColors.buttonBackgroundColor,
-                        size: 16,
-                      )
-                    ],
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(tr("photo"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.buttonBackgroundColor)),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Icon(
+                          Icons.add,
+                          color: CustomColors.buttonBackgroundColor,
+                          size: 16,
+                        )
+                      ],
+                    ),
                   ),
                 ),
                 const SizedBox(
@@ -405,5 +435,19 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void selectImages() async {
+    final List<XFile> selectedImages =
+        await imagePicker.pickMultiImage(maxHeight: 670, maxWidth: 670);
+    if (selectedImages.isNotEmpty) {
+      if (selectedImages.length <= 5) {
+        imageFileList!.addAll(selectedImages);
+      } else {
+        showCustomToast(
+            fToast, context, "Maximum 5 images allowed at a time", "");
+      }
+    }
+    setState(() {});
   }
 }
