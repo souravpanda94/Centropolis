@@ -70,7 +70,7 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       body: VocCommonHome(
-        image: 'assets/images/inconvenience_dummy_image.png',
+        image: 'assets/images/air_conditioning.png',
         title: tr("requestForHeatingAndCooling"),
         subTitle: tr("requestForHeatingAndCooling"),
         emptyTxt: tr("airConditioningEmptyText"),

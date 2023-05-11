@@ -291,9 +291,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                   ),
-
-
-
                 Align(
                     alignment: Alignment.bottomCenter,
                     child: Container(
@@ -303,21 +300,20 @@ class _HomeScreenState extends State<HomeScreen> {
                         position: pageIndex.toDouble(),
                         decorator: const DotsDecorator(
                           shape: Border(
-                              top: BorderSide(color: CustomColors.whiteColor,width: 1.0),
-                              bottom: BorderSide(color: CustomColors.whiteColor,width: 1.0),
-                              left: BorderSide(color: CustomColors.whiteColor,width: 1.0),
-                              right: BorderSide(color: CustomColors.whiteColor,width: 1.0)
-                          ),
+                              top: BorderSide(
+                                  color: CustomColors.whiteColor, width: 1.0),
+                              bottom: BorderSide(
+                                  color: CustomColors.whiteColor, width: 1.0),
+                              left: BorderSide(
+                                  color: CustomColors.whiteColor, width: 1.0),
+                              right: BorderSide(
+                                  color: CustomColors.whiteColor, width: 1.0)),
                           spacing: EdgeInsets.all(4),
                           color: Colors.transparent, // Inactive color
                           activeColor: Colors.white,
                         ),
                       ),
                     )),
-
-
-
-
               ],
             ),
           );
@@ -363,7 +359,7 @@ class _HomeScreenState extends State<HomeScreen> {
     } else if (type == "fitness") {
       return tr("fitness");
     } else if (type == "refresh") {
-      return tr("visitorReservation");
+      return tr("refresh");
     } else if (type == "voc") {
       return tr("voc");
     } else {

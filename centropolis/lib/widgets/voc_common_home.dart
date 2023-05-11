@@ -9,7 +9,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import '../screens/voc/air_conditioning_details.dart';
 import '../screens/voc/inconvenience_details.dart';
 
-
 class VocCommonHome extends StatefulWidget {
   final String image, title, subTitle, emptyTxt;
   final Function onDrawerClick;
@@ -41,7 +40,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
             children: [
               Image.asset(
                 widget.image,
-                fit: BoxFit.fitWidth,
+                fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
                 height: 320,
               ),
