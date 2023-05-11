@@ -274,6 +274,51 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         fontFamily: 'SemiBold',
                         fontSize: 14,
                         color: CustomColors.textColor8)),
+                Container(
+                  height: 110,
+                  margin: const EdgeInsets.only(top: 8),
+                  child: ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    shrinkWrap: true,
+                    itemCount: 5,
+                    itemBuilder: (context, index) {
+                      return Container(
+                        height: 110,
+                        width: 110,
+                        margin: const EdgeInsets.only(right: 10),
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(4),
+                            border: Border.all(
+                                color: CustomColors.dividerGreyColor)),
+                        child: Stack(
+                          children: [
+                            Image.asset(
+                              "assets/images/lounge.png",
+                              fit: BoxFit.fill,
+                              height: 110,
+                            ),
+                            Align(
+                                alignment: Alignment.topRight,
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: CustomColors.textColor3,
+                                    borderRadius: BorderRadius.circular(100),
+                                  ),
+                                  padding: const EdgeInsets.all(2),
+                                  margin: const EdgeInsets.symmetric(
+                                      vertical: 6, horizontal: 4),
+                                  child: const Icon(
+                                    Icons.close,
+                                    size: 20,
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ))
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
                 const SizedBox(
                   height: 8,
                 ),
