@@ -6,6 +6,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import 'air_inc_light_list.dart';
+import 'complaints_received.dart';
 import 'inconvenience_list.dart';
 
 class InconvenienceScreen extends StatefulWidget {
@@ -91,10 +92,11 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
             buttonColor: CustomColors.buttonBackgroundColor,
             isIconVisible: true,
             onCommonButtonTap: () {
-              // Navigator.push(
-              //   context,
-              //   MaterialPageRoute(builder: (context) => const LightOutRequest()),
-              // );
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const ComplaintsReceived()),
+              );
             },
           ),
         ));
