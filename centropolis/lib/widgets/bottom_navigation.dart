@@ -7,7 +7,7 @@ import '../screens/home/home.dart';
 import '../screens/my_page/app_settings.dart';
 import '../screens/my_page/my_page.dart';
 import '../screens/visit_request/visi_request.dart';
-import '../screens/vov/voc_application.dart';
+import '../screens/voc/voc_application.dart';
 import '../utils/custom_colors.dart';
 import 'home_page_app_bar.dart';
 

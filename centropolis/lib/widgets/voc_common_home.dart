@@ -1,4 +1,3 @@
-import 'package:centropolis/screens/vov/air_conditioning_details.dart';
 import 'package:centropolis/utils/custom_colors.dart';
 import 'package:centropolis/widgets/common_button_with_icon.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -7,7 +6,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../screens/vov/inconvenience_details.dart';
+import '../screens/voc/air_conditioning_details.dart';
+import '../screens/voc/inconvenience_details.dart';
+
 
 class VocCommonHome extends StatefulWidget {
   final String image, title, subTitle, emptyTxt;
