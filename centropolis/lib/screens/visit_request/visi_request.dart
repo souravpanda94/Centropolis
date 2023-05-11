@@ -6,8 +6,6 @@ import '../../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_icon.dart';
 import '../../widgets/common_modal.dart';
-import '../unused_code/visitor_reservations/VisitReservationViewAll.dart';
-import '../unused_code/visitor_reservations/visit_reservation_application.dart';
 import 'visit_reservation_application.dart';
 
 class VisitRequestScreen extends StatefulWidget {

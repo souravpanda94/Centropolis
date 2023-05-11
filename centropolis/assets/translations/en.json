@@ -1,50 +1,5 @@
 {
   "lang": "en",
-  "mondira_old": "=============================MONDIRA OLD SECTION=========================================",
-  "visitorReservations": "Visitor Reservations",
-  "visitReservationViewAll": "Visit Reservation View All",
-  "lookupCondition": "Lookup condition",
-  "lookup": "Lookup",
-  "oneWeek": "one week",
-  "oneMonth": "one month",
-  "monthly": "Monthly",
-  "required": "* Required",
-  "pleaseEnterTheCorrectVisitorName": "Please enter the correct visitor name",
-  "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
-  "mobilePhoneNumber" : "Mobile Phone Number *",
-  "pleaseEnterOnlyNumbersWithout" : "Please enter only numbers without “-”",
-  "emailWithStar" : "e-mail *",
-  "emailExample" : "ex) welcome@centropolis.com",
-  "buildingVisited" : "Building visited *",
-  "pleaseSelectBuildingToVisit" : "Please select a building to visit",
-  "pleaseSelectFloorToVisit" : "Please select a floor to visit",
-  "dateAndTimeOfVisitWithStar": "Date and time of visit *",
-  "dateAndTimeOfVisit" : "Date and time of visit",
-  "choose" : "choose",
-  "businessDiscussion" : "business discussion",
-  "reservationDetails" : "Reservation details",
-  "visitors" : "visitors",
-  "contactPersonInformation": "Contact person information",
-  "personInCharge": "person in charge",
-  "tenantCompanyName" : "Tenant company name",
-  "reservationApproved": "Reservation approved",
-  "providedByTheTenantCompany" : "Provided by the tenant company",
-  "applyForHeatingAndCooling" : "Apply for heating and cooling",
-  "tenantCompanyInformation" : "Tenant company information",
-  "applicantName" : "Applicant name",
-  "selectDate" : "select date",
-  "lightsOutStart" : "lights out start",
-  "lightsOutEnd" : "lights out end",
-  "amountOfPayment" : "Amount of payment",
-  "cooling": "cooling",
-  "theTotalAmount" : "The total amount",
-  "apply" : "Apply",
-  "company" : "Company",
-
-
-
-
-
   "mondira": "=============================MONDIRA SECTION=========================================",
   "tenantService" : "Tenant service",
   "vocApplication" : "VOC Application",
@@ -138,42 +93,6 @@
 
 
 
-
-  "aditi_old" : "=============================Aditi Old SECTION=========================================",
-  "homeTitle" : "History and culture are alive and breathing",
-  "homeSubtitle" : "Prime Office Building Centropolis",
-  "conferenceSubTitle" : "conference",
-  "visitReservation" : "Visit Reservation",
-  "lobby" : "Lobby",
-  "otherReservation" : "Others reservation",
-  "otherReservationSubtitle" : "Other reservations",
-  "otherReservationCard1" : "Request for lights out",
-  "otherReservationCard2" : "air conditioning application",
-  "otherReservationCardBook" : "Shortcuts",
-  "bookmeetingRoom" : "Book a meeting room",
-  "meetingInformation" : "meeting information",
-  "meetingDate" : "meeting date",
-  "conferenceRoomType" : "conference room type",
-  "meetingName" : "meeting name",
-  "meetingHint" : "Enter the meeting name that will be displayed on the screen in front of the meeting room.",
-  "hostingMeeting" : "hosting a meeting",
-  "additionalEquipment" : "additional equipment",
-  "reservationAgent" : "Reservations agent",
-  "paymentDetails" : "payment details",
-  "paymentTerms" : "I agree to the use of personal information.",
-  "makePayment" : "make a payment",
-  "selectMeetingDate" : "Select meeting date",
-  "meetingStart" : "meeting start",
-  "endOfMeeting" : "end of meeting",
-  "numberOfParticipants" : "number of participants",
-  "additionalRequirements" : "Additional equipment (free/paid)",
-  "next" : "next >",
-  "heatingCoolingExtensionApplication" : "Heating and cooling extension application",
-  "choiceOfAirConditioner" : "Choice of air conditioning",
-  "extensionStart" : "extension start",
-  "extensionEnd" : "end of extension",
-  "heatingAndCooling" : "heating and cooling",
-  "lightsOut" : "lights out",
 
 
   "aditi" : "=============================Aditi SECTION=========================================",
@@ -372,14 +291,6 @@
 
   
 
-
-
-
-
-
-
-  
-  
 
 
   "sourav": "=============================SOURAV SECTION=========================================",

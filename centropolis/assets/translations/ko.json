@@ -1,47 +1,6 @@
 {
   "lang": "ko",
 
-  "mondira_old" : "=============================MONDIRA OLD SECTION=========================================",
-  "visitorReservations" : "Visitor Reservations",
-  "visitReservationViewAll" : "Visit Reservation View All",
-  "lookupCondition" : "Lookup condition",
-  "lookup": "Lookup",
-  "oneWeek" : "one week",
-  "oneMonth" : "one month",
-  "monthly" : "Monthly",
-  "required": "* Required",
-  "pleaseEnterTheCorrectVisitorName": "Please enter the correct visitor name",
-  "pleaseEnterTheCorrectCompanyName" : "Please enter the correct company name",
-  "mobilePhoneNumber" : "Mobile Phone Number *",
-  "pleaseEnterOnlyNumbersWithout" : "Please enter only numbers without “-”",
-  "emailWithStar" : "e-mail *",
-  "emailExample" : "ex) welcome@centropolis.com",
-  "buildingVisited" : "Building visited *",
-  "pleaseSelectBuildingToVisit" : "Please select a building to visit",
-  "pleaseSelectFloorToVisit" : "Please select a floor to visit",
-  "dateAndTimeOfVisitWithStar": "Date and time of visit *",
-  "dateAndTimeOfVisit" : "Date and time of visit",
-  "choose" : "choose",
-  "businessDiscussion" : "business discussion",
-  "reservationDetails" : "Reservation details",
-  "visitors" : "visitors",
-  "contactPersonInformation": "Contact person information",
-  "personInCharge": "person in charge",
-  "TenantCompanyName" : "Tenant company name",
-  "reservationApproved": "Reservation approved",
-  "providedByTheTenantCompany" : "Provided by the tenant company",
-  "applyForHeatingAndCooling" : "Apply for heating and cooling",
-  "tenantCompanyInformation" : "Tenant company information",
-  "applicantName" : "Applicant name",
-  "selectDate" : "select date",
-  "lightsOutStart" : "lights out start",
-  "lightsOutEnd" : "lights out end",
-  "amountOfPayment" : "Amount of payment",
-  "cooling": "cooling",
-  "theTotalAmount" : "The total amount",
-  "apply" : "Apply",
-
-
   "mondira": "=============================MONDIRA SECTION=========================================",
   "tenantService" : "Tenant service",
   "vocApplication" : "VOC Application",
@@ -125,42 +84,6 @@
   "youAccountHasBeenSuccessfullyWithdrawn" : "You account has been successfully withdrawn",
 
 
-  "aditi_old" : "=============================Aditi Old SECTION=========================================",
-  "homeTitle" : "역사와 문화가 살아 숨 쉬는",
-  "homeSubtitle" : " 프라임 오피스 빌딩 센트로폴리스",
-  "conferenceSubTitle" : "컨퍼런스",
-  "visitReservation" : "Visit Reservation",
-  "lobby" : "Lobby",
-  "otherReservation" : "Others reservation",
-  "otherReservationSubtitle" : "기타 예약",
-  "otherReservationCard1" : "소등 신청",
-  "otherReservationCard2" : "냉난방 신청",
-  "otherReservationCardBook" : "바로가기",
-  "homeRowBook" : "예약하기",
-  "bookmeetingRoom" : "회의실 예약하기",
-  "meetingInformation" : "회의 정보",
-  "meetingDate" : "회의 일시 ",
-  "conferenceRoomType" : "회의실 타입",
-  "meetingName" : "회의명",
-  "meetingHint" : "회의실 앞 화면에 명시될 회의명을 입력해 주세요.",
-  "hostingMeeting" : "회의 주최",
-  "additionalEquipment" : "추가장비",
-  "reservationAgent" : "예약 담당자",
-  "paymentDetails" : "결제 세부정보",
-  "paymentTerms" : "개인정보이용에 동의합니다.",
-  "makePayment" : "결제하기",
-  "selectMeetingDate" : "회의 날짜 선택",
-  "meetingStart" : "회의 시작",
-  "endOfMeeting" : "회의  종료 ",
-  "numberOfParticipants" : "참여 인원",
-  "additionalRequirements" : "추가 장비 (무료/유료)",
-  "next" : "다음 >",
-  "heatingCoolingExtensionApplication" : "냉난방 신청하기",
-  "choiceOfAirConditioner" : "냉낸방 선택",
-  "extensionStart" : "연장 시작",
-  "extensionEnd" : "연장 종료 ",
-  "heatingAndCooling" : "냉난방 일시",
-  "lightsOut" : "소등 일시",
 
   "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "홈",
@@ -365,27 +288,8 @@
   "photoNote" : "사진 등록 시 이미지 사이즈는 670X670 픽셀 이하, 파일 용량은 1Mbyte 이하로 등록해주세요.",
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
   "sourav" : "=============================SOURAV SECTION=========================================",
-  "AirConditioning":"냉 & 난방 신청"
+  "AirConditioning":"냉 & 난방 신청",
+
+
 }
