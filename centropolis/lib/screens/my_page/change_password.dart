@@ -220,7 +220,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                                 : CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
-                      hintText: tr("moreThan8Characters"),
+                      hintText: tr("passwordHint"),
                       hintStyle: const TextStyle(
                         color: CustomColors.textColor3,
                         fontSize: 14,
@@ -416,7 +416,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     debugPrint("change password input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.changePasswordUrl, body,language, apiKey.trim());
+        ApiEndPoint.changePasswordUrl, body, language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -462,17 +462,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return Align(
       alignment: FractionalOffset.bottomCenter,
       child: Container(
-          height: 52,
-          width: double.infinity,
-          margin: const EdgeInsets.only(
-            left: 15.0,
-            right: 15.0,
-          ),
-          child: CommonButton(
-              onCommonButtonTap: () {},
-              buttonColor: CustomColors.buttonBackgroundColor,
-              buttonName: tr("save"),
-              isIconVisible: false),),
+        height: 52,
+        width: double.infinity,
+        margin: const EdgeInsets.only(
+          left: 15.0,
+          right: 15.0,
+        ),
+        child: CommonButton(
+            onCommonButtonTap: () {},
+            buttonColor: CustomColors.buttonBackgroundColor,
+            buttonName: tr("save"),
+            isIconVisible: false),
+      ),
     );
   }
 }
