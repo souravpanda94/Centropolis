@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -18,20 +19,25 @@ class RegisteredEmployeeDetails extends StatefulWidget {
 }
 
 class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
-  TextEditingController accountStatusController = TextEditingController();
-  TextEditingController accountTypeController = TextEditingController();
-  bool accountStatus = false, accountType = false;
+  String? statusSelectedValue, typeSelectedValue;
 
-  List<dynamic> accountStatusList = [
-    "Approved",
-    "Denied",
-    "Suspended",
-    "Reactivate",
-  ];
-  List<dynamic> accountTypeList = [
-    "Member",
-    "Conference Room Manager",
-    "Executive Lounge Manager",
+  List<dynamic> list = [
+    {
+      "status": "Approved",
+      "type": "Member",
+    },
+    {
+      "status": "Denied",
+      "type": "Conference Room Manager",
+    },
+    {
+      "status": "Suspended",
+      "type": "Executive Lounge Manager",
+    },
+    {
+      "status": "Reactivate",
+      "type": "Members",
+    }
   ];
 
   @override
@@ -232,251 +238,209 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  TextField(
-                    controller: accountStatusController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
-                    readOnly: true,
-                    showCursor: false,
-                    decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('approved'),
-                        hintStyle: const TextStyle(
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      hint: Text(
+                        tr('approved'),
+                        style: const TextStyle(
                           color: CustomColors.textColorBlack2,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: SvgPicture.asset(
-                            "assets/images/ic_drop_down_arrow.svg",
-                            width: 8,
-                            height: 4,
-                            color: CustomColors.textColorBlack2,
-                          ),
-                        )),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                    onTap: () {
-                      setState(() {
-                        accountStatus = true;
-                      });
-                    },
-                  ),
-                  Stack(
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("accountType"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          TextField(
-                            controller: accountTypeController,
-                            cursorColor: CustomColors.textColorBlack2,
-                            keyboardType: TextInputType.text,
-                            readOnly: true,
-                            showCursor: false,
-                            decoration: InputDecoration(
-                                border: InputBorder.none,
-                                fillColor: CustomColors.whiteColor,
-                                filled: true,
-                                contentPadding: const EdgeInsets.all(16),
-                                enabledBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(
-                                      color: CustomColors.dividerGreyColor,
-                                      width: 1.0),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  borderSide: const BorderSide(
-                                      color: CustomColors.dividerGreyColor,
-                                      width: 1.0),
-                                ),
-                                hintText: "Member",
-                                hintStyle: const TextStyle(
-                                  color: CustomColors.textColorBlack2,
-                                  fontSize: 14,
-                                  fontFamily: 'Regular',
-                                ),
-                                suffixIcon: Padding(
-                                  padding: const EdgeInsets.all(18.0),
-                                  child: SvgPicture.asset(
-                                    "assets/images/ic_drop_down_arrow.svg",
-                                    width: 8,
-                                    height: 4,
-                                    color: CustomColors.textColorBlack2,
-                                  ),
-                                )),
-                            style: const TextStyle(
-                              color: CustomColors.blackColor,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                            onTap: () {
-                              setState(() {
-                                accountType = true;
-                              });
-                            },
-                          ),
-                          Stack(
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width,
-                                    margin: const EdgeInsets.only(
-                                        top: 32, bottom: 16),
-                                    child: CommonButton(
-                                        onCommonButtonTap: () {},
-                                        buttonColor:
-                                            CustomColors.buttonBackgroundColor,
-                                        buttonName: tr("save"),
-                                        isIconVisible: false),
-                                  ),
-                                  CommonButtonWithBorder(
-                                    onCommonButtonTap: () {},
-                                    buttonBorderColor:
-                                        CustomColors.dividerGreyColor,
-                                    buttonName: tr("before"),
-                                    buttonTextColor: CustomColors.textColor5,
-                                  ),
-                                ],
-                              ),
-                              if (accountType)
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: const EdgeInsets.only(top: 2),
-                                  decoration: BoxDecoration(
-                                    color: CustomColors.whiteColor,
-                                    border: Border.all(
-                                      color: CustomColors.dividerGreyColor,
-                                    ),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  child: SingleChildScrollView(
-                                    child: Column(
-                                      children: List.generate(3, (index) {
-                                        return Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            InkWell(
-                                              onTap: () {
-                                                setState(() {
-                                                  accountType = false;
-                                                  accountTypeController.text =
-                                                      accountTypeList[index];
-                                                });
-                                              },
-                                              child: Container(
-                                                padding:
-                                                    const EdgeInsets.all(16),
-                                                child: Text(
-                                                  accountTypeList[index],
-                                                  textAlign: TextAlign.start,
-                                                  style: const TextStyle(
-                                                      fontFamily: 'Regular',
-                                                      fontSize: 14,
-                                                      color: CustomColors
-                                                          .textColorBlack2),
-                                                ),
-                                              ),
-                                            ),
-                                            const Divider(
-                                              thickness: 1,
-                                              height: 1,
-                                              color:
-                                                  CustomColors.dividerGreyColor,
-                                            )
-                                          ],
-                                        );
-                                      }),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          )
-                        ],
                       ),
-                      if (accountStatus)
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          margin: const EdgeInsets.only(top: 2),
-                          decoration: BoxDecoration(
-                            color: CustomColors.whiteColor,
-                            border: Border.all(
-                              color: CustomColors.dividerGreyColor,
-                            ),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          child: SingleChildScrollView(
-                            child: Column(
-                              children: List.generate(4, (index) {
-                                return Column(
+                      items: list
+                          .map((item) => DropdownMenuItem<String>(
+                                value: item["status"],
+                                child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          accountStatus = false;
-                                          accountStatusController.text =
-                                              accountStatusList[index];
-                                        });
-                                      },
-                                      child: Container(
-                                        padding: const EdgeInsets.all(16),
-                                        child: Text(
-                                          accountStatusList[index],
-                                          textAlign: TextAlign.start,
-                                          style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 14,
-                                              color:
-                                                  CustomColors.textColorBlack2),
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, bottom: 16),
+                                      child: Text(
+                                        item["status"],
+                                        style: const TextStyle(
+                                          color: CustomColors.blackColor,
+                                          fontSize: 14,
+                                          fontFamily: 'Regular',
                                         ),
                                       ),
                                     ),
                                     const Divider(
                                       thickness: 1,
                                       height: 1,
-                                      color: CustomColors.dividerGreyColor,
+                                      color: Colors.grey,
                                     )
                                   ],
-                                );
-                              }),
+                                ),
+                              ))
+                          .toList(),
+                      value: statusSelectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          statusSelectedValue = value as String;
+                        });
+                      },
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: 200,
+                        isOverButton: false,
+                        elevation: 0,
+                        decoration: BoxDecoration(
+                            color: CustomColors.whiteColor,
+                            border: Border.all(
+                              color: CustomColors.dividerGreyColor,
                             ),
-                          ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4))),
+                      ),
+                      iconStyleData: IconStyleData(
+                          icon: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: statusSelectedValue != null ? 16 : 0),
+                        child: SvgPicture.asset(
+                          "assets/images/ic_drop_down_arrow.svg",
+                          width: 8,
+                          height: 8,
+                          color: CustomColors.textColorBlack2,
                         ),
-                    ],
+                      )),
+                      buttonStyleData: ButtonStyleData(
+                          height: 53,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: CustomColors.dividerGreyColor,
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4))),
+                          padding: EdgeInsets.only(
+                              top: 16,
+                              right: 16,
+                              left: statusSelectedValue != null ? 0 : 16,
+                              bottom: statusSelectedValue != null ? 0 : 16),
+                          elevation: 0),
+                      menuItemStyleData: const MenuItemStyleData(
+                        padding: EdgeInsets.all(0),
+                        height: 53,
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    tr("accountType"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  DropdownButtonHideUnderline(
+                    child: DropdownButton2(
+                      hint: const Text(
+                        "Member",
+                        style: TextStyle(
+                          color: CustomColors.textColorBlack2,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                      items: list
+                          .map((item) => DropdownMenuItem<String>(
+                                value: item["type"],
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 16, bottom: 16),
+                                      child: Text(
+                                        item["type"],
+                                        style: const TextStyle(
+                                          color: CustomColors.blackColor,
+                                          fontSize: 14,
+                                          fontFamily: 'Regular',
+                                        ),
+                                      ),
+                                    ),
+                                    const Divider(
+                                      thickness: 1,
+                                      height: 1,
+                                      color: Colors.grey,
+                                    )
+                                  ],
+                                ),
+                              ))
+                          .toList(),
+                      value: typeSelectedValue,
+                      onChanged: (value) {
+                        setState(() {
+                          typeSelectedValue = value as String;
+                        });
+                      },
+                      dropdownStyleData: DropdownStyleData(
+                        maxHeight: 200,
+                        isOverButton: false,
+                        elevation: 0,
+                        decoration: BoxDecoration(
+                            color: CustomColors.whiteColor,
+                            border: Border.all(
+                              color: CustomColors.dividerGreyColor,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4))),
+                      ),
+                      iconStyleData: IconStyleData(
+                          icon: Padding(
+                        padding: EdgeInsets.only(
+                            bottom: typeSelectedValue != null ? 16 : 0),
+                        child: SvgPicture.asset(
+                          "assets/images/ic_drop_down_arrow.svg",
+                          width: 8,
+                          height: 8,
+                          color: CustomColors.textColorBlack2,
+                        ),
+                      )),
+                      buttonStyleData: ButtonStyleData(
+                          height: 53,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                              border: Border.all(
+                                color: CustomColors.dividerGreyColor,
+                              ),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(4))),
+                          padding: EdgeInsets.only(
+                              top: 16,
+                              right: 16,
+                              left: typeSelectedValue != null ? 0 : 16,
+                              bottom: typeSelectedValue != null ? 0 : 16),
+                          elevation: 0),
+                      menuItemStyleData: const MenuItemStyleData(
+                        padding: EdgeInsets.all(0),
+                        height: 53,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(top: 32, bottom: 16),
+                    child: CommonButton(
+                        onCommonButtonTap: () {},
+                        buttonColor: CustomColors.buttonBackgroundColor,
+                        buttonName: tr("save"),
+                        isIconVisible: false),
+                  ),
+                  CommonButtonWithBorder(
+                    onCommonButtonTap: () {},
+                    buttonBorderColor: CustomColors.dividerGreyColor,
+                    buttonName: tr("before"),
+                    buttonTextColor: CustomColors.textColor5,
                   )
                 ],
               ),

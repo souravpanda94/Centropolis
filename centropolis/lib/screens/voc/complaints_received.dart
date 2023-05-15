@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:centropolis/widgets/common_button.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,6 +25,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   final ImagePicker imagePicker = ImagePicker();
   List<XFile>? imageFileList = [];
   late FToast fToast;
+  String? complaintTypeTimeSelectedValue;
+
+  List<dynamic> typeList = [
+    {"type": "Construct"},
+    {"type": "Control"},
+    {"type": "Maintenance"}
+  ];
 
   @override
   void initState() {
@@ -150,47 +158,97 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                 const SizedBox(
                   height: 8,
                 ),
-                TextField(
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  readOnly: true,
-                  showCursor: false,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: "Construct",
-                      hintStyle: const TextStyle(
+                DropdownButtonHideUnderline(
+                  child: DropdownButton2(
+                    hint: const Text(
+                      "Construct",
+                      style: TextStyle(
                         color: CustomColors.textColorBlack2,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 4,
-                          color: CustomColors.textColorBlack2,
-                        ),
-                      )),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
+                    ),
+                    items: typeList
+                        .map((item) => DropdownMenuItem<String>(
+                              value: item["type"],
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Padding(
+                                    padding: const EdgeInsets.only(
+                                        left: 16, bottom: 16),
+                                    child: Text(
+                                      item["type"],
+                                      style: const TextStyle(
+                                        color: CustomColors.blackColor,
+                                        fontSize: 14,
+                                        fontFamily: 'Regular',
+                                      ),
+                                    ),
+                                  ),
+                                  const Divider(
+                                    thickness: 1,
+                                    height: 1,
+                                    color: Colors.grey,
+                                  )
+                                ],
+                              ),
+                            ))
+                        .toList(),
+                    value: complaintTypeTimeSelectedValue,
+                    onChanged: (value) {
+                      setState(() {
+                        complaintTypeTimeSelectedValue = value as String;
+                      });
+                    },
+                    dropdownStyleData: DropdownStyleData(
+                      maxHeight: 200,
+                      isOverButton: false,
+                      elevation: 0,
+                      decoration: BoxDecoration(
+                          color: CustomColors.whiteColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                    ),
+                    iconStyleData: IconStyleData(
+                        icon: Padding(
+                      padding: EdgeInsets.only(
+                          bottom:
+                              complaintTypeTimeSelectedValue != null ? 16 : 0),
+                      child: SvgPicture.asset(
+                        "assets/images/ic_drop_down_arrow.svg",
+                        width: 8,
+                        height: 8,
+                        color: CustomColors.textColorBlack2,
+                      ),
+                    )),
+                    buttonStyleData: ButtonStyleData(
+                        height: 53,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                            border: Border.all(
+                              color: CustomColors.dividerGreyColor,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4))),
+                        padding: EdgeInsets.only(
+                            top: 16,
+                            right: 16,
+                            left:
+                                complaintTypeTimeSelectedValue != null ? 0 : 16,
+                            bottom: complaintTypeTimeSelectedValue != null
+                                ? 0
+                                : 16),
+                        elevation: 0),
+                    menuItemStyleData: const MenuItemStyleData(
+                      padding: EdgeInsets.all(0),
+                      height: 53,
+                    ),
                   ),
-                  onTap: () {},
                 ),
                 const SizedBox(
                   height: 16,

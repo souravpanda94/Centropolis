@@ -1514,37 +1514,37 @@ class _SignupScreenState extends State<SignupScreen> {
               currentSelectedCompanyNameId = value as String;
             });
           },
-          icon: Padding(
-            padding: const EdgeInsets.only(left: 0, top: 5),
-            child: SvgPicture.asset(
-              "assets/images/ic_drop_down_arrow.svg",
-              fit: BoxFit.contain,
-              allowDrawingOutsideViewBox: true,
-              width: 5,
-              height: 5,
-              color: CustomColors.blackColor,
-            ),
-          ),
-          buttonHeight: 50,
-          buttonPadding: const EdgeInsets.only(left: 14, right: 14),
-          buttonDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(25),
-            border: Border.all(
-                // color: CustomColors.borderColor,
-                color: CustomColors.borderColor,
-                width: 1.0),
-            color: Colors.white,
-          ),
-          buttonElevation: 0,
-          itemHeight: 40,
-          dropdownMaxHeight: 200,
-          dropdownPadding: const EdgeInsets.only(left: 14, right: 14),
-          dropdownDecoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(14),
-            color: Colors.white,
-          ),
-          dropdownElevation: 8,
-          offset: const Offset(0, 0),
+          // icon: Padding(
+          //   padding: const EdgeInsets.only(left: 0, top: 5),
+          //   child: SvgPicture.asset(
+          //     "assets/images/ic_drop_down_arrow.svg",
+          //     fit: BoxFit.contain,
+          //     allowDrawingOutsideViewBox: true,
+          //     width: 5,
+          //     height: 5,
+          //     color: CustomColors.blackColor,
+          //   ),
+          // ),
+          // buttonHeight: 50,
+          // buttonPadding: const EdgeInsets.only(left: 14, right: 14),
+          // buttonDecoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(25),
+          //   border: Border.all(
+          //       // color: CustomColors.borderColor,
+          //       color: CustomColors.borderColor,
+          //       width: 1.0),
+          //   color: Colors.white,
+          // ),
+          // buttonElevation: 0,
+          // itemHeight: 40,
+          // dropdownMaxHeight: 200,
+          // dropdownPadding: const EdgeInsets.only(left: 14, right: 14),
+          // dropdownDecoration: BoxDecoration(
+          //   borderRadius: BorderRadius.circular(14),
+          //   color: Colors.white,
+          // ),
+          // dropdownElevation: 8,
+          // offset: const Offset(0, 0),
         ),
       ),
     );

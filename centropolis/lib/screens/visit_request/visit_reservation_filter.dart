@@ -1,4 +1,5 @@
 import 'package:centropolis/widgets/common_button_with_border.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,8 +18,15 @@ class VisitReservationFilter extends StatefulWidget {
 }
 
 class _VisitReservationFilterState extends State<VisitReservationFilter> {
-  bool statusTapped = false;
   int showIndex = 0;
+
+  List<dynamic> statusList = [
+    {"status": "In progress"},
+    {"status": "Visit Completed"},
+    {"status": "Rejected"},
+    {"status": "Approved"},
+    {"status": "Before Visit"},
+  ];
 
   List<String> dateFilterList = [
     tr("todayFilter"),
@@ -26,8 +34,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     tr("month"),
     tr("directInput")
   ];
-  TextEditingController statusController = TextEditingController();
   TextEditingController dateController = TextEditingController();
+  String? statusSelectedValue;
 
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
@@ -83,52 +91,91 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           const SizedBox(
             height: 8,
           ),
-          TextField(
-            controller: statusController,
-            cursorColor: CustomColors.textColorBlack2,
-            keyboardType: TextInputType.text,
-            readOnly: true,
-            showCursor: false,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                fillColor: CustomColors.whiteColor,
-                filled: true,
-                contentPadding: const EdgeInsets.all(16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
-                ),
-                hintText: "In progress",
-                hintStyle: const TextStyle(
+          DropdownButtonHideUnderline(
+            child: DropdownButton2(
+              hint: const Text(
+                "In Progress",
+                style: TextStyle(
                   color: CustomColors.textColorBlack2,
                   fontSize: 14,
                   fontFamily: 'Regular',
                 ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: SvgPicture.asset(
-                    "assets/images/ic_drop_down_arrow.svg",
-                    width: 8,
-                    height: 4,
-                    color: CustomColors.textColorBlack2,
-                  ),
-                )),
-            style: const TextStyle(
-              color: CustomColors.blackColor,
-              fontSize: 14,
-              fontFamily: 'Regular',
+              ),
+              items: statusList
+                  .map((item) => DropdownMenuItem<String>(
+                        value: item["status"],
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 16, bottom: 16),
+                              child: Text(
+                                item["status"],
+                                style: const TextStyle(
+                                  color: CustomColors.blackColor,
+                                  fontSize: 14,
+                                  fontFamily: 'Regular',
+                                ),
+                              ),
+                            ),
+                            const Divider(
+                              thickness: 1,
+                              height: 1,
+                              color: Colors.grey,
+                            )
+                          ],
+                        ),
+                      ))
+                  .toList(),
+              value: statusSelectedValue,
+              onChanged: (value) {
+                setState(() {
+                  statusSelectedValue = value as String;
+                });
+              },
+              dropdownStyleData: DropdownStyleData(
+                maxHeight: 200,
+                isOverButton: false,
+                elevation: 0,
+                decoration: BoxDecoration(
+                    color: CustomColors.whiteColor,
+                    border: Border.all(
+                      color: CustomColors.dividerGreyColor,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(4))),
+              ),
+              iconStyleData: IconStyleData(
+                  icon: Padding(
+                padding: EdgeInsets.only(
+                    bottom: statusSelectedValue != null ? 16 : 0),
+                child: SvgPicture.asset(
+                  "assets/images/ic_drop_down_arrow.svg",
+                  width: 8,
+                  height: 8,
+                  color: CustomColors.textColorBlack2,
+                ),
+              )),
+              buttonStyleData: ButtonStyleData(
+                  height: 53,
+                  width: MediaQuery.of(context).size.width,
+                  decoration: BoxDecoration(
+                      border: Border.all(
+                        color: CustomColors.dividerGreyColor,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4))),
+                  padding: EdgeInsets.only(
+                      top: 16,
+                      right: 16,
+                      left: statusSelectedValue != null ? 0 : 16,
+                      bottom: statusSelectedValue != null ? 0 : 16),
+                  elevation: 0),
+              menuItemStyleData: const MenuItemStyleData(
+                padding: EdgeInsets.all(0),
+                height: 53,
+              ),
             ),
-            onTap: () {
-              setState(() {
-                statusTapped = true;
-              });
-            },
           ),
           const SizedBox(
             height: 16,

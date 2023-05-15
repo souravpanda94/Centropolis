@@ -1,5 +1,6 @@
 import 'dart:math';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -24,16 +25,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? _selectedDay;
-  bool _isChecked = false,
-      selected = false,
-      usageTimeTapped = false,
-      totalUsageTimeTapped = false;
+  bool _isChecked = false, selected = false;
   List<dynamic> listData = [];
   List<dynamic> femaleListData = [];
   int selectedIndex = 0;
-  TextEditingController usageTimeController = TextEditingController();
-  TextEditingController totalUsageTimeController = TextEditingController();
-  String type = "female", usageTime = "", totalUsageTime = "";
+
+  String type = "female";
+  String? usageTimeSelectedValue, totalTimeSelectedValue;
 
   List<dynamic> usageTimeList = [
     {"usageTime": "11:00", "total": "30 Minutes"},
@@ -576,333 +574,273 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       const SizedBox(
                         height: 8,
                       ),
-                      TextField(
-                        controller: usageTimeController,
-                        cursorColor: CustomColors.textColorBlack2,
-                        keyboardType: TextInputType.text,
-                        readOnly: true,
-                        showCursor: false,
-                        decoration: InputDecoration(
-                            border: InputBorder.none,
-                            fillColor: CustomColors.whiteColor,
-                            filled: true,
-                            contentPadding: const EdgeInsets.all(16),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                  color: CustomColors.dividerGreyColor,
-                                  width: 1.0),
-                            ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                  color: CustomColors.dividerGreyColor,
-                                  width: 1.0),
-                            ),
-                            hintText: "11:00",
-                            hintStyle: const TextStyle(
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          hint: const Text(
+                            "11:00",
+                            style: TextStyle(
                               color: CustomColors.textColorBlack2,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
-                            suffixIcon: Padding(
-                              padding: const EdgeInsets.all(18.0),
-                              child: SvgPicture.asset(
-                                "assets/images/ic_drop_down_arrow.svg",
-                                width: 8,
-                                height: 4,
-                                color: CustomColors.textColorBlack2,
-                              ),
-                            )),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
+                          ),
+                          items: usageTimeList
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item["usageTime"],
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 16, bottom: 16),
+                                          child: Text(
+                                            item["usageTime"],
+                                            style: const TextStyle(
+                                              color: CustomColors.blackColor,
+                                              fontSize: 14,
+                                              fontFamily: 'Regular',
+                                            ),
+                                          ),
+                                        ),
+                                        const Divider(
+                                          thickness: 1,
+                                          height: 1,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    ),
+                                  ))
+                              .toList(),
+                          value: usageTimeSelectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              usageTimeSelectedValue = value as String;
+                            });
+                          },
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: 200,
+                            isOverButton: false,
+                            elevation: 0,
+                            decoration: BoxDecoration(
+                                color: CustomColors.whiteColor,
+                                border: Border.all(
+                                  color: CustomColors.dividerGreyColor,
+                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4))),
+                          ),
+                          iconStyleData: IconStyleData(
+                              icon: Padding(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    usageTimeSelectedValue != null ? 16 : 0),
+                            child: SvgPicture.asset(
+                              "assets/images/ic_drop_down_arrow.svg",
+                              width: 8,
+                              height: 8,
+                              color: CustomColors.textColorBlack2,
+                            ),
+                          )),
+                          buttonStyleData: ButtonStyleData(
+                              height: 53,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: CustomColors.dividerGreyColor,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4))),
+                              padding: EdgeInsets.only(
+                                  top: 16,
+                                  right: 16,
+                                  left: usageTimeSelectedValue != null ? 0 : 16,
+                                  bottom:
+                                      usageTimeSelectedValue != null ? 0 : 16),
+                              elevation: 0),
+                          menuItemStyleData: const MenuItemStyleData(
+                            padding: EdgeInsets.all(0),
+                            height: 53,
+                          ),
                         ),
-                        onTap: () {
-                          setState(() {
-                            usageTimeTapped = true;
-                          });
-                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        tr("totalUsageTime"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      DropdownButtonHideUnderline(
+                        child: DropdownButton2(
+                          hint: const Text(
+                            "10 minutes",
+                            style: TextStyle(
+                              color: CustomColors.textColorBlack2,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          items: usageTimeList
+                              .map((item) => DropdownMenuItem<String>(
+                                    value: item["total"],
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 16, bottom: 16),
+                                          child: Text(
+                                            item["total"],
+                                            style: const TextStyle(
+                                              color: CustomColors.blackColor,
+                                              fontSize: 14,
+                                              fontFamily: 'Regular',
+                                            ),
+                                          ),
+                                        ),
+                                        const Divider(
+                                          thickness: 1,
+                                          height: 1,
+                                          color: Colors.grey,
+                                        )
+                                      ],
+                                    ),
+                                  ))
+                              .toList(),
+                          value: totalTimeSelectedValue,
+                          onChanged: (value) {
+                            setState(() {
+                              totalTimeSelectedValue = value as String;
+                            });
+                          },
+                          dropdownStyleData: DropdownStyleData(
+                            maxHeight: 200,
+                            isOverButton: false,
+                            elevation: 0,
+                            decoration: BoxDecoration(
+                                color: CustomColors.whiteColor,
+                                border: Border.all(
+                                  color: CustomColors.dividerGreyColor,
+                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4))),
+                          ),
+                          iconStyleData: IconStyleData(
+                              icon: Padding(
+                            padding: EdgeInsets.only(
+                                bottom:
+                                    totalTimeSelectedValue != null ? 16 : 0),
+                            child: SvgPicture.asset(
+                              "assets/images/ic_drop_down_arrow.svg",
+                              width: 8,
+                              height: 8,
+                              color: CustomColors.textColorBlack2,
+                            ),
+                          )),
+                          buttonStyleData: ButtonStyleData(
+                              height: 53,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: CustomColors.dividerGreyColor,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4))),
+                              padding: EdgeInsets.only(
+                                  top: 16,
+                                  right: 16,
+                                  left: totalTimeSelectedValue != null ? 0 : 16,
+                                  bottom:
+                                      totalTimeSelectedValue != null ? 0 : 16),
+                              elevation: 0),
+                          menuItemStyleData: const MenuItemStyleData(
+                            padding: EdgeInsets.all(0),
+                            height: 53,
+                          ),
+                        ),
                       ),
                     ],
                   ),
                 ),
-                Stack(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const SizedBox(
-                                height: 16,
-                              ),
-                              Text(
-                                tr("totalUsageTime"),
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
-                              ),
-                              const SizedBox(
-                                height: 8,
-                              ),
-                              TextField(
-                                controller: totalUsageTimeController,
-                                cursorColor: CustomColors.textColorBlack2,
-                                keyboardType: TextInputType.text,
-                                readOnly: true,
-                                showCursor: false,
-                                decoration: InputDecoration(
-                                    border: InputBorder.none,
-                                    fillColor: CustomColors.whiteColor,
-                                    filled: true,
-                                    contentPadding: const EdgeInsets.all(16),
-                                    enabledBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                      borderSide: const BorderSide(
-                                          color: CustomColors.dividerGreyColor,
-                                          width: 1.0),
-                                    ),
-                                    focusedBorder: OutlineInputBorder(
-                                      borderRadius: BorderRadius.circular(4),
-                                      borderSide: const BorderSide(
-                                          color: CustomColors.dividerGreyColor,
-                                          width: 1.0),
-                                    ),
-                                    hintText: "30 Minutes",
-                                    hintStyle: const TextStyle(
-                                      color: CustomColors.textColorBlack2,
-                                      fontSize: 14,
-                                      fontFamily: 'Regular',
-                                    ),
-                                    suffixIcon: Padding(
-                                      padding: const EdgeInsets.all(18.0),
-                                      child: SvgPicture.asset(
-                                        "assets/images/ic_drop_down_arrow.svg",
-                                        width: 8,
-                                        height: 4,
-                                        color: CustomColors.textColorBlack2,
-                                      ),
-                                    )),
-                                style: const TextStyle(
-                                  color: CustomColors.blackColor,
-                                  fontSize: 14,
-                                  fontFamily: 'Regular',
-                                ),
-                                onTap: () {
-                                  setState(() {
-                                    totalUsageTimeTapped = true;
-                                  });
-                                },
-                              ),
-                            ],
-                          ),
-                        ),
-                        Stack(
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  margin: const EdgeInsets.only(top: 16),
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  color: CustomColors.backgroundColor,
-                                  margin: const EdgeInsets.only(top: 16),
-                                  height: 10,
-                                ),
-                                Container(
-                                  color: CustomColors.whiteColor,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16),
-                                  width: MediaQuery.of(context).size.width,
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.only(top: 16),
-                                        child: Row(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.only(top: 5),
-                                              child: SizedBox(
-                                                height: 15,
-                                                width: 15,
-                                                child: Checkbox(
-                                                  checkColor:
-                                                      CustomColors.whiteColor,
-                                                  activeColor: CustomColors
-                                                      .buttonBackgroundColor,
-                                                  side: const BorderSide(
-                                                      color: CustomColors
-                                                          .greyColor,
-                                                      width: 1),
-                                                  value: _isChecked,
-                                                  onChanged: (value) {
-                                                    setState(() {
-                                                      _isChecked = value!;
-                                                      if (_isChecked) {
-                                                      } else {}
-                                                    });
-                                                  },
-                                                ),
-                                              ),
-                                            ),
-                                            const SizedBox(
-                                              width: 9,
-                                            ),
-                                            Expanded(
-                                              child: Text(
-                                                tr("sleepingRoomReservationConsent"),
-                                                style: const TextStyle(
-                                                    fontFamily: 'Regular',
-                                                    fontSize: 14,
-                                                    color: CustomColors
-                                                        .textColorBlack2),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.only(
-                                            top: 24, bottom: 32),
-                                        child: CommonButton(
-                                          onCommonButtonTap: () {},
-                                          buttonColor: CustomColors
-                                              .buttonBackgroundColor,
-                                          buttonName: tr("makeReservation"),
-                                          isIconVisible: false,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ],
-                            ),
-                            if (totalUsageTimeTapped)
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                margin: const EdgeInsets.only(
-                                    top: 2, left: 16, right: 16),
-                                decoration: BoxDecoration(
-                                  color: CustomColors.whiteColor,
-                                  border: Border.all(
-                                    color: CustomColors.dividerGreyColor,
-                                  ),
-                                  borderRadius: BorderRadius.circular(4),
-                                ),
-                                child: SingleChildScrollView(
-                                  child: Column(
-                                    children: List.generate(4, (index) {
-                                      return Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                totalUsageTimeTapped = false;
-                                                totalUsageTimeController.text =
-                                                    usageTimeList[index]
-                                                        ["total"];
-
-                                                totalUsageTime =
-                                                    totalUsageTimeController
-                                                        .text;
-                                              });
-                                            },
-                                            child: Container(
-                                              padding: const EdgeInsets.all(16),
-                                              child: Text(
-                                                usageTimeList[index]["total"],
-                                                textAlign: TextAlign.start,
-                                                style: const TextStyle(
-                                                    fontFamily: 'Regular',
-                                                    fontSize: 14,
-                                                    color: CustomColors
-                                                        .textColorBlack2),
-                                              ),
-                                            ),
-                                          ),
-                                          const Divider(
-                                            thickness: 1,
-                                            height: 1,
-                                            color:
-                                                CustomColors.dividerGreyColor,
-                                          )
-                                        ],
-                                      );
-                                    }),
-                                  ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: Checkbox(
+                                  checkColor: CustomColors.whiteColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
+                                  side: const BorderSide(
+                                      color: CustomColors.greyColor, width: 1),
+                                  value: _isChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      _isChecked = value!;
+                                      if (_isChecked) {
+                                      } else {}
+                                    });
+                                  },
                                 ),
                               ),
+                            ),
+                            const SizedBox(
+                              width: 9,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("sleepingRoomReservationConsent"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                            )
                           ],
-                        )
-                      ],
-                    ),
-                    if (usageTimeTapped)
-                      Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin:
-                            const EdgeInsets.only(top: 2, left: 16, right: 16),
-                        decoration: BoxDecoration(
-                          color: CustomColors.whiteColor,
-                          border: Border.all(
-                            color: CustomColors.dividerGreyColor,
-                          ),
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        child: SingleChildScrollView(
-                          child: Column(
-                            children: List.generate(4, (index) {
-                              return Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      setState(() {
-                                        usageTimeTapped = false;
-                                        usageTimeController.text =
-                                            usageTimeList[index]["usageTime"];
-
-                                        usageTime = usageTimeController.text;
-                                      });
-                                    },
-                                    child: Container(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Text(
-                                        usageTimeList[index]["usageTime"],
-                                        textAlign: TextAlign.start,
-                                        style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 14,
-                                            color:
-                                                CustomColors.textColorBlack2),
-                                      ),
-                                    ),
-                                  ),
-                                  const Divider(
-                                    thickness: 1,
-                                    height: 1,
-                                    color: CustomColors.dividerGreyColor,
-                                  )
-                                ],
-                              );
-                            }),
-                          ),
                         ),
                       ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24, bottom: 32),
+                        child: CommonButton(
+                          onCommonButtonTap: () {},
+                          buttonColor: CustomColors.buttonBackgroundColor,
+                          buttonName: tr("makeReservation"),
+                          isIconVisible: false,
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ],
             ),

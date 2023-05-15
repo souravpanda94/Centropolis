@@ -1,3 +1,4 @@
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,15 +20,22 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? _selectedDay;
-  bool _isChecked = false, timeTapped = false;
-  TextEditingController timeController = TextEditingController();
-  String time = "";
+  bool _isChecked = false;
+  String? selectedTime;
 
   List<dynamic> timeList = [
-    "1 month",
-    "2 month",
-    "3 month",
-    "6 month",
+    {
+      "time_period": "1 month",
+    },
+    {
+      "time_period": "2 month",
+    },
+    {
+      "time_period": "3 month",
+    },
+    {
+      "time_period": "4 month",
+    },
   ];
 
   @override
@@ -228,7 +236,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         ),
         Container(
           color: CustomColors.whiteColor,
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+          padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
           width: MediaQuery.of(context).size.width,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -243,109 +252,94 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
               const SizedBox(
                 height: 8,
               ),
-              TextField(
-                controller: timeController,
-                cursorColor: CustomColors.textColorBlack2,
-                keyboardType: TextInputType.text,
-                readOnly: true,
-                showCursor: false,
-                decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: "1 month",
-                    hintStyle: const TextStyle(
+              DropdownButtonHideUnderline(
+                child: DropdownButton2(
+                  hint: Text(
+                    tr('selectUsageTime'),
+                    style: const TextStyle(
                       color: CustomColors.textColorBlack2,
                       fontSize: 14,
                       fontFamily: 'Regular',
                     ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.all(18.0),
-                      child: SvgPicture.asset(
-                        "assets/images/ic_drop_down_arrow.svg",
-                        width: 8,
-                        height: 4,
-                        color: CustomColors.textColorBlack2,
-                      ),
-                    )),
-                style: const TextStyle(
-                  color: CustomColors.blackColor,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-                onTap: () {
-                  setState(() {
-                    timeTapped = true;
-                  });
-                },
-              ),
-              Stack(
-                children: [
-                  const SizedBox(
-                    height: 16,
                   ),
-                  if (timeTapped)
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(top: 2),
-                      decoration: BoxDecoration(
-                        color: CustomColors.whiteColor,
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
-                        ),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: List.generate(4, (index) {
-                            return Column(
+                  items: timeList
+                      .map((item) => DropdownMenuItem<String>(
+                            value: item["time_period"],
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                InkWell(
-                                  onTap: () {
-                                    setState(() {
-                                      timeTapped = false;
-                                      timeController.text = timeList[index];
-
-                                      time = timeController.text.toString();
-                                    });
-                                  },
-                                  child: Container(
-                                    padding: const EdgeInsets.all(16),
-                                    child: Text(
-                                      timeList[index],
-                                      textAlign: TextAlign.start,
-                                      style: const TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 16, bottom: 16),
+                                  child: Text(
+                                    item["time_period"],
+                                    style: const TextStyle(
+                                      color: CustomColors.blackColor,
+                                      fontSize: 14,
+                                      fontFamily: 'Regular',
                                     ),
                                   ),
                                 ),
                                 const Divider(
                                   thickness: 1,
                                   height: 1,
-                                  color: CustomColors.dividerGreyColor,
+                                  color: Colors.grey,
                                 )
                               ],
-                            );
-                          }),
+                            ),
+                          ))
+                      .toList(),
+                  value: selectedTime,
+                  onChanged: (value) {
+                    setState(() {
+                      selectedTime = value as String;
+                    });
+                  },
+                  dropdownStyleData: DropdownStyleData(
+                    maxHeight: 200,
+                    isOverButton: false,
+                    elevation: 0,
+                    decoration: BoxDecoration(
+                        color: CustomColors.whiteColor,
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
                         ),
-                      ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4))),
+                  ),
+                  iconStyleData: IconStyleData(
+                      icon: Padding(
+                    padding:
+                        EdgeInsets.only(bottom: selectedTime != null ? 16 : 0),
+                    child: SvgPicture.asset(
+                      "assets/images/ic_drop_down_arrow.svg",
+                      width: 8,
+                      height: 8,
+                      color: CustomColors.textColorBlack2,
                     ),
-                ],
-              )
+                  )),
+                  buttonStyleData: ButtonStyleData(
+                      height: 53,
+                      width: MediaQuery.of(context).size.width,
+                      decoration: BoxDecoration(
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                      padding: EdgeInsets.only(
+                          top: 16,
+                          right: 16,
+                          left: selectedTime != null ? 0 : 16,
+                          bottom: selectedTime != null ? 0 : 16),
+                      elevation: 0),
+                  menuItemStyleData: const MenuItemStyleData(
+                    padding: EdgeInsets.all(0),
+                    height: 53,
+                  ),
+                ),
+              ),
             ],
           ),
         ),

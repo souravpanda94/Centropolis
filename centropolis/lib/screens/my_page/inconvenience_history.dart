@@ -6,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/view_more.dart';
+import '../voc/complaints_received.dart';
 import 'inconvenience_history_details.dart';
 
 class InconvenienceHistory extends StatefulWidget {
@@ -307,7 +308,14 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(bottom: 40),
                   child: CommonButton(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const ComplaintsReceived(),
+                        ),
+                      );
+                    },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("newInquiry"),
                     isIconVisible: false,
