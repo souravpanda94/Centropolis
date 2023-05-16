@@ -69,9 +69,9 @@ class _FitnessScreenState extends State<FitnessScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "6:30 am - 8:00 pm (weekdays only)",
-                        style: TextStyle(
+                      Text(
+                        tr("fitnessOperatingTime"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -89,84 +89,15 @@ class _FitnessScreenState extends State<FitnessScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Exercise equipment: 15 units in total (8 cardio, 7 weights)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "GX Room: Strength training, stretching and yoga classes",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Personal lockers (shoes/personal items) available for a fee",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
+                      fitnessRow(tr("fitnessFacilityInfoText1")),
+                      fitnessRow(tr("fitnessFacilityInfoText2")),
+                      fitnessRow(tr("fitnessFacilityInfoText3")),
                       const SizedBox(
                         height: 4,
                       ),
-                      const Text(
-                        "* 27 concurrent users (13 females, 14 males)",
-                        style: TextStyle(
+                      Text(
+                        tr("fitnessFacilityInfo"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.headingColor),
@@ -184,102 +115,10 @@ class _FitnessScreenState extends State<FitnessScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Free for all tenants (first-come-first-served basis) ",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Free GX program (twice a week, lunch 12:00-12:20) and In-Body measurement service (reservation system on a first-come, first-served basis through the reservation system)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Free for all tenants (first-come-first-served basis) Free GX program (twice a week, lunch 12:00-12:20) and In-Body measurement service (reservation system on a first-come, first-served basis through the reservation system) GX Paid Yoga Class (when applying for 10 or more people)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Lifestyle coaching paid PT available (schedule reservation system)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
+                      fitnessRow(tr("fitnessTenantBenefitsText1")),
+                      fitnessRow(tr("fitnessTenantBenefitsText2")),
+                      fitnessRow(tr("fitnessTenantBenefitsText3")),
+                      fitnessRow(tr("fitnessTenantBenefitsText4")),
                       const SizedBox(
                         height: 16,
                       ),
@@ -293,9 +132,9 @@ class _FitnessScreenState extends State<FitnessScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "02-6370-5154",
-                        style: TextStyle(
+                      Text(
+                        tr("fitnessInquiry"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -327,7 +166,8 @@ class _FitnessScreenState extends State<FitnessScreen> {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const FitnessReservation(),
+                        builder: (context) =>
+                            const FitnessReservation(position: 0),
                       ),
                     );
                   },
@@ -339,5 +179,29 @@ class _FitnessScreenState extends State<FitnessScreen> {
             )
           ],
         ));
+  }
+
+  fitnessRow(text) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7, right: 10),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  color: CustomColors.textColorBlack2),
+            ),
+          )
+        ]);
   }
 }

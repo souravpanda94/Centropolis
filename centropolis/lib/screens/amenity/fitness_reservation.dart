@@ -11,7 +11,8 @@ import 'paidPT_reservation.dart';
 import 'paid_locker_reservation.dart';
 
 class FitnessReservation extends StatefulWidget {
-  const FitnessReservation({super.key});
+  final int position;
+  const FitnessReservation({super.key, required this.position});
 
   @override
   State<FitnessReservation> createState() => _FitnessReservationState();
@@ -25,6 +26,13 @@ class _FitnessReservationState extends State<FitnessReservation> {
     tr("paidLockers")
   ];
   int showIndex = 0;
+
+  @override
+  void initState() {
+    showIndex = widget.position;
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

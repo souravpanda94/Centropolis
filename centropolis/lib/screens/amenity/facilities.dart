@@ -69,9 +69,9 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "9 am to 6 pm (weekdays only)",
-                        style: TextStyle(
+                      Text(
+                        tr("facilityOperatingTime"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -89,78 +89,9 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Sleeping room: up to 5 females and 15 males",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                " Shower room: up to 4 females and 8 males (available until 8:30pm for fitness users)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Nursing room: This is a female-only facility and can be used by up to 2 people at the same time",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
+                      facilityRow(tr("facilityInfoText1")),
+                      facilityRow(tr("facilityInfoText2")),
+                      facilityRow(tr("facilityInfoText3")),
                       const SizedBox(
                         height: 16,
                       ),
@@ -174,61 +105,15 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "Receive/return the access card at the information desk (free)",
-                        style: TextStyle(
+                      Text(
+                        tr("facilityUsage"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Sleeping room: visit the information desk after making a reservation",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "Shower Room & Nursing Room : Visit the information desk",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
+                      facilityRow(tr("facilityUsageText1")),
+                      facilityRow(tr("facilityUsageText2")),
                       const SizedBox(
                         height: 16,
                       ),
@@ -242,9 +127,9 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "02-6370-5151 / 5152",
-                        style: TextStyle(
+                      Text(
+                        tr("facilityInquiry"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -288,5 +173,29 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
             )
           ],
         ));
+  }
+
+  facilityRow(text) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7, right: 10),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  color: CustomColors.textColorBlack2),
+            ),
+          )
+        ]);
   }
 }

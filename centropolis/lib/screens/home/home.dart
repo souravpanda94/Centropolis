@@ -1,15 +1,26 @@
 import 'dart:ffi';
 
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:centropolis/screens/amenity/gx_reservation.dart';
+import 'package:centropolis/screens/amenity/tenant_service.dart';
+import 'package:centropolis/screens/visit_request/visit_reservation_application.dart';
+import 'package:centropolis/screens/voc/air_conditioning_application.dart';
+import 'package:centropolis/screens/voc/complaints_received.dart';
+import 'package:centropolis/screens/voc/light_out_request.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
+import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
+import '../amenity/conference_reservation.dart';
+import '../amenity/fitness_reservation.dart';
+import '../amenity/lounge_reservation.dart';
+import '../amenity/sleeping_room_reservation.dart';
 import 'bar_code.dart';
 import 'notifications.dart';
 
@@ -135,31 +146,34 @@ class _HomeScreenState extends State<HomeScreen> {
                         ),
                       ),
                     ),
-                    Container(
-                        margin:
-                            const EdgeInsets.only(left: 16, right: 16, top: 25),
-                        child: Row(
-                          children: [
-                            Text(
-                              tr("viewMore"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Regular",
-                                color: CustomColors.whiteColor,
+                    InkWell(
+                      onTap: () {},
+                      child: Container(
+                          margin: const EdgeInsets.only(
+                              left: 16, right: 16, top: 25),
+                          child: Row(
+                            children: [
+                              Text(
+                                tr("viewMore"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "Regular",
+                                  color: CustomColors.whiteColor,
+                                ),
                               ),
-                            ),
-                            const SizedBox(
-                              width: 8,
-                            ),
-                            SvgPicture.asset(
-                              'assets/images/ic_right_arrow_white.svg',
-                              semanticsLabel: 'Back',
-                              width: 8,
-                              height: 8,
-                              alignment: Alignment.center,
-                            ),
-                          ],
-                        )),
+                              const SizedBox(
+                                width: 8,
+                              ),
+                              SvgPicture.asset(
+                                'assets/images/ic_right_arrow_white.svg',
+                                semanticsLabel: 'Back',
+                                width: 8,
+                                height: 8,
+                                alignment: Alignment.center,
+                              ),
+                            ],
+                          )),
+                    ),
                   ],
                 ),
                 if (data["type"] == "visitorReservation" ||
@@ -174,7 +188,18 @@ class _HomeScreenState extends State<HomeScreen> {
                         child: SizedBox(
                           height: 78,
                           child: CommonButtonWithBorder(
-                            onCommonButtonTap: () {},
+                            onCommonButtonTap: () {
+                              if (data["type"] == "conference") {
+                                goToConferenceReservationScreen();
+                              } else if (data["type"] ==
+                                  "centropolisExecutive") {
+                                goToLoungeReservationScreen();
+                              } else if (data["type"] == "refresh") {
+                                goToSleepingRoomReservationScreen();
+                              } else if (data["type"] == "visitorReservation") {
+                                goToVisitorReservationScreen();
+                              }
+                            },
                             buttonName: tr("makeReservation"),
                             buttonColor: CustomColors.homeButtonBackgroundColor,
                             buttonBorderColor: CustomColors.whiteColor,
@@ -194,7 +219,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: 78,
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToGXReservationScreen();
+                              },
                               buttonName: tr("gxReservation"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -206,7 +233,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToPaidPTReservationScreen();
+                              },
                               buttonName: tr("paidPtReservation"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -218,7 +247,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToFitnessReservationScreen();
+                              },
                               buttonName: tr("fitnessReservation"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -230,7 +261,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToPaidLockerReservationScreen();
+                              },
                               buttonName: tr("paidLockersReservation"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -255,7 +288,9 @@ class _HomeScreenState extends State<HomeScreen> {
                           SizedBox(
                             height: 78,
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToCustomerComplaintsScreen();
+                              },
                               buttonName: tr("customerComplaints"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -267,7 +302,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToLightOutRequestScreen();
+                              },
                               buttonName: tr("requestForLightsOut"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -279,7 +316,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             height: 78,
                             margin: const EdgeInsets.only(top: 15.0),
                             child: CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                goToAirConditiongRequestScreen();
+                              },
                               buttonName: tr("requestForHeatingAndCooling"),
                               buttonColor:
                                   CustomColors.homeButtonBackgroundColor,
@@ -381,6 +420,105 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => const NotificationScreen(),
+      ),
+    );
+  }
+
+  void goToGXReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FitnessReservation(position: 0),
+      ),
+    );
+  }
+
+  void goToPaidPTReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FitnessReservation(position: 1),
+      ),
+    );
+  }
+
+  void goToFitnessReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FitnessReservation(position: 2),
+      ),
+    );
+  }
+
+  void goToPaidLockerReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const FitnessReservation(position: 3),
+      ),
+    );
+  }
+
+  void goToConferenceReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ConferenceReservation(),
+      ),
+    );
+  }
+
+  void goToLoungeReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoungeReservation(),
+      ),
+    );
+  }
+
+  void goToSleepingRoomReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const SleepingRoomReservation(),
+      ),
+    );
+  }
+
+  void goToVisitorReservationScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const VisitReservationApplication(),
+      ),
+    );
+  }
+
+  void goToCustomerComplaintsScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const ComplaintsReceived(),
+      ),
+    );
+  }
+
+  void goToLightOutRequestScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LightOutRequest(),
+      ),
+    );
+  }
+
+  void goToAirConditiongRequestScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const AirConditioningApplication(),
       ),
     );
   }
