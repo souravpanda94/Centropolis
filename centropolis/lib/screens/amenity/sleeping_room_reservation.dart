@@ -599,6 +599,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                   height: 10,
                 ),
                 Container(
+                  alignment: FractionalOffset.bottomCenter,
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.symmetric(horizontal: 16),
                   width: MediaQuery.of(context).size.width,

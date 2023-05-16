@@ -451,6 +451,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
             height: 10,
           ),
           Container(
+            alignment: FractionalOffset.bottomCenter,
             color: CustomColors.whiteColor,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16),

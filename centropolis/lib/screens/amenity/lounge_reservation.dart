@@ -579,6 +579,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             height: 10,
           ),
           Container(
+            alignment: FractionalOffset.bottomCenter,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

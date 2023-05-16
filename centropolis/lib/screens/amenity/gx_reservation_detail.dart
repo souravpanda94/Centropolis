@@ -282,6 +282,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
               color: CustomColors.backgroundColor,
             ),
             Container(
+              alignment: FractionalOffset.bottomCenter,
               color: CustomColors.whiteColor,
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 16),

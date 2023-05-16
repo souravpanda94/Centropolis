@@ -218,204 +218,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
             ),
             onTap: () {
               if (showIndex == 3) {
-                showDialog(
-                  context: context,
-                  builder: (context) {
-                    return StatefulBuilder(
-                      builder: (BuildContext context,
-                          void Function(void Function()) setState) {
-                        return Dialog(
-                          insetPadding:
-                              const EdgeInsets.symmetric(horizontal: 16),
-                          child: SizedBox(
-                            width: MediaQuery.of(context).size.width,
-                            child: Column(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                TableCalendar(
-                                  rangeSelectionMode: showIndex == 3
-                                      ? RangeSelectionMode.enforced
-                                      : RangeSelectionMode.toggledOff,
-                                  rangeStartDay:
-                                      showIndex == 3 ? _startDate : null,
-                                  rangeEndDay: showIndex == 3 ? _endDate : null,
-                                  availableCalendarFormats: const {
-                                    CalendarFormat.month: 'Month'
-                                  },
-                                  weekendDays: const [DateTime.sunday],
-                                  daysOfWeekHeight: 50,
-                                  focusedDay: _focusedDay,
-                                  calendarFormat: _calendarFormat,
-                                  firstDay: kFirstDay,
-                                  lastDay: kLastDay,
-                                  headerStyle: HeaderStyle(
-                                    formatButtonVisible: false,
-                                    titleCentered: true,
-                                    titleTextStyle: const TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 16,
-                                        color: Colors.black),
-                                    titleTextFormatter: (date, locale) {
-                                      return "${DateFormat.y(locale).format(date)}.${DateFormat.M(locale).format(date).length == 1 ? "0" : ""}${DateFormat.M(locale).format(date)}";
-                                    },
-                                  ),
-                                  daysOfWeekStyle: DaysOfWeekStyle(
-                                      dowTextFormatter: (date, locale) =>
-                                          DateFormat.E(locale)
-                                              .format(date)
-                                              .toUpperCase(),
-                                      weekdayStyle: const TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Regular',
-                                        fontSize: 14,
-                                      ),
-                                      weekendStyle: const TextStyle(
-                                        color: Colors.black,
-                                        fontFamily: 'Regular',
-                                        fontSize: 14,
-                                      )),
-                                  calendarStyle: CalendarStyle(
-                                      rangeHighlightColor:
-                                          CustomColors.backgroundColor2,
-                                      rangeStartDecoration: const BoxDecoration(
-                                          color: Color(0xffCC6047),
-                                          shape: BoxShape.circle),
-                                      rangeEndDecoration: const BoxDecoration(
-                                          color: Color(0xffCC6047),
-                                          shape: BoxShape.circle),
-                                      todayTextStyle: TextStyle(
-                                          color: _focusedDay
-                                                      .compareTo(kFirstDay) !=
-                                                  0
-                                              ? Colors.black
-                                              : Colors.white),
-                                      weekendTextStyle: const TextStyle(
-                                          color: Color(0xffCC6047)),
-                                      disabledTextStyle:
-                                          const TextStyle(color: Colors.grey),
-                                      disabledDecoration: const BoxDecoration(
-                                          color: Colors.white,
-                                          shape: BoxShape.circle),
-                                      todayDecoration: BoxDecoration(
-                                          color: _focusedDay
-                                                      .compareTo(kFirstDay) !=
-                                                  0
-                                              ? Colors.white
-                                              : const Color(0xffCC6047),
-                                          shape: BoxShape.circle),
-                                      selectedTextStyle:
-                                          const TextStyle(color: Colors.white),
-                                      selectedDecoration: const BoxDecoration(
-                                          color: Color(0xffCC6047),
-                                          shape: BoxShape.circle),
-                                      defaultTextStyle: const TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 14,
-                                      )),
-                                  selectedDayPredicate: (day) {
-                                    if (isSameDay(day, _focusedDay)) {
-                                      return true;
-                                    } else {
-                                      return false;
-                                    }
-                                  },
-                                  enabledDayPredicate: (day) {
-                                    if (day.weekday == DateTime.saturday) {
-                                      return false;
-                                    } else if (day.day == kFirstDay.day &&
-                                        day.month == kFirstDay.month &&
-                                        day.year == kFirstDay.year) {
-                                      return true;
-                                    } else if (day.compareTo(kFirstDay) > 0) {
-                                      return true;
-                                    } else {
-                                      return false;
-                                    }
-                                  },
-                                  onDaySelected: (selectedDay, focusedDay) {
-                                    setState(() {
-                                      _focusedDay = focusedDay;
-                                      _selectedDay = selectedDay;
-                                    });
-                                  },
-                                  onRangeSelected: (start, end, focusedDay) {
-                                    setState(() {
-                                      _focusedDay = focusedDay;
-                                      _startDate = start;
-                                      _endDate = end;
-                                    });
-                                  },
-                                  onFormatChanged: (format) {
-                                    if (_calendarFormat != format) {
-                                      setState(() {
-                                        _calendarFormat = format;
-                                      });
-                                    }
-                                  },
-                                  onPageChanged: (focusedDay) {
-                                    setState(() {
-                                      _focusedDay = focusedDay;
-                                    });
-                                  },
-                                ),
-                                Container(
-                                  margin: const EdgeInsets.only(
-                                      left: 16, right: 16, top: 16, bottom: 30),
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Expanded(
-                                        flex: 1,
-                                        child: CommonButtonWithBorder(
-                                          buttonTextColor: CustomColors
-                                              .buttonBackgroundColor,
-                                          buttonBorderColor: CustomColors
-                                              .buttonBackgroundColor,
-                                          onCommonButtonTap: () {
-                                            Navigator.pop(context);
-                                          },
-                                          buttonColor: CustomColors.whiteColor,
-                                          buttonName: tr("cancel"),
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        width: 16,
-                                      ),
-                                      Expanded(
-                                        flex: 1,
-                                        child: CommonButton(
-                                          onCommonButtonTap: () {
-                                            if (showIndex == 2 &&
-                                                _selectedDay != null) {
-                                              dateController.text =
-                                                  "${DateFormat('yyyy.MM.dd').format(_selectedDay!)} - ${DateFormat('yyyy.MM.dd').format(_selectedDay!.add(const Duration(days: 30)))}";
-                                            } else if (showIndex == 3 &&
-                                                _startDate != null &&
-                                                _endDate != null) {
-                                              dateController.text =
-                                                  "${DateFormat('yyyy.MM.dd').format(_startDate!)} - ${DateFormat('yyyy.MM.dd').format(_endDate!)}";
-                                            }
-
-                                            Navigator.pop(context);
-                                          },
-                                          buttonColor: CustomColors
-                                              .buttonBackgroundColor,
-                                          buttonName: tr("check"),
-                                          isIconVisible: false,
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                )
-                              ],
-                            ),
-                          ),
-                        );
-                      },
-                    );
-                  },
-                );
+                openDateRangePicker();
               }
             },
           ),
@@ -524,6 +327,191 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           height: 53,
         ),
       ),
+    );
+  }
+
+  openDateRangePicker() {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return StatefulBuilder(
+          builder:
+              (BuildContext context, void Function(void Function()) setState) {
+            return Dialog(
+              insetPadding: const EdgeInsets.symmetric(horizontal: 16),
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    TableCalendar(
+                      rangeSelectionMode: showIndex == 3
+                          ? RangeSelectionMode.enforced
+                          : RangeSelectionMode.toggledOff,
+                      rangeStartDay: showIndex == 3 ? _startDate : null,
+                      rangeEndDay: showIndex == 3 ? _endDate : null,
+                      availableCalendarFormats: const {
+                        CalendarFormat.month: 'Month'
+                      },
+                      weekendDays: const [DateTime.sunday],
+                      daysOfWeekHeight: 50,
+                      focusedDay: _focusedDay,
+                      calendarFormat: _calendarFormat,
+                      firstDay: kFirstDay,
+                      lastDay: kLastDay,
+                      headerStyle: HeaderStyle(
+                        formatButtonVisible: false,
+                        titleCentered: true,
+                        titleTextStyle: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: Colors.black),
+                        titleTextFormatter: (date, locale) {
+                          return "${DateFormat.y(locale).format(date)}.${DateFormat.M(locale).format(date).length == 1 ? "0" : ""}${DateFormat.M(locale).format(date)}";
+                        },
+                      ),
+                      daysOfWeekStyle: DaysOfWeekStyle(
+                          dowTextFormatter: (date, locale) =>
+                              DateFormat.E(locale).format(date).toUpperCase(),
+                          weekdayStyle: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                          ),
+                          weekendStyle: const TextStyle(
+                            color: Colors.black,
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                          )),
+                      calendarStyle: CalendarStyle(
+                          rangeHighlightColor: CustomColors.backgroundColor2,
+                          rangeStartDecoration: const BoxDecoration(
+                              color: Color(0xffCC6047), shape: BoxShape.circle),
+                          rangeEndDecoration: const BoxDecoration(
+                              color: Color(0xffCC6047), shape: BoxShape.circle),
+                          todayTextStyle: TextStyle(
+                              color: _focusedDay.compareTo(kFirstDay) != 0
+                                  ? Colors.black
+                                  : Colors.white),
+                          weekendTextStyle:
+                              const TextStyle(color: Color(0xffCC6047)),
+                          disabledTextStyle:
+                              const TextStyle(color: Colors.grey),
+                          disabledDecoration: const BoxDecoration(
+                              color: Colors.white, shape: BoxShape.circle),
+                          todayDecoration: BoxDecoration(
+                              color: _focusedDay.compareTo(kFirstDay) != 0
+                                  ? Colors.white
+                                  : const Color(0xffCC6047),
+                              shape: BoxShape.circle),
+                          selectedTextStyle:
+                              const TextStyle(color: Colors.white),
+                          selectedDecoration: const BoxDecoration(
+                              color: Color(0xffCC6047), shape: BoxShape.circle),
+                          defaultTextStyle: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                          )),
+                      selectedDayPredicate: (day) {
+                        if (isSameDay(day, _focusedDay)) {
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      },
+                      enabledDayPredicate: (day) {
+                        if (day.weekday == DateTime.saturday) {
+                          return false;
+                        } else if (day.day == kFirstDay.day &&
+                            day.month == kFirstDay.month &&
+                            day.year == kFirstDay.year) {
+                          return true;
+                        } else if (day.compareTo(kFirstDay) > 0) {
+                          return true;
+                        } else {
+                          return false;
+                        }
+                      },
+                      onDaySelected: (selectedDay, focusedDay) {
+                        setState(() {
+                          _focusedDay = focusedDay;
+                          _selectedDay = selectedDay;
+                        });
+                      },
+                      onRangeSelected: (start, end, focusedDay) {
+                        setState(() {
+                          _focusedDay = focusedDay;
+                          _startDate = start;
+                          _endDate = end;
+                        });
+                      },
+                      onFormatChanged: (format) {
+                        if (_calendarFormat != format) {
+                          setState(() {
+                            _calendarFormat = format;
+                          });
+                        }
+                      },
+                      onPageChanged: (focusedDay) {
+                        setState(() {
+                          _focusedDay = focusedDay;
+                        });
+                      },
+                    ),
+                    Container(
+                      margin: const EdgeInsets.only(
+                          left: 16, right: 16, top: 16, bottom: 30),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: CommonButtonWithBorder(
+                              buttonTextColor:
+                                  CustomColors.buttonBackgroundColor,
+                              buttonBorderColor:
+                                  CustomColors.buttonBackgroundColor,
+                              onCommonButtonTap: () {
+                                Navigator.pop(context);
+                              },
+                              buttonColor: CustomColors.whiteColor,
+                              buttonName: tr("cancel"),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 16,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: CommonButton(
+                              onCommonButtonTap: () {
+                                if (showIndex == 2 && _selectedDay != null) {
+                                  dateController.text =
+                                      "${DateFormat('yyyy.MM.dd').format(_selectedDay!)} - ${DateFormat('yyyy.MM.dd').format(_selectedDay!.add(const Duration(days: 30)))}";
+                                } else if (showIndex == 3 &&
+                                    _startDate != null &&
+                                    _endDate != null) {
+                                  dateController.text =
+                                      "${DateFormat('yyyy.MM.dd').format(_startDate!)} - ${DateFormat('yyyy.MM.dd').format(_endDate!)}";
+                                }
+
+                                Navigator.pop(context);
+                              },
+                              buttonColor: CustomColors.buttonBackgroundColor,
+                              buttonName: tr("check"),
+                              isIconVisible: false,
+                            ),
+                          )
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          },
+        );
+      },
     );
   }
 }

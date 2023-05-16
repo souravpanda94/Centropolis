@@ -519,6 +519,7 @@ class _AirConditioningApplicationState
             height: 10,
           ),
           Container(
+            alignment: FractionalOffset.bottomCenter,
             width: MediaQuery.of(context).size.width,
             margin:
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),

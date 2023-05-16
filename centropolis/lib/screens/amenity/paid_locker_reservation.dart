@@ -262,6 +262,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           height: 10,
         ),
         Container(
+          alignment: FractionalOffset.bottomCenter,
           color: CustomColors.whiteColor,
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.symmetric(horizontal: 16),

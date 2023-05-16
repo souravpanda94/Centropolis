@@ -350,6 +350,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             height: 10,
           ),
           Container(
+            alignment: FractionalOffset.bottomCenter,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(

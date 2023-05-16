@@ -254,6 +254,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           height: 10,
         ),
         Container(
+          alignment: FractionalOffset.bottomCenter,
           color: CustomColors.whiteColor,
           width: MediaQuery.of(context).size.width,
           margin: const EdgeInsets.symmetric(horizontal: 16),
