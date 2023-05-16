@@ -574,98 +574,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          hint: const Text(
-                            "11:00",
-                            style: TextStyle(
-                              color: CustomColors.textColorBlack2,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                          items: usageTimeList
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item["usageTime"],
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 16, bottom: 16),
-                                          child: Text(
-                                            item["usageTime"],
-                                            style: const TextStyle(
-                                              color: CustomColors.blackColor,
-                                              fontSize: 14,
-                                              fontFamily: 'Regular',
-                                            ),
-                                          ),
-                                        ),
-                                        const Divider(
-                                          thickness: 1,
-                                          height: 1,
-                                          color: Colors.grey,
-                                        )
-                                      ],
-                                    ),
-                                  ))
-                              .toList(),
-                          value: usageTimeSelectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              usageTimeSelectedValue = value as String;
-                            });
-                          },
-                          dropdownStyleData: DropdownStyleData(
-                            maxHeight: 200,
-                            isOverButton: false,
-                            elevation: 0,
-                            decoration: BoxDecoration(
-                                color: CustomColors.whiteColor,
-                                border: Border.all(
-                                  color: CustomColors.dividerGreyColor,
-                                ),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4))),
-                          ),
-                          iconStyleData: IconStyleData(
-                              icon: Padding(
-                            padding: EdgeInsets.only(
-                                bottom:
-                                    usageTimeSelectedValue != null ? 16 : 0),
-                            child: SvgPicture.asset(
-                              "assets/images/ic_drop_down_arrow.svg",
-                              width: 8,
-                              height: 8,
-                              color: CustomColors.textColorBlack2,
-                            ),
-                          )),
-                          buttonStyleData: ButtonStyleData(
-                              height: 53,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: CustomColors.dividerGreyColor,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(4))),
-                              padding: EdgeInsets.only(
-                                  top: 16,
-                                  right: 16,
-                                  left: usageTimeSelectedValue != null ? 0 : 16,
-                                  bottom:
-                                      usageTimeSelectedValue != null ? 0 : 16),
-                              elevation: 0),
-                          menuItemStyleData: const MenuItemStyleData(
-                            padding: EdgeInsets.all(0),
-                            height: 53,
-                          ),
-                        ),
-                      ),
+                      usageTimeWidget(),
                       const SizedBox(
                         height: 16,
                       ),
@@ -679,98 +588,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       const SizedBox(
                         height: 8,
                       ),
-                      DropdownButtonHideUnderline(
-                        child: DropdownButton2(
-                          hint: const Text(
-                            "10 minutes",
-                            style: TextStyle(
-                              color: CustomColors.textColorBlack2,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                          items: usageTimeList
-                              .map((item) => DropdownMenuItem<String>(
-                                    value: item["total"],
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              left: 16, bottom: 16),
-                                          child: Text(
-                                            item["total"],
-                                            style: const TextStyle(
-                                              color: CustomColors.blackColor,
-                                              fontSize: 14,
-                                              fontFamily: 'Regular',
-                                            ),
-                                          ),
-                                        ),
-                                        const Divider(
-                                          thickness: 1,
-                                          height: 1,
-                                          color: Colors.grey,
-                                        )
-                                      ],
-                                    ),
-                                  ))
-                              .toList(),
-                          value: totalTimeSelectedValue,
-                          onChanged: (value) {
-                            setState(() {
-                              totalTimeSelectedValue = value as String;
-                            });
-                          },
-                          dropdownStyleData: DropdownStyleData(
-                            maxHeight: 200,
-                            isOverButton: false,
-                            elevation: 0,
-                            decoration: BoxDecoration(
-                                color: CustomColors.whiteColor,
-                                border: Border.all(
-                                  color: CustomColors.dividerGreyColor,
-                                ),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4))),
-                          ),
-                          iconStyleData: IconStyleData(
-                              icon: Padding(
-                            padding: EdgeInsets.only(
-                                bottom:
-                                    totalTimeSelectedValue != null ? 16 : 0),
-                            child: SvgPicture.asset(
-                              "assets/images/ic_drop_down_arrow.svg",
-                              width: 8,
-                              height: 8,
-                              color: CustomColors.textColorBlack2,
-                            ),
-                          )),
-                          buttonStyleData: ButtonStyleData(
-                              height: 53,
-                              width: MediaQuery.of(context).size.width,
-                              decoration: BoxDecoration(
-                                  border: Border.all(
-                                    color: CustomColors.dividerGreyColor,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(4))),
-                              padding: EdgeInsets.only(
-                                  top: 16,
-                                  right: 16,
-                                  left: totalTimeSelectedValue != null ? 0 : 16,
-                                  bottom:
-                                      totalTimeSelectedValue != null ? 0 : 16),
-                              elevation: 0),
-                          menuItemStyleData: const MenuItemStyleData(
-                            padding: EdgeInsets.all(0),
-                            height: 53,
-                          ),
-                        ),
-                      ),
+                      totalUsageWidget(),
                     ],
                   ),
                 ),
@@ -870,5 +688,181 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       String element = names[random.nextInt(names.length)];
       femaleListData.add(element);
     }
+  }
+
+  usageTimeWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: const Text(
+          "11:00",
+          style: TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: usageTimeList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["usageTime"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["usageTime"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: usageTimeSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            usageTimeSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: usageTimeSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: usageTimeSelectedValue != null ? 0 : 16,
+                bottom: usageTimeSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
+  }
+
+  totalUsageWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: const Text(
+          "10 minutes",
+          style: TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: usageTimeList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["total"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["total"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: totalTimeSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            totalTimeSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: totalTimeSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: totalTimeSelectedValue != null ? 0 : 16,
+                bottom: totalTimeSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
   }
 }
