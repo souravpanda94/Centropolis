@@ -54,15 +54,25 @@ class _LoginScreenState extends State<LoginScreen> {
       isLoading: isLoading,
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("login"), false, () {
-                //onBackButtonPress(context);
-              }, () {}),
+        appBar: AppBar(
+          toolbarHeight: 54,
+          centerTitle: true,
+          shape: const RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20.0),
+              topRight: Radius.circular(20.0),
             ),
+          ),
+          elevation: 0,
+          backgroundColor: CustomColors.whiteColor,
+          title: Text(
+            tr("login"),
+            style: const TextStyle(
+              color: CustomColors.textColor8,
+              fontFamily: 'SemiBold',
+              fontSize: 16.0,
+            ),
+            textAlign: TextAlign.center,
           ),
         ),
         body: Container(

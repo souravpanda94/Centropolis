@@ -49,7 +49,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   void initState() {
     super.initState();
     showIndex == 0
-        ? dateController.text = DateFormat('yyyy.MM.dd').format(DateTime.now())
+        ? dateController.text =
+            "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now())}"
         : null;
   }
 
@@ -222,7 +223,10 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                           : showIndex == 1
                               ? dateController.text =
                                   "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now().add(const Duration(days: 7)))}"
-                              : dateController.clear();
+                              : showIndex == 2
+                                  ? dateController.text =
+                                      "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now().add(const Duration(days: 30)))}"
+                                  : dateController.clear();
                     });
                   },
                   child: Container(
@@ -298,7 +302,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
               fontFamily: 'Regular',
             ),
             onTap: () {
-              if (showIndex != 0 && showIndex != 1) {
+              if (showIndex == 3) {
                 showDialog(
                   context: context,
                   builder: (context) {
