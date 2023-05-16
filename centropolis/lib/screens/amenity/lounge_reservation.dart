@@ -26,7 +26,7 @@ class LoungeReservation extends StatefulWidget {
 }
 
 class _LoungeReservationState extends State<LoungeReservation> {
-  late String language, apiKey;
+  late String language, apiKey, email, mobile;
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -49,6 +49,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    email = user.userData['email_key'].toString();
+    // mobile = user.userData['api_key'].toString();
+    mobile = "";
     loadUsageTimeList();
     loadTimeList();
   }
@@ -388,7 +391,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                     padding: const EdgeInsets.only(top: 24, bottom: 32),
                     child: CommonButton(
                       onCommonButtonTap: () {
-                        showReservationModal();
+                        // showReservationModal();
+                        reservationValidationCheck();
                       },
                       buttonColor: CustomColors.buttonBackgroundColor,
                       buttonName: tr("makeReservation"),
@@ -863,4 +867,79 @@ class _LoungeReservationState extends State<LoungeReservation> {
       });
     });
   }
+
+  void reservationValidationCheck() {
+    if(_focusedDay == ""){
+      showCustomToast(fToast, context, "Please enter reservation date", "");
+    }
+    else if(usageTimeSelectedValue == null ||  startTimeSelectedValue == ""){
+      showCustomToast(fToast, context, "Please select usage time time", "");
+    }
+    else if(startTimeSelectedValue == null ||  startTimeSelectedValue == ""){
+      showCustomToast(fToast, context, "Please select start time", "");
+    }
+    else if(endTimeSelectedValue == null ||  startTimeSelectedValue == ""){
+      showCustomToast(fToast, context, "Please select end time", "");
+    }
+    else{
+      networkCheckForReservation();
+    }
+
+  }
+
+  void networkCheckForReservation() async{
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+    callReservationApi();
+    } else {
+    showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callReservationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "email": email.trim(), //required
+      "mobile": mobile.trim(), //required
+      "reservation_date":_focusedDay.toString().trim(), //required
+      "start_time": startTimeSelectedValue.toString().trim(), //required
+      "end_time": endTimeSelectedValue.toString().trim(), //required
+      "type": usageTimeSelectedValue.toString().trim(),//required
+    };
+
+    debugPrint("lounge reservation input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.makeLoungeReservation, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for lounge reservation ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+
+          showReservationModal();
+
+
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
 }

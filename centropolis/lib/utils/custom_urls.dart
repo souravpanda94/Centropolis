@@ -13,6 +13,7 @@ class ApiEndPoint {
   static String getPersonalInformationUrl = "${baseUrl}v1/cms/terms-list";
   static String getUsageTimeListUrl = "${baseUrl}v1/common/lounge-type";
   static String getTimeListUrl = "${baseUrl}v1/common/lounge-time-list";
+  static String makeLoungeReservation = "${baseUrl}v1/amenity/exceutive-lounge-reservation";
 
 
 
