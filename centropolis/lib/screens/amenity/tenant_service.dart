@@ -10,7 +10,6 @@ import 'facilities.dart';
 import 'fitness.dart';
 import 'lounge.dart';
 
-
 class TenantServiceScreen extends StatefulWidget {
   const TenantServiceScreen({super.key});
 
@@ -19,14 +18,12 @@ class TenantServiceScreen extends StatefulWidget {
 }
 
 class _TenantServiceScreenState extends State<TenantServiceScreen> {
-
   final List<Tab> myTabs = <Tab>[
     Tab(text: tr("lounge")),
     Tab(text: tr("conference")),
     Tab(text: tr("fitness")),
     Tab(text: tr("facilities")),
   ];
-
 
   @override
   void initState() {
@@ -38,7 +35,6 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
     super.dispose();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -48,41 +44,36 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(kToolbarHeight),
-          child: DecoratedBox(
-            decoration:  const BoxDecoration(
-              color: CustomColors.whiteColor,
-              border: Border(
-                  bottom: BorderSide(
-                      color: CustomColors.backgroundColor2, width: 0.5)),
-            ),
-            child: TabBar(
-              tabs: myTabs,
-              labelColor: CustomColors.textColor8,
-              labelStyle: const TextStyle(
-                color: CustomColors.textColor8,
-                fontSize: 14,
-                fontFamily: 'SemiBold',
+            preferredSize: const Size.fromHeight(kToolbarHeight),
+            child: DecoratedBox(
+              decoration: const BoxDecoration(
+                color: CustomColors.whiteColor,
+                border: Border(
+                    bottom: BorderSide(
+                        color: CustomColors.backgroundColor2, width: 0.5)),
               ),
-              unselectedLabelColor: CustomColors.greyColor1,
-              unselectedLabelStyle: const TextStyle(
-                color: CustomColors.greyColor1,
-                fontSize: 14,
-                fontFamily: 'Regular',
+              child: TabBar(
+                tabs: myTabs,
+                labelColor: CustomColors.textColor8,
+                labelStyle: const TextStyle(
+                  color: CustomColors.textColor8,
+                  fontSize: 14,
+                  fontFamily: 'SemiBold',
+                ),
+                unselectedLabelColor: CustomColors.greyColor1,
+                unselectedLabelStyle: const TextStyle(
+                  color: CustomColors.greyColor1,
+                  fontSize: 14,
+                  fontFamily: 'Regular',
+                ),
+                indicatorColor: CustomColors.textColor9,
+                indicator: const UnderlineTabIndicator(
+                  borderSide:
+                      BorderSide(width: 2.0, color: CustomColors.textColor9),
+                  // insets: EdgeInsets.symmetric(horizontal:16.0)
+                ),
               ),
-              indicatorColor: CustomColors.textColor9,
-              indicator:  const UnderlineTabIndicator(
-                borderSide: BorderSide(
-                    width: 2.0,
-                    color: CustomColors.textColor9),
-                // insets: EdgeInsets.symmetric(horizontal:16.0)
-              ),
-            ),
-          )
-        ),
-
-
-
+            )),
         body: const TabBarView(
           // physics: const NeverScrollableScrollPhysics(),
           children: [
@@ -92,11 +83,7 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
             FacilitiesScreen()
           ],
         ),
-
       ),
     );
   }
-
-
-
 }

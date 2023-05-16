@@ -67,9 +67,9 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "9 am to 6 pm (weekdays only)",
-                        style: TextStyle(
+                      Text(
+                        tr("conferenceOperatingTime"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -87,54 +87,8 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "3 standard conference rooms (combinable, accommodating over 100 people)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: const [
-                            Padding(
-                              padding: EdgeInsets.only(top: 7),
-                              child: Icon(
-                                Icons.circle,
-                                size: 5,
-                              ),
-                            ),
-                            SizedBox(
-                              width: 10,
-                            ),
-                            Expanded(
-                              child: Text(
-                                "1 video conference room (room for 12 people)",
-                                style: TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ]),
+                      capacityRow(tr("conferenceCapacityText1")),
+                      capacityRow(tr("conferenceCapacityText2")),
                       const SizedBox(
                         height: 16,
                       ),
@@ -148,9 +102,9 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "02-6370-5151 / 5152",
-                        style: TextStyle(
+                      Text(
+                        tr("conferenceInquiry"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -181,5 +135,29 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
             )
           ],
         ));
+  }
+
+  capacityRow(text) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7, right: 10),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  color: CustomColors.textColorBlack2),
+            ),
+          )
+        ]);
   }
 }

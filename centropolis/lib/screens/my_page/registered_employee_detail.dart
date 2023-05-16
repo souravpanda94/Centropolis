@@ -238,94 +238,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2(
-                      hint: Text(
-                        tr('approved'),
-                        style: const TextStyle(
-                          color: CustomColors.textColorBlack2,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      items: list
-                          .map((item) => DropdownMenuItem<String>(
-                                value: item["status"],
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 16, bottom: 16),
-                                      child: Text(
-                                        item["status"],
-                                        style: const TextStyle(
-                                          color: CustomColors.blackColor,
-                                          fontSize: 14,
-                                          fontFamily: 'Regular',
-                                        ),
-                                      ),
-                                    ),
-                                    const Divider(
-                                      thickness: 1,
-                                      height: 1,
-                                      color: Colors.grey,
-                                    )
-                                  ],
-                                ),
-                              ))
-                          .toList(),
-                      value: statusSelectedValue,
-                      onChanged: (value) {
-                        setState(() {
-                          statusSelectedValue = value as String;
-                        });
-                      },
-                      dropdownStyleData: DropdownStyleData(
-                        maxHeight: 200,
-                        isOverButton: false,
-                        elevation: 0,
-                        decoration: BoxDecoration(
-                            color: CustomColors.whiteColor,
-                            border: Border.all(
-                              color: CustomColors.dividerGreyColor,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(4))),
-                      ),
-                      iconStyleData: IconStyleData(
-                          icon: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: statusSelectedValue != null ? 16 : 0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 8,
-                          color: CustomColors.textColorBlack2,
-                        ),
-                      )),
-                      buttonStyleData: ButtonStyleData(
-                          height: 53,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: CustomColors.dividerGreyColor,
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4))),
-                          padding: EdgeInsets.only(
-                              top: 16,
-                              right: 16,
-                              left: statusSelectedValue != null ? 0 : 16,
-                              bottom: statusSelectedValue != null ? 0 : 16),
-                          elevation: 0),
-                      menuItemStyleData: const MenuItemStyleData(
-                        padding: EdgeInsets.all(0),
-                        height: 53,
-                      ),
-                    ),
-                  ),
+                  accountStatusWidget(),
                   const SizedBox(
                     height: 16,
                   ),
@@ -339,94 +252,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  DropdownButtonHideUnderline(
-                    child: DropdownButton2(
-                      hint: const Text(
-                        "Member",
-                        style: TextStyle(
-                          color: CustomColors.textColorBlack2,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      items: list
-                          .map((item) => DropdownMenuItem<String>(
-                                value: item["type"],
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 16, bottom: 16),
-                                      child: Text(
-                                        item["type"],
-                                        style: const TextStyle(
-                                          color: CustomColors.blackColor,
-                                          fontSize: 14,
-                                          fontFamily: 'Regular',
-                                        ),
-                                      ),
-                                    ),
-                                    const Divider(
-                                      thickness: 1,
-                                      height: 1,
-                                      color: Colors.grey,
-                                    )
-                                  ],
-                                ),
-                              ))
-                          .toList(),
-                      value: typeSelectedValue,
-                      onChanged: (value) {
-                        setState(() {
-                          typeSelectedValue = value as String;
-                        });
-                      },
-                      dropdownStyleData: DropdownStyleData(
-                        maxHeight: 200,
-                        isOverButton: false,
-                        elevation: 0,
-                        decoration: BoxDecoration(
-                            color: CustomColors.whiteColor,
-                            border: Border.all(
-                              color: CustomColors.dividerGreyColor,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(4))),
-                      ),
-                      iconStyleData: IconStyleData(
-                          icon: Padding(
-                        padding: EdgeInsets.only(
-                            bottom: typeSelectedValue != null ? 16 : 0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 8,
-                          color: CustomColors.textColorBlack2,
-                        ),
-                      )),
-                      buttonStyleData: ButtonStyleData(
-                          height: 53,
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                              border: Border.all(
-                                color: CustomColors.dividerGreyColor,
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4))),
-                          padding: EdgeInsets.only(
-                              top: 16,
-                              right: 16,
-                              left: typeSelectedValue != null ? 0 : 16,
-                              bottom: typeSelectedValue != null ? 0 : 16),
-                          elevation: 0),
-                      menuItemStyleData: const MenuItemStyleData(
-                        padding: EdgeInsets.all(0),
-                        height: 53,
-                      ),
-                    ),
-                  ),
+                  accountTypeWidget(),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     margin: const EdgeInsets.only(top: 32, bottom: 16),
@@ -475,5 +301,180 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
             },
           );
         });
+  }
+
+  accountStatusWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          tr('approved'),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: list
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["status"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["status"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: statusSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            statusSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: statusSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: statusSelectedValue != null ? 0 : 16,
+                bottom: statusSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
+  }
+
+  accountTypeWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: const Text(
+          "Member",
+          style: TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: list
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["type"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["type"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: typeSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            typeSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(bottom: typeSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: typeSelectedValue != null ? 0 : 16,
+                bottom: typeSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
   }
 }

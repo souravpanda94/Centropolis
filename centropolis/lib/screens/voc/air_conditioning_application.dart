@@ -1,4 +1,5 @@
 import 'package:centropolis/widgets/common_button.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -28,11 +29,19 @@ class _AirConditioningApplicationState
   DateTime _focusedDay = DateTime.now();
   CalendarFormat _calendarFormat = CalendarFormat.month;
   DateTime? _selectedDay;
-  bool _isChecked = false, startTimeTapped = false, endTimeTapped = false;
-  String startTime = "", endTime = "", typeValue = "";
-  TextEditingController startTimeController = TextEditingController();
-  TextEditingController endTimeController = TextEditingController();
+  bool _isChecked = false;
+  String typeValue = "";
+
   TextEditingController rentalInfoController = TextEditingController();
+
+  String? floorSelectedValue, startTimeSelectedValue, endTimeSelectedValue;
+
+  List<dynamic> usageTimeList = [
+    {"floor": "11F", "startTime": "9:00", "endTime": "18:00"},
+    {"floor": "12F", "startTime": "10:00", "endTime": "13:00"},
+    {"floor": "13F", "startTime": "14:00", "endTime": "19:00"},
+    {"floor": "14F", "startTime": "11:00", "endTime": "12:00"},
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -170,48 +179,7 @@ class _AirConditioningApplicationState
                 const SizedBox(
                   height: 8,
                 ),
-                TextField(
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  readOnly: true,
-                  showCursor: false,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: "11 F",
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColorBlack2,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 4,
-                          color: CustomColors.textColorBlack2,
-                        ),
-                      )),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                  onTap: () {},
-                ),
+                floorWidget(),
               ],
             ),
           ),
@@ -469,53 +437,7 @@ class _AirConditioningApplicationState
                 const SizedBox(
                   height: 8,
                 ),
-                TextField(
-                  controller: startTimeController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  readOnly: true,
-                  showCursor: false,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('selectStartTime'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColorBlack2,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 4,
-                          color: CustomColors.textColorBlack2,
-                        ),
-                      )),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                  onTap: () {
-                    setState(() {
-                      startTimeTapped = true;
-                    });
-                  },
-                ),
+                startTimeWidget(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -529,53 +451,7 @@ class _AirConditioningApplicationState
                 const SizedBox(
                   height: 8,
                 ),
-                TextField(
-                  controller: endTimeController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  readOnly: true,
-                  showCursor: false,
-                  decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: "1 hour (---KRW)",
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColorBlack2,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      suffixIcon: Padding(
-                        padding: const EdgeInsets.all(18.0),
-                        child: SvgPicture.asset(
-                          "assets/images/ic_drop_down_arrow.svg",
-                          width: 8,
-                          height: 4,
-                          color: CustomColors.textColorBlack2,
-                        ),
-                      )),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                  onTap: () {
-                    setState(() {
-                      endTimeTapped = true;
-                    });
-                  },
-                ),
+                endTimeWidget(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -643,6 +519,7 @@ class _AirConditioningApplicationState
             height: 10,
           ),
           Container(
+            alignment: FractionalOffset.bottomCenter,
             width: MediaQuery.of(context).size.width,
             margin:
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
@@ -679,5 +556,268 @@ class _AirConditioningApplicationState
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  floorWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: const Text(
+          "11F",
+          style: TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: usageTimeList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["floor"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["floor"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: floorSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            floorSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(bottom: floorSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: floorSelectedValue != null ? 0 : 16,
+                bottom: floorSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
+  }
+
+  startTimeWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          tr('selectStartTime'),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: usageTimeList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["startTime"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["startTime"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: startTimeSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            startTimeSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: startTimeSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: startTimeSelectedValue != null ? 0 : 16,
+                bottom: startTimeSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
+  }
+
+  endTimeWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: const Text(
+          "1 hour (---KRW)",
+          style: TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: usageTimeList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["endTime"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["endTime"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: endTimeSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            endTimeSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: endTimeSelectedValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: endTimeSelectedValue != null ? 0 : 16,
+                bottom: endTimeSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
   }
 }

@@ -38,9 +38,9 @@ class _LoungeScreenState extends State<LoungeScreen> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        tr("loungeTitle"),
-                        style: const TextStyle(
+                      const Text(
+                        "Centropolis Executive Lounge By HAEVICHI",
+                        style: TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 14,
                             color: CustomColors.textColor9),
@@ -68,9 +68,9 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "9 am to 6 pm (weekdays only)",
-                        style: TextStyle(
+                      Text(
+                        tr("loungeOperatingTime"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -88,9 +88,9 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "Beverages (coffee - using Haevichi Beans), ade, tea, other beverages), Bakery (bakery/cakes manufactured by Haevichi on the same day)",
-                        style: TextStyle(
+                      Text(
+                        tr("loungeAvailableMenu"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -108,9 +108,9 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "Rental hours (9:00~22:00)",
-                        style: TextStyle(
+                      Text(
+                        tr("loungeRentalHours"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -128,9 +128,9 @@ class _LoungeScreenState extends State<LoungeScreen> {
                       const SizedBox(
                         height: 8,
                       ),
-                      const Text(
-                        "02-6370-5153",
-                        style: TextStyle(
+                      Text(
+                        tr("loungeInquiry"),
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
