@@ -53,13 +53,12 @@ class WebService {
           headers: <String, String>{
             'Content-type': 'application/json',
             'Accept': 'application/json',
-            'token': 'Bearer $token',
+            // 'token': 'Bearer $token',
+            'token': token,
             'x-api-key': xApiKey,
             'Accept-language': language
           },
           body: json.encode(body));
-      debugPrint("token ===> $token");
-      debugPrint("xApiKey ===> $xApiKey");
     } else {
       response = await http.post(Uri.parse(url),
           headers: <String, String>{
