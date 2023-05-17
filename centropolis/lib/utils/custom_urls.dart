@@ -15,6 +15,7 @@ class ApiEndPoint {
   static String getTimeListUrl = "${baseUrl}v1/common/lounge-time-list";
   static String makeLoungeReservation = "${baseUrl}v1/amenity/exceutive-lounge-reservation";
   static String changePasswordUrl = "${baseUrl}v1/mypage/update-password";
+  static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
 
 
 

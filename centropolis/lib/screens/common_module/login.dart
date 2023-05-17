@@ -442,9 +442,11 @@ class _LoginScreenState extends State<LoginScreen> {
               username,
               name,
               emailKey,
+              mobile,
               userType,
               companyId,
-              companyName;
+              companyName,
+              gender;
           if (responseJson['access_token'] != null) {
             apiKey = responseJson['access_token'].toString();
           }
@@ -463,6 +465,9 @@ class _LoginScreenState extends State<LoginScreen> {
           if (responseJson['email'] != null) {
             emailKey = responseJson['email'].toString();
           }
+          if (responseJson['mobile'] != null) {
+            mobile = responseJson['mobile'].toString();
+          }
           if (responseJson['user_type'] != null) {
             userType = responseJson['user_type'].toString();
           }
@@ -471,6 +476,9 @@ class _LoginScreenState extends State<LoginScreen> {
           }
           if (responseJson['company_name'] != null) {
             companyName = responseJson['company_name'].toString();
+          }
+          if (responseJson['gender'] != null) {
+            gender = responseJson['gender'].toString();
           }
 
           debugPrint("checkSigned ======> $checkSigned");
@@ -481,10 +489,12 @@ class _LoginScreenState extends State<LoginScreen> {
             "checked_signed_in": checkSigned.toString(),
             "email_key": emailKey.trim(),
             "user_name": username.trim(),
+            "mobile": mobile.trim(),
             "name": name.trim(),
             "user_type": userType.trim(),
             "company_id": companyId.trim(),
-            "company_name": companyName.trim()
+            "company_name": companyName.trim(),
+            "gender": gender.trim()
           };
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);
