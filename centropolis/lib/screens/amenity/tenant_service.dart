@@ -11,7 +11,9 @@ import 'fitness.dart';
 import 'lounge.dart';
 
 class TenantServiceScreen extends StatefulWidget {
-  const TenantServiceScreen({super.key});
+  final int tabIndex;
+
+  const TenantServiceScreen(this.tabIndex, {super.key});
 
   @override
   State<TenantServiceScreen> createState() => _TenantServiceScreenState();
@@ -39,8 +41,8 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 4,
-      // initialIndex: widget.page,
-      initialIndex: 0,
+      initialIndex: widget.tabIndex,
+      //initialIndex: 0,
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(

@@ -14,8 +14,10 @@ import 'home_page_app_bar.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   final int tabIndex;
+  final int amenityTabIndex;
 
-  const BottomNavigationScreen(this.tabIndex, {Key? key}) : super(key: key);
+  const BottomNavigationScreen(this.tabIndex, this.amenityTabIndex, {Key? key})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -68,7 +70,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         color: CustomColors.backgroundColor,
         child: <Widget>[
           const HomeScreen(),
-          const TenantServiceScreen(),
+          TenantServiceScreen(widget.amenityTabIndex),
           const VisitRequestScreen(),
           const VocApplicationScreen(),
           const MyPageScreen()
