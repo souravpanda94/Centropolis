@@ -25,18 +25,18 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  late String apiKey, userId, language;
+  late String apiKey, email, language;
   late FToast fToast;
   bool isLoading = false;
   String currentPassword = "";
   String password = "";
   String verifyPassword = "";
-  bool currentPasswordValidation = false;
-  bool newPasswordValidation = false;
-  bool confirmPasswordValidation = false;
-  String currentPasswordErrorMsg = "";
-  String newPasswordErrorMsg = "";
-  String confirmPasswordErrorMsg = "";
+  // bool currentPasswordValidation = false;
+  // bool newPasswordValidation = false;
+  // bool confirmPasswordValidation = false;
+  // String currentPasswordErrorMsg = "";
+  // String newPasswordErrorMsg = "";
+  // String confirmPasswordErrorMsg = "";
 
   @override
   void initState() {
@@ -44,9 +44,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     fToast = FToast();
     fToast.init(context);
     var user = Provider.of<UserProvider>(context, listen: false);
-    userId = user.userData['user_id'].toString();
+    email = user.userData['email_key'].toString();
     apiKey = user.userData['api_key'].toString();
     language = tr("lang");
+    debugPrint("email ===> $email");
+    debugPrint("apiKey ===> $apiKey");
   }
 
   @override
@@ -116,18 +118,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                            color: currentPasswordValidation
-                                ? CustomColors.textColor6
-                                : CustomColors.dividerGreyColor,
+                        borderSide: const BorderSide(
+                            color:  CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                            color: currentPasswordValidation
-                                ? CustomColors.textColor6
-                                : CustomColors.dividerGreyColor,
+                        borderSide: const BorderSide(
+                            color:  CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
                       hintText: tr("pleaseEnterYourCurrentPassword"),
@@ -143,7 +141,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       fontFamily: 'Regular',
                     ),
                     onChanged: (text) => {
-                      cleanErrorField(),
+                      // cleanErrorField(),
                       setState(() {
                         currentPassword = text;
                       }),
@@ -151,23 +149,31 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                 ),
               ),
-              if (currentPasswordValidation)
-                Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      currentPasswordErrorMsg,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: CustomColors.textColor6,
-                        fontFamily: 'Regular',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
+
+
+                //   if (currentPasswordValidation)
+                // Container(
+                //   margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+                //   padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                //   child: Align(
+                //     alignment: Alignment.centerLeft,
+                //     child: Text(
+                //       currentPasswordErrorMsg,
+                //       style: const TextStyle(
+                //         fontSize: 11,
+                //         color: CustomColors.textColor6,
+                //         fontFamily: 'Regular',
+                //       ),
+                //       textAlign: TextAlign.left,
+                //     ),
+                //   ),
+                // ),
+
+
+
+
+
+
               Container(
                 margin:
                     const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
@@ -206,18 +212,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                            color: newPasswordValidation
-                                ? CustomColors.textColor6
-                                : CustomColors.dividerGreyColor,
+                        borderSide: const BorderSide(
+                            color:  CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                            color: newPasswordValidation
-                                ? CustomColors.textColor6
-                                : CustomColors.dividerGreyColor,
+                        borderSide: const BorderSide(
+                            color:  CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
                       hintText: tr("passwordHint"),
@@ -233,7 +235,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       fontFamily: 'Regular',
                     ),
                     onChanged: (text) => {
-                      cleanErrorField(),
+                      // cleanErrorField(),
                       setState(() {
                         password = text;
                       }),
@@ -241,23 +243,26 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                 ),
               ),
-              if (newPasswordValidation)
-                Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      newPasswordErrorMsg,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: CustomColors.textColor6,
-                        fontFamily: 'Regular',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
+
+
+              // if (newPasswordValidation)
+              //   Container(
+              //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+              //     padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+              //     child: Align(
+              //       alignment: Alignment.centerLeft,
+              //       child: Text(
+              //         newPasswordErrorMsg,
+              //         style: const TextStyle(
+              //           fontSize: 11,
+              //           color: CustomColors.textColor6,
+              //           fontFamily: 'Regular',
+              //         ),
+              //         textAlign: TextAlign.left,
+              //       ),
+              //     ),
+              //   ),
+
               Container(
                 margin:
                     const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
@@ -296,18 +301,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                            color: confirmPasswordValidation
-                                ? CustomColors.textColor6
-                                : CustomColors.dividerGreyColor,
+                        borderSide: const BorderSide(
+                            color:  CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
-                        borderSide: BorderSide(
-                            color: confirmPasswordValidation
-                                ? CustomColors.textColor6
-                                : CustomColors.dividerGreyColor,
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor,
                             width: 1.0),
                       ),
                       hintText: tr("pleaseEnterYourNewPasswordOneMoreTime"),
@@ -323,7 +324,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       fontFamily: 'Regular',
                     ),
                     onChanged: (text) => {
-                      cleanErrorField(),
+                      // cleanErrorField(),
                       setState(() {
                         verifyPassword = text;
                       }),
@@ -331,23 +332,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                 ),
               ),
-              if (confirmPasswordValidation)
-                Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-                  padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      confirmPasswordErrorMsg,
-                      style: const TextStyle(
-                        fontSize: 11,
-                        color: CustomColors.textColor6,
-                        fontFamily: 'Regular',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
+
+
+              // if (confirmPasswordValidation)
+              //   Container(
+              //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+              //     padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+              //     child: Align(
+              //       alignment: Alignment.centerLeft,
+              //       child: Text(
+              //         confirmPasswordErrorMsg,
+              //         style: const TextStyle(
+              //           fontSize: 11,
+              //           color: CustomColors.textColor6,
+              //           fontFamily: 'Regular',
+              //         ),
+              //         textAlign: TextAlign.left,
+              //       ),
+              //     ),
+              //   ),
+
+
             ])),
           ),
           floatingActionButton: yourButtonWidget(),
@@ -356,50 +361,80 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         ));
   }
 
+
+  yourButtonWidget() {
+    return Align(
+      alignment: FractionalOffset.bottomCenter,
+      child: Container(
+        height: 52,
+        width: double.infinity,
+        margin: const EdgeInsets.only(
+          left: 15.0,
+          right: 15.0,
+        ),
+        child: CommonButton(
+            onCommonButtonTap: () {
+              onChangeButtonClick();
+            },
+            buttonColor: CustomColors.buttonBackgroundColor,
+            buttonName: tr("save"),
+            isIconVisible: false),
+      ),
+    );
+  }
+
   onChangeButtonClick() async {
     hideKeyboard();
-    cleanErrorField();
+    // cleanErrorField();
 
-    if (currentPassword == "" && password == "" && verifyPassword == "") {
-      setState(() {
-        currentPasswordValidation = true;
-        newPasswordValidation = true;
-        confirmPasswordValidation = true;
-        currentPasswordErrorMsg = tr('thisIsRequiredField');
-        newPasswordErrorMsg = tr('thisIsRequiredField');
-        confirmPasswordErrorMsg = tr('thisIsRequiredField');
-      });
+    // if (currentPassword == "" && password == "" && verifyPassword == "") {
+    //   setState(() {
+    //     currentPasswordValidation = true;
+    //     newPasswordValidation = true;
+    //     confirmPasswordValidation = true;
+    //     currentPasswordErrorMsg = tr('thisIsRequiredField');
+    //     newPasswordErrorMsg = tr('thisIsRequiredField');
+    //     confirmPasswordErrorMsg = tr('thisIsRequiredField');
+    //   });
+    // } else {
+    //
+
+    if (!isValidPassword(currentPassword)) {
+      // setState(() {
+      //   currentPasswordValidation = true;
+      //   currentPasswordErrorMsg =
+      //       tr('pleaseEnterYourCurrentPasswordCorrectly');
+      // });
+      showCustomToast(fToast, context, tr("pleaseEnterYourCurrentPasswordCorrectly"), "");
+    } else if (!isValidPassword(password)) {
+      // setState(() {
+      //   newPasswordValidation = true;
+      //   newPasswordErrorMsg = tr('enterPasswordAsCombination');
+      // });
+      showCustomToast(fToast, context, tr("enterPasswordAsCombination"), "");
+    } else if (password == currentPassword) {
+      // setState(() {
+      //   newPasswordValidation = true;
+      //   newPasswordErrorMsg = tr("newPasswordMatchesCurrentPassword");
+      // });
+      showCustomToast(fToast, context, tr("newPasswordMatchesCurrentPassword"), "");
+    } else if (password != verifyPassword) {
+      // setState(() {
+      //   confirmPasswordValidation = true;
+      //   confirmPasswordErrorMsg = tr("passwordDoesNotMatch");
+      // });
+      showCustomToast(fToast, context, tr("passwordDoesNotMatch"), "");
     } else {
-      if (!isValidPassword(currentPassword)) {
-        setState(() {
-          currentPasswordValidation = true;
-          currentPasswordErrorMsg =
-              tr('pleaseEnterYourCurrentPasswordCorrectly');
-        });
-      } else if (!isValidPassword(password)) {
-        setState(() {
-          newPasswordValidation = true;
-          newPasswordErrorMsg = tr('enterPasswordAsCombination');
-        });
-      } else if (password == currentPassword) {
-        setState(() {
-          newPasswordValidation = true;
-          newPasswordErrorMsg = tr("newPasswordMatchesCurrentPassword");
-        });
-      } else if (password != verifyPassword) {
-        setState(() {
-          confirmPasswordValidation = true;
-          confirmPasswordErrorMsg = tr("passwordDoesNotMatch");
-        });
+      final InternetChecking internetChecking = InternetChecking();
+      if (await internetChecking.isInternet()) {
+        callResetPasswordApi();
       } else {
-        final InternetChecking internetChecking = InternetChecking();
-        if (await internetChecking.isInternet()) {
-          // callResetPasswordApi();
-        } else {
-          showCustomToast(fToast, context, tr("noInternetConnection"), "");
-        }
+        showCustomToast(fToast, context, tr("noInternetConnection"), "");
       }
     }
+
+
+  // }
   }
 
   void callResetPasswordApi() {
@@ -407,10 +442,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       isLoading = true;
     });
     Map<String, String> body = {
-      "language": language.trim(),
-      "current_password": base64Enecode(currentPassword.trim()),
-      "password": base64Enecode(password.trim()),
-      "confirm_password": base64Enecode(verifyPassword.trim())
+      "email": email.trim(),   //required
+      "old_password": currentPassword.trim(),   //required
+      "password": password.trim(),   //required
+      "confirm_password": verifyPassword.trim(), //required
     };
 
     debugPrint("change password input===> $body");
@@ -447,33 +482,15 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     });
   }
 
-  void cleanErrorField() {
-    setState(() {
-      currentPasswordValidation = false;
-      newPasswordValidation = false;
-      confirmPasswordValidation = false;
-      currentPasswordErrorMsg = "";
-      newPasswordErrorMsg = "";
-      confirmPasswordErrorMsg = "";
-    });
-  }
+  // void cleanErrorField() {
+  //   setState(() {
+  //     currentPasswordValidation = false;
+  //     newPasswordValidation = false;
+  //     confirmPasswordValidation = false;
+  //     currentPasswordErrorMsg = "";
+  //     newPasswordErrorMsg = "";
+  //     confirmPasswordErrorMsg = "";
+  //   });
+  // }
 
-  yourButtonWidget() {
-    return Align(
-      alignment: FractionalOffset.bottomCenter,
-      child: Container(
-        height: 52,
-        width: double.infinity,
-        margin: const EdgeInsets.only(
-          left: 15.0,
-          right: 15.0,
-        ),
-        child: CommonButton(
-            onCommonButtonTap: () {},
-            buttonColor: CustomColors.buttonBackgroundColor,
-            buttonName: tr("save"),
-            isIconVisible: false),
-      ),
-    );
-  }
 }

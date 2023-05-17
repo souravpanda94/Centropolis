@@ -461,7 +461,7 @@ class _LoginScreenState extends State<LoginScreen> {
             name = responseJson['name'].toString();
           }
           if (responseJson['email'] != null) {
-            emailKey = responseJson['email_key'].toString();
+            emailKey = responseJson['email'].toString();
           }
           if (responseJson['user_type'] != null) {
             userType = responseJson['user_type'].toString();
