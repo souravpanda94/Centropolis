@@ -332,6 +332,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
