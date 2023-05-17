@@ -20,6 +20,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/sleeping-room-schedule";
   static String makeConferenceReservation =
       "${baseUrl}v1/amenity/conference-reservation-inquiry";
+  static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

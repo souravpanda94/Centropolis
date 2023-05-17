@@ -26,16 +26,48 @@ class EditPersonalInformationScreen extends StatefulWidget {
 
 class _EditPersonalInformationScreenState
     extends State<EditPersonalInformationScreen> {
-  late String apiKey, userId, language;
+  late String apiKey, language;
   late FToast fToast;
   bool isLoading = false;
+  TextEditingController emailController = TextEditingController();
+  TextEditingController contactNumberController = TextEditingController();
   String name = "";
   String id = "";
+  String tenantCompanyId = "";
   String tenantCompany = "";
   String gender = "";
+  String genderValue = "";
   String email = "";
   String contactNumber = "";
   bool nameValidation = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    setDataIntoFields();
+  }
+
+  void setDataIntoFields() {
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    name = user.userData['name'].toString();
+    id = user.userData['user_id'].toString();
+    tenantCompanyId = user.userData['company_id'].toString();
+    tenantCompany = user.userData['company_name'].toString();
+    gender = user.userData['gender'].toString();
+    email = user.userData['email_key'].toString();
+    contactNumber = user.userData['mobile'].toString();
+    emailController = TextEditingController(text: email);
+    contactNumberController = TextEditingController(text: contactNumber);
+    if(gender == "m"){
+      genderValue = tr("male");
+    }else if(gender == "f"){
+      genderValue = tr("female");
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -62,155 +94,99 @@ class _EditPersonalInformationScreenState
         body: Container(
           margin: const EdgeInsets.only(bottom: 45.0),
           child: SingleChildScrollView(
+            child: Container(
+              margin: const EdgeInsets.only(
+                left: 15.0,
+                right: 15.0,
+              ),
               child: Column(children: [
-            Container(
-              margin: const EdgeInsets.only(
-                top: 20.0,
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  tr("name"),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: CustomColors.textColor8,
-                    fontFamily: 'Medium',
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: 8.0,
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: SizedBox(
-                height: 47.0,
-                child: TextField(
-                  keyboardType: TextInputType.name,
-                  obscureText: true,
-                  maxLength: 16,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0,
-                      horizontal: 15.0,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: BorderSide(
-                          color: nameValidation
-                              ? CustomColors.textColor6
-                              : CustomColors.dividerGreyColor,
-                          width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: BorderSide(
-                          color: nameValidation
-                              ? CustomColors.textColor6
-                              : CustomColors.dividerGreyColor,
-                          width: 1.0),
-                    ),
-                    hintText: "name",
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.textColor8,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                  onChanged: (text) => {
-                    setState(() {
-                      name = text;
-                    }),
-                  },
-                ),
-              ),
-            ),
-
-            Container(
-              margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  tr("id"),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: CustomColors.textColor8,
-                    fontFamily: 'Medium',
-                  ),
-                  textAlign: TextAlign.left,
-                ),
-              ),
-            ),
-            Container(
-              margin: const EdgeInsets.only(
-                top: 8.0,
-                left: 15.0,
-                right: 15.0,
-              ),
-              child: SizedBox(
-                height: 47.0,
-                child: TextField(
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.symmetric(
-                      vertical: 15.0,
-                      horizontal: 15.0,
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: BorderSide(
-                          color: nameValidation
-                              ? CustomColors.textColor6
-                              : CustomColors.dividerGreyColor,
-                          width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4.0),
-                      borderSide: BorderSide(
-                          color: nameValidation
-                              ? CustomColors.textColor6
-                              : CustomColors.dividerGreyColor,
-                          width: 1.0),
-                    ),
-                    hintText: "test1",
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.textColor8,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                  onChanged: (text) => {
-                    setState(() {
-                      id = text;
-                    }),
-                  },
-                ),
-              ),
-            ),
-
-
                 Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
+                  margin: const EdgeInsets.only(
+                    top: 20.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      tr("name"),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.textColor8,
+                        fontFamily: 'Medium',
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Container(
+                    height: 47,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                      top: 8.0,
+                    ),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    decoration: BoxDecoration(
+                        color: CustomColors.backgroundColor,
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4))),
+                    child: Center(
+                        child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        name ?? tr("name"),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ))),
+                Container(
+                  margin: const EdgeInsets.only(top: 15.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      tr("id"),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.textColor8,
+                        fontFamily: 'Medium',
+                      ),
+                      textAlign: TextAlign.left,
+                    ),
+                  ),
+                ),
+                Container(
+                    height: 47,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                      top: 8.0,
+                    ),
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    decoration: BoxDecoration(
+                        color: CustomColors.backgroundColor,
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(4))),
+                    child: Center(
+                        child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        id ?? tr('id'),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ))),
+                Container(
+                  margin:
+                      const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -225,62 +201,34 @@ class _EditPersonalInformationScreenState
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(
-                    top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
-                  ),
-                  child: SizedBox(
-                    height: 47.0,
-                    child: TextField(
-                      keyboardType: TextInputType.visiblePassword,
-                      decoration: InputDecoration(
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        hintText: "CBRE",
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.textColor8,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      onChanged: (text) => {
-                        setState(() {
-                          tenantCompany = text;
-                        }),
-                      },
+                    height: 47,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                      top: 8.0,
                     ),
-                  ),
-                ),
-
-
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    decoration: BoxDecoration(
+                        color: CustomColors.backgroundColor,
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(4))),
+                    child: Center(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                             tenantCompany ?? tr('tenantCompany'),
+                            style: const TextStyle(
+                              color: CustomColors.blackColor,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                        ))),
                 Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
+                  margin:
+                      const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -295,61 +243,34 @@ class _EditPersonalInformationScreenState
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(
-                    top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
-                  ),
-                  child: SizedBox(
-                    height: 47.0,
-                    child: TextField(
-                      keyboardType: TextInputType.visiblePassword,
-                      decoration: InputDecoration(
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        hintText: "Male",
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.textColor8,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      onChanged: (text) => {
-                        setState(() {
-                          gender = text;
-                        }),
-                      },
+                    height: 47,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                      top: 8.0,
                     ),
-                  ),
-                ),
-
+                    padding: const EdgeInsets.only(left: 15, right: 15),
+                    decoration: BoxDecoration(
+                        color: CustomColors.backgroundColor,
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                        borderRadius:
+                        const BorderRadius.all(Radius.circular(4))),
+                    child: Center(
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            genderValue ?? tr('gender'),
+                            style: const TextStyle(
+                              color: CustomColors.blackColor,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                        ))),
                 Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
+                  margin:
+                      const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -366,12 +287,11 @@ class _EditPersonalInformationScreenState
                 Container(
                   margin: const EdgeInsets.only(
                     top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
                   ),
                   child: SizedBox(
                     height: 47.0,
                     child: TextField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         fillColor: CustomColors.whiteColor,
@@ -416,9 +336,9 @@ class _EditPersonalInformationScreenState
                     ),
                   ),
                 ),
-
                 Container(
-                  margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 15.0),
+                  margin:
+                      const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -435,13 +355,12 @@ class _EditPersonalInformationScreenState
                 Container(
                   margin: const EdgeInsets.only(
                     top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
                   ),
                   child: SizedBox(
                     height: 47.0,
                     child: TextField(
-                      keyboardType: TextInputType.emailAddress,
+                      controller: contactNumberController,
+                      keyboardType: TextInputType.phone,
                       decoration: InputDecoration(
                         fillColor: CustomColors.whiteColor,
                         filled: true,
@@ -485,19 +404,15 @@ class _EditPersonalInformationScreenState
                     ),
                   ),
                 ),
-
-
-
-
-
-          ])),
+              ]),
+            ),
+          ),
         ),
         floatingActionButton: yourButtonWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
     );
   }
-
 
   yourButtonWidget() {
     return Align(
@@ -510,11 +425,77 @@ class _EditPersonalInformationScreenState
           right: 15.0,
         ),
         child: CommonButton(
-            onCommonButtonTap: () {},
+            onCommonButtonTap: () {
+              onSaveButtonClick();
+            },
             buttonColor: CustomColors.buttonBackgroundColor,
             buttonName: tr("save"),
-            isIconVisible: false),),
+            isIconVisible: false),
+      ),
     );
+  }
+
+  void onSaveButtonClick() {
+    hideKeyboard();
+    if (!isValidEmail(email)) {
+      showCustomToast(fToast, context, "Please enter valid email", "");
+    } else if (!isValidPhoneNumber(contactNumber)) {
+      showCustomToast(fToast, context, "Please enter valid contact number", "");
+    } else {
+      checkNetworkConnectionForEditPersonalInfo();
+    }
+  }
+
+  void checkNetworkConnectionForEditPersonalInfo() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callEditPersonalInfoApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callEditPersonalInfoApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "email": email.trim(),
+      "mobile": contactNumber.trim(),
+    };
+
+    debugPrint("Edit personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.updatePersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Edit personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+          Navigator.pop(context);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
 }
