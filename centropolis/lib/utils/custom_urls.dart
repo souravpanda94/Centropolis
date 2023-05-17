@@ -13,13 +13,14 @@ class ApiEndPoint {
   static String getPersonalInformationUrl = "${baseUrl}v1/cms/terms-list";
   static String getUsageTimeListUrl = "${baseUrl}v1/common/lounge-type";
   static String getTimeListUrl = "${baseUrl}v1/common/lounge-time-list";
-  static String makeLoungeReservation = "${baseUrl}v1/amenity/exceutive-lounge-reservation";
+  static String makeLoungeReservation =
+      "${baseUrl}v1/amenity/exceutive-lounge-reservation";
   static String changePasswordUrl = "${baseUrl}v1/mypage/update-password";
+  static String getConferenceTimeListUrl =
+      "${baseUrl}v1/common/sleeping-room-schedule";
+  static String makeConferenceReservation =
+      "${baseUrl}v1/amenity/conference-reservation-inquiry";
   static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
-
-
-
-
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
