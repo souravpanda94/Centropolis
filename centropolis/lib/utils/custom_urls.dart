@@ -14,6 +14,7 @@ class ApiEndPoint {
   static String getUsageTimeListUrl = "${baseUrl}v1/common/lounge-type";
   static String getTimeListUrl = "${baseUrl}v1/common/lounge-time-list";
   static String makeLoungeReservation = "${baseUrl}v1/amenity/exceutive-lounge-reservation";
+  static String changePasswordUrl = "${baseUrl}v1/mypage/update-password";
 
 
 
@@ -21,7 +22,6 @@ class ApiEndPoint {
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
-  static String changePasswordUrl = "${baseUrl}v1";
 }
 
 class WebViewLinks {
