@@ -26,7 +26,7 @@ class LoungeReservation extends StatefulWidget {
 }
 
 class _LoungeReservationState extends State<LoungeReservation> {
-  late String language, apiKey, email, mobile;
+  late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -38,6 +38,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? usageTimeSelectedValue;
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
+  String reservationDate = "";
   List<dynamic> usageTimeList = [];
   List<dynamic> timeList = [];
 
@@ -50,10 +51,12 @@ class _LoungeReservationState extends State<LoungeReservation> {
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     email = user.userData['email_key'].toString();
-    // mobile = user.userData['api_key'].toString();
-    mobile = "";
+    mobile = user.userData['mobile'].toString();
+    name = user.userData['name'].toString();
+    companyName = user.userData['company_name'].toString();
     loadUsageTimeList();
     loadTimeList();
+    debugPrint("mobile  ==> $mobile");
   }
 
   @override
@@ -108,9 +111,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "Hong Gil Dong",
-                        style: TextStyle(
+                      Text(
+                        name,
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -135,9 +138,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "CBRE",
-                        style: TextStyle(
+                      Text(
+                        companyName,
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -328,6 +331,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             firstButtonName: "",
             secondButtonName: "",
             onConfirmBtnTap: () {
+              Navigator.pop(context);
               Navigator.pop(context);
             },
             onFirstBtnTap: () {},
@@ -677,6 +681,98 @@ class _LoungeReservationState extends State<LoungeReservation> {
     }
   }
 
+  tableCalendarWidget() {
+    return TableCalendar(
+      availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+      weekendDays: const [DateTime.sunday],
+      daysOfWeekHeight: 50,
+      focusedDay: focusedDate,
+      calendarFormat: selectedCalendarFormat,
+      firstDay: kFirstDay,
+      lastDay: kLastDay,
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+        titleTextStyle: const TextStyle(
+            fontFamily: 'SemiBold', fontSize: 16, color: Colors.black),
+        titleTextFormatter: (date, locale) =>
+            DateFormat.yMMMM(locale).format(date),
+      ),
+      daysOfWeekStyle: DaysOfWeekStyle(
+          dowTextFormatter: (date, locale) =>
+              DateFormat.E(locale).format(date).toUpperCase(),
+          weekdayStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          ),
+          weekendStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      calendarStyle: CalendarStyle(
+          todayTextStyle: TextStyle(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.black
+                  : Colors.white),
+          weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
+          disabledTextStyle: const TextStyle(color: Colors.grey),
+          disabledDecoration:
+              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          todayDecoration: BoxDecoration(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.white
+                  : const Color(0xffCC6047),
+              shape: BoxShape.circle),
+          selectedTextStyle: const TextStyle(color: Colors.white),
+          selectedDecoration: const BoxDecoration(
+              color: Color(0xffCC6047), shape: BoxShape.circle),
+          defaultTextStyle: const TextStyle(
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      selectedDayPredicate: (day) {
+        if (isSameDay(day, focusedDate)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      enabledDayPredicate: (day) {
+        if (day.weekday == DateTime.saturday) {
+          return false;
+        } else if (day.day == kFirstDay.day &&
+            day.month == kFirstDay.month &&
+            day.year == kFirstDay.year) {
+          return true;
+        } else if (day.compareTo(kFirstDay) > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+          selectedDate = selectedDay;
+        });
+      },
+      onFormatChanged: (format) {
+        if (selectedCalendarFormat != format) {
+          setState(() {
+            selectedCalendarFormat = format;
+          });
+        }
+      },
+      onPageChanged: (focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+        });
+      },
+    );
+  }
+
   void loadUsageTimeList() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
@@ -776,7 +872,29 @@ class _LoungeReservationState extends State<LoungeReservation> {
   }
 
   void reservationValidationCheck() {
-    if (focusedDate == "") {
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if(int.parse(day) < 10 && int.parse(month) < 10){
+       selectedDate = '$year-0$month-0$day';
+    }
+    else if(int.parse(day) < 10){
+       selectedDate = '$year-$month-0$day';
+    }
+    else if(int.parse(month) < 10){
+       selectedDate = '$year-0$month-$day';
+    }
+    else{
+       selectedDate = '$year-$month-$day';
+    }
+    debugPrint("Selected Date ====> $selectedDate");
+    setState(() {
+      reservationDate = selectedDate;
+    });
+
+    if (reservationDate == "") {
       showCustomToast(fToast, context, "Please enter reservation date", "");
     } else if (usageTimeSelectedValue == null || startTimeSelectedValue == "") {
       showCustomToast(fToast, context, "Please select usage time time", "");
@@ -784,6 +902,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
       showCustomToast(fToast, context, "Please select start time", "");
     } else if (endTimeSelectedValue == null || startTimeSelectedValue == "") {
       showCustomToast(fToast, context, "Please select end time", "");
+    } else if (!isChecked) {
+      showCustomToast(fToast, context,
+          "Please checked executive lounge reservation rules", "");
     } else {
       networkCheckForReservation();
     }
@@ -805,7 +926,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     Map<String, String> body = {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
-      "reservation_date": focusedDate.toString().trim(), //required
+      "reservation_date": reservationDate.trim(), //required
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "end_time": endTimeSelectedValue.toString().trim(), //required
       "type": usageTimeSelectedValue.toString().trim(), //required
@@ -839,97 +960,5 @@ class _LoungeReservationState extends State<LoungeReservation> {
         isLoading = false;
       });
     });
-  }
-
-  tableCalendarWidget() {
-    return TableCalendar(
-      availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-      weekendDays: const [DateTime.sunday],
-      daysOfWeekHeight: 50,
-      focusedDay: focusedDate,
-      calendarFormat: selectedCalendarFormat,
-      firstDay: kFirstDay,
-      lastDay: kLastDay,
-      headerStyle: HeaderStyle(
-        formatButtonVisible: false,
-        titleCentered: true,
-        titleTextStyle: const TextStyle(
-            fontFamily: 'SemiBold', fontSize: 16, color: Colors.black),
-        titleTextFormatter: (date, locale) =>
-            DateFormat.yMMMM(locale).format(date),
-      ),
-      daysOfWeekStyle: DaysOfWeekStyle(
-          dowTextFormatter: (date, locale) =>
-              DateFormat.E(locale).format(date).toUpperCase(),
-          weekdayStyle: const TextStyle(
-            color: Colors.black,
-            fontFamily: 'Regular',
-            fontSize: 14,
-          ),
-          weekendStyle: const TextStyle(
-            color: Colors.black,
-            fontFamily: 'Regular',
-            fontSize: 14,
-          )),
-      calendarStyle: CalendarStyle(
-          todayTextStyle: TextStyle(
-              color: focusedDate.compareTo(kFirstDay) != 0
-                  ? Colors.black
-                  : Colors.white),
-          weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
-          disabledTextStyle: const TextStyle(color: Colors.grey),
-          disabledDecoration:
-              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
-          todayDecoration: BoxDecoration(
-              color: focusedDate.compareTo(kFirstDay) != 0
-                  ? Colors.white
-                  : const Color(0xffCC6047),
-              shape: BoxShape.circle),
-          selectedTextStyle: const TextStyle(color: Colors.white),
-          selectedDecoration: const BoxDecoration(
-              color: Color(0xffCC6047), shape: BoxShape.circle),
-          defaultTextStyle: const TextStyle(
-            fontFamily: 'Regular',
-            fontSize: 14,
-          )),
-      selectedDayPredicate: (day) {
-        if (isSameDay(day, focusedDate)) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      enabledDayPredicate: (day) {
-        if (day.weekday == DateTime.saturday) {
-          return false;
-        } else if (day.day == kFirstDay.day &&
-            day.month == kFirstDay.month &&
-            day.year == kFirstDay.year) {
-          return true;
-        } else if (day.compareTo(kFirstDay) > 0) {
-          return true;
-        } else {
-          return false;
-        }
-      },
-      onDaySelected: (selectedDay, focusedDay) {
-        setState(() {
-          focusedDate = focusedDay;
-          selectedDate = selectedDay;
-        });
-      },
-      onFormatChanged: (format) {
-        if (selectedCalendarFormat != format) {
-          setState(() {
-            selectedCalendarFormat = format;
-          });
-        }
-      },
-      onPageChanged: (focusedDay) {
-        setState(() {
-          focusedDate = focusedDay;
-        });
-      },
-    );
   }
 }
