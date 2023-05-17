@@ -731,16 +731,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   const EdgeInsets.only(top: 34, bottom: 16),
                               child: CommonButton(
                                   onCommonButtonTap: () {
-                                    // showSignUpSuccessModal();
-                                    if (isChecked) {
-                                      signUpValidation();
-                                    } else {
-                                      showCustomToast(
-                                          fToast,
-                                          context,
-                                          "Please checked use of personal information",
-                                          "");
-                                    }
+                                    signUpValidation();
                                   },
                                   buttonColor:
                                       CustomColors.buttonBackgroundColor,
@@ -1256,7 +1247,11 @@ class _SignupScreenState extends State<SignupScreen> {
           fToast, context, "Please enter proper contact number", "");
     } else if (genderValue == "") {
       showCustomToast(fToast, context, "Please select gender", "");
-    } else {
+    }
+    else if(!isChecked){
+      showCustomToast(fToast, context, "Please checked use of personal information", "");
+    }
+    else {
       callSignupNetworkCheck();
     }
   }
