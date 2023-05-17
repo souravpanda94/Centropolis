@@ -53,7 +53,6 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     apiKey = user.userData['api_key'].toString();
     email = user.userData['email_key'].toString();
     mobile = user.userData['mobile'].toString();
-    mobile = "";
     loadTimeList();
   }
 
@@ -499,6 +498,9 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   void reservationValidationCheck() {
     if (focusedDate == "") {
       showCustomToast(fToast, context, "Please select reservation date", "");
+    } else if ((focusedDate.compareTo(DateTime.now())) <= 0) {
+      showCustomToast(
+          fToast, context, "Reservation date cannot be selected for today", "");
     } else if (rangeTimeSelectedValue == null || rangeTimeSelectedValue == "") {
       showCustomToast(fToast, context, "Please select time", "");
     } else if (!isChecked) {
