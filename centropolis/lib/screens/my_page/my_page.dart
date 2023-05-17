@@ -1,6 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import '../../providers/user_provider.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../home/bar_code.dart';
@@ -19,7 +22,24 @@ class MyPageScreen extends StatefulWidget {
 
 class _MyPageScreenState extends State<MyPageScreen> {
   // String userType = "member";
-  String userType = "admin";
+  String userType = "tenant_admin";
+  // String userType = "";
+  late String apiKey,language, name, companyName;
+  late FToast fToast;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    name = user.userData['name'].toString();
+    companyName = user.userData['company_name'].toString();
+    userType = user.userData['user_type'].toString();
+    language = tr("lang");
+    debugPrint("userType  ===> $userType");
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -57,7 +77,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                               width: 5,
                             ),
                             Text(
-                              userType == "admin"
+                              userType == "tenant_admin"
                                   ? "Conference Room"
                                   : "Member",
                               style: const TextStyle(
@@ -87,9 +107,9 @@ class _MyPageScreenState extends State<MyPageScreen> {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
-                              const Text(
-                                "Hong Gil Dong",
-                                style: TextStyle(
+                               Text(
+                                name,
+                                style: const TextStyle(
                                   fontSize: 22,
                                   fontFamily: "SemiBold",
                                   color: CustomColors.textColor8,
@@ -129,9 +149,12 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                     const SizedBox(
                                       height: 5,
                                     ),
-                                    const Text(
-                                      "CENTROPOLIS",
-                                      style: TextStyle(
+                                     Text(
+                                      // "CENTROPOLIS",
+                                       companyName,
+                                       overflow: TextOverflow.ellipsis,
+                                       maxLines: 1,
+                                      style: const TextStyle(
                                         fontSize: 16,
                                         fontFamily: "SemiBold",
                                         color: CustomColors.textColor9,
@@ -140,7 +163,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                   ],
                                 ),
                               ),
-                              if (userType == "admin")
+                              if (userType == "tenant_admin")
                                 SvgPicture.asset(
                                   'assets/images/ic_vertical_line.svg',
                                   semanticsLabel: 'Back',
@@ -148,7 +171,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                   height: 60,
                                   alignment: Alignment.center,
                                 ),
-                              if (userType == "admin")
+                              if (userType == "tenant_admin")
                                 Flexible(
                                     child: Column(
                                   children: [
@@ -263,7 +286,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     ],
                   ),
                 ),
-                if (userType == "admin")
+                if (userType == "tenant_admin")
                   InkWell(
                     onTap: () {
                       showGeneralDialog(
