@@ -155,8 +155,12 @@ class _HomeScreenState extends State<HomeScreen> {
                         } else if (data["type"] == "centropolisExecutive") {
                           goToLoungeHomeScreen();
                         } else if (data["type"] == "conference") {
+                          goToConferenceHomeScreen();
                         } else if (data["type"] == "refresh") {
-                        } else if (data["type"] == "fitness") {}
+                          goToFacilityHomeScreen();
+                        } else if (data["type"] == "fitness") {
+                          goToFitnessHomeScreen();
+                        }
                       },
                       child: Container(
                           margin: const EdgeInsets.only(
@@ -534,28 +538,55 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void goToVisitReservationHomeScreen() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const BottomNavigationScreen(2),
+        builder: (context) => const BottomNavigationScreen(2, 0),
       ),
     );
   }
 
   void goToVOCHomeScreen() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const BottomNavigationScreen(3),
+        builder: (context) => const BottomNavigationScreen(3, 0),
       ),
     );
   }
 
   void goToLoungeHomeScreen() {
-    Navigator.push(
+    Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) => const BottomNavigationScreen(1),
+        builder: (context) => const BottomNavigationScreen(1, 0),
+      ),
+    );
+  }
+
+  void goToConferenceHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(1, 1),
+      ),
+    );
+  }
+
+  void goToFitnessHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(1, 2),
+      ),
+    );
+  }
+
+  void goToFacilityHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(1, 3),
       ),
     );
   }
