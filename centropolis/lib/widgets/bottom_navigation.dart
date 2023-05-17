@@ -24,13 +24,18 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  int _selectedIndex = 0;
+  int selectedPage = 0;
+  @override
+  void initState() {
+    selectedPage = widget.tabIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.whiteColor,
-      appBar: _selectedIndex == 0
+      appBar: selectedPage == 0
           ? null
           : PreferredSize(
               preferredSize: AppBar().preferredSize,
@@ -38,7 +43,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 child: Container(
                   color: CustomColors.whiteColor,
                   child: HomePageAppBar(
-                      title: setTitle(_selectedIndex),
+                      title: setTitle(selectedPage),
                       onSettingBtnTap: () {
                         Navigator.push(
                           context,
@@ -67,7 +72,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           const VisitRequestScreen(),
           const VocApplicationScreen(),
           const MyPageScreen()
-        ].elementAt(_selectedIndex),
+        ].elementAt(selectedPage),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: CustomColors.whiteColor,
@@ -76,7 +81,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 0
+                selectedPage == 0
                     ? "assets/images/ic_home_red.svg"
                     : "assets/images/ic_home.svg",
                 width: 25,
@@ -86,7 +91,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 1
+                selectedPage == 1
                     ? "assets/images/ic_tenant_service_red.svg"
                     : "assets/images/ic_tenant_service.svg",
                 semanticsLabel: 'Back',
@@ -97,7 +102,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 2
+                selectedPage == 2
                     ? "assets/images/ic_visit_reservation_red.svg"
                     : "assets/images/ic_visit_reservation.svg",
                 semanticsLabel: 'Back',
@@ -108,7 +113,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 3
+                selectedPage == 3
                     ? "assets/images/ic_voc_red.svg"
                     : "assets/images/ic_voc.svg",
                 semanticsLabel: 'Back',
@@ -119,7 +124,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 4
+                selectedPage == 4
                     ? "assets/images/ic_my_page_red.svg"
                     : "assets/images/ic_my_page.svg",
                 semanticsLabel: 'Back',
@@ -130,7 +135,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedPage,
         selectedItemColor: CustomColors.textColor9,
         selectedLabelStyle: const TextStyle(
           fontSize: 12.0,
@@ -150,7 +155,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedPage = index;
     });
   }
 

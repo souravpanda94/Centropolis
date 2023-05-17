@@ -20,12 +20,13 @@ class ConferenceReservation extends StatefulWidget {
 class _ConferenceReservationState extends State<ConferenceReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
-  DateTime _focusedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _selectedDay;
-  bool _isChecked = false;
+  DateTime focusedDate = DateTime.now();
+  CalendarFormat selectedCalendarFormat = CalendarFormat.month;
+  DateTime? selectedDate;
+  bool isChecked = false;
   TextEditingController rentalInfoController = TextEditingController();
-  String? startTimeSelectedValue, endTimeSelectedValue;
+  String? startTimeSelectedValue;
+  String? endTimeSelectedValue;
 
   List<dynamic> timeList = [
     {"startTime": "9:00", "endTime": "12:00"},
@@ -142,100 +143,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 const SizedBox(
                   height: 8,
                 ),
-                TableCalendar(
-                  availableCalendarFormats: const {
-                    CalendarFormat.month: 'Month'
-                  },
-                  weekendDays: const [DateTime.sunday],
-                  daysOfWeekHeight: 50,
-                  focusedDay: _focusedDay,
-                  calendarFormat: _calendarFormat,
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  headerStyle: HeaderStyle(
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                    titleTextStyle: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: Colors.black),
-                    titleTextFormatter: (date, locale) =>
-                        DateFormat.yMMMM(locale).format(date),
-                  ),
-                  daysOfWeekStyle: DaysOfWeekStyle(
-                      dowTextFormatter: (date, locale) =>
-                          DateFormat.E(locale).format(date).toUpperCase(),
-                      weekdayStyle: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                      ),
-                      weekendStyle: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                      )),
-                  calendarStyle: CalendarStyle(
-                      todayTextStyle: TextStyle(
-                          color: _focusedDay.compareTo(kFirstDay) != 0
-                              ? Colors.black
-                              : Colors.white),
-                      weekendTextStyle:
-                          const TextStyle(color: Color(0xffCC6047)),
-                      disabledTextStyle: const TextStyle(color: Colors.grey),
-                      disabledDecoration: const BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      todayDecoration: BoxDecoration(
-                          color: _focusedDay.compareTo(kFirstDay) != 0
-                              ? Colors.white
-                              : const Color(0xffCC6047),
-                          shape: BoxShape.circle),
-                      selectedTextStyle: const TextStyle(color: Colors.white),
-                      selectedDecoration: const BoxDecoration(
-                          color: Color(0xffCC6047), shape: BoxShape.circle),
-                      defaultTextStyle: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                      )),
-                  selectedDayPredicate: (day) {
-                    if (isSameDay(day, _focusedDay)) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  },
-                  enabledDayPredicate: (day) {
-                    if (day.weekday == DateTime.saturday) {
-                      return false;
-                    } else if (day.day == kFirstDay.day &&
-                        day.month == kFirstDay.month &&
-                        day.year == kFirstDay.year) {
-                      return true;
-                    } else if (day.compareTo(kFirstDay) > 0) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                      _selectedDay = selectedDay;
-                    });
-                  },
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                ),
+                tableCalendarWidget(),
               ],
             ),
           ),
@@ -271,7 +179,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 const SizedBox(
                   height: 8,
                 ),
-                startTimeWidget(),
+                startTimeDropdownWidget(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -285,7 +193,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 const SizedBox(
                   height: 8,
                 ),
-                endTimeWidget(),
+                endTimeDropdownWidget(),
               ],
             ),
           ),
@@ -372,11 +280,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                             activeColor: CustomColors.buttonBackgroundColor,
                             side: const BorderSide(
                                 color: CustomColors.greyColor, width: 1),
-                            value: _isChecked,
+                            value: isChecked,
                             onChanged: (value) {
                               setState(() {
-                                _isChecked = value!;
-                                if (_isChecked) {
+                                isChecked = value!;
+                                if (isChecked) {
                                 } else {}
                               });
                             },
@@ -437,7 +345,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         });
   }
 
-  startTimeWidget() {
+  startTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -525,7 +433,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     );
   }
 
-  endTimeWidget() {
+  endTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -610,6 +518,98 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           height: 53,
         ),
       ),
+    );
+  }
+
+  tableCalendarWidget() {
+    return TableCalendar(
+      availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+      weekendDays: const [DateTime.sunday],
+      daysOfWeekHeight: 50,
+      focusedDay: focusedDate,
+      calendarFormat: selectedCalendarFormat,
+      firstDay: kFirstDay,
+      lastDay: kLastDay,
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+        titleTextStyle: const TextStyle(
+            fontFamily: 'SemiBold', fontSize: 16, color: Colors.black),
+        titleTextFormatter: (date, locale) =>
+            DateFormat.yMMMM(locale).format(date),
+      ),
+      daysOfWeekStyle: DaysOfWeekStyle(
+          dowTextFormatter: (date, locale) =>
+              DateFormat.E(locale).format(date).toUpperCase(),
+          weekdayStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          ),
+          weekendStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      calendarStyle: CalendarStyle(
+          todayTextStyle: TextStyle(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.black
+                  : Colors.white),
+          weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
+          disabledTextStyle: const TextStyle(color: Colors.grey),
+          disabledDecoration:
+              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          todayDecoration: BoxDecoration(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.white
+                  : const Color(0xffCC6047),
+              shape: BoxShape.circle),
+          selectedTextStyle: const TextStyle(color: Colors.white),
+          selectedDecoration: const BoxDecoration(
+              color: Color(0xffCC6047), shape: BoxShape.circle),
+          defaultTextStyle: const TextStyle(
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      selectedDayPredicate: (day) {
+        if (isSameDay(day, focusedDate)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      enabledDayPredicate: (day) {
+        if (day.weekday == DateTime.saturday) {
+          return false;
+        } else if (day.day == kFirstDay.day &&
+            day.month == kFirstDay.month &&
+            day.year == kFirstDay.year) {
+          return true;
+        } else if (day.compareTo(kFirstDay) > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+          selectedDate = selectedDay;
+        });
+      },
+      onFormatChanged: (format) {
+        if (selectedCalendarFormat != format) {
+          setState(() {
+            selectedCalendarFormat = format;
+          });
+        }
+      },
+      onPageChanged: (focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+        });
+      },
     );
   }
 }

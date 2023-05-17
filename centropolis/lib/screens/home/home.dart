@@ -147,7 +147,17 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        if (data["type"] == "visitorReservation") {
+                          goToVisitReservationHomeScreen();
+                        } else if (data["type"] == "voc") {
+                          goToVOCHomeScreen();
+                        } else if (data["type"] == "centropolisExecutive") {
+                          goToLoungeHomeScreen();
+                        } else if (data["type"] == "conference") {
+                        } else if (data["type"] == "refresh") {
+                        } else if (data["type"] == "fitness") {}
+                      },
                       child: Container(
                           margin: const EdgeInsets.only(
                               left: 16, right: 16, top: 25),
@@ -519,6 +529,33 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => const AirConditioningApplication(),
+      ),
+    );
+  }
+
+  void goToVisitReservationHomeScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(2),
+      ),
+    );
+  }
+
+  void goToVOCHomeScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(3),
+      ),
+    );
+  }
+
+  void goToLoungeHomeScreen() {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(1),
       ),
     );
   }

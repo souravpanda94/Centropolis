@@ -17,10 +17,10 @@ class PaidPTReservation extends StatefulWidget {
 class _PaidPTReservationState extends State<PaidPTReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
-  DateTime _focusedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _selectedDay;
-  bool _isChecked = false;
+  DateTime focusedDate = DateTime.now();
+  CalendarFormat selectedCalendarFormat = CalendarFormat.month;
+  DateTime? selectedDate;
+  bool isChecked = false;
   String? rangeTimeSelectedValue;
 
   List<dynamic> timeList = [
@@ -127,97 +127,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
               const SizedBox(
                 height: 8,
               ),
-              TableCalendar(
-                availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-                weekendDays: const [DateTime.sunday],
-                daysOfWeekHeight: 50,
-                focusedDay: _focusedDay,
-                calendarFormat: _calendarFormat,
-                firstDay: kFirstDay,
-                lastDay: kLastDay,
-                headerStyle: HeaderStyle(
-                  formatButtonVisible: false,
-                  titleCentered: true,
-                  titleTextStyle: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 16,
-                      color: Colors.black),
-                  titleTextFormatter: (date, locale) =>
-                      DateFormat.yMMMM(locale).format(date),
-                ),
-                daysOfWeekStyle: DaysOfWeekStyle(
-                    dowTextFormatter: (date, locale) =>
-                        DateFormat.E(locale).format(date).toUpperCase(),
-                    weekdayStyle: const TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                    ),
-                    weekendStyle: const TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                    )),
-                calendarStyle: CalendarStyle(
-                    todayTextStyle: TextStyle(
-                        color: _focusedDay.compareTo(kFirstDay) != 0
-                            ? Colors.black
-                            : Colors.white),
-                    weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
-                    disabledTextStyle: const TextStyle(color: Colors.grey),
-                    disabledDecoration: const BoxDecoration(
-                        color: Colors.white, shape: BoxShape.circle),
-                    todayDecoration: BoxDecoration(
-                        color: _focusedDay.compareTo(kFirstDay) != 0
-                            ? Colors.white
-                            : const Color(0xffCC6047),
-                        shape: BoxShape.circle),
-                    selectedTextStyle: const TextStyle(color: Colors.white),
-                    selectedDecoration: const BoxDecoration(
-                        color: Color(0xffCC6047), shape: BoxShape.circle),
-                    defaultTextStyle: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                    )),
-                selectedDayPredicate: (day) {
-                  if (isSameDay(day, _focusedDay)) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                },
-                enabledDayPredicate: (day) {
-                  if (day.weekday == DateTime.saturday) {
-                    return false;
-                  } else if (day.day == kFirstDay.day &&
-                      day.month == kFirstDay.month &&
-                      day.year == kFirstDay.year) {
-                    return true;
-                  } else if (day.compareTo(kFirstDay) > 0) {
-                    return true;
-                  } else {
-                    return false;
-                  }
-                },
-                onDaySelected: (selectedDay, focusedDay) {
-                  setState(() {
-                    _focusedDay = focusedDay;
-                    _selectedDay = selectedDay;
-                  });
-                },
-                onFormatChanged: (format) {
-                  if (_calendarFormat != format) {
-                    setState(() {
-                      _calendarFormat = format;
-                    });
-                  }
-                },
-                onPageChanged: (focusedDay) {
-                  setState(() {
-                    _focusedDay = focusedDay;
-                  });
-                },
-              ),
+              tableCalendarWidget(),
             ],
           ),
         ),
@@ -244,7 +154,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
               const SizedBox(
                 height: 8,
               ),
-              timeSelectionWidget(),
+              timeSelectionDropdownWidget(),
             ],
           ),
         ),
@@ -277,11 +187,11 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                           activeColor: CustomColors.buttonBackgroundColor,
                           side: const BorderSide(
                               color: CustomColors.greyColor, width: 1),
-                          value: _isChecked,
+                          value: isChecked,
                           onChanged: (value) {
                             setState(() {
-                              _isChecked = value!;
-                              if (_isChecked) {
+                              isChecked = value!;
+                              if (isChecked) {
                               } else {}
                             });
                           },
@@ -319,7 +229,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     ));
   }
 
-  timeSelectionWidget() {
+  timeSelectionDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: const Text(
@@ -404,6 +314,98 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           height: 53,
         ),
       ),
+    );
+  }
+
+  tableCalendarWidget() {
+    return TableCalendar(
+      availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+      weekendDays: const [DateTime.sunday],
+      daysOfWeekHeight: 50,
+      focusedDay: focusedDate,
+      calendarFormat: selectedCalendarFormat,
+      firstDay: kFirstDay,
+      lastDay: kLastDay,
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+        titleTextStyle: const TextStyle(
+            fontFamily: 'SemiBold', fontSize: 16, color: Colors.black),
+        titleTextFormatter: (date, locale) =>
+            DateFormat.yMMMM(locale).format(date),
+      ),
+      daysOfWeekStyle: DaysOfWeekStyle(
+          dowTextFormatter: (date, locale) =>
+              DateFormat.E(locale).format(date).toUpperCase(),
+          weekdayStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          ),
+          weekendStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      calendarStyle: CalendarStyle(
+          todayTextStyle: TextStyle(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.black
+                  : Colors.white),
+          weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
+          disabledTextStyle: const TextStyle(color: Colors.grey),
+          disabledDecoration:
+              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          todayDecoration: BoxDecoration(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.white
+                  : const Color(0xffCC6047),
+              shape: BoxShape.circle),
+          selectedTextStyle: const TextStyle(color: Colors.white),
+          selectedDecoration: const BoxDecoration(
+              color: Color(0xffCC6047), shape: BoxShape.circle),
+          defaultTextStyle: const TextStyle(
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      selectedDayPredicate: (day) {
+        if (isSameDay(day, focusedDate)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      enabledDayPredicate: (day) {
+        if (day.weekday == DateTime.saturday) {
+          return false;
+        } else if (day.day == kFirstDay.day &&
+            day.month == kFirstDay.month &&
+            day.year == kFirstDay.year) {
+          return true;
+        } else if (day.compareTo(kFirstDay) > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+          selectedDate = selectedDay;
+        });
+      },
+      onFormatChanged: (format) {
+        if (selectedCalendarFormat != format) {
+          setState(() {
+            selectedCalendarFormat = format;
+          });
+        }
+      },
+      onPageChanged: (focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+        });
+      },
     );
   }
 }

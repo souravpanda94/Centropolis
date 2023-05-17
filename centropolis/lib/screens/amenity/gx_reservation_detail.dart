@@ -14,7 +14,7 @@ class GXReservationDetail extends StatefulWidget {
 }
 
 class _GXReservationDetailState extends State<GXReservationDetail> {
-  bool _isChecked = false;
+  bool isChecked = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -305,11 +305,11 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                               activeColor: CustomColors.buttonBackgroundColor,
                               side: const BorderSide(
                                   color: CustomColors.greyColor, width: 1),
-                              value: _isChecked,
+                              value: isChecked,
                               onChanged: (value) {
                                 setState(() {
-                                  _isChecked = value!;
-                                  if (_isChecked) {
+                                  isChecked = value!;
+                                  if (isChecked) {
                                   } else {}
                                 });
                               },

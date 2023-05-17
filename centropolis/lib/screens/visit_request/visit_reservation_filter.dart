@@ -39,11 +39,11 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
 
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
-  DateTime _focusedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _selectedDay,
-      _startDate = DateTime.now(),
-      _endDate = DateTime.now().add(const Duration(days: 3));
+  DateTime focusedDate = DateTime.now();
+  CalendarFormat selectedCalendarFormat = CalendarFormat.month;
+  DateTime? selectedDate;
+  DateTime? selectedStartDate = DateTime.now();
+  DateTime? selectedEndDate = DateTime.now().add(const Duration(days: 3));
 
   @override
   void initState() {
@@ -92,7 +92,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           const SizedBox(
             height: 8,
           ),
-          reservationStatusWidget(),
+          reservationStatusDropdownWidget(),
           const SizedBox(
             height: 16,
           ),
@@ -129,8 +129,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   onTap: () {
                     setState(() {
                       showIndex = index;
-                      _selectedDay = null;
-                      _focusedDay = DateTime.now();
+                      selectedDate = null;
+                      focusedDate = DateTime.now();
 
                       showIndex == 0
                           ? dateController.text =
@@ -218,7 +218,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
             ),
             onTap: () {
               if (showIndex == 3) {
-                openDateRangePicker();
+                openDateRangePickerWidget();
               }
             },
           ),
@@ -242,7 +242,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     );
   }
 
-  reservationStatusWidget() {
+  reservationStatusDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: const Text(
@@ -330,7 +330,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     );
   }
 
-  openDateRangePicker() {
+  openDateRangePickerWidget() {
     return showDialog(
       context: context,
       builder: (context) {
@@ -348,15 +348,15 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       rangeSelectionMode: showIndex == 3
                           ? RangeSelectionMode.enforced
                           : RangeSelectionMode.toggledOff,
-                      rangeStartDay: showIndex == 3 ? _startDate : null,
-                      rangeEndDay: showIndex == 3 ? _endDate : null,
+                      rangeStartDay: showIndex == 3 ? selectedStartDate : null,
+                      rangeEndDay: showIndex == 3 ? selectedEndDate : null,
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month'
                       },
                       weekendDays: const [DateTime.sunday],
                       daysOfWeekHeight: 50,
-                      focusedDay: _focusedDay,
-                      calendarFormat: _calendarFormat,
+                      focusedDay: focusedDate,
+                      calendarFormat: selectedCalendarFormat,
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
                       headerStyle: HeaderStyle(
@@ -390,7 +390,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                           rangeEndDecoration: const BoxDecoration(
                               color: Color(0xffCC6047), shape: BoxShape.circle),
                           todayTextStyle: TextStyle(
-                              color: _focusedDay.compareTo(kFirstDay) != 0
+                              color: focusedDate.compareTo(kFirstDay) != 0
                                   ? Colors.black
                                   : Colors.white),
                           weekendTextStyle:
@@ -400,7 +400,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                           disabledDecoration: const BoxDecoration(
                               color: Colors.white, shape: BoxShape.circle),
                           todayDecoration: BoxDecoration(
-                              color: _focusedDay.compareTo(kFirstDay) != 0
+                              color: focusedDate.compareTo(kFirstDay) != 0
                                   ? Colors.white
                                   : const Color(0xffCC6047),
                               shape: BoxShape.circle),
@@ -413,7 +413,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                             fontSize: 14,
                           )),
                       selectedDayPredicate: (day) {
-                        if (isSameDay(day, _focusedDay)) {
+                        if (isSameDay(day, focusedDate)) {
                           return true;
                         } else {
                           return false;
@@ -434,27 +434,27 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       },
                       onDaySelected: (selectedDay, focusedDay) {
                         setState(() {
-                          _focusedDay = focusedDay;
-                          _selectedDay = selectedDay;
+                          focusedDate = focusedDay;
+                          selectedDate = selectedDay;
                         });
                       },
                       onRangeSelected: (start, end, focusedDay) {
                         setState(() {
-                          _focusedDay = focusedDay;
-                          _startDate = start;
-                          _endDate = end;
+                          focusedDate = focusedDay;
+                          selectedStartDate = start;
+                          selectedEndDate = end;
                         });
                       },
                       onFormatChanged: (format) {
-                        if (_calendarFormat != format) {
+                        if (selectedCalendarFormat != format) {
                           setState(() {
-                            _calendarFormat = format;
+                            selectedCalendarFormat = format;
                           });
                         }
                       },
                       onPageChanged: (focusedDay) {
                         setState(() {
-                          _focusedDay = focusedDay;
+                          focusedDate = focusedDay;
                         });
                       },
                     ),
@@ -485,14 +485,14 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                             flex: 1,
                             child: CommonButton(
                               onCommonButtonTap: () {
-                                if (showIndex == 2 && _selectedDay != null) {
+                                if (showIndex == 2 && selectedDate != null) {
                                   dateController.text =
-                                      "${DateFormat('yyyy.MM.dd').format(_selectedDay!)} - ${DateFormat('yyyy.MM.dd').format(_selectedDay!.add(const Duration(days: 30)))}";
+                                      "${DateFormat('yyyy.MM.dd').format(selectedDate!)} - ${DateFormat('yyyy.MM.dd').format(selectedDate!.add(const Duration(days: 30)))}";
                                 } else if (showIndex == 3 &&
-                                    _startDate != null &&
-                                    _endDate != null) {
+                                    selectedStartDate != null &&
+                                    selectedEndDate != null) {
                                   dateController.text =
-                                      "${DateFormat('yyyy.MM.dd').format(_startDate!)} - ${DateFormat('yyyy.MM.dd').format(_endDate!)}";
+                                      "${DateFormat('yyyy.MM.dd').format(selectedStartDate!)} - ${DateFormat('yyyy.MM.dd').format(selectedEndDate!)}";
                                 }
 
                                 Navigator.pop(context);

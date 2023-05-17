@@ -19,10 +19,11 @@ class AddMember extends StatefulWidget {
 enum Gender { male, female }
 
 class _AddMemberState extends State<AddMember> {
-  bool _isChecked = false;
+  bool isChecked = false;
   Gender? gender = Gender.male;
   String genderValue = "";
-  String? companySelectedValue, floorSelectedValue;
+  String? companySelectedValue;
+  String? floorSelectedValue;
 
   TextEditingController consentController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -109,7 +110,7 @@ class _AddMemberState extends State<AddMember> {
                   maxLines: 1,
                 ),
               ),
-              tenantCompanyWidget(),
+              tenantCompanyDropdownWidget(),
               Container(
                 margin: const EdgeInsets.only(top: 16, bottom: 8),
                 width: MediaQuery.of(context).size.width,
@@ -129,7 +130,7 @@ class _AddMemberState extends State<AddMember> {
                   maxLines: 1,
                 ),
               ),
-              floorWidget(),
+              floorDropdownWidget(),
               Container(
                 margin: const EdgeInsets.only(top: 16, bottom: 8),
                 width: MediaQuery.of(context).size.width,
@@ -581,7 +582,7 @@ class _AddMemberState extends State<AddMember> {
     );
   }
 
-  tenantCompanyWidget() {
+  tenantCompanyDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -669,7 +670,7 @@ class _AddMemberState extends State<AddMember> {
     );
   }
 
-  floorWidget() {
+  floorDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(

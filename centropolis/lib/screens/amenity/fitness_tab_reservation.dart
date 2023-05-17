@@ -19,13 +19,15 @@ class FitnessTabReservation extends StatefulWidget {
 class _FitnessTabReservationState extends State<FitnessTabReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
-  DateTime _focusedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _selectedDay;
-  bool _isChecked = false, selected = false;
+  DateTime focusedDate = DateTime.now();
+  CalendarFormat selectedCalendarFormat = CalendarFormat.month;
+  DateTime? selectedDate;
+  bool isChecked = false;
+  bool selected = false;
   List<dynamic> listData = [];
   int selectedIndex = 0;
-  String? usageTimeSelectedValue, totalTimeSelectedValue;
+  String? usageTimeSelectedValue;
+  String? totalTimeSelectedValue;
 
   List<dynamic> timeList = [
     {"usageTime": "9:00", "total": "15 Minutes"},
@@ -136,66 +138,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
               ],
             ),
           ),
-          Container(
-            height: 223,
-            color: CustomColors.backgroundColor,
-            margin: const EdgeInsets.only(left: 16),
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-            child: GridView.builder(
-                scrollDirection: Axis.horizontal,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 4,
-                  childAspectRatio: 1,
-                  mainAxisExtent: 55,
-                ),
-                itemCount: listData.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return InkWell(
-                      onTap: () {
-                        if (listData[index] == tr("selectable")) {
-                          setState(() {
-                            selected = true;
-                            selectedIndex = index;
-                          });
-                        }
-                      },
-                      child: Container(
-                        width: 40,
-                        height: 34,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
-                        margin: const EdgeInsets.only(right: 12, bottom: 12),
-                        decoration: BoxDecoration(
-                          color: listData[index] == tr("closed")
-                              ? CustomColors.borderColor
-                              : selected && selectedIndex == index
-                                  ? CustomColors.textColor9
-                                  : CustomColors.whiteColor,
-                          border: Border.all(
-                              color: listData[index] == tr("closed")
-                                  ? CustomColors.borderColor
-                                  : CustomColors.textColor9,
-                              width: 1.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            (index + 1).toString(),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: listData[index] == tr("closed")
-                                  ? CustomColors.textColor3
-                                  : selected && selectedIndex == index
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.textColor9,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                        ),
-                      ));
-                }),
-          ),
+          lockerSelectionWidget(),
           Container(
             width: MediaQuery.of(context).size.width,
             color: CustomColors.whiteColor,
@@ -297,100 +240,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 const SizedBox(
                   height: 8,
                 ),
-                TableCalendar(
-                  availableCalendarFormats: const {
-                    CalendarFormat.month: 'Month'
-                  },
-                  weekendDays: const [DateTime.sunday],
-                  daysOfWeekHeight: 50,
-                  focusedDay: _focusedDay,
-                  calendarFormat: _calendarFormat,
-                  firstDay: kFirstDay,
-                  lastDay: kLastDay,
-                  headerStyle: HeaderStyle(
-                    formatButtonVisible: false,
-                    titleCentered: true,
-                    titleTextStyle: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: Colors.black),
-                    titleTextFormatter: (date, locale) =>
-                        DateFormat.yMMMM(locale).format(date),
-                  ),
-                  daysOfWeekStyle: DaysOfWeekStyle(
-                      dowTextFormatter: (date, locale) =>
-                          DateFormat.E(locale).format(date).toUpperCase(),
-                      weekdayStyle: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                      ),
-                      weekendStyle: const TextStyle(
-                        color: Colors.black,
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                      )),
-                  calendarStyle: CalendarStyle(
-                      todayTextStyle: TextStyle(
-                          color: _focusedDay.compareTo(kFirstDay) != 0
-                              ? Colors.black
-                              : Colors.white),
-                      weekendTextStyle:
-                          const TextStyle(color: Color(0xffCC6047)),
-                      disabledTextStyle: const TextStyle(color: Colors.grey),
-                      disabledDecoration: const BoxDecoration(
-                          color: Colors.white, shape: BoxShape.circle),
-                      todayDecoration: BoxDecoration(
-                          color: _focusedDay.compareTo(kFirstDay) != 0
-                              ? Colors.white
-                              : const Color(0xffCC6047),
-                          shape: BoxShape.circle),
-                      selectedTextStyle: const TextStyle(color: Colors.white),
-                      selectedDecoration: const BoxDecoration(
-                          color: Color(0xffCC6047), shape: BoxShape.circle),
-                      defaultTextStyle: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                      )),
-                  selectedDayPredicate: (day) {
-                    if (isSameDay(day, _focusedDay)) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  },
-                  enabledDayPredicate: (day) {
-                    if (day.weekday == DateTime.saturday) {
-                      return false;
-                    } else if (day.day == kFirstDay.day &&
-                        day.month == kFirstDay.month &&
-                        day.year == kFirstDay.year) {
-                      return true;
-                    } else if (day.compareTo(kFirstDay) > 0) {
-                      return true;
-                    } else {
-                      return false;
-                    }
-                  },
-                  onDaySelected: (selectedDay, focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                      _selectedDay = selectedDay;
-                    });
-                  },
-                  onFormatChanged: (format) {
-                    if (_calendarFormat != format) {
-                      setState(() {
-                        _calendarFormat = format;
-                      });
-                    }
-                  },
-                  onPageChanged: (focusedDay) {
-                    setState(() {
-                      _focusedDay = focusedDay;
-                    });
-                  },
-                ),
+                tableCalendarWidget(),
               ],
             ),
           ),
@@ -427,7 +277,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 const SizedBox(
                   height: 8,
                 ),
-                usageTimeWidget(),
+                usageTimeDropdownWidget(),
                 const SizedBox(
                   height: 16,
                 ),
@@ -441,7 +291,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 const SizedBox(
                   height: 8,
                 ),
-                totalUsageTime(),
+                totalUsageTimeDropdownWidget(),
               ],
             ),
           ),
@@ -474,11 +324,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             activeColor: CustomColors.buttonBackgroundColor,
                             side: const BorderSide(
                                 color: CustomColors.greyColor, width: 1),
-                            value: _isChecked,
+                            value: isChecked,
                             onChanged: (value) {
                               setState(() {
-                                _isChecked = value!;
-                                if (_isChecked) {
+                                isChecked = value!;
+                                if (isChecked) {
                                 } else {}
                               });
                             },
@@ -528,7 +378,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     }
   }
 
-  usageTimeWidget() {
+  usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: const Text(
@@ -616,7 +466,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     );
   }
 
-  totalUsageTime() {
+  totalUsageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: const Text(
@@ -701,6 +551,160 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           height: 53,
         ),
       ),
+    );
+  }
+
+  tableCalendarWidget() {
+    return TableCalendar(
+      availableCalendarFormats: const {CalendarFormat.month: 'Month'},
+      weekendDays: const [DateTime.sunday],
+      daysOfWeekHeight: 50,
+      focusedDay: focusedDate,
+      calendarFormat: selectedCalendarFormat,
+      firstDay: kFirstDay,
+      lastDay: kLastDay,
+      headerStyle: HeaderStyle(
+        formatButtonVisible: false,
+        titleCentered: true,
+        titleTextStyle: const TextStyle(
+            fontFamily: 'SemiBold', fontSize: 16, color: Colors.black),
+        titleTextFormatter: (date, locale) =>
+            DateFormat.yMMMM(locale).format(date),
+      ),
+      daysOfWeekStyle: DaysOfWeekStyle(
+          dowTextFormatter: (date, locale) =>
+              DateFormat.E(locale).format(date).toUpperCase(),
+          weekdayStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          ),
+          weekendStyle: const TextStyle(
+            color: Colors.black,
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      calendarStyle: CalendarStyle(
+          todayTextStyle: TextStyle(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.black
+                  : Colors.white),
+          weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
+          disabledTextStyle: const TextStyle(color: Colors.grey),
+          disabledDecoration:
+              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          todayDecoration: BoxDecoration(
+              color: focusedDate.compareTo(kFirstDay) != 0
+                  ? Colors.white
+                  : const Color(0xffCC6047),
+              shape: BoxShape.circle),
+          selectedTextStyle: const TextStyle(color: Colors.white),
+          selectedDecoration: const BoxDecoration(
+              color: Color(0xffCC6047), shape: BoxShape.circle),
+          defaultTextStyle: const TextStyle(
+            fontFamily: 'Regular',
+            fontSize: 14,
+          )),
+      selectedDayPredicate: (day) {
+        if (isSameDay(day, focusedDate)) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      enabledDayPredicate: (day) {
+        if (day.weekday == DateTime.saturday) {
+          return false;
+        } else if (day.day == kFirstDay.day &&
+            day.month == kFirstDay.month &&
+            day.year == kFirstDay.year) {
+          return true;
+        } else if (day.compareTo(kFirstDay) > 0) {
+          return true;
+        } else {
+          return false;
+        }
+      },
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+          selectedDate = selectedDay;
+        });
+      },
+      onFormatChanged: (format) {
+        if (selectedCalendarFormat != format) {
+          setState(() {
+            selectedCalendarFormat = format;
+          });
+        }
+      },
+      onPageChanged: (focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+        });
+      },
+    );
+  }
+
+  lockerSelectionWidget() {
+    return Container(
+      height: 223,
+      color: CustomColors.backgroundColor,
+      margin: const EdgeInsets.only(left: 16),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
+      child: GridView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            childAspectRatio: 1,
+            mainAxisExtent: 55,
+          ),
+          itemCount: listData.length,
+          itemBuilder: (BuildContext ctx, index) {
+            return InkWell(
+                onTap: () {
+                  if (listData[index] == tr("selectable")) {
+                    setState(() {
+                      selected = true;
+                      selectedIndex = index;
+                    });
+                  }
+                },
+                child: Container(
+                  width: 40,
+                  height: 34,
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                  margin: const EdgeInsets.only(right: 12, bottom: 12),
+                  decoration: BoxDecoration(
+                    color: listData[index] == tr("closed")
+                        ? CustomColors.borderColor
+                        : selected && selectedIndex == index
+                            ? CustomColors.textColor9
+                            : CustomColors.whiteColor,
+                    border: Border.all(
+                        color: listData[index] == tr("closed")
+                            ? CustomColors.borderColor
+                            : CustomColors.textColor9,
+                        width: 1.0),
+                  ),
+                  child: Center(
+                    child: Text(
+                      (index + 1).toString(),
+                      style: TextStyle(
+                        fontSize: 14,
+                        color: listData[index] == tr("closed")
+                            ? CustomColors.textColor3
+                            : selected && selectedIndex == index
+                                ? CustomColors.whiteColor
+                                : CustomColors.textColor9,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                  ),
+                ));
+          }),
     );
   }
 }

@@ -29,14 +29,15 @@ class _VisitReservationApplicationState
   TextEditingController contactController = TextEditingController();
   TextEditingController purposeVisitController = TextEditingController();
 
-  bool _isChecked = false;
-  String? timeSelectedValue, purposeSelectedValue;
+  bool isChecked = false;
+  String? timeSelectedValue;
+  String? purposeSelectedValue;
 
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
-  DateTime _focusedDay = DateTime.now();
-  CalendarFormat _calendarFormat = CalendarFormat.month;
-  DateTime? _selectedDay;
+  DateTime focusedDate = DateTime.now();
+  CalendarFormat selectedCalendarFormat = CalendarFormat.month;
+  DateTime? selectedDate;
 
   List<dynamic> list = [
     {"time": "10:00", "purpose": "Business Discussion"},
@@ -139,11 +140,11 @@ class _VisitReservationApplicationState
                               activeColor: CustomColors.buttonBackgroundColor,
                               side: const BorderSide(
                                   color: CustomColors.greyColor, width: 1),
-                              value: _isChecked,
+                              value: isChecked,
                               onChanged: (value) {
                                 setState(() {
-                                  _isChecked = value!;
-                                  if (_isChecked) {
+                                  isChecked = value!;
+                                  if (isChecked) {
                                   } else {}
                                 });
                               },
@@ -617,7 +618,7 @@ class _VisitReservationApplicationState
                         fontFamily: 'Regular',
                       ),
                       onTap: () {
-                        openDatePicker();
+                        openDatePickerWidget();
                       },
                     ),
                     const SizedBox(
@@ -642,7 +643,7 @@ class _VisitReservationApplicationState
                     const SizedBox(
                       height: 8,
                     ),
-                    visitTimeWidget(),
+                    visitTimeDropdownWidget(),
                     const SizedBox(
                       height: 16,
                     ),
@@ -665,7 +666,7 @@ class _VisitReservationApplicationState
                     const SizedBox(
                       height: 8,
                     ),
-                    purposeVisitWidget(),
+                    purposeVisitDropdownWidget(),
                   ],
                 ),
               ),
@@ -694,7 +695,7 @@ class _VisitReservationApplicationState
     );
   }
 
-  visitTimeWidget() {
+  visitTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -781,7 +782,7 @@ class _VisitReservationApplicationState
     );
   }
 
-  purposeVisitWidget() {
+  purposeVisitDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: const Text(
@@ -869,7 +870,7 @@ class _VisitReservationApplicationState
     );
   }
 
-  openDatePicker() {
+  openDatePickerWidget() {
     return showDialog(
       context: context,
       builder: (context) {
@@ -889,8 +890,8 @@ class _VisitReservationApplicationState
                       },
                       weekendDays: const [DateTime.sunday],
                       daysOfWeekHeight: 50,
-                      focusedDay: _focusedDay,
-                      calendarFormat: _calendarFormat,
+                      focusedDay: focusedDate,
+                      calendarFormat: selectedCalendarFormat,
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
                       headerStyle: HeaderStyle(
@@ -924,7 +925,7 @@ class _VisitReservationApplicationState
                           rangeEndDecoration: const BoxDecoration(
                               color: Color(0xffCC6047), shape: BoxShape.circle),
                           todayTextStyle: TextStyle(
-                              color: _focusedDay.compareTo(kFirstDay) != 0
+                              color: focusedDate.compareTo(kFirstDay) != 0
                                   ? Colors.black
                                   : Colors.white),
                           weekendTextStyle:
@@ -934,7 +935,7 @@ class _VisitReservationApplicationState
                           disabledDecoration: const BoxDecoration(
                               color: Colors.white, shape: BoxShape.circle),
                           todayDecoration: BoxDecoration(
-                              color: _focusedDay.compareTo(kFirstDay) != 0
+                              color: focusedDate.compareTo(kFirstDay) != 0
                                   ? Colors.white
                                   : const Color(0xffCC6047),
                               shape: BoxShape.circle),
@@ -947,7 +948,7 @@ class _VisitReservationApplicationState
                             fontSize: 14,
                           )),
                       selectedDayPredicate: (day) {
-                        if (isSameDay(day, _focusedDay)) {
+                        if (isSameDay(day, focusedDate)) {
                           return true;
                         } else {
                           return false;
@@ -968,20 +969,20 @@ class _VisitReservationApplicationState
                       },
                       onDaySelected: (selectedDay, focusedDay) {
                         setState(() {
-                          _focusedDay = focusedDay;
-                          _selectedDay = selectedDay;
+                          focusedDate = focusedDay;
+                          selectedDate = selectedDay;
                         });
                       },
                       onFormatChanged: (format) {
-                        if (_calendarFormat != format) {
+                        if (selectedCalendarFormat != format) {
                           setState(() {
-                            _calendarFormat = format;
+                            selectedCalendarFormat = format;
                           });
                         }
                       },
                       onPageChanged: (focusedDay) {
                         setState(() {
-                          _focusedDay = focusedDay;
+                          focusedDate = focusedDay;
                         });
                       },
                     ),
@@ -1012,9 +1013,9 @@ class _VisitReservationApplicationState
                             flex: 1,
                             child: CommonButton(
                               onCommonButtonTap: () {
-                                if (_selectedDay != null) {
+                                if (selectedDate != null) {
                                   dateController.text = DateFormat('yyyy.MM.dd')
-                                      .format(_selectedDay!);
+                                      .format(selectedDate!);
                                 }
 
                                 Navigator.pop(context);
