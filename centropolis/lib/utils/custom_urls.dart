@@ -25,7 +25,7 @@ class ApiEndPoint {
   static String getLoungeHistoryListUrl = "${baseUrl}v1/mypage/executive-lounge-list";
   static String getConferenceHistoryListUrl = "${baseUrl}v1/mypage/conference-list";
 
-  
+
 
   static String getPtTimeListUrl = "${baseUrl}v1/common/pt-time";
   static String makePtReservation =
