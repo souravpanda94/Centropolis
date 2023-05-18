@@ -162,11 +162,11 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                   fontSize: 14,
                                   color: CustomColors.textColorBlack2),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 2),
+                             Padding(
+                              padding: const EdgeInsets.symmetric(horizontal: 2),
                               child: Text(
-                                "38",
-                                style: TextStyle(
+                                executiveLoungeListItem!.length.toString(),
+                                style: const TextStyle(
                                     fontFamily: 'Regular',
                                     fontSize: 14,
                                     color: CustomColors.textColor9),
