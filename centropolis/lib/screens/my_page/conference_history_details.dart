@@ -9,7 +9,10 @@ import '../../widgets/common_app_bar.dart';
 
 class ConferenceHistoryDetails extends StatefulWidget {
   final AmenityHistoryModel? conferenceListItem;
-  const ConferenceHistoryDetails(this.conferenceListItem, {super.key,});
+  const ConferenceHistoryDetails(
+    this.conferenceListItem, {
+    super.key,
+  });
 
   @override
   State<ConferenceHistoryDetails> createState() =>
@@ -55,34 +58,56 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
-                      if (widget.conferenceListItem?.status.toString()!= "")
+                      if (widget.conferenceListItem?.status.toString() != "")
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.conferenceListItem?.status.toString() == "Before Approval"
-                                ? CustomColors.backgroundColor3
-                                : widget.conferenceListItem?.status.toString() == "Approved"
-                                    ? CustomColors.backgroundColor
-                                    : widget.conferenceListItem?.status.toString() == "Used"
+                            color:
+                                widget.conferenceListItem?.status.toString() ==
+                                            "Before Approval" ||
+                                        widget.conferenceListItem?.status
+                                                .toString() ==
+                                            "Pending"
+                                    ? CustomColors.backgroundColor3
+                                    : widget.conferenceListItem?.status
+                                                .toString() ==
+                                            "Approved"
                                         ? CustomColors.backgroundColor
-                                        : widget.conferenceListItem?.status.toString() == "Rejected"
-                                            ? CustomColors.redColor
-                                            : CustomColors.textColorBlack2,
+                                        : widget.conferenceListItem?.status
+                                                    .toString() ==
+                                                "Used"
+                                            ? CustomColors.backgroundColor
+                                            : widget.conferenceListItem?.status
+                                                        .toString() ==
+                                                    "Rejected"
+                                                ? CustomColors.redColor
+                                                : CustomColors.textColorBlack2,
                             borderRadius: BorderRadius.circular(4),
                           ),
                           padding: const EdgeInsets.only(
                               top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                           child: Text(
-                            widget.conferenceListItem?.displayStatus ?? "",
+                            widget.conferenceListItem?.status ?? "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.conferenceListItem?.status.toString() == "Before Approval"
+                              color: widget.conferenceListItem?.status
+                                              .toString() ==
+                                          "Before Approval" ||
+                                      widget.conferenceListItem?.status
+                                              .toString() ==
+                                          "Pending"
                                   ? CustomColors.textColor9
-                                  : widget.conferenceListItem?.status.toString() == "Approved"
+                                  : widget.conferenceListItem?.status
+                                              .toString() ==
+                                          "Approved"
                                       ? CustomColors.textColorBlack2
-                                      : widget.conferenceListItem?.status.toString() == "used"
+                                      : widget.conferenceListItem?.status
+                                                  .toString() ==
+                                              "Used"
                                           ? CustomColors.textColor3
-                                          : widget.conferenceListItem?.status.toString() == "rejected"
+                                          : widget.conferenceListItem?.status
+                                                      .toString() ==
+                                                  "Rejected"
                                               ? CustomColors.headingColor
                                               : CustomColors.textColorBlack2,
                             ),
@@ -105,11 +130,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "Hong Gil Dong",
+                      Text(
+                        widget.conferenceListItem?.name ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -174,17 +199,17 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                   ),
                   IntrinsicHeight(
                     child: Row(
-                      children: const [
+                      children: [
                         Text(
-                          "2023.00.00",
+                          widget.conferenceListItem?.reservationDate ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                         ),
-                        Padding(
+                        const Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                           child: VerticalDivider(
@@ -192,8 +217,9 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             thickness: 1,
                           ),
                         ),
-                        Text(
-                          "9:00 ~ 18:00",
+                        const Text(
+                          //widget.conferenceListItem?.usageHours ?? "",
+                          "9:00 ~ 18:00 ",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
@@ -230,6 +256,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                     height: 8,
                   ),
                   const Text(
+                    //widget.conferenceListItem?.name ?? ""
                     "It is scheduled to be used by 10 people for a regular meeting, and additional services are not used.",
                     style: TextStyle(
                         fontFamily: 'Regular',
@@ -249,12 +276,17 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
         child: CommonButtonWithBorder(
             onCommonButtonTap: () {},
-            buttonBorderColor: widget.conferenceListItem?.status == "Approved"
-                ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                : CustomColors.dividerGreyColor,
+            buttonBorderColor:
+                widget.conferenceListItem?.status == "Approved" ||
+                        widget.conferenceListItem?.status == "Rejected" ||
+                        widget.conferenceListItem?.status == "Used"
+                    ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                    : CustomColors.dividerGreyColor,
             buttonColor: CustomColors.whiteColor,
             buttonName: tr("cancelReservation"),
-            buttonTextColor: widget.conferenceListItem?.status == "Approved"
+            buttonTextColor: widget.conferenceListItem?.status == "Approved" ||
+                    widget.conferenceListItem?.status == "Rejected" ||
+                    widget.conferenceListItem?.status == "Used"
                 ? CustomColors.textColor5.withOpacity(0.3)
                 : CustomColors.textColor5),
       ),

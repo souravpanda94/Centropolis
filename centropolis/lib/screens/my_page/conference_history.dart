@@ -59,248 +59,274 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
         color: CustomColors.blackColor,
       ),
       isLoading: isFirstLoadRunning,
-      child:  conferenceListItem!.isNotEmpty
-        ? Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          tr("total"),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                         Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 2),
-                          child: Text(
-                            totalRecords.toString(),
+      child: conferenceListItem!.isNotEmpty
+          ? Container(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            tr("total"),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
-                                color: CustomColors.textColor9),
+                                color: CustomColors.textColorBlack2),
                           ),
-                        ),
-                        Text(
-                          tr("items"),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Text(
-                          tr("all"),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColor5),
-                        ),
-                        const SizedBox(
-                          width: 11,
-                        ),
-                        SvgPicture.asset("assets/images/ic_drop_down_arrow.svg",
-                            color: CustomColors.textColor5)
-                      ],
-                    ),
-                  ],
-                ),
-                const SizedBox(
-                  height: 9,
-                ),
-                Flexible(
-                  child: ListView.builder(
-                      itemCount: conferenceListItem?.length,
-                      itemBuilder: ((context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ConferenceHistoryDetails(conferenceListItem?[index]),
-                              ),
-                            );
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: CustomColors.whiteColor,
-                                border: Border.all(
-                                  color: CustomColors.borderColor,
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Text(
+                              totalRecords.toString(),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor9),
+                            ),
+                          ),
+                          Text(
+                            tr("items"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            tr("all"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor5),
+                          ),
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          SvgPicture.asset(
+                              "assets/images/ic_drop_down_arrow.svg",
+                              color: CustomColors.textColor5)
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 9,
+                  ),
+                  Flexible(
+                    child: ListView.builder(
+                        itemCount: conferenceListItem?.length,
+                        itemBuilder: ((context, index) {
+                          return InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      ConferenceHistoryDetails(
+                                          conferenceListItem?[index]),
                                 ),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(4))),
-                            padding: const EdgeInsets.all(16),
-                            margin: const EdgeInsets.only(bottom: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      conferenceListItem?[index].name ?? "",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontFamily: 'SemiBold',
-                                          fontSize: 14,
-                                          color: CustomColors.textColor8),
-                                    ),
-                                    if (conferenceListItem?[index]
-                                        .status
-                                        .toString() != "")
-                                      Container(
-                                        decoration: BoxDecoration(
-                                          color: conferenceListItem?[index].status
-                                                      .toString() ==
-                                                  "Before Approval"
-                                              ? CustomColors.backgroundColor3
-                                              : conferenceListItem?[index].status
-                                                          .toString() ==
-                                                      "Approved"
-                                                  ? CustomColors.backgroundColor
-                                                  : conferenceListItem?[index].status
-                                                              .toString() ==
-                                                          "Used"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : conferenceListItem?[index].status
-                                                                  .toString() ==
-                                                              "Rejected"
-                                                          ? CustomColors
-                                                              .redColor
-                                                          : CustomColors
-                                                              .textColorBlack2,
-                                          borderRadius:
-                                              BorderRadius.circular(4),
-                                        ),
-                                        padding: const EdgeInsets.only(
-                                            top: 5.0,
-                                            bottom: 5.0,
-                                            left: 10.0,
-                                            right: 10.0),
-                                        child: Text(
-                                          conferenceListItem?[index].displayStatus ?? "",
-                                          style: TextStyle(
-                                            fontSize: 12,
-                                            fontFamily: "SemiBold",
-                                            color: conferenceListItem?[index].status
-                                                        .toString() ==
-                                                    "Before Approval"
-                                                ? CustomColors.textColor9
-                                                : conferenceListItem?[index].status
+                              );
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: CustomColors.whiteColor,
+                                  border: Border.all(
+                                    color: CustomColors.borderColor,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4))),
+                              padding: const EdgeInsets.all(16),
+                              margin: const EdgeInsets.only(bottom: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text(
+                                        conferenceListItem?[index].name ?? "",
+                                        maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontFamily: 'SemiBold',
+                                            fontSize: 14,
+                                            color: CustomColors.textColor8),
+                                      ),
+                                      if (conferenceListItem?[index]
+                                              .status
+                                              .toString() !=
+                                          "")
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: conferenceListItem?[index]
+                                                            .status
+                                                            .toString() ==
+                                                        "Before Approval" ||
+                                                    conferenceListItem?[index]
+                                                            .status
+                                                            .toString() ==
+                                                        "Pending"
+                                                ? CustomColors.backgroundColor3
+                                                : conferenceListItem?[index]
+                                                            .status
                                                             .toString() ==
                                                         "Approved"
                                                     ? CustomColors
-                                                        .textColorBlack2
-                                                    : conferenceListItem?[index].status
+                                                        .backgroundColor
+                                                    : conferenceListItem?[index]
+                                                                .status
                                                                 .toString() ==
                                                             "Used"
                                                         ? CustomColors
-                                                            .textColor3
-                                                        : conferenceListItem?[index].status
+                                                            .backgroundColor
+                                                        : conferenceListItem?[
+                                                                        index]
+                                                                    .status
                                                                     .toString() ==
                                                                 "Rejected"
                                                             ? CustomColors
-                                                                .headingColor
+                                                                .redColor
                                                             : CustomColors
                                                                 .textColorBlack2,
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          padding: const EdgeInsets.only(
+                                              top: 5.0,
+                                              bottom: 5.0,
+                                              left: 10.0,
+                                              right: 10.0),
+                                          child: Text(
+                                            conferenceListItem?[index].status ??
+                                                "",
+                                            style: TextStyle(
+                                              fontSize: 12,
+                                              fontFamily: "SemiBold",
+                                              color: conferenceListItem?[index]
+                                                              .status
+                                                              .toString() ==
+                                                          "Before Approval" ||
+                                                      conferenceListItem?[index]
+                                                              .status
+                                                              .toString() ==
+                                                          "Pending"
+                                                  ? CustomColors.textColor9
+                                                  : conferenceListItem?[index]
+                                                              .status
+                                                              .toString() ==
+                                                          "Approved"
+                                                      ? CustomColors
+                                                          .textColorBlack2
+                                                      : conferenceListItem?[
+                                                                      index]
+                                                                  .status
+                                                                  .toString() ==
+                                                              "Used"
+                                                          ? CustomColors
+                                                              .textColor3
+                                                          : conferenceListItem?[
+                                                                          index]
+                                                                      .status
+                                                                      .toString() ==
+                                                                  "Rejected"
+                                                              ? CustomColors
+                                                                  .headingColor
+                                                              : CustomColors
+                                                                  .textColorBlack2,
+                                            ),
                                           ),
                                         ),
-                                      ),
-                                  ],
-                                ),
-                                const SizedBox(
-                                  height: 18,
-                                ),
-                                IntrinsicHeight(
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        // list[index]["date"],
-                                        conferenceListItem?[index]
-                                            .reservationDate ??
-                                            "",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 12,
-                                            color: CustomColors.textColor3),
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      const VerticalDivider(
-                                        thickness: 1,
-                                        color: CustomColors.borderColor,
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      Text(
-                                        tr("participants"),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 12,
-                                            color: CustomColors.textColor3),
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                      const Text(
-                                        // list[index]["participants"]
-                                        "9 participants",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 12,
-                                            color: CustomColors.textColor3),
-                                      ),
                                     ],
                                   ),
-                                )
-                              ],
+                                  const SizedBox(
+                                    height: 18,
+                                  ),
+                                  IntrinsicHeight(
+                                    child: Row(
+                                      children: [
+                                        Text(
+                                          // list[index]["date"],
+                                          conferenceListItem?[index]
+                                                  .reservationDate ??
+                                              "",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 12,
+                                              color: CustomColors.textColor3),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const VerticalDivider(
+                                          thickness: 1,
+                                          color: CustomColors.borderColor,
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          tr("participants"),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 12,
+                                              color: CustomColors.textColor3),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        const Text(
+                                          // list[index]["participants"]
+                                          "9 participants",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 12,
+                                              color: CustomColors.textColor3),
+                                        ),
+                                      ],
+                                    ),
+                                  )
+                                ],
+                              ),
                             ),
-                          ),
-                        );
-                      })),
-                ),
-                if (page < totalPages)
-                  ViewMoreWidget(
-                    onViewMoreTap: () {
-                      loadMore();
-                    },
-                  )
-              ],
+                          );
+                        })),
+                  ),
+                  if (page < totalPages)
+                    ViewMoreWidget(
+                      onViewMoreTap: () {
+                        loadMore();
+                      },
+                    )
+                ],
+              ),
+            )
+          : Container(
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+              padding: const EdgeInsets.all(24),
+              child: Text(
+                tr("noReservationHistory"),
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                    fontFamily: 'Regular',
+                    fontSize: 14,
+                    color: CustomColors.textColor5),
+              ),
             ),
-          )
-        : Container(
-            width: MediaQuery.of(context).size.width,
-            margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-            padding: const EdgeInsets.all(24),
-            child: Text(
-              tr("noReservationHistory"),
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                  fontFamily: 'Regular',
-                  fontSize: 14,
-                  color: CustomColors.textColor5),
-            ),
-          ), );
+    );
   }
 
   void firstTimeLoadConferenceHistoryList() {
@@ -383,5 +409,4 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
       loadConferenceHistoryList();
     }
   }
-
 }
