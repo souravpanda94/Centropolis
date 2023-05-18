@@ -498,10 +498,12 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   void reservationValidationCheck() {
     if (focusedDate == "") {
       showCustomToast(fToast, context, "Please select reservation date", "");
-    } else if ((focusedDate.compareTo(DateTime.now())) <= 0) {
-      showCustomToast(
-          fToast, context, "Reservation date cannot be selected for today", "");
-    } else if (rangeTimeSelectedValue == null || rangeTimeSelectedValue == "") {
+    }
+    // else if ((focusedDate.compareTo(DateTime.now())) <= 0) {
+    //   showCustomToast(
+    //       fToast, context, "Reservation date cannot be selected for today", "");
+    // }
+    else if (rangeTimeSelectedValue == null || rangeTimeSelectedValue == "") {
       showCustomToast(fToast, context, "Please select time", "");
     } else if (!isChecked) {
       showCustomToast(
@@ -576,6 +578,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
             firstButtonName: "",
             secondButtonName: "",
             onConfirmBtnTap: () {
+              Navigator.pop(context);
               Navigator.pop(context);
             },
             onFirstBtnTap: () {},

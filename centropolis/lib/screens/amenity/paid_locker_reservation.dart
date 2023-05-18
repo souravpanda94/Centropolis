@@ -1,11 +1,23 @@
+import 'dart:convert';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
+import '../../utils/internet_checking.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/utils.dart';
+import '../../widgets/common_modal.dart';
 
 class PaidLockerReservation extends StatefulWidget {
   const PaidLockerReservation({super.key});
@@ -15,6 +27,9 @@ class PaidLockerReservation extends StatefulWidget {
 }
 
 class _PaidLockerReservationState extends State<PaidLockerReservation> {
+  late String language, apiKey, email, mobile;
+  late FToast fToast;
+  bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
@@ -22,226 +37,236 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   DateTime? selectedDate;
   bool isChecked = false;
   String? selectedTime;
+  List<dynamic> timeList = [];
+  var dateFormat = DateFormat('yyyy-MM-dd');
 
-  List<dynamic> timeList = [
-    {
-      "time_period": "1 month",
-    },
-    {
-      "time_period": "2 month",
-    },
-    {
-      "time_period": "3 month",
-    },
-    {
-      "time_period": "4 month",
-    },
-  ];
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    email = user.userData['email_key'].toString();
+    mobile = user.userData['mobile'].toString();
+    loadTimeList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-        child: Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Container(
-          color: CustomColors.whiteColor,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(16),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: SingleChildScrollView(
           child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                tr("reservationInformation"),
-                style: const TextStyle(
-                    fontFamily: 'SemiBold',
-                    fontSize: 16,
-                    color: CustomColors.textColor8),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr("nameLounge"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const Text(
-                    "Hong Gil Dong",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  )
-                ],
-              ),
-              const Padding(
-                padding: EdgeInsets.symmetric(vertical: 16),
-                child: Divider(
-                  thickness: 1,
-                  height: 1,
-                  color: CustomColors.backgroundColor2,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            color: CustomColors.whiteColor,
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tr("reservationInformation"),
+                  style: const TextStyle(
+                      fontFamily: 'SemiBold',
+                      fontSize: 16,
+                      color: CustomColors.textColor8),
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr("tenantCompanyLounge"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const Text(
-                    "CBRE",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-            ],
-          ),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.backgroundColor,
-          height: 10,
-        ),
-        Container(
-          color: CustomColors.whiteColor,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                tr("selectReservationDate"),
-                style: const TextStyle(
-                    fontFamily: 'SemiBold',
-                    fontSize: 16,
-                    color: CustomColors.textColor8),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              tableCalendarWidget(),
-            ],
-          ),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.backgroundColor,
-          height: 10,
-        ),
-        Container(
-          color: CustomColors.whiteColor,
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                tr("timeSelection"),
-                style: const TextStyle(
-                    fontFamily: 'SemiBold',
-                    fontSize: 16,
-                    color: CustomColors.textColor8),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              usageTimeDropdownWidget(),
-            ],
-          ),
-        ),
-        Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.backgroundColor,
-          height: 10,
-        ),
-        Container(
-          alignment: FractionalOffset.bottomCenter,
-          color: CustomColors.whiteColor,
-          width: MediaQuery.of(context).size.width,
-          margin: const EdgeInsets.symmetric(horizontal: 16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 16),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                const SizedBox(
+                  height: 16,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 5),
-                      child: SizedBox(
-                        height: 15,
-                        width: 15,
-                        child: Checkbox(
-                          checkColor: CustomColors.whiteColor,
-                          activeColor: CustomColors.buttonBackgroundColor,
-                          side: const BorderSide(
-                              color: CustomColors.greyColor, width: 1),
-                          value: isChecked,
-                          onChanged: (value) {
-                            setState(() {
-                              isChecked = value!;
-                              if (isChecked) {
-                              } else {}
-                            });
-                          },
-                        ),
-                      ),
+                    Text(
+                      tr("nameLounge"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
                     ),
-                    const SizedBox(
-                      width: 9,
-                    ),
-                    Expanded(
-                      child: Text(
-                        tr("gxReservationConsent"),
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
+                    const Text(
+                      "Hong Gil Dong",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
                     )
                   ],
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(top: 24, bottom: 32),
-                child: CommonButton(
-                  onCommonButtonTap: () {},
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("makeReservation"),
-                  isIconVisible: false,
+                const Padding(
+                  padding: EdgeInsets.symmetric(vertical: 16),
+                  child: Divider(
+                    thickness: 1,
+                    height: 1,
+                    color: CustomColors.backgroundColor2,
+                  ),
                 ),
-              )
-            ],
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      tr("tenantCompanyLounge"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const Text(
+                      "CBRE",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    )
+                  ],
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+              ],
+            ),
           ),
-        ),
-      ],
-    ));
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: CustomColors.backgroundColor,
+            height: 10,
+          ),
+          Container(
+            color: CustomColors.whiteColor,
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tr("selectReservationDate"),
+                  style: const TextStyle(
+                      fontFamily: 'SemiBold',
+                      fontSize: 16,
+                      color: CustomColors.textColor8),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                tableCalendarWidget(),
+              ],
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: CustomColors.backgroundColor,
+            height: 10,
+          ),
+          Container(
+            color: CustomColors.whiteColor,
+            padding:
+                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+            width: MediaQuery.of(context).size.width,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  tr("timeSelection"),
+                  style: const TextStyle(
+                      fontFamily: 'SemiBold',
+                      fontSize: 16,
+                      color: CustomColors.textColor8),
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                usageTimeDropdownWidget(),
+              ],
+            ),
+          ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: CustomColors.backgroundColor,
+            height: 10,
+          ),
+          Container(
+            alignment: FractionalOffset.bottomCenter,
+            color: CustomColors.whiteColor,
+            width: MediaQuery.of(context).size.width,
+            margin: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(top: 16),
+                  child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 5),
+                        child: SizedBox(
+                          height: 15,
+                          width: 15,
+                          child: Checkbox(
+                            checkColor: CustomColors.whiteColor,
+                            activeColor: CustomColors.buttonBackgroundColor,
+                            side: const BorderSide(
+                                color: CustomColors.greyColor, width: 1),
+                            value: isChecked,
+                            onChanged: (value) {
+                              setState(() {
+                                isChecked = value!;
+                                if (isChecked) {
+                                } else {}
+                              });
+                            },
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 9,
+                      ),
+                      Expanded(
+                        child: Text(
+                          tr("gxReservationConsent"),
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 24, bottom: 32),
+                  child: CommonButton(
+                    onCommonButtonTap: () {
+                      reservationValidationCheck();
+                    },
+                    buttonColor: CustomColors.buttonBackgroundColor,
+                    buttonName: tr("makeReservation"),
+                    isIconVisible: false,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      )),
+    );
   }
 
   usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr('selectUsageTime'),
+          timeList.isNotEmpty ? timeList.first["text"] : "1 Month",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -250,7 +275,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         ),
         items: timeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["time_period"],
+                  value: item["value"].toString(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -258,7 +283,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["time_period"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -278,7 +303,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         value: selectedTime,
         onChanged: (value) {
           setState(() {
-            selectedTime = value as String;
+            selectedTime = value.toString();
           });
         },
         dropdownStyleData: DropdownStyleData(
@@ -414,5 +439,147 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         });
       },
     );
+  }
+
+  void loadTimeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadTimeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadTimeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPaidLockerTimePeriodListUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              timeList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void reservationValidationCheck() {
+    if (focusedDate == "") {
+      showCustomToast(fToast, context, "Please select reservation date", "");
+    }
+    // else if ((focusedDate.compareTo(DateTime.now())) <= 0) {
+    //   showCustomToast(
+    //       fToast, context, "Reservation date cannot be selected for today", "");
+    // }
+    else if (selectedTime == null || selectedTime == "") {
+      showCustomToast(fToast, context, "Please select time", "");
+    } else if (!isChecked) {
+      showCustomToast(
+          fToast, context, "Please checkmark on reservation rules", "");
+    } else {
+      networkCheckForReservation();
+    }
+  }
+
+  void networkCheckForReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callReservationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callReservationApi() {
+    var reservationDate = dateFormat.format(focusedDate);
+
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "email": email.trim(), //required
+      "mobile": mobile.trim(), //required
+      "start_date": reservationDate.toString().trim(), //required
+      "used_months": selectedTime.toString().trim(), //required
+    };
+
+    debugPrint("paid locker reservation input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.makePaidLockerReservation,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for paid locker reservation ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          showReservationModal(responseJson['title'], responseJson['message']);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showReservationModal(title, content) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: title,
+            description: content,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }
