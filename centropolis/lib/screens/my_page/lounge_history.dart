@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -54,76 +53,73 @@ class _LoungeHistoryState extends State<LoungeHistory> {
             .getGxFitnessReservationList;
 
     return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
+      opacity: 1.0,
+      color: CustomColors.whiteColor,
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
       ),
       isLoading: isFirstLoadRunning,
       child: executiveLoungeListItem!.isNotEmpty
-          ?
-      // SingleChildScrollView(
-      //         child:
-              Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              tr("total"),
+          ? Container(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            tr("total"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(horizontal: 2),
+                            child: Text(
+                              totalRecords.toString(),
                               style: const TextStyle(
                                   fontFamily: 'Regular',
                                   fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
+                                  color: CustomColors.textColor9),
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
-                              child: Text(
-                                totalRecords.toString(),
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor9),
-                              ),
-                            ),
-                            Text(
-                              tr("items"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
-                            ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            Text(
-                              tr("all"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor5),
-                            ),
-                            const SizedBox(
-                              width: 11,
-                            ),
-                            SvgPicture.asset(
-                                "assets/images/ic_drop_down_arrow.svg",
-                                color: CustomColors.textColor5)
-                          ],
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 9,
-                    ),
-                    Flexible(child: ListView.builder(
+                          ),
+                          Text(
+                            tr("items"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          Text(
+                            tr("all"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor5),
+                          ),
+                          const SizedBox(
+                            width: 11,
+                          ),
+                          SvgPicture.asset(
+                              "assets/images/ic_drop_down_arrow.svg",
+                              color: CustomColors.textColor5)
+                        ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 9,
+                  ),
+                  Flexible(
+                    child: ListView.builder(
                         // controller: scrollController,
                         physics: const AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
@@ -136,7 +132,10 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => LoungeHistoryDetails(
-                                      type: executiveLoungeListItem?[index].status.toString() ?? ""),
+                                      type: executiveLoungeListItem?[index]
+                                              .status
+                                              .toString() ??
+                                          ""),
                                 ),
                               );
                             },
@@ -155,7 +154,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                 children: [
                                   Row(
                                     mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         // list[index]["name"],
@@ -169,43 +168,43 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                             color: CustomColors.textColor8),
                                       ),
                                       if (executiveLoungeListItem?[index]
-                                          .status
-                                          .toString() !=
+                                              .status
+                                              .toString() !=
                                           "")
                                         Container(
                                           decoration: BoxDecoration(
                                             color: executiveLoungeListItem?[
-                                            index]
-                                                .status
-                                                .toString() ==
-                                                "before_use"
-                                            // "Before Approval"
+                                                            index]
+                                                        .status
+                                                        .toString() ==
+                                                    "before_use"
+                                                // "Before Approval"
                                                 ? CustomColors.backgroundColor3
                                                 : executiveLoungeListItem?[
-                                            index]
-                                                .status
-                                                .toString() ==
-                                                "using"
-                                                ? CustomColors
-                                                .backgroundColor
-                                                : executiveLoungeListItem?[
-                                            index]
-                                                .status
-                                                .toString() ==
-                                                "used"
-                                                ? CustomColors
-                                                .backgroundColor
-                                                : executiveLoungeListItem?[
-                                            index]
-                                                .status
-                                                .toString() ==
-                                                "rejected"
-                                                ? CustomColors
-                                                .redColor
-                                                : CustomColors
-                                                .textColorBlack2,
+                                                                index]
+                                                            .status
+                                                            .toString() ==
+                                                        "using"
+                                                    ? CustomColors
+                                                        .backgroundColor
+                                                    : executiveLoungeListItem?[
+                                                                    index]
+                                                                .status
+                                                                .toString() ==
+                                                            "used"
+                                                        ? CustomColors
+                                                            .backgroundColor
+                                                        : executiveLoungeListItem?[
+                                                                        index]
+                                                                    .status
+                                                                    .toString() ==
+                                                                "rejected"
+                                                            ? CustomColors
+                                                                .redColor
+                                                            : CustomColors
+                                                                .textColorBlack2,
                                             borderRadius:
-                                            BorderRadius.circular(4),
+                                                BorderRadius.circular(4),
                                           ),
                                           padding: const EdgeInsets.only(
                                               top: 5.0,
@@ -215,41 +214,41 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                           child: Text(
                                             // list[index]["type"],
                                             executiveLoungeListItem?[index]
-                                                .displayStatus ??
+                                                    .displayStatus ??
                                                 "",
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
                                               color: executiveLoungeListItem?[
-                                              index]
-                                                  .status
-                                                  .toString() ==
-                                                  // "Before Approval"
-                                                  "before_use"
+                                                              index]
+                                                          .status
+                                                          .toString() ==
+                                                      // "Before Approval"
+                                                      "before_use"
                                                   ? CustomColors.textColor9
                                                   : executiveLoungeListItem?[
-                                              index]
-                                                  .status
-                                                  .toString() ==
-                                                  "using"
-                                                  ? CustomColors
-                                                  .textColorBlack2
-                                                  : executiveLoungeListItem?[
-                                              index]
-                                                  .status
-                                                  .toString() ==
-                                                  "used"
-                                                  ? CustomColors
-                                                  .textColor3
-                                                  : executiveLoungeListItem?[
-                                              index]
-                                                  .status
-                                                  .toString() ==
-                                                  "rejected"
-                                                  ? CustomColors
-                                                  .headingColor
-                                                  : CustomColors
-                                                  .textColorBlack2,
+                                                                  index]
+                                                              .status
+                                                              .toString() ==
+                                                          "using"
+                                                      ? CustomColors
+                                                          .textColorBlack2
+                                                      : executiveLoungeListItem?[
+                                                                      index]
+                                                                  .status
+                                                                  .toString() ==
+                                                              "used"
+                                                          ? CustomColors
+                                                              .textColor3
+                                                          : executiveLoungeListItem?[
+                                                                          index]
+                                                                      .status
+                                                                      .toString() ==
+                                                                  "rejected"
+                                                              ? CustomColors
+                                                                  .headingColor
+                                                              : CustomColors
+                                                                  .textColorBlack2,
                                             ),
                                           ),
                                         ),
@@ -264,7 +263,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                         Text(
                                           // list[index]["date"],
                                           executiveLoungeListItem?[index]
-                                              .reservationDate ??
+                                                  .reservationDate ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -286,7 +285,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                         Text(
                                           // list[index]["interval"],
                                           executiveLoungeListItem?[index]
-                                              .usageHours ??
+                                                  .usageHours ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -302,17 +301,19 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                               ),
                             ),
                           );
-                        })),),
+                        })),
+                  ),
 
-
-                    if (page < totalPages)  ViewMoreWidget(onViewMoreTap: (){
-                      loadMore();
-                    },)
-                    // if (isLoadMoreRunning) const AppLoading()
-                  ],
-                ),
-              )
-            // )
+                  if (page < totalPages)
+                    ViewMoreWidget(
+                      onViewMoreTap: () {
+                        loadMore();
+                      },
+                    )
+                  // if (isLoadMoreRunning) const AppLoading()
+                ],
+              ),
+            )
           : Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
