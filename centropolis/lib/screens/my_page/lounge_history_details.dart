@@ -1,3 +1,4 @@
+import 'package:centropolis/models/executive_lounge_history_model.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,9 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
 class LoungeHistoryDetails extends StatefulWidget {
-  final String type;
-  const LoungeHistoryDetails({super.key, required this.type});
+  final ExecutiveLoungeHistoryModel? executiveLoungeListItem;
+
+  const LoungeHistoryDetails(this.executiveLoungeListItem, {super.key, });
 
   @override
   State<LoungeHistoryDetails> createState() => _LoungeHistoryDetailsState();
@@ -53,16 +55,16 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
-                      if (widget.type.toString().isNotEmpty)
+                      if (widget.executiveLoungeListItem?.status.toString() != "")
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.type.toString() == "Before Approval"
+                            color: widget.executiveLoungeListItem?.status.toString() == "before_use"
                                 ? CustomColors.backgroundColor3
-                                : widget.type.toString() == "Approved"
+                                : widget.executiveLoungeListItem?.status.toString() == "using"
                                     ? CustomColors.backgroundColor
-                                    : widget.type.toString() == "Used"
+                                    : widget.executiveLoungeListItem?.status.toString() == "used"
                                         ? CustomColors.backgroundColor
-                                        : widget.type.toString() == "Rejected"
+                                        : widget.executiveLoungeListItem?.status.toString() == "rejected"
                                             ? CustomColors.redColor
                                             : CustomColors.textColorBlack2,
                             borderRadius: BorderRadius.circular(4),
@@ -70,17 +72,17 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                           padding: const EdgeInsets.only(
                               top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                           child: Text(
-                            widget.type,
+                            widget.executiveLoungeListItem?.displayStatus ?? "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.type.toString() == "Before Approval"
+                              color: widget.executiveLoungeListItem?.status.toString() == "before_use"
                                   ? CustomColors.textColor9
-                                  : widget.type.toString() == "Approved"
+                                  : widget.executiveLoungeListItem?.status.toString() == "using"
                                       ? CustomColors.textColorBlack2
-                                      : widget.type.toString() == "Used"
+                                      : widget.executiveLoungeListItem?.status.toString() == "used"
                                           ? CustomColors.textColor3
-                                          : widget.type.toString() == "Rejected"
+                                          : widget.executiveLoungeListItem?.status.toString() == "rejected"
                                               ? CustomColors.headingColor
                                               : CustomColors.textColorBlack2,
                             ),
@@ -215,12 +217,12 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
         child: CommonButtonWithBorder(
             onCommonButtonTap: () {},
-            buttonBorderColor: widget.type == "Approved"
+            buttonBorderColor: widget.executiveLoungeListItem?.status == "using"
                 ? CustomColors.dividerGreyColor.withOpacity(0.3)
                 : CustomColors.dividerGreyColor,
             buttonColor: CustomColors.whiteColor,
             buttonName: tr("cancelReservation"),
-            buttonTextColor: widget.type == "Approved"
+            buttonTextColor: widget.executiveLoungeListItem?.status == "using"
                 ? CustomColors.textColor5.withOpacity(0.3)
                 : CustomColors.textColor5),
       ),

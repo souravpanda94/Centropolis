@@ -120,7 +120,6 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                   ),
                   Flexible(
                     child: ListView.builder(
-                        // controller: scrollController,
                         physics: const AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
@@ -131,11 +130,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoungeHistoryDetails(
-                                      type: executiveLoungeListItem?[index]
-                                              .status
-                                              .toString() ??
-                                          ""),
+                                  builder: (context) => LoungeHistoryDetails(executiveLoungeListItem?[index]),
                                 ),
                               );
                             },
