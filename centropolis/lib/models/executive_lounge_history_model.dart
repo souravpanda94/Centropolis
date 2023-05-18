@@ -6,6 +6,7 @@ class ExecutiveLoungeHistoryModel {
   String? reservationDate;
   String? usageHours;
   String? status;
+  String? displayStatus;
   String? requestDate;
 
   ExecutiveLoungeHistoryModel(
@@ -15,6 +16,7 @@ class ExecutiveLoungeHistoryModel {
         this.reservationDate,
         this.usageHours,
         this.status,
+        this.displayStatus,
         this.requestDate});
 
   ExecutiveLoungeHistoryModel.fromJson(Map<String, dynamic> json) {
@@ -24,6 +26,7 @@ class ExecutiveLoungeHistoryModel {
     reservationDate = json['reservation_date'];
     usageHours = json['usage_hours'];
     status = json['status'];
+    displayStatus = json['display_status'];
     requestDate = json['request_date'];
   }
 
@@ -35,6 +38,7 @@ class ExecutiveLoungeHistoryModel {
     data['reservation_date'] = reservationDate;
     data['usage_hours'] = usageHours;
     data['status'] = status;
+    data['display_status'] = displayStatus;
     data['request_date'] = requestDate;
     return data;
   }

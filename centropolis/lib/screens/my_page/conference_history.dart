@@ -329,7 +329,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

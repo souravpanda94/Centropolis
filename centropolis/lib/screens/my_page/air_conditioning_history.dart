@@ -354,7 +354,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

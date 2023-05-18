@@ -310,7 +310,7 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

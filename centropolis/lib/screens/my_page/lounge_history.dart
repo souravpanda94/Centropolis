@@ -27,95 +27,13 @@ class LoungeHistory extends StatefulWidget {
 }
 
 class _LoungeHistoryState extends State<LoungeHistory> {
-  // List<dynamic> list = [
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Before Approval",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Before Approval",
-  //     "date": "2023.00.00",
-  //     "interval": "All day 9:00 ~ 18:00 (9 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Before Approval",
-  //     "date": "2023.00.00",
-  //     "interval": "AM 9:00 ~ 13:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Approved",
-  //     "date": "2023.00.00",
-  //     "interval": "14:00 ~ 18:00"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Used",
-  //     "date": "2023.00.00",
-  //     "interval": "14:00 ~ 18:00)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Approved",
-  //     "date": "2023.00.00",
-  //     "interval": "14:00 ~ 18:00"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Rejected",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Used",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Used",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Used",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Used",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Rejected",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  //   {
-  //     "name": "Hong Gil Dong",
-  //     "type": "Approved",
-  //     "date": "2023.00.00",
-  //     "interval": "Afternoon 14:00 ~ 18:00 (4 hours)"
-  //   },
-  // ];
-
   late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   int page = 1;
   final int limit = 10;
   int totalPages = 0;
+  int totalRecords = 0;
   bool isFirstLoadRunning = true;
-  bool isLoadMoreRunning = false;
-  ScrollController? scrollController;
   List<ExecutiveLoungeHistoryModel>? executiveLoungeListItem;
 
   @override
@@ -126,7 +44,6 @@ class _LoungeHistoryState extends State<LoungeHistory> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    scrollController = ScrollController()..addListener(loadMore);
     firstTimeLoadLoungeHistoryList();
   }
 
@@ -144,8 +61,10 @@ class _LoungeHistoryState extends State<LoungeHistory> {
       ),
       isLoading: isFirstLoadRunning,
       child: executiveLoungeListItem!.isNotEmpty
-          ? SingleChildScrollView(
-              child: Container(
+          ?
+      // SingleChildScrollView(
+      //         child:
+              Container(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -162,10 +81,11 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                   fontSize: 14,
                                   color: CustomColors.textColorBlack2),
                             ),
-                             Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 2),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2),
                               child: Text(
-                                executiveLoungeListItem!.length.toString(),
+                                totalRecords.toString(),
                                 style: const TextStyle(
                                     fontFamily: 'Regular',
                                     fontSize: 14,
@@ -203,9 +123,9 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                     const SizedBox(
                       height: 9,
                     ),
-                    ListView.builder(
-                        controller: scrollController,
-                        physics: const NeverScrollableScrollPhysics(),
+                    Flexible(child: ListView.builder(
+                        // controller: scrollController,
+                        physics: const AlwaysScrollableScrollPhysics(),
                         scrollDirection: Axis.vertical,
                         shrinkWrap: true,
                         itemCount: executiveLoungeListItem?.length,
@@ -235,7 +155,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                 children: [
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                    MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
                                         // list[index]["name"],
@@ -249,43 +169,43 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                             color: CustomColors.textColor8),
                                       ),
                                       if (executiveLoungeListItem?[index]
-                                              .status
-                                              .toString() !=
+                                          .status
+                                          .toString() !=
                                           "")
                                         Container(
                                           decoration: BoxDecoration(
                                             color: executiveLoungeListItem?[
-                                                            index]
-                                                        .status
-                                                        .toString() ==
-                                                    "Before Use"
-                                                // "Before Approval"
+                                            index]
+                                                .status
+                                                .toString() ==
+                                                "before_use"
+                                            // "Before Approval"
                                                 ? CustomColors.backgroundColor3
                                                 : executiveLoungeListItem?[
-                                                                index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Approved"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : executiveLoungeListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Used"
-                                                        ? CustomColors
-                                                            .backgroundColor
-                                                        : executiveLoungeListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Rejected"
-                                                            ? CustomColors
-                                                                .redColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
+                                            index]
+                                                .status
+                                                .toString() ==
+                                                "approved"
+                                                ? CustomColors
+                                                .backgroundColor
+                                                : executiveLoungeListItem?[
+                                            index]
+                                                .status
+                                                .toString() ==
+                                                "used"
+                                                ? CustomColors
+                                                .backgroundColor
+                                                : executiveLoungeListItem?[
+                                            index]
+                                                .status
+                                                .toString() ==
+                                                "rejected"
+                                                ? CustomColors
+                                                .redColor
+                                                : CustomColors
+                                                .textColorBlack2,
                                             borderRadius:
-                                                BorderRadius.circular(4),
+                                            BorderRadius.circular(4),
                                           ),
                                           padding: const EdgeInsets.only(
                                               top: 5.0,
@@ -295,41 +215,41 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                           child: Text(
                                             // list[index]["type"],
                                             executiveLoungeListItem?[index]
-                                                    .status ??
+                                                .displayStatus ??
                                                 "",
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
                                               color: executiveLoungeListItem?[
-                                                              index]
-                                                          .status
-                                                          .toString() ==
-                                                      // "Before Approval"
-                                                      "Before Use"
+                                              index]
+                                                  .status
+                                                  .toString() ==
+                                                  // "Before Approval"
+                                                  "before_use"
                                                   ? CustomColors.textColor9
                                                   : executiveLoungeListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .textColorBlack2
-                                                      : executiveLoungeListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Used"
-                                                          ? CustomColors
-                                                              .textColor3
-                                                          : executiveLoungeListItem?[
-                                                                          index]
-                                                                      .status
-                                                                      .toString() ==
-                                                                  "Rejected"
-                                                              ? CustomColors
-                                                                  .headingColor
-                                                              : CustomColors
-                                                                  .textColorBlack2,
+                                              index]
+                                                  .status
+                                                  .toString() ==
+                                                  "approved"
+                                                  ? CustomColors
+                                                  .textColorBlack2
+                                                  : executiveLoungeListItem?[
+                                              index]
+                                                  .status
+                                                  .toString() ==
+                                                  "used"
+                                                  ? CustomColors
+                                                  .textColor3
+                                                  : executiveLoungeListItem?[
+                                              index]
+                                                  .status
+                                                  .toString() ==
+                                                  "rejected"
+                                                  ? CustomColors
+                                                  .headingColor
+                                                  : CustomColors
+                                                  .textColorBlack2,
                                             ),
                                           ),
                                         ),
@@ -344,7 +264,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                         Text(
                                           // list[index]["date"],
                                           executiveLoungeListItem?[index]
-                                                  .reservationDate ??
+                                              .reservationDate ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -366,7 +286,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                         Text(
                                           // list[index]["interval"],
                                           executiveLoungeListItem?[index]
-                                                  .usageHours ??
+                                              .usageHours ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
@@ -382,14 +302,17 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                               ),
                             ),
                           );
-                        })),
+                        })),),
 
-                    // if (isLoadMoreRunning) const ViewMoreWidget()
-                    if (isLoadMoreRunning) const AppLoading()
+
+                    if (page < totalPages)  ViewMoreWidget(onViewMoreTap: (){
+                      loadMore();
+                    },)
+                    // if (isLoadMoreRunning) const AppLoading()
                   ],
                 ),
-              ),
-            )
+              )
+            // )
           : Container(
               width: MediaQuery.of(context).size.width,
               margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
@@ -440,6 +363,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
+          totalRecords = responseJson['total_records'];
           List<ExecutiveLoungeHistoryModel> executiveLoungeHistoryList =
               List<ExecutiveLoungeHistoryModel>.from(
                   responseJson['executive_lounge_data']
@@ -459,31 +383,27 @@ class _LoungeHistoryState extends State<LoungeHistory> {
         }
         setState(() {
           isFirstLoadRunning = false;
-          isLoadMoreRunning = false;
         });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {
         isFirstLoadRunning = false;
-        isLoadMoreRunning = false;
       });
     });
   }
 
   void loadMore() {
-    if (scrollController?.position.maxScrollExtent ==
-            scrollController?.offset &&
-        (scrollController?.position.extentAfter)! < 500) {
-      if (page < totalPages) {
-        debugPrint("load more called");
+    debugPrint("page ================> $page");
+    debugPrint("totalPages ================> $totalPages");
 
-        setState(() {
-          isLoadMoreRunning = true;
-          page++;
-        });
-        loadLoungeHistoryList();
-      }
+    if (page < totalPages) {
+      debugPrint("load more called");
+
+      setState(() {
+        page++;
+      });
+      loadLoungeHistoryList();
     }
   }
 }

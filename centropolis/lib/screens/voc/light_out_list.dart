@@ -330,7 +330,7 @@ class _LightsOutListState extends State<LightsOutList> {
                           );
                         })),
                   ),
-                  const ViewMoreWidget(),
+                   ViewMoreWidget(onViewMoreTap: (){},),
                 ],
               ),
             ),
