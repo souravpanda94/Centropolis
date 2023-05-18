@@ -355,7 +355,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

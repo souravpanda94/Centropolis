@@ -373,7 +373,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
                           );
                         })),
                   ),
-                  const ViewMoreWidget(),
+                   ViewMoreWidget(onViewMoreTap: (){},),
                 ],
               ),
             ),

@@ -310,7 +310,7 @@ class _PaidLockerReservationHistoryState
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

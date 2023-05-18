@@ -356,7 +356,7 @@ class _FitnessTabReservationHistoryState
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

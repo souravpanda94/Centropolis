@@ -311,7 +311,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

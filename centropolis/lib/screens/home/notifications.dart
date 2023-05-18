@@ -201,7 +201,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         );
                       })),
                 ),
-                const ViewMoreWidget()
+                 ViewMoreWidget(onViewMoreTap: (){},)
               ],
             )));
   }

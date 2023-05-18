@@ -354,7 +354,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
               ],
             ),
           );

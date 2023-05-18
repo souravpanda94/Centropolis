@@ -394,7 +394,7 @@ class _EmployeeListState extends State<EmployeeList> {
                   );
                 })),
           ),
-          const ViewMoreWidget(),
+           ViewMoreWidget(onViewMoreTap: (){},),
           CommonButton(
             onCommonButtonTap: () {
               Navigator.push(

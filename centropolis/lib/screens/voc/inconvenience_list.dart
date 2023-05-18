@@ -319,7 +319,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                           );
                         })),
                   ),
-                  const ViewMoreWidget(),
+                   ViewMoreWidget(onViewMoreTap: (){},),
                 ],
               ),
             ),

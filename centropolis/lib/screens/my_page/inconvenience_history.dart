@@ -303,7 +303,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                         );
                       })),
                 ),
-                const ViewMoreWidget(),
+                 ViewMoreWidget(onViewMoreTap: (){},),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   margin: const EdgeInsets.only(bottom: 40),
