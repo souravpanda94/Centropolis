@@ -27,6 +27,9 @@ class ApiEndPoint {
 
 
 
+  static String getPtTimeListUrl = "${baseUrl}v1/common/pt-time";
+  static String makePtReservation =
+      "${baseUrl}v1/amenity/personal-training-reservation";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
