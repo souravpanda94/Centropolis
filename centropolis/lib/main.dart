@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:centropolis/providers/company_provider.dart';
+import 'package:centropolis/providers/conference_history_provider.dart';
 import 'package:centropolis/providers/executive_lounge_history_provider.dart';
 import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
@@ -48,6 +49,7 @@ void main() async {
           ChangeNotifierProvider(create: (_) => CompanyProvider()),
           ChangeNotifierProvider(create: (_) => GxFitnessReservationProvider()),
           ChangeNotifierProvider(create: (_) => ExecutiveLoungeHistoryProvider()),
+          ChangeNotifierProvider(create: (_) => ConferenceHistoryProvider()),
         ],
         child: const MyApp(),
       ),

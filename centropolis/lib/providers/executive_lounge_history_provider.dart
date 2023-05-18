@@ -1,27 +1,27 @@
 import 'package:flutter/foundation.dart';
-import '../models/executive_lounge_history_model.dart';
+import '../models/amenity_history_model.dart';
 
 
 class ExecutiveLoungeHistoryProvider extends ChangeNotifier {
-  ExecutiveLoungeHistoryModel? _item;
-  List<ExecutiveLoungeHistoryModel> executiveLoungeHistoryModelList = [];
+  AmenityHistoryModel? _item;
+  List<AmenityHistoryModel> executiveLoungeHistoryList = [];
 
-  List<ExecutiveLoungeHistoryModel>? get getGxFitnessReservationList {
-    return executiveLoungeHistoryModelList;
+  List<AmenityHistoryModel>? get getExecutiveLoungeHistoryList {
+    return executiveLoungeHistoryList;
   }
 
-  void setItem(List<ExecutiveLoungeHistoryModel> item) {
-    executiveLoungeHistoryModelList = item;
+  void setItem(List<AmenityHistoryModel> item) {
+    executiveLoungeHistoryList = item;
     notifyListeners();
   }
 
-  void addItem(List<ExecutiveLoungeHistoryModel> item) {
-    executiveLoungeHistoryModelList.addAll(item);
+  void addItem(List<AmenityHistoryModel> item) {
+    executiveLoungeHistoryList.addAll(item);
     notifyListeners();
   }
 
   void removeItem(int index) {
-    executiveLoungeHistoryModelList.removeAt(index);
+    executiveLoungeHistoryList.removeAt(index);
     notifyListeners();
   }
 }

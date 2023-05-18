@@ -1,3 +1,4 @@
+import 'package:centropolis/models/amenity_history_model.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,8 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
 class ConferenceHistoryDetails extends StatefulWidget {
-  final String type;
-  const ConferenceHistoryDetails({super.key, required this.type});
+  final AmenityHistoryModel? conferenceListItem;
+  const ConferenceHistoryDetails(this.conferenceListItem, {super.key,});
 
   @override
   State<ConferenceHistoryDetails> createState() =>
@@ -54,16 +55,16 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
-                      if (widget.type.toString().isNotEmpty)
+                      if (widget.conferenceListItem?.status.toString()!= "")
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.type.toString() == "Before Approval"
+                            color: widget.conferenceListItem?.status.toString() == "Before Approval"
                                 ? CustomColors.backgroundColor3
-                                : widget.type.toString() == "Approved"
+                                : widget.conferenceListItem?.status.toString() == "Approved"
                                     ? CustomColors.backgroundColor
-                                    : widget.type.toString() == "Used"
+                                    : widget.conferenceListItem?.status.toString() == "Used"
                                         ? CustomColors.backgroundColor
-                                        : widget.type.toString() == "Rejected"
+                                        : widget.conferenceListItem?.status.toString() == "Rejected"
                                             ? CustomColors.redColor
                                             : CustomColors.textColorBlack2,
                             borderRadius: BorderRadius.circular(4),
@@ -71,17 +72,17 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                           padding: const EdgeInsets.only(
                               top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                           child: Text(
-                            widget.type,
+                            widget.conferenceListItem?.displayStatus ?? "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.type.toString() == "Before Approval"
+                              color: widget.conferenceListItem?.status.toString() == "Before Approval"
                                   ? CustomColors.textColor9
-                                  : widget.type.toString() == "Approved"
+                                  : widget.conferenceListItem?.status.toString() == "Approved"
                                       ? CustomColors.textColorBlack2
-                                      : widget.type.toString() == "Used"
+                                      : widget.conferenceListItem?.status.toString() == "used"
                                           ? CustomColors.textColor3
-                                          : widget.type.toString() == "Rejected"
+                                          : widget.conferenceListItem?.status.toString() == "rejected"
                                               ? CustomColors.headingColor
                                               : CustomColors.textColorBlack2,
                             ),
@@ -248,12 +249,12 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
         child: CommonButtonWithBorder(
             onCommonButtonTap: () {},
-            buttonBorderColor: widget.type == "Approved"
+            buttonBorderColor: widget.conferenceListItem?.status == "Approved"
                 ? CustomColors.dividerGreyColor.withOpacity(0.3)
                 : CustomColors.dividerGreyColor,
             buttonColor: CustomColors.whiteColor,
             buttonName: tr("cancelReservation"),
-            buttonTextColor: widget.type == "Approved"
+            buttonTextColor: widget.conferenceListItem?.status == "Approved"
                 ? CustomColors.textColor5.withOpacity(0.3)
                 : CustomColors.textColor5),
       ),

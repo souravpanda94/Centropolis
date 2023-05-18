@@ -1,4 +1,4 @@
-import 'package:centropolis/models/executive_lounge_history_model.dart';
+import 'package:centropolis/models/amenity_history_model.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +8,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
 class LoungeHistoryDetails extends StatefulWidget {
-  final ExecutiveLoungeHistoryModel? executiveLoungeListItem;
+  final AmenityHistoryModel? executiveLoungeListItem;
 
   const LoungeHistoryDetails(this.executiveLoungeListItem, {super.key, });
 

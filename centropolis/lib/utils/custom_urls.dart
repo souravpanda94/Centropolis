@@ -23,6 +23,7 @@ class ApiEndPoint {
   static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
   static String getGxFitnessReservationUrl = "${baseUrl}v1/amenity/gx-program-list";
   static String getLoungeHistoryListUrl = "${baseUrl}v1/mypage/executive-lounge-list";
+  static String getConferenceHistoryListUrl = "${baseUrl}v1/mypage/conference-list";
 
 
 

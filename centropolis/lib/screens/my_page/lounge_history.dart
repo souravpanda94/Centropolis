@@ -6,7 +6,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-import '../../models/executive_lounge_history_model.dart';
+import '../../models/amenity_history_model.dart';
 import '../../providers/executive_lounge_history_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
@@ -33,7 +33,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   int totalPages = 0;
   int totalRecords = 0;
   bool isFirstLoadRunning = true;
-  List<ExecutiveLoungeHistoryModel>? executiveLoungeListItem;
+  List<AmenityHistoryModel>? executiveLoungeListItem;
 
   @override
   void initState() {
@@ -50,7 +50,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   Widget build(BuildContext context) {
     executiveLoungeListItem =
         Provider.of<ExecutiveLoungeHistoryProvider>(context)
-            .getGxFitnessReservationList;
+            .getExecutiveLoungeHistoryList;
 
     return LoadingOverlay(
       opacity: 1.0,
@@ -360,10 +360,10 @@ class _LoungeHistoryState extends State<LoungeHistory> {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
-          List<ExecutiveLoungeHistoryModel> executiveLoungeHistoryList =
-              List<ExecutiveLoungeHistoryModel>.from(
+          List<AmenityHistoryModel> executiveLoungeHistoryList =
+              List<AmenityHistoryModel>.from(
                   responseJson['executive_lounge_data']
-                      .map((x) => ExecutiveLoungeHistoryModel.fromJson(x)));
+                      .map((x) => AmenityHistoryModel.fromJson(x)));
           if (page == 1) {
             Provider.of<ExecutiveLoungeHistoryProvider>(context, listen: false)
                 .setItem(executiveLoungeHistoryList);
@@ -383,9 +383,11 @@ class _LoungeHistoryState extends State<LoungeHistory> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      setState(() {
-        isFirstLoadRunning = false;
-      });
+      if(mounted) {
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
     });
   }
 

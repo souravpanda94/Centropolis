@@ -1,5 +1,5 @@
 
-class ExecutiveLoungeHistoryModel {
+class AmenityHistoryModel {
   String? name;
   String? email;
   String? contactNo;
@@ -9,7 +9,7 @@ class ExecutiveLoungeHistoryModel {
   String? displayStatus;
   String? requestDate;
 
-  ExecutiveLoungeHistoryModel(
+  AmenityHistoryModel(
       {this.name,
         this.email,
         this.contactNo,
@@ -19,7 +19,7 @@ class ExecutiveLoungeHistoryModel {
         this.displayStatus,
         this.requestDate});
 
-  ExecutiveLoungeHistoryModel.fromJson(Map<String, dynamic> json) {
+  AmenityHistoryModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
     email = json['email'];
     contactNo = json['contact_no'];
