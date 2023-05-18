@@ -368,6 +368,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
