@@ -1,13 +1,22 @@
+import 'dart:convert';
+import 'dart:io';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
 
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
+import '../../widgets/common_modal.dart';
 
 class AddMember extends StatefulWidget {
   const AddMember({super.key});
@@ -24,6 +33,11 @@ class _AddMemberState extends State<AddMember> {
   String genderValue = "";
   String? companySelectedValue;
   String? floorSelectedValue;
+  bool isLoading = false;
+  late String language;
+  late FToast fToast;
+  String platform = "";
+  bool isUserIdVerified = false;
 
   TextEditingController consentController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -39,6 +53,15 @@ class _AddMemberState extends State<AddMember> {
     {"company": "XYZ", "floor": "14F"},
     {"company": "PQR", "floor": "15F"},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    setPlatform();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -562,7 +585,9 @@ class _AddMemberState extends State<AddMember> {
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(top: 34, bottom: 16),
                 child: CommonButton(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      //addMemberValidation();
+                    },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("save"),
                     isIconVisible: false),
@@ -755,5 +780,141 @@ class _AddMemberState extends State<AddMember> {
         ),
       ),
     );
+  }
+
+  void setPlatform() {
+    if (Platform.isAndroid) {
+      setState(() {
+        platform = "android";
+      });
+    } else if (Platform.isIOS) {
+      setState(() {
+        platform = "ios";
+      });
+    }
+  }
+
+  void addMemberValidation() {
+    hideKeyboard();
+    if (companySelectedValue == null || companySelectedValue == "") {
+      showCustomToast(fToast, context, "Please select company name", "");
+    } else if (floorSelectedValue == null || floorSelectedValue == "") {
+      showCustomToast(fToast, context, "Please select floor", "");
+    } else if (nameController.text == "") {
+      showCustomToast(fToast, context, "Please enter name", "");
+    } else if (idController.text == "") {
+      showCustomToast(fToast, context, "Please enter id", "");
+    } else if (!isUserIdVerified) {
+      showCustomToast(fToast, context, "user id is not verified", "");
+    } else if (!isValidPassword(passwordController.text)) {
+      showCustomToast(fToast, context, "Please enter password", "");
+    } else if (!isValidPassword(verifyPasswordController.text)) {
+      showCustomToast(fToast, context, "Please enter verify password", "");
+    } else if (verifyPasswordController.text != passwordController.text) {
+      showCustomToast(
+          fToast, context, "Password & verify password should be same", "");
+    } else if (!isValidEmail(emailIDController.text)) {
+      showCustomToast(fToast, context, "Please enter proper email id", "");
+    } else if (!isValidPhoneNumber(contactNoController.text)) {
+      showCustomToast(
+          fToast, context, "Please enter proper contact number", "");
+    } else if (genderValue == "") {
+      showCustomToast(fToast, context, "Please select gender", "");
+    } else if (!isChecked) {
+      showCustomToast(
+          fToast, context, "Please checked use of personal information", "");
+    } else {
+      callAddMemberNetworkCheck();
+    }
+  }
+
+  void callAddMemberNetworkCheck() async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callAddMemberApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callAddMemberApi() async {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, dynamic> body = {
+      "name": nameController.text.trim(),
+      "username": idController.text.trim(),
+      "mobile": contactNoController.text.trim(),
+      "email": emailIDController.text.trim(),
+      "gender": genderValue.trim(),
+      "password": passwordController.text.trim(),
+      "confirm_password": verifyPasswordController.text.trim(),
+      "platform": platform,
+      "floor_id": floorSelectedValue.toString().trim(),
+      "ip_address": "",
+    };
+
+    debugPrint("add member input ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.addMemberUrl, body, language.trim(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+      debugPrint("server response for add member ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          late String title, message;
+
+          if (responseJson['title'] != null) {
+            title = responseJson['title'].toString();
+          }
+          if (responseJson['message'] != null) {
+            message = responseJson['message'].toString();
+          }
+          showAddMemberSuccessModal(title, message);
+        } else {
+          if (responseJson['message'] != null) {
+            debugPrint("Server error response ${responseJson['message']}");
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      if (mounted) {
+        setState(() {
+          isLoading = false;
+        });
+      }
+    });
+  }
+
+  void showAddMemberSuccessModal(String title, String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: title,
+            description: message,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

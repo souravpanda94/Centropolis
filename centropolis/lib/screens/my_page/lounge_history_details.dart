@@ -10,7 +10,10 @@ import '../../widgets/common_app_bar.dart';
 class LoungeHistoryDetails extends StatefulWidget {
   final AmenityHistoryModel? executiveLoungeListItem;
 
-  const LoungeHistoryDetails(this.executiveLoungeListItem, {super.key, });
+  const LoungeHistoryDetails(
+    this.executiveLoungeListItem, {
+    super.key,
+  });
 
   @override
   State<LoungeHistoryDetails> createState() => _LoungeHistoryDetailsState();
@@ -55,16 +58,25 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
-                      if (widget.executiveLoungeListItem?.status.toString() != "")
+                      if (widget.executiveLoungeListItem?.status.toString() !=
+                          "")
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.executiveLoungeListItem?.status.toString() == "before_use"
+                            color: widget.executiveLoungeListItem?.status
+                                        .toString() ==
+                                    "before_use"
                                 ? CustomColors.backgroundColor3
-                                : widget.executiveLoungeListItem?.status.toString() == "using"
+                                : widget.executiveLoungeListItem?.status
+                                            .toString() ==
+                                        "using"
                                     ? CustomColors.backgroundColor
-                                    : widget.executiveLoungeListItem?.status.toString() == "used"
+                                    : widget.executiveLoungeListItem?.status
+                                                .toString() ==
+                                            "used"
                                         ? CustomColors.backgroundColor
-                                        : widget.executiveLoungeListItem?.status.toString() == "rejected"
+                                        : widget.executiveLoungeListItem?.status
+                                                    .toString() ==
+                                                "rejected"
                                             ? CustomColors.redColor
                                             : CustomColors.textColorBlack2,
                             borderRadius: BorderRadius.circular(4),
@@ -76,13 +88,22 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.executiveLoungeListItem?.status.toString() == "before_use"
+                              color: widget.executiveLoungeListItem?.status
+                                          .toString() ==
+                                      "before_use"
                                   ? CustomColors.textColor9
-                                  : widget.executiveLoungeListItem?.status.toString() == "using"
+                                  : widget.executiveLoungeListItem?.status
+                                              .toString() ==
+                                          "using"
                                       ? CustomColors.textColorBlack2
-                                      : widget.executiveLoungeListItem?.status.toString() == "used"
+                                      : widget.executiveLoungeListItem?.status
+                                                  .toString() ==
+                                              "used"
                                           ? CustomColors.textColor3
-                                          : widget.executiveLoungeListItem?.status.toString() == "rejected"
+                                          : widget.executiveLoungeListItem
+                                                      ?.status
+                                                      .toString() ==
+                                                  "rejected"
                                               ? CustomColors.headingColor
                                               : CustomColors.textColorBlack2,
                             ),
@@ -105,11 +126,11 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "Hong Gil Dong",
+                      Text(
+                        widget.executiveLoungeListItem?.name ?? "",
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: TextStyle(
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -174,17 +195,17 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                   ),
                   IntrinsicHeight(
                     child: Row(
-                      children: const [
+                      children: [
                         Text(
-                          "2023.00.00",
+                          widget.executiveLoungeListItem?.reservationDate ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                         ),
-                        Padding(
+                        const Padding(
                           padding:
                               EdgeInsets.symmetric(horizontal: 6, vertical: 4),
                           child: VerticalDivider(
@@ -193,10 +214,10 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                           ),
                         ),
                         Text(
-                          "All day 9:00 ~ 18:00 (9 hours)",
+                          widget.executiveLoungeListItem?.usageHours ?? "",
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColor8),
@@ -217,14 +238,20 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
         child: CommonButtonWithBorder(
             onCommonButtonTap: () {},
-            buttonBorderColor: widget.executiveLoungeListItem?.status == "using"
-                ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                : CustomColors.dividerGreyColor,
+            buttonBorderColor:
+                widget.executiveLoungeListItem?.status == "using" ||
+                        widget.executiveLoungeListItem?.status == "rejected" ||
+                        widget.executiveLoungeListItem?.status == "used"
+                    ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                    : CustomColors.dividerGreyColor,
             buttonColor: CustomColors.whiteColor,
             buttonName: tr("cancelReservation"),
-            buttonTextColor: widget.executiveLoungeListItem?.status == "using"
-                ? CustomColors.textColor5.withOpacity(0.3)
-                : CustomColors.textColor5),
+            buttonTextColor:
+                widget.executiveLoungeListItem?.status == "using" ||
+                        widget.executiveLoungeListItem?.status == "rejected" ||
+                        widget.executiveLoungeListItem?.status == "used"
+                    ? CustomColors.textColor5.withOpacity(0.3)
+                    : CustomColors.textColor5),
       ),
     );
   }
