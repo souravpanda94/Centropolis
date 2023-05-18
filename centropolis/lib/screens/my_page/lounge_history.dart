@@ -132,13 +132,13 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                         itemBuilder: ((context, index) {
                           return InkWell(
                             onTap: () {
-                              // Navigator.push(
-                              //   context,
-                              //   MaterialPageRoute(
-                              //     builder: (context) => LoungeHistoryDetails(
-                              //         type: list[index]["type"].toString()),
-                              //   ),
-                              // );
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoungeHistoryDetails(
+                                      type: executiveLoungeListItem?[index].status.toString() ?? ""),
+                                ),
+                              );
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -185,7 +185,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                             index]
                                                 .status
                                                 .toString() ==
-                                                "approved"
+                                                "using"
                                                 ? CustomColors
                                                 .backgroundColor
                                                 : executiveLoungeListItem?[
@@ -231,7 +231,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                               index]
                                                   .status
                                                   .toString() ==
-                                                  "approved"
+                                                  "using"
                                                   ? CustomColors
                                                   .textColorBlack2
                                                   : executiveLoungeListItem?[
