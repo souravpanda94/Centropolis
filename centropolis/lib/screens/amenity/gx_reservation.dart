@@ -1,9 +1,13 @@
 import 'dart:convert';
+import 'package:centropolis/widgets/app_loading.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import '../../models/gx_fitness_reservation_model.dart';
+import '../../providers/gx_fitness_reservation_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -24,59 +28,66 @@ class GXReservation extends StatefulWidget {
 }
 
 class _GXReservationState extends State<GXReservation> {
-  List<dynamic> gxList = [
-    {
-      "title": "YOGA CLASS",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Mon, Wed, Fri",
-      "status": "Active"
-    },
-    {
-      "title": "JUST 10 MINUTES JUST 10 MINUTES JUST 10 MINUTES",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Tue",
-      "status": "Active"
-    },
-    {
-      "title": "CORE TRAINING & STRETCHING",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Thu",
-      "status": "Active"
-    },
-    {
-      "title": "JUST 10 MINUTES",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Tue",
-      "status": "Active"
-    },
-    {
-      "title": "YOGA CLASS",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Mon, Wed, Fri",
-      "status": "Closed"
-    },
-    {
-      "title": "JUST 10 MINUTES JUST 10 MINUTES JUST 10 MINUTES",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Mon, Wed, Fri",
-      "status": "Closed"
-    },
-    {
-      "title": "CORE TRAINING & STRETCHING",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Mon, Wed, Fri",
-      "status": "Closed"
-    },
-    {
-      "title": "JUST 10 MINUTES",
-      "datetime": "2023-00-00 ~ 2023-00-00",
-      "days": "Tue",
-      "status": "Closed"
-    },
-  ];
+  // List<dynamic> gxList = [
+  //   {
+  //     "title": "YOGA CLASS",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Mon, Wed, Fri",
+  //     "status": "Active"
+  //   },
+  //   {
+  //     "title": "JUST 10 MINUTES JUST 10 MINUTES JUST 10 MINUTES",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Tue",
+  //     "status": "Active"
+  //   },
+  //   {
+  //     "title": "CORE TRAINING & STRETCHING",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Thu",
+  //     "status": "Active"
+  //   },
+  //   {
+  //     "title": "JUST 10 MINUTES",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Tue",
+  //     "status": "Active"
+  //   },
+  //   {
+  //     "title": "YOGA CLASS",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Mon, Wed, Fri",
+  //     "status": "Closed"
+  //   },
+  //   {
+  //     "title": "JUST 10 MINUTES JUST 10 MINUTES JUST 10 MINUTES",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Mon, Wed, Fri",
+  //     "status": "Closed"
+  //   },
+  //   {
+  //     "title": "CORE TRAINING & STRETCHING",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Mon, Wed, Fri",
+  //     "status": "Closed"
+  //   },
+  //   {
+  //     "title": "JUST 10 MINUTES",
+  //     "datetime": "2023-00-00 ~ 2023-00-00",
+  //     "days": "Tue",
+  //     "status": "Closed"
+  //   },
+  // ];
   late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
-  bool isLoading = false;
+  int page = 1;
+  final int limit = 10;
+  int totalPages = 0;
+  bool isFirstLoadRunning = true;
+  bool isLoadMoreRunning = false;
+  ScrollController? scrollController;
+  List<GxFitnessReservationModel>? gxReservationListItem;
+
 
   @override
   void initState() {
@@ -86,12 +97,24 @@ class _GXReservationState extends State<GXReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    loadGxFitnessReservationList();
+    scrollController = ScrollController()..addListener(loadMore);
+    firstTimeLoadGxFitnessReservationList();
   }
+
+
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    gxReservationListItem = Provider.of<GxFitnessReservationProvider>(context).getGxFitnessReservationList;
+
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isFirstLoadRunning,
+      child: Container(
       width: MediaQuery.of(context).size.width,
       padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
       child: Column(
@@ -189,10 +212,12 @@ class _GXReservationState extends State<GXReservation> {
           const SizedBox(
             height: 24,
           ),
-          Expanded(
-            child: ListView.builder(
+          Column(
+            children:[ ListView.builder(
+                controller: scrollController,
                 shrinkWrap: true,
-                itemCount: gxList.length,
+                // itemCount: gxList.length,
+                itemCount: gxReservationListItem?.length,
                 itemBuilder: ((context, index) {
                   return Container(
                     width: MediaQuery.of(context).size.width,
@@ -202,7 +227,9 @@ class _GXReservationState extends State<GXReservation> {
                     decoration: BoxDecoration(
                         color: CustomColors.whiteColor,
                         border: Border.all(
-                          color: gxList[index]["status"] == "Active"
+                          color:
+                          // gxList[index]["status"] == "Active"
+                          gxReservationListItem?[index].status == "Active"
                               ? CustomColors.borderColor
                               : CustomColors.backgroundColor2,
                         ),
@@ -216,11 +243,14 @@ class _GXReservationState extends State<GXReservation> {
                           children: [
                             Expanded(
                               child: Text(
-                                gxList[index]["title"],
+                                // gxList[index]["title"],
+                                gxReservationListItem?[index].title ?? "",
                                 style: TextStyle(
                                     fontFamily: 'SemiBold',
                                     fontSize: 14,
-                                    color: gxList[index]["status"] == "Active"
+                                    color:
+                                    // gxList[index]["status"] == "Active"
+                                    gxReservationListItem?[index].status == "Active"
                                         ? CustomColors.textColor8
                                         : CustomColors.dividerGreyColor),
                               ),
@@ -241,20 +271,25 @@ class _GXReservationState extends State<GXReservation> {
                                 decoration: BoxDecoration(
                                     color: CustomColors.whiteColor,
                                     border: Border.all(
-                                      color: gxList[index]["status"] == "Active"
+                                      color:
+                                      // gxList[index]["status"] == "Active"
+                                      gxReservationListItem?[index].status == "Active"
                                           ? CustomColors.textColor9
                                           : CustomColors.dividerGreyColor,
                                     ),
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(50))),
                                 child: Text(
-                                  gxList[index]["status"] == "Active"
+                                  // gxList[index]["status"] == "Active"
+                                  gxReservationListItem?[index].status == "Active"
                                       ? tr("apply")
-                                      : gxList[index]["status"],
+                                      : gxReservationListItem?[index].status.toString() ?? "",
                                   style: TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 12,
-                                      color: gxList[index]["status"] == "Active"
+                                      color:
+                                      // gxList[index]["status"] == "Active"
+                                      gxReservationListItem?[index].status == "Active"
                                           ? CustomColors.textColor9
                                           : CustomColors.dividerGreyColor),
                                 ),
@@ -263,17 +298,20 @@ class _GXReservationState extends State<GXReservation> {
                           ],
                         ),
                         const SizedBox(
-                          height: 20,
+                          height: 10,
                         ),
                         IntrinsicHeight(
                           child: Row(
                             children: [
                               Text(
-                                gxList[index]["datetime"],
+                                // gxList[index]["datetime"],
+                          "${gxReservationListItem?[index].applicationStartDate} ~ ${gxReservationListItem?[index].applicationEndDate}",
                                 style: TextStyle(
                                     fontFamily: 'Regular',
                                     fontSize: 12,
-                                    color: gxList[index]["status"] == "Active"
+                                    color:
+                                    // gxList[index]["status"] == "Active"
+                                    gxReservationListItem?[index].status == "Active"
                                         ? CustomColors.textColor3
                                         : CustomColors.dividerGreyColor),
                               ),
@@ -285,11 +323,14 @@ class _GXReservationState extends State<GXReservation> {
                                 ),
                               ),
                               Text(
-                                gxList[index]["days"],
+                                // gxList[index]["days"],
+                                "Mon,Wed,Fri",
                                 style: TextStyle(
                                     fontFamily: 'Regular',
                                     fontSize: 12,
-                                    color: gxList[index]["status"] == "Active"
+                                    color:
+                                    // gxList[index]["status"] == "Active"
+                                    gxReservationListItem?[index].status == "Active"
                                         ? CustomColors.textColor3
                                         : CustomColors.dividerGreyColor),
                               ),
@@ -300,11 +341,23 @@ class _GXReservationState extends State<GXReservation> {
                     ),
                   );
                 })),
+
+              // if (isLoadMoreRunning) const ViewMoreWidget()
+              if (isLoadMoreRunning) const AppLoading()
+
+    ]
           ),
-          const ViewMoreWidget()
+
         ],
       ),
-    );
+    ) ,);
+  }
+
+  void firstTimeLoadGxFitnessReservationList() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    loadGxFitnessReservationList();
   }
 
   void loadGxFitnessReservationList() async{
@@ -318,9 +371,12 @@ class _GXReservationState extends State<GXReservation> {
 
   void callGxFitnessReservationListApi() {
     setState(() {
-      isLoading = true;
+      isFirstLoadRunning = true;
     });
-    Map<String, String> body = {};
+    Map<String, String> body = {
+      "page": page.toString(),  //required
+      "limit": limit.toString()
+    };
 
     debugPrint("Gx Fitness Reservation List input===> $body");
 
@@ -334,9 +390,20 @@ class _GXReservationState extends State<GXReservation> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
 
+            // List<GxFitnessReservationModel> reservationListList = List<GxFitnessReservationModel>.from(responseJson['reservegx_data'].map((x) => GxFitnessReservationModel.fromJson(x)));
+            // Provider.of<GxFitnessReservationProvider>(context, listen: false).setItem(reservationListList);
 
 
-
+          totalPages = responseJson['total_pages'];
+          List<GxFitnessReservationModel> reservationListList = List<GxFitnessReservationModel>.from(
+              responseJson['reservegx_data'].map((x) => GxFitnessReservationModel.fromJson(x)));
+          if (page == 1) {
+            Provider.of<GxFitnessReservationProvider>(context, listen: false)
+                .setItem(reservationListList);
+          } else {
+            Provider.of<GxFitnessReservationProvider>(context, listen: false)
+                .addItem(reservationListList);
+          }
 
 
         } else {
@@ -346,17 +413,32 @@ class _GXReservationState extends State<GXReservation> {
           }
         }
         setState(() {
-          isLoading = false;
+          isFirstLoadRunning = false;
         });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {
-        isLoading = false;
+        isFirstLoadRunning = false;
       });
     });
   }
 
+  void loadMore() {
+    if (scrollController?.position.maxScrollExtent ==
+        scrollController?.offset &&
+        (scrollController?.position.extentAfter)! < 500) {
+      if (page < totalPages) {
+        debugPrint("load more called");
+
+        setState(() {
+          isLoadMoreRunning = true;
+          page++;
+        });
+        loadGxFitnessReservationList();
+      }
+    }
+  }
 
 
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:io';
 import 'package:centropolis/providers/company_provider.dart';
+import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -44,6 +45,7 @@ void main() async {
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => CompanyProvider()),
+          ChangeNotifierProvider(create: (_) => GxFitnessReservationProvider()),
         ],
         child: const MyApp(),
       ),

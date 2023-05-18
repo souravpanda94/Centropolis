@@ -1,50 +1,5 @@
 
 class GxFitnessReservationModel {
-  int? paginationLimit;
-  int? totalPages;
-  int? currentPage;
-  int? totalRecords;
-  List<ReserveGxData>? reserveGxData;
-  bool? success;
-
-  GxFitnessReservationModel(
-      {this.paginationLimit,
-        this.totalPages,
-        this.currentPage,
-        this.totalRecords,
-        this.reserveGxData,
-        this.success});
-
-  GxFitnessReservationModel.fromJson(Map<String, dynamic> json) {
-    paginationLimit = json['pagination_limit'];
-    totalPages = json['total_pages'];
-    currentPage = json['current_page'];
-    totalRecords = json['total_records'];
-    if (json['reservegx_data'] != null) {
-      reserveGxData = <ReserveGxData>[];
-      json['reservegx_data'].forEach((v) {
-        reserveGxData!.add(ReserveGxData.fromJson(v));
-      });
-    }
-    success = json['success'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['pagination_limit'] = paginationLimit;
-    data['total_pages'] = totalPages;
-    data['current_page'] = currentPage;
-    data['total_records'] = totalRecords;
-    if (reserveGxData != null) {
-      data['reservegx_data'] =
-          reserveGxData!.map((v) => v.toJson()).toList();
-    }
-    data['success'] = success;
-    return data;
-  }
-}
-
-class ReserveGxData {
   int? id;
   String? title;
   String? paymentType;
@@ -62,7 +17,7 @@ class ReserveGxData {
   String? displayStatus;
   String? createdDate;
 
-  ReserveGxData(
+  GxFitnessReservationModel(
       {this.id,
         this.title,
         this.paymentType,
@@ -80,7 +35,7 @@ class ReserveGxData {
         this.displayStatus,
         this.createdDate});
 
-  ReserveGxData.fromJson(Map<String, dynamic> json) {
+  GxFitnessReservationModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     title = json['title'];
     paymentType = json['payment_type'];
