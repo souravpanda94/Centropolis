@@ -1,9 +1,20 @@
+import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
+import '../../utils/utils.dart';
 import '../../widgets/view_more.dart';
 import 'gx_reservation_detail.dart';
+
+
+
 
 class GXReservation extends StatefulWidget {
   const GXReservation({super.key});
@@ -63,6 +74,20 @@ class _GXReservationState extends State<GXReservation> {
       "status": "Closed"
     },
   ];
+  late String language, apiKey, email, mobile, name, companyName;
+  late FToast fToast;
+  bool isLoading = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    loadGxFitnessReservationList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -281,4 +306,57 @@ class _GXReservationState extends State<GXReservation> {
       ),
     );
   }
+
+  void loadGxFitnessReservationList() async{
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callGxFitnessReservationListApi();
+    } else {
+    showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callGxFitnessReservationListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Gx Fitness Reservation List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getGxFitnessReservationUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Gx Fitness Reservation List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+
+
+
+
+
+
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+
+
 }

@@ -21,6 +21,12 @@ class ApiEndPoint {
   static String makeConferenceReservation =
       "${baseUrl}v1/amenity/conference-reservation-inquiry";
   static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
+  static String getGxFitnessReservationUrl = "${baseUrl}v1/amenity/gx-program-list";
+
+
+
+
+
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
