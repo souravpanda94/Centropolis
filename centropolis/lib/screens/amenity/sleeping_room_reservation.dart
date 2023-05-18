@@ -1,15 +1,25 @@
+import 'dart:convert';
 import 'dart:math';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:http/http.dart' as http;
 
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_modal.dart';
 
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
@@ -20,6 +30,9 @@ class SleepingRoomReservation extends StatefulWidget {
 }
 
 class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
+  late String language, apiKey, email, mobile;
+  late FToast fToast;
+  bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
@@ -33,17 +46,22 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   String type = "female";
   String? usageTimeSelectedValue;
   String? totalTimeSelectedValue;
-
-  List<dynamic> usageTimeList = [
-    {"usageTime": "11:00", "total": "30 Minutes"},
-    {"usageTime": "12:00", "total": "60 Minutes"},
-    {"usageTime": "13:00", "total": "90 Minutes"},
-    {"usageTime": "14:00", "total": "15 Minutes"},
-  ];
+  var dateFormat = DateFormat('yyyy-MM-dd');
+  List<dynamic> usageTimeList = [];
+  List<dynamic> totalUsageTimeList = [];
 
   @override
   void initState() {
     super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    email = user.userData['email_key'].toString();
+    mobile = user.userData['mobile'].toString();
+    loadTimeList();
+    loadTotalUsageTimeList();
     setListData();
     setFemaleListData();
   }
@@ -63,333 +81,344 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           ),
         ),
       ),
-      body: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color: CustomColors.whiteColor,
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  tr("seatSelection"),
-                  style: const TextStyle(
-                    fontSize: 16,
-                    color: CustomColors.textColor8,
-                    fontFamily: 'SemiBold',
-                  ),
-                ),
-                Row(
-                  children: [
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.square,
-                          size: 15,
-                          color: CustomColors.textColor9,
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          tr("select"),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: CustomColors.greyColor1,
-                            fontFamily: 'Regular',
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.square_outlined,
-                          size: 15,
-                          color: CustomColors.textColor9,
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          tr("selectable"),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: CustomColors.greyColor1,
-                            fontFamily: 'Regular',
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    Row(
-                      children: [
-                        const Icon(
-                          Icons.square,
-                          size: 15,
-                          color: CustomColors.borderColor,
-                        ),
-                        const SizedBox(
-                          width: 4,
-                        ),
-                        Text(
-                          tr("closed"),
-                          style: const TextStyle(
-                            fontSize: 12,
-                            color: CustomColors.greyColor1,
-                            fontFamily: 'Regular',
-                          ),
-                        )
-                      ],
-                    )
-                  ],
-                )
-              ],
-            ),
-          ),
-          seatSelectionWidget(),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.whiteColor,
-            height: 10,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            color: CustomColors.whiteColor,
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
+      body: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr("reservationInformation"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, top: 16, bottom: 8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    tr("seatSelection"),
+                    style: const TextStyle(
                       fontSize: 16,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr("nameLounge"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    ),
-                    const Text(
-                      "Hong Gil Dong",
-                      style: TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    )
-                  ],
-                ),
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 16),
-                  child: Divider(
-                    thickness: 1,
-                    height: 1,
-                    color: CustomColors.backgroundColor2,
-                  ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr("tenantCompanyLounge"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    ),
-                    const Text(
-                      "CBRE",
-                      style: TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    )
-                  ],
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            color: CustomColors.whiteColor,
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr("selectReservationDate"),
-                  style: const TextStyle(
+                      color: CustomColors.textColor8,
                       fontFamily: 'SemiBold',
-                      fontSize: 16,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                tableCalendarWidget(),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            color: CustomColors.whiteColor,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    ),
+                  ),
+                  Row(
                     children: [
-                      Text(
-                        tr("timeSelection"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 16,
-                            color: CustomColors.textColor8),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.square,
+                            size: 15,
+                            color: CustomColors.textColor9,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            tr("select"),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: CustomColors.greyColor1,
+                              fontFamily: 'Regular',
+                            ),
+                          )
+                        ],
                       ),
                       const SizedBox(
-                        height: 24,
+                        width: 8,
                       ),
-                      Text(
-                        tr("usageTime"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.square_outlined,
+                            size: 15,
+                            color: CustomColors.textColor9,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            tr("selectable"),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: CustomColors.greyColor1,
+                              fontFamily: 'Regular',
+                            ),
+                          )
+                        ],
                       ),
                       const SizedBox(
-                        height: 8,
+                        width: 8,
                       ),
-                      usageTimeDropdownWidget(),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        tr("totalUsageTime"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      totalUsageDropdownWidget(),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.square,
+                            size: 15,
+                            color: CustomColors.borderColor,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            tr("closed"),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: CustomColors.greyColor1,
+                              fontFamily: 'Regular',
+                            ),
+                          )
+                        ],
+                      )
                     ],
+                  )
+                ],
+              ),
+            ),
+            seatSelectionWidget(),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.whiteColor,
+              height: 10,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              color: CustomColors.whiteColor,
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("reservationInformation"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
                   ),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.backgroundColor,
-                  margin: const EdgeInsets.only(top: 16),
-                  height: 10,
-                ),
-                Container(
-                  alignment: FractionalOffset.bottomCenter,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 16),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 5),
-                              child: SizedBox(
-                                height: 15,
-                                width: 15,
-                                child: Checkbox(
-                                  checkColor: CustomColors.whiteColor,
-                                  activeColor:
-                                      CustomColors.buttonBackgroundColor,
-                                  side: const BorderSide(
-                                      color: CustomColors.greyColor, width: 1),
-                                  value: isChecked,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isChecked = value!;
-                                      if (isChecked) {
-                                      } else {}
-                                    });
-                                  },
-                                ),
-                              ),
-                            ),
-                            const SizedBox(
-                              width: 9,
-                            ),
-                            Expanded(
-                              child: Text(
-                                tr("sleepingRoomReservationConsent"),
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            )
-                          ],
-                        ),
+                      Text(
+                        tr("nameLounge"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.only(top: 24, bottom: 32),
-                        child: CommonButton(
-                          onCommonButtonTap: () {},
-                          buttonColor: CustomColors.buttonBackgroundColor,
-                          buttonName: tr("makeReservation"),
-                          isIconVisible: false,
-                        ),
+                      const Text(
+                        "Hong Gil Dong",
+                        style: TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
                       )
                     ],
                   ),
-                ),
-              ],
+                  const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 16),
+                    child: Divider(
+                      thickness: 1,
+                      height: 1,
+                      color: CustomColors.backgroundColor2,
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        tr("tenantCompanyLounge"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                      const Text(
+                        "CBRE",
+                        style: TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      )
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
-      )),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              color: CustomColors.whiteColor,
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("selectReservationDate"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  tableCalendarWidget(),
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.symmetric(vertical: 16),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("timeSelection"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Text(
+                          tr("usageTime"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        usageTimeDropdownWidget(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          tr("totalUsageTime"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        totalUsageDropdownWidget(),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    margin: const EdgeInsets.only(top: 16),
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: FractionalOffset.bottomCenter,
+                    color: CustomColors.whiteColor,
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 16),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.only(top: 5),
+                                child: SizedBox(
+                                  height: 15,
+                                  width: 15,
+                                  child: Checkbox(
+                                    checkColor: CustomColors.whiteColor,
+                                    activeColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    side: const BorderSide(
+                                        color: CustomColors.greyColor,
+                                        width: 1),
+                                    value: isChecked,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isChecked = value!;
+                                        if (isChecked) {
+                                        } else {}
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(
+                                width: 9,
+                              ),
+                              Expanded(
+                                child: Text(
+                                  tr("sleepingRoomReservationConsent"),
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 24, bottom: 32),
+                          child: CommonButton(
+                            onCommonButtonTap: () {
+                              //reservationValidationCheck();
+                            },
+                            buttonColor: CustomColors.buttonBackgroundColor,
+                            buttonName: tr("makeReservation"),
+                            isIconVisible: false,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )),
+      ),
     );
   }
 
@@ -418,9 +447,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        hint: const Text(
-          "11:00",
-          style: TextStyle(
+        hint: Text(
+          usageTimeList.isNotEmpty ? usageTimeList.first : "11:00",
+          style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
@@ -428,7 +457,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         ),
         items: usageTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["usageTime"],
+                  value: item,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -436,7 +465,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["usageTime"],
+                          item,
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -506,17 +535,19 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   totalUsageDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        hint: const Text(
-          "10 minutes",
-          style: TextStyle(
+        hint: Text(
+          totalUsageTimeList.isNotEmpty
+              ? totalUsageTimeList.first["text"]
+              : "10 Minutes",
+          style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: usageTimeList
+        items: totalUsageTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["total"],
+                  value: item["value"].toString(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -524,7 +555,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["total"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -544,7 +575,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         value: totalTimeSelectedValue,
         onChanged: (value) {
           setState(() {
-            totalTimeSelectedValue = value as String;
+            totalTimeSelectedValue = value.toString();
           });
         },
         dropdownStyleData: DropdownStyleData(
@@ -865,5 +896,195 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         ),
       ),
     );
+  }
+
+  void loadTimeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadTimeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadTimeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getSleepingRoomTimeListUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['schedule'] != null) {
+            setState(() {
+              usageTimeList = responseJson['schedule'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadTotalUsageTimeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadTotalUsageTimeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadTotalUsageTimeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getSleepingRoomTotalUsageTimeListUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              totalUsageTimeList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void reservationValidationCheck() {
+    if (focusedDate == "") {
+      showCustomToast(fToast, context, "Please select reservation date", "");
+    } else if (usageTimeSelectedValue == null || usageTimeSelectedValue == "") {
+      showCustomToast(fToast, context, "Please select usage time", "");
+    } else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
+      showCustomToast(fToast, context, "Please select total usage time", "");
+    } else if (selectedIndex == 0) {
+      showCustomToast(fToast, context, "Please select seat", "");
+    } else if (!isChecked) {
+      showCustomToast(
+          fToast, context, "Please checkmark on reservation rules", "");
+    } else {
+      networkCheckForReservation();
+    }
+  }
+
+  void networkCheckForReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callReservationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callReservationApi() {
+    var reservationDate = dateFormat.format(focusedDate);
+
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "email": email.trim(), //required
+      "mobile": mobile.trim(), //required
+      "reservation_date": reservationDate.toString().trim(), //required
+      "start_time": usageTimeSelectedValue.toString().trim(), //required
+      "usage_hours": totalTimeSelectedValue.toString().trim(), //required
+      "seat": (selectedIndex + 1).toString().trim(), //required
+    };
+
+    debugPrint("sleeping room reservation input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.makeSleepingRoomReservation,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for sleeping room reservation ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          showReservationModal(responseJson['title'], responseJson['message']);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showReservationModal(title, content) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: title,
+            description: content,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

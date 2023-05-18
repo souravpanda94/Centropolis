@@ -21,11 +21,8 @@ class ApiEndPoint {
   static String makeConferenceReservation =
       "${baseUrl}v1/amenity/conference-reservation-inquiry";
   static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
-  static String getGxFitnessReservationUrl = "${baseUrl}v1/amenity/gx-program-list";
-
-
-
-
+  static String getGxFitnessReservationUrl =
+      "${baseUrl}v1/amenity/gx-program-list";
 
   static String getPtTimeListUrl = "${baseUrl}v1/common/pt-time";
   static String makePtReservation =
@@ -34,6 +31,19 @@ class ApiEndPoint {
       "${baseUrl}v1/common/locker-period-list";
   static String makePaidLockerReservation =
       "${baseUrl}v1/amenity/fitness-locker-reservation";
+  static String getFitnessTimeListUrl =
+      "${baseUrl}v1/common/fitness-center-schedule";
+  static String getFitnessTotalUsageTimeListUrl =
+      "${baseUrl}v1/common/fitness-center-usage-time";
+  static String makeFitnessReservation =
+      "${baseUrl}v1/amenity/fitness-center-reservation";
+  static String getSleepingRoomTimeListUrl =
+      "${baseUrl}v1/common/sleeping-room-schedule";
+  static String getSleepingRoomTotalUsageTimeListUrl =
+      "${baseUrl}v1/common/sleeping-room-usage-time";
+  static String makeSleepingRoomReservation =
+      "${baseUrl}amenity/sleeping-room-reservation";
+  static String addMemberUrl = "${baseUrl}v1/employee/save";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
