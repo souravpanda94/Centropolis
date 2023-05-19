@@ -21,11 +21,12 @@ class ApiEndPoint {
   static String makeConferenceReservation =
       "${baseUrl}v1/amenity/conference-reservation-inquiry";
   static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
-  static String getGxFitnessReservationUrl = "${baseUrl}v1/amenity/gx-program-list";
-  static String getLoungeHistoryListUrl = "${baseUrl}v1/mypage/executive-lounge-list";
-  static String getConferenceHistoryListUrl = "${baseUrl}v1/mypage/conference-list";
-
-
+  static String getGxFitnessReservationUrl =
+      "${baseUrl}v1/amenity/gx-program-list";
+  static String getLoungeHistoryListUrl =
+      "${baseUrl}v1/mypage/executive-lounge-list";
+  static String getConferenceHistoryListUrl =
+      "${baseUrl}v1/mypage/conference-list";
 
   static String getPtTimeListUrl = "${baseUrl}v1/common/pt-time";
   static String makePtReservation =
@@ -47,6 +48,8 @@ class ApiEndPoint {
   static String makeSleepingRoomReservation =
       "${baseUrl}amenity/sleeping-room-reservation";
   static String addMemberUrl = "${baseUrl}v1/employee/save";
+  static String conferenceHistoryDetailsUrl =
+      "${baseUrl}v1/mypage/conference-details";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

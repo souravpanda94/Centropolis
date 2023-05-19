@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'providers/conference_history_details_provider.dart';
 import 'screens/common_module/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -48,8 +49,11 @@ void main() async {
           ChangeNotifierProvider(create: (_) => UserProvider()),
           ChangeNotifierProvider(create: (_) => CompanyProvider()),
           ChangeNotifierProvider(create: (_) => GxFitnessReservationProvider()),
-          ChangeNotifierProvider(create: (_) => ExecutiveLoungeHistoryProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ExecutiveLoungeHistoryProvider()),
           ChangeNotifierProvider(create: (_) => ConferenceHistoryProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ConferenceHistoryDetailsProvider()),
         ],
         child: const MyApp(),
       ),

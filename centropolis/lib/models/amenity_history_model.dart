@@ -1,4 +1,3 @@
-
 class AmenityHistoryModel {
   String? name;
   String? email;
@@ -8,16 +7,20 @@ class AmenityHistoryModel {
   String? status;
   String? displayStatus;
   String? requestDate;
+  String? id;
+  String? conferenceId;
 
   AmenityHistoryModel(
       {this.name,
-        this.email,
-        this.contactNo,
-        this.reservationDate,
-        this.usageHours,
-        this.status,
-        this.displayStatus,
-        this.requestDate});
+      this.email,
+      this.contactNo,
+      this.reservationDate,
+      this.usageHours,
+      this.status,
+      this.displayStatus,
+      this.requestDate,
+      this.id,
+      this.conferenceId});
 
   AmenityHistoryModel.fromJson(Map<String, dynamic> json) {
     name = json['name'];
@@ -28,6 +31,8 @@ class AmenityHistoryModel {
     status = json['status'];
     displayStatus = json['display_status'];
     requestDate = json['request_date'];
+    id = json['id'].toString();
+    conferenceId = json['conference_id'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +45,8 @@ class AmenityHistoryModel {
     data['status'] = status;
     data['display_status'] = displayStatus;
     data['request_date'] = requestDate;
+    data['id'] = id;
+    data['conference_id'] = conferenceId;
     return data;
   }
 }
