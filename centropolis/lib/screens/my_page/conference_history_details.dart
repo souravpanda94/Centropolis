@@ -17,10 +17,12 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 
-
 class ConferenceHistoryDetails extends StatefulWidget {
   final String? conferenceId;
-  const ConferenceHistoryDetails(this.conferenceId, {super.key,});
+  const ConferenceHistoryDetails(
+    this.conferenceId, {
+    super.key,
+  });
 
   @override
   State<ConferenceHistoryDetails> createState() =>
@@ -404,7 +406,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
       isLoading = true;
     });
     Map<String, String> body = {
-      "conference_id": widget.conferenceListItem!.conferenceId.toString()
+      "conference_id": widget.conferenceId!.toString()
     };
 
     debugPrint("conferencce cancel reservation input===> $body");

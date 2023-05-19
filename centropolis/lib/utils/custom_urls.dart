@@ -52,6 +52,13 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/conference-details";
   static String cancelConferenceReservationUrl =
       "${baseUrl}v1/mypage/conference-cancel";
+  static String getSleepingRoomHistoryListUrl =
+      "${baseUrl}v1/mypage/sleeping-reservation-list";
+  static String sleepingRoomHistoryDetailsUrl =
+      "${baseUrl}v1/mypage/sleeping-reservation-details";
+  static String getInconvenienceListUrl = "${baseUrl}v1/mypage/complaint-list";
+  static String getLightsOutListUrl =
+      "${baseUrl}v1/mypage/light-out-inquiry-list";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

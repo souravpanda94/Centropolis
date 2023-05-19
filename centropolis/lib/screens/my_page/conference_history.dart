@@ -53,7 +53,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
         .getConferenceHistoryModelList;
 
     return LoadingOverlay(
-      opacity: 1.0,
+      opacity: 0.5,
       color: CustomColors.whiteColor,
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
@@ -129,7 +129,8 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       ConferenceHistoryDetails(
-                                          conferenceListItem?[index].conferenceId),
+                                          conferenceListItem?[index]
+                                              .conferenceId),
                                 ),
                               );
                             },
