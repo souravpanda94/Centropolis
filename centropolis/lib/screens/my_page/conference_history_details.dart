@@ -18,6 +18,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
 
 class ConferenceHistoryDetails extends StatefulWidget {
   final AmenityHistoryModel? conferenceListItem;
@@ -40,6 +41,8 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
   @override
   void initState() {
     language = tr("lang");
+    fToast = FToast();
+    fToast.init(context);
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     loadConferenceHistoryDetails();
@@ -311,7 +314,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                 padding: const EdgeInsets.only(
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      if (conferenceHistoryDetails?.status == "pending") {
+                        networkCheckForCancelReservation();
+                      }
+                    },
                     buttonBorderColor: conferenceHistoryDetails?.status ==
                                 "using" ||
                             conferenceHistoryDetails?.status == "rejected" ||
@@ -385,5 +392,77 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
         isLoading = false;
       });
     });
+  }
+
+  void networkCheckForCancelReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callCancelReservationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callCancelReservationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "conference_id": widget.conferenceListItem!.conferenceId.toString()
+    };
+
+    debugPrint("conferencce cancel reservation input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.cancelConferenceReservationUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for conferencce cancel reservation ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          showReservationModal(responseJson['message']);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showReservationModal(String text) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: text,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

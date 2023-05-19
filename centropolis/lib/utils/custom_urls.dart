@@ -50,6 +50,8 @@ class ApiEndPoint {
   static String addMemberUrl = "${baseUrl}v1/employee/save";
   static String conferenceHistoryDetailsUrl =
       "${baseUrl}v1/mypage/conference-details";
+  static String cancelConferenceReservationUrl =
+      "${baseUrl}v1/mypage/conference-cancel";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
