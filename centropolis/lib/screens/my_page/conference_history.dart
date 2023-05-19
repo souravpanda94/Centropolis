@@ -129,7 +129,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       ConferenceHistoryDetails(
-                                          conferenceListItem?[index]),
+                                          conferenceListItem?[index].conferenceId),
                                 ),
                               );
                             },

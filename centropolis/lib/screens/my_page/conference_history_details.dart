@@ -1,6 +1,4 @@
 import 'dart:convert';
-
-import 'package:centropolis/models/amenity_history_model.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 import '../../models/conference_history_detail_model.dart';
 import '../../providers/conference_history_details_provider.dart';
 import '../../providers/user_provider.dart';
@@ -19,12 +16,10 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
+
 class ConferenceHistoryDetails extends StatefulWidget {
-  final AmenityHistoryModel? conferenceListItem;
-  const ConferenceHistoryDetails(
-    this.conferenceListItem, {
-    super.key,
-  });
+  final String? conferenceId;
+  const ConferenceHistoryDetails(this.conferenceId, {super.key,});
 
   @override
   State<ConferenceHistoryDetails> createState() =>
@@ -39,11 +34,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
 
   @override
   void initState() {
+    super.initState();
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     loadConferenceHistoryDetails();
-    super.initState();
   }
 
   @override
@@ -342,12 +337,13 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
   }
 
   void callConferenceHistoryDetailsApi() {
-    Map<String, String> body = {
-      "conference_id": widget.conferenceListItem!.conferenceId.toString()
-    };
     setState(() {
       isLoading = true;
     });
+
+    Map<String, String> body = {
+      "conference_id": widget.conferenceId.toString().trim()
+    };
 
     debugPrint("Conference History details input===> $body");
 
