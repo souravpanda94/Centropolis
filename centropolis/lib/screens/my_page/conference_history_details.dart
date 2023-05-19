@@ -304,26 +304,30 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             ],
           ),
         ),
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.whiteColor,
-          padding:
-              const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
-          child: CommonButtonWithBorder(
-              onCommonButtonTap: () {},
-              buttonBorderColor: conferenceHistoryDetails?.status == "using" ||
-                      conferenceHistoryDetails?.status == "rejected" ||
-                      conferenceHistoryDetails?.status == "used"
-                  ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                  : CustomColors.dividerGreyColor,
-              buttonColor: CustomColors.whiteColor,
-              buttonName: tr("cancelReservation"),
-              buttonTextColor: conferenceHistoryDetails?.status == "using" ||
-                      conferenceHistoryDetails?.status == "rejected" ||
-                      conferenceHistoryDetails?.status == "used"
-                  ? CustomColors.textColor5.withOpacity(0.3)
-                  : CustomColors.textColor5),
-        ),
+        bottomSheet: conferenceHistoryDetails?.canCancel == "y"
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.only(
+                    left: 16, top: 16, right: 16, bottom: 40),
+                child: CommonButtonWithBorder(
+                    onCommonButtonTap: () {},
+                    buttonBorderColor: conferenceHistoryDetails?.status ==
+                                "using" ||
+                            conferenceHistoryDetails?.status == "rejected" ||
+                            conferenceHistoryDetails?.status == "used"
+                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                        : CustomColors.dividerGreyColor,
+                    buttonColor: CustomColors.whiteColor,
+                    buttonName: tr("cancelReservation"),
+                    buttonTextColor: conferenceHistoryDetails?.status ==
+                                "using" ||
+                            conferenceHistoryDetails?.status == "rejected" ||
+                            conferenceHistoryDetails?.status == "used"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
+              )
+            : null,
       ),
     );
   }
