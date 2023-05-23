@@ -6,11 +6,16 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../models/inconvenience_list_model.dart';
 import '../screens/voc/air_conditioning_details.dart';
 import '../screens/voc/inconvenience_details.dart';
 
 class VocCommonHome extends StatefulWidget {
-  final String image, title, subTitle, emptyTxt;
+  final String image;
+  final String title;
+  final String subTitle;
+  final String emptyTxt;
+  final String category;
   final Function onDrawerClick;
   final List<dynamic>? itemsList;
   const VocCommonHome(
@@ -20,6 +25,7 @@ class VocCommonHome extends StatefulWidget {
       required this.subTitle,
       required this.emptyTxt,
       required this.onDrawerClick,
+      required this.category,
       this.itemsList});
 
   @override
@@ -27,6 +33,15 @@ class VocCommonHome extends StatefulWidget {
 }
 
 class _VocCommonHomeState extends State<VocCommonHome> {
+  List<IncovenienceListModel>? inconvenienceList = [];
+  @override
+  void initState() {
+    // if (widget.category == "inconvenience") {
+    //   inconvenienceList = widget.itemsList?.cast<IncovenienceListModel>();
+    // }
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -93,232 +108,369 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 ),
               ),
               widget.itemsList!.isNotEmpty
-                  ? Container(
-                      margin: const EdgeInsets.only(
-                          left: 16, right: 16, top: 16, bottom: 100),
-                      child: ListView.builder(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemCount: widget.itemsList!.length,
-                          itemBuilder: ((context, index) {
-                            return InkWell(
-                              onTap: () {
-                                widget.itemsList![index]["type"]
-                                        .toString()
-                                        .isNotEmpty
-                                    ? Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              AirConditioningDetails(
-                                                  type: widget.itemsList![index]
-                                                          ["status"]
-                                                      .toString()),
-                                        ),
-                                      )
-                                    : Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              InconvenienceDetails(
-                                                  type: widget.itemsList![index]
-                                                          ["status"]
-                                                      .toString()),
-                                        ),
-                                      );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: CustomColors.whiteColor,
-                                    border: Border.all(
-                                      color: CustomColors.borderColor,
-                                    ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(4))),
-                                padding: const EdgeInsets.all(16),
-                                margin: const EdgeInsets.only(bottom: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    widget.itemsList![index]["type"]
-                                            .toString()
-                                            .isNotEmpty
-                                        ? Row(
-                                            children: [
-                                              Icon(
-                                                Icons.circle,
-                                                size: 8,
-                                                color: widget.itemsList![index]
-                                                            ["type"] ==
-                                                        "Heating"
-                                                    ? CustomColors.headingColor
-                                                    : CustomColors.coolingColor,
-                                              ),
-                                              const SizedBox(
-                                                width: 4,
-                                              ),
-                                              Text(
-                                                widget.itemsList![index]
-                                                    ["type"],
-                                                maxLines: 1,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: const TextStyle(
-                                                    fontFamily: 'SemiBold',
-                                                    fontSize: 12,
-                                                    color: CustomColors
-                                                        .textColorBlack2),
-                                              ),
-                                            ],
-                                          )
-                                        : Container(),
-                                    widget.itemsList![index]["type"]
-                                            .toString()
-                                            .isNotEmpty
-                                        ? const SizedBox(
-                                            height: 18,
-                                          )
-                                        : Container(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            widget.itemsList![index]["title"],
-                                            style: const TextStyle(
-                                                fontFamily: 'SemiBold',
-                                                fontSize: 14,
-                                                color: CustomColors.textColor8),
-                                          ),
-                                        ),
-                                        if (widget.itemsList![index]["status"]
-                                            .toString()
-                                            .isNotEmpty)
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: widget.itemsList![index]
-                                                              ["status"]
-                                                          .toString() ==
-                                                      "Received"
-                                                  ? CustomColors
-                                                      .backgroundColor3
-                                                  : widget.itemsList![index]
-                                                                  ["status"]
-                                                              .toString() ==
-                                                          "Answered"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : widget.itemsList![index]
-                                                                      ["status"]
-                                                                  .toString() ==
-                                                              "In Progress"
-                                                          ? CustomColors
-                                                              .greyColor2
-                                                          : CustomColors
-                                                              .textColorBlack2,
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                top: 5.0,
-                                                bottom: 5.0,
-                                                left: 10.0,
-                                                right: 10.0),
-                                            child: Text(
-                                              widget.itemsList![index]
-                                                  ["status"],
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: "SemiBold",
-                                                color: widget.itemsList![index]
-                                                                ["status"]
-                                                            .toString() ==
-                                                        "Received"
-                                                    ? CustomColors.textColor9
-                                                    : widget.itemsList![index]
-                                                                    ["status"]
-                                                                .toString() ==
-                                                            "Answered"
-                                                        ? CustomColors
-                                                            .textColorBlack2
-                                                        : widget.itemsList![
-                                                                        index][
-                                                                        "status"]
-                                                                    .toString() ==
-                                                                "In Progress"
-                                                            ? CustomColors
-                                                                .brownColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
-                                              ),
-                                            ),
-                                          ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 18,
-                                    ),
-                                    IntrinsicHeight(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            widget.itemsList![index]["module"],
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          const VerticalDivider(
-                                            thickness: 1,
-                                            color: CustomColors.borderColor,
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(
-                                            widget.itemsList![index]["date"],
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
-                                        ],
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
-                            );
-                          })))
-                  : Container(
-                      color: CustomColors.backgroundColor,
-                      margin:
-                          const EdgeInsets.only(top: 20, left: 20, right: 20),
-                      alignment: Alignment.center,
-                      padding: const EdgeInsets.only(top: 40, bottom: 40),
-                      child: Text(
-                        widget.emptyTxt,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            fontWeight: FontWeight.w400,
-                            color: CustomColors.textColor5),
-                      ),
-                    ),
+                  ? inconvenienceList != null && inconvenienceList!.isNotEmpty
+                      //? inconvenienceListWidget()
+                      ? Container()
+                      : lighotOutListWidget()
+                  : emptyViewWidget(),
             ],
           ),
         ),
       ),
     );
+  }
+
+  inconvenienceListWidget() {
+    return Container(
+      margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 100),
+      child: ListView.builder(
+          physics: const NeverScrollableScrollPhysics(),
+          shrinkWrap: true,
+          scrollDirection: Axis.vertical,
+          itemCount: inconvenienceList?.length,
+          itemBuilder: ((context, index) {
+            return InkWell(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => InconvenienceDetails(
+                        type: inconvenienceList![index].status.toString()),
+                  ),
+                );
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                    color: CustomColors.whiteColor,
+                    border: Border.all(
+                      color: CustomColors.borderColor,
+                    ),
+                    borderRadius: const BorderRadius.all(Radius.circular(4))),
+                padding: const EdgeInsets.all(16),
+                margin: const EdgeInsets.only(bottom: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Expanded(
+                          child: Text(
+                            inconvenienceList?[index].title ?? "",
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        if (inconvenienceList![index]
+                            .status
+                            .toString()
+                            .isNotEmpty)
+                          Container(
+                            decoration: BoxDecoration(
+                              color:
+                                  inconvenienceList![index].status.toString() ==
+                                              "Received" ||
+                                          inconvenienceList![index]
+                                                  .status
+                                                  .toString() ==
+                                              "Not Answered"
+                                      ? CustomColors.backgroundColor3
+                                      : inconvenienceList![index]
+                                                      .status
+                                                      .toString() ==
+                                                  "Answered" ||
+                                              inconvenienceList![index]
+                                                      .status
+                                                      .toString() ==
+                                                  "Completed"
+                                          ? CustomColors.backgroundColor
+                                          : inconvenienceList![index]
+                                                      .status
+                                                      .toString() ==
+                                                  "In Progress"
+                                              ? CustomColors.greyColor2
+                                              : CustomColors.textColorBlack2,
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            padding: const EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text(
+                              inconvenienceList![index].status ?? "",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "SemiBold",
+                                color: inconvenienceList![index]
+                                                .status
+                                                .toString() ==
+                                            "Received" ||
+                                        inconvenienceList![index]
+                                                .status
+                                                .toString() ==
+                                            "Not Answered"
+                                    ? CustomColors.textColor9
+                                    : inconvenienceList![index]
+                                                    .status
+                                                    .toString() ==
+                                                "Answered" ||
+                                            inconvenienceList![index]
+                                                    .status
+                                                    .toString() ==
+                                                "Completed"
+                                        ? CustomColors.textColorBlack2
+                                        : inconvenienceList![index]
+                                                    .status
+                                                    .toString() ==
+                                                "In Progress"
+                                            ? CustomColors.brownColor
+                                            : CustomColors.textColorBlack2,
+                              ),
+                            ),
+                          ),
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 18,
+                    ),
+                    IntrinsicHeight(
+                      child: Row(
+                        children: [
+                          Text(
+                            inconvenienceList![index].type ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 12,
+                                color: CustomColors.textColor3),
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          const VerticalDivider(
+                            thickness: 1,
+                            color: CustomColors.borderColor,
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Text(
+                            inconvenienceList![index].registeredDate ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 12,
+                                color: CustomColors.textColor3),
+                          ),
+                        ],
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            );
+          })),
+    );
+  }
+
+  emptyViewWidget() {
+    return Container(
+      color: CustomColors.backgroundColor,
+      margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      alignment: Alignment.center,
+      padding: const EdgeInsets.only(top: 40, bottom: 40),
+      child: Text(
+        widget.emptyTxt,
+        style: const TextStyle(
+            fontFamily: 'Regular',
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: CustomColors.textColor5),
+      ),
+    );
+  }
+
+  lighotOutListWidget() {
+    return Container(
+        margin:
+            const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 100),
+        child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: widget.itemsList!.length,
+            itemBuilder: ((context, index) {
+              return InkWell(
+                onTap: () {
+                  widget.itemsList![index]["type"].toString().isNotEmpty
+                      ? Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => AirConditioningDetails(
+                                type: widget.itemsList![index]["status"]
+                                    .toString()),
+                          ),
+                        )
+                      : Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => InconvenienceDetails(
+                                type: widget.itemsList![index]["status"]
+                                    .toString()),
+                          ),
+                        );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: CustomColors.whiteColor,
+                      border: Border.all(
+                        color: CustomColors.borderColor,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4))),
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      widget.itemsList![index]["type"].toString().isNotEmpty
+                          ? Row(
+                              children: [
+                                Icon(
+                                  Icons.circle,
+                                  size: 8,
+                                  color: widget.itemsList![index]["type"] ==
+                                          "Heating"
+                                      ? CustomColors.headingColor
+                                      : CustomColors.coolingColor,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  widget.itemsList![index]["type"],
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 12,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              ],
+                            )
+                          : Container(),
+                      widget.itemsList![index]["type"].toString().isNotEmpty
+                          ? const SizedBox(
+                              height: 18,
+                            )
+                          : Container(),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              widget.itemsList![index]["title"],
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                          ),
+                          if (widget.itemsList![index]["status"]
+                              .toString()
+                              .isNotEmpty)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: widget.itemsList![index]["status"]
+                                            .toString() ==
+                                        "Received"
+                                    ? CustomColors.backgroundColor3
+                                    : widget.itemsList![index]["status"]
+                                                .toString() ==
+                                            "Answered"
+                                        ? CustomColors.backgroundColor
+                                        : widget.itemsList![index]["status"]
+                                                    .toString() ==
+                                                "In Progress"
+                                            ? CustomColors.greyColor2
+                                            : CustomColors.textColorBlack2,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.only(
+                                  top: 5.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
+                              child: Text(
+                                widget.itemsList![index]["status"],
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: widget.itemsList![index]["status"]
+                                              .toString() ==
+                                          "Received"
+                                      ? CustomColors.textColor9
+                                      : widget.itemsList![index]["status"]
+                                                  .toString() ==
+                                              "Answered"
+                                          ? CustomColors.textColorBlack2
+                                          : widget.itemsList![index]["status"]
+                                                      .toString() ==
+                                                  "In Progress"
+                                              ? CustomColors.brownColor
+                                              : CustomColors.textColorBlack2,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 18,
+                      ),
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            Text(
+                              widget.itemsList![index]["module"],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.textColor3),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            const VerticalDivider(
+                              thickness: 1,
+                              color: CustomColors.borderColor,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              widget.itemsList![index]["date"],
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.textColor3),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            })));
   }
 }

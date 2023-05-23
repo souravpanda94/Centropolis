@@ -10,6 +10,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'providers/conference_history_details_provider.dart';
+import 'providers/incovenience_list_provider.dart';
+import 'providers/sleeping_room_detail_history_provider.dart';
+import 'providers/sleeping_room_history_provider.dart';
 import 'screens/common_module/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -54,6 +57,10 @@ void main() async {
           ChangeNotifierProvider(create: (_) => ConferenceHistoryProvider()),
           ChangeNotifierProvider(
               create: (_) => ConferenceHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => InconvenienceListProvider()),
+          ChangeNotifierProvider(create: (_) => SleepingRoomHistoryProvider()),
+          ChangeNotifierProvider(
+              create: (_) => SleepingRoomHistoryDetailsProvider()),
         ],
         child: const MyApp(),
       ),

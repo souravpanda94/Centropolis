@@ -1,5 +1,6 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import '../../models/inconvenience_list_model.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -18,31 +19,6 @@ class AirConditioningScreen extends StatefulWidget {
 
 class _AirConditioningScreenState extends State<AirConditioningScreen> {
   List<dynamic> itemList = [
-    // {
-    //   "id": 1,
-    //   "name": "heating",
-    //   "businessType": "Centropolis",
-    //   "type": "11F",
-    //   "dateTime": "2021.03.21 13:00",
-    //   "status": "Received"
-    // },
-    // {
-    //   "id": 2,
-    //   "name": "heating",
-    //   "businessType": "Centropolis",
-    //   "type": "11F",
-    //   "dateTime": "2021.03.21 13:00",
-    //   "status": "Received"
-    // },
-    // {
-    //   "id": 3,
-    //   "name": "Air conditioning",
-    //   "businessType": "Centropolis",
-    //   "type": "11F",
-    //   "dateTime": "2021.03.21 13:00",
-    //   "status": "Received"
-    // }
-
     {
       "title": "Centropolis",
       "status": "Received",
@@ -82,6 +58,7 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
                 builder: (context) => const AirConditioningList()),
           );
         },
+        category: '',
       ),
       bottomSheet: Container(
         margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),

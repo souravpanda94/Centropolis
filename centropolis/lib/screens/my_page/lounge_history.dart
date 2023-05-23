@@ -53,7 +53,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
             .getExecutiveLoungeHistoryList;
 
     return LoadingOverlay(
-      opacity: 1.0,
+      opacity: 0.5,
       color: CustomColors.whiteColor,
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
@@ -130,7 +130,8 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LoungeHistoryDetails(executiveLoungeListItem?[index]),
+                                  builder: (context) => LoungeHistoryDetails(
+                                      executiveLoungeListItem?[index]),
                                 ),
                               );
                             },
@@ -383,7 +384,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted) {
+      if (mounted) {
         setState(() {
           isFirstLoadRunning = false;
         });
