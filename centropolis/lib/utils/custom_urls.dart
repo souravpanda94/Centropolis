@@ -59,6 +59,8 @@ class ApiEndPoint {
   static String getInconvenienceListUrl = "${baseUrl}v1/mypage/complaint-list";
   static String getLightsOutListUrl =
       "${baseUrl}v1/mypage/light-out-inquiry-list";
+  static String gxReservationUrl =
+      "${baseUrl}v1/amenity/gx-program-reservation";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

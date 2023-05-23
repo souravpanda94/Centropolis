@@ -340,11 +340,12 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          const Expanded(
+                          Expanded(
                             child: Text(
-                              "Centropolis",
-                              //lightoutList?[index].status.toString() ?? "",
-                              style: TextStyle(
+                              lightoutList?[index].description ?? "",
+                              //"Centropolis",
+                              maxLines: 1,
+                              style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
                                   color: CustomColors.textColor8),
@@ -434,8 +435,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                               width: 8,
                             ),
                             Text(
-                              lightoutList?[index].registeredDate.toString() ??
-                                  "",
+                              "${lightoutList?[index].registeredDate ?? ""} ${lightoutList?[index].startTime ?? ""}",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(

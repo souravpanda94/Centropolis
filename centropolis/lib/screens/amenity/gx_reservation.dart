@@ -82,7 +82,7 @@ class _GXReservationState extends State<GXReservation> {
   int totalPages = 0;
   bool isFirstLoadRunning = true;
   List<GxFitnessReservationModel>? gxReservationListItem;
-  List<String> days = ["Mon","Wed","Fri,Sun"];
+  List<String> days = ["Mon", "Wed", "Fri,Sun"];
 
   @override
   void initState() {
@@ -124,10 +124,10 @@ class _GXReservationState extends State<GXReservation> {
             Container(
               margin: const EdgeInsets.only(top: 24, bottom: 8),
               width: MediaQuery.of(context).size.width,
-              child: const Text(
-                "Service inquiries: 02-6370-5151, 5154",
+              child: Text(
+                tr("serviceRequires"),
                 textAlign: TextAlign.end,
-                style: TextStyle(
+                style: const TextStyle(
                     fontFamily: 'Regular',
                     fontSize: 12,
                     color: CustomColors.textColor3),
@@ -141,9 +141,9 @@ class _GXReservationState extends State<GXReservation> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text(
-                    "GX & EVENT Program Information",
-                    style: TextStyle(
+                  Text(
+                    tr("gXprogramInformation"),
+                    style: const TextStyle(
                         fontFamily: 'SemiBold',
                         fontSize: 16,
                         color: CustomColors.textColorBlack2),
@@ -154,21 +154,21 @@ class _GXReservationState extends State<GXReservation> {
                   Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Padding(
+                      children: [
+                        const Padding(
                           padding: EdgeInsets.only(top: 7),
                           child: Icon(
                             Icons.circle,
                             size: 5,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
                           child: Text(
-                            "Mon, Wed, Fri – Yoga (120,000 won per month, excluding VAT)",
-                            style: TextStyle(
+                            tr("gXprogramInformationDescription1"),
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor5),
@@ -178,21 +178,21 @@ class _GXReservationState extends State<GXReservation> {
                   Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.start,
-                      children: const [
-                        Padding(
+                      children: [
+                        const Padding(
                           padding: EdgeInsets.only(top: 7),
                           child: Icon(
                             Icons.circle,
                             size: 5,
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Expanded(
                           child: Text(
-                            "Tue, Thu – Free GX Program",
-                            style: TextStyle(
+                            tr("gXprogramInformationDescription2"),
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor5),
@@ -205,7 +205,7 @@ class _GXReservationState extends State<GXReservation> {
             const SizedBox(
               height: 24,
             ),
-            Flexible(
+            Expanded(
               child: ListView.builder(
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
@@ -222,7 +222,8 @@ class _GXReservationState extends State<GXReservation> {
                           border: Border.all(
                             color:
                                 // gxList[index]["status"] == "Active"
-                                gxReservationListItem?[index].status == "receiving"
+                                gxReservationListItem?[index].status ==
+                                        "receiving"
                                     ? CustomColors.borderColor
                                     : CustomColors.backgroundColor2,
                           ),
@@ -255,8 +256,9 @@ class _GXReservationState extends State<GXReservation> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) =>
-                                          const GXReservationDetail(),
+                                      builder: (context) => GXReservationDetail(
+                                          gxReservationItem:
+                                              gxReservationListItem![index]),
                                     ),
                                   );
                                 },
@@ -325,18 +327,21 @@ class _GXReservationState extends State<GXReservation> {
                                     color: CustomColors.borderColor,
                                   ),
                                 ),
-                                Text(
+                                Expanded(
+                                  child: Text(
                                     days.toString(),
-                                  style: TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 12,
-                                      color:
-                                          // gxList[index]["status"] == "Active"
-                                          gxReservationListItem?[index]
-                                                      .status ==
-                                                  "receiving"
-                                              ? CustomColors.textColor3
-                                              : CustomColors.dividerGreyColor),
+                                    style: TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 12,
+                                        color:
+                                            // gxList[index]["status"] == "Active"
+                                            gxReservationListItem?[index]
+                                                        .status ==
+                                                    "receiving"
+                                                ? CustomColors.textColor3
+                                                : CustomColors
+                                                    .dividerGreyColor),
+                                  ),
                                 ),
                               ],
                             ),

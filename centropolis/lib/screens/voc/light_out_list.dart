@@ -181,11 +181,14 @@ class _LightsOutListState extends State<LightsOutList> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        const Expanded(
+                                        Expanded(
                                           child: Text(
-                                            // lightoutListItem?[index].status ?? "",
-                                            "Centropolis",
-                                            style: TextStyle(
+                                            lightoutListItem?[index]
+                                                    .description ??
+                                                "",
+                                            //"Centropolis",
+                                            maxLines: 1,
+                                            style: const TextStyle(
                                                 fontFamily: 'SemiBold',
                                                 fontSize: 14,
                                                 color: CustomColors.textColor8),
@@ -285,9 +288,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                             width: 8,
                                           ),
                                           Text(
-                                            lightoutListItem?[index]
-                                                    .registeredDate ??
-                                                "",
+                                            "${lightoutListItem?[index].registeredDate ?? ""} ${lightoutListItem?[index].startTime ?? ""}",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(

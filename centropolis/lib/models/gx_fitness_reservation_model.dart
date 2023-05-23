@@ -1,4 +1,3 @@
-
 class GxFitnessReservationModel {
   int? id;
   String? title;
@@ -16,24 +15,26 @@ class GxFitnessReservationModel {
   String? status;
   String? displayStatus;
   String? createdDate;
+  String? startTime;
 
   GxFitnessReservationModel(
       {this.id,
-        this.title,
-        this.paymentType,
-        this.startDate,
-        this.endDate,
-        this.applicationStartDate,
-        this.applicationEndDate,
-        this.totalNop,
-        this.appliedNop,
-        this.programDays,
-        this.price,
-        this.vatPrice,
-        this.totalPrice,
-        this.status,
-        this.displayStatus,
-        this.createdDate});
+      this.title,
+      this.paymentType,
+      this.startDate,
+      this.endDate,
+      this.applicationStartDate,
+      this.applicationEndDate,
+      this.totalNop,
+      this.appliedNop,
+      this.programDays,
+      this.price,
+      this.vatPrice,
+      this.totalPrice,
+      this.status,
+      this.displayStatus,
+      this.createdDate,
+      this.startTime});
 
   GxFitnessReservationModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -57,6 +58,7 @@ class GxFitnessReservationModel {
     status = json['status'];
     displayStatus = json['display_status'];
     createdDate = json['created_date'];
+    startTime = json['start_time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -79,6 +81,7 @@ class GxFitnessReservationModel {
     data['status'] = status;
     data['display_status'] = displayStatus;
     data['created_date'] = createdDate;
+    data['start_time'] = startTime;
     return data;
   }
 }
