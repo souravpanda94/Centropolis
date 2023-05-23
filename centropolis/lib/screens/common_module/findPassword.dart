@@ -178,7 +178,7 @@ class _FindPasswordState extends State<FindPassword> {
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("pleaseEnterYourId"),
+            heading: tr("onlyValidIdIsAllowed"),
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",
@@ -198,7 +198,7 @@ class _FindPasswordState extends State<FindPassword> {
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: "Please enter your email",
+            heading: tr("onlyValidEmailIsApplicable"),
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",

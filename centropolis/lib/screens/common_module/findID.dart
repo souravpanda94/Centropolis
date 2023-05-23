@@ -167,7 +167,7 @@ class _FindIdScreenState extends State<FindID> {
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: "Please enter your email",
+            heading: tr("onlyValidEmailIsApplicable"),
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",

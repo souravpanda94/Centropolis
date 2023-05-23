@@ -64,7 +64,6 @@
   "customerComplaints" : "불편사항 접수",
   "requestForLightsOut" : "소등 신청",
   "requestForHeatingAndCooling" : "냉 & 난방 신청",
-  "pleaseEnterYourId" : "아이디를 입력해 주세요.",
   "pleaseEnterPassword" : "비밀번호를 입력해 주세요.",
   "pleaseCheckYourAccountAndTryAgain" : "계정을 확인하고 다시 시도해 주세요.",
   "thisIsAnUnapprovedAccount" : "승인되지 않은 계정입니다.",
@@ -78,6 +77,13 @@
   "noInternetConnection": "네트워크 연결을 확인해주세요.",
   "withdrawnSuccessful" : "탈퇴 완료",
   "youAccountHasBeenSuccessfullyWithdrawn" : "탈퇴 처리가 성공적으로 완료되었습니다.",
+
+
+  "onlyValidEmailIsApplicable": "유효한 이메일을 입력해 주세요",
+  "pleaseEnterYourId" : "아이디를 입력해 주세요.",
+
+
+
 
 
 
