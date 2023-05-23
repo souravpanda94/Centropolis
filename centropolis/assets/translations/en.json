@@ -85,10 +85,21 @@
   "noInternetConnection": "No internet connection",
   "withdrawnSuccessful" : "Withdrawn Successful",
   "youAccountHasBeenSuccessfullyWithdrawn" : "You account has been successfully withdrawn",
-
   "onlyValidEmailIsApplicable": "Only Valid Email is applicable",
   "pleaseEnterYourId": "Please enter your ID.",
   "onlyValidIdIsAllowed": "Only valid ID is allowed",
+  "onlyValidPasswordIsAllowed": "Only valid password is allowed",
+  "pleaseConsentToCollect": "Please consent to collect and use of personal information",
+  "yourIdIsNotVerified": "Your ID is not verified",
+  "pleaseSelectCompany": "Please select a Company",
+  "pleaseSelectFloor": "Please select a Floor",
+  "pleaseEnterYourName": "Please enter your Name",
+  "pleaseConfirmThePassword": "Please confirm the password",
+  "youHaveEnteredDifferentPassword": "You have entered different password",
+  "onlyValidContactInformationIsApplicable": "Only Valid Contact Information is applicable",
+  "pleaseSelectGender": "Please Select a Gender",
+
+
 
 
 

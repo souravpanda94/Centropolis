@@ -77,12 +77,19 @@
   "noInternetConnection": "네트워크 연결을 확인해주세요.",
   "withdrawnSuccessful" : "탈퇴 완료",
   "youAccountHasBeenSuccessfullyWithdrawn" : "탈퇴 처리가 성공적으로 완료되었습니다.",
-
-
   "onlyValidEmailIsApplicable": "유효한 이메일을 입력해 주세요",
   "pleaseEnterYourId" : "아이디를 입력해 주세요.",
-
-
+  "onlyValidIdIsAllowed": "유효한 ID를 입력해 주세요",
+  "onlyValidPasswordIsAllowed": "유효한 비밀번호를 입력해 주세요",
+  "pleaseConsentToCollect": "개인정보 수집 및 이용에 대하여 동의해 주세요",
+  "yourIdIsNotVerified": "승인되지 않은 ID입니다",
+  "pleaseSelectCompany": "입주사를 선택해 주세요",
+  "pleaseSelectFloor": "입주 층을 선택해 주세요",
+  "pleaseEnterYourName": "이름을 입력해 주세요",
+  "pleaseConfirmThePassword": "비밀번호를 확인해 주세요",
+  "youHaveEnteredDifferentPassword": "다른 비밀번호를 입력하셨습니다.",
+  "onlyValidContactInformationIsApplicable": "유효한 휴대전화 번호를 입력해 주세요",
+  "pleaseSelectGender": "성별을 선택해 주세요",
 
 
 

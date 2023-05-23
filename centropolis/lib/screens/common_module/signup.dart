@@ -1224,36 +1224,66 @@ class _SignupScreenState extends State<SignupScreen> {
   void signUpValidation() {
     hideKeyboard();
     if (currentSelectedCompanyNameId == null || currentSelectedCompanyNameId == "") {
-      showCustomToast(fToast, context, "Please select company name", "");
+      // showCustomToast(fToast, context, "Please select company name", "");
+      showErrorModal(tr("pleaseSelectCompany"));
     } else if (currentSelectedFloor == null || currentSelectedFloor == "") {
-      showCustomToast(fToast, context, "Please select floor", "");
+      // showCustomToast(fToast, context, "Please select floor", "");
+      showErrorModal(tr("pleaseSelectFloor"));
     } else if (nameController.text == "") {
-      showCustomToast(fToast, context, "Please enter name", "");
+      // showCustomToast(fToast, context, "Please enter name", "");
+      showErrorModal(tr("pleaseEnterYourName"));
     } else if (idController.text == "") {
-      showCustomToast(fToast, context, "Please enter id", "");
+      // showCustomToast(fToast, context, "Please enter id", "");
+      showErrorModal(tr("pleaseEnterYourId"));
     } else if (!isUserIdVerified) {
-      showCustomToast(fToast, context, "user id is not verified", "");
+      // showCustomToast(fToast, context, "user id is not verified", "");
+      showErrorModal(tr("yourIdIsNotVerified"));
     } else if (!isValidPassword(passwordController.text)) {
-      showCustomToast(fToast, context, "Please enter password", "");
+      // showCustomToast(fToast, context, "Please enter password", "");
+      showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (!isValidPassword(verifyPasswordController.text)) {
-      showCustomToast(fToast, context, "Please enter verify password", "");
+      // showCustomToast(fToast, context, "Please enter verify password", "");
+      showErrorModal(tr("pleaseConfirmThePassword"));
     } else if (verifyPasswordController.text != passwordController.text) {
-      showCustomToast(
-          fToast, context, "Password & verify password should be same", "");
+      // showCustomToast(fToast, context, "Password & verify password should be same", "");
+      showErrorModal(tr("youHaveEnteredDifferentPassword"));
     } else if (!isValidEmail(emailIDController.text)) {
-      showCustomToast(fToast, context, "Please enter proper email id", "");
+      // showCustomToast(fToast, context, "Please enter proper email id", "");
+      showErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (!isValidPhoneNumber(contactNoController.text)) {
-      showCustomToast(
-          fToast, context, "Please enter proper contact number", "");
+      // showCustomToast(fToast, context, "Please enter proper contact number", "");
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (genderValue == "") {
-      showCustomToast(fToast, context, "Please select gender", "");
+      // showCustomToast(fToast, context, "Please select gender", "");
+      showErrorModal(tr("pleaseSelectGender"));
     }
     else if(!isChecked){
-      showCustomToast(fToast, context, "Please checked use of personal information", "");
+      // showCustomToast(fToast, context, "Please checked use of personal information", "");
+      showErrorModal(tr("pleaseConsentToCollect"));
     }
     else {
       callSignupNetworkCheck();
     }
+  }
+
+  void showErrorModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void callSignupNetworkCheck() async {
