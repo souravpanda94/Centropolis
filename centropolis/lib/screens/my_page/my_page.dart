@@ -9,7 +9,7 @@ import '../../utils/custom_urls.dart';
 import '../home/bar_code.dart';
 import 'amenity_reservation_history.dart';
 import 'personal_information.dart';
-import 'privacy_policy_and_terms_of_use.dart';
+import 'web_view_ui.dart';
 import 'registered_employee_list.dart';
 import 'voc_reservation_history.dart';
 
@@ -22,8 +22,8 @@ class MyPageScreen extends StatefulWidget {
 
 class _MyPageScreenState extends State<MyPageScreen> {
   // String userType = "member";
-  String userType = "tenant_admin";
-  // String userType = "";
+  // String userType = "tenant_admin";
+  String userType = "";
   late String apiKey,language, name, companyName;
   late FToast fToast;
 
@@ -297,9 +297,9 @@ class _MyPageScreenState extends State<MyPageScreen> {
                           barrierLabel: 'Dialog',
                           transitionDuration: const Duration(milliseconds: 400),
                           pageBuilder: (_, __, ___) {
-                            return PrivacyPolicyAndTermsOfUseScreen(
+                            return WebViewUiScreen(
                                 tr("freeParkingVehicleRegistration"),
-                                WebViewLinks.termsOfUseUrl);
+                                WebViewLinks.freeParkingVehicleRegistrationUrl);
                           });
                     },
                     child: Container(

@@ -8,10 +8,10 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_web_view.dart';
 
 
-class PrivacyPolicyAndTermsOfUseScreen extends StatefulWidget {
+class WebViewUiScreen extends StatefulWidget {
   final String pageTitle,webUrl;
 
-  const PrivacyPolicyAndTermsOfUseScreen(
+  const WebViewUiScreen(
       this.pageTitle,
       this.webUrl, {
     Key ?key,
@@ -19,11 +19,11 @@ class PrivacyPolicyAndTermsOfUseScreen extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() {
-    return _PrivacyPolicyAndTermsOfUseScreenState();
+    return _WebViewUiScreenState();
   }
 }
 
-class _PrivacyPolicyAndTermsOfUseScreenState extends State<PrivacyPolicyAndTermsOfUseScreen> {
+class _WebViewUiScreenState extends State<WebViewUiScreen> {
 
   @override
   Widget build(BuildContext context) {
