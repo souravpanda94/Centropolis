@@ -81,9 +81,8 @@ class _GXReservationState extends State<GXReservation> {
   final int limit = 10;
   int totalPages = 0;
   bool isFirstLoadRunning = true;
-  bool isLoadMoreRunning = false;
-  ScrollController? scrollController;
   List<GxFitnessReservationModel>? gxReservationListItem;
+  List<String> days = ["Mon","Wed","Fri,Sun"];
 
   @override
   void initState() {
@@ -93,7 +92,6 @@ class _GXReservationState extends State<GXReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    scrollController = ScrollController()..addListener(loadMore);
     firstTimeLoadGxFitnessReservationList();
   }
 
@@ -207,11 +205,11 @@ class _GXReservationState extends State<GXReservation> {
             const SizedBox(
               height: 24,
             ),
-            Column(children: [
-              ListView.builder(
-                  controller: scrollController,
+            Flexible(
+              child: ListView.builder(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  scrollDirection: Axis.vertical,
                   shrinkWrap: true,
-                  // itemCount: gxList.length,
                   itemCount: gxReservationListItem?.length,
                   itemBuilder: ((context, index) {
                     return Container(
@@ -224,7 +222,7 @@ class _GXReservationState extends State<GXReservation> {
                           border: Border.all(
                             color:
                                 // gxList[index]["status"] == "Active"
-                                gxReservationListItem?[index].status == "Active"
+                                gxReservationListItem?[index].status == "receiving"
                                     ? CustomColors.borderColor
                                     : CustomColors.backgroundColor2,
                           ),
@@ -247,7 +245,7 @@ class _GXReservationState extends State<GXReservation> {
                                           // gxList[index]["status"] == "Active"
                                           gxReservationListItem?[index]
                                                       .status ==
-                                                  "Active"
+                                                  "receiving"
                                               ? CustomColors.textColor8
                                               : CustomColors.dividerGreyColor),
                                 ),
@@ -272,7 +270,7 @@ class _GXReservationState extends State<GXReservation> {
                                             // gxList[index]["status"] == "Active"
                                             gxReservationListItem?[index]
                                                         .status ==
-                                                    "Active"
+                                                    "receiving"
                                                 ? CustomColors.textColor9
                                                 : CustomColors.dividerGreyColor,
                                       ),
@@ -281,12 +279,9 @@ class _GXReservationState extends State<GXReservation> {
                                   child: Text(
                                     // gxList[index]["status"] == "Active"
                                     gxReservationListItem?[index].status ==
-                                            "Active"
+                                            "receiving"
                                         ? tr("apply")
-                                        : gxReservationListItem?[index]
-                                                .status
-                                                .toString() ??
-                                            "",
+                                        : tr("closed"),
                                     style: TextStyle(
                                         fontFamily: 'SemiBold',
                                         fontSize: 12,
@@ -294,7 +289,7 @@ class _GXReservationState extends State<GXReservation> {
                                             // gxList[index]["status"] == "Active"
                                             gxReservationListItem?[index]
                                                         .status ==
-                                                    "Active"
+                                                    "receiving"
                                                 ? CustomColors.textColor9
                                                 : CustomColors
                                                     .dividerGreyColor),
@@ -319,7 +314,7 @@ class _GXReservationState extends State<GXReservation> {
                                           // gxList[index]["status"] == "Active"
                                           gxReservationListItem?[index]
                                                       .status ==
-                                                  "Active"
+                                                  "receiving"
                                               ? CustomColors.textColor3
                                               : CustomColors.dividerGreyColor),
                                 ),
@@ -331,8 +326,7 @@ class _GXReservationState extends State<GXReservation> {
                                   ),
                                 ),
                                 Text(
-                                  // gxList[index]["days"],
-                                  "Mon,Wed,Fri",
+                                    days.toString(),
                                   style: TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 12,
@@ -340,7 +334,7 @@ class _GXReservationState extends State<GXReservation> {
                                           // gxList[index]["status"] == "Active"
                                           gxReservationListItem?[index]
                                                       .status ==
-                                                  "Active"
+                                                  "receiving"
                                               ? CustomColors.textColor3
                                               : CustomColors.dividerGreyColor),
                                 ),
@@ -351,10 +345,13 @@ class _GXReservationState extends State<GXReservation> {
                       ),
                     );
                   })),
-
-              // if (isLoadMoreRunning) const ViewMoreWidget()
-              if (isLoadMoreRunning) const AppLoading()
-            ]),
+            ),
+            if (page < totalPages)
+              ViewMoreWidget(
+                onViewMoreTap: () {
+                  loadMore();
+                },
+              )
           ],
         ),
       ),
@@ -401,9 +398,6 @@ class _GXReservationState extends State<GXReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          // List<GxFitnessReservationModel> reservationListList = List<GxFitnessReservationModel>.from(responseJson['reservegx_data'].map((x) => GxFitnessReservationModel.fromJson(x)));
-          // Provider.of<GxFitnessReservationProvider>(context, listen: false).setItem(reservationListList);
-
           totalPages = responseJson['total_pages'];
           List<GxFitnessReservationModel> reservationListList =
               List<GxFitnessReservationModel>.from(
@@ -424,31 +418,26 @@ class _GXReservationState extends State<GXReservation> {
         }
         setState(() {
           isFirstLoadRunning = false;
-          isLoadMoreRunning = false;
         });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {
         isFirstLoadRunning = false;
-        isLoadMoreRunning = false;
       });
     });
   }
 
   void loadMore() {
-    if (scrollController?.position.maxScrollExtent ==
-            scrollController?.offset &&
-        (scrollController?.position.extentAfter)! < 500) {
-      if (page < totalPages) {
-        debugPrint("load more called");
+    debugPrint("page ================> $page");
+    debugPrint("totalPages ================> $totalPages");
 
-        setState(() {
-          isLoadMoreRunning = true;
-          page++;
-        });
-        loadGxFitnessReservationList();
-      }
+    if (page < totalPages) {
+      debugPrint("load more called");
+      setState(() {
+        page++;
+      });
+      loadGxFitnessReservationList();
     }
   }
 }
