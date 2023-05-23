@@ -3,10 +3,13 @@ import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/inconvenience_list_model.dart';
+import '../../models/light_out_list_model.dart';
+import '../../providers/lightout_list_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -33,31 +36,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
   int totalPages = 0;
   int totalRecords = 0;
   bool isFirstLoadRunning = true;
-  List<IncovenienceListModel>? incovenienceListItem;
-
-  List<dynamic> itemList = [
-    {
-      "title": "Centropolis",
-      "status": "Received",
-      "date": "2023.00.00",
-      "module": "11F",
-      "type": "heating"
-    },
-    {
-      "title": "Centropolis",
-      "status": "Received",
-      "date": "2023.00.00",
-      "module": "11F",
-      "type": "heating"
-    },
-    {
-      "title": "Centropolis",
-      "status": "Received",
-      "date": "2023.00.00",
-      "module": "11F",
-      "type": "Air conditioning"
-    },
-  ];
+  List<LightOutListModel>? lightoutListItem;
 
   @override
   void initState() {
@@ -72,34 +51,50 @@ class _LightOutScreenState extends State<LightOutScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: VocCommonHome(
-        image: 'assets/images/ic_slider_6.png',
-        title: tr("requestForLightsOut"),
-        subTitle: tr("requestForLightsOut"),
-        emptyTxt: tr("lightOutEmptyText"),
-        itemsList: itemList,
-        onDrawerClick: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const LightsOutList()),
-          );
-        },
-        category: '',
+    lightoutListItem =
+        Provider.of<LightoutListProvider>(context).getLightoutModelList;
+
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.whiteColor,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
       ),
-      bottomSheet: Container(
-        margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
-        child: CommonButton(
-          buttonName: tr("requestForLightsOut"),
-          buttonColor: CustomColors.buttonBackgroundColor,
-          isIconVisible: true,
-          onCommonButtonTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => const LightOutRequest()),
-            );
-          },
+      isLoading: isFirstLoadRunning,
+      child: Scaffold(
+        backgroundColor: Colors.white,
+        body: lightoutListItem != null && lightoutListItem!.isNotEmpty
+            ? VocCommonHome(
+                image: 'assets/images/ic_slider_6.png',
+                title: tr("requestForLightsOut"),
+                subTitle: tr("requestForLightsOut"),
+                emptyTxt: tr("lightOutEmptyText"),
+                itemsList: lightoutListItem,
+                onDrawerClick: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const LightsOutList()),
+                  );
+                },
+                category: 'lightout',
+              )
+            : Container(),
+        bottomSheet: Container(
+          margin:
+              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
+          child: CommonButton(
+            buttonName: tr("requestForLightsOut"),
+            buttonColor: CustomColors.buttonBackgroundColor,
+            isIconVisible: true,
+            onCommonButtonTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const LightOutRequest()),
+              );
+            },
+          ),
         ),
       ),
     );
@@ -136,30 +131,30 @@ class _LightOutScreenState extends State<LightOutScreen> {
 
       debugPrint("server response for LightsOut List ===> $responseJson");
 
-      // if (responseJson != null) {
-      //   if (response.statusCode == 200 && responseJson['success']) {
-      //     totalPages = responseJson['total_pages'];
-      //     totalRecords = responseJson['total_records'];
-      //     List<IncovenienceListModel> incovenienceList =
-      //         List<IncovenienceListModel>.from(responseJson['inquiry_data']
-      //             .map((x) => IncovenienceListModel.fromJson(x)));
-      //     if (page == 1) {
-      //       Provider.of<InconvenienceListProvider>(context, listen: false)
-      //           .setItem(incovenienceList);
-      //     } else {
-      //       Provider.of<InconvenienceListProvider>(context, listen: false)
-      //           .addItem(incovenienceList);
-      //     }
-      //   } else {
-      //     if (responseJson['message'] != null) {
-      //       showCustomToast(
-      //           fToast, context, responseJson['message'].toString(), "");
-      //     }
-      //   }
-      //   setState(() {
-      //     isFirstLoadRunning = false;
-      //   });
-      // }
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          totalPages = responseJson['total_pages'];
+          totalRecords = responseJson['total_records'];
+          List<LightOutListModel> lightoutList = List<LightOutListModel>.from(
+              responseJson['inquiry_data']
+                  .map((x) => LightOutListModel.fromJson(x)));
+          if (page == 1) {
+            Provider.of<LightoutListProvider>(context, listen: false)
+                .setItem(lightoutList);
+          } else {
+            Provider.of<LightoutListProvider>(context, listen: false)
+                .addItem(lightoutList);
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       if (mounted) {
