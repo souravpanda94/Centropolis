@@ -52,114 +52,56 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
     firstTimeLoadInconvenienceList();
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   incovenienceListItem = Provider.of<InconvenienceListProvider>(context)
-  //       .getInconvenienceModelList;
-
-  //   return LoadingOverlay(
-  //     opacity: 0.5,
-  //     color: CustomColors.whiteColor,
-  //     progressIndicator: const CircularProgressIndicator(
-  //       color: CustomColors.blackColor,
-  //     ),
-  //     isLoading: isFirstLoadRunning,
-  //     child: Scaffold(
-  //         backgroundColor: Colors.white,
-  //         body: incovenienceListItem != null
-  //             ? VocCommonHome(
-  //                 image: 'assets/images/inconvenience_dummy_image.png',
-  //                 title: tr("customerComplaints"),
-  //                 subTitle: tr("customerComplaints"),
-  //                 emptyTxt: tr("inconvenienceEmptyText"),
-  //                 itemsList: incovenienceListItem,
-  //                 onDrawerClick: () {
-  //                   Navigator.push(
-  //                     context,
-  //                     MaterialPageRoute(
-  //                         builder: (context) => const InconvenienceList()),
-  //                   );
-  //                 },
-  //                 category: 'inconvenience',
-  //               )
-  //             : Container(),
-  //         bottomSheet: Container(
-  //           margin:
-  //               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
-  //           child: CommonButton(
-  //             buttonName: tr("complaintsReceived"),
-  //             buttonColor: CustomColors.buttonBackgroundColor,
-  //             isIconVisible: true,
-  //             onCommonButtonTap: () {
-  //               Navigator.push(
-  //                 context,
-  //                 MaterialPageRoute(
-  //                     builder: (context) => const ComplaintsReceived()),
-  //               );
-  //             },
-  //           ),
-  //         )),
-  //   );
-  // }
-  List<dynamic> itemList = [
-    {
-      "title": "Centropolis",
-      "status": "Received",
-      "date": "2023.00.00",
-      "module": "11F",
-      "type": "heating"
-    },
-    {
-      "title": "Centropolis",
-      "status": "Received",
-      "date": "2023.00.00",
-      "module": "11F",
-      "type": "heating"
-    },
-    {
-      "title": "Centropolis",
-      "status": "Received",
-      "date": "2023.00.00",
-      "module": "11F",
-      "type": "Air conditioning"
-    },
-  ];
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      body: VocCommonHome(
-        image: 'assets/images/air_conditioning.png',
-        title: tr("requestForHeatingAndCooling"),
-        subTitle: tr("requestForHeatingAndCooling"),
-        emptyTxt: tr("airConditioningEmptyText"),
-        itemsList: itemList,
-        onDrawerClick: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) => const AirConditioningList()),
-          );
-        },
-        category: '',
+    incovenienceListItem = Provider.of<InconvenienceListProvider>(context)
+        .getInconvenienceModelList;
+
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.whiteColor,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
       ),
-      bottomSheet: Container(
-        margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
-        child: CommonButton(
-          buttonName: tr("AirConditioning"),
-          buttonColor: CustomColors.buttonBackgroundColor,
-          isIconVisible: true,
-          onCommonButtonTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => const AirConditioningApplication()),
-            );
-          },
-        ),
-      ),
+      isLoading: isFirstLoadRunning,
+      child: Scaffold(
+          backgroundColor: Colors.white,
+          body: incovenienceListItem != null && incovenienceListItem!.isNotEmpty
+              ? VocCommonHome(
+                  image: 'assets/images/inconvenience_dummy_image.png',
+                  title: tr("customerComplaints"),
+                  subTitle: tr("customerComplaints"),
+                  emptyTxt: tr("inconvenienceEmptyText"),
+                  itemsList: incovenienceListItem,
+                  onDrawerClick: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const InconvenienceList()),
+                    );
+                  },
+                  category: 'inconvenience',
+                )
+              : Container(),
+          bottomSheet: Container(
+            margin:
+                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
+            child: CommonButton(
+              buttonName: tr("complaintsReceived"),
+              buttonColor: CustomColors.buttonBackgroundColor,
+              isIconVisible: true,
+              onCommonButtonTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const ComplaintsReceived()),
+                );
+              },
+            ),
+          )),
     );
   }
+
 
   void firstTimeLoadInconvenienceList() {
     setState(() {
