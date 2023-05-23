@@ -6,6 +6,7 @@ class LightOutListModel {
   String? endTime;
   String? status;
   String? registeredDate;
+  String? description;
 
   LightOutListModel(
       {this.inquiryId,
@@ -14,7 +15,8 @@ class LightOutListModel {
       this.startTime,
       this.endTime,
       this.status,
-      this.registeredDate});
+      this.registeredDate,
+      this.description});
 
   LightOutListModel.fromJson(Map<String, dynamic> json) {
     inquiryId = json['inquiry_id'].toString();
@@ -24,6 +26,7 @@ class LightOutListModel {
     endTime = json['end_time'];
     status = json['status'];
     registeredDate = json['registered_date'];
+    description = json['description'];
   }
 
   Map<String, dynamic> toJson() {
@@ -35,6 +38,7 @@ class LightOutListModel {
     data['end_time'] = endTime;
     data['status'] = status;
     data['registered_date'] = registeredDate;
+    data['description'] = description;
     return data;
   }
 }
