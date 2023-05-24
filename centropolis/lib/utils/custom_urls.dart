@@ -62,6 +62,8 @@ class ApiEndPoint {
   static String gxReservationUrl =
       "${baseUrl}v1/amenity/gx-program-reservation";
 
+  static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
+
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
 }
