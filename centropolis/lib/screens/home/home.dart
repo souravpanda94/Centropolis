@@ -1,8 +1,5 @@
 import 'dart:ffi';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:centropolis/screens/amenity/gx_reservation.dart';
-import 'package:centropolis/screens/amenity/tenant_service.dart';
 import 'package:centropolis/screens/visit_request/visit_reservation_application.dart';
 import 'package:centropolis/screens/voc/air_conditioning_application.dart';
 import 'package:centropolis/screens/voc/complaints_received.dart';
@@ -12,10 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
-import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
-import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
 import '../amenity/conference_reservation.dart';
 import '../amenity/fitness_reservation.dart';
@@ -351,17 +345,40 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: DotsIndicator(
                         dotsCount: dataList.length,
                         position: pageIndex.toDouble(),
-                        decorator: const DotsDecorator(
-                          shape: Border(
-                              top: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                              bottom: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                              left: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                              right: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0)),
-                          spacing: EdgeInsets.all(4),
+                        decorator: DotsDecorator(
+                          shapes: [
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                          ],
+                          spacing: const EdgeInsets.all(4),
                           color: Colors.transparent, // Inactive color
                           activeColor: Colors.white,
                         ),
@@ -388,7 +405,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (type == "visitorReservation") {
       return tr("visitor");
     } else if (type == "centropolisExecutive") {
-      return "Centropolis Executive Lounge By HAEVICHI";
+      return tr("centropolisExecutiveLounge");
     } else if (type == "conference") {
       return tr("conference");
     } else if (type == "fitness") {

@@ -65,6 +65,8 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/complaint-details";
   static String registeredEmployeeListUrl = "${baseUrl}v1/employee/list";
 
+  static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
+
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
 }
