@@ -82,7 +82,7 @@ class _GXReservationState extends State<GXReservation> {
   int totalPages = 0;
   bool isFirstLoadRunning = true;
   List<GxFitnessReservationModel>? gxReservationListItem;
-  List<String> days = ["Mon", "Wed", "Fri,Sun"];
+  //List<String> days = ["Mon", "Wed", "Fri,Sun"];
 
   @override
   void initState() {
@@ -327,21 +327,22 @@ class _GXReservationState extends State<GXReservation> {
                                     color: CustomColors.borderColor,
                                   ),
                                 ),
-                                Expanded(
-                                  child: Text(
-                                    days.toString(),
-                                    style: TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 12,
-                                        color:
-                                            // gxList[index]["status"] == "Active"
-                                            gxReservationListItem?[index]
-                                                        .status ==
-                                                    "receiving"
-                                                ? CustomColors.textColor3
-                                                : CustomColors
-                                                    .dividerGreyColor),
-                                  ),
+                                Text(
+                                  gxReservationListItem?[index]
+                                          .programDaysData
+                                          .toString()
+                                          .trim() ??
+                                      "",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 12,
+                                      color:
+                                          // gxList[index]["status"] == "Active"
+                                          gxReservationListItem?[index]
+                                                      .status ==
+                                                  "receiving"
+                                              ? CustomColors.textColor3
+                                              : CustomColors.dividerGreyColor),
                                 ),
                               ],
                             ),

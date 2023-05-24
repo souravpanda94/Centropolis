@@ -128,7 +128,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                             height: 8,
                           ),
                           Text(
-                            widget.gxReservationItem.programDays.toString(),
+                            widget.gxReservationItem.programDaysData.toString(),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,

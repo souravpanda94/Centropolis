@@ -9,6 +9,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
 import 'providers/incovenience_list_provider.dart';
 import 'providers/lightout_list_provider.dart';
@@ -63,6 +64,8 @@ void main() async {
           ChangeNotifierProvider(
               create: (_) => SleepingRoomHistoryDetailsProvider()),
           ChangeNotifierProvider(create: (_) => LightoutListProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ComplaintsReceivedDetailsProvider()),
         ],
         child: const MyApp(),
       ),
