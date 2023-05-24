@@ -18,7 +18,6 @@ import '../amenity/sleeping_room_reservation.dart';
 import 'bar_code.dart';
 import 'notifications.dart';
 
-
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
 
@@ -346,17 +345,40 @@ class _HomeScreenState extends State<HomeScreen> {
                       child: DotsIndicator(
                         dotsCount: dataList.length,
                         position: pageIndex.toDouble(),
-                        decorator: const DotsDecorator(
-                          shape: Border(
-                              top: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                              bottom: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                              left: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0),
-                              right: BorderSide(
-                                  color: CustomColors.whiteColor, width: 1.0)),
-                          spacing: EdgeInsets.all(4),
+                        decorator: DotsDecorator(
+                          shapes: [
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                            RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(15.0),
+                                side: const BorderSide(
+                                    color: CustomColors.whiteColor,
+                                    width: 1.0)),
+                          ],
+                          spacing: const EdgeInsets.all(4),
                           color: Colors.transparent, // Inactive color
                           activeColor: Colors.white,
                         ),
