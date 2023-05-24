@@ -1,8 +1,5 @@
 import 'dart:ffi';
-
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:centropolis/screens/amenity/gx_reservation.dart';
-import 'package:centropolis/screens/amenity/tenant_service.dart';
 import 'package:centropolis/screens/visit_request/visit_reservation_application.dart';
 import 'package:centropolis/screens/voc/air_conditioning_application.dart';
 import 'package:centropolis/screens/voc/complaints_received.dart';
@@ -12,10 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
-import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
-import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
 import '../amenity/conference_reservation.dart';
 import '../amenity/fitness_reservation.dart';
@@ -23,6 +17,7 @@ import '../amenity/lounge_reservation.dart';
 import '../amenity/sleeping_room_reservation.dart';
 import 'bar_code.dart';
 import 'notifications.dart';
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -388,7 +383,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (type == "visitorReservation") {
       return tr("visitor");
     } else if (type == "centropolisExecutive") {
-      return "Centropolis Executive Lounge By HAEVICHI";
+      return tr("centropolisExecutiveLounge");
     } else if (type == "conference") {
       return tr("conference");
     } else if (type == "fitness") {
