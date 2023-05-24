@@ -1,9 +1,19 @@
+import 'dart:convert';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
@@ -11,7 +21,8 @@ import '../../widgets/common_button_with_border.dart';
 import '../../widgets/common_modal.dart';
 
 class RegisteredEmployeeDetails extends StatefulWidget {
-  const RegisteredEmployeeDetails({super.key});
+  final String id;
+  const RegisteredEmployeeDetails({super.key, required this.id});
 
   @override
   State<RegisteredEmployeeDetails> createState() =>
@@ -19,7 +30,11 @@ class RegisteredEmployeeDetails extends StatefulWidget {
 }
 
 class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
-  String? statusSelectedValue, typeSelectedValue;
+  String? statusSelectedValue;
+  String? typeSelectedValue;
+  late String language, apiKey, email, mobile, name, companyName;
+  bool isLoading = false;
+  late FToast fToast;
 
   List<dynamic> list = [
     {
@@ -41,238 +56,262 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    email = user.userData['email_key'].toString();
+    mobile = user.userData['mobile'].toString();
+    name = user.userData['user_name'].toString();
+    companyName = user.userData['company_name'].toString();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.whiteColor,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("registeredEmployeeList"), false, () {
-              onBackButtonPress(context);
-            }, () {}),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
+        backgroundColor: CustomColors.whiteColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("registeredEmployeeList"), false, () {
+                onBackButtonPress(context);
+              }, () {}),
+            ),
           ),
         ),
-      ),
-      body: Container(
-        color: CustomColors.whiteColor,
-        padding: const EdgeInsets.all(16),
-        child: SingleChildScrollView(
-            child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  tr("employeeDetails"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 16,
-                      color: CustomColors.textColor8),
-                ),
-                InkWell(
-                  onTap: () {
-                    showModal(tr("deleteTitle"), tr("deleteDesc"), "");
-                  },
-                  child: Text(
-                    tr("delete"),
-                    style: const TextStyle(
-                        decoration: TextDecoration.underline,
-                        fontFamily: 'Regular',
-                        fontSize: 12,
-                        color: CustomColors.textColor3),
-                  ),
-                ),
-              ],
-            ),
-            Container(
-              margin: const EdgeInsets.only(top: 16),
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
-              decoration: const BoxDecoration(
-                  color: CustomColors.backgroundColor,
-                  borderRadius: BorderRadius.all(Radius.circular(4))),
+        body: Container(
+          color: CustomColors.whiteColor,
+          padding: const EdgeInsets.all(16),
+          child: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    tr("name"),
+                    tr("employeeDetails"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
-                        fontSize: 14,
+                        fontSize: 16,
                         color: CustomColors.textColor8),
                   ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "Hong Gil Dong",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("IDHeading"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "test1",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("email"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "test1@centropolis.com",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("contactNo"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "010-0000-0000",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("tenantCompany"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "CBRE",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("registrationDate"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  const Text(
-                    "2023.00.00",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColorBlack2),
+                  InkWell(
+                    onTap: () {
+                      showModal(tr("deleteTitle"), tr("deleteDesc"), "");
+
+                      //callDeleteEmployeeNetworkCheck();
+                    },
+                    child: Text(
+                      tr("delete"),
+                      style: const TextStyle(
+                          decoration: TextDecoration.underline,
+                          fontFamily: 'Regular',
+                          fontSize: 12,
+                          color: CustomColors.textColor3),
+                    ),
                   ),
                 ],
               ),
-            ),
-            Container(
-              height: 10,
-              color: CustomColors.backgroundColor,
-              width: MediaQuery.of(context).size.width,
-            ),
-            Container(
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              color: CustomColors.whiteColor,
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("accountStatus"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  accountStatusWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("accountType"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  accountTypeWidget(),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 32, bottom: 16),
-                    child: CommonButton(
-                        onCommonButtonTap: () {},
-                        buttonColor: CustomColors.buttonBackgroundColor,
-                        buttonName: tr("save"),
-                        isIconVisible: false),
-                  ),
-                  CommonButtonWithBorder(
-                    onCommonButtonTap: () {},
-                    buttonBorderColor: CustomColors.dividerGreyColor,
-                    buttonName: tr("before"),
-                    buttonTextColor: CustomColors.textColor5,
-                  )
-                ],
+              Container(
+                margin: const EdgeInsets.only(top: 16),
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                    color: CustomColors.backgroundColor,
+                    borderRadius: BorderRadius.all(Radius.circular(4))),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("name"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "Hong Gil Dong",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("IDHeading"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "test1",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("email"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "test1@centropolis.com",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("contactNo"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "010-0000-0000",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("tenantCompany"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "CBRE",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("registrationDate"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    const Text(
+                      "2023.00.00",
+                      style: TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                  ],
+                ),
               ),
-            )
-          ],
-        )),
+              Container(
+                height: 10,
+                color: CustomColors.backgroundColor,
+                width: MediaQuery.of(context).size.width,
+              ),
+              Container(
+                padding: const EdgeInsets.symmetric(vertical: 16),
+                color: CustomColors.whiteColor,
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("accountStatus"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    accountStatusDropdownWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("accountType"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    accountTypeDropdownWidget(),
+                    Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(top: 32, bottom: 16),
+                      child: CommonButton(
+                          onCommonButtonTap: () {},
+                          buttonColor: CustomColors.buttonBackgroundColor,
+                          buttonName: tr("save"),
+                          isIconVisible: false),
+                    ),
+                    CommonButtonWithBorder(
+                      onCommonButtonTap: () {},
+                      buttonBorderColor: CustomColors.dividerGreyColor,
+                      buttonName: tr("before"),
+                      buttonTextColor: CustomColors.textColor5,
+                    )
+                  ],
+                ),
+              )
+            ],
+          )),
+        ),
       ),
     );
   }
@@ -290,20 +329,20 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
             secondButtonName: btnName.toString().isEmpty ? tr("confirm") : "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context);
             },
             onFirstBtnTap: () {
               Navigator.pop(context);
             },
             onSecondBtnTap: () {
+              callDeleteEmployeeNetworkCheck();
               Navigator.pop(context);
-
-              showModal(tr("deleteSuccessful"), tr("deleted"), tr("check"));
             },
           );
         });
   }
 
-  accountStatusWidget() {
+  accountStatusDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -391,7 +430,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     );
   }
 
-  accountTypeWidget() {
+  accountTypeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: const Text(
@@ -476,5 +515,53 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
         ),
       ),
     );
+  }
+
+  void callDeleteEmployeeNetworkCheck() async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callDeleteEmployeeApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callDeleteEmployeeApi() async {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, dynamic> body = {
+      "employee_id": widget.id.toString().trim(),
+    };
+
+    debugPrint("DeleteEmployee input ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.deleteEmployeeUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for DeleteEmployee ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          showModal(tr("deleteSuccessful"), tr("deleted"), tr("check"));
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }

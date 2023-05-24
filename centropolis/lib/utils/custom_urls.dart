@@ -47,7 +47,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/sleeping-room-usage-time";
   static String makeSleepingRoomReservation =
       "${baseUrl}amenity/sleeping-room-reservation";
-  static String addMemberUrl = "${baseUrl}v1/employee/save";
+  static String addMemberUrl = "${baseUrl}v1/employee/add";
   static String conferenceHistoryDetailsUrl =
       "${baseUrl}v1/mypage/conference-details";
   static String cancelConferenceReservationUrl =
@@ -63,6 +63,8 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/gx-program-reservation";
   static String complaintsReceivedDetailsUrl =
       "${baseUrl}v1/mypage/complaint-details";
+  static String registeredEmployeeListUrl = "${baseUrl}v1/employee/list";
+  static String deleteEmployeeUrl = "${baseUrl}v1/employee/delete";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl = "${baseUrl}v1/amenity/app-visitor-reservation-list";
