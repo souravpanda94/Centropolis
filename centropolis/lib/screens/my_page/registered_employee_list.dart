@@ -94,9 +94,9 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
           ),
           body: const TabBarView(
             children: [
-              EmployeeList(status: "Approved"),
-              EmployeeList(status: "Before Approval"),
-              EmployeeList(status: "Suspended"),
+              EmployeeList(status: "active"),
+              EmployeeList(status: "inactive"),
+              EmployeeList(status: "suspended"),
             ],
           ),
         ));

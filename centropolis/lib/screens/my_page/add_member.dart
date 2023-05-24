@@ -7,7 +7,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
 
+import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
@@ -28,16 +31,17 @@ class AddMember extends StatefulWidget {
 enum Gender { male, female }
 
 class _AddMemberState extends State<AddMember> {
-  bool isChecked = false;
+  late String language, apiKey, email, mobile, name, companyName;
   Gender? gender = Gender.male;
-  String genderValue = "";
+  String genderValue = "m";
   String? companySelectedValue;
   String? floorSelectedValue;
   bool isLoading = false;
-  late String language;
   late FToast fToast;
   String platform = "";
   bool isUserIdVerified = false;
+  List<dynamic> companyList = [];
+  List<dynamic> floorList = [];
 
   TextEditingController consentController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -47,560 +51,585 @@ class _AddMemberState extends State<AddMember> {
   TextEditingController emailIDController = TextEditingController();
   TextEditingController contactNoController = TextEditingController();
 
-  List<dynamic> list = [
-    {"company": "CBRE", "floor": "12F"},
-    {"company": "ABC", "floor": "13F"},
-    {"company": "XYZ", "floor": "14F"},
-    {"company": "PQR", "floor": "15F"},
-  ];
-
   @override
   void initState() {
     super.initState();
     fToast = FToast();
     fToast.init(context);
     language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    email = user.userData['email_key'].toString();
+    mobile = user.userData['mobile'].toString();
+    name = user.userData['user_name'].toString();
+    companyName = user.userData['company_name'].toString();
+
     setPlatform();
+    loadCompanyList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.whiteColor,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("addMember"), false, () {
-              onBackButtonPress(context);
-            }, () {}),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
+        backgroundColor: CustomColors.whiteColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("addMember"), false, () {
+                onBackButtonPress(context);
+              }, () {}),
+            ),
           ),
         ),
-      ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr("enterPersonalInformation"),
-                    style: const TextStyle(
-                        fontFamily: 'Bold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  RichText(
-                    textAlign: TextAlign.end,
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          margin:
+              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      tr("enterPersonalInformation"),
+                      style: const TextStyle(
+                          fontFamily: 'Bold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    RichText(
+                      textAlign: TextAlign.end,
+                      text: TextSpan(
+                          text: '* ',
+                          style: const TextStyle(
+                              color: CustomColors.headingColor, fontSize: 12),
+                          children: [
+                            TextSpan(
+                              text: tr("requiredInput"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.textColor8),
+                            )
+                          ]),
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 24, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
                     text: TextSpan(
-                        text: '* ',
+                        text: tr("tenantCompany"),
                         style: const TextStyle(
-                            color: CustomColors.headingColor, fontSize: 12),
-                        children: [
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
                           TextSpan(
-                            text: tr("requiredInput"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 12,
-                                color: CustomColors.textColor8),
-                          )
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
                         ]),
                     maxLines: 1,
                   ),
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 24, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("tenantCompany"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
                 ),
-              ),
-              tenantCompanyDropdownWidget(),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("floor"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              floorDropdownWidget(),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("name"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              TextField(
-                controller: nameController,
-                cursorColor: CustomColors.textColorBlack2,
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: CustomColors.whiteColor,
-                  filled: true,
-                  contentPadding: const EdgeInsets.all(16),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
+                tenantCompanyDropdownWidget(),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("floor"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
+                ),
+                floorDropdownWidget(),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("name"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
                   ),
-                  hintText: tr('employeeNameHint'),
-                  hintStyle: const TextStyle(
-                    color: CustomColors.textColor3,
+                ),
+                TextField(
+                  controller: nameController,
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.text,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    fillColor: CustomColors.whiteColor,
+                    filled: true,
+                    contentPadding: const EdgeInsets.all(16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    hintText: tr('employeeNameHint'),
+                    hintStyle: const TextStyle(
+                      color: CustomColors.textColor3,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
                     fontSize: 14,
                     fontFamily: 'Regular',
                   ),
                 ),
-                style: const TextStyle(
-                  color: CustomColors.blackColor,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("IDHeading"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
+                  ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("IDHeading"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: idController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
+                Row(
+                  children: [
+                    Expanded(
+                      child: TextField(
+                        controller: idController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr('employeeIDHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('employeeIDHint'),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
+                    ),
+                    const SizedBox(
+                      width: 8,
+                    ),
+                    CommonButtonWithBorder(
+                      onCommonButtonTap: () {
+                        callVerifyUserId();
+                      },
+                      buttonName: tr("verify"),
+                      buttonBorderColor: CustomColors.buttonBackgroundColor,
+                      buttonTextColor: CustomColors.buttonBackgroundColor,
+                    )
+                  ],
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("passwordHeading"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
+                  ),
+                ),
+                TextField(
+                  controller: passwordController,
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    fillColor: CustomColors.whiteColor,
+                    filled: true,
+                    contentPadding: const EdgeInsets.all(16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    hintText: tr('passwordHint'),
+                    hintStyle: const TextStyle(
+                      color: CustomColors.textColor3,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("verifyPassword"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
+                  ),
+                ),
+                TextField(
+                  controller: verifyPasswordController,
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.text,
+                  obscureText: true,
+                  enableSuggestions: false,
+                  autocorrect: false,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    fillColor: CustomColors.whiteColor,
+                    filled: true,
+                    contentPadding: const EdgeInsets.all(16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    hintText: tr('verifyPasswordHint'),
+                    hintStyle: const TextStyle(
+                      color: CustomColors.textColor3,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("email"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
+                  ),
+                ),
+                TextField(
+                  controller: emailIDController,
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.emailAddress,
+                  decoration: InputDecoration(
+                    border: InputBorder.none,
+                    fillColor: CustomColors.whiteColor,
+                    filled: true,
+                    contentPadding: const EdgeInsets.all(16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    hintText: tr('emailDemoHint'),
+                    hintStyle: const TextStyle(
+                      color: CustomColors.textColor3,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("contactNo"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
+                  ),
+                ),
+                TextField(
+                  controller: contactNoController,
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.number,
+                  maxLength: 11,
+                  decoration: InputDecoration(
+                    counterText: '',
+                    border: InputBorder.none,
+                    fillColor: CustomColors.whiteColor,
+                    filled: true,
+                    contentPadding: const EdgeInsets.all(16),
+                    enabledBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(4),
+                      borderSide: const BorderSide(
+                          color: CustomColors.dividerGreyColor, width: 1.0),
+                    ),
+                    hintText: tr('contactNoHint'),
+                    hintStyle: const TextStyle(
+                      color: CustomColors.textColor3,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 16, bottom: 8),
+                  width: MediaQuery.of(context).size.width,
+                  child: RichText(
+                    text: TextSpan(
+                        text: tr("gender"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
+                  ),
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Radio<Gender>(
+                              activeColor: CustomColors.buttonBackgroundColor,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              value: Gender.male,
+                              groupValue: gender,
+                              onChanged: (Gender? value) {
+                                setState(() {
+                                  gender = value;
+                                  if (gender == Gender.male) {
+                                    genderValue = "m";
+                                  } else {
+                                    genderValue = "f";
+                                  }
+                                });
+                              },
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              tr("male"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  color: CustomColors.textColorBlack2,
+                                  fontSize: 14),
+                            ),
+                          )
+                        ],
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    width: 8,
-                  ),
-                  CommonButtonWithBorder(
-                    onCommonButtonTap: () {},
-                    buttonName: tr("verify"),
-                    buttonBorderColor: CustomColors.buttonBackgroundColor,
-                    buttonTextColor: CustomColors.buttonBackgroundColor,
-                  )
-                ],
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("passwordHeading"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              TextField(
-                controller: passwordController,
-                cursorColor: CustomColors.textColorBlack2,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: CustomColors.whiteColor,
-                  filled: true,
-                  contentPadding: const EdgeInsets.all(16),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  hintText: tr('passwordHint'),
-                  hintStyle: const TextStyle(
-                    color: CustomColors.textColor3,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                style: const TextStyle(
-                  color: CustomColors.blackColor,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("verifyPassword"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              TextField(
-                controller: verifyPasswordController,
-                cursorColor: CustomColors.textColorBlack2,
-                keyboardType: TextInputType.text,
-                obscureText: true,
-                enableSuggestions: false,
-                autocorrect: false,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: CustomColors.whiteColor,
-                  filled: true,
-                  contentPadding: const EdgeInsets.all(16),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  hintText: tr('verifyPasswordHint'),
-                  hintStyle: const TextStyle(
-                    color: CustomColors.textColor3,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                style: const TextStyle(
-                  color: CustomColors.blackColor,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("email"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              TextField(
-                controller: emailIDController,
-                cursorColor: CustomColors.textColorBlack2,
-                keyboardType: TextInputType.emailAddress,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: CustomColors.whiteColor,
-                  filled: true,
-                  contentPadding: const EdgeInsets.all(16),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  hintText: tr('emailDemoHint'),
-                  hintStyle: const TextStyle(
-                    color: CustomColors.textColor3,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                style: const TextStyle(
-                  color: CustomColors.blackColor,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("contactNo"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              TextField(
-                controller: contactNoController,
-                cursorColor: CustomColors.textColorBlack2,
-                keyboardType: TextInputType.number,
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  fillColor: CustomColors.whiteColor,
-                  filled: true,
-                  contentPadding: const EdgeInsets.all(16),
-                  enabledBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(4),
-                    borderSide: const BorderSide(
-                        color: CustomColors.dividerGreyColor, width: 1.0),
-                  ),
-                  hintText: tr('contactNoHint'),
-                  hintStyle: const TextStyle(
-                    color: CustomColors.textColor3,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                style: const TextStyle(
-                  color: CustomColors.blackColor,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(top: 16, bottom: 8),
-                width: MediaQuery.of(context).size.width,
-                child: RichText(
-                  text: TextSpan(
-                      text: tr("gender"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
-                ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: Radio<Gender>(
-                            activeColor: CustomColors.buttonBackgroundColor,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            value: Gender.male,
-                            groupValue: gender,
-                            onChanged: (Gender? value) {
-                              setState(() {
-                                gender = value;
-                                if (gender == Gender.male) {
-                                  genderValue = "Male";
-                                } else {
-                                  genderValue = "Female";
-                                }
-                              });
-                            },
+                    Expanded(
+                      flex: 1,
+                      child: Row(
+                        children: [
+                          SizedBox(
+                            height: 20,
+                            width: 20,
+                            child: Radio<Gender>(
+                              activeColor: CustomColors.buttonBackgroundColor,
+                              materialTapTargetSize:
+                                  MaterialTapTargetSize.shrinkWrap,
+                              value: Gender.female,
+                              groupValue: gender,
+                              onChanged: (Gender? value) {
+                                setState(() {
+                                  gender = value;
+                                  if (gender == Gender.male) {
+                                    genderValue = "m";
+                                  } else {
+                                    genderValue = "f";
+                                  }
+                                });
+                              },
+                            ),
                           ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            tr("male"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                color: CustomColors.textColorBlack2,
-                                fontSize: 14),
-                          ),
-                        )
-                      ],
+                          Padding(
+                            padding: const EdgeInsets.only(left: 10),
+                            child: Text(
+                              tr("female"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  color: CustomColors.textColorBlack2,
+                                  fontSize: 14),
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 1,
-                    child: Row(
-                      children: [
-                        SizedBox(
-                          height: 20,
-                          width: 20,
-                          child: Radio<Gender>(
-                            activeColor: CustomColors.buttonBackgroundColor,
-                            materialTapTargetSize:
-                                MaterialTapTargetSize.shrinkWrap,
-                            value: Gender.female,
-                            groupValue: gender,
-                            onChanged: (Gender? value) {
-                              setState(() {
-                                gender = value;
-                                if (gender == Gender.male) {
-                                  genderValue = "Male";
-                                } else {
-                                  genderValue = "Female";
-                                }
-                              });
-                            },
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 10),
-                          child: Text(
-                            tr("female"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                color: CustomColors.textColorBlack2,
-                                fontSize: 14),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(top: 34, bottom: 16),
-                child: CommonButton(
-                    onCommonButtonTap: () {
-                      //addMemberValidation();
-                    },
-                    buttonColor: CustomColors.buttonBackgroundColor,
-                    buttonName: tr("save"),
-                    isIconVisible: false),
-              ),
-              CommonButtonWithBorder(
-                onCommonButtonTap: () {
-                  Navigator.pop(context);
-                },
-                buttonBorderColor: CustomColors.dividerGreyColor,
-                buttonName: tr("before"),
-                buttonTextColor: CustomColors.textColor5,
-              ),
-            ],
+                  ],
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin: const EdgeInsets.only(top: 34, bottom: 16),
+                  child: CommonButton(
+                      onCommonButtonTap: () {
+                        addMemberValidation();
+                      },
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      buttonName: tr("save"),
+                      isIconVisible: false),
+                ),
+                CommonButtonWithBorder(
+                  onCommonButtonTap: () {
+                    Navigator.pop(context);
+                  },
+                  buttonBorderColor: CustomColors.dividerGreyColor,
+                  buttonName: tr("before"),
+                  buttonTextColor: CustomColors.textColor5,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -618,9 +647,9 @@ class _AddMemberState extends State<AddMember> {
             fontFamily: 'Regular',
           ),
         ),
-        items: list
+        items: companyList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["company"],
+                  value: item["company_id"].toString(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -628,7 +657,7 @@ class _AddMemberState extends State<AddMember> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["company"],
+                          item["company_name"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -649,7 +678,9 @@ class _AddMemberState extends State<AddMember> {
         onChanged: (value) {
           setState(() {
             companySelectedValue = value as String;
+            floorSelectedValue = null;
           });
+          loadFloorList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -706,7 +737,7 @@ class _AddMemberState extends State<AddMember> {
             fontFamily: 'Regular',
           ),
         ),
-        items: list
+        items: floorList
             .map((item) => DropdownMenuItem<String>(
                   value: item["floor"],
                   child: Column(
@@ -782,6 +813,159 @@ class _AddMemberState extends State<AddMember> {
     );
   }
 
+  void loadCompanyList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadCompanyListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadCompanyListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Company List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getCompanyListUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Company List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['company_list'] != null) {
+            setState(() {
+              companyList = responseJson['company_list'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadFloorList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadFloorListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadFloorListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "company_id": companySelectedValue.toString().trim(),
+    };
+
+    debugPrint("Floor List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getFloorListUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Floor List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              floorList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void callVerifyUserId() async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callVerifyUserIdApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callVerifyUserIdApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {"username": idController.text.trim()};
+
+    debugPrint("verify User Name input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.verifyUserNameUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for verify User Name ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isUserIdVerified = true;
+          });
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   void setPlatform() {
     if (Platform.isAndroid) {
       setState(() {
@@ -820,9 +1004,6 @@ class _AddMemberState extends State<AddMember> {
           fToast, context, "Please enter proper contact number", "");
     } else if (genderValue == "") {
       showCustomToast(fToast, context, "Please select gender", "");
-    } else if (!isChecked) {
-      showCustomToast(
-          fToast, context, "Please checked use of personal information", "");
     } else {
       callAddMemberNetworkCheck();
     }
@@ -851,60 +1032,48 @@ class _AddMemberState extends State<AddMember> {
       "password": passwordController.text.trim(),
       "confirm_password": verifyPasswordController.text.trim(),
       "platform": platform,
-      "floor_id": floorSelectedValue.toString().trim(),
-      "ip_address": "",
+      "floor": floorSelectedValue.toString().trim(),
+      //"ip_address": "49.36.221.206"
     };
 
     debugPrint("add member input ===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.addMemberUrl, body, language.trim(), null);
+        ApiEndPoint.addMemberUrl, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
+
       debugPrint("server response for add member ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          late String title, message;
-
-          if (responseJson['title'] != null) {
-            title = responseJson['title'].toString();
-          }
-          if (responseJson['message'] != null) {
-            message = responseJson['message'].toString();
-          }
-          showAddMemberSuccessModal(title, message);
+          showAddMemberSuccessModal(responseJson['message']);
         } else {
           if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
             showCustomToast(
                 fToast, context, responseJson['message'].toString(), "");
           }
         }
-      }
-      if (mounted) {
         setState(() {
           isLoading = false;
         });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if (mounted) {
-        setState(() {
-          isLoading = false;
-        });
-      }
+      setState(() {
+        isLoading = false;
+      });
     });
   }
 
-  void showAddMemberSuccessModal(String title, String message) {
+  void showAddMemberSuccessModal(String message) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: title,
-            description: message,
+            heading: message,
+            description: "",
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
