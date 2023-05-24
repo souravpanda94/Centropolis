@@ -137,7 +137,9 @@ class _EmployeeListState extends State<EmployeeList> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) =>
-                                      const RegisteredEmployeeDetails(),
+                                      RegisteredEmployeeDetails(
+                                          id: employeeListItem?[index].userId ??
+                                              ""),
                                 ),
                               );
                             },
