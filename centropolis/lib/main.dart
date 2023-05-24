@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
 import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
+import 'providers/employee_list_provider.dart';
 import 'providers/incovenience_list_provider.dart';
 import 'providers/lightout_list_provider.dart';
 import 'providers/sleeping_room_detail_history_provider.dart';
@@ -66,6 +67,7 @@ void main() async {
           ChangeNotifierProvider(create: (_) => LightoutListProvider()),
           ChangeNotifierProvider(
               create: (_) => ComplaintsReceivedDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => EmployeeListProvider()),
         ],
         child: const MyApp(),
       ),
