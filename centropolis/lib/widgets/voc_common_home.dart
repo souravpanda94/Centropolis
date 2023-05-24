@@ -141,8 +141,9 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => InconvenienceDetails(
-                        type:
-                            inconvenienceList?[index].status.toString() ?? ""),
+                        inquiryId:
+                            inconvenienceList?[index].inquiryId.toString() ??
+                                ""),
                   ),
                 );
               },
@@ -209,7 +210,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              inconvenienceList?[index].status ?? "",
+                              inconvenienceList?[index].status.toString() ==
+                                      "Not Answered"
+                                  ? "Received"
+                                  : inconvenienceList?[index].status ?? "",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",

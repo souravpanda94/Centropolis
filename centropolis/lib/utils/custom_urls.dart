@@ -61,6 +61,8 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/light-out-inquiry-list";
   static String gxReservationUrl =
       "${baseUrl}v1/amenity/gx-program-reservation";
+  static String complaintsReceivedDetailsUrl =
+      "${baseUrl}v1/mypage/complaint-details";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";
@@ -70,7 +72,9 @@ class WebViewLinks {
   // static String baseUrl = "https://www.google.com"; // Live server
   static String baseUrl = "https://www.google.com"; // Test server
 
-  static String privacyPolicyUrl = "https://docs.flutter.dev/reference/tutorials";
+  static String privacyPolicyUrl =
+      "https://docs.flutter.dev/reference/tutorials";
   static String termsOfUseUrl = "https://docs.flutter.dev/reference/tutorials";
-  static String freeParkingVehicleRegistrationUrl = "http://centropolis.co.kr/About/parking.asp";
+  static String freeParkingVehicleRegistrationUrl =
+      "http://centropolis.co.kr/About/parking.asp";
 }

@@ -157,8 +157,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => InconvenienceDetails(
-                                        type: incovenienceListItem![index]
-                                            .status
+                                        inquiryId: incovenienceListItem![index]
+                                            .inquiryId
                                             .toString()),
                                   ),
                                 );
@@ -244,8 +244,13 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                                 right: 10.0),
                                             child: Text(
                                               incovenienceListItem![index]
-                                                      .status ??
-                                                  "",
+                                                          .status
+                                                          .toString() ==
+                                                      "Not Answered"
+                                                  ? "Received"
+                                                  : incovenienceListItem![index]
+                                                          .status ??
+                                                      "",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "SemiBold",
