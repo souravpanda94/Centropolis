@@ -5,6 +5,7 @@ import 'package:centropolis/providers/conference_history_provider.dart';
 import 'package:centropolis/providers/executive_lounge_history_provider.dart';
 import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
+import 'package:centropolis/providers/visit_reservation_list_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,8 +65,8 @@ void main() async {
           ChangeNotifierProvider(
               create: (_) => SleepingRoomHistoryDetailsProvider()),
           ChangeNotifierProvider(create: (_) => LightoutListProvider()),
-          ChangeNotifierProvider(
-              create: (_) => ComplaintsReceivedDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => ComplaintsReceivedDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => VisitReservationListProvider()),
         ],
         child: const MyApp(),
       ),

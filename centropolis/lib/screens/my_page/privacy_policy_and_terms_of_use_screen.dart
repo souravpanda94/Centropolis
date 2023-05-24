@@ -55,7 +55,7 @@ class _PrivacyPolicyAndTermsOfUseScreenState extends State<PrivacyPolicyAndTerms
         ),
         isLoading: isLoading,
         child: Scaffold(
-            backgroundColor: CustomColors.backgroundColor,
+            backgroundColor: CustomColors.whiteColor,
             appBar: PreferredSize(
               preferredSize: AppBar().preferredSize,
               child: SafeArea(
