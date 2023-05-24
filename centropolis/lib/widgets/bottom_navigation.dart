@@ -1,20 +1,23 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import '../screens/amenity/tenant_service.dart';
 import '../screens/home/bar_code.dart';
 import '../screens/home/home.dart';
+import '../screens/home/notifications.dart';
 import '../screens/my_page/app_settings.dart';
 import '../screens/my_page/my_page.dart';
-import '../screens/tenant_service/tenant_service.dart';
 import '../screens/visit_request/visi_request.dart';
-import '../screens/vov_application/voc_application.dart';
+import '../screens/voc/voc_application.dart';
 import '../utils/custom_colors.dart';
 import 'home_page_app_bar.dart';
 
 class BottomNavigationScreen extends StatefulWidget {
   final int tabIndex;
+  final int amenityTabIndex;
 
-  const BottomNavigationScreen(this.tabIndex, {Key? key}) : super(key: key);
+  const BottomNavigationScreen(this.tabIndex, this.amenityTabIndex, {Key? key})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -23,13 +26,18 @@ class BottomNavigationScreen extends StatefulWidget {
 }
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
-  int _selectedIndex = 0;
+  int selectedPage = 0;
+  @override
+  void initState() {
+    selectedPage = widget.tabIndex;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: CustomColors.whiteColor,
-      appBar: _selectedIndex == 0
+      appBar: selectedPage == 0
           ? null
           : PreferredSize(
               preferredSize: AppBar().preferredSize,
@@ -37,7 +45,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 child: Container(
                   color: CustomColors.whiteColor,
                   child: HomePageAppBar(
-                      title: setTitle(_selectedIndex),
+                      title: setTitle(selectedPage),
                       onSettingBtnTap: () {
                         Navigator.push(
                           context,
@@ -51,8 +59,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            // builder: (context) => const NotificationScreen(),
-                            builder: (context) => const BarCodeScreen(),
+                            builder: (context) => const NotificationScreen(),
                           ),
                         );
                       }),
@@ -63,11 +70,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         color: CustomColors.backgroundColor,
         child: <Widget>[
           const HomeScreen(),
-          const TenantServiceScreen(),
+          TenantServiceScreen(widget.amenityTabIndex),
           const VisitRequestScreen(),
           const VocApplicationScreen(),
           const MyPageScreen()
-        ].elementAt(_selectedIndex),
+        ].elementAt(selectedPage),
       ),
       bottomNavigationBar: BottomNavigationBar(
         backgroundColor: CustomColors.whiteColor,
@@ -76,7 +83,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 0
+                selectedPage == 0
                     ? "assets/images/ic_home_red.svg"
                     : "assets/images/ic_home.svg",
                 width: 25,
@@ -86,7 +93,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 1
+                selectedPage == 1
                     ? "assets/images/ic_tenant_service_red.svg"
                     : "assets/images/ic_tenant_service.svg",
                 semanticsLabel: 'Back',
@@ -97,7 +104,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 2
+                selectedPage == 2
                     ? "assets/images/ic_visit_reservation_red.svg"
                     : "assets/images/ic_visit_reservation.svg",
                 semanticsLabel: 'Back',
@@ -108,7 +115,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 3
+                selectedPage == 3
                     ? "assets/images/ic_voc_red.svg"
                     : "assets/images/ic_voc.svg",
                 semanticsLabel: 'Back',
@@ -119,7 +126,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: SvgPicture.asset(
-                _selectedIndex == 4
+                selectedPage == 4
                     ? "assets/images/ic_my_page_red.svg"
                     : "assets/images/ic_my_page.svg",
                 semanticsLabel: 'Back',
@@ -130,7 +137,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
         ],
         type: BottomNavigationBarType.fixed,
-        currentIndex: _selectedIndex,
+        currentIndex: selectedPage,
         selectedItemColor: CustomColors.textColor9,
         selectedLabelStyle: const TextStyle(
           fontSize: 12.0,
@@ -150,7 +157,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      selectedPage = index;
     });
   }
 

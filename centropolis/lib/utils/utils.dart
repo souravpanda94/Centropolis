@@ -79,7 +79,7 @@ bool isValidPassword(String password, [int minLength = 8]) {
     return false;
   }
 
-  // bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
+  bool hasUppercase = password.contains(RegExp(r'[A-Z]'));
   bool hasDigits = password.contains(RegExp(r'[0-9]'));
   bool hasLowercase = password.contains(RegExp(r'[a-z]'));
   bool hasSpecialCharacters =
@@ -87,7 +87,7 @@ bool isValidPassword(String password, [int minLength = 8]) {
   bool hasMinLength = password.length >= minLength;
 
   return hasDigits &
-      // hasUppercase &
+      hasUppercase &
       hasLowercase &
       hasSpecialCharacters &
       hasMinLength;

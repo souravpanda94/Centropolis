@@ -694,6 +694,7 @@ class _VisitReservationDetailsScreenState
                     child: CommonButtonWithBorder(
                       onCommonButtonTap: () {},
                       buttonName: tr("cancelReservation"),
+                      buttonColor: CustomColors.whiteColor,
                       buttonBorderColor: CustomColors.dividerGreyColor,
                       buttonTextColor: CustomColors.textColor5,
                     )),

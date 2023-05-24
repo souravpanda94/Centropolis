@@ -1,10 +1,20 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:centropolis/providers/company_provider.dart';
+import 'package:centropolis/providers/conference_history_provider.dart';
+import 'package:centropolis/providers/executive_lounge_history_provider.dart';
+import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'providers/complaints_received_detail_provider.dart';
+import 'providers/conference_history_details_provider.dart';
+import 'providers/incovenience_list_provider.dart';
+import 'providers/lightout_list_provider.dart';
+import 'providers/sleeping_room_detail_history_provider.dart';
+import 'providers/sleeping_room_history_provider.dart';
 import 'screens/common_module/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -42,6 +52,20 @@ void main() async {
       child: MultiProvider(
         providers: [
           ChangeNotifierProvider(create: (_) => UserProvider()),
+          ChangeNotifierProvider(create: (_) => CompanyProvider()),
+          ChangeNotifierProvider(create: (_) => GxFitnessReservationProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ExecutiveLoungeHistoryProvider()),
+          ChangeNotifierProvider(create: (_) => ConferenceHistoryProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ConferenceHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => InconvenienceListProvider()),
+          ChangeNotifierProvider(create: (_) => SleepingRoomHistoryProvider()),
+          ChangeNotifierProvider(
+              create: (_) => SleepingRoomHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => LightoutListProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ComplaintsReceivedDetailsProvider()),
         ],
         child: const MyApp(),
       ),

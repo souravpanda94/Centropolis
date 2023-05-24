@@ -220,7 +220,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             },
             onSecondBtnTap: () {
               Navigator.of(context).pop();
-              callWithdrawalConfirm();
+              showWithdrawalSuccessModal();
+              // callWithdrawalConfirm();
             },
           );
         });
@@ -247,7 +248,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     debugPrint("input for Withdrawal ===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.withdrawalUrl, body, apiKey.trim());
+        ApiEndPoint.withdrawalUrl, body, language ,apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -279,6 +280,32 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       });
     });
   }
+
+  void showWithdrawalSuccessModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: tr("withdrawnSuccessful"),
+            description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.of(context).pop();
+            },
+            onFirstBtnTap: () {
+
+            },
+            onSecondBtnTap: () {
+
+            },
+          );
+        });
+  }
+
+
 
   // ----------Logout section-----------
   void showLogoutModal() {

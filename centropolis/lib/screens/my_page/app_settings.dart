@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'package:centropolis/screens/my_page/privacy_policy_and_terms_of_use.dart';
+import 'package:centropolis/screens/my_page/privacy_policy_and_terms_of_use_screen.dart';
+import 'package:centropolis/screens/my_page/web_view_ui.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_switch/flutter_switch.dart';
@@ -196,8 +197,17 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   child: Column(children: [
                     InkWell(
                       onTap: () {
-                        showPrivacyPolicyAndTermsServiceFullDialog(
-                            tr("privacyPolicy"), WebViewLinks.privacyPolicyUrl);
+                        // showPrivacyPolicyAndTermsServiceFullDialog(
+                        //     tr("privacyPolicy"), WebViewLinks.privacyPolicyUrl);
+
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>  PrivacyPolicyAndTermsOfUseScreen(tr("privacyPolicy")),
+                          ),
+                        );
+
+
                       },
                       child: Container(
                         padding: const EdgeInsets.only(top: 25.0, bottom: 15.0,),
@@ -219,8 +229,14 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
 
                     InkWell(
                       onTap: () {
-                        showPrivacyPolicyAndTermsServiceFullDialog(
-                            tr("termsOfUse"), WebViewLinks.termsOfUseUrl);
+                        // showPrivacyPolicyAndTermsServiceFullDialog(
+                        //     tr("termsOfUse"), WebViewLinks.termsOfUseUrl);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>  PrivacyPolicyAndTermsOfUseScreen(tr("termsOfUse")),
+                          ),
+                        );
                       },
                       child: Container(
                         padding: const EdgeInsets.only(top: 15.0, bottom: 25.0,),
@@ -351,7 +367,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         barrierLabel: 'Dialog',
         transitionDuration: const Duration(milliseconds: 400),
         pageBuilder: (_, __, ___) {
-          return PrivacyPolicyAndTermsOfUseScreen(pageTitle, url);
+          return WebViewUiScreen(pageTitle, url);
         });
   }
 

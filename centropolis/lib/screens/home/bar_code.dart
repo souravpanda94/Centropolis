@@ -92,7 +92,9 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                   margin: const EdgeInsets.only(bottom: 40),
                   child: CommonButton(
                     isIconVisible: false,
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      onBackButtonPress(context);
+                    },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("check"),
                   ))
