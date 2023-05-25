@@ -5,6 +5,9 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import '../../models/user_info_model.dart';
+import '../../providers/conference_history_details_provider.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/constants.dart';
@@ -31,15 +34,16 @@ class _EditPersonalInformationScreenState
   bool isLoading = false;
   TextEditingController emailController = TextEditingController();
   TextEditingController contactNumberController = TextEditingController();
-  String name = "";
-  String id = "";
-  String tenantCompanyId = "";
-  String tenantCompany = "";
-  String gender = "";
+  // String name = "";
+  // String id = "";
+  // String tenantCompanyId = "";
+  // String tenantCompany = "";
+  // String gender = "";
   String genderValue = "";
-  String email = "";
-  String contactNumber = "";
+  // String email = "";
+  // String contactNumber = "";
   bool nameValidation = false;
+  UserInfoModel? userInfoModel;
 
   @override
   void initState() {
@@ -47,30 +51,15 @@ class _EditPersonalInformationScreenState
     fToast = FToast();
     fToast.init(context);
     language = tr("lang");
-    setDataIntoFields();
-  }
-
-  void setDataIntoFields() {
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    name = user.userData['name'].toString();
-    id = user.userData['user_id'].toString();
-    tenantCompanyId = user.userData['company_id'].toString();
-    tenantCompany = user.userData['company_name'].toString();
-    gender = user.userData['gender'].toString();
-    email = user.userData['email_key'].toString();
-    contactNumber = user.userData['mobile'].toString();
-    emailController = TextEditingController(text: email);
-    contactNumberController = TextEditingController(text: contactNumber);
-    if(gender == "m"){
-      genderValue = tr("male");
-    }else if(gender == "f"){
-      genderValue = tr("female");
-    }
+    loadPersonalInformation();
   }
 
   @override
   Widget build(BuildContext context) {
+    userInfoModel = Provider.of<UserInfoProvider>(context).getUserInformation;
+
     return LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor3,
@@ -135,7 +124,7 @@ class _EditPersonalInformationScreenState
                         child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        name ?? tr("name"),
+                        userInfoModel?.name.toString() ?? tr("name"),
                         style: const TextStyle(
                           color: CustomColors.blackColor,
                           fontSize: 14,
@@ -176,7 +165,7 @@ class _EditPersonalInformationScreenState
                         child: Align(
                       alignment: Alignment.centerLeft,
                       child: Text(
-                        id ?? tr('id'),
+                        userInfoModel?.username.toString() ?? tr('id'),
                         style: const TextStyle(
                           color: CustomColors.blackColor,
                           fontSize: 14,
@@ -218,7 +207,7 @@ class _EditPersonalInformationScreenState
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                             tenantCompany ?? tr('tenantCompany'),
+                            userInfoModel?.companyName.toString() ?? tr('tenantCompany'),
                             style: const TextStyle(
                               color: CustomColors.blackColor,
                               fontSize: 14,
@@ -328,11 +317,6 @@ class _EditPersonalInformationScreenState
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                      onChanged: (text) => {
-                        setState(() {
-                          email = text;
-                        }),
-                      },
                     ),
                   ),
                 ),
@@ -396,11 +380,6 @@ class _EditPersonalInformationScreenState
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                      onChanged: (text) => {
-                        setState(() {
-                          contactNumber = text;
-                        }),
-                      },
                     ),
                   ),
                 ),
@@ -437,9 +416,9 @@ class _EditPersonalInformationScreenState
 
   void onSaveButtonClick() {
     hideKeyboard();
-    if (!isValidEmail(email)) {
+    if (!isValidEmail(emailController.text.trim())) {
       showCustomToast(fToast, context, "Please enter valid email", "");
-    } else if (!isValidPhoneNumber(contactNumber)) {
+    } else if (!isValidPhoneNumber(contactNumberController.text.trim())) {
       showCustomToast(fToast, context, "Please enter valid contact number", "");
     } else {
       checkNetworkConnectionForEditPersonalInfo();
@@ -460,8 +439,8 @@ class _EditPersonalInformationScreenState
       isLoading = true;
     });
     Map<String, String> body = {
-      "email": email.trim(),
-      "mobile": contactNumber.trim(),
+      "email": emailController.text.trim(),
+      "mobile": contactNumberController.text.trim(),
     };
 
     debugPrint("Edit personal info input===> $body");
@@ -497,5 +476,65 @@ class _EditPersonalInformationScreenState
       });
     });
   }
+
+  void loadPersonalInformation() async{
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+    showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false).setItem(userInfoModel);
+
+          setDataField(userInfoModel);
+
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void setDataField(UserInfoModel userInfoModel) {
+    if(userInfoModel.gender.toString() == "m"){
+      genderValue = tr("male");
+    }else if(userInfoModel.gender.toString() == "f"){
+      genderValue = tr("female");
+    }
+    emailController = TextEditingController(text: userInfoModel.email.toString());
+    contactNumberController = TextEditingController(text: userInfoModel.mobile.toString());
+  }
+
 
 }

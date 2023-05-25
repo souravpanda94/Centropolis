@@ -4,6 +4,7 @@ import 'package:centropolis/providers/company_provider.dart';
 import 'package:centropolis/providers/conference_history_provider.dart';
 import 'package:centropolis/providers/executive_lounge_history_provider.dart';
 import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
+import 'package:centropolis/providers/user_info_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
 import 'package:centropolis/providers/visit_reservation_list_provider.dart';
 import 'package:flutter/foundation.dart';
@@ -71,6 +72,7 @@ void main() async {
           ChangeNotifierProvider(
               create: (_) => ComplaintsReceivedDetailsProvider()),
           ChangeNotifierProvider(create: (_) => EmployeeListProvider()),
+          ChangeNotifierProvider(create: (_) => UserInfoProvider()),
         ],
         child: const MyApp(),
       ),
