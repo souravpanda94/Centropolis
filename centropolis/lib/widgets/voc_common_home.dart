@@ -117,7 +117,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       ? inconvenienceListWidget()
                       : lightoutList != null && lightoutList!.isNotEmpty
                           ? lightOutListWidget()
-                          : Container()
+                          : emptyViewWidget()
                   : emptyViewWidget(),
             ],
           ),
@@ -294,7 +294,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
   emptyViewWidget() {
     return Container(
       color: CustomColors.backgroundColor,
-      margin: const EdgeInsets.only(top: 20, left: 20, right: 20),
+      margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 100),
       alignment: Alignment.center,
       padding: const EdgeInsets.only(top: 40, bottom: 40),
       child: Text(
