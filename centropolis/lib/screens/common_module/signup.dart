@@ -923,7 +923,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void callVerifyUserId() async {
     // if (idController.text.trim() == "") {
     if (!isValidUserId(idController.text.trim())) {
-      showErrorModal(tr("pleaseEnterYourId"));
+      showErrorModal(tr("onlyValidIdIsAllowed"));
     } else {
       hideKeyboard();
       final InternetChecking internetChecking = InternetChecking();
@@ -992,7 +992,7 @@ class _SignupScreenState extends State<SignupScreen> {
     });
 
     Map<String, String> body = {
-      "cms_key": "privacy_policy",
+      "cms_key": "signup_terms",
     };
 
     debugPrint("get Personal Information input ===> $body");
@@ -1007,12 +1007,21 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['description_en'] != null) {
-            setState(() {
-              personalInfomationContent =
-                  responseJson['description_en'].toString();
-            });
+
+          if(language == "en"){
+            if( responseJson['description_en'] != null) {
+              setState(() {
+                personalInfomationContent = responseJson['description_en'].toString();
+              });
+            }
+          }else{
+            if( responseJson['description_ko'] != null) {
+              setState(() {
+                personalInfomationContent = responseJson['description_ko'].toString();
+              });
+            }
           }
+
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
