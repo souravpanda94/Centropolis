@@ -67,6 +67,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     mobile = user.userData['mobile'].toString();
     name = user.userData['user_name'].toString();
     companyName = user.userData['company_name'].toString();
+    loadEmployeeDetails();
   }
 
   @override
@@ -557,6 +558,56 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           isLoading = false;
         });
       }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadEmployeeDetails() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callEmployeeDetailsApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callEmployeeDetailsApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {"employee_id": widget.id.toString().trim()};
+
+    debugPrint("employee details input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.employeeDetailUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for employee details ===> $responseJson");
+
+      // if (responseJson != null) {
+      //   if (response.statusCode == 200 && responseJson['success']) {
+      //     ConferenceHistoryDetailModel conferenceHistoryDetailModel =
+      //         ConferenceHistoryDetailModel.fromJson(responseJson);
+
+      //     Provider.of<ConferenceHistoryDetailsProvider>(context, listen: false)
+      //         .setItem(conferenceHistoryDetailModel);
+      //   } else {
+      //     if (responseJson['message'] != null) {
+      //       showCustomToast(
+      //           fToast, context, responseJson['message'].toString(), "");
+      //     }
+      //   }
+      //   setState(() {
+      //     isLoading = false;
+      //   });
+      // }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {
