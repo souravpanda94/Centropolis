@@ -925,12 +925,16 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void callVerifyUserId() async {
-    hideKeyboard();
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callVerifyUserIdApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    if (idController.text.trim() == "") {
+      showErrorModal(tr("pleaseEnterYourId"));
+    }else {
+      hideKeyboard();
+      final InternetChecking internetChecking = InternetChecking();
+      if (await internetChecking.isInternet()) {
+        callVerifyUserIdApi();
+      } else {
+        showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      }
     }
   }
 
@@ -1225,42 +1229,30 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void signUpValidation() {
     hideKeyboard();
-    if (currentSelectedCompanyNameId == null || currentSelectedCompanyNameId == "") {
-      // showCustomToast(fToast, context, "Please select company name", "");
+    if (currentSelectedCompanyNameId?.trim() == null || currentSelectedCompanyNameId?.trim() == "") {
       showErrorModal(tr("pleaseSelectCompany"));
-    } else if (currentSelectedFloor == null || currentSelectedFloor == "") {
-      // showCustomToast(fToast, context, "Please select floor", "");
+    } else if (currentSelectedFloor?.trim() == null || currentSelectedFloor?.trim() == "") {
       showErrorModal(tr("pleaseSelectFloor"));
-    } else if (nameController.text == "") {
-      // showCustomToast(fToast, context, "Please enter name", "");
+    } else if (nameController.text.trim() == "") {
       showErrorModal(tr("pleaseEnterYourName"));
-    } else if (idController.text == "") {
-      // showCustomToast(fToast, context, "Please enter id", "");
+    } else if (idController.text.trim() == "") {
       showErrorModal(tr("pleaseEnterYourId"));
     } else if (!isUserIdVerified) {
-      // showCustomToast(fToast, context, "user id is not verified", "");
       showErrorModal(tr("yourIdIsNotVerified"));
-    } else if (!isValidPassword(passwordController.text)) {
-      // showCustomToast(fToast, context, "Please enter password", "");
+    } else if (!isValidPassword(passwordController.text.trim())) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
-    } else if (!isValidPassword(verifyPasswordController.text)) {
-      // showCustomToast(fToast, context, "Please enter verify password", "");
+    } else if (!isValidPassword(verifyPasswordController.text.trim())) {
       showErrorModal(tr("pleaseConfirmThePassword"));
-    } else if (verifyPasswordController.text != passwordController.text) {
-      // showCustomToast(fToast, context, "Password & verify password should be same", "");
+    } else if (verifyPasswordController.text.trim() != passwordController.text.trim()) {
       showErrorModal(tr("youHaveEnteredDifferentPassword"));
-    } else if (!isValidEmail(emailIDController.text)) {
-      // showCustomToast(fToast, context, "Please enter proper email id", "");
+    } else if (!isValidEmail(emailIDController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    } else if (!isValidPhoneNumber(contactNoController.text)) {
-      // showCustomToast(fToast, context, "Please enter proper contact number", "");
+    } else if (!isValidPhoneNumber(contactNoController.text.trim())) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
-    } else if (genderValue == "") {
-      // showCustomToast(fToast, context, "Please select gender", "");
+    } else if (genderValue.trim() == "") {
       showErrorModal(tr("pleaseSelectGender"));
     }
     else if(!isChecked){
-      // showCustomToast(fToast, context, "Please checked use of personal information", "");
       showErrorModal(tr("pleaseConsentToCollect"));
     }
     else {

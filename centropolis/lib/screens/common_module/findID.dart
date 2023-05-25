@@ -182,7 +182,7 @@ class _FindIdScreenState extends State<FindID> {
   }
 
   void findIdValidation() {
-    if (!isValidEmail(emailIDController.text)) {
+    if (!isValidEmail(emailIDController.text.trim())) {
       showEmailErrorModal();
     } else {
       callFindIdNetworkCheck();

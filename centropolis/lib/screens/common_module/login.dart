@@ -400,9 +400,9 @@ class _LoginScreenState extends State<LoginScreen> {
   void loginValidation() async {
     hideKeyboard();
 
-    if (emailIDController.text == "") {
+    if (emailIDController.text.trim() == "") {
       showUserIdErrorModal();
-    } else if (passwordController.text == "") {
+    } else if (passwordController.text.trim() == "") {
       showPasswordErrorModal();
     } else {
       doLogin();

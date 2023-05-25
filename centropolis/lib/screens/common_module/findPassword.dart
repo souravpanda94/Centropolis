@@ -213,10 +213,10 @@ class _FindPasswordState extends State<FindPassword> {
   }
 
   void findPasswordValidation() {
-    if(idController.text == ""){
+    if(idController.text.trim() == ""){
       showUserIdErrorModal();
     }
-    else if (!isValidEmail(emailIDController.text)) {
+    else if (!isValidEmail(emailIDController.text.trim())) {
       showEmailErrorModal();
     }
     else {
