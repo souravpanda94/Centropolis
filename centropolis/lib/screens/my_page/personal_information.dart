@@ -16,6 +16,7 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import 'package:http/http.dart' as http;
 
+import '../common_module/login.dart';
 import 'change_password.dart';
 import 'edit_personal_information.dart';
 
@@ -324,11 +325,23 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               Navigator.of(context).pop();
             },
             onSecondBtnTap: () {
-              Navigator.of(context).pop();
-              callLogout();
+              // callLogout();
+              removeLoginCredential(context);
             },
           );
         });
+  }
+
+  void removeLoginCredential(BuildContext context) {
+    var user = Provider.of<UserProvider>(context, listen: false);
+    user.doRemoveUser();
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const LoginScreen(),
+      ),
+    );
   }
 
   void callLogout() async {
