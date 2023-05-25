@@ -18,8 +18,6 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 import 'login.dart';
 
-
-
 class SignupScreen extends StatefulWidget {
   const SignupScreen({Key? key}) : super(key: key);
 
@@ -55,9 +53,8 @@ class _SignupScreenState extends State<SignupScreen> {
   List<dynamic> floorList = [];
   String? currentSelectedCompanyNameId;
   String? currentSelectedFloor;
+
   // List<CompanyModel>? companyListItem;
-
-
 
   @override
   void initState() {
@@ -261,10 +258,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                 maxLines: 1,
                               ),
                             ),
-
                             floorFieldWidget(),
-
-
                             Container(
                               margin: const EdgeInsets.only(top: 16, bottom: 8),
                               width: MediaQuery.of(context).size.width,
@@ -344,9 +338,11 @@ class _SignupScreenState extends State<SignupScreen> {
                                 Expanded(
                                   child: TextField(
                                     controller: idController,
+                                    maxLength: 16,
                                     cursorColor: CustomColors.textColorBlack2,
                                     keyboardType: TextInputType.text,
                                     decoration: InputDecoration(
+                                      counterText: '',
                                       border: InputBorder.none,
                                       fillColor: CustomColors.whiteColor,
                                       filled: true,
@@ -925,9 +921,10 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   void callVerifyUserId() async {
-    if (idController.text.trim() == "") {
+    // if (idController.text.trim() == "") {
+    if (!isValidUserId(idController.text.trim())) {
       showErrorModal(tr("pleaseEnterYourId"));
-    }else {
+    } else {
       hideKeyboard();
       final InternetChecking internetChecking = InternetChecking();
       if (await internetChecking.isInternet()) {
@@ -1196,8 +1193,8 @@ class _SignupScreenState extends State<SignupScreen> {
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
-          padding: EdgeInsets.only(
-              bottom: currentSelectedFloor != null ? 16 : 0),
+          padding:
+              EdgeInsets.only(bottom: currentSelectedFloor != null ? 16 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -1229,21 +1226,26 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void signUpValidation() {
     hideKeyboard();
-    if (currentSelectedCompanyNameId?.trim() == null || currentSelectedCompanyNameId?.trim() == "") {
+    if (currentSelectedCompanyNameId?.trim() == null ||
+        currentSelectedCompanyNameId?.trim() == "") {
       showErrorModal(tr("pleaseSelectCompany"));
-    } else if (currentSelectedFloor?.trim() == null || currentSelectedFloor?.trim() == "") {
+    } else if (currentSelectedFloor?.trim() == null ||
+        currentSelectedFloor?.trim() == "") {
       showErrorModal(tr("pleaseSelectFloor"));
     } else if (nameController.text.trim() == "") {
       showErrorModal(tr("pleaseEnterYourName"));
-    } else if (idController.text.trim() == "") {
-      showErrorModal(tr("pleaseEnterYourId"));
+    }
+    // else if (idController.text.trim() == "") {
+    else if (!isValidUserId(idController.text.trim())) {
+      showErrorModal(tr("onlyValidIdIsAllowed"));
     } else if (!isUserIdVerified) {
       showErrorModal(tr("yourIdIsNotVerified"));
     } else if (!isValidPassword(passwordController.text.trim())) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (!isValidPassword(verifyPasswordController.text.trim())) {
       showErrorModal(tr("pleaseConfirmThePassword"));
-    } else if (verifyPasswordController.text.trim() != passwordController.text.trim()) {
+    } else if (verifyPasswordController.text.trim() !=
+        passwordController.text.trim()) {
       showErrorModal(tr("youHaveEnteredDifferentPassword"));
     } else if (!isValidEmail(emailIDController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
@@ -1251,11 +1253,9 @@ class _SignupScreenState extends State<SignupScreen> {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (genderValue.trim() == "") {
       showErrorModal(tr("pleaseSelectGender"));
-    }
-    else if(!isChecked){
+    } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
-    }
-    else {
+    } else {
       callSignupNetworkCheck();
     }
   }
@@ -1348,5 +1348,4 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     });
   }
-
 }

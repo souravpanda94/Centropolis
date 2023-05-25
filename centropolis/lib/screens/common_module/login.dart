@@ -92,9 +92,11 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
                 TextField(
                   controller: emailIDController,
+                  maxLength: 16,
                   cursorColor: CustomColors.textColorBlack2,
                   keyboardType: TextInputType.text,
                   decoration: InputDecoration(
+                    counterText: '',
                     border: InputBorder.none,
                     fillColor: CustomColors.whiteColor,
                     filled: true,
@@ -400,7 +402,8 @@ class _LoginScreenState extends State<LoginScreen> {
   void loginValidation() async {
     hideKeyboard();
 
-    if (emailIDController.text.trim() == "") {
+    // if (emailIDController.text.trim() == "") {
+    if (!isValidUserId(emailIDController.text.trim())) {
       showUserIdErrorModal();
     } else if (passwordController.text.trim() == "") {
       showPasswordErrorModal();

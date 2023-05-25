@@ -9,7 +9,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_colors.dart';
 
-
 showToastMessage(String text) {
   Fluttertoast.showToast(
       msg: text,
@@ -74,6 +73,22 @@ bool isValidEmail(String email) {
   return emailValid;
 }
 
+bool isValidUserId(String userId) {
+  if (userId.isEmpty) {
+    return false;
+  }
+  if (userId.contains(RegExp(r'[A-Z]'))) {
+    return false;
+  } else {
+    bool hasDigits = userId.contains(RegExp(r'[0-9]'));
+    bool hasLowercase = userId.contains(RegExp(r'[a-z]'));
+    bool hasMinLength = userId.length >= 4;
+    bool hasMaxLength = userId.length <= 16;
+
+    return hasDigits & hasLowercase & hasMaxLength & hasMinLength;
+  }
+}
+
 bool isValidPassword(String password, [int minLength = 8]) {
   if (password.isEmpty) {
     return false;
@@ -94,15 +109,15 @@ bool isValidPassword(String password, [int minLength = 8]) {
 }
 
 bool isInvalidNickName(String nickName) {
-  //bool hasDigits = RegExp(r'[0-9]').hasMatch(nickName);
-  // bool hasDigits = isNumeric(nickName);
+//bool hasDigits = RegExp(r'[0-9]').hasMatch(nickName);
+// bool hasDigits = isNumeric(nickName);
   bool hasSpecialCharacters =
       nickName.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>]'));
   return hasSpecialCharacters; // || hasDigits;
 }
 
 bool isNumeric(String s) {
-  // ignore: unnecessary_null_comparison
+// ignore: unnecessary_null_comparison
   if (s == null) {
     return false;
   }
@@ -152,20 +167,19 @@ bool isValidReferralCode(String mobile, [int minLength = 11]) {
   }
 
   bool hasDigits = mobile.contains(RegExp(r'[0-9]'));
-  bool hasSpecialCharacters = mobile.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]+'));
+  bool hasSpecialCharacters =
+      mobile.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]+'));
   bool hasMinLength = mobile.length >= minLength;
 
   return hasDigits & !hasSpecialCharacters & hasMinLength;
-
 }
 
-void setDataInSharedPreference(String keyValue, String dataValue) async{
+void setDataInSharedPreference(String keyValue, String dataValue) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString(keyValue, dataValue);
 }
 
-getDataFromSharedPreference(String keyValue) async{
+getDataFromSharedPreference(String keyValue) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   return prefs.getString(keyValue);
 }
-

@@ -73,9 +73,11 @@ class _FindPasswordState extends State<FindPassword> {
             ),
             TextField(
               controller: idController,
+              maxLength: 16,
               cursorColor: CustomColors.textColorBlack2,
               keyboardType: TextInputType.text,
               decoration: InputDecoration(
+                counterText: '',
                 border: InputBorder.none,
                 fillColor: CustomColors.whiteColor,
                 filled: true,
@@ -213,7 +215,8 @@ class _FindPasswordState extends State<FindPassword> {
   }
 
   void findPasswordValidation() {
-    if(idController.text.trim() == ""){
+    // if( idController.text.trim() == ""){
+    if(!isValidUserId(idController.text.trim())){
       showUserIdErrorModal();
     }
     else if (!isValidEmail(emailIDController.text.trim())) {
