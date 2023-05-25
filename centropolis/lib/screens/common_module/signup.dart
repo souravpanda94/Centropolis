@@ -739,7 +739,9 @@ class _SignupScreenState extends State<SignupScreen> {
                                   isIconVisible: false),
                             ),
                             CommonButtonWithBorder(
-                              onCommonButtonTap: () {},
+                              onCommonButtonTap: () {
+                                onBackButtonPress(context);
+                              },
                               buttonBorderColor: CustomColors.dividerGreyColor,
                               buttonName: tr("cancel"),
                               buttonTextColor: CustomColors.textColor5,
