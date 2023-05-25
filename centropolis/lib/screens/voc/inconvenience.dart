@@ -66,23 +66,21 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
       isLoading: isFirstLoadRunning,
       child: Scaffold(
           backgroundColor: Colors.white,
-          body: incovenienceListItem != null && incovenienceListItem!.isNotEmpty
-              ? VocCommonHome(
-                  image: 'assets/images/inconvenience_dummy_image.png',
-                  title: tr("customerComplaints"),
-                  subTitle: tr("customerComplaints"),
-                  emptyTxt: tr("inconvenienceEmptyText"),
-                  itemsList: incovenienceListItem,
-                  onDrawerClick: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const InconvenienceList()),
-                    );
-                  },
-                  category: 'inconvenience',
-                )
-              : Container(),
+          body: VocCommonHome(
+            image: 'assets/images/inconvenience_dummy_image.png',
+            title: tr("customerComplaints"),
+            subTitle: tr("customerComplaints"),
+            emptyTxt: tr("inconvenienceEmptyText"),
+            itemsList: incovenienceListItem,
+            onDrawerClick: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const InconvenienceList()),
+              );
+            },
+            category: 'inconvenience',
+          ),
           bottomSheet: Container(
             margin:
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
@@ -101,7 +99,6 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
           )),
     );
   }
-
 
   void firstTimeLoadInconvenienceList() {
     setState(() {

@@ -63,23 +63,20 @@ class _LightOutScreenState extends State<LightOutScreen> {
       isLoading: isFirstLoadRunning,
       child: Scaffold(
         backgroundColor: Colors.white,
-        body: lightoutListItem != null && lightoutListItem!.isNotEmpty
-            ? VocCommonHome(
-                image: 'assets/images/ic_slider_6.png',
-                title: tr("requestForLightsOut"),
-                subTitle: tr("requestForLightsOut"),
-                emptyTxt: tr("lightOutEmptyText"),
-                itemsList: lightoutListItem,
-                onDrawerClick: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const LightsOutList()),
-                  );
-                },
-                category: 'lightout',
-              )
-            : Container(),
+        body: VocCommonHome(
+          image: 'assets/images/ic_slider_6.png',
+          title: tr("requestForLightsOut"),
+          subTitle: tr("requestForLightsOut"),
+          emptyTxt: tr("lightOutEmptyText"),
+          itemsList: lightoutListItem,
+          onDrawerClick: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(builder: (context) => const LightsOutList()),
+            );
+          },
+          category: 'lightout',
+        ),
         bottomSheet: Container(
           margin:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),

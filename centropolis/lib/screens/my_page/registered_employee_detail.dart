@@ -67,7 +67,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     mobile = user.userData['mobile'].toString();
     name = user.userData['user_name'].toString();
     companyName = user.userData['company_name'].toString();
-    loadEmployeeDetails();
+    //loadEmployeeDetails();
   }
 
   @override

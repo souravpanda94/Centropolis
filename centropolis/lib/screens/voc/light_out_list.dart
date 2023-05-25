@@ -60,34 +60,35 @@ class _LightsOutListState extends State<LightsOutList> {
         color: CustomColors.blackColor,
       ),
       isLoading: isFirstLoadRunning,
-      child: lightoutListItem == null || lightoutListItem!.isEmpty
-          ? Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              padding: const EdgeInsets.all(24),
-              child: Text(
-                tr("lightOutEmptyText"),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: 14,
-                    color: CustomColors.textColor5),
-              ),
-            )
-          : Scaffold(
-              backgroundColor: CustomColors.backgroundColor,
-              appBar: PreferredSize(
-                preferredSize: AppBar().preferredSize,
-                child: SafeArea(
-                  child: Container(
-                    color: CustomColors.whiteColor,
-                    child: CommonAppBar(tr("requestForLightsOut"), false, () {
-                      onBackButtonPress(context);
-                    }, () {}),
-                  ),
+      child: Scaffold(
+        backgroundColor: CustomColors.backgroundColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("requestForLightsOut"), false, () {
+                onBackButtonPress(context);
+              }, () {}),
+            ),
+          ),
+        ),
+        body: lightoutListItem == null || lightoutListItem!.isEmpty
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  tr("lightOutEmptyText"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 14,
+                      color: CustomColors.textColor5),
                 ),
-              ),
-              body: Container(
+              )
+            : Container(
                 padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,7 +315,7 @@ class _LightsOutListState extends State<LightsOutList> {
                   ],
                 ),
               ),
-            ),
+      ),
     );
   }
 
