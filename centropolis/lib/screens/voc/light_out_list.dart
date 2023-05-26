@@ -203,9 +203,13 @@ class _LightsOutListState extends State<LightsOutList> {
                                           Container(
                                             decoration: BoxDecoration(
                                               color: lightoutListItem?[index]
-                                                          .status
-                                                          .toString() ==
-                                                      "Received"
+                                                              .status
+                                                              .toString() ==
+                                                          "Received" ||
+                                                      lightoutListItem?[index]
+                                                              .status
+                                                              .toString() ==
+                                                          "Rejected"
                                                   ? CustomColors
                                                       .backgroundColor3
                                                   : lightoutListItem?[index]
@@ -237,9 +241,13 @@ class _LightsOutListState extends State<LightsOutList> {
                                                 fontSize: 12,
                                                 fontFamily: "SemiBold",
                                                 color: lightoutListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Received"
+                                                                .status
+                                                                .toString() ==
+                                                            "Received" ||
+                                                        lightoutListItem?[index]
+                                                                .status
+                                                                .toString() ==
+                                                            "Rejected"
                                                     ? CustomColors.textColor9
                                                     : lightoutListItem?[index]
                                                                 .status
@@ -255,7 +263,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                                             ? CustomColors
                                                                 .brownColor
                                                             : CustomColors
-                                                                .textColorBlack2,
+                                                                .backgroundColor,
                                               ),
                                             ),
                                           ),

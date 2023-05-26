@@ -916,11 +916,15 @@ class _AddMemberState extends State<AddMember> {
 
   void callVerifyUserId() async {
     hideKeyboard();
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callVerifyUserIdApi();
+    if (!isValidUserId(idController.text.trim())) {
+      showCustomToast(fToast, context, tr("onlyValidIdIsAllowed"), "");
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      final InternetChecking internetChecking = InternetChecking();
+      if (await internetChecking.isInternet()) {
+        callVerifyUserIdApi();
+      } else {
+        showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      }
     }
   }
 
@@ -984,22 +988,23 @@ class _AddMemberState extends State<AddMember> {
       showCustomToast(fToast, context, "Please select company name", "");
     } else if (floorSelectedValue == null || floorSelectedValue == "") {
       showCustomToast(fToast, context, "Please select floor", "");
-    } else if (nameController.text == "") {
+    } else if (nameController.text.trim() == "") {
       showCustomToast(fToast, context, "Please enter name", "");
-    } else if (idController.text == "") {
+    } else if (idController.text.trim() == "") {
       showCustomToast(fToast, context, "Please enter id", "");
     } else if (!isUserIdVerified) {
       showCustomToast(fToast, context, "user id is not verified", "");
-    } else if (!isValidPassword(passwordController.text)) {
+    } else if (!isValidPassword(passwordController.text.trim())) {
       showCustomToast(fToast, context, "Please enter password", "");
-    } else if (!isValidPassword(verifyPasswordController.text)) {
+    } else if (!isValidPassword(verifyPasswordController.text.trim())) {
       showCustomToast(fToast, context, "Please enter verify password", "");
-    } else if (verifyPasswordController.text != passwordController.text) {
+    } else if (verifyPasswordController.text.trim() !=
+        passwordController.text.trim()) {
       showCustomToast(
           fToast, context, "Password & verify password should be same", "");
-    } else if (!isValidEmail(emailIDController.text)) {
+    } else if (!isValidEmail(emailIDController.text.trim())) {
       showCustomToast(fToast, context, "Please enter proper email id", "");
-    } else if (!isValidPhoneNumber(contactNoController.text)) {
+    } else if (!isValidPhoneNumber(contactNoController.text.trim())) {
       showCustomToast(
           fToast, context, "Please enter proper contact number", "");
     } else if (genderValue == "") {

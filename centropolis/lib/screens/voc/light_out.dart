@@ -135,13 +135,9 @@ class _LightOutScreenState extends State<LightOutScreen> {
           List<LightOutListModel> lightoutList = List<LightOutListModel>.from(
               responseJson['inquiry_data']
                   .map((x) => LightOutListModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<LightoutListProvider>(context, listen: false)
-                .setItem(lightoutList);
-          } else {
-            Provider.of<LightoutListProvider>(context, listen: false)
-                .addItem(lightoutList);
-          }
+
+          Provider.of<LightoutListProvider>(context, listen: false)
+              .setItem(lightoutList);
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

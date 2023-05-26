@@ -9,6 +9,8 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/employee_detail_model.dart';
+import '../../providers/employee_detail_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -35,25 +37,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
   late String language, apiKey, email, mobile, name, companyName;
   bool isLoading = false;
   late FToast fToast;
-
-  List<dynamic> list = [
-    {
-      "status": "Approved",
-      "type": "Member",
-    },
-    {
-      "status": "Denied",
-      "type": "Conference Room Manager",
-    },
-    {
-      "status": "Suspended",
-      "type": "Executive Lounge Manager",
-    },
-    {
-      "status": "Reactivate",
-      "type": "Members",
-    }
-  ];
+  List<dynamic> accountStatusList = [];
+  List<dynamic> accountTypeList = [];
+  EmployeeDetailModel? employeeDetails;
 
   @override
   void initState() {
@@ -67,11 +53,16 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     mobile = user.userData['mobile'].toString();
     name = user.userData['user_name'].toString();
     companyName = user.userData['company_name'].toString();
-    //loadEmployeeDetails();
+    loadAccountStatusList();
+    loadAccountTypeList();
+    loadEmployeeDetails();
   }
 
   @override
   Widget build(BuildContext context) {
+    employeeDetails =
+        Provider.of<EmployeeDetailProvider>(context).getEmplloyeeDetailModel;
+
     return LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
@@ -111,8 +102,6 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                   InkWell(
                     onTap: () {
                       showModal(tr("deleteTitle"), tr("deleteDesc"), "");
-
-                      //callDeleteEmployeeNetworkCheck();
                     },
                     child: Text(
                       tr("delete"),
@@ -145,9 +134,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "Hong Gil Dong",
-                      style: TextStyle(
+                    Text(
+                      employeeDetails?.name.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
@@ -165,9 +154,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "test1",
-                      style: TextStyle(
+                    Text(
+                      employeeDetails?.username.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
@@ -185,9 +174,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "test1@centropolis.com",
-                      style: TextStyle(
+                    Text(
+                      employeeDetails?.email.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
@@ -205,9 +194,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "010-0000-0000",
-                      style: TextStyle(
+                    Text(
+                      employeeDetails?.mobile.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
@@ -225,9 +214,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "CBRE",
-                      style: TextStyle(
+                    Text(
+                      employeeDetails?.companyName.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
@@ -245,9 +234,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "2023.00.00",
-                      style: TextStyle(
+                    Text(
+                      employeeDetails?.registrationDate.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
@@ -277,7 +266,8 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    accountStatusDropdownWidget(),
+                    accountStatusDropdownWidget(
+                        employeeDetails?.displayStatus.toString() ?? ""),
                     const SizedBox(
                       height: 16,
                     ),
@@ -291,18 +281,25 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    accountTypeDropdownWidget(),
+                    accountTypeDropdownWidget(
+                        employeeDetails?.displayAccountType.toString() ?? ""),
                     Container(
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(top: 32, bottom: 16),
                       child: CommonButton(
-                          onCommonButtonTap: () {},
+                          onCommonButtonTap: () {
+                            updateValidationCheck(
+                                employeeDetails?.status.toString() ?? "",
+                                employeeDetails?.accountType.toString() ?? "");
+                          },
                           buttonColor: CustomColors.buttonBackgroundColor,
                           buttonName: tr("save"),
                           isIconVisible: false),
                     ),
                     CommonButtonWithBorder(
-                      onCommonButtonTap: () {},
+                      onCommonButtonTap: () {
+                        Navigator.pop(context);
+                      },
                       buttonBorderColor: CustomColors.dividerGreyColor,
                       buttonName: tr("before"),
                       buttonTextColor: CustomColors.textColor5,
@@ -343,20 +340,20 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
         });
   }
 
-  accountStatusDropdownWidget() {
+  accountStatusDropdownWidget(String status) {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr('approved'),
+          status,
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: list
+        items: accountStatusList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["status"],
+                  value: item["value"],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -364,7 +361,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["status"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -431,20 +428,20 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     );
   }
 
-  accountTypeDropdownWidget() {
+  accountTypeDropdownWidget(String type) {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        hint: const Text(
-          "Member",
-          style: TextStyle(
+        hint: Text(
+          type,
+          style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: list
+        items: accountTypeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["type"],
+                  value: item["value"],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -452,7 +449,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["type"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -591,23 +588,171 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
 
       debugPrint("server response for employee details ===> $responseJson");
 
-      // if (responseJson != null) {
-      //   if (response.statusCode == 200 && responseJson['success']) {
-      //     ConferenceHistoryDetailModel conferenceHistoryDetailModel =
-      //         ConferenceHistoryDetailModel.fromJson(responseJson);
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          EmployeeDetailModel employeeDetailModel =
+              EmployeeDetailModel.fromJson(responseJson);
 
-      //     Provider.of<ConferenceHistoryDetailsProvider>(context, listen: false)
-      //         .setItem(conferenceHistoryDetailModel);
-      //   } else {
-      //     if (responseJson['message'] != null) {
-      //       showCustomToast(
-      //           fToast, context, responseJson['message'].toString(), "");
-      //     }
-      //   }
-      //   setState(() {
-      //     isLoading = false;
-      //   });
-      // }
+          Provider.of<EmployeeDetailProvider>(context, listen: false)
+              .setItem(employeeDetailModel);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadAccountStatusList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callAccountStatusListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callAccountStatusListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.accountStatusListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              accountStatusList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadAccountTypeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callAccountTypeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callAccountTypeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.accountTypeListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              accountTypeList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void updateValidationCheck(String status, String type) {
+    if (statusSelectedValue == null || statusSelectedValue == "") {
+      statusSelectedValue = status;
+    } else if (typeSelectedValue == null || typeSelectedValue == "") {
+      typeSelectedValue = type;
+    } else {
+      callUpdateEmployeeNetworkCheck();
+    }
+  }
+
+  void callUpdateEmployeeNetworkCheck() async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callUpdateEmployeeApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callUpdateEmployeeApi() async {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, dynamic> body = {
+      "employee_id": widget.id.toString().trim(),
+      "status": statusSelectedValue.toString().trim(),
+      "account_type": typeSelectedValue.toString().trim(),
+    };
+
+    debugPrint("Update Employee input ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.updateEmployeeUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Update Employee ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          showModal(responseJson['message'].toString(), "", tr("check"));
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {

@@ -204,7 +204,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                                       .toString() ==
                                                   "In Progress"
                                               ? CustomColors.greyColor2
-                                              : CustomColors.textColorBlack2,
+                                              : CustomColors.backgroundColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             padding: const EdgeInsets.only(
@@ -360,7 +360,11 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             Container(
                               decoration: BoxDecoration(
                                 color: lightoutList?[index].status.toString() ==
-                                        "Received"
+                                            "Received" ||
+                                        lightoutList?[index]
+                                                .status
+                                                .toString() ==
+                                            "Rejected"
                                     ? CustomColors.backgroundColor3
                                     : lightoutList?[index].status.toString() ==
                                                 "Answered" ||
@@ -374,7 +378,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                                     .toString() ==
                                                 "In Progress"
                                             ? CustomColors.greyColor2
-                                            : CustomColors.textColorBlack2,
+                                            : CustomColors.backgroundColor,
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               padding: const EdgeInsets.only(
@@ -388,9 +392,13 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   fontSize: 12,
                                   fontFamily: "SemiBold",
                                   color: lightoutList?[index]
-                                              .status
-                                              .toString() ==
-                                          "Received"
+                                                  .status
+                                                  .toString() ==
+                                              "Received" ||
+                                          lightoutList?[index]
+                                                  .status
+                                                  .toString() ==
+                                              "Rejected"
                                       ? CustomColors.textColor9
                                       : lightoutList?[index]
                                                       .status

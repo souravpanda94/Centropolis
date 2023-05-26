@@ -66,15 +66,14 @@ class ApiEndPoint {
   static String registeredEmployeeListUrl = "${baseUrl}v1/employee/list";
   static String deleteEmployeeUrl = "${baseUrl}v1/employee/delete";
   static String employeeDetailUrl = "${baseUrl}v1/employee/view";
+  static String accountStatusListUrl = "${baseUrl}v1/common/member-status-list";
+  static String accountTypeListUrl = "${baseUrl}v1/common/member-type-list";
+  static String updateEmployeeUrl = "${baseUrl}v1/employee/update";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-  static String getVisitRequestListUrl = "${baseUrl}v1/amenity/app-visitor-reservation-list";
+  static String getVisitRequestListUrl =
+      "${baseUrl}v1/amenity/app-visitor-reservation-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
-
-
-
-
-
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

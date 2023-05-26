@@ -233,7 +233,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                                           ? CustomColors
                                                               .greyColor2
                                                           : CustomColors
-                                                              .textColorBlack2,
+                                                              .backgroundColor,
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),

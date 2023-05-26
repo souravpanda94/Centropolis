@@ -138,13 +138,9 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
           List<IncovenienceListModel> incovenienceList =
               List<IncovenienceListModel>.from(responseJson['inquiry_data']
                   .map((x) => IncovenienceListModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<InconvenienceListProvider>(context, listen: false)
-                .setItem(incovenienceList);
-          } else {
-            Provider.of<InconvenienceListProvider>(context, listen: false)
-                .addItem(incovenienceList);
-          }
+
+          Provider.of<InconvenienceListProvider>(context, listen: false)
+              .setItem(incovenienceList);
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

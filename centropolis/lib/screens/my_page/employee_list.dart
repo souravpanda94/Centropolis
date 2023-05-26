@@ -206,14 +206,14 @@ class _EmployeeListState extends State<EmployeeList> {
                                                     Text(
                                                       employeeListItem![index]
                                                                   .accountType
-                                                                  .toString() !=
+                                                                  .toString() ==
                                                               "tenant_lounge_employee"
                                                           ? tr(
                                                               "executiveLounge")
                                                           : employeeListItem![
                                                                           index]
                                                                       .accountType
-                                                                      .toString() !=
+                                                                      .toString() ==
                                                                   "tenant_conference_employee"
                                                               ? tr(
                                                                   "conferenceRoom")
