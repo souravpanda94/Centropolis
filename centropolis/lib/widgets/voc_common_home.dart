@@ -37,12 +37,15 @@ class VocCommonHome extends StatefulWidget {
 class _VocCommonHomeState extends State<VocCommonHome> {
   List<IncovenienceListModel>? inconvenienceList = [];
   List<LightOutListModel>? lightoutList = [];
+  List<LightOutListModel>? airConditioningList = [];
   @override
   void initState() {
     if (widget.category == "inconvenience") {
       inconvenienceList = widget.itemsList?.cast<IncovenienceListModel>();
     } else if (widget.category == "lightout") {
       lightoutList = widget.itemsList?.cast<LightOutListModel>();
+    } else if (widget.category == "airConditioning") {
+      airConditioningList = widget.itemsList?.cast<LightOutListModel>();
     }
     super.initState();
   }
@@ -117,7 +120,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       ? inconvenienceListWidget()
                       : lightoutList != null && lightoutList!.isNotEmpty
                           ? lightOutListWidget()
-                          : emptyViewWidget()
+                          : airConditioningList != null &&
+                                  airConditioningList!.isNotEmpty
+                              ? airConditioningListWidget()
+                              : emptyViewWidget()
                   : emptyViewWidget(),
             ],
           ),
@@ -448,6 +454,203 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             ),
                             Text(
                               "${lightoutList?[index].registeredDate ?? ""} ${lightoutList?[index].startTime ?? ""}",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.textColor3),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              );
+            })));
+  }
+
+  airConditioningListWidget() {
+    return Container(
+        margin:
+            const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 100),
+        child: ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            scrollDirection: Axis.vertical,
+            itemCount: airConditioningList?.length,
+            itemBuilder: ((context, index) {
+              return InkWell(
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AirConditioningDetails(
+                          type: airConditioningList?[index].status.toString() ??
+                              ""),
+                    ),
+                  );
+                },
+                child: Container(
+                  decoration: BoxDecoration(
+                      color: CustomColors.whiteColor,
+                      border: Border.all(
+                        color: CustomColors.borderColor,
+                      ),
+                      borderRadius: const BorderRadius.all(Radius.circular(4))),
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Icon(
+                            Icons.circle,
+                            size: 8,
+                            color: airConditioningList?[index]
+                                        .type
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "heating"
+                                ? CustomColors.headingColor
+                                : CustomColors.coolingColor,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            airConditioningList?[index].type.toString() ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 12,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 18,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Expanded(
+                            child: Text(
+                              airConditioningList?[index].description ?? "",
+                              //"Centropolis",
+                              maxLines: 1,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                          ),
+                          if (airConditioningList != null &&
+                              airConditioningList![index]
+                                  .status
+                                  .toString()
+                                  .isNotEmpty)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: airConditioningList?[index]
+                                                .status
+                                                .toString() ==
+                                            "Received" ||
+                                        airConditioningList?[index]
+                                                .status
+                                                .toString() ==
+                                            "Rejected"
+                                    ? CustomColors.backgroundColor3
+                                    : airConditioningList?[index]
+                                                    .status
+                                                    .toString() ==
+                                                "Answered" ||
+                                            airConditioningList?[index]
+                                                    .status
+                                                    .toString() ==
+                                                "Approved"
+                                        ? CustomColors.backgroundColor
+                                        : airConditioningList?[index]
+                                                    .status
+                                                    .toString() ==
+                                                "In Progress"
+                                            ? CustomColors.greyColor2
+                                            : CustomColors.backgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.only(
+                                  top: 5.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
+                              child: Text(
+                                airConditioningList?[index].status ?? "",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: airConditioningList?[index]
+                                                  .status
+                                                  .toString() ==
+                                              "Received" ||
+                                          airConditioningList?[index]
+                                                  .status
+                                                  .toString() ==
+                                              "Rejected"
+                                      ? CustomColors.textColor9
+                                      : airConditioningList?[index]
+                                                      .status
+                                                      .toString() ==
+                                                  "Answered" ||
+                                              airConditioningList?[index]
+                                                      .status
+                                                      .toString() ==
+                                                  "Approved"
+                                          ? CustomColors.textColorBlack2
+                                          : airConditioningList?[index]
+                                                      .status
+                                                      .toString() ==
+                                                  "In Progress"
+                                              ? CustomColors.brownColor
+                                              : CustomColors.textColorBlack2,
+                                ),
+                              ),
+                            ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 18,
+                      ),
+                      IntrinsicHeight(
+                        child: Row(
+                          children: [
+                            Text(
+                              airConditioningList?[index]
+                                      .requestedFloors
+                                      .toString() ??
+                                  "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.textColor3),
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            const VerticalDivider(
+                              thickness: 1,
+                              color: CustomColors.borderColor,
+                            ),
+                            const SizedBox(
+                              width: 8,
+                            ),
+                            Text(
+                              "${airConditioningList?[index].registeredDate ?? ""} ${airConditioningList?[index].startTime ?? ""}",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
