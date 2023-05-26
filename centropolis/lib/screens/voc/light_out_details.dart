@@ -51,7 +51,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                         if (widget.type.toString().isNotEmpty)
                           Container(
                             decoration: BoxDecoration(
-                              color: widget.type.toString() == "Received"
+                              color: widget.type.toString() == "Received" ||
+                                      widget.type.toString() == "Rejected"
                                   ? CustomColors.backgroundColor3
                                   : widget.type.toString() == "Approved"
                                       ? CustomColors.backgroundColor
@@ -67,7 +68,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",
-                                color: widget.type.toString() == "Received"
+                                color: widget.type.toString() == "Received" ||
+                                        widget.type.toString() == "Rejected"
                                     ? CustomColors.textColor9
                                     : widget.type.toString() == "Approved"
                                         ? CustomColors.textColorBlack2

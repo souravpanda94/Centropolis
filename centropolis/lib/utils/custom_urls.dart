@@ -69,6 +69,10 @@ class ApiEndPoint {
   static String accountStatusListUrl = "${baseUrl}v1/common/member-status-list";
   static String accountTypeListUrl = "${baseUrl}v1/common/member-type-list";
   static String updateEmployeeUrl = "${baseUrl}v1/employee/update";
+  static String finessCongestionUrl =
+      "${baseUrl}v1/amenity/fitness-center-congestion";
+  static String sleepingRoomUrl =
+      "${baseUrl}v1/amenity/sleeping-room-congestion";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

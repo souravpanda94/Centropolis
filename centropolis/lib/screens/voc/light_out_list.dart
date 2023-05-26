@@ -263,7 +263,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                                             ? CustomColors
                                                                 .brownColor
                                                             : CustomColors
-                                                                .backgroundColor,
+                                                                .textColorBlack2,
                                               ),
                                             ),
                                           ),
