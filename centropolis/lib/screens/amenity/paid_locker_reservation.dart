@@ -264,11 +264,6 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   }
 
   usageTimeDropdownWidget() {
-    setState(() {
-      if (timeList.isNotEmpty) {
-        selectedTime = timeList.first["value"].toString();
-      }
-    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(

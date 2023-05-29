@@ -75,6 +75,8 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/sleeping-room-congestion";
   static String getAirConditioningListUrl =
       "${baseUrl}v1/mypage/ac-inquiry-list";
+  static String getFitnessSeatAvailibilitytUrl =
+      "${baseUrl}v1/amenity/fitness-center-seat";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

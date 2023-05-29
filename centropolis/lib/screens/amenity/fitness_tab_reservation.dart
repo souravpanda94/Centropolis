@@ -38,7 +38,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   DateTime? selectedDate;
   bool isChecked = false;
   bool selected = false;
-  List<dynamic> listData = [];
+  List<dynamic> seatAvailibilityList = [];
   int selectedIndex = 0;
   String? usageTimeSelectedValue;
   String? totalTimeSelectedValue;
@@ -46,6 +46,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   List<dynamic> timeList = [];
   List<dynamic> totalUsageTimeList = [];
   String reservationDate = "";
+  int selectedSeat = 0;
 
   @override
   void initState() {
@@ -59,7 +60,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     mobile = user.userData['mobile'].toString();
     loadTimeList();
     loadTotalUsageTimeList();
-    setListData();
   }
 
   @override
@@ -381,7 +381,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     padding: const EdgeInsets.only(top: 24, bottom: 32),
                     child: CommonButton(
                       onCommonButtonTap: () {
-                        //reservationValidationCheck();
+                        reservationValidationCheck();
                       },
                       buttonColor: CustomColors.buttonBackgroundColor,
                       buttonName: tr("makeReservation"),
@@ -397,23 +397,18 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     );
   }
 
-  void setListData() {
-    List<String> names = [tr("selectable"), tr("closed")];
+  // void setListData() {
+  //   List<String> names = [tr("selectable"), tr("closed")];
 
-    listData.clear();
-    for (int i = 1; i <= 31; i++) {
-      final random = Random();
-      String element = names[random.nextInt(names.length)];
-      listData.add(element);
-    }
-  }
+  //   seatAvailibilityList.clear();
+  //   for (int i = 1; i <= 31; i++) {
+  //     final random = Random();
+  //     String element = names[random.nextInt(names.length)];
+  //     seatAvailibilityList.add(element);
+  //   }
+  // }
 
   usageTimeDropdownWidget() {
-    setState(() {
-      if (timeList.isNotEmpty) {
-        usageTimeSelectedValue = timeList.first.toString();
-      }
-    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -456,6 +451,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           setState(() {
             usageTimeSelectedValue = value as String;
           });
+          loadSeatAvailibility();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -502,11 +498,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   }
 
   totalUsageTimeDropdownWidget() {
-    setState(() {
-      if (totalUsageTimeList.isNotEmpty) {
-        totalTimeSelectedValue = totalUsageTimeList.first["value"].toString();
-      }
-    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -551,6 +542,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           setState(() {
             totalTimeSelectedValue = value.toString();
           });
+          loadSeatAvailibility();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -702,14 +694,15 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
             childAspectRatio: 1,
             mainAxisExtent: 55,
           ),
-          itemCount: listData.length,
+          itemCount: seatAvailibilityList.length,
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
                 onTap: () {
-                  if (listData[index] == tr("selectable")) {
+                  if (seatAvailibilityList[index]["available"] == true) {
                     setState(() {
                       selected = true;
                       selectedIndex = index;
+                      selectedSeat = seatAvailibilityList[index]["seat"];
                     });
                   }
                 },
@@ -720,23 +713,23 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   margin: const EdgeInsets.only(right: 12, bottom: 12),
                   decoration: BoxDecoration(
-                    color: listData[index] == tr("closed")
+                    color: seatAvailibilityList[index]["available"] == false
                         ? CustomColors.borderColor
                         : selected && selectedIndex == index
                             ? CustomColors.textColor9
                             : CustomColors.whiteColor,
                     border: Border.all(
-                        color: listData[index] == tr("closed")
+                        color: seatAvailibilityList[index]["available"] == false
                             ? CustomColors.borderColor
                             : CustomColors.textColor9,
                         width: 1.0),
                   ),
                   child: Center(
                     child: Text(
-                      (index + 1).toString(),
+                      seatAvailibilityList[index]["seat"].toString(),
                       style: TextStyle(
                         fontSize: 14,
-                        color: listData[index] == tr("closed")
+                        color: seatAvailibilityList[index]["available"] == false
                             ? CustomColors.textColor3
                             : selected && selectedIndex == index
                                 ? CustomColors.whiteColor
@@ -748,6 +741,76 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 ));
           }),
     );
+  }
+
+  void loadSeatAvailibility() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadSeatAvailibilityApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadSeatAvailibilityApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
+    }
+    setState(() {
+      reservationDate = selectedDate;
+    });
+
+    Map<String, String> body = {
+      "date": reservationDate, //required
+      "start_time": usageTimeSelectedValue.toString().trim(), //required
+      "usage_time": totalTimeSelectedValue.toString().trim() //required
+    };
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getFitnessSeatAvailibilitytUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['seats_data'] != null) {
+            setState(() {
+              seatAvailibilityList = responseJson['seats_data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
   void loadTimeList() async {
@@ -866,7 +929,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
       showErrorModal(tr("usageTimeValidation"));
-    } else if (selectedIndex == 0) {
+    } else if (selectedIndex == 0 || selectedSeat == 0) {
       showErrorModal(tr("lockerValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
@@ -914,7 +977,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       "reservation_date": reservationDate.toString().trim(), //required
       "start_time": usageTimeSelectedValue.toString().trim(), //required
       "usage_hours": totalTimeSelectedValue.toString().trim(), //required
-      "seat": (selectedIndex + 1).toString().trim(), //required
+      "seat": selectedSeat.toString().trim(), //required
     };
 
     debugPrint("fitness reservation input===> $body");

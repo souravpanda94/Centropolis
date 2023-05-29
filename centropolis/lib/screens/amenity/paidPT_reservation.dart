@@ -267,13 +267,6 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   }
 
   timeSelectionDropdownWidget() {
-    setState(() {
-      if (timeList.isNotEmpty) {
-        rangeTimeSelectedValue = timeList.first["value"];
-        startTimeSelectedValue = timeList.first["start_time"];
-        endTimeSelectedValue = timeList.first["end_time"];
-      }
-    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(

@@ -446,12 +446,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   usageTimeDropdownWidget() {
-    setState(() {
-      if (usageTimeList.isNotEmpty) {
-        usageTimeSelectedValue = usageTimeList.first.toString();
-      }
-    });
-
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -540,11 +534,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   totalUsageDropdownWidget() {
-    setState(() {
-      if (totalUsageTimeList.isNotEmpty) {
-        totalTimeSelectedValue = totalUsageTimeList.first["value"].toString();
-      }
-    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
