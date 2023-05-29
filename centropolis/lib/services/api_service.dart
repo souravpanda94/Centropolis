@@ -73,13 +73,17 @@ class WebService {
     return response;
   }
 
-  Future<http.Response> callPostMethodWithMultipart(
-      url, body, imageFile, imageFileKeyName, attachedFile, token) async {
+  Future<http.Response> callPostMethodWithMultipart(url, body, imageFile,
+      imageFileKeyName, attachedFile, token, language) async {
     var request = http.MultipartRequest('POST', Uri.parse(url));
+
+    String xApiKey = 'anE4ser6h1vIc2pM22weB02t02A2ipA8';
 
     request.headers.addAll({
       'Content-Type': 'application/json; charset=UTF-8;',
-      'Accept': 'application/json'
+      'Accept': 'application/json',
+      'x-api-key': xApiKey,
+      'Accept-language': language
     });
 
     if (token != null) {
@@ -87,7 +91,7 @@ class WebService {
     }
     // 'image/jpeg'
     if (imageFile != null) {
-      var mimeType = lookupMimeType(imageFile.path);
+      var mimeType = lookupMimeType(imageFile);
       var fileType = mimeType?.split('/');
       if (kDebugMode) {
         print(imageFile);

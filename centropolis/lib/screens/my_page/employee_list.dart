@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -38,6 +39,13 @@ class _EmployeeListState extends State<EmployeeList> {
   int totalRecords = 0;
   bool isFirstLoadRunning = true;
   List<EmployeeListModel>? employeeListItem;
+  String? currentSelectedSortingFilter;
+  List<dynamic>? sortingList = [
+    {"value": "", "text": "All"},
+    {"value": "tenant_employee", "text": "Tenant Employee"},
+    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
+    {"value": "tenant_conference_employee", "text": "Conference Room"}
+  ];
 
   @override
   void initState() {
@@ -89,7 +97,7 @@ class _EmployeeListState extends State<EmployeeList> {
                           Text(
                             tr("total"),
                             style: const TextStyle(
-                                fontFamily: 'Regular',
+                                fontFamily: 'SemiBold',
                                 fontSize: 14,
                                 color: CustomColors.textColorBlack2),
                           ),
@@ -98,30 +106,14 @@ class _EmployeeListState extends State<EmployeeList> {
                             child: Text(
                               employeeListItem!.length.toString(),
                               style: const TextStyle(
-                                  fontFamily: 'Regular',
+                                  fontFamily: 'SemiBold',
                                   fontSize: 14,
                                   color: CustomColors.textColor9),
                             ),
                           ),
                         ],
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            tr("all"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor5),
-                          ),
-                          const SizedBox(
-                            width: 11,
-                          ),
-                          SvgPicture.asset(
-                              "assets/images/ic_drop_down_arrow.svg",
-                              color: CustomColors.textColor5)
-                        ],
-                      ),
+                      sortingDropdownWidget(),
                     ],
                   ),
                   const SizedBox(
@@ -312,14 +304,22 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   void callEmployeeListApi() {
-    Map<String, String> body = {
-      "page": page.toString(),
-      "limit": limit.toString(),
-      "status": widget.status.toString().trim() //optional
-      // will be required when sorting dropdown
-      // "account_type":
-      //     "tenant_conference_employee/tenant_employee/tenant_lounge_employee", //optional
-    };
+    Map<String, String> body;
+    if (currentSelectedSortingFilter != null) {
+      body = {
+        "page": page.toString(),
+        "limit": limit.toString(),
+        "status": widget.status.toString().trim(), //optional
+        "account_type":
+            currentSelectedSortingFilter.toString().trim(), //optional
+      };
+    } else {
+      body = {
+        "page": page.toString(),
+        "limit": limit.toString(),
+        "status": widget.status.toString().trim(), //optional
+      };
+    }
 
     debugPrint("Employee List input===> $body");
 
@@ -374,5 +374,67 @@ class _EmployeeListState extends State<EmployeeList> {
       });
       loadEmployeeList();
     }
+  }
+
+  sortingDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          tr('all'),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: sortingList
+            ?.map(
+              (item) => DropdownMenuItem<String>(
+                value: item["value"],
+                child: Text(
+                  item["text"],
+                  style: const TextStyle(
+                    color: CustomColors.textColor5,
+                    fontSize: 14,
+                    fontFamily: 'SemiBold',
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+        value: currentSelectedSortingFilter,
+        onChanged: (value) {
+          setState(() {
+            currentSelectedSortingFilter = value as String;
+          });
+          loadEmployeeList();
+        },
+        dropdownStyleData: const DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          padding: EdgeInsets.only(left: 16),
+          decoration: BoxDecoration(
+            color: CustomColors.whiteColor,
+          ),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(
+              bottom: currentSelectedSortingFilter != null ? 6 : 0, top: 6),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: const ButtonStyleData(height: 41, elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
   }
 }
