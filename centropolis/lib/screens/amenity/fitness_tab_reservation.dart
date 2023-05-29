@@ -47,6 +47,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   List<dynamic> totalUsageTimeList = [];
   String reservationDate = "";
   int selectedSeat = 0;
+  bool firstTimeSeatAvailibilityLoading = true;
 
   @override
   void initState() {
@@ -396,17 +397,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       )),
     );
   }
-
-  // void setListData() {
-  //   List<String> names = [tr("selectable"), tr("closed")];
-
-  //   seatAvailibilityList.clear();
-  //   for (int i = 1; i <= 31; i++) {
-  //     final random = Random();
-  //     String element = names[random.nextInt(names.length)];
-  //     seatAvailibilityList.add(element);
-  //   }
-  // }
 
   usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
@@ -777,8 +767,14 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
     Map<String, String> body = {
       "date": reservationDate, //required
-      "start_time": usageTimeSelectedValue.toString().trim(), //required
-      "usage_time": totalTimeSelectedValue.toString().trim() //required
+      "start_time": usageTimeSelectedValue != null &&
+              usageTimeSelectedValue.toString().isNotEmpty
+          ? usageTimeSelectedValue.toString().trim()
+          : timeList.first.toString().trim(), //required
+      "usage_time": totalTimeSelectedValue != null &&
+              totalTimeSelectedValue.toString().isNotEmpty
+          ? totalTimeSelectedValue.toString().trim()
+          : totalUsageTimeList.first["value"].toString().trim() //required
     };
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessSeatAvailibilitytUrl,
@@ -884,6 +880,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           if (responseJson['data'] != null) {
             setState(() {
               totalUsageTimeList = responseJson['data'];
+              if (firstTimeSeatAvailibilityLoading) {
+                loadSeatAvailibility();
+                firstTimeSeatAvailibilityLoading = false;
+              }
             });
           }
         } else {
@@ -925,11 +925,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
-    } else if (usageTimeSelectedValue == null || usageTimeSelectedValue == "") {
-      showErrorModal(tr("startTimeValidation"));
-    } else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
-      showErrorModal(tr("usageTimeValidation"));
-    } else if (selectedIndex == 0 || selectedSeat == 0) {
+    }
+    // else if (usageTimeSelectedValue == null || usageTimeSelectedValue == "") {
+    //   showErrorModal(tr("startTimeValidation"));
+    // } else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
+    //   showErrorModal(tr("usageTimeValidation"));
+    // }
+    else if (selectedIndex == 0 || selectedSeat == 0) {
       showErrorModal(tr("lockerValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
@@ -975,8 +977,14 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
       "reservation_date": reservationDate.toString().trim(), //required
-      "start_time": usageTimeSelectedValue.toString().trim(), //required
-      "usage_hours": totalTimeSelectedValue.toString().trim(), //required
+      "start_time": usageTimeSelectedValue != null &&
+              usageTimeSelectedValue.toString().isNotEmpty
+          ? usageTimeSelectedValue.toString().trim()
+          : timeList.first, //required
+      "usage_hours": totalTimeSelectedValue != null &&
+              totalTimeSelectedValue.toString().isNotEmpty
+          ? totalTimeSelectedValue.toString().trim()
+          : totalUsageTimeList.first["value"], //required
       "seat": selectedSeat.toString().trim(), //required
     };
 

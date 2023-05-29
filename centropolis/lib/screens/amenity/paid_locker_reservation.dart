@@ -510,9 +510,11 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
-    } else if (selectedTime == null || selectedTime == "") {
-      showErrorModal(tr("usageTimeValidation"));
-    } else if (!isChecked) {
+    }
+    // else if (selectedTime == null || selectedTime == "") {
+    //   showErrorModal(tr("usageTimeValidation"));
+    // }
+    else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForReservation();
@@ -549,8 +551,6 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   }
 
   void callReservationApi() {
-    var reservationDate = dateFormat.format(focusedDate);
-
     setState(() {
       isLoading = true;
     });
@@ -558,7 +558,9 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
       "start_date": reservationDate.toString().trim(), //required
-      "used_months": selectedTime.toString().trim(), //required
+      "used_months": selectedTime != null && selectedTime.toString().isNotEmpty
+          ? selectedTime.toString().trim()
+          : timeList.first["value"].toString().trim(), //required
     };
 
     debugPrint("paid locker reservation input===> $body");
