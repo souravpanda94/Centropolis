@@ -30,7 +30,7 @@ class SleepingRoomReservation extends StatefulWidget {
 }
 
 class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
-  late String language, apiKey, email, mobile;
+  late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -61,6 +61,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     apiKey = user.userData['api_key'].toString();
     email = user.userData['email_key'].toString();
     mobile = user.userData['mobile'].toString();
+    name = user.userData['name'].toString();
+    companyName = user.userData['company_name'].toString();
     loadTimeList();
     loadTotalUsageTimeList();
     setListData();
@@ -219,9 +221,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "Hong Gil Dong",
-                        style: TextStyle(
+                      Text(
+                        name,
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -246,9 +248,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "CBRE",
-                        style: TextStyle(
+                      Text(
+                        companyName,
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
