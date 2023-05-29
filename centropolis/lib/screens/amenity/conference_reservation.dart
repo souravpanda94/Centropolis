@@ -42,6 +42,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   String? endTimeSelectedValue;
   List<dynamic> timeList = [];
   var dateFormat = DateFormat('yyyy-MM-dd');
+  String reservationDate = "";
 
   @override
   void initState() {
@@ -692,24 +693,60 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   }
 
   void reservationValidationCheck() {
-    if (focusedDate == "") {
-      showCustomToast(fToast, context, "Please select reservation date", "");
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
+    }
+    setState(() {
+      reservationDate = selectedDate;
+    });
+
+    if (reservationDate == "") {
+      showErrorModal(tr("applicationDateValidation"));
     } else if (startTimeSelectedValue == null || startTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select start time", "");
+      showErrorModal(tr("startTimeValidation"));
     } else if (endTimeSelectedValue == null || startTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select end time", "");
+      showErrorModal(tr("endTimeValidation"));
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
-      showCustomToast(fToast, context,
-          "End time can't be earlier than or equal to start time", "");
+      showErrorModal("End time can't be earlier than or equal to start time");
     } else if (rentalInfoController.text.isEmpty) {
-      showCustomToast(fToast, context, "Please enter rental information", "");
+      showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (!isChecked) {
-      showCustomToast(
-          fToast, context, "Please checkmark on reservation rules", "");
+      showErrorModal(tr("tnc"));
     } else {
       networkCheckForReservation();
     }
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void networkCheckForReservation() async {
@@ -722,8 +759,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   }
 
   void callReservationApi() {
-    var reservationDate = dateFormat.format(focusedDate);
-
     setState(() {
       isLoading = true;
     });

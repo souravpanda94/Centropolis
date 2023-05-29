@@ -392,11 +392,30 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
 
   void reservationValidationCheck() {
     if (!isChecked) {
-      showCustomToast(
-          fToast, context, "Please checkmark on reservation rules", "");
+      showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForReservation();
     }
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void networkCheckForReservation() async {

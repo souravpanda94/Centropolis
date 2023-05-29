@@ -331,6 +331,20 @@
   "gXprogramInformationDescription1" : "Mon, Wed, Fri – Yoga (120,000 won per month, excluding VAT)",
   "gXprogramInformationDescription2" : "Tue, Thu – Free GX Program",
   "cooling" : "Air conditioning",
+  "applicationDateValidation": "Please Select a Date",
+  "startTimeValidation": "Please Select a start time",
+  "endTimeValidation": "Please Select an end time",
+  "usageTimeValidation": "Please select Usage Time",
+  "tnc": "Please agree Terms and Conditions",
+  "conferenceDescriptionValidation": "Please write a description",
+  "conferenceDescriptionLengthValidation": "Please enter min. 1 and max. 500 characters",
+  "seatValidation": "Please Select correct seat number",
+  "lockerValidation": "Please Select correct locker number",
+
+
+
+
+
 
 
 

@@ -49,6 +49,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   var dateFormat = DateFormat('yyyy-MM-dd');
   List<dynamic> usageTimeList = [];
   List<dynamic> totalUsageTimeList = [];
+  String reservationDate = "";
 
   @override
   void initState() {
@@ -445,6 +446,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   usageTimeDropdownWidget() {
+    setState(() {
+      if (usageTimeList.isNotEmpty) {
+        usageTimeSelectedValue = usageTimeList.first.toString();
+      }
+    });
+
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -533,6 +540,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   totalUsageDropdownWidget() {
+    setState(() {
+      if (totalUsageTimeList.isNotEmpty) {
+        totalTimeSelectedValue = totalUsageTimeList.first["value"].toString();
+      }
+    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -993,20 +1005,57 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void reservationValidationCheck() {
-    if (focusedDate == "") {
-      showCustomToast(fToast, context, "Please select reservation date", "");
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
+    }
+    setState(() {
+      reservationDate = selectedDate;
+    });
+
+    if (reservationDate == "") {
+      showErrorModal(tr("applicationDateValidation"));
     } else if (usageTimeSelectedValue == null || usageTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select usage time", "");
+      showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select total usage time", "");
+      showErrorModal(tr("usageTimeValidation"));
     } else if (selectedIndex == 0) {
-      showCustomToast(fToast, context, "Please select seat", "");
+      showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {
-      showCustomToast(
-          fToast, context, "Please checkmark on reservation rules", "");
+      showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForReservation();
     }
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void networkCheckForReservation() async {

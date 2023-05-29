@@ -328,6 +328,16 @@
   "gXprogramInformationDescription1" : "월, 수, 금 – 요가 (월 12만원, 부가세 별도)",
   "gXprogramInformationDescription2" : "화, 목 – 무료 GX 프로그램",
   "cooling" : "냉방",
+  "applicationDateValidation": "날짜를 선택해 주세요",
+  "startTimeValidation": "시작 시간을 선택해 주세요",
+  "endTimeValidation": "종료 시간을 선택해 주세요",
+  "usageTimeValidation": "사용 시간을 선택해 주세요",
+  "tnc": "이용 약관에 동의해 주세요",
+  "conferenceDescriptionValidation": "상세 정보를 입력해 주세요",
+  "conferenceDescriptionLengthValidation": "최소 1자에서 최대 150자 내로 입력해 주세요",
+  "seatValidation": "Please Select correct seat number",
+  "lockerValidation": "Please Select correct locker number",
+
 
 
 

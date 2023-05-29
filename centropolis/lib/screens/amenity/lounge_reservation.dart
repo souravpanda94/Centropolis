@@ -877,17 +877,14 @@ class _LoungeReservationState extends State<LoungeReservation> {
     String month = focusedDate.month.toString();
     String year = focusedDate.year.toString();
 
-    if(int.parse(day) < 10 && int.parse(month) < 10){
-       selectedDate = '$year-0$month-0$day';
-    }
-    else if(int.parse(day) < 10){
-       selectedDate = '$year-$month-0$day';
-    }
-    else if(int.parse(month) < 10){
-       selectedDate = '$year-0$month-$day';
-    }
-    else{
-       selectedDate = '$year-$month-$day';
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
     }
     debugPrint("Selected Date ====> $selectedDate");
     setState(() {
@@ -895,16 +892,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
     });
 
     if (reservationDate == "") {
-      showCustomToast(fToast, context, "Please enter reservation date", "");
+      showErrorModal(tr("applicationDateValidation"));
     } else if (usageTimeSelectedValue == null || startTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select usage time time", "");
+      showErrorModal(tr("usageTimeValidation"));
     } else if (startTimeSelectedValue == null || startTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select start time", "");
+      showErrorModal(tr("startTimeValidation"));
     } else if (endTimeSelectedValue == null || startTimeSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select end time", "");
+      showErrorModal(tr("endTimeValidation"));
     } else if (!isChecked) {
-      showCustomToast(fToast, context,
-          "Please checked executive lounge reservation rules", "");
+      showErrorModal(tr("tnc"));
     } else {
       networkCheckForReservation();
     }
@@ -960,5 +956,25 @@ class _LoungeReservationState extends State<LoungeReservation> {
         isLoading = false;
       });
     });
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

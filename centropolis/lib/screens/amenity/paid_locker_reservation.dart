@@ -39,6 +39,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   String? selectedTime;
   List<dynamic> timeList = [];
   var dateFormat = DateFormat('yyyy-MM-dd');
+  String reservationDate = "";
 
   @override
   void initState() {
@@ -263,6 +264,11 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   }
 
   usageTimeDropdownWidget() {
+    setState(() {
+      if (timeList.isNotEmpty) {
+        selectedTime = timeList.first["value"].toString();
+      }
+    });
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -489,21 +495,53 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   }
 
   void reservationValidationCheck() {
-    if (focusedDate == "") {
-      showCustomToast(fToast, context, "Please select reservation date", "");
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
     }
-    // else if ((focusedDate.compareTo(DateTime.now())) <= 0) {
-    //   showCustomToast(
-    //       fToast, context, "Reservation date cannot be selected for today", "");
-    // }
-    else if (selectedTime == null || selectedTime == "") {
-      showCustomToast(fToast, context, "Please select time", "");
+    setState(() {
+      reservationDate = selectedDate;
+    });
+
+    if (reservationDate == "") {
+      showErrorModal(tr("applicationDateValidation"));
+    } else if (selectedTime == null || selectedTime == "") {
+      showErrorModal(tr("usageTimeValidation"));
     } else if (!isChecked) {
-      showCustomToast(
-          fToast, context, "Please checkmark on reservation rules", "");
+      showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForReservation();
     }
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void networkCheckForReservation() async {
