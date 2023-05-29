@@ -476,6 +476,9 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           if (responseJson['data'] != null) {
             setState(() {
               timeList = responseJson['data'];
+              rangeTimeSelectedValue = timeList.first["value"];
+              startTimeSelectedValue = timeList.first["start_time"];
+              endTimeSelectedValue = timeList.first["end_time"];
             });
           }
         } else {
