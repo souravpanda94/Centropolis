@@ -68,7 +68,9 @@ class _LightOutScreenState extends State<LightOutScreen> {
           title: tr("requestForLightsOut"),
           subTitle: tr("requestForLightsOut"),
           emptyTxt: tr("lightOutEmptyText"),
-          itemsList: lightoutListItem,
+          airConditioningList: const [],
+          inconvenienceList: const [],
+          lightoutList: lightoutListItem,
           onDrawerClick: () {
             Navigator.push(
               context,

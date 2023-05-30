@@ -1,12 +1,10 @@
 import 'package:centropolis/screens/voc/light_out_details.dart';
 import 'package:centropolis/utils/custom_colors.dart';
-import 'package:centropolis/widgets/common_button_with_icon.dart';
-import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
+import '../models/air_conditioning_list_model.dart';
 import '../models/inconvenience_list_model.dart';
 import '../models/light_out_list_model.dart';
 import '../screens/voc/air_conditioning_details.dart';
@@ -19,36 +17,42 @@ class VocCommonHome extends StatefulWidget {
   final String emptyTxt;
   final String category;
   final Function onDrawerClick;
-  final List<dynamic>? itemsList;
-  const VocCommonHome(
-      {super.key,
-      required this.image,
-      required this.title,
-      required this.subTitle,
-      required this.emptyTxt,
-      required this.onDrawerClick,
-      required this.category,
-      this.itemsList});
+  final List<IncovenienceListModel>? inconvenienceList;
+  final List<LightOutListModel>? lightoutList;
+  final List<AirConditioningListModel>? airConditioningList;
+  const VocCommonHome({
+    super.key,
+    required this.image,
+    required this.title,
+    required this.subTitle,
+    required this.emptyTxt,
+    required this.onDrawerClick,
+    required this.category,
+    this.inconvenienceList,
+    this.lightoutList,
+    this.airConditioningList,
+  });
 
   @override
   State<VocCommonHome> createState() => _VocCommonHomeState();
 }
 
 class _VocCommonHomeState extends State<VocCommonHome> {
-  List<IncovenienceListModel>? inconvenienceList = [];
-  List<LightOutListModel>? lightoutList = [];
-  List<LightOutListModel>? airConditioningList = [];
-  @override
-  void initState() {
-    if (widget.category == "inconvenience") {
-      inconvenienceList = widget.itemsList?.cast<IncovenienceListModel>();
-    } else if (widget.category == "lightout") {
-      lightoutList = widget.itemsList?.cast<LightOutListModel>();
-    } else if (widget.category == "airConditioning") {
-      airConditioningList = widget.itemsList?.cast<LightOutListModel>();
-    }
-    super.initState();
-  }
+  // List<IncovenienceListModel>? inconvenienceList = [];
+  // List<LightOutListModel>? lightoutList = [];
+  // List<AirConditioningListModel>? airConditioningList = [];
+
+  // @override
+  // void initState() {
+  //   if (widget.category == "inconvenience") {
+  //     inconvenienceList = widget.itemsList?.cast<IncovenienceListModel>();
+  //   } else if (widget.category == "lightout") {
+  //     lightoutList = widget.itemsList?.cast<LightOutListModel>();
+  //   } else if (widget.category == "airConditioning") {
+  //     airConditioningList = widget.itemsList?.cast<AirConditioningListModel>();
+  //   }
+  //   super.initState();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -115,16 +119,16 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                   ],
                 ),
               ),
-              widget.itemsList!.isNotEmpty
-                  ? inconvenienceList != null && inconvenienceList!.isNotEmpty
-                      ? inconvenienceListWidget()
-                      : lightoutList != null && lightoutList!.isNotEmpty
-                          ? lightOutListWidget()
-                          : airConditioningList != null &&
-                                  airConditioningList!.isNotEmpty
-                              ? airConditioningListWidget()
-                              : emptyViewWidget()
-                  : emptyViewWidget(),
+              widget.inconvenienceList != null &&
+                      widget.inconvenienceList!.isNotEmpty
+                  ? inconvenienceListWidget()
+                  : widget.lightoutList != null &&
+                          widget.lightoutList!.isNotEmpty
+                      ? lightOutListWidget()
+                      : widget.airConditioningList != null &&
+                              widget.airConditioningList!.isNotEmpty
+                          ? airConditioningListWidget()
+                          : emptyViewWidget()
             ],
           ),
         ),
@@ -139,7 +143,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: inconvenienceList?.length,
+          itemCount: widget.inconvenienceList?.length,
           itemBuilder: ((context, index) {
             return InkWell(
               onTap: () {
@@ -147,9 +151,9 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => InconvenienceDetails(
-                        inquiryId:
-                            inconvenienceList?[index].inquiryId.toString() ??
-                                ""),
+                        inquiryId: widget.inconvenienceList?[index].inquiryId
+                                .toString() ??
+                            ""),
                   ),
                 );
               },
@@ -171,7 +175,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       children: [
                         Expanded(
                           child: Text(
-                            inconvenienceList?[index].title ?? "",
+                            widget.inconvenienceList?[index].title ?? "",
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
@@ -181,67 +185,62 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         const SizedBox(
                           width: 8,
                         ),
-                        if (inconvenienceList != null &&
-                            inconvenienceList![index]
-                                .status
+                        if (widget.inconvenienceList != null &&
+                            widget.inconvenienceList![index].status
                                 .toString()
                                 .isNotEmpty)
                           Container(
                             decoration: BoxDecoration(
-                              color:
-                                  inconvenienceList?[index].status.toString() ==
-                                              "Received" ||
-                                          inconvenienceList?[index]
+                              color: widget.inconvenienceList?[index].status
+                                              .toString() ==
+                                          "Received" ||
+                                      widget.inconvenienceList?[index].status
+                                              .toString() ==
+                                          "Not Answered"
+                                  ? CustomColors.backgroundColor3
+                                  : widget.inconvenienceList?[index].status
+                                                  .toString() ==
+                                              "Answered" ||
+                                          widget.inconvenienceList?[index]
                                                   .status
                                                   .toString() ==
-                                              "Not Answered"
-                                      ? CustomColors.backgroundColor3
-                                      : inconvenienceList?[index]
-                                                      .status
-                                                      .toString() ==
-                                                  "Answered" ||
-                                              inconvenienceList?[index]
-                                                      .status
-                                                      .toString() ==
-                                                  "Completed"
-                                          ? CustomColors.backgroundColor
-                                          : inconvenienceList?[index]
-                                                      .status
-                                                      .toString() ==
-                                                  "In Progress"
-                                              ? CustomColors.greyColor2
-                                              : CustomColors.backgroundColor,
+                                              "Completed"
+                                      ? CustomColors.backgroundColor
+                                      : widget.inconvenienceList?[index].status
+                                                  .toString() ==
+                                              "In Progress"
+                                          ? CustomColors.greyColor2
+                                          : CustomColors.backgroundColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              inconvenienceList?[index].status.toString() ==
+                              widget.inconvenienceList?[index].status
+                                          .toString() ==
                                       "Not Answered"
                                   ? "Received"
-                                  : inconvenienceList?[index].status ?? "",
+                                  : widget.inconvenienceList?[index].status ??
+                                      "",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",
-                                color: inconvenienceList?[index]
-                                                .status
+                                color: widget.inconvenienceList?[index].status
                                                 .toString() ==
                                             "Received" ||
-                                        inconvenienceList?[index]
-                                                .status
+                                        widget.inconvenienceList?[index].status
                                                 .toString() ==
                                             "Not Answered"
                                     ? CustomColors.textColor9
-                                    : inconvenienceList?[index]
-                                                    .status
+                                    : widget.inconvenienceList?[index].status
                                                     .toString() ==
                                                 "Answered" ||
-                                            inconvenienceList?[index]
+                                            widget.inconvenienceList?[index]
                                                     .status
                                                     .toString() ==
                                                 "Completed"
                                         ? CustomColors.textColorBlack2
-                                        : inconvenienceList?[index]
+                                        : widget.inconvenienceList?[index]
                                                     .status
                                                     .toString() ==
                                                 "In Progress"
@@ -259,7 +258,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       child: Row(
                         children: [
                           Text(
-                            inconvenienceList?[index].type ?? "",
+                            widget.inconvenienceList?[index].type ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -278,7 +277,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             width: 8,
                           ),
                           Text(
-                            inconvenienceList?[index].registeredDate ?? "",
+                            widget.inconvenienceList?[index].registeredDate ??
+                                "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -298,6 +298,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
   }
 
   emptyViewWidget() {
+    // debugPrint("item list ::: ${widget.itemsList}");
+    // debugPrint("1 list ::: $inconvenienceList");
+    // debugPrint("2 list ::: $lightoutList");
+    // debugPrint("3 list ::: $airConditioningList");
     return Container(
       color: CustomColors.backgroundColor,
       margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 100),
@@ -322,7 +326,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: lightoutList?.length,
+            itemCount: widget.lightoutList?.length,
             itemBuilder: ((context, index) {
               return InkWell(
                 onTap: () {
@@ -330,7 +334,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => LightsOutDetails(
-                          type: lightoutList?[index].status.toString() ?? ""),
+                          type: widget.lightoutList?[index].status.toString() ??
+                              ""),
                     ),
                   );
                 },
@@ -352,7 +357,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         children: [
                           Expanded(
                             child: Text(
-                              lightoutList?[index].description ?? "",
+                              widget.lightoutList?[index].description ?? "",
                               //"Centropolis",
                               maxLines: 1,
                               style: const TextStyle(
@@ -361,26 +366,27 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   color: CustomColors.textColor8),
                             ),
                           ),
-                          if (lightoutList != null &&
-                              lightoutList![index].status.toString().isNotEmpty)
+                          if (widget.lightoutList != null &&
+                              widget.lightoutList![index].status
+                                  .toString()
+                                  .isNotEmpty)
                             Container(
                               decoration: BoxDecoration(
-                                color: lightoutList?[index].status.toString() ==
+                                color: widget.lightoutList?[index].status
+                                                .toString() ==
                                             "Received" ||
-                                        lightoutList?[index]
-                                                .status
+                                        widget.lightoutList?[index].status
                                                 .toString() ==
                                             "Rejected"
                                     ? CustomColors.backgroundColor3
-                                    : lightoutList?[index].status.toString() ==
+                                    : widget.lightoutList?[index].status
+                                                    .toString() ==
                                                 "Answered" ||
-                                            lightoutList?[index]
-                                                    .status
+                                            widget.lightoutList?[index].status
                                                     .toString() ==
                                                 "Approved"
                                         ? CustomColors.backgroundColor
-                                        : lightoutList?[index]
-                                                    .status
+                                        : widget.lightoutList?[index].status
                                                     .toString() ==
                                                 "In Progress"
                                             ? CustomColors.greyColor2
@@ -393,30 +399,25 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   left: 10.0,
                                   right: 10.0),
                               child: Text(
-                                lightoutList?[index].status ?? "",
+                                widget.lightoutList?[index].status ?? "",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",
-                                  color: lightoutList?[index]
-                                                  .status
+                                  color: widget.lightoutList?[index].status
                                                   .toString() ==
                                               "Received" ||
-                                          lightoutList?[index]
-                                                  .status
+                                          widget.lightoutList?[index].status
                                                   .toString() ==
                                               "Rejected"
                                       ? CustomColors.textColor9
-                                      : lightoutList?[index]
-                                                      .status
+                                      : widget.lightoutList?[index].status
                                                       .toString() ==
                                                   "Answered" ||
-                                              lightoutList?[index]
-                                                      .status
+                                              widget.lightoutList?[index].status
                                                       .toString() ==
                                                   "Approved"
                                           ? CustomColors.textColorBlack2
-                                          : lightoutList?[index]
-                                                      .status
+                                          : widget.lightoutList?[index].status
                                                       .toString() ==
                                                   "In Progress"
                                               ? CustomColors.brownColor
@@ -433,7 +434,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         child: Row(
                           children: [
                             Text(
-                              lightoutList?[index].requestedFloors.toString() ??
+                              widget.lightoutList?[index].requestedFloors
+                                      .toString() ??
                                   "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -453,7 +455,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                               width: 8,
                             ),
                             Text(
-                              "${lightoutList?[index].registeredDate ?? ""} ${lightoutList?[index].startTime ?? ""}",
+                              "${widget.lightoutList?[index].registeredDate ?? ""} ${widget.lightoutList?[index].startTime ?? ""}",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -479,7 +481,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
             physics: const NeverScrollableScrollPhysics(),
             shrinkWrap: true,
             scrollDirection: Axis.vertical,
-            itemCount: airConditioningList?.length,
+            itemCount: widget.airConditioningList?.length,
             itemBuilder: ((context, index) {
               return InkWell(
                 onTap: () {
@@ -487,7 +489,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => AirConditioningDetails(
-                          type: airConditioningList?[index].status.toString() ??
+                          type: widget.airConditioningList?[index].status
+                                  .toString() ??
                               ""),
                     ),
                   );
@@ -509,8 +512,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           Icon(
                             Icons.circle,
                             size: 8,
-                            color: airConditioningList?[index]
-                                        .type
+                            color: widget.airConditioningList?[index].type
                                         .toString()
                                         .trim()
                                         .toLowerCase() ==
@@ -522,8 +524,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             width: 4,
                           ),
                           Text(
-                            airConditioningList?[index]
-                                    .displayType
+                            widget.airConditioningList?[index].displayType
                                     .toString() ??
                                 "",
                             maxLines: 1,
@@ -544,7 +545,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         children: [
                           Expanded(
                             child: Text(
-                              airConditioningList?[index].description ?? "",
+                              widget.airConditioningList?[index].description ??
+                                  "",
                               //"Centropolis",
                               maxLines: 1,
                               style: const TextStyle(
@@ -553,32 +555,29 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   color: CustomColors.textColor8),
                             ),
                           ),
-                          if (airConditioningList != null &&
-                              airConditioningList![index]
-                                  .status
+                          if (widget.airConditioningList != null &&
+                              widget.airConditioningList![index].status
                                   .toString()
                                   .isNotEmpty)
                             Container(
                               decoration: BoxDecoration(
-                                color: airConditioningList?[index]
-                                                .status
+                                color: widget.airConditioningList?[index].status
                                                 .toString() ==
                                             "Received" ||
-                                        airConditioningList?[index]
+                                        widget.airConditioningList?[index]
                                                 .status
                                                 .toString() ==
                                             "Rejected"
                                     ? CustomColors.backgroundColor3
-                                    : airConditioningList?[index]
-                                                    .status
+                                    : widget.airConditioningList?[index].status
                                                     .toString() ==
                                                 "Answered" ||
-                                            airConditioningList?[index]
+                                            widget.airConditioningList?[index]
                                                     .status
                                                     .toString() ==
                                                 "Approved"
                                         ? CustomColors.backgroundColor
-                                        : airConditioningList?[index]
+                                        : widget.airConditioningList?[index]
                                                     .status
                                                     .toString() ==
                                                 "In Progress"
@@ -592,29 +591,29 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   left: 10.0,
                                   right: 10.0),
                               child: Text(
-                                airConditioningList?[index].status ?? "",
+                                widget.airConditioningList?[index].status ?? "",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",
-                                  color: airConditioningList?[index]
+                                  color: widget.airConditioningList?[index]
                                                   .status
                                                   .toString() ==
                                               "Received" ||
-                                          airConditioningList?[index]
+                                          widget.airConditioningList?[index]
                                                   .status
                                                   .toString() ==
                                               "Rejected"
                                       ? CustomColors.textColor9
-                                      : airConditioningList?[index]
+                                      : widget.airConditioningList?[index]
                                                       .status
                                                       .toString() ==
                                                   "Answered" ||
-                                              airConditioningList?[index]
+                                              widget.airConditioningList?[index]
                                                       .status
                                                       .toString() ==
                                                   "Approved"
                                           ? CustomColors.textColorBlack2
-                                          : airConditioningList?[index]
+                                          : widget.airConditioningList?[index]
                                                       .status
                                                       .toString() ==
                                                   "In Progress"
@@ -632,8 +631,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         child: Row(
                           children: [
                             Text(
-                              airConditioningList?[index]
-                                      .requestedFloors
+                              widget.airConditioningList?[index].requestedFloors
                                       .toString() ??
                                   "",
                               maxLines: 1,
@@ -654,7 +652,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                               width: 8,
                             ),
                             Text(
-                              "${airConditioningList?[index].registeredDate ?? ""} ${airConditioningList?[index].startTime ?? ""}",
+                              "${widget.airConditioningList?[index].registeredDate ?? ""} ${widget.airConditioningList?[index].startTime ?? ""}",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(

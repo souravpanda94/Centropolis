@@ -71,7 +71,9 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
             title: tr("customerComplaints"),
             subTitle: tr("customerComplaints"),
             emptyTxt: tr("inconvenienceEmptyText"),
-            itemsList: incovenienceListItem,
+            airConditioningList: const [],
+            inconvenienceList: incovenienceListItem,
+            lightoutList: const [],
             onDrawerClick: () {
               Navigator.push(
                 context,
