@@ -147,8 +147,8 @@ class _LightsOutListState extends State<LightsOutList> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => LightsOutDetails(
-                                        type: lightoutListItem?[index]
-                                                .status
+                                        id: lightoutListItem?[index]
+                                                .inquiryId
                                                 .toString() ??
                                             ""),
                                   ),
