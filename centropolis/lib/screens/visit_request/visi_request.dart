@@ -367,6 +367,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       "page": page.toString(),
       "limit": limit.toString(),
       "start_date": todayDate,
+      "no_pagination": "false",
       // "end_date": todayDate
     };
 
@@ -381,25 +382,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          // totalPages = responseJson['total_pages'];
-          // List<GxFitnessReservationModel> reservationListList =
-          // List<GxFitnessReservationModel>.from(
-          //     responseJson['reservegx_data']
-          //         .map((x) => GxFitnessReservationModel.fromJson(x)));
-          // if (page == 1) {
-          //   Provider.of<GxFitnessReservationProvider>(context, listen: false)
-          //       .setItem(reservationListList);
-          // } else {
-          //   Provider.of<GxFitnessReservationProvider>(context, listen: false)
-          //       .addItem(reservationListList);
-          // }
-
-
           List<VisitReservationModel> companyList = List<VisitReservationModel>.from(responseJson['reservation_data'].map((x) => VisitReservationModel.fromJson(x)));
           Provider.of<VisitReservationListProvider>(context, listen: false).setItem(companyList);
-
-
-
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
