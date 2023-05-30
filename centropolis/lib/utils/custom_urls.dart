@@ -81,8 +81,7 @@ class ApiEndPoint {
   static String saveComplaintUrl = "${baseUrl}v1/cms/complaint";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-  static String getVisitRequestListUrl =
-      "${baseUrl}v1/amenity/app-visitor-reservation-list";
+  static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
 
   static String withdrawalUrl = "${baseUrl}v1";
