@@ -190,8 +190,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                color: CustomColors
-                                                    .backgroundColor,
+                                                color: setStatusBackgroundColor(visitReservationListItem?[index].status.toString()),
                                                 borderRadius:
                                                     BorderRadius.circular(4),
                                               ),
@@ -202,12 +201,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                   right: 10),
                                               child: Text(
                                                 // todayList[index]["status"],
-                                                  visitReservationListItem?[index].status.toString() ?? "",
-                                                style: const TextStyle(
+                                                  visitReservationListItem?[index].displayStatus.toString() ?? "",
+                                                style:  TextStyle(
                                                     fontSize: 12,
                                                     fontFamily: "Bold",
-                                                    color: CustomColors
-                                                        .textColorBlack2),
+                                                    color: setStatusTextColor(visitReservationListItem?[index].status.toString())),
                                               ),
                                             )
                                           ],
@@ -242,7 +240,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                     ),
                                                     Text(
                                                       // todayList[index]["type"],
-                                                      visitReservationListItem?[index].tenantCompanyName.toString() ?? "",
+                                                      visitReservationListItem?[index].visitedPersonCompanyName.toString() ?? "",
                                                       style: const TextStyle(
                                                           fontSize: 14,
                                                           fontFamily: "Regular",
@@ -364,11 +362,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       isFirstLoadRunning = true;
     });
     Map<String, String> body = {
-      "page": page.toString(),
-      "limit": limit.toString(),
       "start_date": todayDate,
-      "no_pagination": "false",
-      // "end_date": todayDate
+      "pagination": "false",
     };
 
     debugPrint("Visit Request List input===> $body");
@@ -401,4 +396,35 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       });
     });
   }
+
+  Color setStatusBackgroundColor(String? status) {
+    if(status == "approved" || status == "beforeVisit"){
+      return CustomColors.backgroundColor;
+    }
+    else if(status == "inProgress"){
+      return CustomColors.backgroundColor3;
+    }
+    else if(status == "rejected"){
+      return CustomColors.backgroundColor4;
+    }
+    else{
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  setStatusTextColor(String? status) {
+    if(status == "approved" || status == "beforeVisit"){
+      return CustomColors.textColorBlack2;
+    }
+    else if(status == "inProgress"){
+      return CustomColors.textColor9;
+    }
+    else if(status == "rejected"){
+      return CustomColors.headingColor;
+    }
+    else{
+      return CustomColors.backgroundColor;
+    }
+  }
+
 }
