@@ -36,8 +36,8 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
   late FToast fToast;
   int page = 1;
   final int limit = 3;
-  int totalPages = 0;
-  int totalRecords = 0;
+  int totalPages = 3;
+  int totalRecords = 3;
   bool isFirstLoadRunning = true;
   List<IncovenienceListModel>? incovenienceListItem;
 

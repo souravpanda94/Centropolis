@@ -85,7 +85,7 @@ class _EmployeeListState extends State<EmployeeList> {
               ),
             )
           : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 33),
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -104,7 +104,7 @@ class _EmployeeListState extends State<EmployeeList> {
                           Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 2),
                             child: Text(
-                              employeeListItem!.length.toString(),
+                              employeeListItem?.length.toString() ?? "",
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
@@ -115,9 +115,6 @@ class _EmployeeListState extends State<EmployeeList> {
                       ),
                       sortingDropdownWidget(),
                     ],
-                  ),
-                  const SizedBox(
-                    height: 9,
                   ),
                   Expanded(
                     child: ListView.builder(
@@ -379,10 +376,11 @@ class _EmployeeListState extends State<EmployeeList> {
   sortingDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
+        alignment: AlignmentDirectional.centerEnd,
         hint: Text(
           tr('all'),
           style: const TextStyle(
-            color: CustomColors.textColorBlack2,
+            color: CustomColors.textColor5,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
@@ -395,7 +393,7 @@ class _EmployeeListState extends State<EmployeeList> {
                   item["text"],
                   style: const TextStyle(
                     color: CustomColors.textColor5,
-                    fontSize: 14,
+                    fontSize: 12,
                     fontFamily: 'SemiBold',
                   ),
                 ),
@@ -409,19 +407,20 @@ class _EmployeeListState extends State<EmployeeList> {
           });
           loadEmployeeList();
         },
-        dropdownStyleData: const DropdownStyleData(
+        dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
-          padding: EdgeInsets.only(left: 16),
           decoration: BoxDecoration(
-            color: CustomColors.whiteColor,
-          ),
+              color: CustomColors.whiteColor,
+              border: Border.all(color: CustomColors.borderColor, width: 1)),
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
           padding: EdgeInsets.only(
-              bottom: currentSelectedSortingFilter != null ? 6 : 0, top: 6),
+              bottom: currentSelectedSortingFilter != null ? 6 : 0,
+              top: currentSelectedSortingFilter != null ? 6 : 0,
+              left: 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -429,10 +428,8 @@ class _EmployeeListState extends State<EmployeeList> {
             color: CustomColors.textColorBlack2,
           ),
         )),
-        buttonStyleData: const ButtonStyleData(height: 41, elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
         ),
       ),
     );

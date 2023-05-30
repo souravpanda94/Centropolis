@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -37,6 +38,14 @@ class _InconvenienceListState extends State<InconvenienceList> {
   int totalRecords = 0;
   bool isFirstLoadRunning = true;
   List<IncovenienceListModel>? incovenienceListItem;
+  String? currentSelectedSortingFilter;
+  // For dropdown list attaching
+  List<dynamic>? sortingList = [
+    {"value": "", "text": "All"},
+    {"value": "tenant_employee", "text": "Tenant Employee"},
+    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
+    {"value": "tenant_conference_employee", "text": "Conference Room"}
+  ];
 
   @override
   void initState() {
@@ -90,7 +99,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                 ),
               )
             : Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 33),
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -106,11 +115,12 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                   fontSize: 14,
                                   color: CustomColors.textColorBlack2),
                             ),
-                            const Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 2),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 2),
                               child: Text(
-                                "38",
-                                style: TextStyle(
+                                incovenienceListItem?.length.toString() ?? "",
+                                style: const TextStyle(
                                     fontFamily: 'Regular',
                                     fontSize: 14,
                                     color: CustomColors.textColor9),
@@ -125,27 +135,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
                             ),
                           ],
                         ),
-                        Row(
-                          children: [
-                            Text(
-                              tr("all"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor5),
-                            ),
-                            const SizedBox(
-                              width: 11,
-                            ),
-                            SvgPicture.asset(
-                                "assets/images/ic_drop_down_arrow.svg",
-                                color: CustomColors.textColor5)
-                          ],
-                        ),
+                        sortingDropdownWidget(),
                       ],
-                    ),
-                    const SizedBox(
-                      height: 9,
                     ),
                     Expanded(
                       child: ListView.builder(
@@ -422,5 +413,69 @@ class _InconvenienceListState extends State<InconvenienceList> {
       });
       loadInconvenienceList();
     }
+  }
+
+  sortingDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        alignment: AlignmentDirectional.centerEnd,
+        hint: Text(
+          tr('all'),
+          style: const TextStyle(
+            color: CustomColors.textColor5,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: sortingList
+            ?.map(
+              (item) => DropdownMenuItem<String>(
+                value: item["value"],
+                child: Text(
+                  item["text"],
+                  style: const TextStyle(
+                    color: CustomColors.textColor5,
+                    fontSize: 12,
+                    fontFamily: 'SemiBold',
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+        value: currentSelectedSortingFilter,
+        onChanged: (value) {
+          setState(() {
+            currentSelectedSortingFilter = value as String;
+          });
+
+          //call API for sorting
+          //loadEmployeeList();
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(color: CustomColors.borderColor, width: 1)),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(
+              bottom: currentSelectedSortingFilter != null ? 6 : 0,
+              top: currentSelectedSortingFilter != null ? 6 : 0,
+              left: 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+        ),
+      ),
+    );
   }
 }

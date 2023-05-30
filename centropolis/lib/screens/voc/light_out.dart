@@ -33,8 +33,8 @@ class _LightOutScreenState extends State<LightOutScreen> {
   late FToast fToast;
   int page = 1;
   final int limit = 3;
-  int totalPages = 0;
-  int totalRecords = 0;
+  int totalPages = 1;
+  int totalRecords = 3;
   bool isFirstLoadRunning = true;
   List<LightOutListModel>? lightoutListItem;
 

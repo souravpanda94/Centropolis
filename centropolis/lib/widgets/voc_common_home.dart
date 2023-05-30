@@ -512,6 +512,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             color: airConditioningList?[index]
                                         .type
                                         .toString()
+                                        .trim()
                                         .toLowerCase() ==
                                     "heating"
                                 ? CustomColors.headingColor
@@ -521,7 +522,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             width: 4,
                           ),
                           Text(
-                            airConditioningList?[index].type.toString() ?? "",
+                            airConditioningList?[index]
+                                    .displayType
+                                    .toString() ??
+                                "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(

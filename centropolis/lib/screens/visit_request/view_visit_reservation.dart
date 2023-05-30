@@ -1,4 +1,5 @@
 import 'package:centropolis/screens/visit_request/visit_reservation_details.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -17,6 +18,14 @@ class ViewVisitReservationScreen extends StatefulWidget {
 
 class _ViewVisitReservationScreenState
     extends State<ViewVisitReservationScreen> {
+  String? currentSelectedSortingFilter;
+  // For dropdown list attaching
+  List<dynamic>? sortingList = [
+    {"value": "", "text": "All"},
+    {"value": "tenant_employee", "text": "Tenant Employee"},
+    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
+    {"value": "tenant_conference_employee", "text": "Conference Room"}
+  ];
   List<dynamic> dataList = [
     {
       "id": 1,
@@ -85,8 +94,7 @@ class _ViewVisitReservationScreenState
           children: [
             Container(
               margin: const EdgeInsets.only(
-                top: 30.0,
-                bottom: 8.0,
+                top: 20.0,
                 left: 16,
                 right: 16,
               ),
@@ -115,30 +123,7 @@ class _ViewVisitReservationScreenState
                       ),
                     ],
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Text(
-                        "${tr("all")}   ",
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: CustomColors.textColor5,
-                          fontFamily: 'Regular',
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                      SizedBox(
-                        child: SvgPicture.asset(
-                          'assets/images/ic_down_arrow.svg',
-                          semanticsLabel: 'Back',
-                          width: 7,
-                          height: 7,
-                          alignment: Alignment.center,
-                        ),
-                      ),
-                    ],
-                  )
+                  sortingDropdownWidget()
                 ],
               ),
             ),
@@ -309,6 +294,70 @@ class _ViewVisitReservationScreenState
       context,
       MaterialPageRoute(
         builder: (context) => VisitReservationDetailsScreen(status),
+      ),
+    );
+  }
+
+  sortingDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        alignment: AlignmentDirectional.centerEnd,
+        hint: Text(
+          tr('all'),
+          style: const TextStyle(
+            color: CustomColors.textColor5,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: sortingList
+            ?.map(
+              (item) => DropdownMenuItem<String>(
+                value: item["value"],
+                child: Text(
+                  item["text"],
+                  style: const TextStyle(
+                    color: CustomColors.textColor5,
+                    fontSize: 12,
+                    fontFamily: 'SemiBold',
+                  ),
+                ),
+              ),
+            )
+            .toList(),
+        value: currentSelectedSortingFilter,
+        onChanged: (value) {
+          setState(() {
+            currentSelectedSortingFilter = value as String;
+          });
+
+          //call API for sorting
+          //loadEmployeeList();
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(color: CustomColors.borderColor, width: 1)),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(
+              bottom: currentSelectedSortingFilter != null ? 6 : 0,
+              top: currentSelectedSortingFilter != null ? 6 : 0,
+              left: 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+        ),
       ),
     );
   }
