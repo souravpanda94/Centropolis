@@ -81,6 +81,8 @@ class ApiEndPoint {
   static String saveComplaintUrl = "${baseUrl}v1/cms/complaint";
   static String gxHistoryListUrl =
       "${baseUrl}v1/mypage/gx-program-reservation-list";
+  static String lightOutDetailUrl =
+      "${baseUrl}v1/mypage/light-out-inquiry-details";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

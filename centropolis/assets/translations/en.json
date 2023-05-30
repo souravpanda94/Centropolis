@@ -340,6 +340,8 @@
   "conferenceDescriptionLengthValidation": "Please enter min. 1 and max. 500 characters",
   "seatValidation": "Please Select correct seat number",
   "lockerValidation": "Please Select correct locker number",
+  "tenantCompanyInformation": "Tenant company information",
+  "airConditioning/Heading": "Air conditioning / Heating",
 
 
 

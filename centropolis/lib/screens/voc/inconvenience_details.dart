@@ -380,52 +380,6 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
             ],
           ),
         ),
-        bottomSheet: complaintsReceivedDetails?.status.toString() != "Answered"
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    left: 16, top: 16, right: 16, bottom: 40),
-                child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {},
-                    buttonBorderColor:
-                        complaintsReceivedDetails?.status.toString() ==
-                                "Approved"
-                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                            : CustomColors.dividerGreyColor,
-                    buttonColor: CustomColors.whiteColor,
-                    buttonName: tr("delete"),
-                    buttonTextColor: CustomColors.textColor5),
-              )
-            : Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.whiteColor,
-                    padding:
-                        const EdgeInsets.only(left: 16, top: 16, right: 16),
-                    child: CommonButtonWithBorder(
-                        onCommonButtonTap: () {},
-                        buttonBorderColor: CustomColors.buttonBackgroundColor,
-                        buttonColor: CustomColors.whiteColor,
-                        buttonName: tr("addInquiry"),
-                        buttonTextColor: CustomColors.buttonBackgroundColor),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.whiteColor,
-                    padding: const EdgeInsets.only(
-                        left: 16, top: 16, right: 16, bottom: 40),
-                    child: CommonButtonWithBorder(
-                        onCommonButtonTap: () {},
-                        buttonBorderColor: CustomColors.dividerGreyColor,
-                        buttonColor: CustomColors.whiteColor,
-                        buttonName: tr("toList"),
-                        buttonTextColor: CustomColors.textColor5),
-                  )
-                ],
-              ),
       ),
     );
   }

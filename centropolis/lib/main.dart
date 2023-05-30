@@ -18,6 +18,7 @@ import 'providers/employee_detail_provider.dart';
 import 'providers/employee_list_provider.dart';
 import 'providers/gx_list_history_provider.dart';
 import 'providers/incovenience_list_provider.dart';
+import 'providers/light_out_detail_provider.dart';
 import 'providers/lightout_list_provider.dart';
 import 'providers/sleeping_room_detail_history_provider.dart';
 import 'providers/sleeping_room_history_provider.dart';
@@ -80,6 +81,7 @@ void main() async {
           ChangeNotifierProvider(create: (_) => EmployeeDetailProvider()),
           ChangeNotifierProvider(create: (_) => AirConditioningListProvider()),
           ChangeNotifierProvider(create: (_) => GxListHistoryProvider()),
+          ChangeNotifierProvider(create: (_) => LightOutDetailsProvider()),
         ],
         child: const MyApp(),
       ),
