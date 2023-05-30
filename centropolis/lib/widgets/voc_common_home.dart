@@ -38,22 +38,6 @@ class VocCommonHome extends StatefulWidget {
 }
 
 class _VocCommonHomeState extends State<VocCommonHome> {
-  // List<IncovenienceListModel>? inconvenienceList = [];
-  // List<LightOutListModel>? lightoutList = [];
-  // List<AirConditioningListModel>? airConditioningList = [];
-
-  // @override
-  // void initState() {
-  //   if (widget.category == "inconvenience") {
-  //     inconvenienceList = widget.itemsList?.cast<IncovenienceListModel>();
-  //   } else if (widget.category == "lightout") {
-  //     lightoutList = widget.itemsList?.cast<LightOutListModel>();
-  //   } else if (widget.category == "airConditioning") {
-  //     airConditioningList = widget.itemsList?.cast<AirConditioningListModel>();
-  //   }
-  //   super.initState();
-  // }
-
   @override
   Widget build(BuildContext context) {
     return InkWell(
@@ -298,10 +282,6 @@ class _VocCommonHomeState extends State<VocCommonHome> {
   }
 
   emptyViewWidget() {
-    // debugPrint("item list ::: ${widget.itemsList}");
-    // debugPrint("1 list ::: $inconvenienceList");
-    // debugPrint("2 list ::: $lightoutList");
-    // debugPrint("3 list ::: $airConditioningList");
     return Container(
       color: CustomColors.backgroundColor,
       margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 100),
@@ -334,7 +314,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => LightsOutDetails(
-                          type: widget.lightoutList?[index].status.toString() ??
+                          id: widget.lightoutList?[index].inquiryId
+                                  .toString() ??
                               ""),
                     ),
                   );

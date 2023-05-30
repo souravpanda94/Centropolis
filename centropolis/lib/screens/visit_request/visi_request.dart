@@ -398,10 +398,10 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if(status == "approved" || status == "beforeVisit"){
+    if (status == "approved" || status == "request_for_approval" || status == "visit_completed") {
       return CustomColors.backgroundColor;
     }
-    else if(status == "inProgress"){
+    else if(status == "request_for_approval"){
       return CustomColors.backgroundColor3;
     }
     else if(status == "rejected"){
@@ -412,11 +412,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
     }
   }
 
-  setStatusTextColor(String? status) {
-    if(status == "approved" || status == "beforeVisit"){
+  Color setStatusTextColor(String? status) {
+    if (status == "approved" || status == "request_for_approval" || status == "visit_completed") {
       return CustomColors.textColorBlack2;
     }
-    else if(status == "inProgress"){
+    else if(status == "request_for_approval"){
       return CustomColors.textColor9;
     }
     else if(status == "rejected"){
