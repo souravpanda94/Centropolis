@@ -79,6 +79,8 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/fitness-center-seat";
   static String getComplaintTypeListUrl = "${baseUrl}v1/common/complaint-type";
   static String saveComplaintUrl = "${baseUrl}v1/cms/complaint";
+  static String gxHistoryListUrl =
+      "${baseUrl}v1/mypage/gx-program-reservation-list";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";

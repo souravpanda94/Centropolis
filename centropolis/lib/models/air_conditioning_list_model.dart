@@ -1,4 +1,4 @@
-class LightOutListModel {
+class AirConditioningListModel {
   String? inquiryId;
   String? requestedFloors;
   String? requestDate;
@@ -7,19 +7,22 @@ class LightOutListModel {
   String? status;
   String? registeredDate;
   String? description;
+  String? type;
+  String? displayType;
 
-  LightOutListModel({
-    this.inquiryId,
-    this.requestedFloors,
-    this.requestDate,
-    this.startTime,
-    this.endTime,
-    this.status,
-    this.registeredDate,
-    this.description,
-  });
+  AirConditioningListModel(
+      {this.inquiryId,
+      this.requestedFloors,
+      this.requestDate,
+      this.startTime,
+      this.endTime,
+      this.status,
+      this.registeredDate,
+      this.description,
+      this.type,
+      this.displayType});
 
-  LightOutListModel.fromJson(Map<String, dynamic> json) {
+  AirConditioningListModel.fromJson(Map<String, dynamic> json) {
     inquiryId = json['inquiry_id'].toString();
     requestedFloors = json['requested_floors'];
     requestDate = json['request_date'];
@@ -28,6 +31,8 @@ class LightOutListModel {
     status = json['status'];
     registeredDate = json['registered_date'];
     description = json['description'];
+    type = json['type'];
+    displayType = json['display_type'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,7 +45,8 @@ class LightOutListModel {
     data['status'] = status;
     data['registered_date'] = registeredDate;
     data['description'] = description;
-
+    data['display_type'] = displayType;
+    data['type'] = type;
     return data;
   }
 }

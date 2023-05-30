@@ -7,7 +7,9 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/air_conditioning_list_model.dart';
 import '../../models/light_out_list_model.dart';
+import '../../providers/air_conditioning_list_provider.dart';
 import '../../providers/lightout_list_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
@@ -35,7 +37,7 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
   int totalPages = 1;
   int totalRecords = 3;
   bool isFirstLoadRunning = true;
-  List<LightOutListModel>? airConditioningListItem;
+  List<AirConditioningListModel>? airConditioningListItem;
 
   @override
   void initState() {
@@ -50,8 +52,8 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
 
   @override
   Widget build(BuildContext context) {
-    airConditioningListItem =
-        Provider.of<LightoutListProvider>(context).getLightoutModelList;
+    airConditioningListItem = Provider.of<AirConditioningListProvider>(context)
+        .getairConditioningModelList;
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -67,7 +69,9 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
           title: tr("requestForHeatingAndCooling"),
           subTitle: tr("requestForHeatingAndCooling"),
           emptyTxt: tr("airConditioningEmptyText"),
-          itemsList: airConditioningListItem,
+          airConditioningList: airConditioningListItem,
+          inconvenienceList: const [],
+          lightoutList: const [],
           onDrawerClick: () {
             Navigator.push(
               context,
@@ -135,10 +139,10 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
-          List<LightOutListModel> airConditioningList =
-              List<LightOutListModel>.from(responseJson['inquiry_data']
-                  .map((x) => LightOutListModel.fromJson(x)));
-          Provider.of<LightoutListProvider>(context, listen: false)
+          List<AirConditioningListModel> airConditioningList =
+              List<AirConditioningListModel>.from(responseJson['inquiry_data']
+                  .map((x) => AirConditioningListModel.fromJson(x)));
+          Provider.of<AirConditioningListProvider>(context, listen: false)
               .setItem(airConditioningList);
         } else {
           if (responseJson['message'] != null) {

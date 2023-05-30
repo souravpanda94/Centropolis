@@ -1026,7 +1026,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     else if (selectedIndex == 0) {
       showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {
-      showErrorModal(tr("pleaseConsentToCollect"));
+      showErrorModal(tr("tnc"));
     } else {
       networkCheckForReservation();
     }

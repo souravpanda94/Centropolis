@@ -9,8 +9,8 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
-import '../../models/light_out_list_model.dart';
-import '../../providers/lightout_list_provider.dart';
+import '../../models/air_conditioning_list_model.dart';
+import '../../providers/air_conditioning_list_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -36,7 +36,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
   int totalPages = 0;
   int totalRecords = 0;
   bool isFirstLoadRunning = true;
-  List<LightOutListModel>? airConditioningListItem;
+  List<AirConditioningListModel>? airConditioningListItem;
   String? currentSelectedSortingFilter;
   // For dropdown list attaching
   List<dynamic>? sortingList = [
@@ -59,8 +59,8 @@ class _AirConditioningListState extends State<AirConditioningList> {
 
   @override
   Widget build(BuildContext context) {
-    airConditioningListItem =
-        Provider.of<LightoutListProvider>(context).getLightoutModelList;
+    airConditioningListItem = Provider.of<AirConditioningListProvider>(context)
+        .getairConditioningModelList;
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -404,14 +404,14 @@ class _AirConditioningListState extends State<AirConditioningList> {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
-          List<LightOutListModel> airConditioningList =
-              List<LightOutListModel>.from(responseJson['inquiry_data']
-                  .map((x) => LightOutListModel.fromJson(x)));
+          List<AirConditioningListModel> airConditioningList =
+              List<AirConditioningListModel>.from(responseJson['inquiry_data']
+                  .map((x) => AirConditioningListModel.fromJson(x)));
           if (page == 1) {
-            Provider.of<LightoutListProvider>(context, listen: false)
+            Provider.of<AirConditioningListProvider>(context, listen: false)
                 .setItem(airConditioningList);
           } else {
-            Provider.of<LightoutListProvider>(context, listen: false)
+            Provider.of<AirConditioningListProvider>(context, listen: false)
                 .addItem(airConditioningList);
           }
         } else {
