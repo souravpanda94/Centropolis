@@ -6,6 +6,8 @@ import 'package:centropolis/providers/executive_lounge_history_provider.dart';
 import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
 import 'package:centropolis/providers/user_info_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
+import 'package:centropolis/providers/view_visit_reservation_list_provider.dart';
+import 'package:centropolis/providers/visit_inquiry_list_provider.dart';
 //import 'package:centropolis/providers/view_visit_reservation_list_provider.dart';
 import 'package:centropolis/providers/visit_reservation_list_provider.dart';
 import 'package:flutter/foundation.dart';
@@ -80,10 +82,11 @@ void main() async {
           ChangeNotifierProvider(create: (_) => EmployeeListProvider()),
           ChangeNotifierProvider(create: (_) => UserInfoProvider()),
           ChangeNotifierProvider(create: (_) => EmployeeDetailProvider()),
-          // ChangeNotifierProvider(create: (_) => ViewVisitReservationListProvider()),
+          ChangeNotifierProvider(create: (_) => ViewVisitReservationListProvider()),
           ChangeNotifierProvider(create: (_) => AirConditioningListProvider()),
           ChangeNotifierProvider(create: (_) => GxListHistoryProvider()),
           ChangeNotifierProvider(create: (_) => LightOutDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => VisitInquiryListProvider()),
         ],
         child: const MyApp(),
       ),

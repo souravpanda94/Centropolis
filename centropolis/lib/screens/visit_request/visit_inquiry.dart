@@ -1,11 +1,21 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
+import '../../models/visit_reservation_model.dart';
+import '../../providers/user_provider.dart';
+import '../../providers/visit_inquiry_list_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
-import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_button.dart';
+import '../../widgets/view_more.dart';
 
 class VisitInquiryScreen extends StatefulWidget {
   const VisitInquiryScreen({super.key});
@@ -16,245 +26,309 @@ class VisitInquiryScreen extends StatefulWidget {
 
 class _VisitInquiryScreenState extends State<VisitInquiryScreen> {
   String? currentSelectedSortingFilter;
-  // For dropdown list attaching
-  List<dynamic>? sortingList = [
-    {"value": "", "text": "All"},
-    {"value": "tenant_employee", "text": "Tenant Employee"},
-    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-    {"value": "tenant_conference_employee", "text": "Conference Room"}
-  ];
-  List<dynamic> dataList = [
-    {
-      "id": 1,
-      "name": "Hong Gil Dong",
-      "businessType": "Centropolis",
-      "type": "business discussion",
-      "dateTime": "2021.03.21 13:00",
-      "status": "Visit Completed"
-    },
-    {
-      "id": 2,
-      "name": "Hong Gil Dong",
-      "businessType": "Centropolis",
-      "type": "business discussion",
-      "dateTime": "2021.03.21 13:00",
-      "status": "Visit Completed"
-    },
-    {
-      "id": 3,
-      "name": "Hong Gil Dong",
-      "businessType": "Centropolis",
-      "type": "business discussion",
-      "dateTime": "2021.03.21 13:00",
-      "status": "Visit Completed"
-    },
-    {
-      "id": 4,
-      "name": "Hong Gil Dong",
-      "businessType": "Centropolis",
-      "type": "business discussion",
-      "dateTime": "2021.03.21 13:00",
-      "status": "Rejected"
-    },
-    {
-      "id": 5,
-      "name": "Hong Gil Dong",
-      "businessType": "Centropolis",
-      "type": "business discussion",
-      "dateTime": "2021.03.21 13:00",
-      "status": "Rejected"
-    }
-  ];
+  late String language, apiKey, email, mobile, name, companyName;
+  late FToast fToast;
+  int page = 1;
+  final int limit = 10;
+  int totalPages = 0;
+  bool isFirstLoadRunning = true;
+  List<VisitReservationModel>? visitInquiryListItem;
+  List<dynamic>? filteredStatusList;
+
+  // // For dropdown list attaching
+  // List<dynamic>? sortingList = [
+  //   {"value": "", "text": "All"},
+  //   {"value": "tenant_employee", "text": "Tenant Employee"},
+  //   {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
+  //   {"value": "tenant_conference_employee", "text": "Conference Room"}
+  // ];
+  // List<dynamic> dataList = [
+  //   {
+  //     "id": 1,
+  //     "name": "Hong Gil Dong",
+  //     "businessType": "Centropolis",
+  //     "type": "business discussion",
+  //     "dateTime": "2021.03.21 13:00",
+  //     "status": "Visit Completed"
+  //   },
+  //   {
+  //     "id": 2,
+  //     "name": "Hong Gil Dong",
+  //     "businessType": "Centropolis",
+  //     "type": "business discussion",
+  //     "dateTime": "2021.03.21 13:00",
+  //     "status": "Visit Completed"
+  //   },
+  //   {
+  //     "id": 3,
+  //     "name": "Hong Gil Dong",
+  //     "businessType": "Centropolis",
+  //     "type": "business discussion",
+  //     "dateTime": "2021.03.21 13:00",
+  //     "status": "Visit Completed"
+  //   },
+  //   {
+  //     "id": 4,
+  //     "name": "Hong Gil Dong",
+  //     "businessType": "Centropolis",
+  //     "type": "business discussion",
+  //     "dateTime": "2021.03.21 13:00",
+  //     "status": "Rejected"
+  //   },
+  //   {
+  //     "id": 5,
+  //     "name": "Hong Gil Dong",
+  //     "businessType": "Centropolis",
+  //     "type": "business discussion",
+  //     "dateTime": "2021.03.21 13:00",
+  //     "status": "Rejected"
+  //   }
+  // ];
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    loadVisitInquiryList();
+    debugPrint("apiKey ====> $apiKey");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Container(
-              margin: const EdgeInsets.only(
-                top: 20.0,
-                left: 16,
-                right: 16,
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        tr("total"),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2,
-                          fontFamily: 'SemiBold',
-                        ),
-                        textAlign: TextAlign.center,
+    visitInquiryListItem =
+        Provider.of<VisitInquiryListProvider>(context).getVisitInquiryList;
+
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isFirstLoadRunning,
+      child: Scaffold(
+        backgroundColor: CustomColors.backgroundColor,
+        body: visitInquiryListItem!.isNotEmpty
+            ? SingleChildScrollView(
+                child: Column(
+                  children: [
+                    Container(
+                      margin: const EdgeInsets.only(
+                        top: 20.0,
+                        left: 16,
+                        right: 16,
                       ),
-                      Text(
-                        " ${dataList.length}",
-                        style: const TextStyle(
-                          fontSize: 14,
-                          color: CustomColors.textColor9,
-                          fontFamily: 'SemiBold',
-                        ),
-                        textAlign: TextAlign.center,
-                      ),
-                    ],
-                  ),
-                  sortingDropdownWidget()
-                ],
-              ),
-            ),
-            dataList.isNotEmpty
-                ? Container(
-                    margin: const EdgeInsets.only(
-                      left: 16,
-                      right: 16,
-                    ),
-                    child: ListView.builder(
-                      physics: const NeverScrollableScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      shrinkWrap: true,
-                      itemCount: dataList.length,
-                      itemBuilder: (BuildContext ctxt, int index) {
-                        return InkWell(
-                            onTap: () {},
-                            child: Container(
-                                margin: const EdgeInsets.only(
-                                    top: 5.0, bottom: 5.0),
-                                decoration: BoxDecoration(
-                                  color: CustomColors.whiteColor,
-                                  borderRadius: BorderRadius.circular(4),
-                                  border: Border.all(
-                                      color: CustomColors.borderColor,
-                                      width: 1.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Text(
+                                tr("total"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2,
+                                  fontFamily: 'SemiBold',
                                 ),
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          dataList[index]["name"],
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: "Bold",
-                                              color: CustomColors.textColor8),
-                                        ),
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: dataList[index]["status"] ==
-                                                    "Visit Completed"
-                                                ? CustomColors.backgroundColor
-                                                : CustomColors.backgroundColor4,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                          padding: const EdgeInsets.only(
-                                              top: 5,
-                                              bottom: 5,
-                                              left: 10,
-                                              right: 10),
-                                          child: Text(
-                                            dataList[index]["status"],
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: "Bold",
-                                              color: dataList[index]
-                                                          ["status"] ==
-                                                      "Visit Completed"
-                                                  ? CustomColors.textColor3
-                                                  : CustomColors.headingColor,
-                                            ),
-                                          ),
-                                        )
-                                      ],
+                                textAlign: TextAlign.center,
+                              ),
+                              Text(
+                                " ${visitInquiryListItem?.length}",
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: CustomColors.textColor9,
+                                  fontFamily: 'SemiBold',
+                                ),
+                                textAlign: TextAlign.center,
+                              ),
+                            ],
+                          ),
+                          sortingDropdownWidget()
+                        ],
+                      ),
+                    ),
+                    Container(
+                        margin: const EdgeInsets.only(
+                          left: 16,
+                          right: 16,
+                        ),
+                        child: ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          shrinkWrap: true,
+                          itemCount: visitInquiryListItem?.length,
+                          itemBuilder: (BuildContext ctxt, int index) {
+                            return InkWell(
+                                onTap: () {},
+                                child: Container(
+                                    margin: const EdgeInsets.only(
+                                        top: 5.0, bottom: 5.0),
+                                    decoration: BoxDecoration(
+                                      color: CustomColors.whiteColor,
+                                      borderRadius: BorderRadius.circular(4),
+                                      border: Border.all(
+                                          color: CustomColors.borderColor,
+                                          width: 1.0),
                                     ),
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 6),
-                                        child: Row(
+                                    padding: const EdgeInsets.all(16.0),
+                                    child: Column(
+                                      children: [
+                                        Row(
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
+                                            Text(
+                                              // dataList[index]["name"],
+                                              visitInquiryListItem?[index]
+                                                      .visitorName
+                                                      .toString() ??
+                                                  "",
+                                              style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "Bold",
+                                                  color:
+                                                      CustomColors.textColor8),
+                                            ),
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: setStatusBackgroundColor(
+                                                    visitInquiryListItem?[index]
+                                                        .status
+                                                        .toString()),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              padding: const EdgeInsets.only(
+                                                  top: 5,
+                                                  bottom: 5,
+                                                  left: 10,
+                                                  right: 10),
+                                              child: Text(
+                                                // dataList[index]["status"],
+                                                visitInquiryListItem?[index]
+                                                        .displayStatus
+                                                        .toString() ??
+                                                    "",
+                                                style: TextStyle(
+                                                    fontSize: 12,
+                                                    fontFamily: "Bold",
+                                                    color: setStatusTextColor(
+                                                        visitInquiryListItem?[
+                                                                index]
+                                                            .status
+                                                            .toString())),
+                                              ),
+                                            )
+                                          ],
+                                        ),
+                                        Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 6),
+                                            child: Row(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment
+                                                      .spaceBetween,
                                               children: [
-                                                Text(
-                                                  dataList[index]
-                                                      ["businessType"],
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: "Regular",
-                                                      color: CustomColors
-                                                          .textColorBlack2),
-                                                ),
-                                                const Text(
-                                                  "  |  ",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: "Regular",
-                                                      color: CustomColors
-                                                          .borderColor),
-                                                ),
-                                                Text(
-                                                  dataList[index]["type"],
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: "Regular",
-                                                      color: CustomColors
-                                                          .textColorBlack2),
+                                                Row(
+                                                  children: [
+                                                    Text(
+                                                      // dataList[index]["businessType"],
+                                                      visitInquiryListItem?[
+                                                                  index]
+                                                              .companyName
+                                                              .toString() ??
+                                                          "",
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Regular",
+                                                          color: CustomColors
+                                                              .textColorBlack2),
+                                                    ),
+                                                    const Text(
+                                                      "  |  ",
+                                                      style: TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Regular",
+                                                          color: CustomColors
+                                                              .borderColor),
+                                                    ),
+                                                    Text(
+                                                      // dataList[index]["type"],
+                                                      visitInquiryListItem?[
+                                                                  index]
+                                                              .visitedPersonCompanyName
+                                                              .toString() ??
+                                                          "",
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Regular",
+                                                          color: CustomColors
+                                                              .textColorBlack2),
+                                                    ),
+                                                  ],
                                                 ),
                                               ],
-                                            ),
-                                          ],
-                                        )),
-                                    Container(
-                                        margin: const EdgeInsets.only(top: 6),
-                                        child: Row(
-                                          children: [
-                                            Text(
-                                              tr("visitDate"),
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: "Regular",
-                                                  color:
-                                                      CustomColors.textColor3),
-                                            ),
-                                            Text(
-                                              dataList[index]["dateTime"],
-                                              style: const TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: "Regular",
-                                                  color:
-                                                      CustomColors.textColor3),
-                                            ),
-                                          ],
-                                        )),
-                                  ],
-                                )));
-                      },
-                    ))
-                : Center(
-                    child: Container(
-                      margin: const EdgeInsets.only(
-                        left: 20,
-                        right: 20,
-                      ),
-                      child: Text(
-                        tr("noDataFound"),
-                        style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "Regular",
-                            color: CustomColors.textColor5),
-                      ),
-                    ),
-                  )
-          ],
-        ),
+                                            )),
+                                        Container(
+                                            margin:
+                                                const EdgeInsets.only(top: 6),
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  tr("visitDate"),
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: "Regular",
+                                                      color: CustomColors
+                                                          .textColor3),
+                                                ),
+                                                Text(
+                                                  // dataList[index]["dateTime"],
+                                                  "${visitInquiryListItem?[index].visitDate} ${visitInquiryListItem?[index].visitTime}",
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: "Regular",
+                                                      color: CustomColors
+                                                          .textColor3),
+                                                ),
+                                              ],
+                                            )),
+                                      ],
+                                    )));
+                          },
+                        )),
+                    if (page < totalPages)
+                      ViewMoreWidget(
+                        onViewMoreTap: () {
+                          loadMore();
+                        },
+                      )
+                  ],
+                ),
+              )
+            : Center(
+                child: Container(
+                  margin: const EdgeInsets.only(
+                    left: 20,
+                    right: 20,
+                  ),
+                  child: Text(
+                    tr("noDataFound"),
+                    style: const TextStyle(
+                        fontSize: 14,
+                        fontFamily: "Regular",
+                        color: CustomColors.textColor5),
+                  ),
+                ),
+              ),
       ),
     );
   }
@@ -271,7 +345,7 @@ class _VisitInquiryScreenState extends State<VisitInquiryScreen> {
             fontFamily: 'Regular',
           ),
         ),
-        items: sortingList
+        items: filteredStatusList
             ?.map(
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
@@ -291,9 +365,7 @@ class _VisitInquiryScreenState extends State<VisitInquiryScreen> {
           setState(() {
             currentSelectedSortingFilter = value as String;
           });
-
-          //call API for sorting
-          //loadEmployeeList();
+          loadVisitInquiryList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -322,4 +394,115 @@ class _VisitInquiryScreenState extends State<VisitInquiryScreen> {
       ),
     );
   }
+
+  void loadVisitInquiryList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadVisitInquiryListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadVisitInquiryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {
+      "page": page.toString(),
+      "limit": limit.toString(),
+      "pagination": "true",
+      "status": currentSelectedSortingFilter ?? ""
+    };
+
+    debugPrint("Visit inquiry List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getVisitRequestListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Visit inquiry List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          totalPages = responseJson['total_pages'];
+          if (responseJson['filtered_status_list'] != null) {
+            setState(() {
+              filteredStatusList = responseJson['filtered_status_list'];
+            });
+          }
+
+          if (responseJson['reservation_data'] != null) {
+            List<VisitReservationModel> reservationListList =
+                List<VisitReservationModel>.from(
+                    responseJson['reservation_data']
+                        .map((x) => VisitReservationModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<VisitInquiryListProvider>(context, listen: false)
+                  .setItem(reservationListList);
+            } else {
+              Provider.of<VisitInquiryListProvider>(context, listen: false)
+                  .addItem(reservationListList);
+            }
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
+  }
+
+  void loadMore() {
+    debugPrint("page ================> $page");
+    debugPrint("totalPages ================> $totalPages");
+
+    if (page < totalPages) {
+      debugPrint("load more called");
+      setState(() {
+        page++;
+      });
+      loadVisitInquiryList();
+    }
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
+      return CustomColors.backgroundColor;
+    } else if (status == "request_for_approval") {
+      return CustomColors.backgroundColor3;
+    } else if (status == "rejected") {
+      return CustomColors.backgroundColor4;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
+      return CustomColors.textColorBlack2;
+    } else if (status == "request_for_approval") {
+      return CustomColors.textColor9;
+    } else if (status == "rejected") {
+      return CustomColors.headingColor;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
 }
