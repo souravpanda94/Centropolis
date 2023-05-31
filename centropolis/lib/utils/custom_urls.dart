@@ -87,6 +87,8 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/visitor-reservation-view";
   static String visitReservationStatusChangeUrl =
       "${baseUrl}v1/amenity/change-visitor-reservation-status";
+  static String airConditioningDetailUrl =
+      "${baseUrl}v1/mypage/ac-inquiry-details";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

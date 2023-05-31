@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'providers/air_conditioning_detail_provider.dart';
 import 'providers/air_conditioning_list_provider.dart';
 import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
@@ -91,6 +92,8 @@ void main() async {
           ChangeNotifierProvider(create: (_) => VisitInquiryListProvider()),
           ChangeNotifierProvider(
               create: (_) => VisitReservationDetailsProvider()),
+          ChangeNotifierProvider(
+              create: (_) => AirConditioningDetailsProvider()),
         ],
         child: const MyApp(),
       ),

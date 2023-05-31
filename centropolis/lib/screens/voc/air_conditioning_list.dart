@@ -150,9 +150,9 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                   MaterialPageRoute(
                                     builder: (context) =>
                                         AirConditioningDetails(
-                                            type:
+                                            inquiryId:
                                                 airConditioningListItem![index]
-                                                    .status
+                                                    .inquiryId
                                                     .toString()),
                                   ),
                                 );
