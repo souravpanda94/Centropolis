@@ -56,7 +56,9 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                       if (widget.type.toString().isNotEmpty)
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.type.toString() == "Before Approval"
+                            color: widget.type.toString() ==
+                                        "Before Approval" ||
+                                    widget.type.toString() == "Before Use"
                                 ? CustomColors.backgroundColor3
                                 : widget.type.toString() == "Approved"
                                     ? CustomColors.backgroundColor
@@ -64,7 +66,7 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                                         ? CustomColors.backgroundColor
                                         : widget.type.toString() == "Rejected"
                                             ? CustomColors.redColor
-                                            : CustomColors.textColorBlack2,
+                                            : CustomColors.backgroundColor,
                             borderRadius: BorderRadius.circular(4),
                           ),
                           padding: const EdgeInsets.only(
@@ -74,7 +76,9 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.type.toString() == "Before Approval"
+                              color: widget.type.toString() ==
+                                          "Before Approval" ||
+                                      widget.type.toString() == "Before Use"
                                   ? CustomColors.textColor9
                                   : widget.type.toString() == "Approved"
                                       ? CustomColors.textColorBlack2
