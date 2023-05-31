@@ -1,3 +1,4 @@
+import 'package:centropolis/screens/visit_request/view_visit_reservation_new.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -229,7 +230,9 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.only(top: 16, bottom: 24),
                 child: CommonButton(
-                  onCommonButtonTap: () {},
+                  onCommonButtonTap: () {
+                    goToPreviousPage();
+                  },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("check"),
                   isIconVisible: false,
@@ -514,4 +517,21 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
       },
     );
   }
+
+  void goToPreviousPage() {
+    String startDate = "${selectedStartDate?.year}-${selectedStartDate?.month}-${selectedStartDate?.day}";
+    String endDate = "${selectedEndDate?.year}-${selectedEndDate?.month}-${selectedEndDate?.day}";
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>  ViewVisitReservationScreenNew(
+            statusSelectedValue,
+            startDate,
+            endDate
+        ),
+      ),
+    );
+  }
+
 }

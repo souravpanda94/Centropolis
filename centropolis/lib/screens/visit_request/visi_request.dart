@@ -300,7 +300,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       context,
       MaterialPageRoute(
         // builder: (context) => const VisitReservationsScreen(),
-        builder: (context) => const ViewVisitReservationScreenNew(),
+        builder: (context) => const ViewVisitReservationScreenNew("","",""),
       ),
     );
   }

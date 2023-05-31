@@ -22,7 +22,16 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/view_more.dart';
 
 class ViewVisitReservationScreenNew extends StatefulWidget {
-  const ViewVisitReservationScreenNew({super.key});
+  final String? selectedStatus;
+  final String? selectedStartDate;
+  final String? selectedEndDate;
+
+  const ViewVisitReservationScreenNew(
+      this.selectedStatus,
+      this.selectedStartDate,
+      this.selectedEndDate,
+      {super.key}
+      );
 
   @override
   State<ViewVisitReservationScreenNew> createState() =>
@@ -50,6 +59,11 @@ class _ViewVisitReservationScreenState extends State<ViewVisitReservationScreenN
     apiKey = user.userData['api_key'].toString();
     loadVisitReservationList();
     debugPrint("apiKey ====> $apiKey");
+
+    debugPrint("selectedStatus ====> ${widget.selectedStatus}");
+    debugPrint("selectedStartDate ====> ${widget.selectedStartDate}");
+    debugPrint("selectedEndDate ====> ${widget.selectedEndDate}");
+
   }
 
   @override
