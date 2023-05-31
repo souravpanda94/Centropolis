@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visit_request/view_visit_reservation.dart';
+import 'package:centropolis/screens/visit_request/view_visit_reservation_new.dart';
 import 'package:centropolis/screens/visit_request/visit_reservations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -28,33 +30,6 @@ class VisitRequestScreen extends StatefulWidget {
 }
 
 class _VisitRequestScreenState extends State<VisitRequestScreen> {
-  // List<dynamic> todayList = [
-  //   {
-  //     "id": 1,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "consulting",
-  //     "type": "business",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "before visit"
-  //   },
-  //   {
-  //     "id": 2,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "consulting",
-  //     "type": "business",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "before visit"
-  //   },
-  //   {
-  //     "id": 3,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "consulting",
-  //     "type": "business",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "before visit"
-  //   }
-  // ];
-
   late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   int page = 1;
@@ -96,16 +71,16 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
     visitReservationListItem = Provider.of<VisitReservationListProvider>(context).getVisitReservationList;
 
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isFirstLoadRunning,
-      child: Scaffold(
+    return Scaffold(
         backgroundColor: CustomColors.whiteColor,
-        body: SingleChildScrollView(
+        body: LoadingOverlay(
+          opacity: 1,
+          color: CustomColors.whiteColor,
+          progressIndicator: const CircularProgressIndicator(
+            color: CustomColors.blackColor,
+          ),
+          isLoading: isFirstLoadRunning,
+          child: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(bottom: 70),
             child: Column(
@@ -303,7 +278,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
             ),
             // ),
           ),
-        ),
+        ),),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
         floatingActionButton: Container(
           height: 46,
@@ -317,7 +292,6 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
             },
           ),
         ),
-      ),
     );
   }
 
@@ -325,7 +299,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const VisitReservationsScreen(),
+        // builder: (context) => const VisitReservationsScreen(),
+        builder: (context) => const ViewVisitReservationScreenNew(),
       ),
     );
   }
@@ -349,6 +324,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
   }
 
   void loadVisitRequestList() async {
+    Provider.of<VisitReservationListProvider>(context, listen: false).setEmptyList();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadVisitRequestListApi();
