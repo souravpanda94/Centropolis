@@ -41,6 +41,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   TextEditingController detailController = TextEditingController();
   File? fileImage;
   String fileName = "";
+  bool isLoadingRequired = false;
 
 
   @override
@@ -77,7 +78,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("complaintsReceived"), false, () {
-                onBackButtonPress(context);
+                // onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -450,7 +452,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
@@ -832,6 +834,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showReservationModal();
           titleController.clear();
           detailController.clear();
