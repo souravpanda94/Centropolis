@@ -1,17 +1,16 @@
 import 'dart:convert';
 import 'dart:io';
-
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -29,7 +28,7 @@ class ComplaintsReceived extends StatefulWidget {
 }
 
 class _ComplaintsReceivedState extends State<ComplaintsReceived> {
-  late String language, apiKey, email, mobile, companyId, name;
+  late String language, apiKey, email, mobile, companyId,companyName, name;
   late FToast fToast;
   bool isLoading = false;
   final ImagePicker imagePicker = ImagePicker();
@@ -40,6 +39,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   String? currentSelectedFloor;
   TextEditingController titleController = TextEditingController();
   TextEditingController detailController = TextEditingController();
+  File? fileImage;
+  String fileName = "";
+
 
   @override
   void initState() {
@@ -52,6 +54,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     email = user.userData['email_key'].toString();
     mobile = user.userData['mobile'].toString();
     companyId = user.userData['company_id'].toString();
+    companyName = user.userData['company_name'].toString();
     name = user.userData['name'].toString();
     loadComplaintTypeList();
     loadFloorList();
@@ -109,9 +112,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "Hong Gil Dong",
-                        style: TextStyle(
+                       Text(
+                        // "Hong Gil Dong",
+                        name ?? "",
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -136,9 +140,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                      const Text(
-                        "CBRE",
-                        style: TextStyle(
+                       Text(
+                        // "CBRE",
+                         companyName,
+                        style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
@@ -359,7 +364,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         showCustomToast(fToast, context,
                             "Only 1 image can be uploaded", "");
                       } else {
-                        selectImages();
+                        // selectImages();
+                        openImagePicker(ImageSource.gallery);
                       }
                     },
                     child: Container(
@@ -452,17 +458,22 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         });
   }
 
-  void selectImages() async {
-    final List<XFile> selectedImages =
-        await imagePicker.pickMultiImage(maxHeight: 670, maxWidth: 670);
-    if (selectedImages.isNotEmpty) {
-      if (selectedImages.length == 1) {
-        imageFileList!.addAll(selectedImages);
-      } else {
-        showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
+  Future openImagePicker(ImageSource source) async {
+    try {
+      final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 600, maxWidth: 600);
+      if (selectedImages.isNotEmpty) {
+        if (selectedImages.length == 1) {
+          setState(() {
+            imageFileList!.addAll(selectedImages);
+          });
+        } else {
+          showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
+        }
       }
+
+    } on PlatformException catch (e) {
+      debugPrint("image pick null");
     }
-    setState(() {});
   }
 
   floorDropdownWidget() {
@@ -798,27 +809,24 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           ? currentSelectedFloor.toString().trim()
           : floorList.first["floor"].toString().trim(), //required
       "title": titleController.text.toString().trim(), //required
+    // "parent_complaint_id": 19, //optional
     };
 
     debugPrint("Complaint received input===> $body");
-    Future<http.Response> response;
 
-    if (imageFileList != null && imageFileList!.isNotEmpty) {
-      response = WebService().callPostMethodWithMultipart(
-          ApiEndPoint.saveComplaintUrl,
-          body,
-          imageFileList!.first,
-          "file_name",
-          "",
-          apiKey,
-          language.toString());
-    } else {
-      response = WebService().callPostMethodWithRawData(
-          ApiEndPoint.saveComplaintUrl, body, language.toString(), apiKey);
-    }
 
+    Future<http.Response> response = WebService().callPostMethodWithMultipart(
+        ApiEndPoint.saveComplaintUrl,
+        body,
+        fileImage,
+        "file_name",
+        null,
+        apiKey.trim(),
+        language.toString()
+    );
     response.then((response) {
       var responseJson = json.decode(response.body);
+
 
       debugPrint("server response for Complaint received  ===> $responseJson");
 
