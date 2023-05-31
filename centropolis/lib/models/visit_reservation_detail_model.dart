@@ -53,7 +53,7 @@ class VisitReservationDetailModel {
     visitedPersonCompanyStatus = json['visited_person_company_status'];
     visitedPersonUserId = json['visited_person_user_id'].toString();
     visitedPersonName = json['visited_person_name'];
-    visitedPersonMobile = json['visited_person_mobile'];
+    visitedPersonMobile = json['visited_person_mobile'].toString();
     visitorName = json['visitor_name'];
     visitorCompanyName = json['visitor_company_name'];
     visitorEmail = json['visitor_email'];

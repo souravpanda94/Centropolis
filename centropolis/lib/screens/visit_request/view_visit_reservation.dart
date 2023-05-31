@@ -122,8 +122,6 @@ class _ViewVisitReservationScreenState
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     visitReservationListItem =
@@ -192,7 +190,7 @@ class _ViewVisitReservationScreenState
                           return InkWell(
                               onTap: () {
                                 goToDetailsPage(visitReservationListItem![index]
-                                    .status
+                                    .visitId
                                     .toString());
                               },
                               child: Container(
@@ -356,11 +354,11 @@ class _ViewVisitReservationScreenState
     );
   }
 
-  void goToDetailsPage(String status) {
+  void goToDetailsPage(String visitId) {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => VisitReservationDetailsScreen(status),
+        builder: (context) => VisitReservationDetailsScreen(visitId),
       ),
     );
   }
@@ -466,7 +464,6 @@ class _ViewVisitReservationScreenState
             });
           }
 
-
           if (responseJson['reservation_data'] != null) {
             List<VisitReservationModel> reservationListList =
                 List<VisitReservationModel>.from(
@@ -514,7 +511,9 @@ class _ViewVisitReservationScreenState
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "approved" || status == "request_for_approval"|| status == "visit_completed") {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
       return CustomColors.backgroundColor;
     } else if (status == "request_for_approval") {
       return CustomColors.backgroundColor3;
@@ -526,7 +525,9 @@ class _ViewVisitReservationScreenState
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "approved" || status == "request_for_approval" || status == "visit_completed") {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
       return CustomColors.textColorBlack2;
     } else if (status == "request_for_approval") {
       return CustomColors.textColor9;
@@ -536,5 +537,4 @@ class _ViewVisitReservationScreenState
       return CustomColors.backgroundColor;
     }
   }
-
 }

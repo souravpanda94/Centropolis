@@ -9,6 +9,7 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button_with_border.dart';
+import '../../widgets/common_modal.dart';
 
 class VisitReservationApplication extends StatefulWidget {
   const VisitReservationApplication({super.key});
@@ -471,7 +472,7 @@ class _VisitReservationApplicationState
                     TextField(
                       controller: emailController,
                       cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.emailAddress,
                       decoration: InputDecoration(
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
@@ -525,8 +526,10 @@ class _VisitReservationApplicationState
                     TextField(
                       controller: contactController,
                       cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
+                      maxLength: 11,
                       decoration: InputDecoration(
+                        counterText: '',
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
                         filled: true,
@@ -682,7 +685,9 @@ class _VisitReservationApplicationState
                 padding: const EdgeInsets.only(
                     top: 16, left: 16, right: 16, bottom: 40),
                 child: CommonButton(
-                  onCommonButtonTap: () {},
+                  onCommonButtonTap: () {
+                    visitReservationValidationCheck();
+                  },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("visitReservationApplication"),
                   isIconVisible: false,
@@ -1036,5 +1041,53 @@ class _VisitReservationApplicationState
         );
       },
     );
+  }
+
+  void visitReservationValidationCheck() {
+    if (visitorNameController.text.trim().isEmpty) {
+      showErrorModal(tr("visitorNameValidation"));
+    } else if (companyNameController.text.trim().isEmpty) {
+      showErrorModal(tr("companyNameValidation"));
+    } else if (emailController.text.trim().isEmpty) {
+      showErrorModal(tr("emailValidation"));
+    } else if (!isValidEmail(emailController.text.trim())) {
+      showErrorModal(tr("onlyValidEmailIsApplicable"));
+    } else if (contactController.text.trim().isEmpty) {
+      showErrorModal(tr("contactValidation"));
+    } else if (!isValidPhoneNumber(contactController.text.trim())) {
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
+    } else if (dateController.text.trim().isEmpty) {
+      showErrorModal(tr("dateVisitValidation"));
+    } else if (timeSelectedValue?.trim() == null ||
+        timeSelectedValue?.trim() == "") {
+      showErrorModal(tr("visitTimeValidation"));
+    } else if (purposeSelectedValue?.trim() == null ||
+        purposeSelectedValue?.trim() == "") {
+      showErrorModal(tr("purposeVisitValidation"));
+    } else if (!isChecked) {
+      showErrorModal(tr("pleaseConsentToCollect"));
+    } else {
+      //networkCheckForReservation();
+    }
+  }
+
+  void showErrorModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }
