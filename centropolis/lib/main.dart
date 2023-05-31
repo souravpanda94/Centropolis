@@ -14,6 +14,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:provider/provider.dart';
+import 'providers/air_conditioning_detail_provider.dart';
 import 'providers/air_conditioning_list_provider.dart';
 import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
@@ -25,6 +26,7 @@ import 'providers/light_out_detail_provider.dart';
 import 'providers/lightout_list_provider.dart';
 import 'providers/sleeping_room_detail_history_provider.dart';
 import 'providers/sleeping_room_history_provider.dart';
+import 'providers/visit_reservation_detail_provider.dart';
 import 'screens/common_module/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -82,11 +84,16 @@ void main() async {
           ChangeNotifierProvider(create: (_) => EmployeeListProvider()),
           ChangeNotifierProvider(create: (_) => UserInfoProvider()),
           ChangeNotifierProvider(create: (_) => EmployeeDetailProvider()),
-          ChangeNotifierProvider(create: (_) => ViewVisitReservationListProvider()),
+          ChangeNotifierProvider(
+              create: (_) => ViewVisitReservationListProvider()),
           ChangeNotifierProvider(create: (_) => AirConditioningListProvider()),
           ChangeNotifierProvider(create: (_) => GxListHistoryProvider()),
           ChangeNotifierProvider(create: (_) => LightOutDetailsProvider()),
           ChangeNotifierProvider(create: (_) => VisitInquiryListProvider()),
+          ChangeNotifierProvider(
+              create: (_) => VisitReservationDetailsProvider()),
+          ChangeNotifierProvider(
+              create: (_) => AirConditioningDetailsProvider()),
         ],
         child: const MyApp(),
       ),

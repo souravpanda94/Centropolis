@@ -28,7 +28,7 @@ class ComplaintsReceived extends StatefulWidget {
 }
 
 class _ComplaintsReceivedState extends State<ComplaintsReceived> {
-  late String language, apiKey, email, mobile, companyId,companyName, name;
+  late String language, apiKey, email, mobile, companyId, companyName, name;
   late FToast fToast;
   bool isLoading = false;
   final ImagePicker imagePicker = ImagePicker();
@@ -42,7 +42,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   File? fileImage;
   String fileName = "";
   bool isLoadingRequired = false;
-
 
   @override
   void initState() {
@@ -114,7 +113,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                       Text(
+                      Text(
                         // "Hong Gil Dong",
                         name ?? "",
                         style: const TextStyle(
@@ -142,9 +141,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
-                       Text(
+                      Text(
                         // "CBRE",
-                         companyName,
+                        companyName,
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
@@ -427,7 +426,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     reservationValidationCheck();
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("check"),
+                  buttonName: tr("apply"),
                   isIconVisible: false,
                 ),
               ),
@@ -462,7 +461,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
   Future openImagePicker(ImageSource source) async {
     try {
-      final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 600, maxWidth: 600);
+      final List<XFile> selectedImages = await ImagePicker()
+          .pickMultiImage(imageQuality: 70, maxHeight: 600, maxWidth: 600);
       if (selectedImages.isNotEmpty) {
         if (selectedImages.length == 1) {
           setState(() {
@@ -472,7 +472,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
         }
       }
-
     } on PlatformException catch (e) {
       debugPrint("image pick null");
     }
@@ -811,11 +810,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           ? currentSelectedFloor.toString().trim()
           : floorList.first["floor"].toString().trim(), //required
       "title": titleController.text.toString().trim(), //required
-    // "parent_complaint_id": 19, //optional
+      // "parent_complaint_id": 19, //optional
     };
 
     debugPrint("Complaint received input===> $body");
-
 
     Future<http.Response> response = WebService().callPostMethodWithMultipart(
         ApiEndPoint.saveComplaintUrl,
@@ -824,11 +822,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         "file_name",
         null,
         apiKey.trim(),
-        language.toString()
-    );
+        language.toString());
     response.then((response) {
       var responseJson = json.decode(response.body);
-
 
       debugPrint("server response for Complaint received  ===> $responseJson");
 

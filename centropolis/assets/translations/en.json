@@ -342,6 +342,14 @@
   "lockerValidation": "Please Select correct locker number",
   "tenantCompanyInformation": "Tenant company information",
   "airConditioning/Heading": "Air conditioning / Heating",
+  "visitorNameValidation": "Please enter correct visitor name",
+  "companyNameValidation": "Please enter a company name",
+  "emailValidation": "Please enter an Email",
+  "contactValidation": "Please enter your Contact Information",
+  "dateVisitValidation": "Please select correct date of visit",
+  "visitTimeValidation": "Please select correct time of visit",
+  "purposeVisitValidation": "Please select purpose of visit",
+
 
 
 

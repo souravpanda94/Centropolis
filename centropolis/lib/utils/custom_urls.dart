@@ -83,9 +83,16 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/gx-program-reservation-list";
   static String lightOutDetailUrl =
       "${baseUrl}v1/mypage/light-out-inquiry-details";
+  static String visitReservationDetailUrl =
+      "${baseUrl}v1/amenity/visitor-reservation-view";
+  static String visitReservationStatusChangeUrl =
+      "${baseUrl}v1/amenity/change-visitor-reservation-status";
+  static String airConditioningDetailUrl =
+      "${baseUrl}v1/mypage/ac-inquiry-details";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-  static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";
+  static String getVisitRequestListUrl =
+      "${baseUrl}v1/amenity/visitor-reservation-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
 
   static String withdrawalUrl = "${baseUrl}v1";

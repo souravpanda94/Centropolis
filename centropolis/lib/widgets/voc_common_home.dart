@@ -470,7 +470,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => AirConditioningDetails(
-                          type: widget.airConditioningList?[index].status
+                          inquiryId: widget
+                                  .airConditioningList?[index].inquiryId
                                   .toString() ??
                               ""),
                     ),
