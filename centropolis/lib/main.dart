@@ -24,6 +24,7 @@ import 'providers/gx_list_history_provider.dart';
 import 'providers/incovenience_list_provider.dart';
 import 'providers/light_out_detail_provider.dart';
 import 'providers/lightout_list_provider.dart';
+import 'providers/paid_pt_history_list_provider.dart';
 import 'providers/sleeping_room_detail_history_provider.dart';
 import 'providers/sleeping_room_history_provider.dart';
 import 'providers/visit_reservation_detail_provider.dart';
@@ -94,6 +95,7 @@ void main() async {
               create: (_) => VisitReservationDetailsProvider()),
           ChangeNotifierProvider(
               create: (_) => AirConditioningDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => PaidPtHistoryListProvider()),
         ],
         child: const MyApp(),
       ),
