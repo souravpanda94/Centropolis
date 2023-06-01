@@ -135,10 +135,11 @@ class _FitnessTabReservationHistoryState
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       FitnessTabHistoryDetails(
-                                          type: fitnessHistoryListItem?[index]
-                                                  .status
-                                                  .toString() ??
-                                              ""),
+                                          reservationId:
+                                              fitnessHistoryListItem?[index]
+                                                      .id
+                                                      .toString() ??
+                                                  ""),
                                 ),
                               );
                             },

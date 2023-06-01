@@ -4,6 +4,7 @@ import 'package:centropolis/providers/company_provider.dart';
 import 'package:centropolis/providers/conference_history_provider.dart';
 import 'package:centropolis/providers/executive_lounge_history_provider.dart';
 import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
+import 'package:centropolis/providers/paid_locker_history_detail_provider.dart';
 import 'package:centropolis/providers/user_info_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
 import 'package:centropolis/providers/view_visit_reservation_list_provider.dart';
@@ -20,12 +21,14 @@ import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
 import 'providers/employee_detail_provider.dart';
 import 'providers/employee_list_provider.dart';
+import 'providers/fitness_history_detail_provider.dart';
 import 'providers/fitness_history_list_provider.dart';
 import 'providers/gx_list_history_provider.dart';
 import 'providers/incovenience_list_provider.dart';
 import 'providers/light_out_detail_provider.dart';
 import 'providers/lightout_list_provider.dart';
 import 'providers/paid_locker_history_list_provider.dart';
+import 'providers/paid_pt_history_detail_provider.dart';
 import 'providers/paid_pt_history_list_provider.dart';
 import 'providers/sleeping_room_detail_history_provider.dart';
 import 'providers/sleeping_room_history_provider.dart';
@@ -101,6 +104,11 @@ void main() async {
           ChangeNotifierProvider(create: (_) => FitnessHistoryListProvider()),
           ChangeNotifierProvider(
               create: (_) => PaidLockerHistoryListProvider()),
+          ChangeNotifierProvider(
+              create: (_) => PaidLockerHistoryDetailsProvider()),
+          ChangeNotifierProvider(
+              create: (_) => FitnessHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => PaidPtHistoryDetailsProvider()),
         ],
         child: const MyApp(),
       ),

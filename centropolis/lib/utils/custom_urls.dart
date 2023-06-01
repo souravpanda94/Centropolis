@@ -95,6 +95,12 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/fitness-center-reservation-list";
   static String paidLockerHistoryListUrl =
       "${baseUrl}v1/mypage/fitness-locker-reservation-list";
+  static String paidLockerHistoryDetailUrl =
+      "${baseUrl}v1/mypage/fitness-locker-details";
+  static String fitnessHistoryDetailUrl =
+      "${baseUrl}v1/mypage/fitness-center-details";
+  static String paidPtHistoryDetailUrl =
+      "${baseUrl}v1/mypage/fitness-pt-details";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

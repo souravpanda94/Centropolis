@@ -137,9 +137,9 @@ class _PaidLockerReservationHistoryState
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       PaidLockerHistoryDetails(
-                                          type:
+                                          reservationId:
                                               paidLockerHistoryListItem?[index]
-                                                      .status
+                                                      .id
                                                       .toString() ??
                                                   ""),
                                 ),

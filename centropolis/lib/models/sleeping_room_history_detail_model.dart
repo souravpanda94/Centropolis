@@ -9,6 +9,7 @@ class SleepingRoomHistoryDetailModel {
   String? totalUsageTime;
   String? canCancel;
   String? status;
+  String? seat;
   bool? success;
 
   SleepingRoomHistoryDetailModel(
@@ -22,6 +23,7 @@ class SleepingRoomHistoryDetailModel {
       this.totalUsageTime,
       this.canCancel,
       this.status,
+      this.seat,
       this.success});
 
   SleepingRoomHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -35,6 +37,7 @@ class SleepingRoomHistoryDetailModel {
     totalUsageTime = json['total_usage_time'].toString();
     canCancel = json['can_cancel'];
     status = json['status'];
+    seat = json['seat'].toString();
     success = json['success'];
   }
 
@@ -50,6 +53,7 @@ class SleepingRoomHistoryDetailModel {
     data['total_usage_time'] = totalUsageTime;
     data['can_cancel'] = canCancel;
     data['status'] = status;
+    data['seat'] = seat;
     data['success'] = success;
     return data;
   }
