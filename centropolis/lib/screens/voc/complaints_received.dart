@@ -423,7 +423,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                 child: CommonButton(
                   onCommonButtonTap: () {
                     //showReservationModal();
-                    reservationValidationCheck();
+                    submitComplaintValidationCheck();
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("apply"),
@@ -753,11 +753,16 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     });
   }
 
-  void reservationValidationCheck() {
-    if (titleController.text.trim().isEmpty) {
-      showErrorModal("Please enter Title");
+  void submitComplaintValidationCheck() {
+    if (currentSelectedFloor == null && floorList.isEmpty) {
+      showErrorModal(tr("pleaseSelectFloor"));
+    } else if (complaintTypeTimeSelectedValue == null &&
+        complaintTypeList.isEmpty) {
+      showErrorModal(tr("complaintTypeValidation"));
+    } else if (titleController.text.trim().isEmpty) {
+      showErrorModal(tr("complaintTitleValidation"));
     } else if (detailController.text.trim().isEmpty) {
-      showErrorModal("Please enter detail description");
+      showErrorModal(tr("complaintDescriptionValidation"));
     } else {
       networkCheckForReservation();
     }
