@@ -96,6 +96,7 @@ class ApiEndPoint {
   static String getVisitRequestListUrl =
       "${baseUrl}v1/amenity/visitor-reservation-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
+  static String visitReservationApplicationUrl = "${baseUrl}v1/amenity/app-visitor-reservation";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

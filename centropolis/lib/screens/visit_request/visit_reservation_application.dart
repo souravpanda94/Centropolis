@@ -1,11 +1,18 @@
+import 'dart:convert';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
-
+import 'package:http/http.dart' as http;
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button_with_border.dart';
@@ -19,8 +26,7 @@ class VisitReservationApplication extends StatefulWidget {
       _VisitReservationApplicationState();
 }
 
-class _VisitReservationApplicationState
-    extends State<VisitReservationApplication> {
+class _VisitReservationApplicationState extends State<VisitReservationApplication> {
   TextEditingController consentController = TextEditingController();
   TextEditingController visitorNameController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
@@ -29,7 +35,9 @@ class _VisitReservationApplicationState
   TextEditingController emailController = TextEditingController();
   TextEditingController contactController = TextEditingController();
   TextEditingController purposeVisitController = TextEditingController();
-
+  late String language, apiKey, companyId;
+  late FToast fToast;
+  bool isLoading = true;
   bool isChecked = false;
   String? timeSelectedValue;
   String? purposeSelectedValue;
@@ -39,6 +47,9 @@ class _VisitReservationApplicationState
   DateTime focusedDate = DateTime.now();
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
+  String personalInformationContent = "";
+  List<dynamic> floorList = [];
+  String? currentSelectedFloor;
 
   List<dynamic> list = [
     {"time": "10:00", "purpose": "Business Discussion"},
@@ -46,6 +57,19 @@ class _VisitReservationApplicationState
     {"time": "12:00", "purpose": "Discussion"},
     {"time": "13:00", "purpose": "test"},
   ];
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    companyId = user.userData['company_id'].toString();
+    loadPersonalInformation();
+    loadFloorList();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -102,28 +126,16 @@ class _VisitReservationApplicationState
                         borderRadius: BorderRadius.circular(4),
                       ),
                       height: 264,
+                      width: MediaQuery.of(context).size.width,
                       child: SingleChildScrollView(
-                        child: TextField(
-                          controller: consentController,
-                          cursorColor: CustomColors.textColorBlack2,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: null,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            fillColor: CustomColors.whiteColor,
-                            filled: true,
-                            contentPadding: const EdgeInsets.all(16),
-                            hintText: tr('signUpConsentHint'),
-                            hintStyle: const TextStyle(
-                              color: CustomColors.textColor3,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                          style: const TextStyle(
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Text(
+                            personalInformationContent,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor3),
                           ),
                         ),
                       ),
@@ -145,8 +157,6 @@ class _VisitReservationApplicationState
                               onChanged: (value) {
                                 setState(() {
                                   isChecked = value!;
-                                  if (isChecked) {
-                                  } else {}
                                 });
                               },
                             ),
@@ -285,35 +295,37 @@ class _VisitReservationApplicationState
                                 fontSize: 14,
                                 color: CustomColors.textColorBlack2),
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                text: tr("landingFloor"),
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
-                                children: const [
-                                  TextSpan(
-                                      text: ' *',
-                                      style: TextStyle(
-                                          color: CustomColors.headingColor,
-                                          fontSize: 12))
-                                ]),
-                            maxLines: 1,
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          const Text(
-                            "11F",
-                            style: TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
+
+                          //
+                          // const SizedBox(
+                          //   height: 16,
+                          // ),
+                          // RichText(
+                          //   text: TextSpan(
+                          //       text: tr("landingFloor"),
+                          //       style: const TextStyle(
+                          //           fontFamily: 'SemiBold',
+                          //           fontSize: 14,
+                          //           color: CustomColors.textColor8),
+                          //       children: const [
+                          //         TextSpan(
+                          //             text: ' *',
+                          //             style: TextStyle(
+                          //                 color: CustomColors.headingColor,
+                          //                 fontSize: 12))
+                          //       ]),
+                          //   maxLines: 1,
+                          // ),
+                          // const SizedBox(
+                          //   height: 8,
+                          // ),
+                          // const Text(
+                          //   "11F",
+                          //   style: TextStyle(
+                          //       fontFamily: 'Regular',
+                          //       fontSize: 14,
+                          //       color: CustomColors.textColorBlack2),
+                          // ),
                         ],
                       ),
                     )
@@ -670,6 +682,26 @@ class _VisitReservationApplicationState
                       height: 8,
                     ),
                     purposeVisitDropdownWidget(),
+                    Container(
+                      margin: const EdgeInsets.only(top: 16, bottom: 8),
+                      child: RichText(
+                        text: TextSpan(
+                            text: tr("visitingFloor"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                    ),
+                    visitFloorDropdownWidget(),
                   ],
                 ),
               ),
@@ -790,9 +822,9 @@ class _VisitReservationApplicationState
   purposeVisitDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        hint: const Text(
-          "business discussion",
-          style: TextStyle(
+        hint: Text(
+          tr("businessDiscussion"),
+          style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
@@ -866,6 +898,94 @@ class _VisitReservationApplicationState
                 right: 16,
                 left: purposeSelectedValue != null ? 0 : 16,
                 bottom: purposeSelectedValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
+  }
+
+  visitFloorDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          tr("floor"),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: floorList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["floor"],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item["floor"],
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: currentSelectedFloor,
+        onChanged: (value) {
+          setState(() {
+            currentSelectedFloor = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: currentSelectedFloor != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: currentSelectedFloor != null ? 0 : 16,
+                bottom: currentSelectedFloor != null ? 0 : 16),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
           padding: EdgeInsets.all(0),
@@ -1067,7 +1187,7 @@ class _VisitReservationApplicationState
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
-      //networkCheckForReservation();
+      networkCheckForVisitReservation();
     }
   }
 
@@ -1090,4 +1210,189 @@ class _VisitReservationApplicationState
           );
         });
   }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "cms_key": "signup_terms",
+    };
+
+    debugPrint("get Personal Information input ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInformationUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for get Personal Information ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (language == "en") {
+            if (responseJson['description_en'] != null) {
+              setState(() {
+                personalInformationContent =
+                    responseJson['description_en'].toString();
+              });
+            }
+          } else {
+            if (responseJson['description_ko'] != null) {
+              setState(() {
+                personalInformationContent =
+                    responseJson['description_ko'].toString();
+              });
+            }
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void networkCheckForVisitReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadVisitReservationApplicationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadVisitReservationApplicationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    String visitDate =
+        "${selectedDate?.year}-${selectedDate?.month}-${selectedDate?.day}";
+    Map<String, String> body = {
+      "visited_person_company_id": "1", //required
+      "visited_person_user_id": "15", //required
+      "visited_person_name": "hgj", //required
+
+      "building": purposeSelectedValue ?? "", //required
+      "floor": currentSelectedFloor ?? "", //required
+      "visitor_name": visitorNameController.text.trim(), //required
+      "visitor_company_name": companyNameController.text.trim(), //required
+      "visitor_email": emailController.text.trim(), //required
+      "visitor_mobile": contactController.text.trim(), //required
+      "visit_date": visitDate, //required
+      "visit_time": timeSelectedValue ?? "", //required
+      "visit_purpose": purposeSelectedValue ?? "" //required
+    };
+
+    debugPrint("Visit Reservation Application input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.visitReservationApplicationUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Visit Reservation Application ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+          Navigator.pop(context);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadFloorList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadFloorListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadFloorListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "company_id": companyId.toString().trim(),
+    };
+
+    debugPrint("Floor List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getFloorListUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Floor List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              floorList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
 }
