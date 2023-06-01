@@ -101,12 +101,18 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/fitness-center-details";
   static String paidPtHistoryDetailUrl =
       "${baseUrl}v1/mypage/fitness-pt-details";
+  static String gxHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-gx-details";
+  static String loungeHistoryDetailUrl =
+      "${baseUrl}v1/mypage/executive-lounge-details";
+  static String loungeHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/executive-lounge-cancel";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =
       "${baseUrl}v1/amenity/visitor-reservation-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
-  static String visitReservationApplicationUrl = "${baseUrl}v1/amenity/app-visitor-reservation";
+  static String visitReservationApplicationUrl =
+      "${baseUrl}v1/amenity/app-visitor-reservation";
 
   static String withdrawalUrl = "${baseUrl}v1";
   static String logoutUrl = "${baseUrl}v1";

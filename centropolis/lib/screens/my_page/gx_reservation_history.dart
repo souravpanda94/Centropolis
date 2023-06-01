@@ -132,8 +132,8 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => GXHistoryDetails(
-                                      type: gxHistoryListItem?[index]
-                                              .status
+                                      reservationId: gxHistoryListItem?[index]
+                                              .id
                                               .toString() ??
                                           ""),
                                 ),
