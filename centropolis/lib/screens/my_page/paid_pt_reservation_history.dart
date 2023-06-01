@@ -133,10 +133,11 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => PaidPTHistoryDetails(
-                                      type: paidPtHistoryListItem?[index]
-                                              .status
-                                              .toString() ??
-                                          ""),
+                                      reservationId:
+                                          paidPtHistoryListItem?[index]
+                                                  .id
+                                                  .toString() ??
+                                              ""),
                                 ),
                               );
                             },

@@ -49,27 +49,27 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
         Provider.of<SleepingRoomHistoryDetailsProvider>(context)
             .getSleepingRoomHistoryDetailModel;
 
-    return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("sleepingRoomReservation"), false, () {
-              onBackButtonPress(context);
-            }, () {}),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.whiteColor,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
+        backgroundColor: CustomColors.backgroundColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("sleepingRoomReservation"), false, () {
+                onBackButtonPress(context);
+              }, () {}),
+            ),
           ),
         ),
-      ),
-      body: LoadingOverlay(
-        opacity: 0.5,
-        color: CustomColors.whiteColor,
-        progressIndicator: const CircularProgressIndicator(
-          color: CustomColors.blackColor,
-        ),
-        isLoading: isLoading,
-        child: sleepingRoomHistoryDetailModel != null
+        body: sleepingRoomHistoryDetailModel != null
             ? SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -122,7 +122,7 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                                         "Rejected"
                                                     ? CustomColors.redColor
                                                     : CustomColors
-                                                        .textColorBlack2,
+                                                        .backgroundColor,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -274,8 +274,7 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                   ),
                                 ),
                                 Text(
-                                  sleepingRoomHistoryDetailModel?.usageTime ??
-                                      "",
+                                  "${sleepingRoomHistoryDetailModel?.usageTime ?? ""} ~ ${sleepingRoomHistoryDetailModel?.totalUsageTime ?? ""}",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
@@ -311,9 +310,9 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                           const SizedBox(
                             height: 8,
                           ),
-                          const Text(
-                            "22",
-                            style: TextStyle(
+                          Text(
+                            sleepingRoomHistoryDetailModel?.seat ?? "",
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor8),
@@ -324,28 +323,45 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                   ],
                 ),
               )
-            : Container(),
+            : Container(
+                width: MediaQuery.of(context).size.width,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  tr("noReservationHistory"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 14,
+                      color: CustomColors.textColor5),
+                ),
+              ),
+        bottomSheet: sleepingRoomHistoryDetailModel?.canCancel
+                    .toString()
+                    .trim()
+                    .toLowerCase() ==
+                "y"
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.only(
+                    left: 16, top: 16, right: 16, bottom: 40),
+                child: CommonButtonWithBorder(
+                    onCommonButtonTap: () {},
+                    buttonBorderColor:
+                        sleepingRoomHistoryDetailModel?.status == "Approved"
+                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                            : CustomColors.dividerGreyColor,
+                    buttonColor: CustomColors.whiteColor,
+                    buttonName: tr("cancelReservation"),
+                    buttonTextColor:
+                        sleepingRoomHistoryDetailModel?.status == "Approved"
+                            ? CustomColors.textColor5.withOpacity(0.3)
+                            : CustomColors.textColor5),
+              )
+            : null,
       ),
-      bottomSheet: sleepingRoomHistoryDetailModel?.canCancel == "y"
-          ? Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 16, right: 16, bottom: 40),
-              child: CommonButtonWithBorder(
-                  onCommonButtonTap: () {},
-                  buttonBorderColor:
-                      sleepingRoomHistoryDetailModel?.status == "Approved"
-                          ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                          : CustomColors.dividerGreyColor,
-                  buttonColor: CustomColors.whiteColor,
-                  buttonName: tr("cancelReservation"),
-                  buttonTextColor:
-                      sleepingRoomHistoryDetailModel?.status == "Approved"
-                          ? CustomColors.textColor5.withOpacity(0.3)
-                          : CustomColors.textColor5),
-            )
-          : null,
     );
   }
 
