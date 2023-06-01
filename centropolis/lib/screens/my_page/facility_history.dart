@@ -155,7 +155,8 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        sleepingRoomHistoryItem![index].name ??
+                                        sleepingRoomHistoryItem![index]
+                                                .reservationDate ??
                                             "",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,

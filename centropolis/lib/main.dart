@@ -20,10 +20,12 @@ import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
 import 'providers/employee_detail_provider.dart';
 import 'providers/employee_list_provider.dart';
+import 'providers/fitness_history_list_provider.dart';
 import 'providers/gx_list_history_provider.dart';
 import 'providers/incovenience_list_provider.dart';
 import 'providers/light_out_detail_provider.dart';
 import 'providers/lightout_list_provider.dart';
+import 'providers/paid_locker_history_list_provider.dart';
 import 'providers/paid_pt_history_list_provider.dart';
 import 'providers/sleeping_room_detail_history_provider.dart';
 import 'providers/sleeping_room_history_provider.dart';
@@ -96,6 +98,9 @@ void main() async {
           ChangeNotifierProvider(
               create: (_) => AirConditioningDetailsProvider()),
           ChangeNotifierProvider(create: (_) => PaidPtHistoryListProvider()),
+          ChangeNotifierProvider(create: (_) => FitnessHistoryListProvider()),
+          ChangeNotifierProvider(
+              create: (_) => PaidLockerHistoryListProvider()),
         ],
         child: const MyApp(),
       ),
