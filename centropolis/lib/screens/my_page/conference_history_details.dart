@@ -72,192 +72,239 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             ),
           ),
         ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
+        body: conferenceHistoryDetails != null
+            ? SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("reservationInformation"),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8),
-                        ),
-                        if (conferenceHistoryDetails?.status.toString() != "")
-                          Container(
-                            decoration: BoxDecoration(
-                              color: conferenceHistoryDetails?.status
-                                              .toString() ==
-                                          "before_use" ||
-                                      conferenceHistoryDetails?.status
-                                              .toString() ==
-                                          "pending"
-                                  ? CustomColors.backgroundColor3
-                                  : conferenceHistoryDetails?.status
-                                              .toString() ==
-                                          "using"
-                                      ? CustomColors.backgroundColor
-                                      : conferenceHistoryDetails?.status
-                                                  .toString() ==
-                                              "used"
-                                          ? CustomColors.backgroundColor
-                                          : conferenceHistoryDetails?.status
-                                                      .toString() ==
-                                                  "rejected"
-                                              ? CustomColors.redColor
-                                              : CustomColors.textColorBlack2,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-                            child: Text(
-                              conferenceHistoryDetails?.displayStatus ?? "",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "SemiBold",
-                                color: conferenceHistoryDetails?.status
-                                                .toString() ==
-                                            "before_use" ||
-                                        conferenceHistoryDetails?.status
-                                                .toString() ==
-                                            "pending"
-                                    ? CustomColors.textColor9
-                                    : conferenceHistoryDetails?.status
-                                                .toString() ==
-                                            "using"
-                                        ? CustomColors.textColorBlack2
+                    Container(
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                tr("reservationInformation"),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 16,
+                                    color: CustomColors.textColor8),
+                              ),
+                              if (conferenceHistoryDetails?.status.toString() !=
+                                  "")
+                                Container(
+                                  decoration: BoxDecoration(
+                                    color: conferenceHistoryDetails?.status
+                                                    .toString() ==
+                                                "before_use" ||
+                                            conferenceHistoryDetails?.status
+                                                    .toString() ==
+                                                "pending"
+                                        ? CustomColors.backgroundColor3
                                         : conferenceHistoryDetails?.status
                                                     .toString() ==
-                                                "used"
-                                            ? CustomColors.textColor3
+                                                "using"
+                                            ? CustomColors.backgroundColor
                                             : conferenceHistoryDetails?.status
                                                         .toString() ==
-                                                    "rejected"
-                                                ? CustomColors.headingColor
-                                                : CustomColors.textColorBlack2,
+                                                    "used"
+                                                ? CustomColors.backgroundColor
+                                                : conferenceHistoryDetails
+                                                            ?.status
+                                                            .toString() ==
+                                                        "rejected"
+                                                    ? CustomColors.redColor
+                                                    : CustomColors
+                                                        .textColorBlack2,
+                                    borderRadius: BorderRadius.circular(4),
+                                  ),
+                                  padding: const EdgeInsets.only(
+                                      top: 5.0,
+                                      bottom: 5.0,
+                                      left: 10.0,
+                                      right: 10.0),
+                                  child: Text(
+                                    conferenceHistoryDetails?.displayStatus ??
+                                        "",
+                                    style: TextStyle(
+                                      fontSize: 12,
+                                      fontFamily: "SemiBold",
+                                      color: conferenceHistoryDetails?.status
+                                                      .toString() ==
+                                                  "before_use" ||
+                                              conferenceHistoryDetails?.status
+                                                      .toString() ==
+                                                  "pending"
+                                          ? CustomColors.textColor9
+                                          : conferenceHistoryDetails?.status
+                                                      .toString() ==
+                                                  "using"
+                                              ? CustomColors.textColorBlack2
+                                              : conferenceHistoryDetails?.status
+                                                          .toString() ==
+                                                      "used"
+                                                  ? CustomColors.textColor3
+                                                  : conferenceHistoryDetails
+                                                              ?.status
+                                                              .toString() ==
+                                                          "rejected"
+                                                      ? CustomColors
+                                                          .headingColor
+                                                      : CustomColors
+                                                          .textColorBlack2,
+                                    ),
+                                  ),
+                                ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 24,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                tr("nameLounge"),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
                               ),
+                              Text(
+                                conferenceHistoryDetails?.name ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                            ],
+                          ),
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 16),
+                            child: Divider(
+                              color: CustomColors.backgroundColor2,
+                              thickness: 1,
+                              height: 1,
                             ),
                           ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("nameLounge"),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        Text(
-                          conferenceHistoryDetails?.name ?? "",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Divider(
-                        color: CustomColors.backgroundColor2,
-                        thickness: 1,
-                        height: 1,
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                tr("tenantCompanyLounge"),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                              Text(
+                                conferenceHistoryDetails?.companyName ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("tenantCompanyLounge"),
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        Text(
-                          conferenceHistoryDetails?.companyName ?? "",
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("reservationDate"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
                     ),
                     const SizedBox(
                       height: 8,
                     ),
-                    IntrinsicHeight(
-                      child: Row(
+                    Container(
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            conferenceHistoryDetails?.reservationDate ?? "",
+                            tr("reservationDate"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
                                 color: CustomColors.textColor8),
                           ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 4),
-                            child: VerticalDivider(
-                              color: CustomColors.textColor3,
-                              thickness: 1,
-                            ),
+                          const SizedBox(
+                            height: 8,
                           ),
+                          IntrinsicHeight(
+                            child: Row(
+                              children: [
+                                Text(
+                                  conferenceHistoryDetails?.reservationDate ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 6, vertical: 4),
+                                  child: VerticalDivider(
+                                    color: CustomColors.textColor3,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                Text(
+                                  conferenceHistoryDetails?.usageTime ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           Text(
-                            conferenceHistoryDetails?.usageTime ?? "",
+                            tr("enterRentalInformation"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColor8),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            conferenceHistoryDetails?.description ?? "",
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
@@ -268,42 +315,21 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                     )
                   ],
                 ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("enterRentalInformation"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      conferenceHistoryDetails?.description ?? "",
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                  ],
-                ),
               )
-            ],
-          ),
-        ),
+            : Container(
+                width: MediaQuery.of(context).size.width,
+                margin:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                padding: const EdgeInsets.all(24),
+                child: Text(
+                  tr("noReservationHistory"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 14,
+                      color: CustomColors.textColor5),
+                ),
+              ),
         bottomSheet: conferenceHistoryDetails?.canCancel == "y"
             ? Container(
                 width: MediaQuery.of(context).size.width,

@@ -350,6 +350,15 @@
   "dateVisitValidation": "Please select correct date of visit",
   "visitTimeValidation": "Please select correct time of visit",
   "purposeVisitValidation": "Please select purpose of visit",
+  "complaintTitleValidation": "Please enter the subject.",
+  "complaintDescriptionValidation": "Please enter your complaint.",
+  "complaintTypeValidation": "Please Select a type",
+  "lightsOutEndTimeValidation": "Please Select a usage hour",
+  "signUpHeading" : "Sign Up",
+
+
+
+
 
 
 

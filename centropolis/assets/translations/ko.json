@@ -349,6 +349,13 @@
   "dateVisitValidation": "올바른 방문일을 입력해 주세요",
   "visitTimeValidation": "올바른 방문 시간을 선택해 주세요",
   "purposeVisitValidation": "방문 목적을 선택해 주세요",
+  "complaintTitleValidation": "제목을 입력해 주세요",
+  "complaintDescriptionValidation": "상세 내용을 입력해 주세요",
+  "complaintTypeValidation": "문의 유형을 선택해 주세요",
+  "lightsOutEndTimeValidation": "사용 시간을 선택해 주세요",
+  "signUpHeading" : "입주사 회원가입",
+
+
 
 
 

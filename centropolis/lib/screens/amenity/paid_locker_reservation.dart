@@ -512,11 +512,9 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
-    }
-    // else if (selectedTime == null || selectedTime == "") {
-    //   showErrorModal(tr("usageTimeValidation"));
-    // }
-    else if (!isChecked) {
+    } else if (selectedTime == null && timeList.isEmpty) {
+      showErrorModal(tr("usageTimeValidation"));
+    } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForReservation();

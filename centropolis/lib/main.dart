@@ -23,10 +23,12 @@ import 'providers/employee_detail_provider.dart';
 import 'providers/employee_list_provider.dart';
 import 'providers/fitness_history_detail_provider.dart';
 import 'providers/fitness_history_list_provider.dart';
+import 'providers/gx_history_detail_provider.dart';
 import 'providers/gx_list_history_provider.dart';
 import 'providers/incovenience_list_provider.dart';
 import 'providers/light_out_detail_provider.dart';
 import 'providers/lightout_list_provider.dart';
+import 'providers/lounge_history_detail_provider.dart';
 import 'providers/paid_locker_history_list_provider.dart';
 import 'providers/paid_pt_history_detail_provider.dart';
 import 'providers/paid_pt_history_list_provider.dart';
@@ -109,6 +111,8 @@ void main() async {
           ChangeNotifierProvider(
               create: (_) => FitnessHistoryDetailsProvider()),
           ChangeNotifierProvider(create: (_) => PaidPtHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => GXHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => LoungeHistoryDetailsProvider()),
         ],
         child: const MyApp(),
       ),

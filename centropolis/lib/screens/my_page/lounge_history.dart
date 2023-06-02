@@ -123,7 +123,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => LoungeHistoryDetails(
-                                      executiveLoungeListItem?[index]),
+                                      executiveLoungeListItem?[index].id),
                                 ),
                               );
                             },

@@ -24,7 +24,8 @@ class _LightOutRequestState extends State<LightOutRequest> {
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
   bool isChecked = false;
-  TextEditingController rentalInfoController = TextEditingController();
+  TextEditingController otherRequestController = TextEditingController();
+  String reservationDate = "";
 
   String? floorSelectedValue;
   String? startTimeSelectedValue;
@@ -281,7 +282,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                   height: 288,
                   child: SingleChildScrollView(
                     child: TextField(
-                      controller: rentalInfoController,
+                      controller: otherRequestController,
                       cursorColor: CustomColors.textColorBlack2,
                       keyboardType: TextInputType.multiline,
                       maxLines: null,
@@ -321,7 +322,8 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
             child: CommonButton(
               onCommonButtonTap: () {
-                showReservationModal();
+                requestLightOutValidationCheck();
+                //showReservationModal();
               },
               buttonColor: CustomColors.buttonBackgroundColor,
               buttonName: tr("apply"),
@@ -707,5 +709,60 @@ class _LightOutRequestState extends State<LightOutRequest> {
         });
       },
     );
+  }
+
+  void requestLightOutValidationCheck() {
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
+    }
+    setState(() {
+      reservationDate = selectedDate;
+    });
+
+    // replace this usageTimeList with list coming from API
+    if (floorSelectedValue == null && usageTimeList.isEmpty) {
+      showErrorModal(tr("pleaseSelectFloor"));
+    } else if (reservationDate == "") {
+      showErrorModal(tr("applicationDateValidation"));
+    } else if (startTimeSelectedValue == null) {
+      showErrorModal(tr("selectStartTime"));
+    } else if (endTimeSelectedValue == null) {
+      showErrorModal(tr("lightsOutEndTimeValidation"));
+    } else if (otherRequestController.text.trim().isEmpty) {
+      showErrorModal(tr("complaintDescriptionValidation"));
+    } else {
+      // networkCheckForReservation();
+    }
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }
