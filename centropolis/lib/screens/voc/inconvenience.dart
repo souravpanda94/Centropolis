@@ -91,11 +91,21 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
               buttonColor: CustomColors.buttonBackgroundColor,
               isIconVisible: true,
               onCommonButtonTap: () {
+                // Navigator.push(
+                //   context,
+                //   MaterialPageRoute(
+                //       builder: (context) => const ComplaintsReceived()),
+                // );
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) => const ComplaintsReceived()),
-                );
+                      builder: (context) =>
+                      const ComplaintsReceived()),
+                ).then((value) {
+                  if (value) {
+                    loadInconvenienceList();
+                  }
+                });
               },
             ),
           )),

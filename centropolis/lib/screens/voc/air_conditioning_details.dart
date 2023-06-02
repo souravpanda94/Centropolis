@@ -1,22 +1,51 @@
-import 'package:centropolis/widgets/common_button_with_border.dart';
+import 'dart:convert';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
+import '../../models/air_conditioning_detail_model.dart';
+import '../../providers/air_conditioning_detail_provider.dart';
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
 class AirConditioningDetails extends StatefulWidget {
-  final String type;
-  const AirConditioningDetails({super.key, required this.type});
+  final String inquiryId;
+  const AirConditioningDetails({super.key, required this.inquiryId});
 
   @override
   State<AirConditioningDetails> createState() => _AirConditioningDetailsState();
 }
 
 class _AirConditioningDetailsState extends State<AirConditioningDetails> {
+  late String language, apiKey;
+  late FToast fToast;
+  bool isLoading = false;
+  AirConditioningDetailModel? airConditioningDetailModel;
+
+  @override
+  void initState() {
+    super.initState();
+    language = tr("lang");
+    fToast = FToast();
+    fToast.init(context);
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    loadAirConditioningDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
+    airConditioningDetailModel =
+        Provider.of<AirConditioningDetailsProvider>(context)
+            .getAirConditioningDetailModel;
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       appBar: PreferredSize(
@@ -48,15 +77,26 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                               fontFamily: 'SemiBold',
                               fontSize: 16,
                               color: CustomColors.textColor8)),
-                      if (widget.type.toString().isNotEmpty)
+                      if (airConditioningDetailModel != null &&
+                          airConditioningDetailModel!.status
+                              .toString()
+                              .isNotEmpty)
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.type.toString() == "Received" ||
-                                    widget.type.toString() == "Rejected"
+                            color: airConditioningDetailModel?.status
+                                            .toString() ==
+                                        "Received" ||
+                                    airConditioningDetailModel?.status
+                                            .toString() ==
+                                        "Rejected"
                                 ? CustomColors.backgroundColor3
-                                : widget.type.toString() == "Approved"
+                                : airConditioningDetailModel?.status
+                                            .toString() ==
+                                        "Approved"
                                     ? CustomColors.backgroundColor
-                                    : widget.type.toString() == "In Progress"
+                                    : airConditioningDetailModel?.status
+                                                .toString() ==
+                                            "In Progress"
                                         ? CustomColors.greyColor2
                                         : CustomColors.backgroundColor,
                             borderRadius: BorderRadius.circular(4),
@@ -64,16 +104,24 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                           padding: const EdgeInsets.only(
                               top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                           child: Text(
-                            widget.type,
+                            airConditioningDetailModel?.status.toString() ?? "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.type.toString() == "Received" ||
-                                      widget.type.toString() == "Rejected"
+                              color: airConditioningDetailModel?.status
+                                              .toString() ==
+                                          "Received" ||
+                                      airConditioningDetailModel?.status
+                                              .toString() ==
+                                          "Rejected"
                                   ? CustomColors.textColor9
-                                  : widget.type.toString() == "Approved"
+                                  : airConditioningDetailModel?.status
+                                              .toString() ==
+                                          "Approved"
                                       ? CustomColors.textColorBlack2
-                                      : widget.type.toString() == "In Progress"
+                                      : airConditioningDetailModel?.status
+                                                  .toString() ==
+                                              "In Progress"
                                           ? CustomColors.brownColor
                                           : CustomColors.textColorBlack2,
                             ),
@@ -99,9 +147,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "Hong Gil Dong",
-                          style: TextStyle(
+                        Text(
+                          airConditioningDetailModel?.name.toString() ?? "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -117,9 +165,10 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "Centropolis",
-                          style: TextStyle(
+                        Text(
+                          airConditioningDetailModel?.companyName.toString() ??
+                              "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -135,9 +184,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "test1@centropolis.com",
-                          style: TextStyle(
+                        Text(
+                          airConditioningDetailModel?.email.toString() ?? "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -153,9 +202,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "010-0000-0000",
-                          style: TextStyle(
+                        Text(
+                          airConditioningDetailModel?.contact.toString() ?? "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -190,11 +239,11 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "11F",
+                  Text(
+                    airConditioningDetailModel?.requestedFloor.toString() ?? "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,
                         color: CustomColors.textColor8),
@@ -226,9 +275,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "Air conditioning",
-                    style: TextStyle(
+                  Text(
+                    airConditioningDetailModel?.type.toString() ?? "",
+                    style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,
                         color: CustomColors.textColor8),
@@ -262,17 +311,19 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   ),
                   IntrinsicHeight(
                     child: Row(
-                      children: const [
+                      children: [
                         Expanded(
                           child: Text(
-                            "2023.00.00",
-                            style: TextStyle(
+                            airConditioningDetailModel?.requestDate
+                                    .toString() ??
+                                "",
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor8),
                           ),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 4),
@@ -284,14 +335,15 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         ),
                         Expanded(
                           child: Text(
-                            "20:00 ~ 22:00",
-                            style: TextStyle(
+                            airConditioningDetailModel?.startTime.toString() ??
+                                "",
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor8),
                           ),
                         ),
-                        Expanded(
+                        const Expanded(
                           child: Padding(
                             padding: EdgeInsets.symmetric(
                                 horizontal: 6, vertical: 4),
@@ -303,8 +355,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         ),
                         Expanded(
                           child: Text(
-                            "2 hours (--KRW)",
-                            style: TextStyle(
+                            "${airConditioningDetailModel?.usageHours.toString() ?? ""} hours (--KRW)",
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor8),
@@ -341,9 +393,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "Enter other requested information. Other request details are included.Other request details are entered.",
-                    style: TextStyle(
+                  Text(
+                    airConditioningDetailModel?.detail.toString() ?? "",
+                    style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,
                         color: CustomColors.textColor8),
@@ -355,5 +407,61 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         ),
       ),
     );
+  }
+
+  void loadAirConditioningDetails() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callAirConditioningDetailsApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callAirConditioningDetailsApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "inquiry_id": widget.inquiryId.toString().trim()
+    };
+
+    debugPrint("AirConditioning details input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.airConditioningDetailUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for AirConditioning details ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          AirConditioningDetailModel airConditioningDetailModel =
+              AirConditioningDetailModel.fromJson(responseJson);
+
+          Provider.of<AirConditioningDetailsProvider>(context, listen: false)
+              .setItem(airConditioningDetailModel);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }

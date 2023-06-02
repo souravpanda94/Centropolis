@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visit_request/view_visit_reservation.dart';
+import 'package:centropolis/screens/visit_request/view_visit_reservation_new.dart';
 import 'package:centropolis/screens/visit_request/visit_reservations.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -17,6 +19,7 @@ import '../../utils/utils.dart';
 import 'package:http/http.dart' as http;
 import '../../widgets/common_button_with_icon.dart';
 import 'visit_reservation_application.dart';
+import 'visit_reservation_details.dart';
 
 class VisitRequestScreen extends StatefulWidget {
   const VisitRequestScreen({Key? key}) : super(key: key);
@@ -28,33 +31,6 @@ class VisitRequestScreen extends StatefulWidget {
 }
 
 class _VisitRequestScreenState extends State<VisitRequestScreen> {
-  // List<dynamic> todayList = [
-  //   {
-  //     "id": 1,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "consulting",
-  //     "type": "business",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "before visit"
-  //   },
-  //   {
-  //     "id": 2,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "consulting",
-  //     "type": "business",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "before visit"
-  //   },
-  //   {
-  //     "id": 3,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "consulting",
-  //     "type": "business",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "before visit"
-  //   }
-  // ];
-
   late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   int page = 1;
@@ -93,19 +69,20 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
 
   @override
   Widget build(BuildContext context) {
-    visitReservationListItem = Provider.of<VisitReservationListProvider>(context).getVisitReservationList;
+    visitReservationListItem =
+        Provider.of<VisitReservationListProvider>(context)
+            .getVisitReservationList;
 
-
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isFirstLoadRunning,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        body: SingleChildScrollView(
+    return Scaffold(
+      backgroundColor: CustomColors.whiteColor,
+      body: LoadingOverlay(
+        opacity: 1,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isFirstLoadRunning,
+        child: SingleChildScrollView(
           child: Container(
             margin: const EdgeInsets.only(bottom: 70),
             child: Column(
@@ -160,7 +137,10 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                           itemBuilder: (BuildContext ctxt, int index) {
                             return InkWell(
                                 onTap: () {
-                                  goToReservationDetailsScreen();
+                                  goToReservationDetailsScreen(
+                                      visitReservationListItem![index]
+                                          .visitId
+                                          .toString());
                                 },
                                 child: Container(
                                     margin: const EdgeInsets.only(
@@ -181,7 +161,10 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                           children: [
                                             Text(
                                               // todayList[index]["name"],
-                                              visitReservationListItem?[index].visitorName.toString() ?? "",
+                                              visitReservationListItem?[index]
+                                                      .visitorName
+                                                      .toString() ??
+                                                  "",
                                               style: const TextStyle(
                                                   fontSize: 14,
                                                   fontFamily: "Bold",
@@ -190,7 +173,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                             ),
                                             Container(
                                               decoration: BoxDecoration(
-                                                color: setStatusBackgroundColor(visitReservationListItem?[index].status.toString()),
+                                                color: setStatusBackgroundColor(
+                                                    visitReservationListItem?[
+                                                            index]
+                                                        .status
+                                                        .toString()),
                                                 borderRadius:
                                                     BorderRadius.circular(4),
                                               ),
@@ -201,11 +188,18 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                   right: 10),
                                               child: Text(
                                                 // todayList[index]["status"],
-                                                  visitReservationListItem?[index].displayStatus.toString() ?? "",
-                                                style:  TextStyle(
+                                                visitReservationListItem?[index]
+                                                        .displayStatus
+                                                        .toString() ??
+                                                    "",
+                                                style: TextStyle(
                                                     fontSize: 12,
                                                     fontFamily: "Bold",
-                                                    color: setStatusTextColor(visitReservationListItem?[index].status.toString())),
+                                                    color: setStatusTextColor(
+                                                        visitReservationListItem?[
+                                                                index]
+                                                            .status
+                                                            .toString())),
                                               ),
                                             )
                                           ],
@@ -223,7 +217,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                     Text(
                                                       // todayList[index]
                                                       //     ["businessType"],
-                                            visitReservationListItem?[index].companyName.toString() ?? "",
+                                                      visitReservationListItem?[
+                                                                  index]
+                                                              .companyName
+                                                              .toString() ??
+                                                          "",
                                                       style: const TextStyle(
                                                           fontSize: 14,
                                                           fontFamily: "Regular",
@@ -240,7 +238,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                     ),
                                                     Text(
                                                       // todayList[index]["type"],
-                                                      visitReservationListItem?[index].visitedPersonCompanyName.toString() ?? "",
+                                                      visitReservationListItem?[
+                                                                  index]
+                                                              .visitedPersonCompanyName
+                                                              .toString() ??
+                                                          "",
                                                       style: const TextStyle(
                                                           fontSize: 14,
                                                           fontFamily: "Regular",
@@ -304,18 +306,18 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
             // ),
           ),
         ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-        floatingActionButton: Container(
-          height: 46,
-          margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
-          child: CommonButtonWithIcon(
-            buttonName: tr("visitReservationApplication"),
-            isEnable: true,
-            buttonColor: CustomColors.buttonBackgroundColor,
-            onCommonButtonTap: () {
-              goToVisitReservationApplicationScreen();
-            },
-          ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        height: 46,
+        margin: const EdgeInsets.only(left: 16, right: 16, top: 30),
+        child: CommonButtonWithIcon(
+          buttonName: tr("visitReservationApplication"),
+          isEnable: true,
+          buttonColor: CustomColors.buttonBackgroundColor,
+          onCommonButtonTap: () {
+            goToVisitReservationApplicationScreen();
+          },
         ),
       ),
     );
@@ -325,7 +327,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const VisitReservationsScreen(),
+        // builder: (context) => const VisitReservationsScreen(),
+        builder: (context) => const ViewVisitReservationScreenNew("", "", ""),
       ),
     );
   }
@@ -339,16 +342,18 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
     );
   }
 
-  void goToReservationDetailsScreen() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const ReservationDetailsScreen(),
-    //   ),
-    // );
+  void goToReservationDetailsScreen(String visitId) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => VisitReservationDetailsScreen(visitId),
+      ),
+    );
   }
 
   void loadVisitRequestList() async {
+    Provider.of<VisitReservationListProvider>(context, listen: false)
+        .setEmptyList();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadVisitRequestListApi();
@@ -377,8 +382,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          List<VisitReservationModel> companyList = List<VisitReservationModel>.from(responseJson['reservation_data'].map((x) => VisitReservationModel.fromJson(x)));
-          Provider.of<VisitReservationListProvider>(context, listen: false).setItem(companyList);
+          List<VisitReservationModel> companyList =
+              List<VisitReservationModel>.from(responseJson['reservation_data']
+                  .map((x) => VisitReservationModel.fromJson(x)));
+          Provider.of<VisitReservationListProvider>(context, listen: false)
+              .setItem(companyList);
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -398,33 +406,30 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "approved" || status == "request_for_approval" || status == "visit_completed") {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
       return CustomColors.backgroundColor;
-    }
-    else if(status == "request_for_approval"){
+    } else if (status == "request_for_approval") {
       return CustomColors.backgroundColor3;
-    }
-    else if(status == "rejected"){
+    } else if (status == "rejected") {
       return CustomColors.backgroundColor4;
-    }
-    else{
+    } else {
       return CustomColors.backgroundColor;
     }
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "approved" || status == "request_for_approval" || status == "visit_completed") {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
       return CustomColors.textColorBlack2;
-    }
-    else if(status == "request_for_approval"){
+    } else if (status == "request_for_approval") {
       return CustomColors.textColor9;
-    }
-    else if(status == "rejected"){
+    } else if (status == "rejected") {
       return CustomColors.headingColor;
-    }
-    else{
+    } else {
       return CustomColors.backgroundColor;
     }
   }
-
 }

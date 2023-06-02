@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/screens/visit_request/visit_reservation_filter.dart';
 import 'package:http/http.dart' as http;
 import 'package:centropolis/screens/visit_request/visit_reservation_details.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -11,7 +12,6 @@ import 'package:provider/provider.dart';
 import '../../models/visit_reservation_model.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/view_visit_reservation_list_provider.dart';
-import '../../providers/visit_reservation_list_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
@@ -19,83 +19,23 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/view_more.dart';
 
-class ViewVisitReservationScreen extends StatefulWidget {
-  const ViewVisitReservationScreen({super.key});
+class ViewVisitReservationScreenNew extends StatefulWidget {
+  final String? selectedStatus;
+  final String? selectedStartDate;
+  final String? selectedEndDate;
+
+  const ViewVisitReservationScreenNew(
+      this.selectedStatus, this.selectedStartDate, this.selectedEndDate,
+      {super.key});
 
   @override
-  State<ViewVisitReservationScreen> createState() =>
+  State<ViewVisitReservationScreenNew> createState() =>
       _ViewVisitReservationScreenState();
 }
 
 class _ViewVisitReservationScreenState
-    extends State<ViewVisitReservationScreen> {
+    extends State<ViewVisitReservationScreenNew> {
   String? currentSelectedSortingFilter;
-
-  // List<dynamic>? sortingList = [
-  //   {"value": "", "text": "All"},
-  //   {"value": "tenant_employee", "text": "Tenant Employee"},
-  //   {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-  //   {"value": "tenant_conference_employee", "text": "Conference Room"}
-  // ];
-
-  // List<dynamic> dataList = [
-  //   {
-  //     "id": 1,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "In Progress"
-  //   },
-  //   {
-  //     "id": 2,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "In Progress"
-  //   },
-  //   {
-  //     "id": 3,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "Approved"
-  //   },
-  //   {
-  //     "id": 4,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "Approved"
-  //   },
-  //   {
-  //     "id": 5,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "Approved"
-  //   },
-  //   {
-  //     "id": 6,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "Rejected"
-  //   },
-  //   {
-  //     "id": 7,
-  //     "name": "Hong Gil Dong",
-  //     "businessType": "Centropolis",
-  //     "type": "business discussion",
-  //     "dateTime": "2021.03.21 13:00",
-  //     "status": "Rejected"
-  //   }
-  // ];
   late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   int page = 1;
@@ -115,6 +55,10 @@ class _ViewVisitReservationScreenState
     apiKey = user.userData['api_key'].toString();
     loadVisitReservationList();
     debugPrint("apiKey ====> $apiKey");
+
+    debugPrint("selectedStatus ====> ${widget.selectedStatus}");
+    debugPrint("selectedStartDate ====> ${widget.selectedStartDate}");
+    debugPrint("selectedEndDate ====> ${widget.selectedEndDate}");
   }
 
   @override
@@ -128,16 +72,62 @@ class _ViewVisitReservationScreenState
         Provider.of<ViewVisitReservationListProvider>(context)
             .getVisitReservationList;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
+    return Scaffold(
+      backgroundColor: CustomColors.backgroundColor,
+      appBar: AppBar(
+        toolbarHeight: 54,
+        centerTitle: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(20.0),
+            topRight: Radius.circular(20.0),
+          ),
+        ),
+        elevation: 0,
+        backgroundColor: CustomColors.whiteColor,
+        title: Text(
+          tr("viewVisitReservation"),
+          style: const TextStyle(
+            color: CustomColors.textColor8,
+            fontFamily: 'SemiBold',
+            fontSize: 16.0,
+          ),
+          textAlign: TextAlign.center,
+        ),
+        leading: IconButton(
+          icon: SvgPicture.asset(
+            "assets/images/ic_back.svg",
+            semanticsLabel: 'Back',
+          ),
+          onPressed: () {
+            onBackButtonPress(context);
+          },
+        ),
+        actions: [
+          IconButton(
+            icon: SvgPicture.asset(
+              "assets/images/ic_filter.svg",
+              semanticsLabel: 'Back',
+            ),
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const VisitReservationFilter(),
+                ),
+              );
+            },
+          )
+        ],
       ),
-      isLoading: isFirstLoadRunning,
-      child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        body: visitReservationListItem!.isNotEmpty
+      body: LoadingOverlay(
+        opacity: 1,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isFirstLoadRunning,
+        child: visitReservationListItem!.isNotEmpty
             ? SingleChildScrollView(
                 child: Column(
                 children: [

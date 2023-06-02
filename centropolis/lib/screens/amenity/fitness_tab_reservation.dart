@@ -927,13 +927,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
-    }
-    // else if (usageTimeSelectedValue == null || usageTimeSelectedValue == "") {
-    //   showErrorModal(tr("startTimeValidation"));
-    // } else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
-    //   showErrorModal(tr("usageTimeValidation"));
-    // }
-    else if (selectedIndex == 0 || selectedSeat == 0) {
+    } else if (usageTimeSelectedValue == null && timeList.isEmpty) {
+      showErrorModal(tr("startTimeValidation"));
+    } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
+      showErrorModal(tr("usageTimeValidation"));
+    } else if (selectedIndex == 0 || selectedSeat == 0) {
       showErrorModal(tr("lockerValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
@@ -982,11 +980,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       "start_time": usageTimeSelectedValue != null &&
               usageTimeSelectedValue.toString().isNotEmpty
           ? usageTimeSelectedValue.toString().trim()
-          : timeList.first, //required
+          : timeList.first.toString().trim(), //required
       "usage_hours": totalTimeSelectedValue != null &&
               totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
-          : totalUsageTimeList.first["value"], //required
+          : totalUsageTimeList.first["value"].toString().trim(), //required
       "seat": selectedSeat.toString().trim(), //required
     };
 

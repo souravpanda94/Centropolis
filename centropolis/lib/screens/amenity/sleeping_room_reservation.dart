@@ -406,7 +406,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                           padding: const EdgeInsets.only(top: 24, bottom: 32),
                           child: CommonButton(
                             onCommonButtonTap: () {
-                              //reservationValidationCheck();
+                              reservationValidationCheck();
                             },
                             buttonColor: CustomColors.buttonBackgroundColor,
                             buttonName: tr("makeReservation"),
@@ -1016,19 +1016,16 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
-    }
-    // else if (usageTimeSelectedValue == null || usageTimeSelectedValue == "") {
-    //   showErrorModal(tr("startTimeValidation"));
-    // }
-    // else if (totalTimeSelectedValue == null || totalTimeSelectedValue == "") {
-    //   showErrorModal(tr("usageTimeValidation"));
-    // }
-    else if (selectedIndex == 0) {
+    } else if (usageTimeSelectedValue == null && usageTimeList.isEmpty) {
+      showErrorModal(tr("startTimeValidation"));
+    } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
+      showErrorModal(tr("usageTimeValidation"));
+    } else if (selectedIndex == 0) {
       showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
     } else {
-      networkCheckForReservation();
+      //networkCheckForReservation();
     }
   }
 

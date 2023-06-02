@@ -24,4 +24,10 @@ class VisitReservationListProvider extends ChangeNotifier {
     visitReservationList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    visitReservationList = [];
+    // notifyListeners();
+  }
+
 }

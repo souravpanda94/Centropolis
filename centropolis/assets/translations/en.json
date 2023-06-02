@@ -98,8 +98,9 @@
   "youHaveEnteredDifferentPassword": "You have entered different password",
   "onlyValidContactInformationIsApplicable": "Only Valid Contact Information is applicable",
   "pleaseSelectGender": "Please Select a Gender",
-
   "centropolisExecutiveLounge" : "Centropolis Executive Lounge By HAEVICHI",
+  "visitingFloor" : "Visiting Floor",
+  "businessDiscussion" : "business discussion",
 
 
 
@@ -342,6 +343,22 @@
   "lockerValidation": "Please Select correct locker number",
   "tenantCompanyInformation": "Tenant company information",
   "airConditioning/Heading": "Air conditioning / Heating",
+  "visitorNameValidation": "Please enter correct visitor name",
+  "companyNameValidation": "Please enter a company name",
+  "emailValidation": "Please enter an Email",
+  "contactValidation": "Please enter your Contact Information",
+  "dateVisitValidation": "Please select correct date of visit",
+  "visitTimeValidation": "Please select correct time of visit",
+  "purposeVisitValidation": "Please select purpose of visit",
+  "complaintTitleValidation": "Please enter the subject.",
+  "complaintDescriptionValidation": "Please enter your complaint.",
+  "complaintTypeValidation": "Please Select a type",
+  "lightsOutEndTimeValidation": "Please Select a usage hour",
+
+
+
+
+
 
 
 
