@@ -14,6 +14,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_modal.dart';
 
 class ChangePasswordScreen extends StatefulWidget {
   const ChangePasswordScreen({Key? key}) : super(key: key);
@@ -119,14 +120,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: const BorderSide(
-                            color:  CustomColors.dividerGreyColor,
-                            width: 1.0),
+                            color: CustomColors.dividerGreyColor, width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: const BorderSide(
-                            color:  CustomColors.dividerGreyColor,
-                            width: 1.0),
+                            color: CustomColors.dividerGreyColor, width: 1.0),
                       ),
                       hintText: tr("pleaseEnterYourCurrentPassword"),
                       hintStyle: const TextStyle(
@@ -150,29 +149,23 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
 
-
-                //   if (currentPasswordValidation)
-                // Container(
-                //   margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-                //   padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-                //   child: Align(
-                //     alignment: Alignment.centerLeft,
-                //     child: Text(
-                //       currentPasswordErrorMsg,
-                //       style: const TextStyle(
-                //         fontSize: 11,
-                //         color: CustomColors.textColor6,
-                //         fontFamily: 'Regular',
-                //       ),
-                //       textAlign: TextAlign.left,
-                //     ),
-                //   ),
-                // ),
-
-
-
-
-
+              //   if (currentPasswordValidation)
+              // Container(
+              //   margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+              //   padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+              //   child: Align(
+              //     alignment: Alignment.centerLeft,
+              //     child: Text(
+              //       currentPasswordErrorMsg,
+              //       style: const TextStyle(
+              //         fontSize: 11,
+              //         color: CustomColors.textColor6,
+              //         fontFamily: 'Regular',
+              //       ),
+              //       textAlign: TextAlign.left,
+              //     ),
+              //   ),
+              // ),
 
               Container(
                 margin:
@@ -213,14 +206,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: const BorderSide(
-                            color:  CustomColors.dividerGreyColor,
-                            width: 1.0),
+                            color: CustomColors.dividerGreyColor, width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: const BorderSide(
-                            color:  CustomColors.dividerGreyColor,
-                            width: 1.0),
+                            color: CustomColors.dividerGreyColor, width: 1.0),
                       ),
                       hintText: tr("passwordHint"),
                       hintStyle: const TextStyle(
@@ -243,7 +234,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   ),
                 ),
               ),
-
 
               // if (newPasswordValidation)
               //   Container(
@@ -302,14 +292,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: const BorderSide(
-                            color:  CustomColors.dividerGreyColor,
-                            width: 1.0),
+                            color: CustomColors.dividerGreyColor, width: 1.0),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4.0),
                         borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor,
-                            width: 1.0),
+                            color: CustomColors.dividerGreyColor, width: 1.0),
                       ),
                       hintText: tr("pleaseEnterYourNewPasswordOneMoreTime"),
                       hintStyle: const TextStyle(
@@ -333,7 +321,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 ),
               ),
 
-
               // if (confirmPasswordValidation)
               //   Container(
               //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
@@ -351,8 +338,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               //       ),
               //     ),
               //   ),
-
-
             ])),
           ),
           floatingActionButton: yourButtonWidget(),
@@ -360,7 +345,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               FloatingActionButtonLocation.centerFloat,
         ));
   }
-
 
   yourButtonWidget() {
     return Align(
@@ -405,25 +389,25 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       //   currentPasswordErrorMsg =
       //       tr('pleaseEnterYourCurrentPasswordCorrectly');
       // });
-      showCustomToast(fToast, context, tr("pleaseEnterYourCurrentPasswordCorrectly"), "");
+      showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (!isValidPassword(password)) {
       // setState(() {
       //   newPasswordValidation = true;
       //   newPasswordErrorMsg = tr('enterPasswordAsCombination');
       // });
-      showCustomToast(fToast, context, tr("enterPasswordAsCombination"), "");
+      showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (password == currentPassword) {
       // setState(() {
       //   newPasswordValidation = true;
       //   newPasswordErrorMsg = tr("newPasswordMatchesCurrentPassword");
       // });
-      showCustomToast(fToast, context, tr("newPasswordMatchesCurrentPassword"), "");
+      showErrorModal(tr("currentPasswordValidation"));
     } else if (password != verifyPassword) {
       // setState(() {
       //   confirmPasswordValidation = true;
       //   confirmPasswordErrorMsg = tr("passwordDoesNotMatch");
       // });
-      showCustomToast(fToast, context, tr("passwordDoesNotMatch"), "");
+      showErrorModal(tr("youHaveEnteredDifferentPassword"));
     } else {
       final InternetChecking internetChecking = InternetChecking();
       if (await internetChecking.isInternet()) {
@@ -433,8 +417,27 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       }
     }
 
+    // }
+  }
 
-  // }
+  void showErrorModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void callResetPasswordApi() {
@@ -442,9 +445,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       isLoading = true;
     });
     Map<String, String> body = {
-      "email": email.trim(),   //required
-      "old_password": currentPassword.trim(),   //required
-      "password": password.trim(),   //required
+      "email": email.trim(), //required
+      "old_password": currentPassword.trim(), //required
+      "password": password.trim(), //required
       "confirm_password": verifyPassword.trim(), //required
     };
 
@@ -492,5 +495,4 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   //     confirmPasswordErrorMsg = "";
   //   });
   // }
-
 }

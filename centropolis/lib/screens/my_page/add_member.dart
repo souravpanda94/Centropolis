@@ -919,7 +919,7 @@ class _AddMemberState extends State<AddMember> {
   void callVerifyUserId() async {
     hideKeyboard();
     if (!isValidUserId(idController.text.trim())) {
-      showCustomToast(fToast, context, tr("onlyValidIdIsAllowed"), "");
+      showErrorModal(tr("onlyValidIdIsAllowed"));
     } else {
       final InternetChecking internetChecking = InternetChecking();
       if (await internetChecking.isInternet()) {
@@ -987,33 +987,51 @@ class _AddMemberState extends State<AddMember> {
   void addMemberValidation() {
     hideKeyboard();
     if (companySelectedValue == null || companySelectedValue == "") {
-      showCustomToast(fToast, context, "Please select company name", "");
+      showErrorModal(tr("pleaseSelectCompany"));
     } else if (floorSelectedValue == null || floorSelectedValue == "") {
-      showCustomToast(fToast, context, "Please select floor", "");
+      showErrorModal(tr("pleaseSelectFloor"));
     } else if (nameController.text.trim() == "") {
-      showCustomToast(fToast, context, "Please enter name", "");
-    } else if (idController.text.trim() == "") {
-      showCustomToast(fToast, context, "Please enter id", "");
+      showErrorModal(tr("pleaseEnterYourName"));
+    } else if (!isValidUserId(idController.text.trim())) {
+      showErrorModal(tr("onlyValidIdIsAllowed"));
     } else if (!isUserIdVerified) {
-      showCustomToast(fToast, context, "user id is not verified", "");
+      showErrorModal(tr("yourIdIsNotVerified"));
     } else if (!isValidPassword(passwordController.text.trim())) {
-      showCustomToast(fToast, context, "Please enter password", "");
+      showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (!isValidPassword(verifyPasswordController.text.trim())) {
-      showCustomToast(fToast, context, "Please enter verify password", "");
+      showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (verifyPasswordController.text.trim() !=
         passwordController.text.trim()) {
-      showCustomToast(
-          fToast, context, "Password & verify password should be same", "");
+      showErrorModal(tr("youHaveEnteredDifferentPassword"));
     } else if (!isValidEmail(emailIDController.text.trim())) {
-      showCustomToast(fToast, context, "Please enter proper email id", "");
+      showErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (!isValidPhoneNumber(contactNoController.text.trim())) {
-      showCustomToast(
-          fToast, context, "Please enter proper contact number", "");
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (genderValue == "") {
-      showCustomToast(fToast, context, "Please select gender", "");
+      showErrorModal(tr("pleaseSelectGender"));
     } else {
       callAddMemberNetworkCheck();
     }
+  }
+
+  void showErrorModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void callAddMemberNetworkCheck() async {

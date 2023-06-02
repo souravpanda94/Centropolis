@@ -17,6 +17,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_modal.dart';
 
 class EditPersonalInformationScreen extends StatefulWidget {
   const EditPersonalInformationScreen({Key? key}) : super(key: key);
@@ -174,8 +175,7 @@ class _EditPersonalInformationScreenState
                       ),
                     ))),
                 Container(
-                  margin:
-                      const EdgeInsets.only(top: 15.0),
+                  margin: const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -202,22 +202,22 @@ class _EditPersonalInformationScreenState
                           color: CustomColors.dividerGreyColor,
                         ),
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(4))),
+                            const BorderRadius.all(Radius.circular(4))),
                     child: Center(
                         child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            userInfoModel?.companyName.toString() ?? tr('tenantCompany'),
-                            style: const TextStyle(
-                              color: CustomColors.blackColor,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                        ))),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        userInfoModel?.companyName.toString() ??
+                            tr('tenantCompany'),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ))),
                 Container(
-                  margin:
-                      const EdgeInsets.only(top: 15.0),
+                  margin: const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -244,22 +244,21 @@ class _EditPersonalInformationScreenState
                           color: CustomColors.dividerGreyColor,
                         ),
                         borderRadius:
-                        const BorderRadius.all(Radius.circular(4))),
+                            const BorderRadius.all(Radius.circular(4))),
                     child: Center(
                         child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            genderValue ?? tr('gender'),
-                            style: const TextStyle(
-                              color: CustomColors.blackColor,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                        ))),
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        genderValue ?? tr('gender'),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ))),
                 Container(
-                  margin:
-                      const EdgeInsets.only(top: 15.0),
+                  margin: const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -321,8 +320,7 @@ class _EditPersonalInformationScreenState
                   ),
                 ),
                 Container(
-                  margin:
-                      const EdgeInsets.only(top: 15.0),
+                  margin: const EdgeInsets.only(top: 15.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -416,13 +414,34 @@ class _EditPersonalInformationScreenState
 
   void onSaveButtonClick() {
     hideKeyboard();
+
     if (!isValidEmail(emailController.text.trim())) {
-      showCustomToast(fToast, context, "Please enter valid email", "");
+      showErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (!isValidPhoneNumber(contactNumberController.text.trim())) {
-      showCustomToast(fToast, context, "Please enter valid contact number", "");
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else {
       checkNetworkConnectionForEditPersonalInfo();
     }
+  }
+
+  void showErrorModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void checkNetworkConnectionForEditPersonalInfo() async {
@@ -477,12 +496,12 @@ class _EditPersonalInformationScreenState
     });
   }
 
-  void loadPersonalInformation() async{
+  void loadPersonalInformation() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
     } else {
-    showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
     }
   }
 
@@ -504,10 +523,10 @@ class _EditPersonalInformationScreenState
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false).setItem(userInfoModel);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
 
           setDataField(userInfoModel);
-
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -527,14 +546,14 @@ class _EditPersonalInformationScreenState
   }
 
   void setDataField(UserInfoModel userInfoModel) {
-    if(userInfoModel.gender.toString() == "m"){
+    if (userInfoModel.gender.toString() == "m") {
       genderValue = tr("male");
-    }else if(userInfoModel.gender.toString() == "f"){
+    } else if (userInfoModel.gender.toString() == "f") {
       genderValue = tr("female");
     }
-    emailController = TextEditingController(text: userInfoModel.email.toString());
-    contactNumberController = TextEditingController(text: userInfoModel.mobile.toString());
+    emailController =
+        TextEditingController(text: userInfoModel.email.toString());
+    contactNumberController =
+        TextEditingController(text: userInfoModel.mobile.toString());
   }
-
-
 }

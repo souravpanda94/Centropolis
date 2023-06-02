@@ -355,6 +355,8 @@
   "complaintTypeValidation": "Please Select a type",
   "lightsOutEndTimeValidation": "Please Select a usage hour",
   "signUpHeading" : "Sign Up",
+  "currentPasswordValidation": "You have to enter different password",
+
 
 
 
