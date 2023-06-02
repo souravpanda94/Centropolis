@@ -8,15 +8,14 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
-
 import '../../providers/user_provider.dart';
-import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
-import '../../utils/custom_urls.dart';
-import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
+import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_app_bar.dart';
-import '../../widgets/common_modal.dart';
+
+
+
 
 class AppSettingsScreen extends StatefulWidget {
   const AppSettingsScreen({Key? key}) : super(key: key);
@@ -35,6 +34,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   String isPushAllow = "n";
   var textValue = 'Switch is OFF';
   bool isLoading = false;
+
 
   @override
   void initState() {
@@ -157,33 +157,49 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ],
                       ),
                     ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 6.0),
-                      padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            tr("changeLanguage"),
-                            style: const TextStyle(
-                              fontSize: 16,
-                              color: CustomColors.blackColor,
-                              fontFamily: 'SemiBold',
+
+
+
+                    InkWell(
+                      onTap: (){
+                        if(language == "ko"){
+                          context.setLocale(Locale('en'));
+                        }
+                        else{
+                          context.setLocale(Locale('ko'));
+                        }
+                        goToHomeScreen();
+                      },
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 6.0),
+                        padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              tr("changeLanguage"),
+                              style: const TextStyle(
+                                fontSize: 16,
+                                color: CustomColors.blackColor,
+                                fontFamily: 'SemiBold',
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                          const Text(
-                            "ENG",
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: CustomColors.textColor9,
-                              fontFamily: 'SemiBold',
+                            Text(
+                              language == "en" ?
+                              "KOR" : "ENG",
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: CustomColors.textColor9,
+                                fontFamily: 'SemiBold',
+                              ),
+                              textAlign: TextAlign.left,
                             ),
-                            textAlign: TextAlign.left,
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
+                    )
+
                   ],
                 ),
               ),
@@ -370,5 +386,17 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           return WebViewUiScreen(pageTitle, url);
         });
   }
+
+  void goToHomeScreen() {
+    FocusManager.instance.primaryFocus?.unfocus();
+    Navigator.of(context).popUntil((route) => route.isFirst);
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>  const BottomNavigationScreen(0,0),
+      ),
+    );
+  }
+
 
 }
