@@ -93,7 +93,11 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const AirConditioningApplication()),
-              );
+              ).then((value) {
+                if (value) {
+                  loadAirConditioningList();
+                }
+              });
             },
           ),
         ),

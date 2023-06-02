@@ -32,12 +32,13 @@ class _AirConditioningApplicationState
   bool isChecked = false;
   String typeValue = tr("airConditioning");
   String reservationDate = "";
-
-  TextEditingController otherRequestController = TextEditingController();
-
   String? floorSelectedValue;
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
+  bool isLoadingRequired = false;
+  //set to true when API integrated
+
+  TextEditingController otherRequestController = TextEditingController();
 
   List<dynamic> usageTimeList = [
     {"floor": "11F", "startTime": "9:00", "endTime": "18:00"},
@@ -56,7 +57,8 @@ class _AirConditioningApplicationState
           child: Container(
             color: CustomColors.whiteColor,
             child: CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
-              onBackButtonPress(context);
+              //onBackButtonPress(context);
+              Navigator.pop(context, isLoadingRequired);
             }, () {}),
           ),
         ),
@@ -462,6 +464,7 @@ class _AirConditioningApplicationState
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

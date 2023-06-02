@@ -91,7 +91,11 @@ class _LightOutScreenState extends State<LightOutScreen> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const LightOutRequest()),
-              );
+              ).then((value) {
+                if (value) {
+                  loadLightsOutList();
+                }
+              });
             },
           ),
         ),

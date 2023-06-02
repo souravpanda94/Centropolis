@@ -272,7 +272,11 @@ class _EmployeeListState extends State<EmployeeList> {
                         MaterialPageRoute(
                           builder: (context) => const AddMember(),
                         ),
-                      );
+                      ).then((value) {
+                        if (value) {
+                          loadEmployeeList();
+                        }
+                      });
                     },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("addMember"),

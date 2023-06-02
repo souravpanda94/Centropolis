@@ -350,7 +350,11 @@ class _ViewVisitReservationScreenState
       MaterialPageRoute(
         builder: (context) => VisitReservationDetailsScreen(visitId),
       ),
-    );
+    ).then((value) {
+      if (value) {
+        loadVisitReservationList();
+      }
+    });
   }
 
   sortingDropdownWidget() {

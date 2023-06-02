@@ -26,10 +26,11 @@ class _LightOutRequestState extends State<LightOutRequest> {
   bool isChecked = false;
   TextEditingController otherRequestController = TextEditingController();
   String reservationDate = "";
-
   String? floorSelectedValue;
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
+  bool isLoadingRequired = false;
+  //set to true when API integrated
 
   List<dynamic> usageTimeList = [
     {"floor": "11F", "startTime": "9:00", "endTime": "18:00"},
@@ -48,7 +49,8 @@ class _LightOutRequestState extends State<LightOutRequest> {
           child: Container(
             color: CustomColors.whiteColor,
             child: CommonAppBar(tr("requestForLightsOut"), false, () {
-              onBackButtonPress(context);
+              //onBackButtonPress(context);
+              Navigator.pop(context, isLoadingRequired);
             }, () {}),
           ),
         ),
@@ -349,6 +351,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

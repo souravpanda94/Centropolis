@@ -42,6 +42,7 @@ class _AddMemberState extends State<AddMember> {
   bool isUserIdVerified = false;
   List<dynamic> companyList = [];
   List<dynamic> floorList = [];
+  bool isLoadingRequired = false;
 
   TextEditingController consentController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -85,7 +86,8 @@ class _AddMemberState extends State<AddMember> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("addMember"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -1052,6 +1054,17 @@ class _AddMemberState extends State<AddMember> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
+          nameController.clear();
+          consentController.clear();
+          idController.clear();
+          passwordController.clear();
+          verifyPasswordController.clear();
+          emailIDController.clear();
+          contactNoController.clear();
+
           showAddMemberSuccessModal(responseJson['message']);
         } else {
           if (responseJson['message'] != null) {
@@ -1084,7 +1097,7 @@ class _AddMemberState extends State<AddMember> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

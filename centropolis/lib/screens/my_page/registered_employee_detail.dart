@@ -40,6 +40,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
   List<dynamic> accountStatusList = [];
   List<dynamic> accountTypeList = [];
   EmployeeDetailModel? employeeDetails;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -78,7 +79,8 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("registeredEmployeeList"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -327,7 +329,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
             secondButtonName: btnName.toString().isEmpty ? tr("confirm") : "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {
               Navigator.pop(context);
@@ -544,6 +546,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showModal(tr("deleteSuccessful"), tr("deleted"), tr("check"));
         } else {
           if (responseJson['message'] != null) {
@@ -742,6 +747,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showModal(responseJson['message'].toString(), "", tr("check"));
         } else {
           if (responseJson['message'] != null) {
