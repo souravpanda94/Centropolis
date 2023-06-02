@@ -69,6 +69,7 @@ class _SignupScreenState extends State<SignupScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
     // companyListItem = Provider.of<CompanyProvider>(context).getCompanyList;
 
     return LoadingOverlay(
@@ -85,7 +86,7 @@ class _SignupScreenState extends State<SignupScreen> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("signUp"), false, () {
+              child: CommonAppBar(tr("signUpHeading"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),
@@ -101,76 +102,93 @@ class _SignupScreenState extends State<SignupScreen> {
               Container(
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(children: [
-                  Text(
-                    tr("signUpConsent"),
-                    style: const TextStyle(
-                        fontFamily: 'Bold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 24, bottom: 16),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: CustomColors.dividerGreyColor,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    height: 264,
-                    width: MediaQuery.of(context).size.width,
-                    child: SingleChildScrollView(
-                      child: Padding(
-                        padding: const EdgeInsets.all(16.0),
-                        child: Text(
-                          personalInfomationContent,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColor3),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Row(
+                child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 5),
-                        child: SizedBox(
-                          height: 15,
-                          width: 15,
-                          child: Checkbox(
-                            checkColor: CustomColors.whiteColor,
-                            activeColor: CustomColors.buttonBackgroundColor,
-                            side: const BorderSide(
-                                color: CustomColors.greyColor, width: 1),
-                            value: isChecked,
-                            onChanged: (value) {
-                              setState(() {
-                                isChecked = value!;
-                                if (isChecked) {
-                                } else {}
-                              });
-                            },
+                      Text(
+                        tr("signUpConsent"),
+                        textAlign: TextAlign.start,
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 24, bottom: 16),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        height: 264,
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              personalInfomationContent,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor3),
+                            ),
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 9,
+                      Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5, left: 2),
+                            child: SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: Checkbox(
+                                checkColor: CustomColors.whiteColor,
+                                activeColor: CustomColors.buttonBackgroundColor,
+                                side: const BorderSide(
+                                    color: CustomColors.greyColor, width: 1),
+                                value: isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                    if (isChecked) {
+                                    } else {}
+                                  });
+                                },
+                              ),
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 9,
+                          ),
+                          myLocale.toString() == "ko"
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Text(
+                                    tr("signUpConsentConfirmation"),
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Text(
+                                    tr("signUpConsentConfirmation"),
+                                    maxLines: 2,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                  ),
+                                )
+                        ],
                       ),
-                      Expanded(
-                        child: Text(
-                          tr("signUpConsentConfirmation"),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                      )
-                    ],
-                  ),
-                ]),
+                    ]),
               ),
               Container(
                 height: 8,
@@ -744,7 +762,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             Container(
                               width: MediaQuery.of(context).size.width,
-                              margin: const EdgeInsets.only(top: 24),
+                              margin:
+                                  const EdgeInsets.only(top: 24, bottom: 20),
                               child: Row(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -754,12 +773,16 @@ class _SignupScreenState extends State<SignupScreen> {
                                       width: 8,
                                     ),
                                     Expanded(
-                                      child: Text(
-                                        tr("warning"),
-                                        style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                            color: CustomColors.textColorBlack2,
-                                            fontSize: 12),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(top: 3),
+                                        child: Text(
+                                          tr("warning"),
+                                          style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              color:
+                                                  CustomColors.textColorBlack2,
+                                              fontSize: 12),
+                                        ),
                                       ),
                                     )
                                   ]),
@@ -1007,21 +1030,21 @@ class _SignupScreenState extends State<SignupScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-
-          if(language == "en"){
-            if( responseJson['description_en'] != null) {
+          if (language == "en") {
+            if (responseJson['description_en'] != null) {
               setState(() {
-                personalInfomationContent = responseJson['description_en'].toString();
+                personalInfomationContent =
+                    responseJson['description_en'].toString();
               });
             }
-          }else{
-            if( responseJson['description_ko'] != null) {
+          } else {
+            if (responseJson['description_ko'] != null) {
               setState(() {
-                personalInfomationContent = responseJson['description_ko'].toString();
+                personalInfomationContent =
+                    responseJson['description_ko'].toString();
               });
             }
           }
-
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
