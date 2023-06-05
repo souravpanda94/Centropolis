@@ -59,6 +59,13 @@ class _ViewVisitReservationScreenState
     debugPrint("selectedStatus ====> ${widget.selectedStatus}");
     debugPrint("selectedStartDate ====> ${widget.selectedStartDate}");
     debugPrint("selectedEndDate ====> ${widget.selectedEndDate}");
+
+    if(widget.selectedStatus != "" && widget.selectedStatus != null){
+      setState(() {
+        currentSelectedSortingFilter = widget.selectedStatus.toString();
+      });
+    }
+
   }
 
   @override
@@ -436,7 +443,9 @@ class _ViewVisitReservationScreenState
       "page": page.toString(),
       "limit": limit.toString(),
       "pagination": "true",
-      "status": currentSelectedSortingFilter ?? ""
+      "status": currentSelectedSortingFilter ?? "",
+      "start_date": widget.selectedStartDate.toString() ?? "",
+      "end_date": widget.selectedEndDate.toString() ?? ""
     };
 
     debugPrint("View Visit Request List input===> $body");
