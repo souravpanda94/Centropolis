@@ -1,4 +1,3 @@
-
 class UserInfoModel {
   int? userId;
   String? name;
@@ -10,20 +9,22 @@ class UserInfoModel {
   int? companyId;
   String? companyName;
   String? gender;
+  String? building;
   bool? success;
 
   UserInfoModel(
       {this.userId,
-        this.name,
-        this.username,
-        this.email,
-        this.mobile,
-        this.userType,
-        this.accountType,
-        this.companyId,
-        this.companyName,
-        this.gender,
-        this.success});
+      this.name,
+      this.username,
+      this.email,
+      this.mobile,
+      this.userType,
+      this.accountType,
+      this.companyId,
+      this.companyName,
+      this.gender,
+      this.building,
+      this.success});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
     userId = json['user_id'];
@@ -36,6 +37,7 @@ class UserInfoModel {
     companyId = json['company_id'];
     companyName = json['company_name'];
     gender = json['gender'];
+    building = json['building'];
     success = json['success'];
   }
 
@@ -51,6 +53,7 @@ class UserInfoModel {
     data['company_id'] = companyId;
     data['company_name'] = companyName;
     data['gender'] = gender;
+    data['building'] = building;
     data['success'] = success;
     return data;
   }

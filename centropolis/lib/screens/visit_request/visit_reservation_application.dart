@@ -5,9 +5,12 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -26,7 +29,8 @@ class VisitReservationApplication extends StatefulWidget {
       _VisitReservationApplicationState();
 }
 
-class _VisitReservationApplicationState extends State<VisitReservationApplication> {
+class _VisitReservationApplicationState
+    extends State<VisitReservationApplication> {
   TextEditingController consentController = TextEditingController();
   TextEditingController visitorNameController = TextEditingController();
   TextEditingController companyNameController = TextEditingController();
@@ -49,14 +53,14 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
   DateTime? selectedDate;
   String personalInformationContent = "";
   List<dynamic> floorList = [];
+  List<dynamic> visitTimeList = [];
+  List<dynamic> visitPurposeList = [];
   String? currentSelectedFloor;
-
-  List<dynamic> list = [
-    {"time": "10:00", "purpose": "Business Discussion"},
-    {"time": "11:00", "purpose": "Business"},
-    {"time": "12:00", "purpose": "Discussion"},
-    {"time": "13:00", "purpose": "test"},
-  ];
+  String visitedPersonName = "";
+  String visitedPersonCompanyName = "";
+  String visitedPersonBuilding = "";
+  String visitedPersonId = "";
+  String visitedPersonCompanyId = "";
 
   @override
   void initState() {
@@ -68,625 +72,305 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
     apiKey = user.userData['api_key'].toString();
     companyId = user.userData['company_id'].toString();
     loadPersonalInformation();
+    loadPersonalData();
     loadFloorList();
+    loadVisitTimeList();
+    loadVisitPurposeList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("visitReservationApplication"), false, () {
-              onBackButtonPress(context);
-            }, () {}),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
+        backgroundColor: CustomColors.backgroundColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("visitReservationApplication"), false, () {
+                onBackButtonPress(context);
+              }, () {}),
+            ),
           ),
         ),
-      ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        color: CustomColors.whiteColor,
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("signUpConsent"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      tr("visitReservationApplicationWarning"),
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 8, bottom: 16),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
-                        ),
-                        borderRadius: BorderRadius.circular(4),
+        body: Container(
+          width: MediaQuery.of(context).size.width,
+          color: CustomColors.whiteColor,
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("signUpConsent"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
                       ),
-                      height: 264,
-                      width: MediaQuery.of(context).size.width,
-                      child: SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.all(16.0),
-                          child: Text(
-                            personalInformationContent,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor3),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        tr("visitReservationApplicationWarning"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8, bottom: 16),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
                           ),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                      ),
-                    ),
-                    Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: SizedBox(
-                            height: 15,
-                            width: 15,
-                            child: Checkbox(
-                              checkColor: CustomColors.whiteColor,
-                              activeColor: CustomColors.buttonBackgroundColor,
-                              side: const BorderSide(
-                                  color: CustomColors.greyColor, width: 1),
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value!;
-                                });
-                              },
+                        height: 264,
+                        width: MediaQuery.of(context).size.width,
+                        child: SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.all(16.0),
+                            child: Text(
+                              personalInformationContent,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor3),
                             ),
                           ),
                         ),
-                        const SizedBox(
-                          width: 9,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("signUpConsentConfirmation"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 10,
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("personInChargeInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Column(
+                      ),
+                      Row(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          RichText(
-                            text: TextSpan(
-                                text: tr("nameOfPersonInCharge"),
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
-                                children: const [
-                                  TextSpan(
-                                      text: ' *',
-                                      style: TextStyle(
-                                          color: CustomColors.headingColor,
-                                          fontSize: 12))
-                                ]),
-                            maxLines: 1,
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: Checkbox(
+                                checkColor: CustomColors.whiteColor,
+                                activeColor: CustomColors.buttonBackgroundColor,
+                                side: const BorderSide(
+                                    color: CustomColors.greyColor, width: 1),
+                                value: isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                  });
+                                },
+                              ),
+                            ),
                           ),
                           const SizedBox(
-                            height: 8,
+                            width: 9,
                           ),
-                          const Text(
-                            "Hong Gil Dong",
-                            style: TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                text: tr("tenantCompany"),
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
-                                children: const [
-                                  TextSpan(
-                                      text: ' *',
-                                      style: TextStyle(
-                                          color: CustomColors.headingColor,
-                                          fontSize: 12))
-                                ]),
-                            maxLines: 1,
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          const Text(
-                            "CBRE",
-                            style: TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          RichText(
-                            text: TextSpan(
-                                text: tr("visitBuilding"),
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
-                                children: const [
-                                  TextSpan(
-                                      text: ' *',
-                                      style: TextStyle(
-                                          color: CustomColors.headingColor,
-                                          fontSize: 12))
-                                ]),
-                            maxLines: 1,
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          const Text(
-                            "Tower A",
-                            style: TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-
-                          //
-                          // const SizedBox(
-                          //   height: 16,
-                          // ),
-                          // RichText(
-                          //   text: TextSpan(
-                          //       text: tr("landingFloor"),
-                          //       style: const TextStyle(
-                          //           fontFamily: 'SemiBold',
-                          //           fontSize: 14,
-                          //           color: CustomColors.textColor8),
-                          //       children: const [
-                          //         TextSpan(
-                          //             text: ' *',
-                          //             style: TextStyle(
-                          //                 color: CustomColors.headingColor,
-                          //                 fontSize: 12))
-                          //       ]),
-                          //   maxLines: 1,
-                          // ),
-                          // const SizedBox(
-                          //   height: 8,
-                          // ),
-                          // const Text(
-                          //   "11F",
-                          //   style: TextStyle(
-                          //       fontFamily: 'Regular',
-                          //       fontSize: 14,
-                          //       color: CustomColors.textColorBlack2),
-                          // ),
+                          Expanded(
+                            child: Text(
+                              tr("signUpConsentConfirmation"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          )
                         ],
                       ),
-                    )
-                  ],
+                      const SizedBox(
+                        height: 16,
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                height: 10,
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("visitorInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("visitorName"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextField(
-                      controller: visitorNameController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('visitorNameHint'),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
+                Container(
+                  height: 10,
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("personInChargeInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
                       ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
+                      Container(
+                        margin: const EdgeInsets.only(top: 16),
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                            color: CustomColors.backgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            RichText(
+                              text: TextSpan(
+                                  text: tr("nameOfPersonInCharge"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                  children: const [
+                                    TextSpan(
+                                        text: ' *',
+                                        style: TextStyle(
+                                            color: CustomColors.headingColor,
+                                            fontSize: 12))
+                                  ]),
+                              maxLines: 1,
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              visitedPersonName,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  text: tr("tenantCompany"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                  children: const [
+                                    TextSpan(
+                                        text: ' *',
+                                        style: TextStyle(
+                                            color: CustomColors.headingColor,
+                                            fontSize: 12))
+                                  ]),
+                              maxLines: 1,
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              visitedPersonCompanyName,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            RichText(
+                              text: TextSpan(
+                                  text: tr("visitBuilding"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                  children: const [
+                                    TextSpan(
+                                        text: ' *',
+                                        style: TextStyle(
+                                            color: CustomColors.headingColor,
+                                            fontSize: 12))
+                                  ]),
+                              maxLines: 1,
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              visitedPersonBuilding,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+
+                            //
+                            // const SizedBox(
+                            //   height: 16,
+                            // ),
+                            // RichText(
+                            //   text: TextSpan(
+                            //       text: tr("landingFloor"),
+                            //       style: const TextStyle(
+                            //           fontFamily: 'SemiBold',
+                            //           fontSize: 14,
+                            //           color: CustomColors.textColor8),
+                            //       children: const [
+                            //         TextSpan(
+                            //             text: ' *',
+                            //             style: TextStyle(
+                            //                 color: CustomColors.headingColor,
+                            //                 fontSize: 12))
+                            //       ]),
+                            //   maxLines: 1,
+                            // ),
+                            // const SizedBox(
+                            //   height: 8,
+                            // ),
+                            // const Text(
+                            //   "11F",
+                            //   style: TextStyle(
+                            //       fontFamily: 'Regular',
+                            //       fontSize: 14,
+                            //       color: CustomColors.textColorBlack2),
+                            // ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 10,
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("visitorInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("companyName"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextField(
-                      controller: companyNameController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('companyNameHint'),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
+                      const SizedBox(
+                        height: 24,
                       ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("email"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextField(
-                      controller: emailController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('emailDemoHint'),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("contact"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextField(
-                      controller: contactController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.number,
-                      maxLength: 11,
-                      decoration: InputDecoration(
-                        counterText: '',
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('contactHint'),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("dateOfVisit"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    TextField(
-                      controller: dateController,
-                      readOnly: true,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        suffixIcon: Padding(
-                          padding: const EdgeInsets.all(18.0),
-                          child: SvgPicture.asset(
-                            "assets/images/ic_date.svg",
-                            width: 8,
-                            height: 4,
-                            color: CustomColors.textColorBlack2,
-                          ),
-                        ),
-                        hintText: "YYYY.MM.DD",
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      onTap: () {
-                        openDatePickerWidget();
-                      },
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("visitTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    visitTimeDropdownWidget(),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("purposeOfVisit"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    purposeVisitDropdownWidget(),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16, bottom: 8),
-                      child: RichText(
+                      RichText(
                         text: TextSpan(
-                            text: tr("visitingFloor"),
+                            text: tr("visitorName"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
@@ -700,32 +384,374 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
                             ]),
                         maxLines: 1,
                       ),
-                    ),
-                    visitFloorDropdownWidget(),
-                  ],
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextField(
+                        controller: visitorNameController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr('visitorNameHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: tr("companyName"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextField(
+                        controller: companyNameController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr('companyNameHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: tr("email"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextField(
+                        controller: emailController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr('emailDemoHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: tr("contact"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextField(
+                        controller: contactController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.number,
+                        maxLength: 11,
+                        decoration: InputDecoration(
+                          counterText: '',
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr('contactHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: tr("dateOfVisit"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      TextField(
+                        controller: dateController,
+                        readOnly: true,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.text,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          suffixIcon: Padding(
+                            padding: const EdgeInsets.all(18.0),
+                            child: SvgPicture.asset(
+                              "assets/images/ic_date.svg",
+                              width: 8,
+                              height: 4,
+                              color: CustomColors.textColorBlack2,
+                            ),
+                          ),
+                          hintText: "YYYY.MM.DD",
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                        onTap: () {
+                          hideKeyboard();
+                          openDatePickerWidget();
+                        },
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: tr("visitTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      visitTimeDropdownWidget(),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      RichText(
+                        text: TextSpan(
+                            text: tr("purposeOfVisit"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                            children: const [
+                              TextSpan(
+                                  text: ' *',
+                                  style: TextStyle(
+                                      color: CustomColors.headingColor,
+                                      fontSize: 12))
+                            ]),
+                        maxLines: 1,
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      purposeVisitDropdownWidget(),
+                      Container(
+                        margin: const EdgeInsets.only(top: 16, bottom: 8),
+                        child: RichText(
+                          text: TextSpan(
+                              text: tr("visitingFloor"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                              children: const [
+                                TextSpan(
+                                    text: ' *',
+                                    style: TextStyle(
+                                        color: CustomColors.headingColor,
+                                        fontSize: 12))
+                              ]),
+                          maxLines: 1,
+                        ),
+                      ),
+                      visitFloorDropdownWidget(),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                height: 10,
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Container(
-                alignment: FractionalOffset.bottomCenter,
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    top: 16, left: 16, right: 16, bottom: 40),
-                child: CommonButton(
-                  onCommonButtonTap: () {
-                    visitReservationValidationCheck();
-                  },
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("visitReservationApplication"),
-                  isIconVisible: false,
+                Container(
+                  height: 10,
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
                 ),
-              )
-            ],
+                Container(
+                  alignment: FractionalOffset.bottomCenter,
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(
+                      top: 16, left: 16, right: 16, bottom: 40),
+                  child: CommonButton(
+                    onCommonButtonTap: () {
+                      visitReservationValidationCheck();
+                    },
+                    buttonColor: CustomColors.buttonBackgroundColor,
+                    buttonName: tr("visitReservationApplication"),
+                    isIconVisible: false,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -743,9 +769,9 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
             fontFamily: 'Regular',
           ),
         ),
-        items: list
+        items: visitTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["time"],
+                  value: item.toString(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -753,7 +779,7 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["time"],
+                          item.toString(),
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -773,7 +799,7 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
         value: timeSelectedValue,
         onChanged: (value) {
           setState(() {
-            timeSelectedValue = value as String;
+            timeSelectedValue = value.toString();
           });
         },
         dropdownStyleData: DropdownStyleData(
@@ -823,16 +849,18 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr("businessDiscussion"),
+          visitPurposeList.isNotEmpty
+              ? visitPurposeList.first["text"]
+              : tr("businessDiscussion"),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: list
+        items: visitPurposeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["purpose"],
+                  value: item["value"],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -840,7 +868,7 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["purpose"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -1181,9 +1209,12 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
     } else if (timeSelectedValue?.trim() == null ||
         timeSelectedValue?.trim() == "") {
       showErrorModal(tr("visitTimeValidation"));
-    } else if (purposeSelectedValue?.trim() == null ||
-        purposeSelectedValue?.trim() == "") {
+    } else if (purposeSelectedValue?.trim() == null &&
+        visitPurposeList.isEmpty) {
       showErrorModal(tr("purposeVisitValidation"));
+    } else if (currentSelectedFloor?.trim() == null ||
+        currentSelectedFloor?.trim() == "") {
+      showErrorModal(tr("pleaseSelectFloor"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
@@ -1290,10 +1321,10 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
     String visitDate =
         "${selectedDate?.year}-${selectedDate?.month}-${selectedDate?.day}";
     Map<String, String> body = {
-      "visited_person_company_id": "1", //required
-      "visited_person_user_id": "15", //required
-      "visited_person_name": "hgj", //required
-
+      "visited_person_company_id":
+          visitedPersonCompanyId.toString().trim(), //required
+      "visited_person_user_id": visitedPersonId.toString().trim(), //required
+      "visited_person_name": visitedPersonName.toString().trim(), //required
       "building": purposeSelectedValue ?? "", //required
       "floor": currentSelectedFloor ?? "", //required
       "visitor_name": visitorNameController.text.trim(), //required
@@ -1302,7 +1333,10 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
       "visitor_mobile": contactController.text.trim(), //required
       "visit_date": visitDate, //required
       "visit_time": timeSelectedValue ?? "", //required
-      "visit_purpose": purposeSelectedValue ?? "" //required
+      "visit_purpose": purposeSelectedValue != null &&
+              purposeSelectedValue.toString().isNotEmpty
+          ? purposeSelectedValue.toString().trim()
+          : visitPurposeList.first["value"].toString().trim() //required
     };
 
     debugPrint("Visit Reservation Application input===> $body");
@@ -1321,10 +1355,8 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            showSuccessModal(responseJson['message']);
           }
-          Navigator.pop(context);
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -1341,6 +1373,26 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
         isLoading = false;
       });
     });
+  }
+
+  void showSuccessModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 
   void loadFloorList() async {
@@ -1395,4 +1447,161 @@ class _VisitReservationApplicationState extends State<VisitReservationApplicatio
     });
   }
 
+  void loadPersonalData() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalDataApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalDataApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal Data input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal Data ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+
+          setDataField(userInfoModel);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void setDataField(UserInfoModel userInfoModel) {
+    visitedPersonName = userInfoModel.name.toString();
+    visitedPersonCompanyName = userInfoModel.companyName.toString();
+    visitedPersonBuilding = userInfoModel.building.toString();
+    visitedPersonId = userInfoModel.userId.toString();
+    visitedPersonCompanyId = userInfoModel.companyId.toString();
+  }
+
+  void loadVisitTimeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadVisitTimeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadVisitTimeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {};
+
+    debugPrint("VisitTime List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.visitTimeListUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for VisitTime List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              visitTimeList = responseJson['data'];
+            });
+            debugPrint("visitPurposeList ===> $visitTimeList");
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadVisitPurposeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadVisitPurposeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadVisitPurposeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {};
+
+    debugPrint("VisitPurpose List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.visitPurposeListUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for VisitPurpose List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              visitPurposeList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 }
