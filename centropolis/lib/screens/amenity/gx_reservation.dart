@@ -25,56 +25,6 @@ class GXReservation extends StatefulWidget {
 }
 
 class _GXReservationState extends State<GXReservation> {
-  // List<dynamic> gxList = [
-  //   {
-  //     "title": "YOGA CLASS",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Mon, Wed, Fri",
-  //     "status": "Active"
-  //   },
-  //   {
-  //     "title": "JUST 10 MINUTES JUST 10 MINUTES JUST 10 MINUTES",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Tue",
-  //     "status": "Active"
-  //   },
-  //   {
-  //     "title": "CORE TRAINING & STRETCHING",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Thu",
-  //     "status": "Active"
-  //   },
-  //   {
-  //     "title": "JUST 10 MINUTES",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Tue",
-  //     "status": "Active"
-  //   },
-  //   {
-  //     "title": "YOGA CLASS",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Mon, Wed, Fri",
-  //     "status": "Closed"
-  //   },
-  //   {
-  //     "title": "JUST 10 MINUTES JUST 10 MINUTES JUST 10 MINUTES",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Mon, Wed, Fri",
-  //     "status": "Closed"
-  //   },
-  //   {
-  //     "title": "CORE TRAINING & STRETCHING",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Mon, Wed, Fri",
-  //     "status": "Closed"
-  //   },
-  //   {
-  //     "title": "JUST 10 MINUTES",
-  //     "datetime": "2023-00-00 ~ 2023-00-00",
-  //     "days": "Tue",
-  //     "status": "Closed"
-  //   },
-  // ];
   late String language, apiKey, email, mobile, name, companyName;
   late FToast fToast;
   int page = 1;
@@ -283,7 +233,7 @@ class _GXReservationState extends State<GXReservation> {
                                     gxReservationListItem?[index].status ==
                                             "receiving"
                                         ? tr("apply")
-                                        : tr("closed"),
+                                        : tr("deadline"),
                                     style: TextStyle(
                                         fontFamily: 'SemiBold',
                                         fontSize: 12,
