@@ -162,57 +162,61 @@ class _GXReservationState extends State<GXReservation> {
                   shrinkWrap: true,
                   itemCount: gxReservationListItem?.length,
                   itemBuilder: ((context, index) {
-                    return Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(
-                          vertical: 18, horizontal: 16),
-                      margin: const EdgeInsets.only(bottom: 8),
-                      decoration: BoxDecoration(
-                          color: CustomColors.whiteColor,
-                          border: Border.all(
-                            color:
-                                // gxList[index]["status"] == "Active"
-                                gxReservationListItem?[index].status ==
-                                        "receiving"
-                                    ? CustomColors.borderColor
-                                    : CustomColors.backgroundColor2,
-                          ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4))),
-                      child: Column(
-                        children: [
-                          Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Expanded(
-                                child: Text(
-                                  // gxList[index]["title"],
-                                  gxReservationListItem?[index].title ?? "",
-                                  style: TextStyle(
-                                      fontFamily: 'SemiBold',
-                                      fontSize: 14,
-                                      color:
-                                          // gxList[index]["status"] == "Active"
-                                          gxReservationListItem?[index]
-                                                      .status ==
-                                                  "receiving"
-                                              ? CustomColors.textColor8
-                                              : CustomColors.dividerGreyColor),
+                    return InkWell(
+                      onTap: () {
+                        if (gxReservationListItem?[index].status ==
+                            "receiving") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GXReservationDetail(
+                                  gxReservationItem:
+                                      gxReservationListItem![index]),
+                            ),
+                          );
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 18, horizontal: 16),
+                        margin: const EdgeInsets.only(bottom: 8),
+                        decoration: BoxDecoration(
+                            color: CustomColors.whiteColor,
+                            border: Border.all(
+                              color:
+                                  // gxList[index]["status"] == "Active"
+                                  gxReservationListItem?[index].status ==
+                                          "receiving"
+                                      ? CustomColors.borderColor
+                                      : CustomColors.backgroundColor2,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          children: [
+                            Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Expanded(
+                                  child: Text(
+                                    // gxList[index]["title"],
+                                    gxReservationListItem?[index].title ?? "",
+                                    style: TextStyle(
+                                        fontFamily: 'SemiBold',
+                                        fontSize: 14,
+                                        color:
+                                            // gxList[index]["status"] == "Active"
+                                            gxReservationListItem?[index]
+                                                        .status ==
+                                                    "receiving"
+                                                ? CustomColors.textColor8
+                                                : CustomColors
+                                                    .dividerGreyColor),
+                                  ),
                                 ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => GXReservationDetail(
-                                          gxReservationItem:
-                                              gxReservationListItem![index]),
-                                    ),
-                                  );
-                                },
-                                child: Container(
+                                Container(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 12),
                                   decoration: BoxDecoration(
@@ -246,58 +250,60 @@ class _GXReservationState extends State<GXReservation> {
                                                 : CustomColors
                                                     .dividerGreyColor),
                                   ),
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          IntrinsicHeight(
-                            child: Row(
-                              children: [
-                                Text(
-                                  // gxList[index]["datetime"],
-                                  "${gxReservationListItem?[index].applicationStartDate} ~ ${gxReservationListItem?[index].applicationEndDate}",
-                                  style: TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 12,
-                                      color:
-                                          // gxList[index]["status"] == "Active"
-                                          gxReservationListItem?[index]
-                                                      .status ==
-                                                  "receiving"
-                                              ? CustomColors.textColor3
-                                              : CustomColors.dividerGreyColor),
-                                ),
-                                Container(
-                                  margin:
-                                      const EdgeInsets.only(left: 8, right: 8),
-                                  child: const VerticalDivider(
-                                    color: CustomColors.borderColor,
-                                  ),
-                                ),
-                                Text(
-                                  gxReservationListItem?[index]
-                                          .programDaysData
-                                          .toString()
-                                          .trim() ??
-                                      "",
-                                  style: TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 12,
-                                      color:
-                                          // gxList[index]["status"] == "Active"
-                                          gxReservationListItem?[index]
-                                                      .status ==
-                                                  "receiving"
-                                              ? CustomColors.textColor3
-                                              : CustomColors.dividerGreyColor),
-                                ),
+                                )
                               ],
                             ),
-                          )
-                        ],
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    // gxList[index]["datetime"],
+                                    "${gxReservationListItem?[index].applicationStartDate} ~ ${gxReservationListItem?[index].applicationEndDate}",
+                                    style: TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 12,
+                                        color:
+                                            // gxList[index]["status"] == "Active"
+                                            gxReservationListItem?[index]
+                                                        .status ==
+                                                    "receiving"
+                                                ? CustomColors.textColor3
+                                                : CustomColors
+                                                    .dividerGreyColor),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.only(
+                                        left: 8, right: 8),
+                                    child: const VerticalDivider(
+                                      color: CustomColors.borderColor,
+                                    ),
+                                  ),
+                                  Text(
+                                    gxReservationListItem?[index]
+                                            .programDaysData
+                                            .toString()
+                                            .trim() ??
+                                        "",
+                                    style: TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 12,
+                                        color:
+                                            // gxList[index]["status"] == "Active"
+                                            gxReservationListItem?[index]
+                                                        .status ==
+                                                    "receiving"
+                                                ? CustomColors.textColor3
+                                                : CustomColors
+                                                    .dividerGreyColor),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   })),

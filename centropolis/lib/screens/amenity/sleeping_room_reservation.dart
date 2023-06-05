@@ -362,7 +362,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                           padding: const EdgeInsets.only(top: 16),
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               Padding(
                                 padding: const EdgeInsets.only(top: 5),
@@ -390,7 +390,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                               const SizedBox(
                                 width: 9,
                               ),
-                              Expanded(
+                              Padding(
+                                padding: const EdgeInsets.only(top: 3),
                                 child: Text(
                                   tr("sleepingRoomReservationConsent"),
                                   style: const TextStyle(
