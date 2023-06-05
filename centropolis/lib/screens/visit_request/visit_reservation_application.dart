@@ -1204,6 +1204,8 @@ class _VisitReservationApplicationState
       showErrorModal(tr("contactValidation"));
     } else if (!isValidPhoneNumber(contactController.text.trim())) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
+    } else if (!contactController.text.trim().startsWith("010")) {
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (dateController.text.trim().isEmpty) {
       showErrorModal(tr("dateVisitValidation"));
     } else if (timeSelectedValue?.trim() == null ||

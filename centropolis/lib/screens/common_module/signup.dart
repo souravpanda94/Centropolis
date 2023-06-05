@@ -1283,6 +1283,8 @@ class _SignupScreenState extends State<SignupScreen> {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (!isValidPhoneNumber(contactNoController.text.trim())) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
+    } else if (!contactNoController.text.trim().startsWith("010")) {
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (genderValue.trim() == "") {
       showErrorModal(tr("pleaseSelectGender"));
     } else if (!isChecked) {

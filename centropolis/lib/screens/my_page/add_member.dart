@@ -1007,6 +1007,8 @@ class _AddMemberState extends State<AddMember> {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (!isValidPhoneNumber(contactNoController.text.trim())) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
+    } else if (!contactNoController.text.trim().startsWith("010")) {
+      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (genderValue == "") {
       showErrorModal(tr("pleaseSelectGender"));
     } else {
