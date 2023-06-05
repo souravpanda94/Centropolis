@@ -48,7 +48,6 @@ class _LightOutRequestState extends State<LightOutRequest> {
   List<dynamic> usageTimeList = [];
   List<dynamic> selectedFloorList = [];
   bool isLoadingRequired = false;
-  //set to true when API integrated
 
   @override
   void initState() {
@@ -776,7 +775,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
       selectedFloorList.add(floorList.first["floor"].toString());
     }
 
-    if (floorSelectedValue == null && floorList.isEmpty) {
+    if (selectedFloorList.isEmpty || floorList.isEmpty) {
       showErrorModal(tr("pleaseSelectFloor"));
     } else if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));

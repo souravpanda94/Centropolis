@@ -112,6 +112,8 @@ class ApiEndPoint {
       "${baseUrl}v1/common/period-list";
   static String requestLightOutApplyUrl =
       "${baseUrl}v1/amenity/light-out-inquiry";
+  static String coolingHeatingTypeListUrl =
+      "${baseUrl}v1/common/ac-inquiry-type-list";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =
