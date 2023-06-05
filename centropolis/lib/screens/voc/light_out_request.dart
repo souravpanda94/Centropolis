@@ -1,13 +1,24 @@
+import 'dart:convert';
+
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:table_calendar/table_calendar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
 
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../widgets/common_modal.dart';
 
 class LightOutRequest extends StatefulWidget {
@@ -18,6 +29,9 @@ class LightOutRequest extends StatefulWidget {
 }
 
 class _LightOutRequestState extends State<LightOutRequest> {
+  late String language, apiKey, email, mobile, companyId, companyName, name;
+  late FToast fToast;
+  bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
@@ -29,323 +43,345 @@ class _LightOutRequestState extends State<LightOutRequest> {
   String? floorSelectedValue;
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
+  List<dynamic> floorList = [];
+  List<dynamic> startTimeList = [];
+  List<dynamic> usageTimeList = [];
+  List<dynamic> selectedFloorList = [];
   bool isLoadingRequired = false;
   //set to true when API integrated
 
-  List<dynamic> usageTimeList = [
-    {"floor": "11F", "startTime": "9:00", "endTime": "18:00"},
-    {"floor": "12F", "startTime": "10:00", "endTime": "13:00"},
-    {"floor": "13F", "startTime": "14:00", "endTime": "19:00"},
-    {"floor": "14F", "startTime": "11:00", "endTime": "12:00"},
-  ];
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    email = user.userData['email_key'].toString();
+    mobile = user.userData['mobile'].toString();
+    companyId = user.userData['company_id'].toString();
+    companyName = user.userData['company_name'].toString();
+    name = user.userData['name'].toString();
+    loadStartTimeList();
+    loadUsageTimeList();
+    loadFloorList();
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: CustomColors.whiteColor,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("requestForLightsOut"), false, () {
-              //onBackButtonPress(context);
-              Navigator.pop(context, isLoadingRequired);
-            }, () {}),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
+        backgroundColor: CustomColors.whiteColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("requestForLightsOut"), false, () {
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
+              }, () {}),
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-          child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            color: CustomColors.whiteColor,
-            padding: const EdgeInsets.all(16),
+        body: SingleChildScrollView(
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(tr("tenantCompanyInformation"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8)),
-                Container(
-                  margin: const EdgeInsets.only(top: 16),
-                  padding: const EdgeInsets.all(16),
-                  width: MediaQuery.of(context).size.width,
-                  decoration: const BoxDecoration(
-                      color: CustomColors.backgroundColor,
-                      borderRadius: BorderRadius.all(Radius.circular(4))),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(tr("nameLounge"),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(tr("tenantCompanyInformation"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8)),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16),
+                    padding: const EdgeInsets.all(16),
+                    width: MediaQuery.of(context).size.width,
+                    decoration: const BoxDecoration(
+                        color: CustomColors.backgroundColor,
+                        borderRadius: BorderRadius.all(Radius.circular(4))),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(tr("nameLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          name,
                           style: const TextStyle(
-                              fontFamily: 'SemiBold',
+                              fontFamily: 'Regular',
                               fontSize: 14,
-                              color: CustomColors.textColor8)),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Text(
-                        "Hong Gil Dong",
-                        style: TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(tr("tenantCompanyLounge"),
+                              color: CustomColors.textColorBlack2),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(tr("tenantCompanyLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          companyName,
                           style: const TextStyle(
-                              fontFamily: 'SemiBold',
+                              fontFamily: 'Regular',
                               fontSize: 14,
-                              color: CustomColors.textColor8)),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Text(
-                        "Centropolis",
-                        style: TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(tr("email"),
+                              color: CustomColors.textColorBlack2),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(tr("email"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          email,
                           style: const TextStyle(
-                              fontFamily: 'SemiBold',
+                              fontFamily: 'Regular',
                               fontSize: 14,
-                              color: CustomColors.textColor8)),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Text(
-                        "test1@centropolis.com",
-                        style: TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      const SizedBox(
-                        height: 16,
-                      ),
-                      Text(tr("contactNo"),
+                              color: CustomColors.textColorBlack2),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(tr("contactNo"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          mobile,
                           style: const TextStyle(
-                              fontFamily: 'SemiBold',
+                              fontFamily: 'Regular',
                               fontSize: 14,
-                              color: CustomColors.textColor8)),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      const Text(
-                        "010-0000-0000",
-                        style: TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            padding: const EdgeInsets.all(16),
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr("applicationFloor"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 16,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                floorDropdownWidget(),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr("dateOfApplication"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 16,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                tableCalendarWidget(),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-            width: MediaQuery.of(context).size.width,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  tr("timeOfApplication"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 16,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 24,
-                ),
-                Text(
-                  tr("lightsOutStartTime"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 14,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                startTimeDropdownWidget(),
-                const SizedBox(
-                  height: 16,
-                ),
-                Text(
-                  tr("lightsOutEndTime"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 14,
-                      color: CustomColors.textColor8),
-                ),
-                const SizedBox(
-                  height: 8,
-                ),
-                endTimeDropdownWidget(),
-                const SizedBox(
-                  height: 16,
-                ),
-              ],
-            ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(tr("otherRequests"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8)),
-                Container(
-                  margin: const EdgeInsets.only(top: 8),
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: CustomColors.dividerGreyColor,
+                              color: CustomColors.textColorBlack2),
+                        ),
+                      ],
                     ),
-                    borderRadius: BorderRadius.circular(4),
                   ),
-                  height: 288,
-                  child: SingleChildScrollView(
-                    child: TextField(
-                      controller: otherRequestController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.multiline,
-                      maxLines: null,
-                      decoration: InputDecoration(
-                        hintMaxLines: 5,
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        hintText: tr('otherRequestHint'),
-                        hintStyle: const TextStyle(
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              padding: const EdgeInsets.all(16),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("applicationFloor"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  floorDropdownWidget(),
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("dateOfApplication"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  tableCalendarWidget(),
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("timeOfApplication"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 24,
+                  ),
+                  Text(
+                    tr("lightsOutStartTime"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  startTimeDropdownWidget(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    tr("lightsOutEndTime"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  endTimeDropdownWidget(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.all(16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(tr("otherRequests"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8)),
+                  Container(
+                    margin: const EdgeInsets.only(top: 8),
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                        color: CustomColors.dividerGreyColor,
+                      ),
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    height: 288,
+                    child: SingleChildScrollView(
+                      child: TextField(
+                        controller: otherRequestController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: null,
+                        decoration: InputDecoration(
+                          hintMaxLines: 5,
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          hintText: tr('otherRequestHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
                           color: CustomColors.textColorBlack2,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
-                      style: const TextStyle(
-                        color: CustomColors.textColorBlack2,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.backgroundColor,
-            height: 10,
-          ),
-          Container(
-            alignment: FractionalOffset.bottomCenter,
-            width: MediaQuery.of(context).size.width,
-            margin:
-                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
-            child: CommonButton(
-              onCommonButtonTap: () {
-                requestLightOutValidationCheck();
-                //showReservationModal();
-              },
-              buttonColor: CustomColors.buttonBackgroundColor,
-              buttonName: tr("apply"),
-              isIconVisible: false,
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.backgroundColor,
+              height: 10,
             ),
-          ),
-        ],
-      )),
+            Container(
+              alignment: FractionalOffset.bottomCenter,
+              width: MediaQuery.of(context).size.width,
+              margin: const EdgeInsets.only(
+                  left: 16, right: 16, top: 16, bottom: 40),
+              child: CommonButton(
+                onCommonButtonTap: () {
+                  requestLightOutValidationCheck();
+                  //showReservationModal();
+                },
+                buttonColor: CustomColors.buttonBackgroundColor,
+                buttonName: tr("apply"),
+                isIconVisible: false,
+              ),
+            ),
+          ],
+        )),
+      ),
     );
   }
 
-  void showReservationModal() {
+  void showReservationModal(String heading, String message) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("lightOutCompleted"),
-            description:
-                "Light-out request completed The light-out request has been completed.If approval is decided, the details We will send it to the e-mail you wrote.",
+            heading: heading,
+            description: message,
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
@@ -362,15 +398,15 @@ class _LightOutRequestState extends State<LightOutRequest> {
   floorDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        hint: const Text(
-          "11F",
-          style: TextStyle(
+        hint: Text(
+          floorList.isNotEmpty ? floorList.first["floor"] : tr('floorHint'),
+          style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: usageTimeList
+        items: floorList
             .map((item) => DropdownMenuItem<String>(
                   value: item["floor"],
                   child: Column(
@@ -401,6 +437,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
         onChanged: (value) {
           setState(() {
             floorSelectedValue = value as String;
+            if (!selectedFloorList.contains(floorSelectedValue)) {
+              selectedFloorList.add(floorSelectedValue);
+            }
           });
         },
         dropdownStyleData: DropdownStyleData(
@@ -457,9 +496,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
             fontFamily: 'Regular',
           ),
         ),
-        items: usageTimeList
+        items: startTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["startTime"],
+                  value: item,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -467,7 +506,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["startTime"],
+                          item,
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -547,7 +586,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
         ),
         items: usageTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["endTime"],
+                  value: item["value"].toString(),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -555,7 +594,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["endTime"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -575,7 +614,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
         value: endTimeSelectedValue,
         onChanged: (value) {
           setState(() {
-            endTimeSelectedValue = value as String;
+            endTimeSelectedValue = value.toString();
           });
         },
         dropdownStyleData: DropdownStyleData(
@@ -733,8 +772,11 @@ class _LightOutRequestState extends State<LightOutRequest> {
       reservationDate = selectedDate;
     });
 
-    // replace this usageTimeList with list coming from API
-    if (floorSelectedValue == null && usageTimeList.isEmpty) {
+    if (selectedFloorList.isEmpty) {
+      selectedFloorList.add(floorList.first["floor"].toString());
+    }
+
+    if (floorSelectedValue == null && floorList.isEmpty) {
       showErrorModal(tr("pleaseSelectFloor"));
     } else if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
@@ -745,7 +787,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
     } else if (otherRequestController.text.trim().isEmpty) {
       showErrorModal(tr("complaintDescriptionValidation"));
     } else {
-      // networkCheckForReservation();
+      networkCheckForReservation();
     }
   }
 
@@ -767,5 +809,219 @@ class _LightOutRequestState extends State<LightOutRequest> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void loadFloorList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadFloorListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadFloorListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "company_id": companyId.toString().trim(),
+    };
+
+    debugPrint("Floor List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getFloorListUrl, body, language.toString(), null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Floor List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              floorList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadStartTimeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadStartTimeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadStartTimeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {};
+
+    debugPrint("StartTime List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.requestLightOutStartTimeListUrl,
+        body,
+        language.toString(),
+        null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for StartTime List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              startTimeList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadUsageTimeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadUsageTimeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadUsageTimeListApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {};
+
+    debugPrint("UsageTime List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.requestLightOutUsageTimeListUrl,
+        body,
+        language.toString(),
+        null);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for UsageTime List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              usageTimeList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void networkCheckForReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLightOutApplyApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLightOutApplyApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, dynamic> body = {
+      "email": email.trim(), //required
+      "contact": mobile.trim(), //required
+      "application_date": reservationDate.toString().trim(), //required
+      "floors": selectedFloorList, //required
+      "start_time": startTimeSelectedValue.toString().trim(), //required
+      "usage_hour": endTimeSelectedValue.toString().trim(), //required
+      "description": otherRequestController.text.toString().trim(), //required
+    };
+
+    debugPrint("LightOutApply input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.requestLightOutApplyUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for LightOutApply  ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
+          showReservationModal(responseJson['title'], responseJson['message']);
+          otherRequestController.clear();
+        } else {
+          if (responseJson['message'] != null) {
+            showReservationModal(responseJson['message'], "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }

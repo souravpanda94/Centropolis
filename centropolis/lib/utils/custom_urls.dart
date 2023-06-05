@@ -106,6 +106,12 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/executive-lounge-details";
   static String loungeHistoryDetailCancelReservationUrl =
       "${baseUrl}v1/mypage/executive-lounge-cancel";
+  static String requestLightOutStartTimeListUrl =
+      "${baseUrl}v1/common/ac-lights-time";
+  static String requestLightOutUsageTimeListUrl =
+      "${baseUrl}v1/common/period-list";
+  static String requestLightOutApplyUrl =
+      "${baseUrl}v1/amenity/light-out-inquiry";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =
