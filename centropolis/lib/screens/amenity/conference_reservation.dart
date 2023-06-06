@@ -259,7 +259,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
+                        maxLength: 500,
                         decoration: InputDecoration(
+                          counterText: "",
                           hintMaxLines: 5,
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
@@ -722,7 +724,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       showErrorModal(tr("endTimeValidation"));
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
-      showErrorModal("End time can't be earlier than or equal to start time");
+      showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
     } else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (!isChecked) {

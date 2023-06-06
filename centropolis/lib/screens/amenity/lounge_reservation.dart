@@ -899,6 +899,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
       showErrorModal(tr("startTimeValidation"));
     } else if (endTimeSelectedValue == null || startTimeSelectedValue == "") {
       showErrorModal(tr("endTimeValidation"));
+    } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
+        0) {
+      showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
     } else {
