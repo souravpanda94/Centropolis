@@ -415,9 +415,16 @@ class _EditPersonalInformationScreenState
   void onSaveButtonClick() {
     hideKeyboard();
 
-    if (!isValidEmail(emailController.text.trim())) {
+    if (emailController.text.trim().isEmpty) {
+      showErrorModal(tr("emailValidation"));
+    }
+    else if (!isValidEmail(emailController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    } else if (!isValidPhoneNumber(contactNumberController.text.trim())) {
+    }
+    else if (contactNumberController.text.trim().isEmpty) {
+      showErrorModal(tr("contactValidation"));
+    }
+    else if (!isValidPhoneNumber(contactNumberController.text.trim()) || !contactNumberController.text.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else {
       checkNetworkConnectionForEditPersonalInfo();
