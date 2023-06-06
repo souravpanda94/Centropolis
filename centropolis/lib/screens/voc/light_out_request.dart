@@ -1008,8 +1008,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
           showReservationModal(responseJson['title'], responseJson['message']);
           otherRequestController.clear();
         } else {
-          if (responseJson['message'] != null) {
-            showReservationModal(responseJson['message'], "");
+          if (responseJson['message'] != null &&
+              responseJson['title'] != null) {
+            showReservationModal(
+                responseJson['title'], responseJson['message']);
           }
         }
         setState(() {

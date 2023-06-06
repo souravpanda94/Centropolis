@@ -581,7 +581,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          showReservationModal(responseJson['title'], responseJson['message']);
+          showReservationModal(responseJson['title'].toString(),
+              responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

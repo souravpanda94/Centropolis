@@ -318,15 +318,14 @@ class _LoungeReservationState extends State<LoungeReservation> {
     );
   }
 
-  void showReservationModal() {
+  void showReservationModal(String heading, String message) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("loungeReservationComplete"),
-            description:
-                "The lounge reservation is complete. \nPlease visit the lounge on the 3rd floor and fill out the payment and rental agreement.",
+            heading: heading,
+            description: message,
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
@@ -942,7 +941,12 @@ class _LoungeReservationState extends State<LoungeReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          showReservationModal();
+          if (responseJson['title'] != null) {
+            showReservationModal(responseJson['title'].toString(),
+                responseJson['message'].toString());
+          } else {
+            showReservationModal(responseJson['message'].toString(), "");
+          }
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

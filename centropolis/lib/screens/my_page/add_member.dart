@@ -1096,7 +1096,7 @@ class _AddMemberState extends State<AddMember> {
           emailIDController.clear();
           contactNoController.clear();
 
-          showAddMemberSuccessModal(responseJson['message']);
+          showAddMemberSuccessModal(responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

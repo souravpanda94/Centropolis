@@ -19,7 +19,6 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
-import '../../widgets/common_modal.dart';
 
 class AirConditioningApplication extends StatefulWidget {
   const AirConditioningApplication({super.key});
@@ -44,7 +43,7 @@ class _AirConditioningApplicationState
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
   bool isChecked = false;
-  String typeValue = "airConditioning";
+  String typeValue = "cooling";
   String reservationDate = "";
   String? floorSelectedValue;
   String? startTimeSelectedValue;
@@ -264,7 +263,7 @@ class _AirConditioningApplicationState
                                   setState(() {
                                     type = value;
                                     if (type == Type.airConditioning) {
-                                      typeValue = "airConditioning";
+                                      typeValue = "cooling";
                                     } else {
                                       typeValue = "heating";
                                     }
@@ -302,7 +301,7 @@ class _AirConditioningApplicationState
                                   setState(() {
                                     type = value;
                                     if (type == Type.airConditioning) {
-                                      typeValue = "airConditioning";
+                                      typeValue = "cooling";
                                     } else {
                                       typeValue = "heating";
                                     }
@@ -433,10 +432,12 @@ class _AirConditioningApplicationState
                     child: SingleChildScrollView(
                       child: TextField(
                         controller: otherRequestController,
+                        maxLength: 500,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(
+                          counterText: "",
                           hintMaxLines: 5,
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
@@ -1102,7 +1103,7 @@ class _AirConditioningApplicationState
     Map<String, dynamic> body = {
       "email": email.trim(), //required
       "contact": mobile.trim(), //required
-      "application_date": reservationDate.toString().trim(), //required
+      "application_start_date": reservationDate.toString().trim(), //required
       "floors": selectedFloorList, //required
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "usage_hour": endTimeSelectedValue != null &&
@@ -1110,13 +1111,13 @@ class _AirConditioningApplicationState
           ? endTimeSelectedValue.toString().trim()
           : usageTimeList.first["value"].toString().trim(), //required
       "description": otherRequestController.text.toString().trim(), //required
-      //"type": typeValue.toString().trim(), //required
+      "type": typeValue.toString().trim(), //required
     };
 
     debugPrint("CoolingHeating input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.requestLightOutApplyUrl, body, language.toString(), apiKey);
+        ApiEndPoint.coolingHeatingSaveUrl, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -1127,11 +1128,14 @@ class _AirConditioningApplicationState
           setState(() {
             isLoadingRequired = true;
           });
-          showReservationModal(responseJson['title'], responseJson['message']);
+          showReservationModal(responseJson['title'].toString(),
+              responseJson['message'].toString());
           otherRequestController.clear();
         } else {
-          if (responseJson['message'] != null) {
-            showReservationModal(responseJson['message'], "");
+          if (responseJson['message'] != null &&
+              responseJson['title'] != null) {
+            showReservationModal(
+                responseJson['title'], responseJson['message']);
           }
         }
         setState(() {

@@ -269,10 +269,12 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     child: SingleChildScrollView(
                       child: TextField(
                         controller: detailController,
+                        maxLength: 500,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.multiline,
                         maxLines: null,
                         decoration: InputDecoration(
+                          counterText: "",
                           hintMaxLines: 5,
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
@@ -437,15 +439,14 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     );
   }
 
-  void showReservationModal() {
+  void showReservationModal(String heading, String message) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("complaintsReceivedCompleted"),
-            description:
-                "Complaints have been submitted.After checking the manager, we will respond by e-mail or phone.",
+            heading: heading,
+            description: message,
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
@@ -838,7 +839,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           setState(() {
             isLoadingRequired = true;
           });
-          showReservationModal();
+          showReservationModal(responseJson['title'].toString(),
+              responseJson['message'].toString());
+
           titleController.clear();
           detailController.clear();
         } else {

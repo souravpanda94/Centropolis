@@ -361,14 +361,14 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     );
   }
 
-  void showReservationModal() {
+  void showReservationModal(String heading, String message) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("conferenceReservationComplete"),
-            description: "We will contact you after checking the manager.",
+            heading: heading,
+            description: message,
             buttonName: tr("check"),
             firstButtonName: "",
             secondButtonName: "",
@@ -791,7 +791,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          showReservationModal();
+          showReservationModal(responseJson['title'].toString(),
+              responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
