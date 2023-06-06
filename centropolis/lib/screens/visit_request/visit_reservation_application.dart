@@ -1194,30 +1194,35 @@ class _VisitReservationApplicationState
   void visitReservationValidationCheck() {
     if (visitorNameController.text.trim().isEmpty) {
       showErrorModal(tr("visitorNameValidation"));
-    } else if (companyNameController.text.trim().isEmpty) {
+    }
+    else if (companyNameController.text.trim().isEmpty) {
       showErrorModal(tr("companyNameValidation"));
-    } else if (emailController.text.trim().isEmpty) {
+    }
+    else if (emailController.text.trim().isEmpty) {
       showErrorModal(tr("emailValidation"));
-    } else if (!isValidEmail(emailController.text.trim())) {
+    }
+    else if (!isValidEmail(emailController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    } else if (contactController.text.trim().isEmpty) {
+    }
+    else if (contactController.text.trim().isEmpty) {
       showErrorModal(tr("contactValidation"));
-    } else if (!isValidPhoneNumber(contactController.text.trim())) {
+    }
+    else if (!isValidPhoneNumber(contactController.text.trim()) || !contactController.text.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
-    } else if (!contactController.text.trim().startsWith("010")) {
-      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
-    } else if (dateController.text.trim().isEmpty) {
+    }
+    else if (dateController.text.trim().isEmpty) {
       showErrorModal(tr("dateVisitValidation"));
-    } else if (timeSelectedValue?.trim() == null ||
-        timeSelectedValue?.trim() == "") {
+    }
+    else if (timeSelectedValue?.trim() == null || timeSelectedValue?.trim() == "") {
       showErrorModal(tr("visitTimeValidation"));
-    } else if (purposeSelectedValue?.trim() == null &&
-        visitPurposeList.isEmpty) {
+    }
+    else if (purposeSelectedValue?.trim() == null && visitPurposeList.isEmpty) {
       showErrorModal(tr("purposeVisitValidation"));
-    } else if (currentSelectedFloor?.trim() == null ||
-        currentSelectedFloor?.trim() == "") {
+    }
+    else if (currentSelectedFloor?.trim() == null || currentSelectedFloor?.trim() == "") {
       showErrorModal(tr("pleaseSelectFloor"));
-    } else if (!isChecked) {
+    }
+    else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForVisitReservation();
