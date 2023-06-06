@@ -918,7 +918,9 @@ class _AddMemberState extends State<AddMember> {
 
   void callVerifyUserId() async {
     hideKeyboard();
-    if (!isValidUserId(idController.text.trim())) {
+    if (idController.text.trim().isEmpty) {
+      showErrorModal(tr("pleaseEnterYourId"));
+    } else if (!isValidUserId(idController.text.trim())) {
       showErrorModal(tr("onlyValidIdIsAllowed"));
     } else {
       final InternetChecking internetChecking = InternetChecking();
@@ -992,22 +994,31 @@ class _AddMemberState extends State<AddMember> {
       showErrorModal(tr("pleaseSelectFloor"));
     } else if (nameController.text.trim() == "") {
       showErrorModal(tr("pleaseEnterYourName"));
+    } else if (idController.text.trim().isEmpty) {
+      showErrorModal(tr("pleaseEnterYourId"));
     } else if (!isValidUserId(idController.text.trim())) {
       showErrorModal(tr("onlyValidIdIsAllowed"));
     } else if (!isUserIdVerified) {
       showErrorModal(tr("yourIdIsNotVerified"));
+    } else if (passwordController.text.trim().isEmpty) {
+      showErrorModal(tr("pleaseEnterPassword"));
     } else if (!isValidPassword(passwordController.text.trim())) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
+    } else if (verifyPasswordController.text.trim().isEmpty) {
+      showErrorModal(tr("pleaseConfirmThePassword"));
     } else if (!isValidPassword(verifyPasswordController.text.trim())) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
     } else if (verifyPasswordController.text.trim() !=
         passwordController.text.trim()) {
       showErrorModal(tr("youHaveEnteredDifferentPassword"));
+    } else if (emailIDController.text.trim().isEmpty) {
+      showErrorModal(tr("emailValidation"));
     } else if (!isValidEmail(emailIDController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    } else if (!isValidPhoneNumber(contactNoController.text.trim())) {
-      showErrorModal(tr("onlyValidContactInformationIsApplicable"));
-    } else if (!contactNoController.text.trim().startsWith("010")) {
+    } else if (contactNoController.text.trim().isEmpty) {
+      showErrorModal(tr("contactValidation"));
+    } else if (!isValidPhoneNumber(contactNoController.text.trim()) ||
+        !contactNoController.text.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else if (genderValue == "") {
       showErrorModal(tr("pleaseSelectGender"));

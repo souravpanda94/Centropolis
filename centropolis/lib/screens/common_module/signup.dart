@@ -54,7 +54,6 @@ class _SignupScreenState extends State<SignupScreen> {
   String? currentSelectedCompanyNameId;
   String? currentSelectedFloor;
 
-
   @override
   void initState() {
     super.initState();
@@ -945,8 +944,7 @@ class _SignupScreenState extends State<SignupScreen> {
   void callVerifyUserId() async {
     if (idController.text.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterYourId"));
-    }
-    else if (!isValidUserId(idController.text.trim())) {
+    } else if (!isValidUserId(idController.text.trim())) {
       showErrorModal(tr("onlyValidIdIsAllowed"));
     } else {
       hideKeyboard();
@@ -1259,52 +1257,41 @@ class _SignupScreenState extends State<SignupScreen> {
 
   void signUpValidation() {
     hideKeyboard();
-    if (currentSelectedCompanyNameId?.trim() == null || currentSelectedCompanyNameId?.trim() == "") {
+    if (currentSelectedCompanyNameId?.trim() == null ||
+        currentSelectedCompanyNameId?.trim() == "") {
       showErrorModal(tr("pleaseSelectCompany"));
-    }
-    else if (currentSelectedFloor?.trim() == null || currentSelectedFloor?.trim() == "") {
+    } else if (currentSelectedFloor?.trim() == null ||
+        currentSelectedFloor?.trim() == "") {
       showErrorModal(tr("pleaseSelectFloor"));
-    }
-    else if (nameController.text.trim().isEmpty) {
+    } else if (nameController.text.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterYourName"));
-    }
-    else if(idController.text.trim().isEmpty){
+    } else if (idController.text.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterYourId"));
-    }
-    else if (!isValidUserId(idController.text.trim())) {
+    } else if (!isValidUserId(idController.text.trim())) {
       showErrorModal(tr("onlyValidIdIsAllowed"));
-    }
-    else if (!isUserIdVerified) {
+    } else if (!isUserIdVerified) {
       showErrorModal(tr("yourIdIsNotVerified"));
-    }
-    else if (passwordController.text.trim().isEmpty) {
+    } else if (passwordController.text.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterPassword"));
-    }
-    else if (!isValidPassword(passwordController.text.trim())) {
+    } else if (!isValidPassword(passwordController.text.trim())) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
-    }
-    else if (verifyPasswordController.text.trim().isEmpty) {
+    } else if (verifyPasswordController.text.trim().isEmpty) {
       showErrorModal(tr("pleaseConfirmThePassword"));
-    }
-    else if (!isValidPassword(verifyPasswordController.text.trim())) {
+    } else if (!isValidPassword(verifyPasswordController.text.trim())) {
       showErrorModal(tr("pleaseConfirmThePassword"));
-    }
-    else if (verifyPasswordController.text.trim() != passwordController.text.trim()) {
+    } else if (verifyPasswordController.text.trim() !=
+        passwordController.text.trim()) {
       showErrorModal(tr("youHaveEnteredDifferentPassword"));
-    }
-    else if (emailIDController.text.trim().isEmpty) {
+    } else if (emailIDController.text.trim().isEmpty) {
       showErrorModal(tr("emailValidation"));
-    }
-    else if (!isValidEmail(emailIDController.text.trim())) {
+    } else if (!isValidEmail(emailIDController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    }
-    else if (!isValidEmail(contactNoController.text.trim())) {
+    } else if (contactNoController.text.trim().isEmpty) {
       showErrorModal(tr("contactValidation"));
-    }
-    else if (!isValidPhoneNumber(contactNoController.text.trim())  && !contactNoController.text.trim().startsWith("010")) {
+    } else if (!isValidPhoneNumber(contactNoController.text.trim()) ||
+        !contactNoController.text.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
-    }
-    else if (genderValue.trim().isEmpty) {
+    } else if (genderValue.trim().isEmpty) {
       showErrorModal(tr("pleaseSelectGender"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
