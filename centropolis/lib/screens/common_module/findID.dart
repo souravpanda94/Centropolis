@@ -141,33 +141,13 @@ class _FindIdScreenState extends State<FindID> {
         });
   }
 
-  // void showSentTemporaryPasswordModal() {
-  //   showDialog(
-  //       barrierDismissible: false,
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return CommonModal(
-  //           heading: tr("temporaryPasswordHasBeenSent"),
-  //           description: tr("sentTemporaryPasswordDescription"),
-  //           buttonName: tr("check"),
-  //           firstButtonName: "",
-  //           secondButtonName: "",
-  //           onConfirmBtnTap: () {
-  //             Navigator.pop(context);
-  //           },
-  //           onFirstBtnTap: () {},
-  //           onSecondBtnTap: () {},
-  //         );
-  //       });
-  // }
-
-  void showEmailErrorModal() {
+  void showEmailErrorModal(String headingMessage) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("onlyValidEmailIsApplicable"),
+            heading: headingMessage,
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",
@@ -182,8 +162,11 @@ class _FindIdScreenState extends State<FindID> {
   }
 
   void findIdValidation() {
-    if (!isValidEmail(emailIDController.text.trim())) {
-      showEmailErrorModal();
+    if (emailIDController.text.trim().isEmpty) {
+      showEmailErrorModal(tr("emailValidation"));
+    }
+    else if (!isValidEmail(emailIDController.text.trim())) {
+      showEmailErrorModal(tr("onlyValidEmailIsApplicable"));
     } else {
       callFindIdNetworkCheck();
     }

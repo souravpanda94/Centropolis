@@ -174,13 +174,13 @@ class _FindPasswordState extends State<FindPassword> {
     ),);
   }
 
-  void showUserIdErrorModal() {
+  void showUserIdErrorModal(String headingMessage) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("onlyValidIdIsAllowed"),
+            heading: headingMessage,
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",
@@ -194,13 +194,13 @@ class _FindPasswordState extends State<FindPassword> {
         });
   }
 
-  void showEmailErrorModal() {
+  void showEmailErrorModal(String headingMessage) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("onlyValidEmailIsApplicable"),
+            heading: headingMessage,
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",
@@ -215,12 +215,17 @@ class _FindPasswordState extends State<FindPassword> {
   }
 
   void findPasswordValidation() {
-    // if( idController.text.trim() == ""){
-    if(!isValidUserId(idController.text.trim())){
-      showUserIdErrorModal();
+    if(idController.text.trim().isEmpty){
+      showUserIdErrorModal(tr("pleaseEnterYourId"));
+    }
+    else if(!isValidUserId(idController.text.trim())){
+      showUserIdErrorModal(tr("onlyValidIdIsAllowed"));
+    }
+    else if(emailIDController.text.trim().isEmpty){
+      showEmailErrorModal(tr("emailValidation"));
     }
     else if (!isValidEmail(emailIDController.text.trim())) {
-      showEmailErrorModal();
+      showEmailErrorModal(tr("onlyValidEmailIsApplicable"));
     }
     else {
       callFindPasswordNetworkCheck();
