@@ -770,14 +770,12 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
     Map<String, String> body = {
       "date": reservationDate, //required
-      "start_time": usageTimeSelectedValue != null &&
-              usageTimeSelectedValue.toString().isNotEmpty
+      "start_time": usageTimeSelectedValue != null && usageTimeSelectedValue.toString().isNotEmpty
           ? usageTimeSelectedValue.toString().trim()
-          : timeList.first.toString().trim(), //required
-      "usage_time": totalTimeSelectedValue != null &&
-              totalTimeSelectedValue.toString().isNotEmpty
+          : timeList.isNotEmpty ? timeList.first.toString().trim() : "", //required
+      "usage_time": totalTimeSelectedValue != null && totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
-          : totalUsageTimeList.first["value"].toString().trim() //required
+          : totalUsageTimeList.isNotEmpty ? totalUsageTimeList.first["value"].toString().trim() : "" //required
     };
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessSeatAvailibilitytUrl,
