@@ -1,17 +1,17 @@
 class GxFitnessReservationModel {
-  int? id;
+  String? id;
   String? title;
   String? paymentType;
   String? startDate;
   String? endDate;
   String? applicationStartDate;
   String? applicationEndDate;
-  int? totalNop;
-  int? appliedNop;
+  String? totalNop;
+  String? appliedNop;
   List<ProgramDays>? programDays;
-  int? price;
-  int? vatPrice;
-  int? totalPrice;
+  String? price;
+  String? vatPrice;
+  String? totalPrice;
   String? status;
   String? displayStatus;
   String? createdDate;
@@ -39,24 +39,24 @@ class GxFitnessReservationModel {
       this.programDaysData});
 
   GxFitnessReservationModel.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
+    id = json['id'].toString();
     title = json['title'];
     paymentType = json['payment_type'];
     startDate = json['start_date'];
     endDate = json['end_date'];
     applicationStartDate = json['application_start_date'];
     applicationEndDate = json['application_end_date'];
-    totalNop = json['total_nop'];
-    appliedNop = json['applied_nop'];
+    totalNop = json['total_nop'].toString();
+    appliedNop = json['applied_nop'].toString();
     if (json['program_days'] != null) {
       programDays = <ProgramDays>[];
       json['program_days'].forEach((v) {
         programDays!.add(ProgramDays.fromJson(v));
       });
     }
-    price = json['price'];
-    vatPrice = json['vat_price'];
-    totalPrice = json['total_price'];
+    price = json['price'].toString();
+    vatPrice = json['vat_price'].toString();
+    totalPrice = json['total_price'].toString();
     status = json['status'];
     displayStatus = json['display_status'];
     createdDate = json['created_date'];

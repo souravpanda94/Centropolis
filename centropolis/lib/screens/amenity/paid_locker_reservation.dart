@@ -513,6 +513,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
+    } else if (focusedDate.compareTo(DateTime.now()) <= 0) {
+      showErrorModal("Reservation Date cannot be today");
     } else if (selectedTime == null && timeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
     } else if (!isChecked) {
