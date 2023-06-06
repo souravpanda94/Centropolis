@@ -357,6 +357,7 @@
   "signUpHeading" : "Sign Up",
   "currentPasswordValidation": "You have to enter different password",
   "deadline": "Deadline",
+  "endTimeMustBeGreaterThanStartTime":"End time must be greater than start time",
 
 
 

@@ -356,6 +356,8 @@
   "signUpHeading" : "입주사 회원가입",
   "currentPasswordValidation": "잘못된 비밀번호 입니다.",
   "deadline": "신청마감",
+  "endTimeMustBeGreaterThanStartTime":"종료 시간은 시작 시간 이후여야 합니다",
+
 
 
   "sourav" : "=============================SOURAV SECTION=========================================",
