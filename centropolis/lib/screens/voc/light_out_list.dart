@@ -268,7 +268,8 @@ class _LightsOutListState extends State<LightsOutList> {
                                         children: [
                                           Text(
                                             lightoutListItem?[index]
-                                                    .requestedFloors ??
+                                                    .requestedFloors
+                                                    .toString() ??
                                                 "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,

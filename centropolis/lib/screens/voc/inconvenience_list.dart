@@ -148,9 +148,10 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => InconvenienceDetails(
-                                        inquiryId: incovenienceListItem![index]
-                                            .inquiryId
-                                            .toString()),
+                                        inquiryId: incovenienceListItem?[index]
+                                                .inquiryId
+                                                .toString() ??
+                                            ""),
                                   ),
                                 );
                               },
@@ -175,7 +176,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                       children: [
                                         Expanded(
                                           child: Text(
-                                            incovenienceListItem![index]
+                                            incovenienceListItem?[index]
                                                     .title ??
                                                 "",
                                             style: const TextStyle(
@@ -187,10 +188,11 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                         const SizedBox(
                                           width: 8,
                                         ),
-                                        if (incovenienceListItem![index]
-                                            .status
-                                            .toString()
-                                            .isNotEmpty)
+                                        if (incovenienceListItem != null &&
+                                            incovenienceListItem![index]
+                                                .status
+                                                .toString()
+                                                .isNotEmpty)
                                           Container(
                                             decoration: BoxDecoration(
                                               color: incovenienceListItem![
@@ -289,7 +291,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                       child: Row(
                                         children: [
                                           Text(
-                                            incovenienceListItem![index].type ??
+                                            incovenienceListItem?[index].type ??
                                                 "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -309,7 +311,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                             width: 8,
                                           ),
                                           Text(
-                                            incovenienceListItem![index]
+                                            incovenienceListItem?[index]
                                                     .registeredDate ??
                                                 "",
                                             maxLines: 1,

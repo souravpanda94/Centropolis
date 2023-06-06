@@ -151,9 +151,10 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                     builder: (context) =>
                                         AirConditioningDetails(
                                             inquiryId:
-                                                airConditioningListItem![index]
-                                                    .inquiryId
-                                                    .toString()),
+                                                airConditioningListItem?[index]
+                                                        .inquiryId
+                                                        .toString() ??
+                                                    ""),
                                   ),
                                 );
                               },
