@@ -32,12 +32,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   String currentPassword = "";
   String password = "";
   String verifyPassword = "";
-  // bool currentPasswordValidation = false;
-  // bool newPasswordValidation = false;
-  // bool confirmPasswordValidation = false;
-  // String currentPasswordErrorMsg = "";
-  // String newPasswordErrorMsg = "";
-  // String confirmPasswordErrorMsg = "";
+
 
   @override
   void initState() {
@@ -369,46 +364,26 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   onChangeButtonClick() async {
     hideKeyboard();
-    // cleanErrorField();
 
-    // if (currentPassword == "" && password == "" && verifyPassword == "") {
-    //   setState(() {
-    //     currentPasswordValidation = true;
-    //     newPasswordValidation = true;
-    //     confirmPasswordValidation = true;
-    //     currentPasswordErrorMsg = tr('thisIsRequiredField');
-    //     newPasswordErrorMsg = tr('thisIsRequiredField');
-    //     confirmPasswordErrorMsg = tr('thisIsRequiredField');
-    //   });
-    // } else {
-    //
-
-    if (!isValidPassword(currentPassword)) {
-      // setState(() {
-      //   currentPasswordValidation = true;
-      //   currentPasswordErrorMsg =
-      //       tr('pleaseEnterYourCurrentPasswordCorrectly');
-      // });
+    if (currentPassword.trim().isEmpty) {
+      showErrorModal(tr("pleaseEnterYourCurrentPassword"));
+    }
+    else if (!isValidPassword(currentPassword)) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
-    } else if (!isValidPassword(password)) {
-      // setState(() {
-      //   newPasswordValidation = true;
-      //   newPasswordErrorMsg = tr('enterPasswordAsCombination');
-      // });
+    }
+    if (password.trim().isEmpty) {
+      showErrorModal(tr("pleaseEnterPassword"));
+    }
+    else if (!isValidPassword(password)) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
-    } else if (password == currentPassword) {
-      // setState(() {
-      //   newPasswordValidation = true;
-      //   newPasswordErrorMsg = tr("newPasswordMatchesCurrentPassword");
-      // });
+    }
+    else if (password == currentPassword) {
       showErrorModal(tr("currentPasswordValidation"));
-    } else if (password != verifyPassword) {
-      // setState(() {
-      //   confirmPasswordValidation = true;
-      //   confirmPasswordErrorMsg = tr("passwordDoesNotMatch");
-      // });
+    }
+    else if (password != verifyPassword) {
       showErrorModal(tr("youHaveEnteredDifferentPassword"));
-    } else {
+    }
+    else {
       final InternetChecking internetChecking = InternetChecking();
       if (await internetChecking.isInternet()) {
         callResetPasswordApi();
@@ -485,14 +460,4 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     });
   }
 
-  // void cleanErrorField() {
-  //   setState(() {
-  //     currentPasswordValidation = false;
-  //     newPasswordValidation = false;
-  //     confirmPasswordValidation = false;
-  //     currentPasswordErrorMsg = "";
-  //     newPasswordErrorMsg = "";
-  //     confirmPasswordErrorMsg = "";
-  //   });
-  // }
 }
