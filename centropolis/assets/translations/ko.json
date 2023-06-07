@@ -175,7 +175,7 @@
   "conferenceRoomReservation" : "회의실 예약",
   "enterRentalInformation" : "대여 정보 입력",
   "conferenceReservationConsent" : "회의실 예약 규정에 동의합니다.",
-  "rentalInformationHint" : "\u2022 인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
+  "rentalInformationHint" : "인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
   "conferenceReservationComplete" : "회의실 예약 문의가 접수되었습니다",
   "facilityInformation" : "시설안내",
   "tenantBenefits" : "입주사 혜택사항",

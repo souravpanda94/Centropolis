@@ -14,7 +14,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/view_more.dart';
-import 'lights_out_history_details.dart';
+import '../voc/light_out_details.dart';
 import '../../models/light_out_list_model.dart';
 import '../../providers/lightout_list_provider.dart';
 import '../../providers/user_provider.dart';
@@ -130,9 +130,9 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => LightsOutHistoryDetails(
-                                      type: lightoutListItem?[index]
-                                              .status
+                                  builder: (context) => LightsOutDetails(
+                                      id: lightoutListItem?[index]
+                                              .inquiryId
                                               .toString() ??
                                           ""),
                                 ),
@@ -162,6 +162,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                           lightoutListItem?[index]
                                                   .description ??
                                               "",
+                                          maxLines: 1,
                                           style: const TextStyle(
                                               fontFamily: 'SemiBold',
                                               fontSize: 14,
@@ -197,7 +198,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                                         ? CustomColors
                                                             .greyColor2
                                                         : CustomColors
-                                                            .textColorBlack2,
+                                                            .backgroundColor,
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),

@@ -14,7 +14,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/view_more.dart';
-import 'air_conditioning_history_details.dart';
+import '../voc/air_conditioning_details.dart';
 import '../../models/air_conditioning_list_model.dart';
 import '../../providers/air_conditioning_list_provider.dart';
 import '../../providers/user_provider.dart';
@@ -129,12 +129,11 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) =>
-                                      AirConditioningHistoryDetails(
-                                          type: airConditioningListItem?[index]
-                                                  .status
-                                                  .toString() ??
-                                              ""),
+                                  builder: (context) => AirConditioningDetails(
+                                      inquiryId: airConditioningListItem?[index]
+                                              .inquiryId
+                                              .toString() ??
+                                          ""),
                                 ),
                               );
                             },
