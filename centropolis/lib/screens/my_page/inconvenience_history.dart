@@ -134,9 +134,10 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                 MaterialPageRoute(
                                   builder: (context) =>
                                       InconvenienceHistoryDetails(
-                                          type: incovenienceListItem![index]
-                                              .status
-                                              .toString()),
+                                          inquiryId:
+                                              incovenienceListItem![index]
+                                                  .inquiryId
+                                                  .toString()),
                                 ),
                               );
                             },

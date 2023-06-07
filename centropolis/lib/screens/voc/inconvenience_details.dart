@@ -87,6 +87,9 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                                 fontFamily: 'SemiBold',
                                 fontSize: 16,
                                 color: CustomColors.textColor8)),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         if (complaintsReceivedDetails != null &&
                             complaintsReceivedDetails!.status
                                 .toString()
@@ -254,12 +257,11 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      //complaintsReceivedDetails?.type.toString() ?? "",
-                      "29 F",
+                    Text(
+                      complaintsReceivedDetails?.floor.toString() ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColor8),
