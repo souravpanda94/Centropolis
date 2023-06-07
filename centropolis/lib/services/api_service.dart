@@ -95,12 +95,6 @@ class WebService {
     }
 
 
-    // if (token != null) {
-    //   request.headers.addAll({'Authorization': 'Bearer $token'});
-    // }
-    // 'image/jpeg'
-
-
     if (imageFile != null) {
       var mimeType = lookupMimeType(imageFile);
       var fileType = mimeType?.split('/');
