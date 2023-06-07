@@ -152,6 +152,7 @@
   "passwordHint" : "More than 8 characters and less than 16 characters including English/number/special characters",
   "notificationHistory" : "Notification History",
   "viewMore" : "View More",
+  "viewMoreHomePage" : "View More",
   "loungeTitle" : "Centropolis Executive Lounge by Haevichi",
   "operatingTime" : "Operating Time",
   "availableMenu" : "Available Menu",
@@ -358,6 +359,7 @@
   "currentPasswordValidation": "You have to enter different password",
   "deadline": "Deadline",
   "endTimeMustBeGreaterThanStartTime":"End time must be greater than start time",
+  "conferenceHeading":"Conference",
 
 
 

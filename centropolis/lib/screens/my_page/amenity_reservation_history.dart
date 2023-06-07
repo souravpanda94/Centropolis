@@ -20,7 +20,7 @@ class AmenityReservationHistory extends StatefulWidget {
 class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: tr("lounge")),
-    Tab(text: tr("conference")),
+    Tab(text: tr("conferenceHeading")),
     Tab(text: tr("fitness")),
     Tab(text: tr("sleepingRoom")),
   ];
