@@ -13,6 +13,7 @@ class ComplaintsReceivedDetailsModel {
   String? responseDate;
   String? canReply;
   String? registeredDate;
+  String? floor;
   bool? success;
 
   ComplaintsReceivedDetailsModel(
@@ -30,6 +31,7 @@ class ComplaintsReceivedDetailsModel {
       this.responseDate,
       this.canReply,
       this.registeredDate,
+      this.floor,
       this.success});
 
   ComplaintsReceivedDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -47,6 +49,7 @@ class ComplaintsReceivedDetailsModel {
     responseDate = json['response_date'];
     canReply = json['can_reply'];
     registeredDate = json['registered_date'];
+    floor = json['floor'];
     success = json['success'];
   }
 
@@ -66,6 +69,7 @@ class ComplaintsReceivedDetailsModel {
     data['response_date'] = responseDate;
     data['can_reply'] = canReply;
     data['registered_date'] = registeredDate;
+    data['floor'] = floor;
     data['success'] = success;
     return data;
   }
