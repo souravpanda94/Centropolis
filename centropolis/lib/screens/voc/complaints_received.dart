@@ -466,7 +466,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           .pickMultiImage(imageQuality: 70, maxHeight: 600, maxWidth: 600);
       if (selectedImages.isNotEmpty) {
         if (selectedImages.length == 1) {
+          final tempImage = File(selectedImages[0].path);
           setState(() {
+            fileImage = tempImage;
+            fileName = fileImage!.path.split('/').last.replaceAll("image_", "");
             imageFileList!.addAll(selectedImages);
           });
         } else {
