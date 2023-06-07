@@ -21,7 +21,8 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 
 class ComplaintsReceived extends StatefulWidget {
-  const ComplaintsReceived({super.key});
+  final String parentInquirId;
+  const ComplaintsReceived({super.key, required this.parentInquirId});
 
   @override
   State<ComplaintsReceived> createState() => _ComplaintsReceivedState();
@@ -45,6 +46,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
   @override
   void initState() {
+    debugPrint("parentInquirId :: ${widget.parentInquirId}");
     super.initState();
     fToast = FToast();
     fToast.init(context);
@@ -805,23 +807,45 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "email": email.trim(), //required
-      "mobile": mobile.trim(), //required
-      "description": detailController.text.toString().trim(), //required
-      "name": name.toString().trim(), //required
-      "type": complaintTypeTimeSelectedValue != null &&
-              complaintTypeTimeSelectedValue.toString().isNotEmpty
-          ? complaintTypeTimeSelectedValue.toString().trim()
-          : complaintTypeList.first["value"].toString().trim(), //required
-      "floor": currentSelectedFloor != null &&
-              currentSelectedFloor.toString().isNotEmpty
-          ? currentSelectedFloor.toString().trim()
-          : floorList.first["floor"].toString().trim(), //required
-      "title": titleController.text.toString().trim(),
-      // "file_name" : fileName
-      // "parent_complaint_id": 19, //optional
-    };
+    Map<String, String> body;
+    if (widget.parentInquirId.isNotEmpty) {
+      body = {
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "description": detailController.text.toString().trim(), //required
+        "name": name.toString().trim(), //required
+        "type": complaintTypeTimeSelectedValue != null &&
+                complaintTypeTimeSelectedValue.toString().isNotEmpty
+            ? complaintTypeTimeSelectedValue.toString().trim()
+            : complaintTypeList.first["value"].toString().trim(), //required
+        "floor": currentSelectedFloor != null &&
+                currentSelectedFloor.toString().isNotEmpty
+            ? currentSelectedFloor.toString().trim()
+            : floorList.first["floor"].toString().trim(), //required
+        "title": titleController.text.toString().trim(),
+        // "file_name" : fileName
+        "parent_complaint_id":
+            widget.parentInquirId.toString().trim(), //optional
+      };
+    } else {
+      body = {
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "description": detailController.text.toString().trim(), //required
+        "name": name.toString().trim(), //required
+        "type": complaintTypeTimeSelectedValue != null &&
+                complaintTypeTimeSelectedValue.toString().isNotEmpty
+            ? complaintTypeTimeSelectedValue.toString().trim()
+            : complaintTypeList.first["value"].toString().trim(), //required
+        "floor": currentSelectedFloor != null &&
+                currentSelectedFloor.toString().isNotEmpty
+            ? currentSelectedFloor.toString().trim()
+            : floorList.first["floor"].toString().trim(), //required
+        "title": titleController.text.toString().trim(),
+        // "file_name" : fileName
+        // "parent_complaint_id": 19, //optional
+      };
+    }
 
     debugPrint("Complaint received input===> $body");
 

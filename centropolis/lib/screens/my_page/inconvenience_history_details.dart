@@ -34,6 +34,7 @@ class _InconvenienceHistoryDetailsState
   late FToast fToast;
   bool isLoading = false;
   ComplaintsReceivedDetailsModel? complaintsReceivedDetails;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -59,7 +60,8 @@ class _InconvenienceHistoryDetailsState
           child: Container(
             color: CustomColors.whiteColor,
             child: CommonAppBar(tr("complaintsReceived"), false, () {
-              onBackButtonPress(context);
+              //onBackButtonPress(context);
+              Navigator.pop(context, isLoadingRequired);
             }, () {}),
           ),
         ),
@@ -396,9 +398,17 @@ class _InconvenienceHistoryDetailsState
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ComplaintsReceived()),
+                          builder: (context) => ComplaintsReceived(
+                                parentInquirId: complaintsReceivedDetails
+                                        ?.inquiryId
+                                        .toString() ??
+                                    "",
+                              )),
                     ).then((value) {
                       if (value) {
+                        setState(() {
+                          isLoadingRequired = true;
+                        });
                         loadComplaintsReceivedDetails();
                       }
                     });
@@ -415,7 +425,7 @@ class _InconvenienceHistoryDetailsState
                 const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
             child: CommonButtonWithBorder(
                 onCommonButtonTap: () {
-                  Navigator.pop(context);
+                  Navigator.pop(context, isLoadingRequired);
                 },
                 buttonBorderColor: CustomColors.dividerGreyColor,
                 buttonColor: CustomColors.whiteColor,

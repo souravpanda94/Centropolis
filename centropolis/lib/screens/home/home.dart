@@ -531,7 +531,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const ComplaintsReceived(),
+        builder: (context) => const ComplaintsReceived(parentInquirId: ""),
       ),
     );
   }

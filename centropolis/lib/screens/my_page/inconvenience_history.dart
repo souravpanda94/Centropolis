@@ -139,7 +139,11 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                                   .inquiryId
                                                   .toString()),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadInconvenienceList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -322,7 +326,8 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ComplaintsReceived(),
+                            builder: (context) =>
+                                const ComplaintsReceived(parentInquirId: ""),
                           ),
                         );
                       },
