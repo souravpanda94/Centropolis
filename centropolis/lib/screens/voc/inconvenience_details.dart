@@ -328,8 +328,11 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                           fontSize: 14,
                           color: CustomColors.textColor8),
                     ),
-                    if (complaintsReceivedDetails?.status.toString() ==
-                        "Answered")
+                    if (complaintsReceivedDetails?.attachment != null &&
+                        complaintsReceivedDetails!.attachment
+                            .toString()
+                            .trim()
+                            .isNotEmpty)
                       Container(
                         margin: const EdgeInsets.only(top: 8),
                         width: MediaQuery.of(context).size.width,
@@ -348,7 +351,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                 width: MediaQuery.of(context).size.width,
                 height: 8,
               ),
-              if (complaintsReceivedDetails?.status.toString() == "Answered")
+              if (complaintsReceivedDetails?.status.toString().toLowerCase() ==
+                  "Answered")
                 Container(
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.all(16),

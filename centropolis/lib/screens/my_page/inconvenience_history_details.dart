@@ -17,6 +17,7 @@ import '../../models/complaints_received_detail_model.dart';
 import '../../providers/complaints_received_detail_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
+import '../voc/complaints_received.dart';
 
 class InconvenienceHistoryDetails extends StatefulWidget {
   final String inquiryId;
@@ -321,8 +322,11 @@ class _InconvenienceHistoryDetailsState
                         fontSize: 14,
                         color: CustomColors.textColor8),
                   ),
-                  if (complaintsReceivedDetails?.status.toString() ==
-                      "Answered")
+                  if (complaintsReceivedDetails?.attachment != null &&
+                      complaintsReceivedDetails!.attachment
+                          .toString()
+                          .trim()
+                          .isNotEmpty)
                     Container(
                       margin: const EdgeInsets.only(top: 8),
                       width: MediaQuery.of(context).size.width,
@@ -340,7 +344,8 @@ class _InconvenienceHistoryDetailsState
               width: MediaQuery.of(context).size.width,
               height: 8,
             ),
-            if (complaintsReceivedDetails?.status.toString() == "Answered")
+            if (complaintsReceivedDetails?.status.toString().toLowerCase() ==
+                "Answered")
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
@@ -374,50 +379,51 @@ class _InconvenienceHistoryDetailsState
           ],
         ),
       ),
-      bottomSheet: complaintsReceivedDetails?.status.toString() != "Answered"
-          ? Container(
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (complaintsReceivedDetails?.canReply
+                  .toString()
+                  .trim()
+                  .toLowerCase() ==
+              "y")
+            Container(
               width: MediaQuery.of(context).size.width,
               color: CustomColors.whiteColor,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 16, right: 16, bottom: 40),
+              padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
               child: CommonButtonWithBorder(
-                  onCommonButtonTap: () {},
-                  buttonBorderColor:
-                      complaintsReceivedDetails?.status.toString() == "Approved"
-                          ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                          : CustomColors.dividerGreyColor,
+                  onCommonButtonTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ComplaintsReceived()),
+                    ).then((value) {
+                      if (value) {
+                        loadComplaintsReceivedDetails();
+                      }
+                    });
+                  },
+                  buttonBorderColor: CustomColors.buttonBackgroundColor,
                   buttonColor: CustomColors.whiteColor,
-                  buttonName: tr("delete"),
-                  buttonTextColor: CustomColors.textColor5),
-            )
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                  child: CommonButtonWithBorder(
-                      onCommonButtonTap: () {},
-                      buttonBorderColor: CustomColors.buttonBackgroundColor,
-                      buttonColor: CustomColors.whiteColor,
-                      buttonName: tr("addInquiry"),
-                      buttonTextColor: CustomColors.buttonBackgroundColor),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(
-                      left: 16, top: 16, right: 16, bottom: 40),
-                  child: CommonButtonWithBorder(
-                      onCommonButtonTap: () {},
-                      buttonBorderColor: CustomColors.dividerGreyColor,
-                      buttonColor: CustomColors.whiteColor,
-                      buttonName: tr("toList"),
-                      buttonTextColor: CustomColors.textColor5),
-                )
-              ],
+                  buttonName: tr("addInquiry"),
+                  buttonTextColor: CustomColors.buttonBackgroundColor),
             ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: CustomColors.whiteColor,
+            padding:
+                const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
+            child: CommonButtonWithBorder(
+                onCommonButtonTap: () {
+                  Navigator.pop(context);
+                },
+                buttonBorderColor: CustomColors.dividerGreyColor,
+                buttonColor: CustomColors.whiteColor,
+                buttonName: tr("toList"),
+                buttonTextColor: CustomColors.textColor5),
+          )
+        ],
+      ),
     );
   }
 
