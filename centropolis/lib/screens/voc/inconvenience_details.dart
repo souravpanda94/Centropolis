@@ -108,7 +108,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                                                   .toString() ==
                                               "In Progress"
                                           ? CustomColors.greyColor2
-                                          : CustomColors.textColorBlack2,
+                                          : CustomColors.backgroundColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             padding: const EdgeInsets.only(

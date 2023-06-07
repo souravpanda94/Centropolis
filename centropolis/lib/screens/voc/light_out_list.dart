@@ -216,7 +216,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                                           ? CustomColors
                                                               .greyColor2
                                                           : CustomColors
-                                                              .textColorBlack2,
+                                                              .backgroundColor,
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
