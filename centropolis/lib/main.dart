@@ -7,6 +7,7 @@ import 'package:centropolis/providers/gx_fitness_reservation_provider.dart';
 import 'package:centropolis/providers/paid_locker_history_detail_provider.dart';
 import 'package:centropolis/providers/user_info_provider.dart';
 import 'package:centropolis/providers/user_provider.dart';
+import 'package:centropolis/providers/view_seat_selection_provider.dart';
 import 'package:centropolis/providers/view_visit_reservation_list_provider.dart';
 import 'package:centropolis/providers/visit_inquiry_list_provider.dart';
 //import 'package:centropolis/providers/view_visit_reservation_list_provider.dart';
@@ -113,6 +114,7 @@ void main() async {
           ChangeNotifierProvider(create: (_) => PaidPtHistoryDetailsProvider()),
           ChangeNotifierProvider(create: (_) => GXHistoryDetailsProvider()),
           ChangeNotifierProvider(create: (_) => LoungeHistoryDetailsProvider()),
+          ChangeNotifierProvider(create: (_) => ViewSeatSelectionProvider()),
         ],
         child: const MyApp(),
       ),

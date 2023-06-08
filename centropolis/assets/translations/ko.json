@@ -92,7 +92,11 @@
   "pleaseSelectGender": "성별을 선택해 주세요",
   "centropolisExecutiveLounge" : "센트로폴리스 이그제큐티브 라운지 바이 해비치",
   "visitingFloor" : "방문 목적 층",
+
   "businessDiscussion" : "business discussion",
+  "selectSeats" : "Select Seats",
+  "pleaseSelectSeat"  : "Please select seat",
+  "viewSeatSelection" : "View Seat Selection",
 
 
 
@@ -377,7 +381,9 @@
 
 
   "sourav" : "=============================SOURAV SECTION=========================================",
-  "AirConditioning":"냉 & 난방 신청"
+  "AirConditioning":"냉 & 난방 신청",
+  "ok":"Ok",
+  "clearAll":"Clear All"
 
 
 }

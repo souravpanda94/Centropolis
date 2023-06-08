@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:centropolis/widgets/common_button.dart';
+import 'package:centropolis/widgets/multi_select_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -48,6 +49,8 @@ class _LightOutRequestState extends State<LightOutRequest> {
   List<dynamic> usageTimeList = [];
   List<dynamic> selectedFloorList = [];
   bool isLoadingRequired = false;
+  List<String> floorNamesList = [];
+  List<String> _selectedFloors = [];
 
   @override
   void initState() {
@@ -211,7 +214,69 @@ class _LightOutRequestState extends State<LightOutRequest> {
                   const SizedBox(
                     height: 8,
                   ),
-                  floorDropdownWidget(),
+                  InkWell(
+                    onTap: () {
+                      _showMultiSelect();
+                    },
+                    child: Container(
+                      padding: const EdgeInsets.all(0),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                            width: 1.0, color: CustomColors.dividerGreyColor),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(5.0)),
+                      ),
+                      child: Row(
+                        children: [
+                          Expanded(
+                              child: _selectedFloors.isEmpty
+                                  ? Container(
+                                      padding: const EdgeInsets.all(15),
+                                      child: Text(tr('floorHint')))
+                                  : Container(
+                                      margin: const EdgeInsets.only(left: 15),
+                                      child: Wrap(
+                                        spacing: 6,
+                                        runSpacing: -10,
+                                        children: _selectedFloors
+                                            .map((e) => Chip(
+                                                  backgroundColor: CustomColors
+                                                      .selectedColor,
+                                                  padding: const EdgeInsets
+                                                      .symmetric(horizontal: 5),
+                                                  shape:
+                                                      const RoundedRectangleBorder(
+                                                          borderRadius:
+                                                              BorderRadius.all(
+                                                                  Radius
+                                                                      .circular(
+                                                                          5))),
+                                                  label: Text(e,
+                                                      style: const TextStyle(
+                                                          fontFamily: 'Regular',
+                                                          fontSize: 14,
+                                                          color: CustomColors
+                                                              .whiteColor)),
+                                                ))
+                                            .toList(),
+                                      ),
+                                    )),
+                          Container(
+                            margin: const EdgeInsets.only(right: 10),
+                            padding: EdgeInsets.only(
+                                bottom: floorSelectedValue != null ? 16 : 0),
+                            child: SvgPicture.asset(
+                              "assets/images/ic_drop_down_arrow.svg",
+                              width: 8,
+                              height: 8,
+                              color: CustomColors.textColorBlack2,
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  ),
+                  //floorDropdownWidget(),
                 ],
               ),
             ),
@@ -392,6 +457,34 @@ class _LightOutRequestState extends State<LightOutRequest> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void _showMultiSelect() async {
+    // final List<String> items = [
+    //   'Flutter',
+    //   'Node.js',
+    //   'React Native',
+    //   'Java',
+    //   'Docker',
+    //   'MySQL',
+    // ];
+
+    final List<String>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelect(
+          items: floorNamesList,
+          alreadySelectedItems: _selectedFloors,
+        );
+      },
+    );
+
+    // Update UI
+    if (results != null) {
+      setState(() {
+        _selectedFloors = results;
+      });
+    }
   }
 
   floorDropdownWidget() {
@@ -771,11 +864,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
       reservationDate = selectedDate;
     });
 
-    if (selectedFloorList.isEmpty) {
-      selectedFloorList.add(floorList.first["floor"].toString());
-    }
+    // if (selectedFloorList.isEmpty) {
+    //   selectedFloorList.add(floorList.first["floor"].toString());
+    // }
 
-    if (selectedFloorList.isEmpty || floorList.isEmpty) {
+    // if (_selectedFloors.isEmpty || floorList.isEmpty) {
+    if (_selectedFloors.isEmpty) {
       showErrorModal(tr("pleaseSelectFloor"));
     } else if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
@@ -840,8 +934,15 @@ class _LightOutRequestState extends State<LightOutRequest> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['data'] != null) {
+            var floorNames;
             setState(() {
               floorList = responseJson['data'];
+              for (var element in floorList) {
+                floorNames = element['floor'];
+                floorNamesList.add(floorNames.toString());
+              }
+              debugPrint(
+                  "server response for Floor List ===> ${floorNamesList.toString()}");
             });
           }
         } else {
@@ -985,7 +1086,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
       "email": email.trim(), //required
       "contact": mobile.trim(), //required
       "application_date": reservationDate.toString().trim(), //required
-      "floors": selectedFloorList, //required
+      "floors": _selectedFloors, //required
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "usage_hour": endTimeSelectedValue.toString().trim(), //required
       "description": otherRequestController.text.toString().trim(), //required

@@ -101,8 +101,11 @@
   "pleaseSelectGender": "Please Select a Gender",
   "centropolisExecutiveLounge" : "Centropolis Executive Lounge By HAEVICHI",
   "visitingFloor" : "Visiting Floor",
-  "businessDiscussion" : "business discussion",
 
+  "businessDiscussion" : "business discussion",
+  "selectSeats" : "Select Seats",
+  "pleaseSelectSeat"  : "Please select seat",
+  "viewSeatSelection" : "View Seat Selection",
 
 
 
@@ -392,6 +395,8 @@
 
 
   "sourav": "=============================SOURAV SECTION=========================================",
-  "AirConditioning":"Air conditioning & Heating application"
+  "AirConditioning":"Air conditioning & Heating application",
+  "ok":"Ok",
+  "clearAll":"Clear All"
 
 }
