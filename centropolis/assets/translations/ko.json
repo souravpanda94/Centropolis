@@ -233,6 +233,7 @@
   "visitBuilding" : "방문 빌딩",
   "landingFloor" : "방문 층",
   "visitorInformation" : "방문자 정보 입력",
+  "visitorInformationDetails" : "방문자 정보",
   "dateOfVisit" : "방문 날짜",
   "visitTime" : "방문 시간",
   "purposeOfVisit" : "방문 목적",
@@ -363,11 +364,17 @@
   "deadline": "신청마감",
   "endTimeMustBeGreaterThanStartTime":"종료 시간은 시작 시간 이후여야 합니다",
   "conferenceHeading":"회의실",
+  "company":"회사명",
+  "savevisitorDetail": "확인",
+
+
 
 
 
   "sourav" : "=============================SOURAV SECTION=========================================",
-  "AirConditioning":"냉 & 난방 신청"
+  "AirConditioning":"냉 & 난방 신청",
+  "ok":"Ok",
+  "clearAll":"Clear All"
 
 
 }

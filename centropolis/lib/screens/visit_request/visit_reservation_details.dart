@@ -94,40 +94,42 @@ class _VisitReservationDetailsScreenState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        tr("personInChargeInformation"),
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColor8),
-                      ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color:
-                              visitReservationDetailModel?.status == "Approved"
-                                  ? CustomColors.backgroundColor
-                                  : visitReservationDetailModel?.status ==
-                                          "In Progress"
-                                      ? CustomColors.backgroundColor3
-                                      : CustomColors.backgroundColor4,
-                          borderRadius: BorderRadius.circular(4),
-                        ),
-                        padding: const EdgeInsets.only(
-                            top: 5, bottom: 5, left: 10, right: 10),
+                      Expanded(
+                        flex: 3,
                         child: Text(
-                          visitReservationDetailModel?.displayStatus ?? "",
+                          tr("personInChargeInformation"),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontFamily: "Bold",
-                            color: visitReservationDetailModel?.status ==
-                                    "Approved"
-                                ? CustomColors.textColorBlack2
-                                : visitReservationDetailModel?.status ==
-                                        "In Progress"
-                                    ? CustomColors.textColor9
-                                    : CustomColors.headingColor,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColor8),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: setStatusBackgroundColor(
+                                visitReservationDetailModel?.status.toString()),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          padding: const EdgeInsets.only(
+                              top: 5, bottom: 5, left: 10, right: 10),
+                          child: Text(
+                            visitReservationDetailModel?.displayStatus ?? "",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "Bold",
+                                color: setStatusTextColor(
+                                    visitReservationDetailModel?.status
+                                        .toString())),
                           ),
                         ),
                       )
@@ -247,7 +249,7 @@ class _VisitReservationDetailsScreenState
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            visitReservationDetailModel?.displayBuilding ?? "",
+                            visitReservationDetailModel?.building ?? "",
                             style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",
@@ -306,7 +308,7 @@ class _VisitReservationDetailsScreenState
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      tr("visitorInformation"),
+                      tr("visitorInformationDetails"),
                       style: const TextStyle(
                           fontSize: 16,
                           fontFamily: "SemiBold",
@@ -592,10 +594,8 @@ class _VisitReservationDetailsScreenState
                   margin: const EdgeInsets.only(top: 20, bottom: 20),
                 ),
                 if (userType == "tenant_admin" &&
-                        (visitReservationDetailModel?.status ==
-                            "In Progress") ||
-                    (visitReservationDetailModel?.status ==
-                        "request_for_approval"))
+                    ((visitReservationDetailModel?.status ==
+                        "request_for_approval")))
                   Container(
                     margin: const EdgeInsets.only(left: 16.0, right: 16.0),
                     child: Column(
@@ -699,7 +699,7 @@ class _VisitReservationDetailsScreenState
                                 networkCheckForVisitReservationStatusChange();
                               },
                               buttonColor: CustomColors.buttonBackgroundColor,
-                              buttonName: tr("save"),
+                              buttonName: tr("savevisitorDetail"),
                               isIconVisible: false),
                         ),
                       ],
@@ -723,16 +723,33 @@ class _VisitReservationDetailsScreenState
                         buttonBorderColor: CustomColors.dividerGreyColor,
                         buttonTextColor: CustomColors.textColor5,
                       )),
-                if (visitReservationDetailModel?.status == "rejected" ||
-                    visitReservationDetailModel?.status == "visit_completed" ||
-                    visitReservationDetailModel?.status == "cancelled")
+                if ((visitReservationDetailModel?.status == "rejected" ||
+                        visitReservationDetailModel?.status ==
+                            "visit_completed" ||
+                        visitReservationDetailModel?.status == "using" ||
+                        visitReservationDetailModel?.status == "cancelled") &&
+                    userType == "tenant_admin")
                   Container(
                       margin: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 25),
                       height: 46,
                       child: CommonButtonWithBorder(
                         onCommonButtonTap: () {
-                          Navigator.pop(context);
+                          Navigator.pop(context, isLoadingRequired);
+                        },
+                        buttonName: tr("check"),
+                        buttonColor: CustomColors.whiteColor,
+                        buttonBorderColor: CustomColors.dividerGreyColor,
+                        buttonTextColor: CustomColors.textColor5,
+                      )),
+                if (userType != "tenant_admin")
+                  Container(
+                      margin: const EdgeInsets.only(
+                          left: 16.0, right: 16.0, bottom: 25),
+                      height: 46,
+                      child: CommonButtonWithBorder(
+                        onCommonButtonTap: () {
+                          Navigator.pop(context, isLoadingRequired);
                         },
                         buttonName: tr("check"),
                         buttonColor: CustomColors.whiteColor,
@@ -873,5 +890,33 @@ class _VisitReservationDetailsScreenState
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "approved" ||
+        status == "request_for_approval" ||
+        status == "visit_completed") {
+      return CustomColors.backgroundColor;
+    } else if (status == "request_for_approval") {
+      return CustomColors.backgroundColor3;
+    } else if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor4;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "visit_completed") {
+      return CustomColors.textGreyColor;
+    }
+    // else if (status == "request_for_approval") {
+    //   return CustomColors.textColor9;
+    // }
+    else if (status == "rejected" || status == "cancelled") {
+      return CustomColors.headingColor;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

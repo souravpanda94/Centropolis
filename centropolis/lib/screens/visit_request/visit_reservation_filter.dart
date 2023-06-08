@@ -12,7 +12,8 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 
 class VisitReservationFilter extends StatefulWidget {
-  const VisitReservationFilter({super.key});
+  final List<dynamic> filteredStatusList;
+  const VisitReservationFilter({super.key, required this.filteredStatusList});
 
   @override
   State<VisitReservationFilter> createState() => _VisitReservationFilterState();
@@ -20,14 +21,6 @@ class VisitReservationFilter extends StatefulWidget {
 
 class _VisitReservationFilterState extends State<VisitReservationFilter> {
   int showIndex = 0;
-
-  List<dynamic> statusList = [
-    {"status": "In progress"},
-    {"status": "Visit Completed"},
-    {"status": "Rejected"},
-    {"status": "Approved"},
-    {"status": "Before Visit"},
-  ];
 
   List<String> dateFilterList = [
     tr("todayFilter"),
@@ -49,10 +42,12 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   @override
   void initState() {
     super.initState();
-    showIndex == 0
-        ? dateController.text =
-            "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now())}"
-        : null;
+    if (showIndex == 0) {
+      selectedStartDate = DateTime.now();
+      selectedEndDate = DateTime.now();
+      dateController.text =
+          "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now())}";
+    }
   }
 
   @override
@@ -118,6 +113,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           Container(
             height: 50,
             padding: const EdgeInsets.symmetric(vertical: 8),
+            width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               color: CustomColors.backgroundColor,
             ),
@@ -132,7 +128,6 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       showIndex = index;
                       selectedDate = null;
                       focusedDate = DateTime.now();
-
                       showIndex == 0
                           ? dateController.text =
                               "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now())}"
@@ -147,7 +142,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   },
                   child: Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     decoration: BoxDecoration(
                         color: showIndex == index
                             ? CustomColors.whiteColor
@@ -248,17 +243,19 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   reservationStatusDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        hint: const Text(
-          "In Progress",
-          style: TextStyle(
+        hint: Text(
+          widget.filteredStatusList.isNotEmpty
+              ? widget.filteredStatusList.first["text"]
+              : tr('all'),
+          style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: statusList
+        items: widget.filteredStatusList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["status"],
+                  value: item["value"],
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -266,7 +263,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["status"],
+                          item["text"],
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -519,19 +516,62 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   }
 
   void goToPreviousPage() {
-    String startDate = "${selectedStartDate?.year}-${selectedStartDate?.month}-${selectedStartDate?.day}";
-    String endDate = "${selectedEndDate?.year}-${selectedEndDate?.month}-${selectedEndDate?.day}";
+    if ((statusSelectedValue == null || statusSelectedValue!.isEmpty) &&
+        widget.filteredStatusList.isNotEmpty) {
+      statusSelectedValue = widget.filteredStatusList.first["value"];
+    }
+    if (showIndex == 0) {
+      selectedStartDate = DateTime.now();
+      selectedEndDate = DateTime.now();
+    } else if (showIndex == 1) {
+      selectedStartDate = DateTime.now();
+      selectedEndDate = DateTime.now().add(const Duration(days: 7));
+    } else if (showIndex == 2) {
+      selectedStartDate = DateTime.now();
+      selectedEndDate = DateTime.now().add(const Duration(days: 30));
+    }
+
+    String startDay = selectedStartDate?.day.toString() ?? "";
+    String startMonth = selectedStartDate?.month.toString() ?? "";
+    String startYear = selectedStartDate?.year.toString() ?? "";
+    String startDate;
+    String endDate;
+
+    if (int.parse(startDay) < 10 && int.parse(startMonth) < 10) {
+      startDate = '$startYear-0$startMonth-0$startDay';
+    } else if (int.parse(startDay) < 10) {
+      startDate = '$startYear-$startMonth-0$startDay';
+    } else if (int.parse(startMonth) < 10) {
+      startDate = '$startYear-0$startMonth-$startDay';
+    } else {
+      startDate = '$startYear-$startMonth-$startDay';
+    }
+
+    String endDay = selectedEndDate?.day.toString() ?? "";
+    String endMonth = selectedEndDate?.month.toString() ?? "";
+    String endYear = selectedEndDate?.year.toString() ?? "";
+
+    if (int.parse(endDay) < 10 && int.parse(endMonth) < 10) {
+      endDate = '$endYear-0$endMonth-0$endDay';
+    } else if (int.parse(endDay) < 10) {
+      endDate = '$endYear-$endMonth-0$endDay';
+    } else if (int.parse(endMonth) < 10) {
+      endDate = '$endYear-0$endMonth-$endDay';
+    } else {
+      endDate = '$endYear-$endMonth-$endDay';
+    }
+
+    // String startDate =
+    //     "${selectedStartDate?.year}-${selectedStartDate?.month.toString().length == 1  ? selectedStartDate?.month : selectedStartDate?.month}-${selectedStartDate?.day}";
+    // String endDate =
+    //     "${selectedEndDate?.year}-${selectedEndDate?.month}-${selectedEndDate?.day}";
     Navigator.of(context).popUntil((route) => route.isFirst);
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>  ViewVisitReservationScreenNew(
-            statusSelectedValue,
-            startDate,
-            endDate
-        ),
+        builder: (context) => ViewVisitReservationScreenNew(
+            statusSelectedValue, startDate, endDate),
       ),
     );
   }
-
 }

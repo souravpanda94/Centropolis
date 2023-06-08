@@ -295,6 +295,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                             top: 25, bottom: 25, left: 35, right: 35),
                         child: Text(
                           tr("thereAreNoScheduledVisitorReservations"),
+                          textAlign: TextAlign.center,
                           style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",
@@ -339,7 +340,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       MaterialPageRoute(
         builder: (context) => const VisitReservationApplication(),
       ),
-    );
+    ).then((value) {
+      if (value) {
+        loadVisitRequestList();
+      }
+    });
   }
 
   void goToReservationDetailsScreen(String visitId) {
@@ -348,7 +353,11 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       MaterialPageRoute(
         builder: (context) => VisitReservationDetailsScreen(visitId),
       ),
-    );
+    ).then((value) {
+      if (value) {
+        loadVisitRequestList();
+      }
+    });
   }
 
   void loadVisitRequestList() async {
@@ -412,7 +421,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       return CustomColors.backgroundColor;
     } else if (status == "request_for_approval") {
       return CustomColors.backgroundColor3;
-    } else if (status == "rejected") {
+    } else if (status == "rejected" || status == "cancelled") {
       return CustomColors.backgroundColor4;
     } else {
       return CustomColors.backgroundColor;
@@ -420,16 +429,16 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "approved" ||
-        status == "request_for_approval" ||
-        status == "visit_completed") {
-      return CustomColors.textColorBlack2;
-    } else if (status == "request_for_approval") {
-      return CustomColors.textColor9;
-    } else if (status == "rejected") {
+    if (status == "visit_completed") {
+      return CustomColors.textGreyColor;
+    }
+    // else if (status == "request_for_approval") {
+    //   return CustomColors.textColor9;
+    // }
+    else if (status == "rejected" || status == "cancelled") {
       return CustomColors.headingColor;
     } else {
-      return CustomColors.backgroundColor;
+      return CustomColors.textColorBlack2;
     }
   }
 }
