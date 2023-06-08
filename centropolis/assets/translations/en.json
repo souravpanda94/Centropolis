@@ -100,8 +100,11 @@
   "pleaseSelectGender": "Please Select a Gender",
   "centropolisExecutiveLounge" : "Centropolis Executive Lounge By HAEVICHI",
   "visitingFloor" : "Visiting Floor",
-  "businessDiscussion" : "business discussion",
 
+  "businessDiscussion" : "business discussion",
+  "selectSeats" : "Select Seats",
+  "pleaseSelectSeat"  : "Please select seat",
+  "viewSeatSelection" : "View Seat Selection",
 
 
 
