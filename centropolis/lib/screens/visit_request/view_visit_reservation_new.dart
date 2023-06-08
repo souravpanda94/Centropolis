@@ -56,11 +56,7 @@ class _ViewVisitReservationScreenState
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     loadVisitReservationList();
-    debugPrint("apiKey ====> $apiKey");
 
-    debugPrint("selectedStatus ====> ${widget.selectedStatus}");
-    debugPrint("selectedStartDate ====> ${widget.selectedStartDate}");
-    debugPrint("selectedEndDate ====> ${widget.selectedEndDate}");
     startDate = widget.selectedStartDate;
     endDate = widget.selectedEndDate;
 
@@ -378,7 +374,9 @@ class _ViewVisitReservationScreenState
       child: DropdownButton2(
         alignment: AlignmentDirectional.centerEnd,
         hint: Text(
-          tr('all'),
+          filteredStatusList != null && filteredStatusList!.isNotEmpty
+              ? filteredStatusList?.first["text"]
+              : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
@@ -477,6 +475,8 @@ class _ViewVisitReservationScreenState
           if (responseJson['filtered_status_list'] != null) {
             setState(() {
               filteredStatusList = responseJson['filtered_status_list'];
+              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+              filteredStatusList?.insert(0, allMap);
             });
           }
 

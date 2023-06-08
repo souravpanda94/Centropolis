@@ -94,17 +94,23 @@ class _VisitReservationDetailsScreenState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(
-                        tr("personInChargeInformation"),
-                        style: const TextStyle(
-                            fontSize: 16,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColor8),
+                      Expanded(
+                        flex: 3,
+                        child: Text(
+                          tr("personInChargeInformation"),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontSize: 16,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColor8),
+                        ),
                       ),
                       const SizedBox(
                         width: 20,
                       ),
                       Expanded(
+                        flex: 1,
                         child: Container(
                           decoration: BoxDecoration(
                             color: setStatusBackgroundColor(
@@ -302,7 +308,7 @@ class _VisitReservationDetailsScreenState
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
-                      tr("visitorInformation"),
+                      tr("visitorInformationDetails"),
                       style: const TextStyle(
                           fontSize: 16,
                           fontFamily: "SemiBold",
@@ -693,7 +699,7 @@ class _VisitReservationDetailsScreenState
                                 networkCheckForVisitReservationStatusChange();
                               },
                               buttonColor: CustomColors.buttonBackgroundColor,
-                              buttonName: tr("save"),
+                              buttonName: tr("savevisitorDetail"),
                               isIconVisible: false),
                         ),
                       ],
@@ -720,6 +726,7 @@ class _VisitReservationDetailsScreenState
                 if ((visitReservationDetailModel?.status == "rejected" ||
                         visitReservationDetailModel?.status ==
                             "visit_completed" ||
+                        visitReservationDetailModel?.status == "using" ||
                         visitReservationDetailModel?.status == "cancelled") &&
                     userType == "tenant_admin")
                   Container(

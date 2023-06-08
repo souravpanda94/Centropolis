@@ -27,6 +27,7 @@
   "visitBuilding" : "Visit Building",
   "landingFloor" : "Landing Floor",
   "visitorInformation" : "Visitor Information",
+  "visitorInformationDetails" : "Visitor Information",
   "dateOfVisit" : "Date of Visit",
   "visitTime" : "Visit Time",
   "purposeOfVisit" : "Purpose of Visit",
@@ -360,6 +361,9 @@
   "deadline": "Deadline",
   "endTimeMustBeGreaterThanStartTime":"End time must be greater than start time",
   "conferenceHeading":"Conference",
+  "company":"Company",
+  "savevisitorDetail": "Save",
+
 
 
 

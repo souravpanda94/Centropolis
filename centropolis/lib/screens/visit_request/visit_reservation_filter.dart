@@ -113,6 +113,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           Container(
             height: 50,
             padding: const EdgeInsets.symmetric(vertical: 8),
+            width: MediaQuery.of(context).size.width,
             decoration: const BoxDecoration(
               color: CustomColors.backgroundColor,
             ),
@@ -141,7 +142,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   },
                   child: Container(
                     padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
                     decoration: BoxDecoration(
                         color: showIndex == index
                             ? CustomColors.whiteColor

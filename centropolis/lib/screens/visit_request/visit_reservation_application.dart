@@ -81,6 +81,8 @@ class _VisitReservationApplicationState
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
@@ -181,15 +183,26 @@ class _VisitReservationApplicationState
                           const SizedBox(
                             width: 9,
                           ),
-                          Expanded(
-                            child: Text(
-                              tr("signUpConsentConfirmation"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
-                            ),
-                          )
+                          myLocale.toString() == "ko"
+                              ? Padding(
+                                  padding: const EdgeInsets.only(top: 3),
+                                  child: Text(
+                                    tr("signUpConsentConfirmation"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                  ),
+                                )
+                              : Expanded(
+                                  child: Text(
+                                    tr("signUpConsentConfirmation"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                  ),
+                                )
                         ],
                       ),
                       const SizedBox(
