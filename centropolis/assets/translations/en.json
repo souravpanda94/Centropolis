@@ -378,6 +378,8 @@
 
 
   "sourav": "=============================SOURAV SECTION=========================================",
-  "AirConditioning":"Air conditioning & Heating application"
+  "AirConditioning":"Air conditioning & Heating application",
+  "ok":"Ok",
+  "clearAll":"Clear All"
 
 }
