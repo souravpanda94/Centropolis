@@ -61,6 +61,7 @@ class _VisitReservationApplicationState
   String visitedPersonBuilding = "";
   String visitedPersonId = "";
   String visitedPersonCompanyId = "";
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -95,7 +96,8 @@ class _VisitReservationApplicationState
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("visitReservationApplication"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -1166,6 +1168,7 @@ class _VisitReservationApplicationState
                             flex: 1,
                             child: CommonButton(
                               onCommonButtonTap: () {
+                                selectedDate ??= focusedDate;
                                 if (selectedDate != null) {
                                   dateController.text = DateFormat('yyyy.MM.dd')
                                       .format(selectedDate!);
@@ -1194,35 +1197,29 @@ class _VisitReservationApplicationState
   void visitReservationValidationCheck() {
     if (visitorNameController.text.trim().isEmpty) {
       showErrorModal(tr("visitorNameValidation"));
-    }
-    else if (companyNameController.text.trim().isEmpty) {
+    } else if (companyNameController.text.trim().isEmpty) {
       showErrorModal(tr("companyNameValidation"));
-    }
-    else if (emailController.text.trim().isEmpty) {
+    } else if (emailController.text.trim().isEmpty) {
       showErrorModal(tr("emailValidation"));
-    }
-    else if (!isValidEmail(emailController.text.trim())) {
+    } else if (!isValidEmail(emailController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    }
-    else if (contactController.text.trim().isEmpty) {
+    } else if (contactController.text.trim().isEmpty) {
       showErrorModal(tr("contactValidation"));
-    }
-    else if (!isValidPhoneNumber(contactController.text.trim()) || !contactController.text.trim().startsWith("010")) {
+    } else if (!isValidPhoneNumber(contactController.text.trim()) ||
+        !contactController.text.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
-    }
-    else if (dateController.text.trim().isEmpty) {
+    } else if (dateController.text.trim().isEmpty) {
       showErrorModal(tr("dateVisitValidation"));
-    }
-    else if (timeSelectedValue?.trim() == null || timeSelectedValue?.trim() == "") {
+    } else if (timeSelectedValue?.trim() == null ||
+        timeSelectedValue?.trim() == "") {
       showErrorModal(tr("visitTimeValidation"));
-    }
-    else if (purposeSelectedValue?.trim() == null && visitPurposeList.isEmpty) {
+    } else if (purposeSelectedValue?.trim() == null &&
+        visitPurposeList.isEmpty) {
       showErrorModal(tr("purposeVisitValidation"));
-    }
-    else if (currentSelectedFloor?.trim() == null || currentSelectedFloor?.trim() == "") {
+    } else if (currentSelectedFloor?.trim() == null ||
+        currentSelectedFloor?.trim() == "") {
       showErrorModal(tr("pleaseSelectFloor"));
-    }
-    else if (!isChecked) {
+    } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
       networkCheckForVisitReservation();
@@ -1322,6 +1319,7 @@ class _VisitReservationApplicationState
   }
 
   void callLoadVisitReservationApplicationApi() {
+    debugPrint("visitedPersonBuilding :: $visitedPersonBuilding");
     setState(() {
       isLoading = true;
     });
@@ -1332,7 +1330,7 @@ class _VisitReservationApplicationState
           visitedPersonCompanyId.toString().trim(), //required
       "visited_person_user_id": visitedPersonId.toString().trim(), //required
       "visited_person_name": visitedPersonName.toString().trim(), //required
-      "building": purposeSelectedValue ?? "", //required
+      "building": visitedPersonBuilding.toString().trim(), //required
       "floor": currentSelectedFloor ?? "", //required
       "visitor_name": visitorNameController.text.trim(), //required
       "visitor_company_name": companyNameController.text.trim(), //required
@@ -1361,6 +1359,17 @@ class _VisitReservationApplicationState
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          consentController.clear;
+          companyNameController.clear;
+          visitorNameController.clear;
+          timeController.clear;
+          dateController.clear;
+          emailController.clear;
+          contactController.clear;
+          purposeVisitController.clear;
+          setState(() {
+            isLoadingRequired = true;
+          });
           if (responseJson['message'] != null) {
             showSuccessModal(responseJson['message']);
           }
@@ -1395,6 +1404,7 @@ class _VisitReservationApplicationState
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

@@ -78,7 +78,8 @@ class _VisitReservationsScreenState extends State<VisitReservationsScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const VisitReservationFilter(),
+                    builder: (context) =>
+                        const VisitReservationFilter(filteredStatusList: []),
                   ),
                 );
               },

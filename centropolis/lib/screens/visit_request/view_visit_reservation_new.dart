@@ -44,6 +44,8 @@ class _ViewVisitReservationScreenState
   bool isFirstLoadRunning = true;
   List<VisitReservationModel>? visitReservationListItem;
   List<dynamic>? filteredStatusList;
+  String? startDate;
+  String? endDate;
 
   @override
   void initState() {
@@ -59,13 +61,14 @@ class _ViewVisitReservationScreenState
     debugPrint("selectedStatus ====> ${widget.selectedStatus}");
     debugPrint("selectedStartDate ====> ${widget.selectedStartDate}");
     debugPrint("selectedEndDate ====> ${widget.selectedEndDate}");
+    startDate = widget.selectedStartDate;
+    endDate = widget.selectedEndDate;
 
-    if(widget.selectedStatus != "" && widget.selectedStatus != null){
+    if (widget.selectedStatus != "" && widget.selectedStatus != null) {
       setState(() {
         currentSelectedSortingFilter = widget.selectedStatus.toString();
       });
     }
-
   }
 
   @override
@@ -120,7 +123,8 @@ class _ViewVisitReservationScreenState
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => const VisitReservationFilter(),
+                  builder: (context) => VisitReservationFilter(
+                      filteredStatusList: filteredStatusList ?? []),
                 ),
               );
             },
@@ -134,219 +138,224 @@ class _ViewVisitReservationScreenState
           color: CustomColors.blackColor,
         ),
         isLoading: isFirstLoadRunning,
-        child: visitReservationListItem!.isNotEmpty
-            ? SingleChildScrollView(
-                child: Column(
+        child: SingleChildScrollView(
+            child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(
+                top: 20.0,
+                left: 16,
+                right: 16,
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Container(
+                  Row(
+                    children: [
+                      Text(
+                        tr("total"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2,
+                          fontFamily: 'SemiBold',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                      Text(
+                        " ${visitReservationListItem?.length}",
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor9,
+                          fontFamily: 'SemiBold',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ],
+                  ),
+                  sortingDropdownWidget()
+                ],
+              ),
+            ),
+            visitReservationListItem!.isNotEmpty
+                ? Container(
                     margin: const EdgeInsets.only(
-                      top: 20.0,
                       left: 16,
                       right: 16,
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              tr("total"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2,
-                                fontFamily: 'SemiBold',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                            Text(
-                              " ${visitReservationListItem?.length}",
-                              style: const TextStyle(
-                                fontSize: 14,
-                                color: CustomColors.textColor9,
-                                fontFamily: 'SemiBold',
-                              ),
-                              textAlign: TextAlign.center,
-                            ),
-                          ],
-                        ),
-                        sortingDropdownWidget()
-                      ],
-                    ),
-                  ),
-                  Container(
-                      margin: const EdgeInsets.only(
-                        left: 16,
-                        right: 16,
-                      ),
-                      child: ListView.builder(
-                        physics: const NeverScrollableScrollPhysics(),
-                        scrollDirection: Axis.vertical,
-                        shrinkWrap: true,
-                        itemCount: visitReservationListItem?.length,
-                        itemBuilder: (BuildContext ctxt, int index) {
-                          return InkWell(
-                              onTap: () {
-                                goToDetailsPage(visitReservationListItem![index]
-                                    .visitId
-                                    .toString());
-                              },
-                              child: Container(
-                                  margin: const EdgeInsets.only(
-                                      top: 5.0, bottom: 5.0),
-                                  decoration: BoxDecoration(
-                                    color: CustomColors.whiteColor,
-                                    borderRadius: BorderRadius.circular(4),
-                                    border: Border.all(
-                                        color: CustomColors.borderColor,
-                                        width: 1.0),
-                                  ),
-                                  padding: const EdgeInsets.all(16.0),
-                                  child: Column(
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            // dataList[index]["name"],
+                    child: ListView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: visitReservationListItem?.length,
+                      itemBuilder: (BuildContext ctxt, int index) {
+                        return InkWell(
+                            onTap: () {
+                              goToDetailsPage(visitReservationListItem![index]
+                                  .visitId
+                                  .toString());
+                            },
+                            child: Container(
+                                margin: const EdgeInsets.only(
+                                    top: 5.0, bottom: 5.0),
+                                decoration: BoxDecoration(
+                                  color: CustomColors.whiteColor,
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                      color: CustomColors.borderColor,
+                                      width: 1.0),
+                                ),
+                                padding: const EdgeInsets.all(16.0),
+                                child: Column(
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          // dataList[index]["name"],
+                                          visitReservationListItem?[index]
+                                                  .visitorName
+                                                  .toString() ??
+                                              "",
+                                          style: const TextStyle(
+                                              fontSize: 14,
+                                              fontFamily: "Bold",
+                                              color: CustomColors.textColor8),
+                                        ),
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: setStatusBackgroundColor(
+                                                visitReservationListItem?[index]
+                                                    .status
+                                                    .toString()),
+                                            borderRadius:
+                                                BorderRadius.circular(4),
+                                          ),
+                                          padding: const EdgeInsets.only(
+                                              top: 5,
+                                              bottom: 5,
+                                              left: 10,
+                                              right: 10),
+                                          child: Text(
+                                            // dataList[index]["status"],
                                             visitReservationListItem?[index]
-                                                    .visitorName
+                                                    .displayStatus
                                                     .toString() ??
                                                 "",
-                                            style: const TextStyle(
-                                                fontSize: 14,
+                                            style: TextStyle(
+                                                fontSize: 12,
                                                 fontFamily: "Bold",
-                                                color: CustomColors.textColor8),
+                                                color: setStatusTextColor(
+                                                    visitReservationListItem?[
+                                                            index]
+                                                        .status
+                                                        .toString())),
                                           ),
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: setStatusBackgroundColor(
+                                        )
+                                      ],
+                                    ),
+                                    Container(
+                                        margin: const EdgeInsets.only(top: 6),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Text(
+                                                  // dataList[index]["businessType"],
                                                   visitReservationListItem?[
-                                                          index]
-                                                      .status
-                                                      .toString()),
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                top: 5,
-                                                bottom: 5,
-                                                left: 10,
-                                                right: 10),
-                                            child: Text(
-                                              // dataList[index]["status"],
-                                              visitReservationListItem?[index]
-                                                      .displayStatus
-                                                      .toString() ??
-                                                  "",
-                                              style: TextStyle(
-                                                  fontSize: 12,
-                                                  fontFamily: "Bold",
-                                                  color: setStatusTextColor(
-                                                      visitReservationListItem?[
                                                               index]
-                                                          .status
-                                                          .toString())),
+                                                          .companyName
+                                                          .toString() ??
+                                                      "",
+                                                  style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily: "Regular",
+                                                      color: CustomColors
+                                                          .textColorBlack2),
+                                                ),
+                                                const Text(
+                                                  "  |  ",
+                                                  style: TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily: "Regular",
+                                                      color: CustomColors
+                                                          .borderColor),
+                                                ),
+                                                Text(
+                                                  // dataList[index]["type"],
+                                                  visitReservationListItem?[
+                                                              index]
+                                                          .visitedPersonCompanyName
+                                                          .toString() ??
+                                                      "",
+                                                  style: const TextStyle(
+                                                      fontSize: 14,
+                                                      fontFamily: "Regular",
+                                                      color: CustomColors
+                                                          .textColorBlack2),
+                                                ),
+                                              ],
                                             ),
-                                          )
-                                        ],
-                                      ),
-                                      Container(
-                                          margin: const EdgeInsets.only(top: 6),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Text(
-                                                    // dataList[index]["businessType"],
-                                                    visitReservationListItem?[
-                                                                index]
-                                                            .companyName
-                                                            .toString() ??
-                                                        "",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: "Regular",
-                                                        color: CustomColors
-                                                            .textColorBlack2),
-                                                  ),
-                                                  const Text(
-                                                    "  |  ",
-                                                    style: TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: "Regular",
-                                                        color: CustomColors
-                                                            .borderColor),
-                                                  ),
-                                                  Text(
-                                                    // dataList[index]["type"],
-                                                    visitReservationListItem?[
-                                                                index]
-                                                            .visitedPersonCompanyName
-                                                            .toString() ??
-                                                        "",
-                                                    style: const TextStyle(
-                                                        fontSize: 14,
-                                                        fontFamily: "Regular",
-                                                        color: CustomColors
-                                                            .textColorBlack2),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          )),
-                                      Container(
-                                          margin: const EdgeInsets.only(top: 6),
-                                          child: Row(
-                                            children: [
-                                              Text(
-                                                tr("visitDate"),
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: "Regular",
-                                                    color: CustomColors
-                                                        .textColor3),
-                                              ),
-                                              Text(
-                                                // dataList[index]["dateTime"],
-                                                "${visitReservationListItem?[index].visitDate} ${visitReservationListItem?[index].visitTime}",
-                                                style: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontFamily: "Regular",
-                                                    color: CustomColors
-                                                        .textColor3),
-                                              ),
-                                            ],
-                                          )),
-                                    ],
-                                  )));
-                        },
-                      )),
-                  if (page < totalPages)
-                    ViewMoreWidget(
-                      onViewMoreTap: () {
-                        loadMore();
+                                          ],
+                                        )),
+                                    Container(
+                                        margin: const EdgeInsets.only(top: 6),
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              tr("visitDate"),
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: "Regular",
+                                                  color:
+                                                      CustomColors.textColor3),
+                                            ),
+                                            Text(
+                                              // dataList[index]["dateTime"],
+                                              "${visitReservationListItem?[index].visitDate} ${visitReservationListItem?[index].visitTime}",
+                                              style: const TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: "Regular",
+                                                  color:
+                                                      CustomColors.textColor3),
+                                            ),
+                                          ],
+                                        )),
+                                  ],
+                                )));
                       },
-                    )
-                ],
-              ))
-            : Center(
-                child: Container(
-                  margin: const EdgeInsets.only(
-                    left: 20,
-                    right: 20,
+                    ))
+                : Container(
+                    decoration: BoxDecoration(
+                      color: CustomColors.backgroundColor,
+                      borderRadius: BorderRadius.circular(4),
+                    ),
+                    margin: const EdgeInsets.only(
+                      top: 20,
+                      left: 16,
+                      right: 16,
+                    ),
+                    padding: const EdgeInsets.only(
+                        top: 25, bottom: 25, left: 35, right: 35),
+                    child: Text(
+                      tr("thereAreNoScheduledVisitorReservations"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontSize: 14,
+                          fontFamily: "Regular",
+                          color: CustomColors.textColor5),
+                    ),
                   ),
-                  child: Text(
-                    tr("noDataFound"),
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontFamily: "Bold",
-                        color: CustomColors.textColor5),
-                  ),
-                ),
-              ),
+            if (page < totalPages)
+              ViewMoreWidget(
+                onViewMoreTap: () {
+                  loadMore();
+                },
+              )
+          ],
+        )),
       ),
     );
   }
@@ -394,6 +403,8 @@ class _ViewVisitReservationScreenState
         value: currentSelectedSortingFilter,
         onChanged: (value) {
           setState(() {
+            startDate = "";
+            endDate = "";
             currentSelectedSortingFilter = value as String;
           });
           loadVisitReservationList();
@@ -444,8 +455,10 @@ class _ViewVisitReservationScreenState
       "limit": limit.toString(),
       "pagination": "true",
       "status": currentSelectedSortingFilter ?? "",
-      "start_date": widget.selectedStartDate.toString() ?? "",
-      "end_date": widget.selectedEndDate.toString() ?? ""
+      "start_date": startDate.toString(),
+      "end_date": endDate.toString()
+      // "start_date": widget.selectedStartDate.toString() ?? "",
+      // "end_date": widget.selectedEndDate.toString() ?? ""
     };
 
     debugPrint("View Visit Request List input===> $body");
@@ -520,7 +533,7 @@ class _ViewVisitReservationScreenState
       return CustomColors.backgroundColor;
     } else if (status == "request_for_approval") {
       return CustomColors.backgroundColor3;
-    } else if (status == "rejected") {
+    } else if (status == "rejected" || status == "cancelled") {
       return CustomColors.backgroundColor4;
     } else {
       return CustomColors.backgroundColor;
@@ -528,16 +541,16 @@ class _ViewVisitReservationScreenState
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "approved" ||
-        status == "request_for_approval" ||
-        status == "visit_completed") {
-      return CustomColors.textColorBlack2;
-    } else if (status == "request_for_approval") {
-      return CustomColors.textColor9;
-    } else if (status == "rejected") {
+    if (status == "visit_completed") {
+      return CustomColors.textGreyColor;
+    }
+    // else if (status == "request_for_approval") {
+    //   return CustomColors.textColor9;
+    // }
+    else if (status == "rejected" || status == "cancelled") {
       return CustomColors.headingColor;
     } else {
-      return CustomColors.backgroundColor;
+      return CustomColors.textColorBlack2;
     }
   }
 }
