@@ -216,7 +216,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                                           ? CustomColors
                                                               .greyColor2
                                                           : CustomColors
-                                                              .textColorBlack2,
+                                                              .backgroundColor,
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
@@ -268,7 +268,8 @@ class _LightsOutListState extends State<LightsOutList> {
                                         children: [
                                           Text(
                                             lightoutListItem?[index]
-                                                    .requestedFloors ??
+                                                    .requestedFloors
+                                                    .toString() ??
                                                 "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,

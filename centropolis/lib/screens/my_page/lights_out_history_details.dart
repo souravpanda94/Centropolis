@@ -49,6 +49,9 @@ class _LightsOutHistoryDetailsState extends State<LightsOutHistoryDetails> {
                                 fontFamily: 'SemiBold',
                                 fontSize: 16,
                                 color: CustomColors.textColor8)),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         if (widget.type.toString().isNotEmpty)
                           Container(
                             decoration: BoxDecoration(

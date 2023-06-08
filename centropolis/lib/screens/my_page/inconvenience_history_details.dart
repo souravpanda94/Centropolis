@@ -1,14 +1,27 @@
+import 'dart:convert';
+
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../models/complaints_received_detail_model.dart';
+import '../../providers/complaints_received_detail_provider.dart';
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
+import '../voc/complaints_received.dart';
 
 class InconvenienceHistoryDetails extends StatefulWidget {
-  final String type;
-  const InconvenienceHistoryDetails({super.key, required this.type});
+  final String inquiryId;
+  const InconvenienceHistoryDetails({super.key, required this.inquiryId});
 
   @override
   State<InconvenienceHistoryDetails> createState() =>
@@ -17,8 +30,28 @@ class InconvenienceHistoryDetails extends StatefulWidget {
 
 class _InconvenienceHistoryDetailsState
     extends State<InconvenienceHistoryDetails> {
+  late String language, apiKey;
+  late FToast fToast;
+  bool isLoading = false;
+  ComplaintsReceivedDetailsModel? complaintsReceivedDetails;
+  bool isLoadingRequired = false;
+
+  @override
+  void initState() {
+    super.initState();
+    language = tr("lang");
+    fToast = FToast();
+    fToast.init(context);
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    loadComplaintsReceivedDetails();
+  }
+
   @override
   Widget build(BuildContext context) {
+    complaintsReceivedDetails =
+        Provider.of<ComplaintsReceivedDetailsProvider>(context)
+            .getComplaintsReceivedDetailModel;
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       appBar: PreferredSize(
@@ -27,7 +60,8 @@ class _InconvenienceHistoryDetailsState
           child: Container(
             color: CustomColors.whiteColor,
             child: CommonAppBar(tr("complaintsReceived"), false, () {
-              onBackButtonPress(context);
+              //onBackButtonPress(context);
+              Navigator.pop(context, isLoadingRequired);
             }, () {}),
           ),
         ),
@@ -50,30 +84,59 @@ class _InconvenienceHistoryDetailsState
                               fontFamily: 'SemiBold',
                               fontSize: 16,
                               color: CustomColors.textColor8)),
-                      if (widget.type.toString().isNotEmpty)
+                      const SizedBox(
+                        width: 20,
+                      ),
+                      if (complaintsReceivedDetails != null &&
+                          complaintsReceivedDetails!.status
+                              .toString()
+                              .isNotEmpty)
                         Container(
                           decoration: BoxDecoration(
-                            color: widget.type.toString() == "Received"
-                                ? CustomColors.backgroundColor3
-                                : widget.type.toString() == "Answered"
-                                    ? CustomColors.backgroundColor
-                                    : widget.type.toString() == "In Progress"
-                                        ? CustomColors.greyColor2
-                                        : CustomColors.textColorBlack2,
+                            color:
+                                complaintsReceivedDetails?.status.toString() ==
+                                            "Received" ||
+                                        complaintsReceivedDetails?.status
+                                                .toString() ==
+                                            "Not Answered"
+                                    ? CustomColors.backgroundColor3
+                                    : complaintsReceivedDetails?.status
+                                                .toString() ==
+                                            "Answered"
+                                        ? CustomColors.backgroundColor
+                                        : complaintsReceivedDetails?.status
+                                                    .toString() ==
+                                                "In Progress"
+                                            ? CustomColors.greyColor2
+                                            : CustomColors.backgroundColor,
                             borderRadius: BorderRadius.circular(4),
                           ),
                           padding: const EdgeInsets.only(
                               top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                           child: Text(
-                            widget.type,
+                            complaintsReceivedDetails?.status.toString() ==
+                                    "Not Answered"
+                                ? "Received"
+                                : complaintsReceivedDetails?.status
+                                        .toString() ??
+                                    "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: widget.type.toString() == "Received"
+                              color: complaintsReceivedDetails?.status
+                                              .toString() ==
+                                          "Received" ||
+                                      complaintsReceivedDetails?.status
+                                              .toString() ==
+                                          "Not Answered"
                                   ? CustomColors.textColor9
-                                  : widget.type.toString() == "Answered"
+                                  : complaintsReceivedDetails?.status
+                                              .toString() ==
+                                          "Answered"
                                       ? CustomColors.textColorBlack2
-                                      : widget.type.toString() == "In Progress"
+                                      : complaintsReceivedDetails?.status
+                                                  .toString() ==
+                                              "In Progress"
                                           ? CustomColors.brownColor
                                           : CustomColors.textColorBlack2,
                             ),
@@ -99,9 +162,9 @@ class _InconvenienceHistoryDetailsState
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "Hong Gil Dong",
-                          style: TextStyle(
+                        Text(
+                          complaintsReceivedDetails?.name.toString() ?? "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -117,9 +180,10 @@ class _InconvenienceHistoryDetailsState
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "CBRE",
-                          style: TextStyle(
+                        Text(
+                          complaintsReceivedDetails?.companyName.toString() ??
+                              "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -135,9 +199,9 @@ class _InconvenienceHistoryDetailsState
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "test1@centropolis.com",
-                          style: TextStyle(
+                        Text(
+                          complaintsReceivedDetails?.email.toString() ?? "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -153,9 +217,9 @@ class _InconvenienceHistoryDetailsState
                         const SizedBox(
                           height: 8,
                         ),
-                        const Text(
-                          "010-0000-0000",
-                          style: TextStyle(
+                        Text(
+                          complaintsReceivedDetails?.contact.toString() ?? "",
+                          style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
                               color: CustomColors.textColorBlack2),
@@ -179,6 +243,30 @@ class _InconvenienceHistoryDetailsState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
+                    tr("floor"),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Text(
+                    complaintsReceivedDetails?.floor.toString() ?? "",
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
                     tr("typeOfComplaint"),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
@@ -190,11 +278,11 @@ class _InconvenienceHistoryDetailsState
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "Construct",
+                  Text(
+                    complaintsReceivedDetails?.type.toString() ?? "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
-                    style: TextStyle(
+                    style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,
                         color: CustomColors.textColor8),
@@ -210,7 +298,7 @@ class _InconvenienceHistoryDetailsState
             Container(
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.all(16),
-              margin: widget.type.toString() == "Answered"
+              margin: complaintsReceivedDetails?.status.toString() == "Answered"
                   ? null
                   : const EdgeInsets.only(bottom: 120),
               width: MediaQuery.of(context).size.width,
@@ -218,7 +306,7 @@ class _InconvenienceHistoryDetailsState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tr("complaintTitle"),
+                    complaintsReceivedDetails?.title.toString() ?? "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(
@@ -229,19 +317,23 @@ class _InconvenienceHistoryDetailsState
                   const SizedBox(
                     height: 8,
                   ),
-                  const Text(
-                    "Inconveniences are included. Inconveniences are included. Inconveniences are included. Inconveniences are included. Inconveniences are included. Inconveniences are included. Inconveniences are included.",
-                    style: TextStyle(
+                  Text(
+                    complaintsReceivedDetails?.description.toString() ?? "",
+                    style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,
                         color: CustomColors.textColor8),
                   ),
-                  if (widget.type.toString() == "Answered")
+                  if (complaintsReceivedDetails?.attachment != null &&
+                      complaintsReceivedDetails!.attachment
+                          .toString()
+                          .trim()
+                          .isNotEmpty)
                     Container(
                       margin: const EdgeInsets.only(top: 8),
                       width: MediaQuery.of(context).size.width,
-                      child: Image.asset(
-                        "assets/images/lounge.png",
+                      child: Image.network(
+                        complaintsReceivedDetails?.attachment.toString() ?? "",
                         fit: BoxFit.fill,
                         height: 194,
                       ),
@@ -254,7 +346,8 @@ class _InconvenienceHistoryDetailsState
               width: MediaQuery.of(context).size.width,
               height: 8,
             ),
-            if (widget.type.toString() == "Answered")
+            if (complaintsReceivedDetails?.status.toString().toLowerCase() ==
+                "Answered")
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
@@ -275,9 +368,9 @@ class _InconvenienceHistoryDetailsState
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      "Enter your answer. Enter your answer. Enter your answer. The content of the answer is entered. The content of the answer is entered. Enter your answer. Enter your answer. The content of the answer is entered. The content of the answer is entered. Enter your answer. Enter your answer. The content of the answer is entered. The content of the answer is entered. Enter your answer. Enter your answer. Enter your answer.",
-                      style: TextStyle(
+                    Text(
+                      complaintsReceivedDetails?.response.toString() ?? "",
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColor8),
@@ -288,49 +381,115 @@ class _InconvenienceHistoryDetailsState
           ],
         ),
       ),
-      bottomSheet: widget.type.toString() != "Answered"
-          ? Container(
+      bottomSheet: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (complaintsReceivedDetails?.canReply
+                  .toString()
+                  .trim()
+                  .toLowerCase() ==
+              "y")
+            Container(
               width: MediaQuery.of(context).size.width,
               color: CustomColors.whiteColor,
-              padding: const EdgeInsets.only(
-                  left: 16, top: 16, right: 16, bottom: 40),
+              padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
               child: CommonButtonWithBorder(
-                  onCommonButtonTap: () {},
-                  buttonBorderColor: widget.type == "Approved"
-                      ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                      : CustomColors.dividerGreyColor,
+                  onCommonButtonTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => ComplaintsReceived(
+                                parentInquirId: complaintsReceivedDetails
+                                        ?.inquiryId
+                                        .toString() ??
+                                    "",
+                              )),
+                    ).then((value) {
+                      if (value) {
+                        setState(() {
+                          isLoadingRequired = true;
+                        });
+                        loadComplaintsReceivedDetails();
+                      }
+                    });
+                  },
+                  buttonBorderColor: CustomColors.buttonBackgroundColor,
                   buttonColor: CustomColors.whiteColor,
-                  buttonName: tr("delete"),
-                  buttonTextColor: CustomColors.textColor5),
-            )
-          : Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                  child: CommonButtonWithBorder(
-                      onCommonButtonTap: () {},
-                      buttonBorderColor: CustomColors.buttonBackgroundColor,
-                      buttonColor: CustomColors.whiteColor,
-                      buttonName: tr("addInquiry"),
-                      buttonTextColor: CustomColors.buttonBackgroundColor),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(
-                      left: 16, top: 16, right: 16, bottom: 40),
-                  child: CommonButtonWithBorder(
-                      onCommonButtonTap: () {},
-                      buttonBorderColor: CustomColors.dividerGreyColor,
-                      buttonColor: CustomColors.whiteColor,
-                      buttonName: tr("toList"),
-                      buttonTextColor: CustomColors.textColor5),
-                )
-              ],
+                  buttonName: tr("addInquiry"),
+                  buttonTextColor: CustomColors.buttonBackgroundColor),
             ),
+          Container(
+            width: MediaQuery.of(context).size.width,
+            color: CustomColors.whiteColor,
+            padding:
+                const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
+            child: CommonButtonWithBorder(
+                onCommonButtonTap: () {
+                  Navigator.pop(context, isLoadingRequired);
+                },
+                buttonBorderColor: CustomColors.dividerGreyColor,
+                buttonColor: CustomColors.whiteColor,
+                buttonName: tr("toList"),
+                buttonTextColor: CustomColors.textColor5),
+          )
+        ],
+      ),
     );
+  }
+
+  void loadComplaintsReceivedDetails() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callComplaintsReceivedDetailsApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callComplaintsReceivedDetailsApi() {
+    setState(() {
+      isLoading = true;
+    });
+
+    Map<String, String> body = {
+      "inquiry_id": widget.inquiryId.toString().trim()
+    };
+
+    debugPrint("Complaints Received details input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.complaintsReceivedDetailsUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Complaints Received details ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          ComplaintsReceivedDetailsModel complaintsReceivedDetailModel =
+              ComplaintsReceivedDetailsModel.fromJson(responseJson);
+
+          Provider.of<ComplaintsReceivedDetailsProvider>(context, listen: false)
+              .setItem(complaintsReceivedDetailModel);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }

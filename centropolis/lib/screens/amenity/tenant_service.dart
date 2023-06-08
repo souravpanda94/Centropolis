@@ -22,7 +22,7 @@ class TenantServiceScreen extends StatefulWidget {
 class _TenantServiceScreenState extends State<TenantServiceScreen> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: tr("lounge")),
-    Tab(text: tr("conference")),
+    Tab(text: tr("conferenceHeading")),
     Tab(text: tr("fitness")),
     Tab(text: tr("facilities")),
   ];

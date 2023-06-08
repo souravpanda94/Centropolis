@@ -99,8 +99,9 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                      builder: (context) =>
-                      const ComplaintsReceived()),
+                      builder: (context) => const ComplaintsReceived(
+                            parentInquirId: "",
+                          )),
                 ).then((value) {
                   if (value) {
                     loadInconvenienceList();

@@ -87,6 +87,9 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                                 fontFamily: 'SemiBold',
                                 fontSize: 16,
                                 color: CustomColors.textColor8)),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         if (complaintsReceivedDetails != null &&
                             complaintsReceivedDetails!.status
                                 .toString()
@@ -108,7 +111,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                                                   .toString() ==
                                               "In Progress"
                                           ? CustomColors.greyColor2
-                                          : CustomColors.textColorBlack2,
+                                          : CustomColors.backgroundColor,
                               borderRadius: BorderRadius.circular(4),
                             ),
                             padding: const EdgeInsets.only(
@@ -254,12 +257,11 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     const SizedBox(
                       height: 8,
                     ),
-                    const Text(
-                      //complaintsReceivedDetails?.type.toString() ?? "",
-                      "29 F",
+                    Text(
+                      complaintsReceivedDetails?.floor.toString() ?? "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
+                      style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColor8),
@@ -326,8 +328,11 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                           fontSize: 14,
                           color: CustomColors.textColor8),
                     ),
-                    if (complaintsReceivedDetails?.status.toString() ==
-                        "Answered")
+                    if (complaintsReceivedDetails?.attachment != null &&
+                        complaintsReceivedDetails!.attachment
+                            .toString()
+                            .trim()
+                            .isNotEmpty)
                       Container(
                         margin: const EdgeInsets.only(top: 8),
                         width: MediaQuery.of(context).size.width,
@@ -346,7 +351,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                 width: MediaQuery.of(context).size.width,
                 height: 8,
               ),
-              if (complaintsReceivedDetails?.status.toString() == "Answered")
+              if (complaintsReceivedDetails?.status.toString().toLowerCase() ==
+                  "Answered")
                 Container(
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.all(16),

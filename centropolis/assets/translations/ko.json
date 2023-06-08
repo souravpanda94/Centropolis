@@ -99,7 +99,7 @@
 
   "aditi" : "=============================Aditi SECTION=========================================",
   "home" : "홈",
-  "amenity" : "어메니티",
+  "amenity" : "임차인 서비스",
   "visitor" : "방문 예약",
   "myPage" : "마이페이지",
   "login" : "로그인",
@@ -142,6 +142,7 @@
   "passwordHint" : "영문/숫자/특수문자 포함 8자 이상 16자 미만",
   "notificationHistory" : "알림 내역",
   "viewMore" : "더보기",
+  "viewMoreHomePage" : "자세히보기",
   "loungeTitle" : "센트로폴리스 이그제큐티브 라운지 바이 해비치",
   "operatingTime" : "운영시간",
   "availableMenu" : "이용가능메뉴",
@@ -175,7 +176,7 @@
   "conferenceRoomReservation" : "회의실 예약",
   "enterRentalInformation" : "대여 정보 입력",
   "conferenceReservationConsent" : "회의실 예약 규정에 동의합니다.",
-  "rentalInformationHint" : "\u2022 인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
+  "rentalInformationHint" : "인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
   "conferenceReservationComplete" : "회의실 예약 문의가 접수되었습니다",
   "facilityInformation" : "시설안내",
   "tenantBenefits" : "입주사 혜택사항",
@@ -228,6 +229,7 @@
   "visitBuilding" : "방문 빌딩",
   "landingFloor" : "방문 층",
   "visitorInformation" : "방문자 정보 입력",
+  "visitorInformationDetails" : "방문자 정보",
   "dateOfVisit" : "방문 날짜",
   "visitTime" : "방문 시간",
   "purposeOfVisit" : "방문 목적",
@@ -357,6 +359,11 @@
   "currentPasswordValidation": "잘못된 비밀번호 입니다.",
   "deadline": "신청마감",
   "endTimeMustBeGreaterThanStartTime":"종료 시간은 시작 시간 이후여야 합니다",
+  "conferenceHeading":"회의실",
+  "company":"회사명",
+  "savevisitorDetail": "확인",
+
+
 
 
 

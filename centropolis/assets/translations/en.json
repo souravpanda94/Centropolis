@@ -27,6 +27,7 @@
   "visitBuilding" : "Visit Building",
   "landingFloor" : "Landing Floor",
   "visitorInformation" : "Visitor Information",
+  "visitorInformationDetails" : "Visitor Information",
   "dateOfVisit" : "Date of Visit",
   "visitTime" : "Visit Time",
   "purposeOfVisit" : "Purpose of Visit",
@@ -152,6 +153,7 @@
   "passwordHint" : "More than 8 characters and less than 16 characters including English/number/special characters",
   "notificationHistory" : "Notification History",
   "viewMore" : "View More",
+  "viewMoreHomePage" : "View More",
   "loungeTitle" : "Centropolis Executive Lounge by Haevichi",
   "operatingTime" : "Operating Time",
   "availableMenu" : "Available Menu",
@@ -185,7 +187,7 @@
   "conferenceRoomReservation" : "Conference Room Reservation",
   "enterRentalInformation" : "Enter Rental Information",
   "conferenceReservationConsent" : "I agree to the conference room reservation rules",
-  "rentalInformationHint" : "\u2022 Please enter rental information such as the number of people, purpose, and additional services.",
+  "rentalInformationHint" : "Please enter rental information such as the number of people, purpose, and additional services.",
   "conferenceReservationComplete" : "Conference Room Reservation Inquiry Received",
   "facilityInformation" : "Facility Information",
   "tenantBenefits" : "Tenant Benefits",
@@ -358,6 +360,10 @@
   "currentPasswordValidation": "You have to enter different password",
   "deadline": "Deadline",
   "endTimeMustBeGreaterThanStartTime":"End time must be greater than start time",
+  "conferenceHeading":"Conference",
+  "company":"Company",
+  "savevisitorDetail": "Save",
+
 
 
 

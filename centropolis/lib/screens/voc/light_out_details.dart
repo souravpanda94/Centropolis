@@ -86,43 +86,52 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                                 fontFamily: 'SemiBold',
                                 fontSize: 16,
                                 color: CustomColors.textColor8)),
+                        const SizedBox(
+                          width: 20,
+                        ),
                         if (lightOutDetails != null &&
                             lightOutDetails!.status.toString().isNotEmpty)
-                          Container(
-                            decoration: BoxDecoration(
-                              color: lightOutDetails?.status.toString() ==
-                                          "Received" ||
-                                      lightOutDetails?.status.toString() ==
-                                          "Rejected"
-                                  ? CustomColors.backgroundColor3
-                                  : lightOutDetails?.status.toString() ==
-                                          "Approved"
-                                      ? CustomColors.backgroundColor
-                                      : lightOutDetails?.status.toString() ==
-                                              "In Progress"
-                                          ? CustomColors.greyColor2
-                                          : CustomColors.backgroundColor,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-                            child: Text(
-                              lightOutDetails?.status.toString() ?? "",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "SemiBold",
+                          Expanded(
+                            child: Container(
+                              decoration: BoxDecoration(
                                 color: lightOutDetails?.status.toString() ==
                                             "Received" ||
                                         lightOutDetails?.status.toString() ==
                                             "Rejected"
-                                    ? CustomColors.textColor9
+                                    ? CustomColors.backgroundColor3
                                     : lightOutDetails?.status.toString() ==
                                             "Approved"
-                                        ? CustomColors.textColorBlack2
+                                        ? CustomColors.backgroundColor
                                         : lightOutDetails?.status.toString() ==
                                                 "In Progress"
-                                            ? CustomColors.brownColor
-                                            : CustomColors.textColorBlack2,
+                                            ? CustomColors.greyColor2
+                                            : CustomColors.backgroundColor,
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.only(
+                                  top: 5.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
+                              child: Text(
+                                lightOutDetails?.status.toString() ?? "",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: lightOutDetails?.status.toString() ==
+                                              "Received" ||
+                                          lightOutDetails?.status.toString() ==
+                                              "Rejected"
+                                      ? CustomColors.textColor9
+                                      : lightOutDetails?.status.toString() ==
+                                              "Approved"
+                                          ? CustomColors.textColorBlack2
+                                          : lightOutDetails?.status
+                                                      .toString() ==
+                                                  "In Progress"
+                                              ? CustomColors.brownColor
+                                              : CustomColors.textColorBlack2,
+                                ),
                               ),
                             ),
                           ),
