@@ -460,14 +460,14 @@ class _LightOutRequestState extends State<LightOutRequest> {
   }
 
   void _showMultiSelect() async {
-    final List<String> items = [
-      'Flutter',
-      'Node.js',
-      'React Native',
-      'Java',
-      'Docker',
-      'MySQL',
-    ];
+    // final List<String> items = [
+    //   'Flutter',
+    //   'Node.js',
+    //   'React Native',
+    //   'Java',
+    //   'Docker',
+    //   'MySQL',
+    // ];
 
     final List<String>? results = await showDialog(
       context: context,
@@ -864,11 +864,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
       reservationDate = selectedDate;
     });
 
-    if (selectedFloorList.isEmpty) {
-      selectedFloorList.add(floorList.first["floor"].toString());
-    }
+    // if (selectedFloorList.isEmpty) {
+    //   selectedFloorList.add(floorList.first["floor"].toString());
+    // }
 
-    if (selectedFloorList.isEmpty || floorList.isEmpty) {
+    // if (_selectedFloors.isEmpty || floorList.isEmpty) {
+    if (_selectedFloors.isEmpty) {
       showErrorModal(tr("pleaseSelectFloor"));
     } else if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
@@ -1085,7 +1086,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
       "email": email.trim(), //required
       "contact": mobile.trim(), //required
       "application_date": reservationDate.toString().trim(), //required
-      "floors": selectedFloorList, //required
+      "floors": _selectedFloors, //required
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "usage_hour": endTimeSelectedValue.toString().trim(), //required
       "description": otherRequestController.text.toString().trim(), //required
