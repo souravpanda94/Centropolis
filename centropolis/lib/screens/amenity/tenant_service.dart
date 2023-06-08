@@ -55,6 +55,7 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
                         color: CustomColors.backgroundColor2, width: 0.5)),
               ),
               child: TabBar(
+                isScrollable: true,
                 tabs: myTabs,
                 labelColor: CustomColors.textColor8,
                 labelStyle: const TextStyle(

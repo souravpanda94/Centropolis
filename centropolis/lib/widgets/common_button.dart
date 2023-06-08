@@ -35,19 +35,21 @@ class _CommonButtonState extends State<CommonButton> {
           color: widget.buttonColor,
           borderRadius: BorderRadius.circular(4),
         ),
-        padding: const EdgeInsets.only(left: 16,right: 16),
+        padding: const EdgeInsets.only(left: 16, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(
-              widget.buttonName,
-              style: const TextStyle(
-                fontSize: 14,
-                color: CustomColors.whiteColor,
-                fontFamily: 'SemiBold',
+            Expanded(
+              child: Text(
+                widget.buttonName,
+                style: const TextStyle(
+                  fontSize: 14,
+                  color: CustomColors.whiteColor,
+                  fontFamily: 'SemiBold',
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
             widget.isIconVisible
                 ? Container(

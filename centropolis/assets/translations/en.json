@@ -109,7 +109,7 @@
 
 
   "aditi" : "=============================Aditi SECTION=========================================",
-  "home" : "Home",
+  "home" : "HOME",
   "amenity" : "Amenity",
   "visitor" : "Visit Reservation",
   "myPage" : "My Page",
@@ -363,6 +363,14 @@
   "conferenceHeading":"Conference",
   "company":"Company",
   "savevisitorDetail": "Save",
+  "krw": "KRW",
+  "perMonth": "per month (excluding tax)",
+  "visitReservationHomeHeading": "Visitor Reservation",
+  "loungeHomeHeading": "Centropolis Executive Lounge By HAEVICHI",
+  "conferenceHomeHeading": "Conference",
+  "fitnessHomeHeading": "Fitness",
+  "refreshHomeHeading": "Refresh",
+  "vocHomeHeading": "VOC",
 
 
 
