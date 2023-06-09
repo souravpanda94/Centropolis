@@ -355,6 +355,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,

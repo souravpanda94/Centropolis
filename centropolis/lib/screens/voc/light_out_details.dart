@@ -81,17 +81,21 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(tr("tenantCompanyInformation"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8)),
+                        Expanded(
+                          flex: 6,
+                          child: Text(tr("tenantCompanyInformation"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8)),
+                        ),
                         const SizedBox(
                           width: 20,
                         ),
                         if (lightOutDetails != null &&
                             lightOutDetails!.status.toString().isNotEmpty)
                           Expanded(
+                            flex: 2,
                             child: Container(
                               decoration: BoxDecoration(
                                 color: lightOutDetails?.status.toString() ==
@@ -115,6 +119,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                                   right: 10.0),
                               child: Text(
                                 lightOutDetails?.status.toString() ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",

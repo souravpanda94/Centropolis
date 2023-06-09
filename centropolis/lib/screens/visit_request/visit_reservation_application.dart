@@ -1053,6 +1053,7 @@ class _VisitReservationApplicationState
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TableCalendar(
+                      locale: Localizations.localeOf(context).languageCode,
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month'
                       },

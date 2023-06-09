@@ -28,6 +28,8 @@ class _VOCReservationHistoryState extends State<VOCReservationHistory> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -74,7 +76,7 @@ class _VOCReservationHistoryState extends State<VOCReservationHistory> {
                               width: 0.5)),
                     ),
                     child: TabBar(
-                      isScrollable: true,
+                      isScrollable: myLocale.toString() == "ko" ? false : true,
                       tabs: myTabs,
                       labelColor: CustomColors.textColor8,
                       labelStyle: const TextStyle(

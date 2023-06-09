@@ -27,6 +27,8 @@ class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return DefaultTabController(
         length: 4,
         child: Scaffold(
@@ -73,7 +75,7 @@ class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
                               width: 0.5)),
                     ),
                     child: TabBar(
-                      isScrollable: true,
+                      isScrollable: myLocale.toString() == "ko" ? false : true,
                       tabs: myTabs,
                       labelColor: CustomColors.textColor8,
                       labelStyle: const TextStyle(

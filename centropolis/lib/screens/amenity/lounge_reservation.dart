@@ -682,6 +682,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,

@@ -282,6 +282,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                           },
                         ))
                     : Container(
+                        width: MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                           color: CustomColors.backgroundColor,
                           borderRadius: BorderRadius.circular(4),

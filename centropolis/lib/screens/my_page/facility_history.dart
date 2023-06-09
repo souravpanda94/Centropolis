@@ -204,7 +204,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                                             ? CustomColors
                                                                 .redColor
                                                             : CustomColors
-                                                                .textColorBlack2,
+                                                                .backgroundColor,
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),

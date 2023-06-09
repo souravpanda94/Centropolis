@@ -185,8 +185,12 @@ getDataFromSharedPreference(String keyValue) async {
 }
 
 String formatNumberString(String number) {
-  RegExp reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
-  mathFunc(Match match) => '${match[1]},';
-  String formattedNumberString = number.replaceAllMapped(reg, mathFunc);
-  return formattedNumberString;
+  if (number.isNotEmpty) {
+    RegExp reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
+    mathFunc(Match match) => '${match[1]},';
+    String formattedNumberString = number.replaceAllMapped(reg, mathFunc);
+    return formattedNumberString;
+  } else {
+    return "";
+  }
 }

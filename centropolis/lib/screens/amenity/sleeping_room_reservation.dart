@@ -966,6 +966,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,
@@ -1171,17 +1172,17 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     Map<String, String> body = {
       "date": date,
       "start_time": usageTimeSelectedValue != null &&
-          usageTimeSelectedValue.toString().isNotEmpty
+              usageTimeSelectedValue.toString().isNotEmpty
           ? usageTimeSelectedValue.toString().trim()
           : usageTimeList.isNotEmpty
-          ? usageTimeList.first.toString()
-          : "",
+              ? usageTimeList.first.toString()
+              : "",
       "usage_time": totalTimeSelectedValue != null &&
-          totalTimeSelectedValue.toString().isNotEmpty
+              totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
           : totalUsageTimeList.isNotEmpty
-          ? totalUsageTimeList.first["value"].toString()
-          : "",
+              ? totalUsageTimeList.first["value"].toString()
+              : "",
     };
 
     debugPrint("Selected Seat list input===> $body");
@@ -1250,8 +1251,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           List<ViewSeatSelectionModel> reservationListList =
-          List<ViewSeatSelectionModel>.from(responseJson['seats_data']
-              .map((x) => ViewSeatSelectionModel.fromJson(x)));
+              List<ViewSeatSelectionModel>.from(responseJson['seats_data']
+                  .map((x) => ViewSeatSelectionModel.fromJson(x)));
           Provider.of<ViewSeatSelectionProvider>(context, listen: false)
               .setItem(reservationListList);
         } else {
@@ -1271,7 +1272,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       });
     });
   }
-
 
   void reservationValidationCheck() {
     String selectedDate = "";
@@ -1436,6 +1436,4 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       ),
     );
   }
-
-
 }

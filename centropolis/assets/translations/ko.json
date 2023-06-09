@@ -373,7 +373,10 @@
   "conferenceHomeHeading": "Conference",
   "fitnessHomeHeading": "Fitness",
   "refreshHomeHeading": "Refresh",
-  "vocHomeHeading": "VOC",
+  "gxReservationHistory": "GX 예약",
+  "ptReservationHistory": "유료 PT 예약",
+  "fitnessReservationHistory": "피트니스 예약",
+  "paidLockerReservationHistory": "유료 라커 예약",
 
 
 
