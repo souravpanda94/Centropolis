@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
@@ -46,7 +47,14 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor3,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
         backgroundColor: CustomColors.backgroundColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
@@ -200,7 +208,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   ],
                 ))
           ],
-        )));
+        ))),);
   }
 
   // ----------Withdrawal section-----------
@@ -325,8 +333,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               Navigator.of(context).pop();
             },
             onSecondBtnTap: () {
-              // callLogout();
-              removeLoginCredential(context);
+              callLogout();
+              // removeLoginCredential(context);
             },
           );
         });
@@ -345,9 +353,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   }
 
   void callLogout() async {
+    Navigator.of(context).pop();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-      // doLogout();
+      doLogout();
     } else {
       showCustomToast(fToast, context, tr("noInternetConnection"), "");
     }
@@ -358,7 +367,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {"language": language.trim()};
+    Map<String, String> body = {};
     debugPrint("input for logout ===> $body");
 
     // String logOutUrl =
@@ -366,8 +375,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
     // String logOutUrl = ApiEndPoint.logoutUrl + deviceId;
 
-    Future<http.Response> response = WebService()
-        .callDeleteMethod(ApiEndPoint.logoutUrl, body, apiKey.trim());
+    Future<http.Response> response = WebService().callPostMethodWithRawData(ApiEndPoint.logoutUrl, body, language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 

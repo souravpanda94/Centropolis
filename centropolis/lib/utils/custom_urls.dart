@@ -133,7 +133,7 @@ class ApiEndPoint {
 
 
   static String withdrawalUrl = "${baseUrl}v1";
-  static String logoutUrl = "${baseUrl}v1";
+  static String logoutUrl = "${baseUrl}v1/logout";
 }
 
 class WebViewLinks {
