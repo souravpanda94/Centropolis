@@ -206,7 +206,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                                             ? CustomColors
                                                                 .redColor
                                                             : CustomColors
-                                                                .textColorBlack2,
+                                                                .backgroundColor,
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),

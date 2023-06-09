@@ -365,6 +365,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,

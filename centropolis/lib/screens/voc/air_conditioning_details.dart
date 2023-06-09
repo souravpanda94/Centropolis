@@ -72,11 +72,14 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(tr("tenantCompanyInformation"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8)),
+                      Expanded(
+                        flex: 6,
+                        child: Text(tr("tenantCompanyInformation"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColor8)),
+                      ),
                       const SizedBox(
                         width: 20,
                       ),
@@ -85,6 +88,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                               .toString()
                               .isNotEmpty)
                         Expanded(
+                          flex: 2,
                           child: Container(
                             decoration: BoxDecoration(
                               color: airConditioningDetailModel?.status
@@ -108,6 +112,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               airConditioningDetailModel?.status.toString() ??
                                   "",
                               style: TextStyle(

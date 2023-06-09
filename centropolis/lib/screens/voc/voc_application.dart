@@ -5,7 +5,6 @@ import 'air_conditioning.dart';
 import 'inconvenience.dart';
 import 'light_out.dart';
 
-
 class VocApplicationScreen extends StatefulWidget {
   const VocApplicationScreen({super.key});
 
@@ -20,7 +19,6 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
     Tab(text: tr("airConditioning")),
   ];
 
-
   @override
   void initState() {
     super.initState();
@@ -31,10 +29,10 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return DefaultTabController(
       length: 3,
       // initialIndex: widget.page,
@@ -44,13 +42,14 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(kToolbarHeight),
             child: DecoratedBox(
-              decoration:  const BoxDecoration(
+              decoration: const BoxDecoration(
                 color: CustomColors.whiteColor,
                 border: Border(
                     bottom: BorderSide(
                         color: CustomColors.backgroundColor2, width: 0.5)),
               ),
               child: TabBar(
+                isScrollable: myLocale.toString() == "ko" ? false : true,
                 tabs: myTabs,
                 labelColor: CustomColors.textColor8,
                 labelStyle: const TextStyle(
@@ -65,18 +64,13 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
                   fontFamily: 'Regular',
                 ),
                 indicatorColor: CustomColors.textColor9,
-                indicator:  const UnderlineTabIndicator(
-                  borderSide: BorderSide(
-                      width: 2.0,
-                      color: CustomColors.textColor9),
+                indicator: const UnderlineTabIndicator(
+                  borderSide:
+                      BorderSide(width: 2.0, color: CustomColors.textColor9),
                   // insets: EdgeInsets.symmetric(horizontal:16.0)
                 ),
               ),
-            )
-        ),
-
-
-
+            )),
         body: const TabBarView(
           // physics: const NeverScrollableScrollPhysics(),
           children: [
@@ -85,12 +79,7 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
             AirConditioningScreen(),
           ],
         ),
-
       ),
     );
   }
-
-
-
-
 }

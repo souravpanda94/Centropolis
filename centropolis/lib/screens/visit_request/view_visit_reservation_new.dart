@@ -324,6 +324,7 @@ class _ViewVisitReservationScreenState
                       },
                     ))
                 : Container(
+                    width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
                       color: CustomColors.backgroundColor,
                       borderRadius: BorderRadius.circular(4),

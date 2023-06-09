@@ -345,6 +345,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TableCalendar(
+                      locale: Localizations.localeOf(context).languageCode,
                       rangeSelectionMode: showIndex == 3
                           ? RangeSelectionMode.enforced
                           : RangeSelectionMode.toggledOff,

@@ -149,14 +149,17 @@ class _EmployeeListState extends State<EmployeeList> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Text(
-                                        employeeListItem?[index].name ?? "",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontFamily: 'SemiBold',
-                                            fontSize: 14,
-                                            color: CustomColors.textColor8),
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          employeeListItem?[index].name ?? "",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontFamily: 'SemiBold',
+                                              fontSize: 14,
+                                              color: CustomColors.textColor8),
+                                        ),
                                       ),
                                       const SizedBox(
                                         width: 20,
@@ -171,6 +174,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                                     .toString() !=
                                                 "tenant_employee"
                                             ? Expanded(
+                                                flex: 2,
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     color: CustomColors
