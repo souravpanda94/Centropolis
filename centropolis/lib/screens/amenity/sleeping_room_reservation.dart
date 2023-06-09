@@ -55,7 +55,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<dynamic> selectedSeatList = [];
   String reservationDate = "";
   List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
-  List<ViewSeatSelectionModel> viewSeatSelectionListLatest = [];
+  List<ViewSeatSelectionModel> viewSeatSelectionListWithTimeSlot = [];
+  List<ViewSeatSelectionModel> viewSeatSelectionListWithSeats = [];
   List<dynamic> timeSlotList = [];
 
   @override
@@ -1454,35 +1455,98 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }
 
+    // for (int i = 0; i < viewSeatSelectionListItem!.length; i++) {
+    //   debugPrint("i ===> $i");
+    //   debugPrint(
+    //       "viewSeatSelectionListItem length ===> ${viewSeatSelectionListItem!.length}");
+    //
+    //   if (i < viewSeatSelectionListItem!.length - 1) {
+    //     if (viewSeatSelectionListItem?[i].seat !=
+    //         viewSeatSelectionListItem?[i + 1].seat) {
+    //       int? seatValue = viewSeatSelectionListItem?[i].seat;
+    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(
+    //           seat: seatValue, available: true, slot: "", slotRange: "");
+    //       viewSeatSelectionListWithSeats.insert(i, model);
+    //     } else {
+    //       int? seatValue = viewSeatSelectionListItem?[i].seat;
+    //       bool? available = viewSeatSelectionListItem?[i].available;
+    //       String? slot = viewSeatSelectionListItem?[i].slot;
+    //       String? slotRange = viewSeatSelectionListItem?[i].slotRange;
+    //
+    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(
+    //           seat: seatValue,
+    //           available: available,
+    //           slot: slot,
+    //           slotRange: slotRange);
+    //       viewSeatSelectionListWithSeats.insert(i, model);
+    //     }
+    //   } else {
+    //     int? seatValue = viewSeatSelectionListItem?[i].seat;
+    //     ViewSeatSelectionModel model = ViewSeatSelectionModel(
+    //         seat: seatValue, available: true, slot: "", slotRange: "");
+    //     viewSeatSelectionListWithSeats.add(model);
+    //   }
+    // }
 
+
+    for (int i = 0; i < timeSlotList.length; i++) {
+      ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: 0, available: true, slot: "", slotRange: timeSlotList[i].toString());
+      viewSeatSelectionListWithTimeSlot.add(model);
+    }
 
     for (int i = 0; i < viewSeatSelectionListItem!.length; i++) {
+      int? seatValue = viewSeatSelectionListItem?[i].seat;
+      bool? available = viewSeatSelectionListItem?[i].available;
+      String? slot = viewSeatSelectionListItem?[i].slot;
+      String? slotRange = viewSeatSelectionListItem?[i].slotRange;
+
+      ViewSeatSelectionModel model = ViewSeatSelectionModel(
+          seat: seatValue,
+          available: available,
+          slot: slot,
+          slotRange: slotRange);
+      viewSeatSelectionListWithTimeSlot.add(model);
+    }
+
+
+
+    for (int i = 0; i < viewSeatSelectionListWithTimeSlot!.length; i++) {
       debugPrint("i ===> $i");
-      debugPrint("viewSeatSelectionListItem length ===> ${viewSeatSelectionListItem!.length}");
+      debugPrint(
+          "viewSeatSelectionListItem length ===> ${viewSeatSelectionListWithTimeSlot!.length}");
 
-      if (i < viewSeatSelectionListItem!.length-1) {
-        if (viewSeatSelectionListItem?[i].seat !=
-            viewSeatSelectionListItem?[i + 1].seat) {
-          int? seatValue = viewSeatSelectionListItem?[i].seat;
+      if (i < viewSeatSelectionListWithTimeSlot!.length - 1) {
+        if (viewSeatSelectionListWithTimeSlot?[i].seat !=
+            viewSeatSelectionListWithTimeSlot?[i + 1].seat) {
+          int? seatValue = viewSeatSelectionListWithTimeSlot?[i].seat;
           ViewSeatSelectionModel model = ViewSeatSelectionModel(
-              seat: seatValue, available: true, slot: "");
-          viewSeatSelectionListLatest.insert(i, model);
+              seat: seatValue, available: true, slot: "", slotRange: "");
+          viewSeatSelectionListWithSeats.insert(i, model);
         } else {
-          int? seatValue = viewSeatSelectionListItem?[i].seat;
-          bool? available = viewSeatSelectionListItem?[i].available;
-          String? slot = viewSeatSelectionListItem?[i].slot;
+          int? seatValue = viewSeatSelectionListWithTimeSlot?[i].seat;
+          bool? available = viewSeatSelectionListWithTimeSlot?[i].available;
+          String? slot = viewSeatSelectionListWithTimeSlot?[i].slot;
+          String? slotRange = viewSeatSelectionListWithTimeSlot?[i].slotRange;
 
           ViewSeatSelectionModel model = ViewSeatSelectionModel(
-              seat: seatValue, available: available, slot: slot);
-          viewSeatSelectionListLatest.insert(i, model);
+              seat: seatValue,
+              available: available,
+              slot: slot,
+              slotRange: slotRange);
+          viewSeatSelectionListWithSeats.insert(i, model);
         }
       } else {
-        int? seatValue = viewSeatSelectionListItem?[i].seat;
-        ViewSeatSelectionModel model =
-            ViewSeatSelectionModel(seat: seatValue, available: true, slot: "");
-        viewSeatSelectionListLatest.add(model);
+        int? seatValue = viewSeatSelectionListWithTimeSlot?[i].seat;
+        ViewSeatSelectionModel model = ViewSeatSelectionModel(
+            seat: seatValue, available: true, slot: "", slotRange: "");
+        viewSeatSelectionListWithSeats.add(model);
       }
     }
+
+
+
+
+
 
 
 
@@ -1491,7 +1555,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       context,
       MaterialPageRoute(
         builder: (context) => ViewSeatSelectionScreen(
-            viewSeatSelectionListLatest,
+            viewSeatSelectionListWithSeats,
             timeSlotList,
             selectedSeatList,
             usageTimeSelectedValue,

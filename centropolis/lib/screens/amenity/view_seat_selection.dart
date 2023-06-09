@@ -89,9 +89,12 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
                       ),
                       child: Center(
                         child: Text(
-                            widget.viewSeatSelectionListItem?[index].slot == "" ?
-                            '${widget.viewSeatSelectionListItem?[index].seat.toString()}'
-                          : 'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
+                          setTextValue(index),
+
+
+                            // widget.viewSeatSelectionListItem?[index].slot == "" ?
+                            // '${widget.viewSeatSelectionListItem?[index].seat.toString()}'
+                          // : 'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
                           style: const TextStyle(
                             fontSize: 14,
                             // color: widget.viewSeatSelectionListItem?[index].available == false
@@ -244,5 +247,22 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
         return CustomColors.textColor9;
       }
     }
+  }
+
+  String setTextValue(int index) {
+    if(widget.viewSeatSelectionListItem?[index].slotRange.toString() != ""){
+      return '${widget.viewSeatSelectionListItem?[index].slotRange.toString()}';
+    }
+    else{
+      if(widget.viewSeatSelectionListItem![index].seat! > 0) {
+        return '${widget.viewSeatSelectionListItem?[index].seat.toString()}';
+      }
+      else{
+        return "Seat :";
+      }
+    }
+
+
+
   }
 }
