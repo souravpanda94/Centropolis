@@ -58,6 +58,9 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
                   ),
                   itemCount: widget.viewSeatSelectionListItem?.length,
                   itemBuilder: (BuildContext ctx, index) {
+
+
+
                     return Container(
                       width: 40,
                       height: 34,
@@ -86,7 +89,9 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
                       ),
                       child: Center(
                         child: Text(
-                          'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
+                            widget.viewSeatSelectionListItem?[index].slot == "" ?
+                            '${widget.viewSeatSelectionListItem?[index].seat.toString()}'
+                          : 'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
                           style: const TextStyle(
                             fontSize: 14,
                             // color: widget.viewSeatSelectionListItem?[index].available == false
@@ -212,10 +217,13 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
     if (availableStatus == false) {
       return CustomColors.borderColor;
     } else {
-      if (widget.usageTimeSelectedValue == slot &&
-          widget.selectedSeatsValue == seat) {
+      if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
         return CustomColors.textColor9;
-      } else {
+      }
+      else if(slot == ""){
+        return CustomColors.backgroundColor;
+      }
+      else {
         return CustomColors.whiteColor;
       }
     }
@@ -228,7 +236,11 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
       if (widget.usageTimeSelectedValue == slot &&
           widget.selectedSeatsValue == seat) {
         return CustomColors.textColor9;
-      } else {
+      }
+      else if(slot == ""){
+        return CustomColors.backgroundColor;
+      }
+      else {
         return CustomColors.textColor9;
       }
     }
