@@ -36,6 +36,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
   late FToast fToast;
   bool isLoading = false;
   LoungeHistoryDetailModel? loungeHistoryDetailModel;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -68,7 +69,8 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("loungeReservation"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -300,37 +302,50 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.whiteColor,
-          padding:
-              const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
-          child: CommonButtonWithBorder(
-              onCommonButtonTap: () {
-                if (loungeHistoryDetailModel?.status.toString() == "using" ||
-                    loungeHistoryDetailModel?.status.toString() == "rejected" ||
-                    loungeHistoryDetailModel?.status.toString() == "used") {
-                } else {
-                  networkCheckForCancelReservation();
-                }
-              },
-              buttonBorderColor:
-                  loungeHistoryDetailModel?.status.toString() == "using" ||
+        bottomSheet: loungeHistoryDetailModel?.canCancel
+                    .toString()
+                    .toLowerCase()
+                    .trim() ==
+                "y"
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.only(
+                    left: 16, top: 16, right: 16, bottom: 40),
+                child: CommonButtonWithBorder(
+                    onCommonButtonTap: () {
+                      if (loungeHistoryDetailModel?.status.toString() ==
+                              "using" ||
                           loungeHistoryDetailModel?.status.toString() ==
                               "rejected" ||
-                          loungeHistoryDetailModel?.status.toString() == "used"
-                      ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                      : CustomColors.dividerGreyColor,
-              buttonColor: CustomColors.whiteColor,
-              buttonName: tr("cancelReservation"),
-              buttonTextColor:
-                  loungeHistoryDetailModel?.status.toString() == "using" ||
                           loungeHistoryDetailModel?.status.toString() ==
-                              "rejected" ||
-                          loungeHistoryDetailModel?.status.toString() == "used"
-                      ? CustomColors.textColor5.withOpacity(0.3)
-                      : CustomColors.textColor5),
-        ),
+                              "used") {
+                      } else {
+                        networkCheckForCancelReservation();
+                      }
+                    },
+                    buttonBorderColor:
+                        loungeHistoryDetailModel?.status.toString() ==
+                                    "using" ||
+                                loungeHistoryDetailModel?.status.toString() ==
+                                    "rejected" ||
+                                loungeHistoryDetailModel?.status.toString() ==
+                                    "used"
+                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                            : CustomColors.dividerGreyColor,
+                    buttonColor: CustomColors.whiteColor,
+                    buttonName: tr("cancelReservation"),
+                    buttonTextColor: loungeHistoryDetailModel?.status
+                                    .toString() ==
+                                "using" ||
+                            loungeHistoryDetailModel?.status.toString() ==
+                                "rejected" ||
+                            loungeHistoryDetailModel?.status.toString() ==
+                                "used"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
+              )
+            : null,
       ),
     );
   }
@@ -421,6 +436,9 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showConfirmationModal(responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
@@ -453,7 +471,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

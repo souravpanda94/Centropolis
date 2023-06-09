@@ -135,7 +135,11 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                           .reservationId
                                           .toString()),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadSleepingRoomHistoryList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
