@@ -37,9 +37,7 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
            scrollDirection: Axis.horizontal,
            shrinkWrap: true,
            gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
-             // crossAxisCount: 19,
              crossAxisCount: widget.timeListLength-1,
-
              childAspectRatio: 1,
 
              // mainAxisExtent: 55,
