@@ -23,6 +23,9 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 
+
+
+
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
 
@@ -55,6 +58,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<dynamic> selectedSeatList = [];
   String reservationDate = "";
   List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
+  List<dynamic> timeSlotList = [];
 
   @override
   void initState() {
@@ -1087,6 +1091,14 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               usageTimeList = responseJson['schedule'];
             });
             loadSelectedSeatList();
+
+            for(int i= 0; i< usageTimeList.length ; i++){
+              if(usageTimeList.length-1 != i) {
+                timeSlotList.add('${usageTimeList[i]}-${usageTimeList[i + 1]}');
+              }else{
+                timeSlotList.add(usageTimeList[i]);
+              }
+            }
           }
           debugPrint("Time list length ====> ${usageTimeList.length}");
         } else {
@@ -1428,11 +1440,28 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void goToViewSeatSelectionScreen() {
+    if(usageTimeSelectedValue == null){
+      if(usageTimeList.isNotEmpty) {
+        setState(() {
+          usageTimeSelectedValue = usageTimeList.first.toString();
+        });
+      }
+    }
+    if(selectedSeatsValue == null){
+      if(usageTimeList.isNotEmpty) {
+        setState(() {
+          selectedSeatsValue = selectedSeatList.first['seat'].toString();
+        });
+      }
+    }
+
+
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ViewSeatSelectionScreen(
-            viewSeatSelectionListItem, usageTimeList.length),
+            viewSeatSelectionListItem, timeSlotList,selectedSeatList,usageTimeSelectedValue,
+            selectedSeatsValue),
       ),
     );
   }

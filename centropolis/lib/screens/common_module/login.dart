@@ -430,6 +430,7 @@ class _LoginScreenState extends State<LoginScreen> {
     Map<String, String> body = {
       "username": emailIDController.text.trim(),
       "password": passwordController.text.trim(),
+      "is_app_login": "y"
     };
     debugPrint("login input ===> $body");
 
