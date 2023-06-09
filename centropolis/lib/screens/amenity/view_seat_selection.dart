@@ -7,12 +7,22 @@ import 'conference_reservation.dart';
 
 class ViewSeatSelectionScreen extends StatefulWidget {
   final List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
-  final int timeListLength;
+  final List<dynamic> timeSlotList;
+  final List<dynamic> selectedSeatList;
+  final String? usageTimeSelectedValue;
+  final String? selectedSeatsValue;
 
-  const ViewSeatSelectionScreen(this.viewSeatSelectionListItem, this.timeListLength, {super.key});
+  const ViewSeatSelectionScreen(
+      this.viewSeatSelectionListItem,
+      this.timeSlotList,
+      this.selectedSeatList,
+      this.usageTimeSelectedValue,
+      this.selectedSeatsValue,
+      {super.key});
 
   @override
-  State<ViewSeatSelectionScreen> createState() => _ViewSeatSelectionScreenState();
+  State<ViewSeatSelectionScreen> createState() =>
+      _ViewSeatSelectionScreenState();
 }
 
 class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
@@ -22,62 +32,94 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
   @override
   void initState() {
     super.initState();
-    debugPrint("Time list length ====> ${widget.timeListLength}");
+    debugPrint("Time slot list  ====> ${widget.timeSlotList}");
+    debugPrint("Time list length ====> ${widget.timeSlotList.length}");
+    debugPrint("usageTimeSelectedValue ====> ${widget.usageTimeSelectedValue}");
+    debugPrint("selectedSeatsValue ====> ${widget.selectedSeatsValue}");
   }
 
   @override
   Widget build(BuildContext context) {
-   return Scaffold(
-     body: Container(
-       // height: 223,
-       color: CustomColors.backgroundColor,
-       margin: const EdgeInsets.only(top: 40),
-       padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-       child: GridView.builder(
-           scrollDirection: Axis.horizontal,
-           shrinkWrap: true,
-           gridDelegate:   SliverGridDelegateWithFixedCrossAxisCount(
-             crossAxisCount: widget.timeListLength-1,
-             childAspectRatio: 1,
+    return Scaffold(
+        body: Container(
+      // height: 223,
+      color: CustomColors.backgroundColor,
+      margin: const EdgeInsets.only(top: 40),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
+      child: GridView.builder(
+          scrollDirection: Axis.horizontal,
+          shrinkWrap: true,
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: widget.timeSlotList.length - 1,
+            childAspectRatio: 1,
 
-             // mainAxisExtent: 55,
-             mainAxisExtent: 205,
-           ),
-           itemCount: widget.viewSeatSelectionListItem?.length,
-           itemBuilder: (BuildContext ctx, index) {
-             return Container(
-                   width: 40,
-                   height: 34,
-                   padding:
-                   const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-                   margin: const EdgeInsets.only(right: 12, bottom: 12),
-                   decoration: BoxDecoration(
-                     color: widget.viewSeatSelectionListItem?[index].available == false
-                         ? CustomColors.borderColor : CustomColors.whiteColor,
-                     border: Border.all(
-                         color: widget.viewSeatSelectionListItem?[index].available == false
-                             ? CustomColors.borderColor
-                             : CustomColors.textColor9,
-                         width: 1.0),
-                   ),
-                   child: Center(
-                     child: Text(
-                       'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
-                       style: const TextStyle(
-                         fontSize: 14,
-                         // color: widget.viewSeatSelectionListItem?[index].available == false
-                         //     ? CustomColors.textColor3 : CustomColors.whiteColor,
-                         color: CustomColors.blackColor,
-                         fontFamily: 'Regular',
-                       ),
-                     ),
-                   ),
-                 );
-           }),
-     )
-   );
+            // mainAxisExtent: 55,
+            mainAxisExtent: 205,
+          ),
+          itemCount: widget.viewSeatSelectionListItem?.length,
+          itemBuilder: (BuildContext ctx, index) {
+            return Container(
+              width: 40,
+              height: 34,
+              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+              margin: const EdgeInsets.only(right: 12, bottom: 12),
+              decoration: BoxDecoration(
+                color: setBackgroundColor(
+                    widget.viewSeatSelectionListItem?[index].available,
+                    widget.viewSeatSelectionListItem?[index].slot.toString(),
+                    widget.viewSeatSelectionListItem?[index].seat.toString()
+                ),
 
-
+                border: Border.all(
+                    color: setBorderColor(widget.viewSeatSelectionListItem?[index].available,
+                        widget.viewSeatSelectionListItem?[index].slot.toString(),
+                        widget.viewSeatSelectionListItem?[index].seat.toString()),
+                    width: 1.0),
+              ),
+              child: Center(
+                child: Text(
+                  'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
+                  style: const TextStyle(
+                    fontSize: 14,
+                    // color: widget.viewSeatSelectionListItem?[index].available == false
+                    //     ? CustomColors.textColor3 : CustomColors.whiteColor,
+                    color: CustomColors.blackColor,
+                    fontFamily: 'Regular',
+                  ),
+                ),
+              ),
+            );
+          }),
+    ));
   }
+
+  setBackgroundColor(bool? availableStatus, String? slot, String? seat) {
+    debugPrint("slot ====> $slot");
+    debugPrint("seat ====> $seat");
+
+
+    if (availableStatus == false) {
+      return CustomColors.borderColor;
+    } else {
+      if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
+        return CustomColors.textColor9;
+      } else {
+        return CustomColors.whiteColor;
+      }
+    }
+  }
+
+  setBorderColor(bool? availableStatus, String? slot, String? seat) {
+    if (availableStatus == false) {
+      return CustomColors.borderColor;
+    } else {
+      if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
+        return CustomColors.textColor9;
+      } else {
+        return CustomColors.textColor9;
+      }
+    }
+  }
+
 
 }
