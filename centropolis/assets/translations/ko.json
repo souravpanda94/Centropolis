@@ -18,7 +18,7 @@
   "confirm": "확인",
   "visitDate" : "방문예정일: ",
   "thereAreNoScheduledVisitorReservations" : "예정된 방문객 예약이 없습니다.",
-  "viewVisitReservation" : "방문 신청 내역",
+  "viewVisitReservation" : "방문예약",
   "visitInquiry" : "방문객 조회",
   "total" : "총",
   "all" : "전체",
@@ -378,6 +378,9 @@
   "fitnessReservationHistory": "피트니스 예약",
   "paidLockerReservationHistory": "유료 라커 예약",
   "paidPtValidation": "최소 1일 에서 2달 전에 예약 하여야합니다",
+  "selectedSeat": "Selected Seat",
+  "makeVisitorReservation": "방문 예약 신청",
+
 
 
 

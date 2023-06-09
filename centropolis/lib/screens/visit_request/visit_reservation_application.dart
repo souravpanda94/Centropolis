@@ -761,7 +761,7 @@ class _VisitReservationApplicationState
                       visitReservationValidationCheck();
                     },
                     buttonColor: CustomColors.buttonBackgroundColor,
-                    buttonName: tr("makeReservation"),
+                    buttonName: tr("makeVisitorReservation"),
                     isIconVisible: false,
                   ),
                 )
