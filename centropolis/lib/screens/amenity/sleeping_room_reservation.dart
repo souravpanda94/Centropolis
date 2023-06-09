@@ -1095,9 +1095,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             for(int i= 0; i< usageTimeList.length ; i++){
               if(usageTimeList.length-1 != i) {
                 timeSlotList.add('${usageTimeList[i]}-${usageTimeList[i + 1]}');
-              }else{
-                timeSlotList.add(usageTimeList[i]);
               }
+              // else{
+              //   timeSlotList.add(usageTimeList[i]);
+              // }
             }
           }
           debugPrint("Time list length ====> ${usageTimeList.length}");

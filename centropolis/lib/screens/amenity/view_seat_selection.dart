@@ -42,66 +42,178 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
         body: Container(
-      // height: 223,
-      color: CustomColors.backgroundColor,
-      margin: const EdgeInsets.only(top: 40),
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-      child: GridView.builder(
-          scrollDirection: Axis.horizontal,
-          shrinkWrap: true,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: widget.timeSlotList.length - 1,
-            childAspectRatio: 1,
+              color: CustomColors.backgroundColor,
+              margin: const EdgeInsets.only(top: 40),
+              padding:
+              const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
+              child: GridView.builder(
+                  scrollDirection: Axis.horizontal,
+                  shrinkWrap: true,
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: widget.timeSlotList.length,
+                    childAspectRatio: 1,
 
-            // mainAxisExtent: 55,
-            mainAxisExtent: 205,
-          ),
-          itemCount: widget.viewSeatSelectionListItem?.length,
-          itemBuilder: (BuildContext ctx, index) {
-            return Container(
-              width: 40,
-              height: 34,
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-              margin: const EdgeInsets.only(right: 12, bottom: 12),
-              decoration: BoxDecoration(
-                color: setBackgroundColor(
-                    widget.viewSeatSelectionListItem?[index].available,
-                    widget.viewSeatSelectionListItem?[index].slot.toString(),
-                    widget.viewSeatSelectionListItem?[index].seat.toString()
-                ),
-
-                border: Border.all(
-                    color: setBorderColor(widget.viewSeatSelectionListItem?[index].available,
-                        widget.viewSeatSelectionListItem?[index].slot.toString(),
-                        widget.viewSeatSelectionListItem?[index].seat.toString()),
-                    width: 1.0),
-              ),
-              child: Center(
-                child: Text(
-                  'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
-                  style: const TextStyle(
-                    fontSize: 14,
-                    // color: widget.viewSeatSelectionListItem?[index].available == false
-                    //     ? CustomColors.textColor3 : CustomColors.whiteColor,
-                    color: CustomColors.blackColor,
-                    fontFamily: 'Regular',
+                    // mainAxisExtent: 55,
+                    mainAxisExtent: 205,
                   ),
-                ),
-              ),
-            );
-          }),
-    ));
+                  itemCount: widget.viewSeatSelectionListItem?.length,
+                  itemBuilder: (BuildContext ctx, index) {
+                    return Container(
+                      width: 40,
+                      height: 34,
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 10, vertical: 6),
+                      margin: const EdgeInsets.only(right: 12, bottom: 12),
+                      decoration: BoxDecoration(
+                        color: setBackgroundColor(
+                            widget.viewSeatSelectionListItem?[index]
+                                .available,
+                            widget.viewSeatSelectionListItem?[index].slot
+                                .toString(),
+                            widget.viewSeatSelectionListItem?[index].seat
+                                .toString()),
+                        border: Border.all(
+                            color: setBorderColor(
+                                widget.viewSeatSelectionListItem?[index]
+                                    .available,
+                                widget
+                                    .viewSeatSelectionListItem?[index].slot
+                                    .toString(),
+                                widget
+                                    .viewSeatSelectionListItem?[index].seat
+                                    .toString()),
+                            width: 1.0),
+                      ),
+                      child: Center(
+                        child: Text(
+                          'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
+                          style: const TextStyle(
+                            fontSize: 14,
+                            // color: widget.viewSeatSelectionListItem?[index].available == false
+                            //     ? CustomColors.textColor3 : CustomColors.whiteColor,
+                            color: CustomColors.blackColor,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+
+
+
+
+
+
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.start,
+              //   crossAxisAlignment: CrossAxisAlignment.start,
+              //   children: [
+              //      Container(
+              //         width: 100,
+              //         color: Colors.yellow,
+              //         child: Flexible(
+              //           child: ListView.builder(
+              //           physics: const NeverScrollableScrollPhysics(),
+              //           scrollDirection: Axis.vertical,
+              //           shrinkWrap: true,
+              //           itemCount: widget.timeSlotList.length,
+              //           itemBuilder: (BuildContext ctxt, int index) {
+              //             return Container(
+              //                 color: CustomColors.baseColor,
+              //                 height: 27,
+              //                 margin: const EdgeInsets.only(top: 5,bottom: 5),
+              //                 child: Align(
+              //                   alignment: Alignment.center,
+              //                   child: Text(
+              //                     widget.timeSlotList[index].toString(),
+              //                     style: const TextStyle(
+              //                         fontFamily: 'Regular',
+              //                         fontSize: 14,
+              //                         color: CustomColors.textColorBlack2),
+              //                   ),
+              //                 )
+              //
+              //             );
+              //           },
+              //         ),
+              //       ),
+              //     ),
+              //
+              //
+              //
+              //
+              //     Flexible(
+              //       child: GridView.builder(
+              //           scrollDirection: Axis.horizontal,
+              //           shrinkWrap: true,
+              //           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              //             crossAxisCount: widget.timeSlotList.length,
+              //             childAspectRatio: 1,
+              //
+              //             // mainAxisExtent: 55,
+              //             mainAxisExtent: 205,
+              //           ),
+              //           itemCount: widget.viewSeatSelectionListItem?.length,
+              //           itemBuilder: (BuildContext ctx, index) {
+              //             return Container(
+              //               width: 40,
+              //               height: 34,
+              //               padding: const EdgeInsets.symmetric(
+              //                   horizontal: 10, vertical: 6),
+              //               margin: const EdgeInsets.only(right: 12, bottom: 12),
+              //               decoration: BoxDecoration(
+              //                 color: setBackgroundColor(
+              //                     widget.viewSeatSelectionListItem?[index]
+              //                         .available,
+              //                     widget.viewSeatSelectionListItem?[index].slot
+              //                         .toString(),
+              //                     widget.viewSeatSelectionListItem?[index].seat
+              //                         .toString()),
+              //                 border: Border.all(
+              //                     color: setBorderColor(
+              //                         widget.viewSeatSelectionListItem?[index]
+              //                             .available,
+              //                         widget
+              //                             .viewSeatSelectionListItem?[index].slot
+              //                             .toString(),
+              //                         widget
+              //                             .viewSeatSelectionListItem?[index].seat
+              //                             .toString()),
+              //                     width: 1.0),
+              //               ),
+              //               child: Center(
+              //                 child: Text(
+              //                   'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
+              //                   style: const TextStyle(
+              //                     fontSize: 14,
+              //                     // color: widget.viewSeatSelectionListItem?[index].available == false
+              //                     //     ? CustomColors.textColor3 : CustomColors.whiteColor,
+              //                     color: CustomColors.blackColor,
+              //                     fontFamily: 'Regular',
+              //                   ),
+              //                 ),
+              //               ),
+              //             );
+              //           }),
+              //     )
+              //   ],
+              // )
+
+
+
+        ),
+        );
   }
 
   setBackgroundColor(bool? availableStatus, String? slot, String? seat) {
-    debugPrint("slot ====> $slot");
-    debugPrint("seat ====> $seat");
-
+    // debugPrint("slot ====> $slot");
+    // debugPrint("seat ====> $seat");
 
     if (availableStatus == false) {
       return CustomColors.borderColor;
     } else {
-      if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
+      if (widget.usageTimeSelectedValue == slot &&
+          widget.selectedSeatsValue == seat) {
         return CustomColors.textColor9;
       } else {
         return CustomColors.whiteColor;
@@ -113,13 +225,12 @@ class _ViewSeatSelectionScreenState extends State<ViewSeatSelectionScreen> {
     if (availableStatus == false) {
       return CustomColors.borderColor;
     } else {
-      if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
+      if (widget.usageTimeSelectedValue == slot &&
+          widget.selectedSeatsValue == seat) {
         return CustomColors.textColor9;
       } else {
         return CustomColors.textColor9;
       }
     }
   }
-
-
 }
