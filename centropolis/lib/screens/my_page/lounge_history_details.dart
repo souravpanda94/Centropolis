@@ -36,6 +36,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
   late FToast fToast;
   bool isLoading = false;
   LoungeHistoryDetailModel? loungeHistoryDetailModel;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -68,7 +69,8 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("loungeReservation"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -434,6 +436,9 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showConfirmationModal(responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
@@ -466,7 +471,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

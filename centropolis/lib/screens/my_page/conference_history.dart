@@ -122,7 +122,11 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                           conferenceListItem?[index]
                                               .conferenceId),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadConferenceHistoryList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(

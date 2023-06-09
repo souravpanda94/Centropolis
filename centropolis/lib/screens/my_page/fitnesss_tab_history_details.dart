@@ -33,6 +33,7 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
   late FToast fToast;
   bool isLoading = false;
   FitnessHistoryDetailModel? fitnessHistoryDetailModel;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -66,7 +67,8 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("fitnessReservation"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -455,6 +457,9 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showConfirmationModal(responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
@@ -487,7 +492,7 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

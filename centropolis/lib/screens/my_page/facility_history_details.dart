@@ -17,6 +17,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
 
 class FacilityHistoryDetails extends StatefulWidget {
   final String id;
@@ -31,6 +32,7 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
   late FToast fToast;
   bool isLoading = false;
   SleepingRoomHistoryDetailModel? sleepingRoomHistoryDetailModel;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -64,7 +66,8 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("sleepingRoomReservation"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -348,7 +351,9 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                 padding: const EdgeInsets.only(
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      networkCheckForCancelReservation();
+                    },
                     buttonBorderColor:
                         sleepingRoomHistoryDetailModel?.status == "Approved"
                             ? CustomColors.dividerGreyColor.withOpacity(0.3)
@@ -420,5 +425,80 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
         isLoading = false;
       });
     });
+  }
+
+  void networkCheckForCancelReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callCancelReservationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callCancelReservationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "reservation_id": widget.id.toString().trim(), //required
+    };
+
+    debugPrint("Sleeping room cancel reservation input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.sleepingRoomHistoryDetailCancelReservationUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Sleeping room cancel reservation ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
+          showConfirmationModal(responseJson['message'].toString());
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showConfirmationModal(String text) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: text,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

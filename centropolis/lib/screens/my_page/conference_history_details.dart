@@ -34,6 +34,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
   late FToast fToast;
   bool isLoading = false;
   ConferenceHistoryDetailModel? conferenceHistoryDetails;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -67,7 +68,8 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("conferenceRoomReservation"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -454,6 +456,9 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showReservationModal(responseJson['message']);
         } else {
           if (responseJson['message'] != null) {
@@ -486,7 +491,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},

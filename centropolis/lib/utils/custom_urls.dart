@@ -117,6 +117,8 @@ class ApiEndPoint {
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
   static String fitnessHistoryDetailCancelReservationUrl =
       "${baseUrl}v1/mypage/fitness-reservation-cancel";
+  static String sleepingRoomHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/sleeping-reservation-cancel";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =
