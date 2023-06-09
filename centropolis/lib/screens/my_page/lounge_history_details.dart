@@ -300,37 +300,50 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.whiteColor,
-          padding:
-              const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
-          child: CommonButtonWithBorder(
-              onCommonButtonTap: () {
-                if (loungeHistoryDetailModel?.status.toString() == "using" ||
-                    loungeHistoryDetailModel?.status.toString() == "rejected" ||
-                    loungeHistoryDetailModel?.status.toString() == "used") {
-                } else {
-                  networkCheckForCancelReservation();
-                }
-              },
-              buttonBorderColor:
-                  loungeHistoryDetailModel?.status.toString() == "using" ||
+        bottomSheet: loungeHistoryDetailModel?.canCancel
+                    .toString()
+                    .toLowerCase()
+                    .trim() ==
+                "y"
+            ? Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.only(
+                    left: 16, top: 16, right: 16, bottom: 40),
+                child: CommonButtonWithBorder(
+                    onCommonButtonTap: () {
+                      if (loungeHistoryDetailModel?.status.toString() ==
+                              "using" ||
                           loungeHistoryDetailModel?.status.toString() ==
                               "rejected" ||
-                          loungeHistoryDetailModel?.status.toString() == "used"
-                      ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                      : CustomColors.dividerGreyColor,
-              buttonColor: CustomColors.whiteColor,
-              buttonName: tr("cancelReservation"),
-              buttonTextColor:
-                  loungeHistoryDetailModel?.status.toString() == "using" ||
                           loungeHistoryDetailModel?.status.toString() ==
-                              "rejected" ||
-                          loungeHistoryDetailModel?.status.toString() == "used"
-                      ? CustomColors.textColor5.withOpacity(0.3)
-                      : CustomColors.textColor5),
-        ),
+                              "used") {
+                      } else {
+                        networkCheckForCancelReservation();
+                      }
+                    },
+                    buttonBorderColor:
+                        loungeHistoryDetailModel?.status.toString() ==
+                                    "using" ||
+                                loungeHistoryDetailModel?.status.toString() ==
+                                    "rejected" ||
+                                loungeHistoryDetailModel?.status.toString() ==
+                                    "used"
+                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                            : CustomColors.dividerGreyColor,
+                    buttonColor: CustomColors.whiteColor,
+                    buttonName: tr("cancelReservation"),
+                    buttonTextColor: loungeHistoryDetailModel?.status
+                                    .toString() ==
+                                "using" ||
+                            loungeHistoryDetailModel?.status.toString() ==
+                                "rejected" ||
+                            loungeHistoryDetailModel?.status.toString() ==
+                                "used"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
+              )
+            : null,
       ),
     );
   }

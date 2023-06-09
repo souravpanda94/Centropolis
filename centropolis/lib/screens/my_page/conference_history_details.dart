@@ -330,7 +330,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: conferenceHistoryDetails?.canCancel == "y"
+        bottomSheet: conferenceHistoryDetails?.canCancel
+                    .toString()
+                    .toLowerCase()
+                    .trim() ==
+                "y"
             ? Container(
                 width: MediaQuery.of(context).size.width,
                 color: CustomColors.whiteColor,

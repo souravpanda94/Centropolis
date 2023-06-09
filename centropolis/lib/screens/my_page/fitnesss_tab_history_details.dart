@@ -17,6 +17,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
 
 class FitnessTabHistoryDetails extends StatefulWidget {
   final String reservationId;
@@ -347,7 +348,9 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                 padding: const EdgeInsets.only(
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {},
+                    onCommonButtonTap: () {
+                      networkCheckForCancelReservation();
+                    },
                     buttonBorderColor:
                         fitnessHistoryDetailModel?.status.toString() ==
                                 "Approved"
@@ -418,5 +421,77 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
         isLoading = false;
       });
     });
+  }
+
+  void networkCheckForCancelReservation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callCancelReservationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callCancelReservationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "reservation_id": widget.reservationId.toString().trim(), //required
+    };
+
+    debugPrint("Fitness cancel reservation input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.fitnessHistoryDetailCancelReservationUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Fitness cancel reservation ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          showConfirmationModal(responseJson['message'].toString());
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showConfirmationModal(String text) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: text,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }
