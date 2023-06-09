@@ -23,9 +23,6 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 
-
-
-
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
 
@@ -58,6 +55,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<dynamic> selectedSeatList = [];
   String reservationDate = "";
   List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
+  List<ViewSeatSelectionModel> viewSeatSelectionListLatest = [];
   List<dynamic> timeSlotList = [];
 
   @override
@@ -1092,8 +1090,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             });
             loadSelectedSeatList();
 
-            for(int i= 0; i< usageTimeList.length ; i++){
-              if(usageTimeList.length-1 != i) {
+            for (int i = 0; i < usageTimeList.length; i++) {
+              if (usageTimeList.length - 1 != i) {
                 timeSlotList.add('${usageTimeList[i]}-${usageTimeList[i + 1]}');
               }
               // else{
@@ -1441,15 +1439,15 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void goToViewSeatSelectionScreen() {
-    if(usageTimeSelectedValue == null){
-      if(usageTimeList.isNotEmpty) {
+    if (usageTimeSelectedValue == null) {
+      if (usageTimeList.isNotEmpty) {
         setState(() {
           usageTimeSelectedValue = usageTimeList.first.toString();
         });
       }
     }
-    if(selectedSeatsValue == null){
-      if(usageTimeList.isNotEmpty) {
+    if (selectedSeatsValue == null) {
+      if (usageTimeList.isNotEmpty) {
         setState(() {
           selectedSeatsValue = selectedSeatList.first['seat'].toString();
         });
@@ -1457,11 +1455,46 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
 
 
+
+    for (int i = 0; i < viewSeatSelectionListItem!.length; i++) {
+      debugPrint("i ===> $i");
+      debugPrint("viewSeatSelectionListItem length ===> ${viewSeatSelectionListItem!.length}");
+
+      if (i < viewSeatSelectionListItem!.length-1) {
+        if (viewSeatSelectionListItem?[i].seat !=
+            viewSeatSelectionListItem?[i + 1].seat) {
+          int? seatValue = viewSeatSelectionListItem?[i].seat;
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(
+              seat: seatValue, available: true, slot: "");
+          viewSeatSelectionListLatest.insert(i, model);
+        } else {
+          int? seatValue = viewSeatSelectionListItem?[i].seat;
+          bool? available = viewSeatSelectionListItem?[i].available;
+          String? slot = viewSeatSelectionListItem?[i].slot;
+
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(
+              seat: seatValue, available: available, slot: slot);
+          viewSeatSelectionListLatest.insert(i, model);
+        }
+      } else {
+        int? seatValue = viewSeatSelectionListItem?[i].seat;
+        ViewSeatSelectionModel model =
+            ViewSeatSelectionModel(seat: seatValue, available: true, slot: "");
+        viewSeatSelectionListLatest.add(model);
+      }
+    }
+
+
+
+
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => ViewSeatSelectionScreen(
-            viewSeatSelectionListItem, timeSlotList,selectedSeatList,usageTimeSelectedValue,
+            viewSeatSelectionListLatest,
+            timeSlotList,
+            selectedSeatList,
+            usageTimeSelectedValue,
             selectedSeatsValue),
       ),
     );
