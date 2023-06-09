@@ -391,7 +391,7 @@ class _ViewVisitReservationScreenState
                 child: Text(
                   item["text"],
                   style: const TextStyle(
-                    color: CustomColors.textColor5,
+                    color: CustomColors.textColorBlack2,
                     fontSize: 12,
                     fontFamily: 'SemiBold',
                   ),
@@ -528,14 +528,8 @@ class _ViewVisitReservationScreenState
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "approved" ||
-        status == "request_for_approval" ||
-        status == "visit_completed") {
-      return CustomColors.backgroundColor;
-    } else if (status == "request_for_approval") {
+    if (status == "rejected" || status == "cancelled") {
       return CustomColors.backgroundColor3;
-    } else if (status == "rejected" || status == "cancelled") {
-      return CustomColors.backgroundColor4;
     } else {
       return CustomColors.backgroundColor;
     }
@@ -543,13 +537,9 @@ class _ViewVisitReservationScreenState
 
   Color setStatusTextColor(String? status) {
     if (status == "visit_completed") {
-      return CustomColors.textGreyColor;
-    }
-    // else if (status == "request_for_approval") {
-    //   return CustomColors.textColor9;
-    // }
-    else if (status == "rejected" || status == "cancelled") {
-      return CustomColors.headingColor;
+      return CustomColors.textColor3;
+    } else if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
     } else {
       return CustomColors.textColorBlack2;
     }

@@ -112,10 +112,10 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                         },
                         child: SizedBox(
                           child: SvgPicture.asset(
-                            'assets/images/ic_drawer.svg',
+                            'assets/images/ic_list.svg',
                             semanticsLabel: 'Back',
-                            width: 25,
-                            height: 25,
+                            width: 20,
+                            height: 20,
                             alignment: Alignment.center,
                           ),
                         ),
@@ -416,14 +416,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "approved" ||
-        status == "request_for_approval" ||
-        status == "visit_completed") {
-      return CustomColors.backgroundColor;
-    } else if (status == "request_for_approval") {
+    if (status == "rejected" || status == "cancelled") {
       return CustomColors.backgroundColor3;
-    } else if (status == "rejected" || status == "cancelled") {
-      return CustomColors.backgroundColor4;
     } else {
       return CustomColors.backgroundColor;
     }
@@ -431,13 +425,9 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
 
   Color setStatusTextColor(String? status) {
     if (status == "visit_completed") {
-      return CustomColors.textGreyColor;
-    }
-    // else if (status == "request_for_approval") {
-    //   return CustomColors.textColor9;
-    // }
-    else if (status == "rejected" || status == "cancelled") {
-      return CustomColors.headingColor;
+      return CustomColors.textColor3;
+    } else if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
     } else {
       return CustomColors.textColorBlack2;
     }

@@ -344,8 +344,8 @@
   "tnc": "이용 약관에 동의해 주세요",
   "conferenceDescriptionValidation": "상세 정보를 입력해 주세요",
   "conferenceDescriptionLengthValidation": "최소 1자에서 최대 150자 내로 입력해 주세요",
-  "seatValidation": "Please Select correct seat number",
-  "lockerValidation": "Please Select correct locker number",
+  "seatValidation": "유효한 좌석 번호를 선택해 주세요",
+  "lockerValidation": "유효한 좌석 번호를 선택해 주세요",
   "tenantCompanyInformation": "입주사 정보",
   "airConditioning/Heading": "냉 / 난방 선택",
   "visitorNameValidation": "올바른 방문객 이름을 입력해 주세요",
@@ -377,6 +377,8 @@
   "ptReservationHistory": "유료 PT 예약",
   "fitnessReservationHistory": "피트니스 예약",
   "paidLockerReservationHistory": "유료 라커 예약",
+  "paidPtValidation": "최소 1일 에서 2달 전에 예약 하여야합니다",
+
 
 
 

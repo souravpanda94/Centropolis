@@ -345,7 +345,7 @@
   "conferenceDescriptionValidation": "Please write a description",
   "conferenceDescriptionLengthValidation": "Please enter min. 1 and max. 500 characters",
   "seatValidation": "Please Select correct seat number",
-  "lockerValidation": "Please Select correct locker number",
+  "lockerValidation": "Please Select correct seat number",
   "tenantCompanyInformation": "Tenant company information",
   "airConditioning/Heading": "Air conditioning / Heating",
   "visitorNameValidation": "Please enter correct visitor name",
@@ -378,6 +378,7 @@
   "ptReservationHistory": "Paid PT",
   "fitnessReservationHistory": "Fitness",
   "paidLockerReservationHistory": "Paid Lockers",
+  "paidPtValidation": "You need to reserve before 1 day to 2 months prior",
 
 
 
