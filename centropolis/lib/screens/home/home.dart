@@ -421,17 +421,17 @@ class _HomeScreenState extends State<HomeScreen> {
 
   String setHeading(type) {
     if (type == "visitorReservation") {
-      return tr("visitor");
+      return tr("visitReservationHomeHeading");
     } else if (type == "centropolisExecutive") {
-      return tr("centropolisExecutive");
+      return tr("loungeHomeHeading");
     } else if (type == "conference") {
-      return tr("conference");
+      return tr("conferenceHomeHeading");
     } else if (type == "fitness") {
-      return tr("fitness");
+      return tr("fitnessHomeHeading");
     } else if (type == "refresh") {
-      return tr("refresh");
+      return tr("refreshHomeHeading");
     } else if (type == "voc") {
-      return tr("voc");
+      return tr("vocHomeHeading");
     } else {
       return "";
     }

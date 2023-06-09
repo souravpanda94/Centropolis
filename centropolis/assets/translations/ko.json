@@ -11,7 +11,7 @@
   "loungeReservationComplete" : "라운지 예약 완료",
   "check" : "확인",
   "visitRequest" : "방문예약",
-  "voc" : "VOC",
+  "voc" : "시설관리",
   "qrCheckIn" : "QR 체크인",
   "visitReservationApplication": "방문 예약 신청",
   "today": "TODAY",
@@ -102,10 +102,10 @@
 
 
   "aditi" : "=============================Aditi SECTION=========================================",
-  "home" : "홈",
+  "home" : "HOME",
   "amenity" : "임차인 서비스",
   "visitor" : "방문 예약",
-  "myPage" : "마이페이지",
+  "myPage" : "시설관리",
   "login" : "로그인",
   "id" : "ID",
   "password" : "Password",
@@ -366,6 +366,15 @@
   "conferenceHeading":"회의실",
   "company":"회사명",
   "savevisitorDetail": "확인",
+  "krw": "월",
+  "perMonth": "원 (부가세별도)",
+  "visitReservationHomeHeading": "Visitor Reservation",
+  "loungeHomeHeading": "Centropolis Executive Lounge By HAEVICHI",
+  "conferenceHomeHeading": "Conference",
+  "fitnessHomeHeading": "Fitness",
+  "refreshHomeHeading": "Refresh",
+  "vocHomeHeading": "VOC",
+
 
 
 
