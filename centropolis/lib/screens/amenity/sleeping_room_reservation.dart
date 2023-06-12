@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 import 'package:centropolis/screens/amenity/view_seat_selection.dart';
+import 'package:centropolis/screens/amenity/view_seat_selection_modal.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -1548,19 +1549,37 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
 
 
 
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return ViewSeatSelectionModalScreen(
+              viewSeatSelectionListWithSeats,
+              timeSlotList,
+              selectedSeatList,
+              usageTimeSelectedValue,
+              selectedSeatsValue
+          );
+        });
 
 
 
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ViewSeatSelectionScreen(
-            viewSeatSelectionListWithSeats,
-            timeSlotList,
-            selectedSeatList,
-            usageTimeSelectedValue,
-            selectedSeatsValue),
-      ),
-    );
+
+
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => ViewSeatSelectionScreen(
+    //         viewSeatSelectionListWithSeats,
+    //         timeSlotList,
+    //         selectedSeatList,
+    //         usageTimeSelectedValue,
+    //         selectedSeatsValue),
+    //   ),
+    // );
+
+
+
+
   }
 }
