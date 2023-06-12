@@ -66,53 +66,56 @@ class _EmployeeListState extends State<EmployeeList> {
         color: CustomColors.blackColor,
       ),
       isLoading: isFirstLoadRunning,
-      child: employeeListItem == null || employeeListItem!.isEmpty
-          ? Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              padding: const EdgeInsets.all(24),
-              child: Text(
-                tr("noDataFound"),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: 14,
-                    color: CustomColors.textColor5),
-              ),
-            )
-          : Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            tr("total"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            child: Text(
-                              employeeListItem?.length.toString() ?? "",
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor9),
-                            ),
-                          ),
-                        ],
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      tr("total"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Text(
+                        employeeListItem?.length.toString() ?? "",
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor9),
                       ),
-                      sortingDropdownWidget(),
-                    ],
-                  ),
-                  Expanded(
+                    ),
+                  ],
+                ),
+                sortingDropdownWidget(),
+              ],
+            ),
+            employeeListItem == null || employeeListItem!.isEmpty
+                ? Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 20),
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        tr("noDataFound"),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor5),
+                      ),
+                    ),
+                  )
+                : Expanded(
                     child: ListView.builder(
                         itemCount: employeeListItem?.length,
                         itemBuilder: ((context, index) {
@@ -277,32 +280,32 @@ class _EmployeeListState extends State<EmployeeList> {
                           );
                         })),
                   ),
-                  if (page < totalPages)
-                    ViewMoreWidget(
-                      onViewMoreTap: () {
-                        loadMore();
-                      },
-                    ),
-                  CommonButton(
-                    onCommonButtonTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const AddMember(),
-                        ),
-                      ).then((value) {
-                        if (value) {
-                          loadEmployeeList();
-                        }
-                      });
-                    },
-                    buttonColor: CustomColors.buttonBackgroundColor,
-                    buttonName: tr("addMember"),
-                    isIconVisible: false,
-                  )
-                ],
+            if (page < totalPages)
+              ViewMoreWidget(
+                onViewMoreTap: () {
+                  loadMore();
+                },
               ),
-            ),
+            CommonButton(
+              onCommonButtonTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const AddMember(),
+                  ),
+                ).then((value) {
+                  if (value) {
+                    loadEmployeeList();
+                  }
+                });
+              },
+              buttonColor: CustomColors.buttonBackgroundColor,
+              buttonName: tr("addMember"),
+              isIconVisible: false,
+            )
+          ],
+        ),
+      ),
     );
   }
 
