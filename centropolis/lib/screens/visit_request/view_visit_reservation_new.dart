@@ -55,7 +55,7 @@ class _ViewVisitReservationScreenState
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    loadVisitReservationList();
+    firstTimeLoadVisitReservationList();
 
     startDate = widget.selectedStartDate;
     endDate = widget.selectedEndDate;
@@ -418,7 +418,8 @@ class _ViewVisitReservationScreenState
             endDate = "";
             currentSelectedSortingFilter = value as String;
           });
-          loadVisitReservationList();
+          firstTimeLoadVisitReservationList();
+          // loadVisitReservationList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -446,6 +447,14 @@ class _ViewVisitReservationScreenState
         ),
       ),
     );
+  }
+
+  void firstTimeLoadVisitReservationList() {
+    setState(() {
+      page = 1;
+    });
+    Provider.of<ViewVisitReservationListProvider>(context, listen: false).setEmptyVisitReservationList();
+    loadVisitReservationList();
   }
 
   void loadVisitReservationList() async {
