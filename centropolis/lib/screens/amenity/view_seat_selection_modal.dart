@@ -181,8 +181,10 @@ class _ViewSeatSelectionModalScreenState
                                   childAspectRatio: 1,
 
                                   // mainAxisExtent: 55,
-                                  mainAxisExtent: 205,
+                                  mainAxisExtent: 120,
                                   // mainAxisExtent: mainAxisExtentValue,
+
+
 
                                 ),
                                 itemCount: widget.viewSeatSelectionListItem?.length,
@@ -485,17 +487,17 @@ class _ViewSeatSelectionModalScreenState
     if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" && widget.viewSeatSelectionListItem![index].seat == 0) {
       // return 205;
       setState(() {
-        mainAxisExtentValue = 205.0;
+        mainAxisExtentValue = 120.0;
       });
     } else {
       if (widget.viewSeatSelectionListItem![index].seat! > 0 && widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         setState(() {
-          mainAxisExtentValue = 205.0;
+          mainAxisExtentValue = 55.0;
         });
       }
       else if (widget.viewSeatSelectionListItem![index].seat! == 0 && widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         setState(() {
-          mainAxisExtentValue = 205.0;
+          mainAxisExtentValue = 120.0;
         });
       }
       else{
