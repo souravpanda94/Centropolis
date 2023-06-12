@@ -166,6 +166,18 @@ class _ViewVisitReservationScreenState
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(
+                        width: 2,
+                      ),
+                      Text(
+                        tr("items"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2,
+                          fontFamily: 'SemiBold',
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
                     ],
                   ),
                   sortingDropdownWidget()

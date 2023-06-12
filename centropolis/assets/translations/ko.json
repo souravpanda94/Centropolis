@@ -381,8 +381,7 @@
   "paidPtValidation": "최소 1일 에서 2달 전에 예약 하여야합니다",
   "selectedSeat": "Selected Seat",
   "makeVisitorReservation": "방문 예약 신청",
-
-
+  "paidLockerValidation": "You need to reserve before 1 day prior",
 
 
 

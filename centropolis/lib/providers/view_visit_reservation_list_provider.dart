@@ -2,7 +2,6 @@ import 'package:flutter/foundation.dart';
 import '../models/company_model.dart';
 import '../models/visit_reservation_model.dart';
 
-
 class ViewVisitReservationListProvider extends ChangeNotifier {
   List<VisitReservationModel> visitReservationList = [];
 

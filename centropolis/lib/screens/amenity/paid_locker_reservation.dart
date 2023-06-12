@@ -364,6 +364,20 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
+        leftChevronIcon: SvgPicture.asset(
+          "assets/images/ic_back.svg",
+          width: 0,
+          height: 18,
+          color: kFirstDay.month == focusedDate.month
+              ? CustomColors.dividerGreyColor
+              : CustomColors.greyColor,
+        ),
+        rightChevronIcon: SvgPicture.asset(
+          "assets/images/ic_right_arrow.svg",
+          width: 0,
+          height: 18,
+          color: CustomColors.greyColor,
+        ),
         formatButtonVisible: false,
         titleCentered: true,
         titleTextStyle: const TextStyle(
@@ -515,7 +529,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
     } else if (focusedDate.compareTo(DateTime.now()) <= 0) {
-      showErrorModal("Reservation Date cannot be today");
+      showErrorModal(tr("paidLockerValidation"));
     } else if (selectedTime == null && timeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
     } else if (!isChecked) {

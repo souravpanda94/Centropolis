@@ -361,6 +361,20 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
                       headerStyle: HeaderStyle(
+                        leftChevronIcon: SvgPicture.asset(
+                          "assets/images/ic_back.svg",
+                          width: 0,
+                          height: 18,
+                          color: kFirstDay.month == focusedDate.month
+                              ? CustomColors.dividerGreyColor
+                              : CustomColors.greyColor,
+                        ),
+                        rightChevronIcon: SvgPicture.asset(
+                          "assets/images/ic_right_arrow.svg",
+                          width: 0,
+                          height: 18,
+                          color: CustomColors.greyColor,
+                        ),
                         formatButtonVisible: false,
                         titleCentered: true,
                         titleTextStyle: const TextStyle(
@@ -523,7 +537,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     }
     if (showIndex == 0) {
       selectedStartDate = DateTime.now();
-      selectedEndDate = DateTime.now();
+      selectedEndDate = DateTime.now().add(const Duration(days: 1));
     } else if (showIndex == 1) {
       selectedStartDate = DateTime.now();
       selectedEndDate = DateTime.now().add(const Duration(days: 7));
