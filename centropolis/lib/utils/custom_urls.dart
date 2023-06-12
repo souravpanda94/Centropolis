@@ -133,7 +133,7 @@ class ApiEndPoint {
   static String getSelectedSeatListUrl =
       "${baseUrl}v1/amenity/available-sleeping-seat";
 
-  static String withdrawalUrl = "${baseUrl}v1";
+  static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
 }
 
