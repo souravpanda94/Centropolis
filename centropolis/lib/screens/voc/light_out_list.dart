@@ -318,7 +318,9 @@ class _LightsOutListState extends State<LightsOutList> {
   void firstTimeLoadLightsOutList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<LightoutListProvider>(context, listen: false).setEmptyList();
     loadLightsOutList();
   }
 
@@ -428,7 +430,7 @@ class _LightsOutListState extends State<LightsOutList> {
             currentSelectedSortingFilter = value as String;
           });
 
-          loadLightsOutList();
+          firstTimeLoadLightsOutList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,

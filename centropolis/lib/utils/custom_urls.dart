@@ -125,6 +125,8 @@ class ApiEndPoint {
       "${baseUrl}v1/common/ac-lights-status";
   static String amenityHistoryStatusUrl =
       "${baseUrl}v1/common/reservation-status-list";
+  static String fittnessSleepingRoomHistoryStatusUrl =
+      "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

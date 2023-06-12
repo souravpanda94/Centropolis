@@ -38,7 +38,6 @@ class _InconvenienceListState extends State<InconvenienceList> {
   bool isFirstLoadRunning = true;
   List<IncovenienceListModel>? incovenienceListItem;
   String? currentSelectedSortingFilter;
-  // For dropdown list attaching
   List<dynamic>? statusList = [];
 
   @override
@@ -342,7 +341,10 @@ class _InconvenienceListState extends State<InconvenienceList> {
   void firstTimeLoadInconvenienceList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<InconvenienceListProvider>(context, listen: false)
+        .setEmptyList();
     loadInconvenienceList();
   }
 
@@ -452,7 +454,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
             currentSelectedSortingFilter = value as String;
           });
 
-          loadInconvenienceList();
+          firstTimeLoadInconvenienceList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,

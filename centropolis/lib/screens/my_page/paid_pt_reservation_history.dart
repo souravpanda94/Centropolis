@@ -38,13 +38,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
   bool isFirstLoadRunning = true;
   List<PaidPtHistoryListModel>? paidPtHistoryListItem;
   String? currentSelectedSortingFilter;
-  // For dropdown list attaching
-  List<dynamic>? sortingList = [
-    {"value": "", "text": "All"},
-    {"value": "tenant_employee", "text": "Tenant Employee"},
-    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-    {"value": "tenant_conference_employee", "text": "Conference Room"}
-  ];
+  List<dynamic>? statusList = [];
 
   @override
   void initState() {
@@ -54,6 +48,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    loadStatusList();
     firstTimeLoadPaidPtHistoryList();
   }
 
@@ -69,61 +64,64 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
         color: CustomColors.blackColor,
       ),
       isLoading: isFirstLoadRunning,
-      child: paidPtHistoryListItem == null || paidPtHistoryListItem!.isEmpty
-          ? Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              padding: const EdgeInsets.all(24),
-              child: Text(
-                tr("noReservationHistory"),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: 14,
-                    color: CustomColors.textColor5),
-              ),
-            )
-          : Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Row(
-                        children: [
-                          Text(
-                            tr("total"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            child: Text(
-                              paidPtHistoryListItem?.length.toString() ?? "",
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor9),
-                            ),
-                          ),
-                          Text(
-                            tr("items"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        ],
+      child: Container(
+        width: MediaQuery.of(context).size.width,
+        margin: const EdgeInsets.only(left: 16, right: 16, top: 20),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
+                  children: [
+                    Text(
+                      tr("total"),
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      child: Text(
+                        paidPtHistoryListItem?.length.toString() ?? "",
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor9),
                       ),
-                      sortingDropdownWidget(),
-                    ],
-                  ),
-                  Expanded(
+                    ),
+                    Text(
+                      tr("items"),
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                  ],
+                ),
+                sortingDropdownWidget(),
+              ],
+            ),
+            paidPtHistoryListItem == null || paidPtHistoryListItem!.isEmpty
+                ? Expanded(
+                    child: Container(
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 20),
+                      padding: const EdgeInsets.all(24),
+                      child: Text(
+                        tr("noReservationHistory"),
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor5),
+                      ),
+                    ),
+                  )
+                : Expanded(
                     child: ListView.builder(
                         itemCount: paidPtHistoryListItem?.length,
                         itemBuilder: ((context, index) {
@@ -338,15 +336,15 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                           );
                         })),
                   ),
-                  if (page < totalPages)
-                    ViewMoreWidget(
-                      onViewMoreTap: () {
-                        loadMore();
-                      },
-                    )
-                ],
-              ),
-            ),
+            if (page < totalPages)
+              ViewMoreWidget(
+                onViewMoreTap: () {
+                  loadMore();
+                },
+              )
+          ],
+        ),
+      ),
     );
   }
 
@@ -355,14 +353,16 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
       child: DropdownButton2(
         alignment: AlignmentDirectional.centerEnd,
         hint: Text(
-          tr('all'),
+          statusList != null && statusList!.isNotEmpty
+              ? statusList?.first["text"]
+              : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: sortingList
+        items: statusList
             ?.map(
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
@@ -382,9 +382,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
           setState(() {
             currentSelectedSortingFilter = value as String;
           });
-
-          //call API for sorting
-          //loadEmployeeList();
+          firstTimeLoadPaidPtHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -417,7 +415,10 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
   void firstTimeLoadPaidPtHistoryList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<PaidPtHistoryListProvider>(context, listen: false)
+        .setEmptyList();
     loadPaidPtHistoryList();
   }
 
@@ -433,7 +434,11 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
   void callPaidPtHistoryListApi() {
     Map<String, String> body = {
       "page": page.toString(),
-      "limit": limit.toString()
+      "limit": limit.toString(),
+      "status": currentSelectedSortingFilter != null &&
+              currentSelectedSortingFilter!.isNotEmpty
+          ? currentSelectedSortingFilter.toString().trim()
+          : "",
     };
 
     debugPrint("PaidPt History List input===> $body");
@@ -488,5 +493,51 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
       });
       loadPaidPtHistoryList();
     }
+  }
+
+  void loadStatusList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callStatusListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.amenityHistoryStatusUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              statusList = responseJson['data'];
+              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+              statusList?.insert(0, allMap);
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
   }
 }

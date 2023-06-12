@@ -22,4 +22,9 @@ class EmployeeListProvider extends ChangeNotifier {
     employeeModelList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    employeeModelList = [];
+    // notifyListeners();
+  }
 }

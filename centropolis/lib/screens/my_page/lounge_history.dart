@@ -323,7 +323,10 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   void firstTimeLoadLoungeHistoryList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<ExecutiveLoungeHistoryProvider>(context, listen: false)
+        .setEmptyList();
     loadLoungeHistoryList();
   }
 
@@ -340,10 +343,10 @@ class _LoungeHistoryState extends State<LoungeHistory> {
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
-      // "status": currentSelectedSortingFilter != null &&
-      //         currentSelectedSortingFilter!.isNotEmpty
-      //     ? currentSelectedSortingFilter.toString().trim()
-      //     : "",
+      "status": currentSelectedSortingFilter != null &&
+              currentSelectedSortingFilter!.isNotEmpty
+          ? currentSelectedSortingFilter.toString().trim()
+          : "",
     };
 
     debugPrint("Lounge History List input===> $body");
@@ -438,7 +441,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
           setState(() {
             currentSelectedSortingFilter = value as String;
           });
-          loadLoungeHistoryList();
+          firstTimeLoadLoungeHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,

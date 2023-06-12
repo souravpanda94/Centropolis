@@ -22,4 +22,9 @@ class LightoutListProvider extends ChangeNotifier {
     lightoutModelList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    lightoutModelList = [];
+    // notifyListeners();
+  }
 }

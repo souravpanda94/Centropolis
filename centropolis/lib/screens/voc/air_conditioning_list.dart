@@ -365,7 +365,10 @@ class _AirConditioningListState extends State<AirConditioningList> {
   void firstTimeLoadAirConditioningList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<AirConditioningListProvider>(context, listen: false)
+        .setEmptyList();
     loadAirConditioningList();
   }
 
@@ -478,7 +481,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
             currentSelectedSortingFilter = value as String;
           });
 
-          loadAirConditioningList();
+          firstTimeLoadAirConditioningList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,

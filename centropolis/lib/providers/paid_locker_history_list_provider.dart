@@ -23,4 +23,9 @@ class PaidLockerHistoryListProvider extends ChangeNotifier {
     paidLockerHistoryList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    paidLockerHistoryList = [];
+    // notifyListeners();
+  }
 }
