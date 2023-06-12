@@ -162,7 +162,7 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                                   height: 8,
                                 ),
                                 Text(
-                                  "KRW ${gxHistoryDetailModel?.usageAmount.toString() ?? ""} per month (excluding tax)",
+                                  "${tr("krw")} ${formatNumberString(gxHistoryDetailModel?.usageAmount.toString() ?? "")} ${tr("perMonth")}",
                                   style: const TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 14,

@@ -141,7 +141,11 @@ class _FitnessTabReservationHistoryState
                                                       .toString() ??
                                                   ""),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadFitnessHistoryList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(

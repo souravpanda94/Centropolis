@@ -61,6 +61,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
@@ -259,7 +261,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                     padding: const EdgeInsets.only(top: 16),
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 5),
@@ -285,15 +287,25 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         const SizedBox(
                           width: 9,
                         ),
-                        Expanded(
-                          child: Text(
-                            tr("loungeReservationConsent"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        )
+                        myLocale.toString() == "ko"
+                            ? Padding(
+                                padding: const EdgeInsets.only(top: 3),
+                                child: Text(
+                                  tr("loungeReservationConsent"),
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              )
+                            : Expanded(
+                                child: Text(
+                                tr("loungeReservationConsent"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ))
                       ],
                     ),
                   ),
@@ -682,6 +694,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,

@@ -135,7 +135,11 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                           .reservationId
                                           .toString()),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadSleepingRoomHistoryList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -204,7 +208,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                                             ? CustomColors
                                                                 .redColor
                                                             : CustomColors
-                                                                .textColorBlack2,
+                                                                .backgroundColor,
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),

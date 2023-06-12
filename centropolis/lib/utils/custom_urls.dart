@@ -115,6 +115,10 @@ class ApiEndPoint {
   static String coolingHeatingTypeListUrl =
       "${baseUrl}v1/common/ac-inquiry-type-list";
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
+  static String fitnessHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/fitness-reservation-cancel";
+  static String sleepingRoomHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/sleeping-reservation-cancel";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =
@@ -124,9 +128,13 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/app-visitor-reservation";
   static String visitTimeListUrl = "${baseUrl}v1/common/visit-time";
   static String visitPurposeListUrl = "${baseUrl}v1/common/visit-purpose";
+  static String getViewSeatSelectionListUrl =
+      "${baseUrl}v1/amenity/sleeping-seat";
+  static String getSelectedSeatListUrl =
+      "${baseUrl}v1/amenity/available-sleeping-seat";
 
-  static String withdrawalUrl = "${baseUrl}v1";
-  static String logoutUrl = "${baseUrl}v1";
+  static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
+  static String logoutUrl = "${baseUrl}v1/logout";
 }
 
 class WebViewLinks {

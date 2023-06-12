@@ -355,6 +355,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,
@@ -514,7 +515,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
     } else if (focusedDate.compareTo(DateTime.now()) <= 0) {
-      showErrorModal("Reservation Date cannot be today");
+      showErrorModal(tr("paidLockerValidation"));
     } else if (selectedTime == null && timeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
     } else if (!isChecked) {

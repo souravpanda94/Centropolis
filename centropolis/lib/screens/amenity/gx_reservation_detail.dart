@@ -168,7 +168,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                             height: 8,
                           ),
                           Text(
-                            widget.gxReservationItem.totalPrice.toString(),
+                            "${tr("krw")} ${formatNumberString(widget.gxReservationItem.totalPrice.toString())} ${tr("perMonth")}",
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
@@ -228,7 +228,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                             height: 8,
                           ),
                           Text(
-                            "${widget.gxReservationItem.appliedNop.toString()}/${widget.gxReservationItem.totalNop.toString()}",
+                            "${widget.gxReservationItem.appliedNop.toString()} / ${widget.gxReservationItem.totalNop.toString()}",
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,

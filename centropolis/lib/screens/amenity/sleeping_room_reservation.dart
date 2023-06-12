@@ -1,8 +1,9 @@
 import 'dart:convert';
 import 'dart:math';
-
+import 'package:centropolis/screens/amenity/view_seat_selection.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -10,8 +11,9 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
-
+import '../../models/view_seat_selection_model.dart';
 import '../../providers/user_provider.dart';
+import '../../providers/view_seat_selection_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
@@ -46,10 +48,16 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   String type = "female";
   String? usageTimeSelectedValue;
   String? totalTimeSelectedValue;
+  String? selectedSeatsValue;
   var dateFormat = DateFormat('yyyy-MM-dd');
   List<dynamic> usageTimeList = [];
   List<dynamic> totalUsageTimeList = [];
+  List<dynamic> selectedSeatList = [];
   String reservationDate = "";
+  List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
+  List<ViewSeatSelectionModel> viewSeatSelectionListWithTimeSlot = [];
+  List<ViewSeatSelectionModel> viewSeatSelectionListWithSeats = [];
+  List<dynamic> timeSlotList = [];
 
   @override
   void initState() {
@@ -63,14 +71,20 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     mobile = user.userData['mobile'].toString();
     name = user.userData['name'].toString();
     companyName = user.userData['company_name'].toString();
+    debugPrint("Api key ===> $apiKey");
     loadTimeList();
     loadTotalUsageTimeList();
-    setListData();
-    setFemaleListData();
+    loadViewSeatSelectionList();
+
+    // setListData();
+    // setFemaleListData();
   }
 
   @override
   Widget build(BuildContext context) {
+    viewSeatSelectionListItem = Provider.of<ViewSeatSelectionProvider>(context)
+        .getViewSeatSelectionList;
+
     return Scaffold(
       backgroundColor: CustomColors.backgroundColor,
       appBar: PreferredSize(
@@ -95,105 +109,107 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, top: 16, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    tr("seatSelection"),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: CustomColors.textColor8,
-                      fontFamily: 'SemiBold',
-                    ),
-                  ),
-                  Row(
-                    children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.square,
-                            size: 15,
-                            color: CustomColors.textColor9,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            tr("select"),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.greyColor1,
-                              fontFamily: 'Regular',
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.square_outlined,
-                            size: 15,
-                            color: CustomColors.textColor9,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            tr("selectable"),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.greyColor1,
-                              fontFamily: 'Regular',
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 8,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.square,
-                            size: 15,
-                            color: CustomColors.borderColor,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            tr("closed"),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.greyColor1,
-                              fontFamily: 'Regular',
-                            ),
-                          )
-                        ],
-                      )
-                    ],
-                  )
-                ],
-              ),
-            ),
-            seatSelectionWidget(),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.whiteColor,
-              height: 10,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
+            // Container(
+            //   color: CustomColors.whiteColor,
+            //   padding: const EdgeInsets.only(
+            //       left: 16, right: 16, top: 16, bottom: 8),
+            //   child: Row(
+            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //     children: [
+            //       Text(
+            //         tr("seatSelection"),
+            //         style: const TextStyle(
+            //           fontSize: 16,
+            //           color: CustomColors.textColor8,
+            //           fontFamily: 'SemiBold',
+            //         ),
+            //       ),
+            //       Row(
+            //         children: [
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.square,
+            //                 size: 15,
+            //                 color: CustomColors.textColor9,
+            //               ),
+            //               const SizedBox(
+            //                 width: 4,
+            //               ),
+            //               Text(
+            //                 tr("select"),
+            //                 style: const TextStyle(
+            //                   fontSize: 12,
+            //                   color: CustomColors.greyColor1,
+            //                   fontFamily: 'Regular',
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //           const SizedBox(
+            //             width: 8,
+            //           ),
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.square_outlined,
+            //                 size: 15,
+            //                 color: CustomColors.textColor9,
+            //               ),
+            //               const SizedBox(
+            //                 width: 4,
+            //               ),
+            //               Text(
+            //                 tr("selectable"),
+            //                 style: const TextStyle(
+            //                   fontSize: 12,
+            //                   color: CustomColors.greyColor1,
+            //                   fontFamily: 'Regular',
+            //                 ),
+            //               )
+            //             ],
+            //           ),
+            //           const SizedBox(
+            //             width: 8,
+            //           ),
+            //           Row(
+            //             children: [
+            //               const Icon(
+            //                 Icons.square,
+            //                 size: 15,
+            //                 color: CustomColors.borderColor,
+            //               ),
+            //               const SizedBox(
+            //                 width: 4,
+            //               ),
+            //               Text(
+            //                 tr("closed"),
+            //                 style: const TextStyle(
+            //                   fontSize: 12,
+            //                   color: CustomColors.greyColor1,
+            //                   fontFamily: 'Regular',
+            //                 ),
+            //               )
+            //             ],
+            //           )
+            //         ],
+            //       )
+            //     ],
+            //   ),
+            // ),
+            // seatSelectionWidget(),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   color: CustomColors.whiteColor,
+            //   height: 10,
+            // ),
+            // Container(
+            //   width: MediaQuery.of(context).size.width,
+            //   color: CustomColors.backgroundColor,
+            //   height: 10,
+            // ),
+            //
+
             Container(
               color: CustomColors.whiteColor,
               width: MediaQuery.of(context).size.width,
@@ -306,12 +322,29 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          tr("timeSelection"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              tr("timeSelection"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                goToViewSeatSelectionScreen();
+                              },
+                              child: Text(
+                                tr("viewSeatSelection"),
+                                style: const TextStyle(
+                                    fontFamily: 'Medium',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor9),
+                              ),
+                            )
+                          ],
                         ),
                         const SizedBox(
                           height: 24,
@@ -341,6 +374,41 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                           height: 8,
                         ),
                         totalUsageDropdownWidget(),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    margin: const EdgeInsets.only(top: 16),
+                    height: 10,
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("seatSelection"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Text(
+                          tr("selectSeats"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        selectSeatsDropdownWidget(),
                       ],
                     ),
                   ),
@@ -426,29 +494,212 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
-  void setListData() {
-    List<String> names = [tr("selectable"), tr("closed")];
+  // void setListData() {
+  //   List<String> names = [tr("selectable"), tr("closed")];
+  //
+  //   listData.clear();
+  //   for (int i = 1; i <= 15; i++) {
+  //     final random = Random();
+  //     String element = names[random.nextInt(names.length)];
+  //     listData.add(element);
+  //   }
+  // }
+  //
+  // void setFemaleListData() {
+  //   List<String> names = [tr("selectable"), tr("closed")];
+  //
+  //   femaleListData.clear();
+  //   for (int i = 16; i <= 20; i++) {
+  //     final random = Random();
+  //     String element = names[random.nextInt(names.length)];
+  //     femaleListData.add(element);
+  //   }
+  // }
+  // seatSelectionWidget() {
+  //   return Visibility(
+  //     visible: type == "male",
+  //     replacement: Container(
+  //       height: 116,
+  //       width: MediaQuery.of(context).size.width,
+  //       color: CustomColors.backgroundColor,
+  //       margin: const EdgeInsets.only(left: 16, right: 16),
+  //       padding:
+  //           const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
+  //       child: Column(
+  //         children: [
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(
+  //                 tr("sleepingRoom(Female)"),
+  //                 style: const TextStyle(
+  //                   fontSize: 14,
+  //                   color: CustomColors.textColorBlack2,
+  //                   fontFamily: 'SemiBold',
+  //                 ),
+  //               ),
+  //               const Text(
+  //                 "Total 5 seats",
+  //                 style: TextStyle(
+  //                   fontSize: 12,
+  //                   color: CustomColors.greyColor1,
+  //                   fontFamily: 'Regular',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 16,
+  //           ),
+  //           GridView.builder(
+  //               scrollDirection: Axis.vertical,
+  //               shrinkWrap: true,
+  //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //                 crossAxisCount: 5,
+  //                 childAspectRatio: 1,
+  //                 mainAxisExtent: 45,
+  //               ),
+  //               itemCount: femaleListData.length,
+  //               itemBuilder: (BuildContext ctx, index) {
+  //                 return InkWell(
+  //                     onTap: () {
+  //                       if (femaleListData[index] == tr("selectable")) {
+  //                         setState(() {
+  //                           selected = true;
+  //                           selectedIndex = index;
+  //                         });
+  //                       }
+  //                     },
+  //                     child: Container(
+  //                       width: 50,
+  //                       height: 34,
+  //                       padding: const EdgeInsets.symmetric(
+  //                           horizontal: 10, vertical: 6),
+  //                       margin: const EdgeInsets.only(right: 15, bottom: 12),
+  //                       decoration: BoxDecoration(
+  //                         color: femaleListData[index] == tr("closed")
+  //                             ? CustomColors.borderColor
+  //                             : selected && selectedIndex == index
+  //                                 ? CustomColors.textColor9
+  //                                 : CustomColors.whiteColor,
+  //                         border: Border.all(
+  //                             color: femaleListData[index] == tr("closed")
+  //                                 ? CustomColors.borderColor
+  //                                 : CustomColors.textColor9,
+  //                             width: 1.0),
+  //                       ),
+  //                       child: Center(
+  //                         child: Text(
+  //                           (index + 16).toString(),
+  //                           style: TextStyle(
+  //                             fontSize: 14,
+  //                             color: femaleListData[index] == tr("closed")
+  //                                 ? CustomColors.textColor3
+  //                                 : selected && selectedIndex == index
+  //                                     ? CustomColors.whiteColor
+  //                                     : CustomColors.textColor9,
+  //                             fontFamily: 'Regular',
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ));
+  //               }),
+  //         ],
+  //       ),
+  //     ),
+  //     child: Container(
+  //       height: 210,
+  //       width: MediaQuery.of(context).size.width,
+  //       color: CustomColors.backgroundColor,
+  //       margin: const EdgeInsets.only(left: 16, right: 16),
+  //       padding:
+  //           const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
+  //       child: Column(
+  //         children: [
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+  //             children: [
+  //               Text(
+  //                 tr("sleepingRoom(Male)"),
+  //                 style: const TextStyle(
+  //                   fontSize: 14,
+  //                   color: CustomColors.textColorBlack2,
+  //                   fontFamily: 'SemiBold',
+  //                 ),
+  //               ),
+  //               const Text(
+  //                 "Total 15 seats",
+  //                 style: TextStyle(
+  //                   fontSize: 12,
+  //                   color: CustomColors.greyColor1,
+  //                   fontFamily: 'Regular',
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(
+  //             height: 16,
+  //           ),
+  //           GridView.builder(
+  //               scrollDirection: Axis.vertical,
+  //               shrinkWrap: true,
+  //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+  //                 crossAxisCount: 5,
+  //                 childAspectRatio: 1,
+  //                 mainAxisExtent: 45,
+  //               ),
+  //               itemCount: listData.length,
+  //               itemBuilder: (BuildContext ctx, index) {
+  //                 return InkWell(
+  //                     onTap: () {
+  //                       if (listData[index] == tr("selectable")) {
+  //                         setState(() {
+  //                           selected = true;
+  //                           selectedIndex = index;
+  //                         });
+  //                       }
+  //                     },
+  //                     child: Container(
+  //                       width: 50,
+  //                       height: 34,
+  //                       padding: const EdgeInsets.symmetric(
+  //                           horizontal: 10, vertical: 6),
+  //                       margin: const EdgeInsets.only(right: 15, bottom: 12),
+  //                       decoration: BoxDecoration(
+  //                         color: listData[index] == tr("closed")
+  //                             ? CustomColors.borderColor
+  //                             : selected && selectedIndex == index
+  //                                 ? CustomColors.textColor9
+  //                                 : CustomColors.whiteColor,
+  //                         border: Border.all(
+  //                             color: listData[index] == tr("closed")
+  //                                 ? CustomColors.borderColor
+  //                                 : CustomColors.textColor9,
+  //                             width: 1.0),
+  //                       ),
+  //                       child: Center(
+  //                         child: Text(
+  //                           (index + 1).toString(),
+  //                           style: TextStyle(
+  //                             fontSize: 14,
+  //                             color: listData[index] == tr("closed")
+  //                                 ? CustomColors.textColor3
+  //                                 : selected && selectedIndex == index
+  //                                     ? CustomColors.whiteColor
+  //                                     : CustomColors.textColor9,
+  //                             fontFamily: 'Regular',
+  //                           ),
+  //                         ),
+  //                       ),
+  //                     ));
+  //               }),
+  //         ],
+  //       ),
+  //     ),
+  //   );
+  // }
 
-    listData.clear();
-    for (int i = 1; i <= 15; i++) {
-      final random = Random();
-      String element = names[random.nextInt(names.length)];
-      listData.add(element);
-    }
-  }
-
-  void setFemaleListData() {
-    List<String> names = [tr("selectable"), tr("closed")];
-
-    femaleListData.clear();
-    for (int i = 16; i <= 20; i++) {
-      final random = Random();
-      String element = names[random.nextInt(names.length)];
-      femaleListData.add(element);
-    }
-  }
-
-  usageTimeDropdownWidget() {
+  Widget usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -491,6 +742,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           setState(() {
             usageTimeSelectedValue = value as String;
           });
+          loadSelectedSeatList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -536,7 +788,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
-  totalUsageDropdownWidget() {
+  Widget totalUsageDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -581,6 +833,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           setState(() {
             totalTimeSelectedValue = value.toString();
           });
+          loadSelectedSeatList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -626,8 +879,97 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
+  Widget selectSeatsDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          // usageTimeList.isNotEmpty ? usageTimeList.first : tr("pleaseSelectSeat"),
+          tr("pleaseSelectSeat"),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: selectedSeatList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item['seat'].toString(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        child: Text(
+                          item['seat'].toString(),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: Colors.grey,
+                      )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: selectedSeatsValue,
+        onChanged: (value) {
+          setState(() {
+            selectedSeatsValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(bottom: selectedSeatsValue != null ? 16 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 53,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 16,
+                right: 16,
+                left: selectedSeatsValue != null ? 0 : 16,
+                bottom: selectedSeatsValue != null ? 0 : 16),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          padding: EdgeInsets.all(0),
+          height: 53,
+        ),
+      ),
+    );
+  }
+
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,
@@ -702,6 +1044,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           focusedDate = focusedDay;
           selectedDate = selectedDay;
         });
+        loadViewSeatSelectionList();
       },
       onFormatChanged: (format) {
         if (selectedCalendarFormat != format) {
@@ -715,190 +1058,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           focusedDate = focusedDay;
         });
       },
-    );
-  }
-
-  seatSelectionWidget() {
-    return Visibility(
-      visible: type == "male",
-      replacement: Container(
-        height: 116,
-        width: MediaQuery.of(context).size.width,
-        color: CustomColors.backgroundColor,
-        margin: const EdgeInsets.only(left: 16, right: 16),
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  tr("sleepingRoom(Female)"),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: CustomColors.textColorBlack2,
-                    fontFamily: 'SemiBold',
-                  ),
-                ),
-                const Text(
-                  "Total 5 seats",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: CustomColors.greyColor1,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            GridView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  childAspectRatio: 1,
-                  mainAxisExtent: 45,
-                ),
-                itemCount: femaleListData.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return InkWell(
-                      onTap: () {
-                        if (femaleListData[index] == tr("selectable")) {
-                          setState(() {
-                            selected = true;
-                            selectedIndex = index;
-                          });
-                        }
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 34,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
-                        margin: const EdgeInsets.only(right: 15, bottom: 12),
-                        decoration: BoxDecoration(
-                          color: femaleListData[index] == tr("closed")
-                              ? CustomColors.borderColor
-                              : selected && selectedIndex == index
-                                  ? CustomColors.textColor9
-                                  : CustomColors.whiteColor,
-                          border: Border.all(
-                              color: femaleListData[index] == tr("closed")
-                                  ? CustomColors.borderColor
-                                  : CustomColors.textColor9,
-                              width: 1.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            (index + 16).toString(),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: femaleListData[index] == tr("closed")
-                                  ? CustomColors.textColor3
-                                  : selected && selectedIndex == index
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.textColor9,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                        ),
-                      ));
-                }),
-          ],
-        ),
-      ),
-      child: Container(
-        height: 210,
-        width: MediaQuery.of(context).size.width,
-        color: CustomColors.backgroundColor,
-        margin: const EdgeInsets.only(left: 16, right: 16),
-        padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  tr("sleepingRoom(Male)"),
-                  style: const TextStyle(
-                    fontSize: 14,
-                    color: CustomColors.textColorBlack2,
-                    fontFamily: 'SemiBold',
-                  ),
-                ),
-                const Text(
-                  "Total 15 seats",
-                  style: TextStyle(
-                    fontSize: 12,
-                    color: CustomColors.greyColor1,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            GridView.builder(
-                scrollDirection: Axis.vertical,
-                shrinkWrap: true,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 5,
-                  childAspectRatio: 1,
-                  mainAxisExtent: 45,
-                ),
-                itemCount: listData.length,
-                itemBuilder: (BuildContext ctx, index) {
-                  return InkWell(
-                      onTap: () {
-                        if (listData[index] == tr("selectable")) {
-                          setState(() {
-                            selected = true;
-                            selectedIndex = index;
-                          });
-                        }
-                      },
-                      child: Container(
-                        width: 50,
-                        height: 34,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 10, vertical: 6),
-                        margin: const EdgeInsets.only(right: 15, bottom: 12),
-                        decoration: BoxDecoration(
-                          color: listData[index] == tr("closed")
-                              ? CustomColors.borderColor
-                              : selected && selectedIndex == index
-                                  ? CustomColors.textColor9
-                                  : CustomColors.whiteColor,
-                          border: Border.all(
-                              color: listData[index] == tr("closed")
-                                  ? CustomColors.borderColor
-                                  : CustomColors.textColor9,
-                              width: 1.0),
-                        ),
-                        child: Center(
-                          child: Text(
-                            (index + 1).toString(),
-                            style: TextStyle(
-                              fontSize: 14,
-                              color: listData[index] == tr("closed")
-                                  ? CustomColors.textColor3
-                                  : selected && selectedIndex == index
-                                      ? CustomColors.whiteColor
-                                      : CustomColors.textColor9,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                        ),
-                      ));
-                }),
-          ],
-        ),
-      ),
     );
   }
 
@@ -930,7 +1089,18 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             setState(() {
               usageTimeList = responseJson['schedule'];
             });
+            loadSelectedSeatList();
+
+            for (int i = 0; i < usageTimeList.length; i++) {
+              if (usageTimeList.length - 1 != i) {
+                timeSlotList.add('${usageTimeList[i]}-${usageTimeList[i + 1]}');
+              }
+              // else{
+              //   timeSlotList.add(usageTimeList[i]);
+              // }
+            }
           }
+          debugPrint("Time list length ====> ${usageTimeList.length}");
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -977,7 +1147,126 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             setState(() {
               totalUsageTimeList = responseJson['data'];
             });
+            loadSelectedSeatList();
           }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadSelectedSeatList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadSelectedSeatListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadSelectedSeatListApi() {
+    // setState(() {
+    //   isLoading = true;
+    // });
+    String date = getSelectedDate();
+    Map<String, String> body = {
+      "date": date,
+      "start_time": usageTimeSelectedValue != null &&
+              usageTimeSelectedValue.toString().isNotEmpty
+          ? usageTimeSelectedValue.toString().trim()
+          : usageTimeList.isNotEmpty
+              ? usageTimeList.first.toString()
+              : "",
+      "usage_time": totalTimeSelectedValue != null &&
+              totalTimeSelectedValue.toString().isNotEmpty
+          ? totalTimeSelectedValue.toString().trim()
+          : totalUsageTimeList.isNotEmpty
+              ? totalUsageTimeList.first["value"].toString()
+              : "",
+    };
+
+    debugPrint("Selected Seat list input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getSelectedSeatListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+      debugPrint("server response for Selected Seat list ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['seats_data'] != null) {
+            setState(() {
+              selectedSeatList = responseJson['seats_data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            if (kDebugMode) {
+              print("Error =====> ${responseJson['message']}");
+            }
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadViewSeatSelectionList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callViewSeatSelectionListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callViewSeatSelectionListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    String date = getSelectedDate();
+    Map<String, String> body = {"date": date};
+
+    debugPrint("View Seat Selection input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getViewSeatSelectionListUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for View Seat Selection ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          List<ViewSeatSelectionModel> reservationListList =
+              List<ViewSeatSelectionModel>.from(responseJson['seats_data']
+                  .map((x) => ViewSeatSelectionModel.fromJson(x)));
+          Provider.of<ViewSeatSelectionProvider>(context, listen: false)
+              .setItem(reservationListList);
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -1134,5 +1423,144 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  String getSelectedDate() {
+    String date = "";
+    if (focusedDate.month < 10 && focusedDate.day < 10) {
+      date = '${focusedDate.year}-0${focusedDate.month}-0${focusedDate.day}';
+    } else if (focusedDate.month < 10) {
+      date = '${focusedDate.year}-0${focusedDate.month}-${focusedDate.day}';
+    } else if (focusedDate.day < 10) {
+      date = '${focusedDate.year}-${focusedDate.month}-0${focusedDate.day}';
+    } else {
+      date = '${focusedDate.year}-${focusedDate.month}-${focusedDate.day}';
+    }
+    return date;
+  }
+
+  void goToViewSeatSelectionScreen() {
+    if (usageTimeSelectedValue == null) {
+      if (usageTimeList.isNotEmpty) {
+        setState(() {
+          usageTimeSelectedValue = usageTimeList.first.toString();
+        });
+      }
+    }
+    if (selectedSeatsValue == null) {
+      if (usageTimeList.isNotEmpty) {
+        setState(() {
+          selectedSeatsValue = selectedSeatList.first['seat'].toString();
+        });
+      }
+    }
+
+    // for (int i = 0; i < viewSeatSelectionListItem!.length; i++) {
+    //   debugPrint("i ===> $i");
+    //   debugPrint(
+    //       "viewSeatSelectionListItem length ===> ${viewSeatSelectionListItem!.length}");
+    //
+    //   if (i < viewSeatSelectionListItem!.length - 1) {
+    //     if (viewSeatSelectionListItem?[i].seat !=
+    //         viewSeatSelectionListItem?[i + 1].seat) {
+    //       int? seatValue = viewSeatSelectionListItem?[i].seat;
+    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(
+    //           seat: seatValue, available: true, slot: "", slotRange: "");
+    //       viewSeatSelectionListWithSeats.insert(i, model);
+    //     } else {
+    //       int? seatValue = viewSeatSelectionListItem?[i].seat;
+    //       bool? available = viewSeatSelectionListItem?[i].available;
+    //       String? slot = viewSeatSelectionListItem?[i].slot;
+    //       String? slotRange = viewSeatSelectionListItem?[i].slotRange;
+    //
+    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(
+    //           seat: seatValue,
+    //           available: available,
+    //           slot: slot,
+    //           slotRange: slotRange);
+    //       viewSeatSelectionListWithSeats.insert(i, model);
+    //     }
+    //   } else {
+    //     int? seatValue = viewSeatSelectionListItem?[i].seat;
+    //     ViewSeatSelectionModel model = ViewSeatSelectionModel(
+    //         seat: seatValue, available: true, slot: "", slotRange: "");
+    //     viewSeatSelectionListWithSeats.add(model);
+    //   }
+    // }
+
+
+    for (int i = 0; i < timeSlotList.length; i++) {
+      ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: 0, available: true, slot: "", slotRange: timeSlotList[i].toString());
+      viewSeatSelectionListWithTimeSlot.add(model);
+    }
+
+    for (int i = 0; i < viewSeatSelectionListItem!.length; i++) {
+      int? seatValue = viewSeatSelectionListItem?[i].seat;
+      bool? available = viewSeatSelectionListItem?[i].available;
+      String? slot = viewSeatSelectionListItem?[i].slot;
+      String? slotRange = viewSeatSelectionListItem?[i].slotRange;
+
+      ViewSeatSelectionModel model = ViewSeatSelectionModel(
+          seat: seatValue,
+          available: available,
+          slot: slot,
+          slotRange: slotRange);
+      viewSeatSelectionListWithTimeSlot.add(model);
+    }
+
+
+
+    for (int i = 0; i < viewSeatSelectionListWithTimeSlot!.length; i++) {
+      debugPrint("i ===> $i");
+      debugPrint(
+          "viewSeatSelectionListItem length ===> ${viewSeatSelectionListWithTimeSlot!.length}");
+
+      if (i < viewSeatSelectionListWithTimeSlot!.length - 1) {
+        if (viewSeatSelectionListWithTimeSlot?[i].seat !=
+            viewSeatSelectionListWithTimeSlot?[i + 1].seat) {
+          int? seatValue = viewSeatSelectionListWithTimeSlot?[i].seat;
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(
+              seat: seatValue, available: true, slot: "", slotRange: "");
+          viewSeatSelectionListWithSeats.insert(i, model);
+        } else {
+          int? seatValue = viewSeatSelectionListWithTimeSlot?[i].seat;
+          bool? available = viewSeatSelectionListWithTimeSlot?[i].available;
+          String? slot = viewSeatSelectionListWithTimeSlot?[i].slot;
+          String? slotRange = viewSeatSelectionListWithTimeSlot?[i].slotRange;
+
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(
+              seat: seatValue,
+              available: available,
+              slot: slot,
+              slotRange: slotRange);
+          viewSeatSelectionListWithSeats.insert(i, model);
+        }
+      } else {
+        int? seatValue = viewSeatSelectionListWithTimeSlot?[i].seat;
+        ViewSeatSelectionModel model = ViewSeatSelectionModel(
+            seat: seatValue, available: true, slot: "", slotRange: "");
+        viewSeatSelectionListWithSeats.add(model);
+      }
+    }
+
+
+
+
+
+
+
+
+
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ViewSeatSelectionScreen(
+            viewSeatSelectionListWithSeats,
+            timeSlotList,
+            selectedSeatList,
+            usageTimeSelectedValue,
+            selectedSeatsValue),
+      ),
+    );
   }
 }

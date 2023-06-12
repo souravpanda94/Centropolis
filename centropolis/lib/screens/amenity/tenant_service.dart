@@ -39,6 +39,8 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Locale myLocale = Localizations.localeOf(context);
+
     return DefaultTabController(
       length: 4,
       initialIndex: widget.tabIndex,
@@ -55,6 +57,7 @@ class _TenantServiceScreenState extends State<TenantServiceScreen> {
                         color: CustomColors.backgroundColor2, width: 0.5)),
               ),
               child: TabBar(
+                isScrollable: myLocale.toString() == "ko" ? false : true,
                 tabs: myTabs,
                 labelColor: CustomColors.textColor8,
                 labelStyle: const TextStyle(

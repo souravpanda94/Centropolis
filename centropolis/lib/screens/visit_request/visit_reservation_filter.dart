@@ -345,6 +345,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TableCalendar(
+                      locale: Localizations.localeOf(context).languageCode,
                       rangeSelectionMode: showIndex == 3
                           ? RangeSelectionMode.enforced
                           : RangeSelectionMode.toggledOff,
@@ -522,7 +523,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     }
     if (showIndex == 0) {
       selectedStartDate = DateTime.now();
-      selectedEndDate = DateTime.now();
+      selectedEndDate = DateTime.now().add(const Duration(days: 1));
     } else if (showIndex == 1) {
       selectedStartDate = DateTime.now();
       selectedEndDate = DateTime.now().add(const Duration(days: 7));

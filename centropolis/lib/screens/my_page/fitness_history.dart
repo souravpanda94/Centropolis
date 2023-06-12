@@ -19,10 +19,10 @@ class FitnessHistory extends StatefulWidget {
 
 class _FitnessHistoryState extends State<FitnessHistory> {
   List<String> fitnessTabList = [
-    tr("gx"),
-    tr("paidPT"),
-    tr("fitness"),
-    tr("paidLockers")
+    tr("gxReservationHistory"),
+    tr("ptReservationHistory"),
+    tr("fitnessReservationHistory"),
+    tr("paidLockerReservationHistory")
   ];
   int showIndex = 0;
 

@@ -48,6 +48,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   String reservationDate = "";
   int selectedSeat = 0;
   bool firstTimeSeatAvailibilityLoading = true;
+  TextEditingController seatController = TextEditingController();
 
   @override
   void initState() {
@@ -322,6 +323,52 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     height: 8,
                   ),
                   totalUsageTimeDropdownWidget(),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Text(
+                    tr("selectedSeat"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  TextField(
+                    controller: seatController,
+                    readOnly: true,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.number,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('seatValidation'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.textColorBlack2,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  )
                 ],
               ),
             ),
@@ -583,6 +630,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday],
       daysOfWeekHeight: 50,
@@ -696,6 +744,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       selected = true;
                       selectedIndex = index;
                       selectedSeat = seatAvailibilityList[index]["seat"];
+                      seatController.text = selectedSeat.toString();
                     });
                   }
                 },
@@ -770,12 +819,18 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
     Map<String, String> body = {
       "date": reservationDate, //required
-      "start_time": usageTimeSelectedValue != null && usageTimeSelectedValue.toString().isNotEmpty
+      "start_time": usageTimeSelectedValue != null &&
+              usageTimeSelectedValue.toString().isNotEmpty
           ? usageTimeSelectedValue.toString().trim()
-          : timeList.isNotEmpty ? timeList.first.toString().trim() : "", //required
-      "usage_time": totalTimeSelectedValue != null && totalTimeSelectedValue.toString().isNotEmpty
+          : timeList.isNotEmpty
+              ? timeList.first.toString().trim()
+              : "", //required
+      "usage_time": totalTimeSelectedValue != null &&
+              totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
-          : totalUsageTimeList.isNotEmpty ? totalUsageTimeList.first["value"].toString().trim() : "" //required
+          : totalUsageTimeList.isNotEmpty
+              ? totalUsageTimeList.first["value"].toString().trim()
+              : "" //required
     };
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessSeatAvailibilitytUrl,

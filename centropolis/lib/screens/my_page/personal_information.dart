@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
@@ -46,7 +47,14 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor3,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
         backgroundColor: CustomColors.backgroundColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
@@ -200,7 +208,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   ],
                 ))
           ],
-        )));
+        ))),);
   }
 
   // ----------Withdrawal section-----------
@@ -220,18 +228,17 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               Navigator.of(context).pop();
             },
             onSecondBtnTap: () {
-              Navigator.of(context).pop();
-              showWithdrawalSuccessModal();
-              // callWithdrawalConfirm();
+              callWithdrawalConfirm();
             },
           );
         });
   }
 
   void callWithdrawalConfirm() async {
+    Navigator.of(context).pop();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-      // callWithdrawalApi();
+      callWithdrawalApi();
     } else {
       showCustomToast(fToast, context, tr("noInternetConnection"), "");
     }
@@ -242,10 +249,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "user_id": base64Enecode(userId.trim()),
-      "language": language.trim()
-    };
+    Map<String, String> body = {};
     debugPrint("input for Withdrawal ===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
@@ -257,12 +261,13 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
-          }
+          // if (responseJson['message'] != null) {
+          //   showCustomToast(
+          //       fToast, context, responseJson['message'].toString(), "");
+          // }
 
-          removeLoginCredential(context);
+          showWithdrawalSuccessModal();
+
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -283,27 +288,62 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   }
 
   void showWithdrawalSuccessModal() {
-    showDialog(
-        barrierDismissible: false,
+    showGeneralDialog(
         context: context,
-        builder: (BuildContext context) {
-          return CommonModal(
-            heading: tr("withdrawnSuccessful"),
-            description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
-            buttonName: tr("check"),
-            firstButtonName: "",
-            secondButtonName: "",
-            onConfirmBtnTap: () {
-              Navigator.of(context).pop();
-            },
-            onFirstBtnTap: () {
+        barrierColor: Colors.black12.withOpacity(0.6),
+        barrierDismissible: false,
+        barrierLabel: 'Dialog',
+        transitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (_, __, ___) {
+          return WillPopScope(
+              onWillPop: () {
+                return Future.value(false);
+              },
+              child: CommonModal(
+                heading: tr("withdrawnSuccessful"),
+                description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
+                buttonName: tr("check"),
+                firstButtonName: "",
+                secondButtonName: "",
+                onConfirmBtnTap: () {
+                  Navigator.of(context).pop();
+                  removeLoginCredential(context);
+                },
+                onFirstBtnTap: () {
 
-            },
-            onSecondBtnTap: () {
+                },
+                onSecondBtnTap: () {
 
-            },
-          );
+                },
+              ));
         });
+
+
+
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return CommonModal(
+    //         heading: tr("withdrawnSuccessful"),
+    //         description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
+    //         buttonName: tr("check"),
+    //         firstButtonName: "",
+    //         secondButtonName: "",
+    //         onConfirmBtnTap: () {
+    //           Navigator.of(context).pop();
+    //           removeLoginCredential(context);
+    //         },
+    //         onFirstBtnTap: () {
+    //
+    //         },
+    //         onSecondBtnTap: () {
+    //
+    //         },
+    //       );
+    //     });
+
+
   }
 
 
@@ -325,8 +365,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               Navigator.of(context).pop();
             },
             onSecondBtnTap: () {
-              // callLogout();
-              removeLoginCredential(context);
+              callLogout();
+              // removeLoginCredential(context);
             },
           );
         });
@@ -345,9 +385,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   }
 
   void callLogout() async {
+    Navigator.of(context).pop();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-      // doLogout();
+      doLogout();
     } else {
       showCustomToast(fToast, context, tr("noInternetConnection"), "");
     }
@@ -358,7 +399,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {"language": language.trim()};
+    Map<String, String> body = {};
     debugPrint("input for logout ===> $body");
 
     // String logOutUrl =
@@ -366,8 +407,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
     // String logOutUrl = ApiEndPoint.logoutUrl + deviceId;
 
-    Future<http.Response> response = WebService()
-        .callDeleteMethod(ApiEndPoint.logoutUrl, body, apiKey.trim());
+    Future<http.Response> response = WebService().callPostMethodWithRawData(ApiEndPoint.logoutUrl, body, language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 

@@ -125,7 +125,11 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                   builder: (context) => LoungeHistoryDetails(
                                       executiveLoungeListItem?[index].id),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadLoungeHistoryList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
