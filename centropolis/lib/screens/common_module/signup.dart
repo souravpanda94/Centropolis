@@ -48,7 +48,7 @@ class _SignupScreenState extends State<SignupScreen> {
   int tenantCompany = 3;
   String floor = "5f";
   String platform = "";
-  String personalInfomationContent = "";
+  // String personalInfomationContent = "";
   List<dynamic> companyList = [];
   List<dynamic> floorList = [];
   String? currentSelectedCompanyNameId;
@@ -61,8 +61,8 @@ class _SignupScreenState extends State<SignupScreen> {
     fToast.init(context);
     language = tr("lang");
     loadCompanyList();
-    loadPersonalInformation();
     setPlatform();
+    // loadPersonalInformation();
   }
 
   @override
@@ -125,7 +125,8 @@ class _SignupScreenState extends State<SignupScreen> {
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
-                              personalInfomationContent,
+                              // personalInfomationContent,
+                              tr("signup_personal_info"),
                               style: const TextStyle(
                                   fontFamily: 'Regular',
                                   fontSize: 14,
@@ -999,68 +1000,68 @@ class _SignupScreenState extends State<SignupScreen> {
     });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
-
-  void callLoadPersonalInformationApi() {
-    setState(() {
-      isLoading = true;
-    });
-
-    Map<String, String> body = {
-      "cms_key": "signup_terms",
-    };
-
-    debugPrint("get Personal Information input ===> $body");
-
-    Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.getPersonalInformationUrl, body, language.toString(), null);
-    response.then((response) {
-      var responseJson = json.decode(response.body);
-
-      debugPrint(
-          "server response for get Personal Information ===> $responseJson");
-
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (language == "en") {
-            if (responseJson['description_en'] != null) {
-              setState(() {
-                personalInfomationContent =
-                    responseJson['description_en'].toString();
-              });
-            }
-          } else {
-            if (responseJson['description_ko'] != null) {
-              setState(() {
-                personalInfomationContent =
-                    responseJson['description_ko'].toString();
-              });
-            }
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
-          }
-        }
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-      setState(() {
-        isLoading = false;
-      });
-    });
-  }
+  // void loadPersonalInformation() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callLoadPersonalInformationApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
+  //
+  // void callLoadPersonalInformationApi() {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //
+  //   Map<String, String> body = {
+  //     "cms_key": "signup_terms",
+  //   };
+  //
+  //   debugPrint("get Personal Information input ===> $body");
+  //
+  //   Future<http.Response> response = WebService().callPostMethodWithRawData(
+  //       ApiEndPoint.getPersonalInformationUrl, body, language.toString(), null);
+  //   response.then((response) {
+  //     var responseJson = json.decode(response.body);
+  //
+  //     debugPrint(
+  //         "server response for get Personal Information ===> $responseJson");
+  //
+  //     if (responseJson != null) {
+  //       if (response.statusCode == 200 && responseJson['success']) {
+  //         if (language == "en") {
+  //           if (responseJson['description_en'] != null) {
+  //             setState(() {
+  //               personalInfomationContent =
+  //                   responseJson['description_en'].toString();
+  //             });
+  //           }
+  //         } else {
+  //           if (responseJson['description_ko'] != null) {
+  //             setState(() {
+  //               personalInfomationContent =
+  //                   responseJson['description_ko'].toString();
+  //             });
+  //           }
+  //         }
+  //       } else {
+  //         if (responseJson['message'] != null) {
+  //           showCustomToast(
+  //               fToast, context, responseJson['message'].toString(), "");
+  //         }
+  //       }
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //     }
+  //   }).catchError((onError) {
+  //     debugPrint("catchError ================> $onError");
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  // }
 
   Widget companyNameFieldWidget() {
     return DropdownButtonHideUnderline(

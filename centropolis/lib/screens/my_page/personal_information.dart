@@ -228,18 +228,17 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               Navigator.of(context).pop();
             },
             onSecondBtnTap: () {
-              Navigator.of(context).pop();
-              showWithdrawalSuccessModal();
-              // callWithdrawalConfirm();
+              callWithdrawalConfirm();
             },
           );
         });
   }
 
   void callWithdrawalConfirm() async {
+    Navigator.of(context).pop();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-      // callWithdrawalApi();
+      callWithdrawalApi();
     } else {
       showCustomToast(fToast, context, tr("noInternetConnection"), "");
     }
@@ -250,10 +249,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "user_id": base64Enecode(userId.trim()),
-      "language": language.trim()
-    };
+    Map<String, String> body = {};
     debugPrint("input for Withdrawal ===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
@@ -265,12 +261,13 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
-          }
+          // if (responseJson['message'] != null) {
+          //   showCustomToast(
+          //       fToast, context, responseJson['message'].toString(), "");
+          // }
 
-          removeLoginCredential(context);
+          showWithdrawalSuccessModal();
+
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -291,27 +288,62 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   }
 
   void showWithdrawalSuccessModal() {
-    showDialog(
-        barrierDismissible: false,
+    showGeneralDialog(
         context: context,
-        builder: (BuildContext context) {
-          return CommonModal(
-            heading: tr("withdrawnSuccessful"),
-            description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
-            buttonName: tr("check"),
-            firstButtonName: "",
-            secondButtonName: "",
-            onConfirmBtnTap: () {
-              Navigator.of(context).pop();
-            },
-            onFirstBtnTap: () {
+        barrierColor: Colors.black12.withOpacity(0.6),
+        barrierDismissible: false,
+        barrierLabel: 'Dialog',
+        transitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (_, __, ___) {
+          return WillPopScope(
+              onWillPop: () {
+                return Future.value(false);
+              },
+              child: CommonModal(
+                heading: tr("withdrawnSuccessful"),
+                description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
+                buttonName: tr("check"),
+                firstButtonName: "",
+                secondButtonName: "",
+                onConfirmBtnTap: () {
+                  Navigator.of(context).pop();
+                  removeLoginCredential(context);
+                },
+                onFirstBtnTap: () {
 
-            },
-            onSecondBtnTap: () {
+                },
+                onSecondBtnTap: () {
 
-            },
-          );
+                },
+              ));
         });
+
+
+
+    // showDialog(
+    //     barrierDismissible: false,
+    //     context: context,
+    //     builder: (BuildContext context) {
+    //       return CommonModal(
+    //         heading: tr("withdrawnSuccessful"),
+    //         description: tr("youAccountHasBeenSuccessfullyWithdrawn"),
+    //         buttonName: tr("check"),
+    //         firstButtonName: "",
+    //         secondButtonName: "",
+    //         onConfirmBtnTap: () {
+    //           Navigator.of(context).pop();
+    //           removeLoginCredential(context);
+    //         },
+    //         onFirstBtnTap: () {
+    //
+    //         },
+    //         onSecondBtnTap: () {
+    //
+    //         },
+    //       );
+    //     });
+
+
   }
 
 

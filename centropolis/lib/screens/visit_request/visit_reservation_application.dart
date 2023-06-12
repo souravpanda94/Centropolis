@@ -51,7 +51,7 @@ class _VisitReservationApplicationState
   DateTime focusedDate = DateTime.now();
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
-  String personalInformationContent = "";
+  // String personalInformationContent = "";
   List<dynamic> floorList = [];
   List<dynamic> visitTimeList = [];
   List<dynamic> visitPurposeList = [];
@@ -72,7 +72,7 @@ class _VisitReservationApplicationState
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     companyId = user.userData['company_id'].toString();
-    loadPersonalInformation();
+    // loadPersonalInformation();
     loadPersonalData();
     loadFloorList();
     loadVisitTimeList();
@@ -149,7 +149,8 @@ class _VisitReservationApplicationState
                           child: Padding(
                             padding: const EdgeInsets.all(16.0),
                             child: Text(
-                              personalInformationContent,
+                              // personalInformationContent,
+                              tr("signup_personal_info"),
                               style: const TextStyle(
                                   fontFamily: 'Regular',
                                   fontSize: 14,
@@ -1260,68 +1261,68 @@ class _VisitReservationApplicationState
         });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
-
-  void callLoadPersonalInformationApi() {
-    setState(() {
-      isLoading = true;
-    });
-
-    Map<String, String> body = {
-      "cms_key": "signup_terms",
-    };
-
-    debugPrint("get Personal Information input ===> $body");
-
-    Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.getPersonalInformationUrl, body, language.toString(), null);
-    response.then((response) {
-      var responseJson = json.decode(response.body);
-
-      debugPrint(
-          "server response for get Personal Information ===> $responseJson");
-
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (language == "en") {
-            if (responseJson['description_en'] != null) {
-              setState(() {
-                personalInformationContent =
-                    responseJson['description_en'].toString();
-              });
-            }
-          } else {
-            if (responseJson['description_ko'] != null) {
-              setState(() {
-                personalInformationContent =
-                    responseJson['description_ko'].toString();
-              });
-            }
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
-          }
-        }
-        setState(() {
-          isLoading = false;
-        });
-      }
-    }).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-      setState(() {
-        isLoading = false;
-      });
-    });
-  }
+  // void loadPersonalInformation() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callLoadPersonalInformationApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
+  //
+  // void callLoadPersonalInformationApi() {
+  //   setState(() {
+  //     isLoading = true;
+  //   });
+  //
+  //   Map<String, String> body = {
+  //     "cms_key": "signup_terms",
+  //   };
+  //
+  //   debugPrint("get Personal Information input ===> $body");
+  //
+  //   Future<http.Response> response = WebService().callPostMethodWithRawData(
+  //       ApiEndPoint.getPersonalInformationUrl, body, language.toString(), null);
+  //   response.then((response) {
+  //     var responseJson = json.decode(response.body);
+  //
+  //     debugPrint(
+  //         "server response for get Personal Information ===> $responseJson");
+  //
+  //     if (responseJson != null) {
+  //       if (response.statusCode == 200 && responseJson['success']) {
+  //         if (language == "en") {
+  //           if (responseJson['description_en'] != null) {
+  //             setState(() {
+  //               personalInformationContent =
+  //                   responseJson['description_en'].toString();
+  //             });
+  //           }
+  //         } else {
+  //           if (responseJson['description_ko'] != null) {
+  //             setState(() {
+  //               personalInformationContent =
+  //                   responseJson['description_ko'].toString();
+  //             });
+  //           }
+  //         }
+  //       } else {
+  //         if (responseJson['message'] != null) {
+  //           showCustomToast(
+  //               fToast, context, responseJson['message'].toString(), "");
+  //         }
+  //       }
+  //       setState(() {
+  //         isLoading = false;
+  //       });
+  //     }
+  //   }).catchError((onError) {
+  //     debugPrint("catchError ================> $onError");
+  //     setState(() {
+  //       isLoading = false;
+  //     });
+  //   });
+  // }
 
   void networkCheckForVisitReservation() async {
     final InternetChecking internetChecking = InternetChecking();
