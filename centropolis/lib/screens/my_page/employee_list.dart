@@ -40,12 +40,7 @@ class _EmployeeListState extends State<EmployeeList> {
   bool isFirstLoadRunning = true;
   List<EmployeeListModel>? employeeListItem;
   String? currentSelectedSortingFilter;
-  List<dynamic>? sortingList = [
-    {"value": "", "text": "All"},
-    {"value": "tenant_employee", "text": "Tenant Employee"},
-    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-    {"value": "tenant_conference_employee", "text": "Conference Room"}
-  ];
+  List<dynamic> accountTypeList = [];
 
   @override
   void initState() {
@@ -55,6 +50,7 @@ class _EmployeeListState extends State<EmployeeList> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    loadAccountTypeList();
     firstTimeLoadEmployeeList();
   }
 
@@ -404,15 +400,17 @@ class _EmployeeListState extends State<EmployeeList> {
       child: DropdownButton2(
         alignment: AlignmentDirectional.centerEnd,
         hint: Text(
-          tr('all'),
+          accountTypeList.isNotEmpty
+              ? accountTypeList.first["text"]
+              : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: sortingList
-            ?.map(
+        items: accountTypeList
+            .map(
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
                 child: Text(
@@ -459,5 +457,51 @@ class _EmployeeListState extends State<EmployeeList> {
         ),
       ),
     );
+  }
+
+  void loadAccountTypeList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callAccountTypeListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callAccountTypeListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.accountTypeListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              accountTypeList = responseJson['data'];
+              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+              accountTypeList.insert(0, allMap);
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
   }
 }
