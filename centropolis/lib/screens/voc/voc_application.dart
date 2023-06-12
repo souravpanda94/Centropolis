@@ -47,6 +47,7 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
                         color: CustomColors.backgroundColor2, width: 0.5)),
               ),
               child: TabBar(
+                labelPadding: EdgeInsets.zero,
                 tabs: myTabs,
                 labelColor: CustomColors.textColor8,
                 labelStyle: const TextStyle(
