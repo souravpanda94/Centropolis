@@ -38,13 +38,7 @@ class _LightsOutListState extends State<LightsOutList> {
   bool isFirstLoadRunning = true;
   List<LightOutListModel>? lightoutListItem;
   String? currentSelectedSortingFilter;
-  // For dropdown list attaching
-  List<dynamic>? sortingList = [
-    {"value": "", "text": "All"},
-    {"value": "tenant_employee", "text": "Tenant Employee"},
-    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-    {"value": "tenant_conference_employee", "text": "Conference Room"}
-  ];
+  List<dynamic>? statusList = [];
 
   @override
   void initState() {
@@ -54,6 +48,7 @@ class _LightsOutListState extends State<LightsOutList> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    loadStatusList();
     firstTimeLoadLightsOutList();
   }
 
@@ -82,62 +77,63 @@ class _LightsOutListState extends State<LightsOutList> {
             ),
           ),
         ),
-        body: lightoutListItem == null || lightoutListItem!.isEmpty
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  tr("lightOutEmptyText"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                      color: CustomColors.textColor5),
-                ),
-              )
-            : Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              tr("total"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
-                              child: Text(
-                                lightoutListItem?.length.toString() ?? "",
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor9),
-                              ),
-                            ),
-                            Text(
-                              tr("items"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
-                            ),
-                          ],
+        body: Container(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        tr("total"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Text(
+                          lightoutListItem?.length.toString() ?? "",
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor9),
                         ),
-                        sortingDropdownWidget(),
-                      ],
-                    ),
-                    Expanded(
+                      ),
+                      Text(
+                        tr("items"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                    ],
+                  ),
+                  sortingDropdownWidget(),
+                ],
+              ),
+              lightoutListItem == null || lightoutListItem!.isEmpty
+                  ? Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          tr("lightOutEmptyText"),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor5),
+                        ),
+                      ),
+                    )
+                  : Expanded(
                       child: ListView.builder(
                           itemCount: lightoutListItem?.length,
                           itemBuilder: ((context, index) {
@@ -306,15 +302,15 @@ class _LightsOutListState extends State<LightsOutList> {
                             );
                           })),
                     ),
-                    if (page < totalPages)
-                      ViewMoreWidget(
-                        onViewMoreTap: () {
-                          loadMore();
-                        },
-                      )
-                  ],
-                ),
-              ),
+              if (page < totalPages)
+                ViewMoreWidget(
+                  onViewMoreTap: () {
+                    loadMore();
+                  },
+                )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -338,7 +334,11 @@ class _LightsOutListState extends State<LightsOutList> {
   void callLightsOutListApi() {
     Map<String, String> body = {
       "page": page.toString(),
-      "limit": limit.toString()
+      "limit": limit.toString(),
+      "status": currentSelectedSortingFilter != null &&
+              currentSelectedSortingFilter!.isNotEmpty
+          ? currentSelectedSortingFilter.toString().trim()
+          : "",
     };
 
     debugPrint("LightsOut List input===> $body");
@@ -398,14 +398,16 @@ class _LightsOutListState extends State<LightsOutList> {
       child: DropdownButton2(
         alignment: AlignmentDirectional.centerEnd,
         hint: Text(
-          tr('all'),
+          statusList != null && statusList!.isNotEmpty
+              ? statusList?.first["text"]
+              : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: sortingList
+        items: statusList
             ?.map(
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
@@ -426,8 +428,7 @@ class _LightsOutListState extends State<LightsOutList> {
             currentSelectedSortingFilter = value as String;
           });
 
-          //call API for sorting
-          //loadEmployeeList();
+          loadLightsOutList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -455,5 +456,54 @@ class _LightsOutListState extends State<LightsOutList> {
         ),
       ),
     );
+  }
+
+  void loadStatusList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callStatusListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.lightOutCoolingHeatingStatusUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              statusList = responseJson['data'];
+              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+              statusList?.insert(0, allMap);
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
   }
 }
