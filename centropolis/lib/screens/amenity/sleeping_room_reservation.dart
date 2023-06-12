@@ -1562,12 +1562,14 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
 
 
 
-
-
-    showDialog(
-        barrierDismissible: false,
+    showGeneralDialog(
         context: context,
-        builder: (BuildContext context) {
+        barrierColor: Colors.black12.withOpacity(0.6),
+        // Background color
+        barrierDismissible: false,
+        barrierLabel: 'Dialog',
+        transitionDuration: const Duration(milliseconds: 400),
+        pageBuilder: (_, __, ___) {
           return ViewSeatSelectionModalScreen(
               viewSeatSelectionListWithSeats,
               timeSlotList,
@@ -1576,7 +1578,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               selectedSeatsValue
           );
         });
-
 
 
 
@@ -1593,19 +1594,5 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     //   ),
     // );
 
-
-
-
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ViewSeatSelectionScreen(
-            viewSeatSelectionListWithSeats,
-            timeSlotList,
-            selectedSeatList,
-            usageTimeSelectedValue,
-            selectedSeatsValue),
-      ),
-    );
   }
 }
