@@ -312,7 +312,10 @@ class _EmployeeListState extends State<EmployeeList> {
   void firstTimeLoadEmployeeList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+
+    Provider.of<EmployeeListProvider>(context, listen: false).setEmptyList();
     loadEmployeeList();
   }
 
@@ -432,7 +435,7 @@ class _EmployeeListState extends State<EmployeeList> {
           setState(() {
             currentSelectedSortingFilter = value as String;
           });
-          loadEmployeeList();
+          firstTimeLoadEmployeeList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,

@@ -37,13 +37,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   bool isFirstLoadRunning = true;
   List<AmenityHistoryModel>? conferenceListItem;
   String? currentSelectedSortingFilter;
-  // For dropdown list attaching
-  List<dynamic>? sortingList = [
-    {"value": "", "text": "All"},
-    {"value": "tenant_employee", "text": "Tenant Employee"},
-    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-    {"value": "tenant_conference_employee", "text": "Conference Room"}
-  ];
+  List<dynamic>? statusList = [];
 
   @override
   void initState() {
@@ -53,6 +47,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    loadStatusList();
     firstTimeLoadConferenceHistoryList();
   }
 
@@ -62,148 +57,104 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
         .getConferenceHistoryModelList;
 
     return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.whiteColor,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isFirstLoadRunning,
-      child: conferenceListItem != null && conferenceListItem!.isNotEmpty
-          ? Container(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+        opacity: 0.5,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isFirstLoadRunning,
+        child: Container(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          Text(
-                            tr("total"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 2),
-                            child: Text(
-                              conferenceListItem?.length.toString() ?? "",
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor9),
-                            ),
-                          ),
-                          Text(
-                            tr("items"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        ],
+                      Text(
+                        tr("total"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
                       ),
-                      sortingDropdownWidget(),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Text(
+                          conferenceListItem?.length.toString() ?? "",
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor9),
+                        ),
+                      ),
+                      Text(
+                        tr("items"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
                     ],
                   ),
-                  Flexible(
-                    child: ListView.builder(
-                        itemCount: conferenceListItem?.length,
-                        itemBuilder: ((context, index) {
-                          return InkWell(
-                            onTap: () {
-                              Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                  builder: (context) =>
-                                      ConferenceHistoryDetails(
-                                          conferenceListItem?[index]
-                                              .conferenceId),
-                                ),
-                              ).then((value) {
-                                if (value) {
-                                  firstTimeLoadConferenceHistoryList();
-                                }
-                              });
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: CustomColors.whiteColor,
-                                  border: Border.all(
-                                    color: CustomColors.borderColor,
+                  sortingDropdownWidget(),
+                ],
+              ),
+              conferenceListItem != null && conferenceListItem!.isNotEmpty
+                  ? Flexible(
+                      child: ListView.builder(
+                          itemCount: conferenceListItem?.length,
+                          itemBuilder: ((context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        ConferenceHistoryDetails(
+                                            conferenceListItem?[index]
+                                                .conferenceId),
                                   ),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(4))),
-                              padding: const EdgeInsets.all(16),
-                              margin: const EdgeInsets.only(bottom: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        conferenceListItem?[index].name ?? "",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontFamily: 'SemiBold',
-                                            fontSize: 14,
-                                            color: CustomColors.textColor8),
-                                      ),
-                                      if (conferenceListItem?[index]
-                                              .status
-                                              .toString() !=
-                                          "")
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: conferenceListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Before Approval" ||
-                                                    conferenceListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Pending"
-                                                ? CustomColors.backgroundColor3
-                                                : conferenceListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Approved"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : conferenceListItem?[index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Used"
-                                                        ? CustomColors
-                                                            .backgroundColor
-                                                        : conferenceListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Rejected"
-                                                            ? CustomColors
-                                                                .redColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
-                                            borderRadius:
-                                                BorderRadius.circular(4),
-                                          ),
-                                          padding: const EdgeInsets.only(
-                                              top: 5.0,
-                                              bottom: 5.0,
-                                              left: 10.0,
-                                              right: 10.0),
-                                          child: Text(
-                                            conferenceListItem?[index].status ??
-                                                "",
-                                            style: TextStyle(
-                                              fontSize: 12,
-                                              fontFamily: "SemiBold",
+                                ).then((value) {
+                                  if (value) {
+                                    firstTimeLoadConferenceHistoryList();
+                                  }
+                                });
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: CustomColors.whiteColor,
+                                    border: Border.all(
+                                      color: CustomColors.borderColor,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4))),
+                                padding: const EdgeInsets.all(16),
+                                margin: const EdgeInsets.only(bottom: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          conferenceListItem?[index].name ?? "",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontFamily: 'SemiBold',
+                                              fontSize: 14,
+                                              color: CustomColors.textColor8),
+                                        ),
+                                        if (conferenceListItem?[index]
+                                                .status
+                                                .toString() !=
+                                            "")
+                                          Container(
+                                            decoration: BoxDecoration(
                                               color: conferenceListItem?[index]
                                                               .status
                                                               .toString() ==
@@ -212,122 +163,176 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                                               .status
                                                               .toString() ==
                                                           "Pending"
-                                                  ? CustomColors.textColor9
+                                                  ? CustomColors
+                                                      .backgroundColor3
                                                   : conferenceListItem?[index]
                                                               .status
                                                               .toString() ==
                                                           "Approved"
                                                       ? CustomColors
-                                                          .textColorBlack2
+                                                          .backgroundColor
                                                       : conferenceListItem?[
                                                                       index]
                                                                   .status
                                                                   .toString() ==
                                                               "Used"
                                                           ? CustomColors
-                                                              .textColor3
+                                                              .backgroundColor
                                                           : conferenceListItem?[
                                                                           index]
                                                                       .status
                                                                       .toString() ==
                                                                   "Rejected"
                                                               ? CustomColors
-                                                                  .headingColor
+                                                                  .redColor
                                                               : CustomColors
                                                                   .textColorBlack2,
+                                              borderRadius:
+                                                  BorderRadius.circular(4),
+                                            ),
+                                            padding: const EdgeInsets.only(
+                                                top: 5.0,
+                                                bottom: 5.0,
+                                                left: 10.0,
+                                                right: 10.0),
+                                            child: Text(
+                                              conferenceListItem?[index]
+                                                      .status ??
+                                                  "",
+                                              style: TextStyle(
+                                                fontSize: 12,
+                                                fontFamily: "SemiBold",
+                                                color: conferenceListItem?[
+                                                                    index]
+                                                                .status
+                                                                .toString() ==
+                                                            "Before Approval" ||
+                                                        conferenceListItem?[
+                                                                    index]
+                                                                .status
+                                                                .toString() ==
+                                                            "Pending"
+                                                    ? CustomColors.textColor9
+                                                    : conferenceListItem?[index]
+                                                                .status
+                                                                .toString() ==
+                                                            "Approved"
+                                                        ? CustomColors
+                                                            .textColorBlack2
+                                                        : conferenceListItem?[
+                                                                        index]
+                                                                    .status
+                                                                    .toString() ==
+                                                                "Used"
+                                                            ? CustomColors
+                                                                .textColor3
+                                                            : conferenceListItem?[
+                                                                            index]
+                                                                        .status
+                                                                        .toString() ==
+                                                                    "Rejected"
+                                                                ? CustomColors
+                                                                    .headingColor
+                                                                : CustomColors
+                                                                    .textColorBlack2,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                    ],
-                                  ),
-                                  const SizedBox(
-                                    height: 18,
-                                  ),
-                                  IntrinsicHeight(
-                                    child: Row(
-                                      children: [
-                                        Text(
-                                          // list[index]["date"],
-                                          conferenceListItem?[index]
-                                                  .reservationDate ??
-                                              "",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 12,
-                                              color: CustomColors.textColor3),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        const VerticalDivider(
-                                          thickness: 1,
-                                          color: CustomColors.borderColor,
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          tr("participants"),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 12,
-                                              color: CustomColors.textColor3),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        const Text(
-                                          // list[index]["participants"]
-                                          "9 participants",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 12,
-                                              color: CustomColors.textColor3),
-                                        ),
                                       ],
                                     ),
-                                  )
-                                ],
+                                    const SizedBox(
+                                      height: 18,
+                                    ),
+                                    IntrinsicHeight(
+                                      child: Row(
+                                        children: [
+                                          Text(
+                                            // list[index]["date"],
+                                            conferenceListItem?[index]
+                                                    .reservationDate ??
+                                                "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 12,
+                                                color: CustomColors.textColor3),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const VerticalDivider(
+                                            thickness: 1,
+                                            color: CustomColors.borderColor,
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            tr("participants"),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 12,
+                                                color: CustomColors.textColor3),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          const Text(
+                                            // list[index]["participants"]
+                                            "9 participants",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 12,
+                                                color: CustomColors.textColor3),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        })),
-                  ),
-                  if (page < totalPages)
-                    ViewMoreWidget(
-                      onViewMoreTap: () {
-                        loadMore();
-                      },
+                            );
+                          })),
                     )
-                ],
-              ),
-            )
-          : Container(
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-              padding: const EdgeInsets.all(24),
-              child: Text(
-                tr("noReservationHistory"),
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: 14,
-                    color: CustomColors.textColor5),
-              ),
-            ),
-    );
+                  : Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          tr("noReservationHistory"),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor5),
+                        ),
+                      ),
+                    ),
+              if (page < totalPages)
+                ViewMoreWidget(
+                  onViewMoreTap: () {
+                    loadMore();
+                  },
+                )
+            ],
+          ),
+        ));
   }
 
   void firstTimeLoadConferenceHistoryList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<ConferenceHistoryProvider>(context, listen: false)
+        .setEmptyList();
     loadConferenceHistoryList();
   }
 
@@ -343,7 +348,11 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   void callConferenceHistoryListApi() {
     Map<String, String> body = {
       "page": page.toString(),
-      "limit": limit.toString()
+      "limit": limit.toString(),
+      "status": currentSelectedSortingFilter != null &&
+              currentSelectedSortingFilter!.isNotEmpty
+          ? currentSelectedSortingFilter.toString().trim()
+          : "",
     };
 
     debugPrint("Conference History List input===> $body");
@@ -408,21 +417,18 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   sortingDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
-        style: const TextStyle(
-          color: CustomColors.textColor5,
-          fontSize: 14,
-          fontFamily: 'Regular',
-        ),
         alignment: AlignmentDirectional.centerEnd,
         hint: Text(
-          tr('all'),
+          statusList != null && statusList!.isNotEmpty
+              ? statusList?.first["text"]
+              : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: sortingList
+        items: statusList
             ?.map(
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
@@ -442,9 +448,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
           setState(() {
             currentSelectedSortingFilter = value as String;
           });
-
-          //call API for sorting
-          //loadEmployeeList();
+          firstTimeLoadConferenceHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -472,5 +476,51 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
         ),
       ),
     );
+  }
+
+  void loadStatusList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callStatusListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.amenityHistoryStatusUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              statusList = responseJson['data'];
+              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+              statusList?.insert(0, allMap);
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
   }
 }

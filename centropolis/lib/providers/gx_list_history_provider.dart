@@ -1,4 +1,3 @@
-
 import 'package:flutter/foundation.dart';
 
 import '../models/gx_list_history_model.dart';
@@ -23,5 +22,10 @@ class GxListHistoryProvider extends ChangeNotifier {
   void removeItem(int index) {
     gxHistoryList.removeAt(index);
     notifyListeners();
+  }
+
+  void setEmptyList() {
+    gxHistoryList = [];
+    // notifyListeners();
   }
 }

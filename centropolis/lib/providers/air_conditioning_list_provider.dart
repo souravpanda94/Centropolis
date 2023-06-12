@@ -22,4 +22,9 @@ class AirConditioningListProvider extends ChangeNotifier {
     airConditioningModelList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    airConditioningModelList = [];
+    // notifyListeners();
+  }
 }

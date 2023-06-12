@@ -23,4 +23,9 @@ class SleepingRoomHistoryProvider extends ChangeNotifier {
     sleepingRoomHistoryModelList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    sleepingRoomHistoryModelList = [];
+    // notifyListeners();
+  }
 }
