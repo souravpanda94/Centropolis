@@ -354,16 +354,22 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                     onCommonButtonTap: () {
                       networkCheckForCancelReservation();
                     },
-                    buttonBorderColor:
-                        sleepingRoomHistoryDetailModel?.status == "Approved"
-                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                            : CustomColors.dividerGreyColor,
+                    buttonBorderColor: sleepingRoomHistoryDetailModel?.status
+                                    .toString() ==
+                                "rejected" ||
+                            sleepingRoomHistoryDetailModel?.status.toString() ==
+                                "cancelled"
+                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                        : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor:
-                        sleepingRoomHistoryDetailModel?.status == "Approved"
-                            ? CustomColors.textColor5.withOpacity(0.3)
-                            : CustomColors.textColor5),
+                    buttonTextColor: sleepingRoomHistoryDetailModel?.status
+                                    .toString() ==
+                                "rejected" ||
+                            sleepingRoomHistoryDetailModel?.status.toString() ==
+                                "cancelled"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
               )
             : null,
       ),

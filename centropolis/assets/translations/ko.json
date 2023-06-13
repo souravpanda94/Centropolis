@@ -382,7 +382,7 @@
   "paidPtValidation": "최소 1일 에서 2달 전에 예약 하여야합니다",
   "selectedSeat": "좌석 번호",
   "makeVisitorReservation": "방문 예약 신청",
-  "paidLockerValidation": "You need to reserve before 1 day prior",
+  "paidLockerValidation": "최소 하루 이전 예약하여야 합니다",
 
 
 
