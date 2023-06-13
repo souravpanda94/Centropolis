@@ -60,182 +60,187 @@ class _ViewSeatSelectionModalScreenState
             ),
           ),
         ),
-        body: Container(
-          margin: const EdgeInsets.only(top: 20,bottom: 20,left: 16,right: 16),
-          child: Column(
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr("seatSelection"),
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'SemiBold',
+        body: SingleChildScrollView(
+          child: Container(
+            margin:
+                const EdgeInsets.only(top: 20, bottom: 20, left: 16, right: 16),
+            child: Column(
+              // mainAxisSize: MainAxisSize.min,
+              children: [
+                Container(
+                  color: CustomColors.whiteColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        tr("seatSelection"),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'SemiBold',
+                        ),
+                      ),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.square,
+                                size: 15,
+                                color: CustomColors.textColor9,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("select"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.square_outlined,
+                                size: 15,
+                                color: CustomColors.textColor9,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("selectable"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                ),
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.square,
+                                size: 15,
+                                color: CustomColors.borderColor,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("closed"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  color: CustomColors.backgroundColor,
+                  child: Column(children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15, left: 10),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          tr("sleepingRoom(Female)"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        ),
                       ),
                     ),
-                    Row(
-                      children: [
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.square,
-                              size: 15,
-                              color: CustomColors.textColor9,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              tr("select"),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: CustomColors.greyColor1,
-                                fontFamily: 'Regular',
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.square_outlined,
-                              size: 15,
-                              color: CustomColors.textColor9,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              tr("selectable"),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: CustomColors.greyColor1,
-                                fontFamily: 'Regular',
-                              ),
-                            )
-                          ],
-                        ),
-                        const SizedBox(
-                          width: 8,
-                        ),
-                        Row(
-                          children: [
-                            const Icon(
-                              Icons.square,
-                              size: 15,
-                              color: CustomColors.borderColor,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              tr("closed"),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: CustomColors.greyColor1,
-                                fontFamily: 'Regular',
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    color: CustomColors.backgroundColor,
-                    child: Column(children: [
-                      Padding(
-                        padding: const EdgeInsets.only(top: 15, left: 10),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            tr("sleepingRoom(Female)"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        ),
-                      ),
-                      Flexible(
-                          child: Container(
-                            color: Colors.purple,
-                            margin: const EdgeInsets.only(top: 20),
-                            child: GridView.builder(
-                                scrollDirection: Axis.horizontal,
-                                shrinkWrap: true,
-                                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    Container(
+                      color: Colors.purple,
+                      height: height,
+                      margin: const EdgeInsets.only(top: 20),
+                      child: GridView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisCount: widget.timeSlotList.length,
                                   childAspectRatio: 1,
+                                  mainAxisSpacing: 16,
+                                  crossAxisSpacing: 10,
 
-                                  // mainAxisExtent: 55,
-                                  mainAxisExtent: 120,
-                                  // mainAxisExtent: mainAxisExtentValue,
+                                  mainAxisExtent: 50,
+                                  // mainAxisExtent: 90,
 
+                                // mainAxisExtent: mainAxisExtentValue,
 
-
+                                  ),
+                          itemCount: widget.viewSeatSelectionListItem?.length,
+                          itemBuilder: (BuildContext ctx, index) {
+                            return Container(
+                              width: 50,
+                              height: 34,
+                              // padding: const EdgeInsets.symmetric(
+                              //     horizontal: 10, vertical: 6),
+                              // margin: const EdgeInsets.only(bottom: 12),
+                              decoration: BoxDecoration(
+                                color: setBackgroundColor(
+                                    widget.viewSeatSelectionListItem?[index]
+                                        .available,
+                                    widget
+                                        .viewSeatSelectionListItem?[index].slot
+                                        .toString(),
+                                    widget
+                                        .viewSeatSelectionListItem?[index].seat
+                                        .toString()),
+                                border: Border.all(
+                                    color: setBorderColor(
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .available,
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .slot
+                                            .toString(),
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .seat
+                                            .toString()),
+                                    width: 1.0),
+                              ),
+                              child: Center(
+                                child: Text(
+                                  setTextValue(index),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    // color: widget.viewSeatSelectionListItem?[index].available == false
+                                    //     ? CustomColors.textColor3 : CustomColors.whiteColor,
+                                    color: CustomColors.blackColor,
+                                    fontFamily: 'Regular',
+                                  ),
                                 ),
-                                itemCount: widget.viewSeatSelectionListItem?.length,
-                                itemBuilder: (BuildContext ctx, index) {
-                                  return Container(
-                                    width: 40,
-                                    height: 34,
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 10, vertical: 6),
-                                    margin: const EdgeInsets.only(right: 12, bottom: 12),
-                                    decoration: BoxDecoration(
-                                      color: setBackgroundColor(
-                                          widget.viewSeatSelectionListItem?[index]
-                                              .available,
-                                          widget.viewSeatSelectionListItem?[index].slot
-                                              .toString(),
-                                          widget.viewSeatSelectionListItem?[index].seat
-                                              .toString()),
-                                      border: Border.all(
-                                          color: setBorderColor(
-                                              widget.viewSeatSelectionListItem?[index]
-                                                  .available,
-                                              widget
-                                                  .viewSeatSelectionListItem?[index].slot
-                                                  .toString(),
-                                              widget
-                                                  .viewSeatSelectionListItem?[index].seat
-                                                  .toString()),
-                                          width: 1.0),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        setTextValue(index),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          // color: widget.viewSeatSelectionListItem?[index].available == false
-                                          //     ? CustomColors.textColor3 : CustomColors.whiteColor,
-                                          color: CustomColors.blackColor,
-                                          fontFamily: 'Regular',
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }),
-                          )),
-                    ]),
-                  ))
-            ],
+                              ),
+                            );
+                          }),
+                    )
+                  ]),
+                )
+              ],
+            ),
           ),
-        )
-        );
+        ));
 
     // return AlertDialog(
     //     shape: RoundedRectangleBorder(
@@ -468,44 +473,45 @@ class _ViewSeatSelectionModalScreenState
   }
 
   String setTextValue(int index) {
-    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" && widget.viewSeatSelectionListItem![index].seat == 0) {
+    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" &&
+        widget.viewSeatSelectionListItem![index].seat == 0) {
       return '${widget.viewSeatSelectionListItem?[index].slotRange.toString()}';
     } else {
-      if (widget.viewSeatSelectionListItem![index].seat! > 0 && widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
+      if (widget.viewSeatSelectionListItem![index].seat! > 0 &&
+          widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         return '${widget.viewSeatSelectionListItem?[index].seat.toString()}';
-      }
-      else if (widget.viewSeatSelectionListItem![index].seat! == 0 && widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
+      } else if (widget.viewSeatSelectionListItem![index].seat! == 0 &&
+          widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         return "Seat :";
-      }
-      else{
+      } else {
         return "";
       }
     }
   }
 
   setMainAxisExtent(int index) {
-    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" && widget.viewSeatSelectionListItem![index].seat == 0) {
+    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" &&
+        widget.viewSeatSelectionListItem![index].seat == 0) {
       // return 205;
       setState(() {
         mainAxisExtentValue = 120.0;
       });
     } else {
-      if (widget.viewSeatSelectionListItem![index].seat! > 0 && widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
+      if (widget.viewSeatSelectionListItem![index].seat! > 0 &&
+          widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         setState(() {
           mainAxisExtentValue = 55.0;
         });
-      }
-      else if (widget.viewSeatSelectionListItem![index].seat! == 0 && widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
+      } else if (widget.viewSeatSelectionListItem![index].seat! == 0 &&
+          widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         setState(() {
           mainAxisExtentValue = 120.0;
         });
-      }
-      else{
+      } else {
         setState(() {
           mainAxisExtentValue = 55.0;
         });
       }
     }
   }
-
 }
