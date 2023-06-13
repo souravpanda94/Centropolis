@@ -158,6 +158,9 @@ class _ViewVisitReservationScreenState
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(
+                        width: 2,
+                      ),
                       Text(
                         totalRecords.toString(),
                         style: const TextStyle(
