@@ -348,20 +348,18 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                         networkCheckForCancelReservation();
                       }
                     },
-                    buttonBorderColor: conferenceHistoryDetails?.status ==
-                                "using" ||
-                            conferenceHistoryDetails?.status == "rejected" ||
-                            conferenceHistoryDetails?.status == "used"
-                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                        : CustomColors.dividerGreyColor,
+                    buttonBorderColor:
+                        conferenceHistoryDetails?.status == "cancelled" ||
+                                conferenceHistoryDetails?.status == "rejected"
+                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                            : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor: conferenceHistoryDetails?.status ==
-                                "using" ||
-                            conferenceHistoryDetails?.status == "rejected" ||
-                            conferenceHistoryDetails?.status == "used"
-                        ? CustomColors.textColor5.withOpacity(0.3)
-                        : CustomColors.textColor5),
+                    buttonTextColor:
+                        conferenceHistoryDetails?.status == "cancelled" ||
+                                conferenceHistoryDetails?.status == "rejected"
+                            ? CustomColors.textColor5.withOpacity(0.3)
+                            : CustomColors.textColor5),
               )
             : null,
       ),
