@@ -117,7 +117,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                       ),
                       Text(
                         // "Hong Gil Dong",
-                        name ?? "",
+                        name,
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
