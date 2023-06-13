@@ -72,8 +72,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        flex: 6,
+                      Flexible(
                         child: Text(tr("tenantCompanyInformation"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
@@ -87,55 +86,29 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                           airConditioningDetailModel!.status
                               .toString()
                               .isNotEmpty)
-                        Expanded(
-                          flex: 2,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: airConditioningDetailModel?.status
-                                              .toString() ==
-                                          "Received" ||
-                                      airConditioningDetailModel?.status
-                                              .toString() ==
-                                          "Rejected"
-                                  ? CustomColors.backgroundColor3
-                                  : airConditioningDetailModel?.status
-                                              .toString() ==
-                                          "Approved"
-                                      ? CustomColors.backgroundColor
-                                      : airConditioningDetailModel?.status
-                                                  .toString() ==
-                                              "In Progress"
-                                          ? CustomColors.greyColor2
-                                          : CustomColors.backgroundColor,
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-                            child: Text(
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              airConditioningDetailModel?.status.toString() ??
-                                  "",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "SemiBold",
-                                color: airConditioningDetailModel?.status
-                                                .toString() ==
-                                            "Received" ||
-                                        airConditioningDetailModel?.status
-                                                .toString() ==
-                                            "Rejected"
-                                    ? CustomColors.textColor9
-                                    : airConditioningDetailModel?.status
-                                                .toString() ==
-                                            "Approved"
-                                        ? CustomColors.textColorBlack2
-                                        : airConditioningDetailModel?.status
-                                                    .toString() ==
-                                                "In Progress"
-                                            ? CustomColors.brownColor
-                                            : CustomColors.textColorBlack2,
-                              ),
+                        Container(
+                          decoration: BoxDecoration(
+                            color: setStatusBackgroundColor(
+                                airConditioningDetailModel?.status
+                                        .toString()
+                                        .toLowerCase() ??
+                                    ""),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          padding: const EdgeInsets.only(
+                              top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                          child: Text(
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            airConditioningDetailModel?.status.toString() ?? "",
+                            style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: "SemiBold",
+                              color: setStatusTextColor(
+                                  airConditioningDetailModel?.status
+                                          .toString()
+                                          .toLowerCase() ??
+                                      ""),
                             ),
                           ),
                         ),
@@ -475,5 +448,21 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         isLoading = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.textColor9;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

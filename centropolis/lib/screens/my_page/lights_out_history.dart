@@ -174,29 +174,11 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                               .isNotEmpty)
                                         Container(
                                           decoration: BoxDecoration(
-                                            color: lightoutListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Received" ||
-                                                    lightoutListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Rejected"
-                                                ? CustomColors.backgroundColor3
-                                                : lightoutListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Approved"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : lightoutListItem?[index]
-                                                                .status
-                                                                .toString() ==
-                                                            "In Progress"
-                                                        ? CustomColors
-                                                            .greyColor2
-                                                        : CustomColors
-                                                            .backgroundColor,
+                                            color: setStatusBackgroundColor(
+                                                lightoutListItem?[index]
+                                                    .status
+                                                    .toString()
+                                                    .toLowerCase()),
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
@@ -211,29 +193,11 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
-                                              color: lightoutListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Received" ||
-                                                      lightoutListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                  ? CustomColors.textColor9
-                                                  : lightoutListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Answered"
-                                                      ? CustomColors
-                                                          .textColorBlack2
-                                                      : lightoutListItem?[index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "In Progress"
-                                                          ? CustomColors
-                                                              .brownColor
-                                                          : CustomColors
-                                                              .textColorBlack2,
+                                              color: setStatusTextColor(
+                                                  lightoutListItem?[index]
+                                                      .status
+                                                      .toString()
+                                                      .toLowerCase()),
                                             ),
                                           ),
                                         ),
@@ -489,5 +453,21 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.textColor9;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

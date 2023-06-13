@@ -93,52 +93,25 @@ class _InconvenienceHistoryDetailsState
                               .isNotEmpty)
                         Container(
                           decoration: BoxDecoration(
-                            color:
-                                complaintsReceivedDetails?.status.toString() ==
-                                            "Received" ||
-                                        complaintsReceivedDetails?.status
-                                                .toString() ==
-                                            "Not Answered"
-                                    ? CustomColors.backgroundColor3
-                                    : complaintsReceivedDetails?.status
-                                                .toString() ==
-                                            "Answered"
-                                        ? CustomColors.backgroundColor
-                                        : complaintsReceivedDetails?.status
-                                                    .toString() ==
-                                                "In Progress"
-                                            ? CustomColors.greyColor2
-                                            : CustomColors.backgroundColor,
+                            color: setStatusBackgroundColor(
+                                complaintsReceivedDetails?.status
+                                        .toString()
+                                        .toLowerCase() ??
+                                    ""),
                             borderRadius: BorderRadius.circular(4),
                           ),
                           padding: const EdgeInsets.only(
                               top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                           child: Text(
-                            complaintsReceivedDetails?.status.toString() ==
-                                    "Not Answered"
-                                ? "Received"
-                                : complaintsReceivedDetails?.status
-                                        .toString() ??
-                                    "",
+                            complaintsReceivedDetails?.status.toString() ?? "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",
-                              color: complaintsReceivedDetails?.status
-                                              .toString() ==
-                                          "Received" ||
-                                      complaintsReceivedDetails?.status
-                                              .toString() ==
-                                          "Not Answered"
-                                  ? CustomColors.textColor9
-                                  : complaintsReceivedDetails?.status
-                                              .toString() ==
-                                          "Answered"
-                                      ? CustomColors.textColorBlack2
-                                      : complaintsReceivedDetails?.status
-                                                  .toString() ==
-                                              "In Progress"
-                                          ? CustomColors.brownColor
-                                          : CustomColors.textColorBlack2,
+                              color: setStatusTextColor(
+                                  complaintsReceivedDetails?.status
+                                          .toString()
+                                          .toLowerCase() ??
+                                      ""),
                             ),
                           ),
                         ),
@@ -491,5 +464,17 @@ class _InconvenienceHistoryDetailsState
         isLoading = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    return CustomColors.backgroundColor;
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "completed") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

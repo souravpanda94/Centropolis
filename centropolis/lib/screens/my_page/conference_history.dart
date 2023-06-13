@@ -186,7 +186,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                                               ? CustomColors
                                                                   .redColor
                                                               : CustomColors
-                                                                  .textColorBlack2,
+                                                                  .backgroundColor,
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
