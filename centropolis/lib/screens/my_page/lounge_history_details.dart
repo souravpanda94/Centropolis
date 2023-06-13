@@ -315,35 +315,29 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
                       if (loungeHistoryDetailModel?.status.toString() ==
-                              "using" ||
+                              "cancelled" ||
                           loungeHistoryDetailModel?.status.toString() ==
-                              "rejected" ||
-                          loungeHistoryDetailModel?.status.toString() ==
-                              "used") {
+                              "rejected") {
                       } else {
                         networkCheckForCancelReservation();
                       }
                     },
                     buttonBorderColor:
                         loungeHistoryDetailModel?.status.toString() ==
-                                    "using" ||
+                                    "cancelled" ||
                                 loungeHistoryDetailModel?.status.toString() ==
-                                    "rejected" ||
-                                loungeHistoryDetailModel?.status.toString() ==
-                                    "used"
+                                    "rejected"
                             ? CustomColors.dividerGreyColor.withOpacity(0.3)
                             : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor: loungeHistoryDetailModel?.status
-                                    .toString() ==
-                                "using" ||
-                            loungeHistoryDetailModel?.status.toString() ==
-                                "rejected" ||
-                            loungeHistoryDetailModel?.status.toString() ==
-                                "used"
-                        ? CustomColors.textColor5.withOpacity(0.3)
-                        : CustomColors.textColor5),
+                    buttonTextColor:
+                        loungeHistoryDetailModel?.status.toString() ==
+                                    "cancelled" ||
+                                loungeHistoryDetailModel?.status.toString() ==
+                                    "rejected"
+                            ? CustomColors.textColor5.withOpacity(0.3)
+                            : CustomColors.textColor5),
               )
             : null,
       ),

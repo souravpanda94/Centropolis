@@ -41,6 +41,7 @@ class _ViewVisitReservationScreenState
   int page = 1;
   final int limit = 10;
   int totalPages = 0;
+  int totalRecords = 0;
   bool isFirstLoadRunning = true;
   List<VisitReservationModel>? visitReservationListItem;
   List<dynamic>? filteredStatusList;
@@ -55,7 +56,7 @@ class _ViewVisitReservationScreenState
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    loadVisitReservationList();
+    firstTimeLoadVisitReservationList();
 
     startDate = widget.selectedStartDate;
     endDate = widget.selectedEndDate;
@@ -157,8 +158,11 @@ class _ViewVisitReservationScreenState
                         ),
                         textAlign: TextAlign.center,
                       ),
+                      const SizedBox(
+                        width: 2,
+                      ),
                       Text(
-                        " ${visitReservationListItem?.length}",
+                        totalRecords.toString(),
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor9,
@@ -418,7 +422,8 @@ class _ViewVisitReservationScreenState
             endDate = "";
             currentSelectedSortingFilter = value as String;
           });
-          loadVisitReservationList();
+          firstTimeLoadVisitReservationList();
+          // loadVisitReservationList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -446,6 +451,15 @@ class _ViewVisitReservationScreenState
         ),
       ),
     );
+  }
+
+  void firstTimeLoadVisitReservationList() {
+    setState(() {
+      page = 1;
+    });
+    Provider.of<ViewVisitReservationListProvider>(context, listen: false)
+        .setEmptyVisitReservationList();
+    loadVisitReservationList();
   }
 
   void loadVisitReservationList() async {
@@ -485,6 +499,8 @@ class _ViewVisitReservationScreenState
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
+          totalRecords = responseJson['total_records'];
+          debugPrint("totalRecords ::: $totalRecords");
           if (responseJson['filtered_status_list'] != null) {
             setState(() {
               filteredStatusList = responseJson['filtered_status_list'];

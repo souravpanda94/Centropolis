@@ -23,4 +23,9 @@ class PaidPtHistoryListProvider extends ChangeNotifier {
     paidPtHistoryList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    paidPtHistoryList = [];
+    // notifyListeners();
+  }
 }

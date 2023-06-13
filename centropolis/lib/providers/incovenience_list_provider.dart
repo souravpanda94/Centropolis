@@ -22,4 +22,9 @@ class InconvenienceListProvider extends ChangeNotifier {
     inconvenienceModelList.removeAt(index);
     notifyListeners();
   }
+
+  void setEmptyList() {
+    inconvenienceModelList = [];
+    // notifyListeners();
+  }
 }

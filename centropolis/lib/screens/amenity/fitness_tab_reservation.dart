@@ -47,7 +47,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   List<dynamic> totalUsageTimeList = [];
   String reservationDate = "";
   int selectedSeat = 0;
-  bool firstTimeSeatAvailibilityLoading = true;
+  bool firstTimeSeatAvailabilityLoading = true;
   TextEditingController seatController = TextEditingController();
 
   @override
@@ -491,7 +491,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           setState(() {
             usageTimeSelectedValue = value as String;
           });
-          loadSeatAvailibility();
+          loadSeatAvailability();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -582,7 +582,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           setState(() {
             totalTimeSelectedValue = value.toString();
           });
-          loadSeatAvailibility();
+          loadSeatAvailability();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -799,19 +799,25 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     );
   }
 
-  void loadSeatAvailibility() async {
+  void loadSeatAvailability() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-      callLoadSeatAvailibilityApi();
+      callLoadSeatAvailabilityApi();
     } else {
       showCustomToast(fToast, context, tr("noInternetConnection"), "");
     }
   }
 
-  void callLoadSeatAvailibilityApi() {
-    setState(() {
-      isLoading = true;
-    });
+  void callLoadSeatAvailabilityApi() {
+    if(firstTimeSeatAvailabilityLoading) {
+      setState(() {
+        firstTimeSeatAvailabilityLoading = false;
+      });
+    }else{
+      setState(() {
+        isLoading = true;
+      });
+    }
 
     String selectedDate = "";
     String day = focusedDate.day.toString();
@@ -950,21 +956,19 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           if (responseJson['data'] != null) {
             setState(() {
               totalUsageTimeList = responseJson['data'];
-              if (firstTimeSeatAvailibilityLoading) {
-                loadSeatAvailibility();
-                firstTimeSeatAvailibilityLoading = false;
-              }
             });
+            loadSeatAvailability();
           }
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
                 fToast, context, responseJson['message'].toString(), "");
           }
+          setState(() {
+            isLoading = false;
+          });
         }
-        setState(() {
-          isLoading = false;
-        });
+
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");

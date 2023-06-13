@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import '../models/amenity_history_model.dart';
 
-
 class ConferenceHistoryProvider extends ChangeNotifier {
   AmenityHistoryModel? _item;
   List<AmenityHistoryModel> conferenceHistoryModelList = [];
@@ -23,5 +22,10 @@ class ConferenceHistoryProvider extends ChangeNotifier {
   void removeItem(int index) {
     conferenceHistoryModelList.removeAt(index);
     notifyListeners();
+  }
+
+  void setEmptyList() {
+    conferenceHistoryModelList = [];
+    // notifyListeners();
   }
 }

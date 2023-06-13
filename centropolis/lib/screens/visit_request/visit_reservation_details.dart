@@ -1,7 +1,5 @@
 import 'dart:convert';
-
 import 'package:http/http.dart' as http;
-
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -94,8 +92,7 @@ class _VisitReservationDetailsScreenState
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Expanded(
-                        flex: 3,
+                      Flexible(
                         child: Text(
                           tr("personInChargeInformation"),
                           maxLines: 1,
@@ -109,30 +106,27 @@ class _VisitReservationDetailsScreenState
                       const SizedBox(
                         width: 20,
                       ),
-                      Expanded(
-                        flex: 1,
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: setStatusBackgroundColor(
-                                visitReservationDetailModel?.status.toString()),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          padding: const EdgeInsets.only(
-                              top: 5, bottom: 5, left: 10, right: 10),
-                          child: Text(
-                            visitReservationDetailModel?.displayStatus ?? "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            textAlign: TextAlign.center,
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "Bold",
-                                color: setStatusTextColor(
-                                    visitReservationDetailModel?.status
-                                        .toString())),
-                          ),
+                      Container(
+                        decoration: BoxDecoration(
+                          color: setStatusBackgroundColor(
+                              visitReservationDetailModel?.status.toString()),
+                          borderRadius: BorderRadius.circular(4),
                         ),
-                      )
+                        padding: const EdgeInsets.only(
+                            top: 5, bottom: 5, left: 10, right: 10),
+                        child: Text(
+                          visitReservationDetailModel?.displayStatus ?? "",
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(
+                              fontSize: 12,
+                              fontFamily: "Bold",
+                              color: setStatusTextColor(
+                                  visitReservationDetailModel?.status
+                                      .toString())),
+                        ),
+                      ),
                     ],
                   ),
                 ),
@@ -464,7 +458,10 @@ class _VisitReservationDetailsScreenState
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            visitReservationDetailModel?.visitorMobile ?? "",
+                            formatNumberStringWithDash(
+                                visitReservationDetailModel?.visitorMobile
+                                        .toString() ??
+                                    ""),
                             style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",

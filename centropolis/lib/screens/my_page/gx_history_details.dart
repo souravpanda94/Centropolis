@@ -162,7 +162,7 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                                   height: 8,
                                 ),
                                 Text(
-                                  "${tr("krw")} ${formatNumberString(gxHistoryDetailModel?.usageAmount.toString() ?? "")} ${tr("perMonth")}",
+                                  "${tr("krw")} ${formatNumberStringWithComma(gxHistoryDetailModel?.usageAmount.toString() ?? "")} ${tr("perMonth")}",
                                   style: const TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 14,
@@ -396,24 +396,6 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.whiteColor,
-          padding:
-              const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
-          child: CommonButtonWithBorder(
-              onCommonButtonTap: () {},
-              buttonBorderColor:
-                  gxHistoryDetailModel?.status.toString() == "Approved"
-                      ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                      : CustomColors.dividerGreyColor,
-              buttonColor: CustomColors.whiteColor,
-              buttonName: tr("cancelReservation"),
-              buttonTextColor:
-                  gxHistoryDetailModel?.status.toString() == "Approved"
-                      ? CustomColors.textColor5.withOpacity(0.3)
-                      : CustomColors.textColor5),
-        ),
       ),
     );
   }

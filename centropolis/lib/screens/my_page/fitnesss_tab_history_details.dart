@@ -353,16 +353,20 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                     onCommonButtonTap: () {
                       networkCheckForCancelReservation();
                     },
-                    buttonBorderColor:
-                        fitnessHistoryDetailModel?.status.toString() ==
-                                "Approved"
-                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                            : CustomColors.dividerGreyColor,
+                    buttonBorderColor: fitnessHistoryDetailModel?.status
+                                    .toString() ==
+                                "rejected" ||
+                            fitnessHistoryDetailModel?.status.toString() ==
+                                "cancelled"
+                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                        : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
                     buttonTextColor:
                         fitnessHistoryDetailModel?.status.toString() ==
-                                "Approved"
+                                    "rejected" ||
+                                fitnessHistoryDetailModel?.status.toString() ==
+                                    "cancelled"
                             ? CustomColors.textColor5.withOpacity(0.3)
                             : CustomColors.textColor5),
               )

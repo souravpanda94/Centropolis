@@ -302,24 +302,6 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: Container(
-          width: MediaQuery.of(context).size.width,
-          color: CustomColors.whiteColor,
-          padding:
-              const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
-          child: CommonButtonWithBorder(
-              onCommonButtonTap: () {},
-              buttonBorderColor:
-                  paidPtHistoryDetailModel?.status.toString() == "Approved"
-                      ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                      : CustomColors.dividerGreyColor,
-              buttonColor: CustomColors.whiteColor,
-              buttonName: tr("cancelReservation"),
-              buttonTextColor:
-                  paidPtHistoryDetailModel?.status.toString() == "Approved"
-                      ? CustomColors.textColor5.withOpacity(0.3)
-                      : CustomColors.textColor5),
-        ),
       ),
     );
   }

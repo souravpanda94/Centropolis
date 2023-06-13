@@ -5,12 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 import 'air_conditioning_history.dart';
-import 'conference_history.dart';
-import 'facility_history.dart';
-import 'fitness_history.dart';
+
 import 'inconvenience_history.dart';
 import 'lights_out_history.dart';
-import 'lounge_history.dart';
 
 class VOCReservationHistory extends StatefulWidget {
   const VOCReservationHistory({super.key});
@@ -28,8 +25,6 @@ class _VOCReservationHistoryState extends State<VOCReservationHistory> {
 
   @override
   Widget build(BuildContext context) {
-    Locale myLocale = Localizations.localeOf(context);
-
     return DefaultTabController(
         length: 3,
         child: Scaffold(
@@ -76,7 +71,7 @@ class _VOCReservationHistoryState extends State<VOCReservationHistory> {
                               width: 0.5)),
                     ),
                     child: TabBar(
-                      isScrollable: myLocale.toString() == "ko" ? false : true,
+                      labelPadding: EdgeInsets.zero,
                       tabs: myTabs,
                       labelColor: CustomColors.textColor8,
                       labelStyle: const TextStyle(

@@ -184,11 +184,26 @@ getDataFromSharedPreference(String keyValue) async {
   return prefs.getString(keyValue);
 }
 
-String formatNumberString(String number) {
+String formatNumberStringWithComma(String number) {
   if (number.isNotEmpty) {
     if (!number.contains(",")) {
       RegExp reg = RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))');
       mathFunc(Match match) => '${match[1]},';
+      String formattedNumberString = number.replaceAllMapped(reg, mathFunc);
+      return formattedNumberString;
+    } else {
+      return number;
+    }
+  } else {
+    return "";
+  }
+}
+
+String formatNumberStringWithDash(String number) {
+  if (number.isNotEmpty) {
+    if (!number.contains("-")) {
+      RegExp reg = RegExp(r'(\d{3})(\d{4})(\d+)');
+      mathFunc(Match match) => '${match[1]}-${match[2]}-${match[3]}';
       String formattedNumberString = number.replaceAllMapped(reg, mathFunc);
       return formattedNumberString;
     } else {

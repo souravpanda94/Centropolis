@@ -31,8 +31,6 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Locale myLocale = Localizations.localeOf(context);
-
     return DefaultTabController(
       length: 3,
       // initialIndex: widget.page,
@@ -49,7 +47,7 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
                         color: CustomColors.backgroundColor2, width: 0.5)),
               ),
               child: TabBar(
-                isScrollable: myLocale.toString() == "ko" ? false : true,
+                labelPadding: EdgeInsets.zero,
                 tabs: myTabs,
                 labelColor: CustomColors.textColor8,
                 labelStyle: const TextStyle(

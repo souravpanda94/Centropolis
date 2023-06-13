@@ -38,13 +38,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
   bool isFirstLoadRunning = true;
   List<AirConditioningListModel>? airConditioningListItem;
   String? currentSelectedSortingFilter;
-  // For dropdown list attaching
-  List<dynamic>? sortingList = [
-    {"value": "", "text": "All"},
-    {"value": "tenant_employee", "text": "Tenant Employee"},
-    {"value": "tenant_lounge_employee", "text": "Executive Lounge"},
-    {"value": "tenant_conference_employee", "text": "Conference Room"}
-  ];
+  List<dynamic>? statusList = [];
 
   @override
   void initState() {
@@ -54,6 +48,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    loadStatusList();
     firstTimeLoadAirConditioningList();
   }
 
@@ -82,64 +77,64 @@ class _AirConditioningListState extends State<AirConditioningList> {
             ),
           ),
         ),
-        body: airConditioningListItem == null ||
-                airConditioningListItem!.isEmpty
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  tr("airConditioningEmptyText"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                      color: CustomColors.textColor5),
-                ),
-              )
-            : Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              tr("total"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
-                            ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 2),
-                              child: Text(
-                                airConditioningListItem?.length.toString() ??
-                                    "",
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor9),
-                              ),
-                            ),
-                            Text(
-                              tr("items"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  color: CustomColors.textColorBlack2),
-                            ),
-                          ],
+        body: Container(
+          padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        tr("total"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 2),
+                        child: Text(
+                          airConditioningListItem?.length.toString() ?? "",
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor9),
                         ),
-                        sortingDropdownWidget(),
-                      ],
-                    ),
-                    Expanded(
+                      ),
+                      Text(
+                        tr("items"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                    ],
+                  ),
+                  sortingDropdownWidget(),
+                ],
+              ),
+              airConditioningListItem == null ||
+                      airConditioningListItem!.isEmpty
+                  ? Expanded(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 20),
+                        padding: const EdgeInsets.all(24),
+                        child: Text(
+                          tr("airConditioningEmptyText"),
+                          textAlign: TextAlign.center,
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor5),
+                        ),
+                      ),
+                    )
+                  : Expanded(
                       child: ListView.builder(
                           itemCount: airConditioningListItem?.length,
                           itemBuilder: ((context, index) {
@@ -232,34 +227,12 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                                 .isNotEmpty)
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: airConditioningListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Received" ||
-                                                      airConditioningListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                  ? CustomColors
-                                                      .backgroundColor3
-                                                  : airConditioningListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : airConditioningListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "In Progress"
-                                                          ? CustomColors
-                                                              .greyColor2
-                                                          : CustomColors
-                                                              .backgroundColor,
+                                              color: setStatusBackgroundColor(
+                                                  airConditioningListItem?[
+                                                          index]
+                                                      .status
+                                                      .toString()
+                                                      .toLowerCase()),
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
@@ -276,33 +249,12 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "SemiBold",
-                                                color: airConditioningListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Received" ||
-                                                        airConditioningListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Rejected"
-                                                    ? CustomColors.textColor9
-                                                    : airConditioningListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Answered"
-                                                        ? CustomColors
-                                                            .textColorBlack2
-                                                        : airConditioningListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "In Progress"
-                                                            ? CustomColors
-                                                                .brownColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
+                                                color: setStatusTextColor(
+                                                    airConditioningListItem?[
+                                                            index]
+                                                        .status
+                                                        .toString()
+                                                        .toLowerCase()),
                                               ),
                                             ),
                                           ),
@@ -354,15 +306,15 @@ class _AirConditioningListState extends State<AirConditioningList> {
                             );
                           })),
                     ),
-                    if (page < totalPages)
-                      ViewMoreWidget(
-                        onViewMoreTap: () {
-                          loadMore();
-                        },
-                      )
-                  ],
-                ),
-              ),
+              if (page < totalPages)
+                ViewMoreWidget(
+                  onViewMoreTap: () {
+                    loadMore();
+                  },
+                )
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -370,7 +322,10 @@ class _AirConditioningListState extends State<AirConditioningList> {
   void firstTimeLoadAirConditioningList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
+    Provider.of<AirConditioningListProvider>(context, listen: false)
+        .setEmptyList();
     loadAirConditioningList();
   }
 
@@ -386,7 +341,11 @@ class _AirConditioningListState extends State<AirConditioningList> {
   void callAirConditioningListApi() {
     Map<String, String> body = {
       "page": page.toString(),
-      "limit": limit.toString()
+      "limit": limit.toString(),
+      "status": currentSelectedSortingFilter != null &&
+              currentSelectedSortingFilter!.isNotEmpty
+          ? currentSelectedSortingFilter.toString().trim()
+          : "",
     };
 
     debugPrint("AirConditioning List input===> $body");
@@ -449,14 +408,16 @@ class _AirConditioningListState extends State<AirConditioningList> {
       child: DropdownButton2(
         alignment: AlignmentDirectional.centerEnd,
         hint: Text(
-          tr('all'),
+          statusList != null && statusList!.isNotEmpty
+              ? statusList?.first["text"]
+              : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
             fontFamily: 'Regular',
           ),
         ),
-        items: sortingList
+        items: statusList
             ?.map(
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
@@ -477,8 +438,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
             currentSelectedSortingFilter = value as String;
           });
 
-          //call API for sorting
-          //loadEmployeeList();
+          firstTimeLoadAirConditioningList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -506,5 +466,70 @@ class _AirConditioningListState extends State<AirConditioningList> {
         ),
       ),
     );
+  }
+
+  void loadStatusList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callStatusListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.lightOutCoolingHeatingStatusUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              statusList = responseJson['data'];
+              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+              statusList?.insert(0, allMap);
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.textColor9;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

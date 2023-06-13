@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
 
-import '../screens/my_page/fitness_history_list_model.dart';
+import '../models/fitness_history_list_model.dart';
 
 class FitnessHistoryListProvider extends ChangeNotifier {
   List<FitnessHistoryListModel> fitnessHistoryList = [];
@@ -22,5 +22,10 @@ class FitnessHistoryListProvider extends ChangeNotifier {
   void removeItem(int index) {
     fitnessHistoryList.removeAt(index);
     notifyListeners();
+  }
+
+  void setEmptyList() {
+    fitnessHistoryList = [];
+    // notifyListeners();
   }
 }
