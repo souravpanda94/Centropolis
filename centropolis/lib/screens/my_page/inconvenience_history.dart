@@ -85,7 +85,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        incovenienceListItem?.length.toString() ?? "",
+                        totalRecords.toString(),
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,

@@ -85,7 +85,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        paidPtHistoryListItem?.length.toString() ?? "",
+                        totalRecords.toString(),
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,

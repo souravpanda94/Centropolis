@@ -82,7 +82,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        airConditioningListItem?.length.toString() ?? "",
+                        totalRecords.toString(),
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,

@@ -83,7 +83,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                       Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 2),
                         child: Text(
-                          conferenceListItem?.length.toString() ?? "",
+                          totalRecords.toString(),
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,

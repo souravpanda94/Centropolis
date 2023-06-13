@@ -83,7 +83,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        lightoutListItem?.length.toString() ?? "",
+                        totalRecords.toString(),
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,

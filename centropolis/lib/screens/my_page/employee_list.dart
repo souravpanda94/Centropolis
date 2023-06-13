@@ -86,7 +86,7 @@ class _EmployeeListState extends State<EmployeeList> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        employeeListItem?.length.toString() ?? "",
+                        totalRecords.toString(),
                         style: const TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 14,

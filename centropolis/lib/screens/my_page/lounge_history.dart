@@ -83,7 +83,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                     Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 2),
                       child: Text(
-                        executiveLoungeListItem?.length.toString() ?? "",
+                        totalRecords.toString(),
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
