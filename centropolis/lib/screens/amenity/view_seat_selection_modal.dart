@@ -54,7 +54,7 @@ class _ViewSeatSelectionModalScreenState
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: AppBarForDialog(tr("profile"), () {
+              child: AppBarForDialog(tr("viewSeatSelection"), () {
                 onBackButtonPress(context);
               }),
             ),
@@ -171,7 +171,7 @@ class _ViewSeatSelectionModalScreenState
                       ),
                     ),
                     Container(
-                      color: Colors.purple,
+                      // color: Colors.purple,
                       height: height,
                       margin: const EdgeInsets.only(top: 20),
                       child: GridView.builder(
@@ -225,9 +225,7 @@ class _ViewSeatSelectionModalScreenState
                                   setTextValue(index),
                                   style: const TextStyle(
                                     fontSize: 14,
-                                    // color: widget.viewSeatSelectionListItem?[index].available == false
-                                    //     ? CustomColors.textColor3 : CustomColors.whiteColor,
-                                    color: CustomColors.blackColor,
+                                    color: CustomColors.textColorBlack2,
                                     fontFamily: 'Regular',
                                   ),
                                 ),
