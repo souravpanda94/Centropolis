@@ -195,7 +195,9 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                             height: 8,
                           ),
                           Text(
-                            complaintsReceivedDetails?.contact.toString() ?? "",
+                            formatNumberStringWithDash(
+                                complaintsReceivedDetails?.contact.toString() ??
+                                    ""),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,

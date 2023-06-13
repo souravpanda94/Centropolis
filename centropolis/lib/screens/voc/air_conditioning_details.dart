@@ -188,7 +188,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                           height: 8,
                         ),
                         Text(
-                          airConditioningDetailModel?.contact.toString() ?? "",
+                          formatNumberStringWithDash(
+                              airConditioningDetailModel?.contact.toString() ??
+                                  ""),
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,

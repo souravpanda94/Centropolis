@@ -123,7 +123,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                                                         "rejected"
                                                     ? CustomColors.redColor
                                                     : CustomColors
-                                                        .textColorBlack2,
+                                                        .backgroundColor,
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(

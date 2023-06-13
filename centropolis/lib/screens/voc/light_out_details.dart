@@ -194,7 +194,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                             height: 8,
                           ),
                           Text(
-                            lightOutDetails?.contact.toString() ?? "",
+                            formatNumberStringWithDash(
+                                lightOutDetails?.contact.toString() ?? ""),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
