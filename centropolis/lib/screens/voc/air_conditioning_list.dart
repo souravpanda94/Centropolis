@@ -227,34 +227,12 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                                 .isNotEmpty)
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: airConditioningListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Received" ||
-                                                      airConditioningListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                  ? CustomColors
-                                                      .backgroundColor3
-                                                  : airConditioningListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : airConditioningListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "In Progress"
-                                                          ? CustomColors
-                                                              .greyColor2
-                                                          : CustomColors
-                                                              .backgroundColor,
+                                              color: setStatusBackgroundColor(
+                                                  airConditioningListItem?[
+                                                          index]
+                                                      .status
+                                                      .toString()
+                                                      .toLowerCase()),
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
@@ -271,33 +249,12 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "SemiBold",
-                                                color: airConditioningListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Received" ||
-                                                        airConditioningListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Rejected"
-                                                    ? CustomColors.textColor9
-                                                    : airConditioningListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Answered"
-                                                        ? CustomColors
-                                                            .textColorBlack2
-                                                        : airConditioningListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "In Progress"
-                                                            ? CustomColors
-                                                                .brownColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
+                                                color: setStatusTextColor(
+                                                    airConditioningListItem?[
+                                                            index]
+                                                        .status
+                                                        .toString()
+                                                        .toLowerCase()),
                                               ),
                                             ),
                                           ),
@@ -558,5 +515,21 @@ class _AirConditioningListState extends State<AirConditioningList> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.textColor9;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

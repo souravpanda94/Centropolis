@@ -190,38 +190,11 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                                 .isNotEmpty)
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: incovenienceListItem![
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Received" ||
-                                                      incovenienceListItem![
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Not Answered"
-                                                  ? CustomColors
-                                                      .backgroundColor3
-                                                  : incovenienceListItem![index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Answered" ||
-                                                          incovenienceListItem![
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Completed"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : incovenienceListItem![
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "In Progress"
-                                                          ? CustomColors
-                                                              .greyColor2
-                                                          : CustomColors
-                                                              .backgroundColor,
+                                              color: setStatusBackgroundColor(
+                                                  incovenienceListItem?[index]
+                                                      .status
+                                                      .toString()
+                                                      .toLowerCase()),
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
@@ -232,48 +205,16 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                                 right: 10.0),
                                             child: Text(
                                               incovenienceListItem![index]
-                                                          .status
-                                                          .toString() ==
-                                                      "Not Answered"
-                                                  ? "Received"
-                                                  : incovenienceListItem![index]
-                                                          .status ??
-                                                      "",
+                                                      .status ??
+                                                  "",
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "SemiBold",
-                                                color: incovenienceListItem![
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Received" ||
-                                                        incovenienceListItem![
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Not Answered"
-                                                    ? CustomColors.textColor9
-                                                    : incovenienceListItem![
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Answered" ||
-                                                            incovenienceListItem![
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Completed"
-                                                        ? CustomColors
-                                                            .textColorBlack2
-                                                        : incovenienceListItem![
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "In Progress"
-                                                            ? CustomColors
-                                                                .brownColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
+                                                color: setStatusTextColor(
+                                                    incovenienceListItem?[index]
+                                                        .status
+                                                        .toString()
+                                                        .toLowerCase()),
                                               ),
                                             ),
                                           ),
@@ -528,5 +469,17 @@ class _InconvenienceListState extends State<InconvenienceList> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    return CustomColors.backgroundColor;
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "completed") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }
