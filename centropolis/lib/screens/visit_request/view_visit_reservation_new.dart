@@ -41,6 +41,7 @@ class _ViewVisitReservationScreenState
   int page = 1;
   final int limit = 10;
   int totalPages = 0;
+  int totalRecords = 0;
   bool isFirstLoadRunning = true;
   List<VisitReservationModel>? visitReservationListItem;
   List<dynamic>? filteredStatusList;
@@ -158,7 +159,7 @@ class _ViewVisitReservationScreenState
                         textAlign: TextAlign.center,
                       ),
                       Text(
-                        " ${visitReservationListItem?.length}",
+                        totalRecords.toString(),
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor9,
@@ -453,7 +454,8 @@ class _ViewVisitReservationScreenState
     setState(() {
       page = 1;
     });
-    Provider.of<ViewVisitReservationListProvider>(context, listen: false).setEmptyVisitReservationList();
+    Provider.of<ViewVisitReservationListProvider>(context, listen: false)
+        .setEmptyVisitReservationList();
     loadVisitReservationList();
   }
 
@@ -494,6 +496,8 @@ class _ViewVisitReservationScreenState
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
+          totalRecords = responseJson['total_records'];
+          debugPrint("totalRecords ::: $totalRecords");
           if (responseJson['filtered_status_list'] != null) {
             setState(() {
               filteredStatusList = responseJson['filtered_status_list'];
