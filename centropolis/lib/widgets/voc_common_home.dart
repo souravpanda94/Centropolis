@@ -175,26 +175,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                 .isNotEmpty)
                           Container(
                             decoration: BoxDecoration(
-                              color: widget.inconvenienceList?[index].status
-                                              .toString() ==
-                                          "Received" ||
-                                      widget.inconvenienceList?[index].status
-                                              .toString() ==
-                                          "Not Answered"
-                                  ? CustomColors.backgroundColor3
-                                  : widget.inconvenienceList?[index].status
-                                                  .toString() ==
-                                              "Answered" ||
-                                          widget.inconvenienceList?[index]
-                                                  .status
-                                                  .toString() ==
-                                              "Completed"
-                                      ? CustomColors.backgroundColor
-                                      : widget.inconvenienceList?[index].status
-                                                  .toString() ==
-                                              "In Progress"
-                                          ? CustomColors.greyColor2
-                                          : CustomColors.backgroundColor,
+                              color: setStatusBackgroundColor(widget
+                                  .inconvenienceList?[index].status
+                                  .toString()
+                                  .toLowerCase()),
                               borderRadius: BorderRadius.circular(4),
                             ),
                             padding: const EdgeInsets.only(
@@ -209,27 +193,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",
-                                color: widget.inconvenienceList?[index].status
-                                                .toString() ==
-                                            "Received" ||
-                                        widget.inconvenienceList?[index].status
-                                                .toString() ==
-                                            "Not Answered"
-                                    ? CustomColors.textColor9
-                                    : widget.inconvenienceList?[index].status
-                                                    .toString() ==
-                                                "Answered" ||
-                                            widget.inconvenienceList?[index]
-                                                    .status
-                                                    .toString() ==
-                                                "Completed"
-                                        ? CustomColors.textColorBlack2
-                                        : widget.inconvenienceList?[index]
-                                                    .status
-                                                    .toString() ==
-                                                "In Progress"
-                                            ? CustomColors.brownColor
-                                            : CustomColors.textColorBlack2,
+                                color: setStatusTextColor(widget
+                                    .inconvenienceList?[index].status
+                                    .toString()
+                                    .toLowerCase()),
                               ),
                             ),
                           ),
@@ -353,25 +320,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   .isNotEmpty)
                             Container(
                               decoration: BoxDecoration(
-                                color: widget.lightoutList?[index].status
-                                                .toString() ==
-                                            "Received" ||
-                                        widget.lightoutList?[index].status
-                                                .toString() ==
-                                            "Rejected"
-                                    ? CustomColors.backgroundColor3
-                                    : widget.lightoutList?[index].status
-                                                    .toString() ==
-                                                "Answered" ||
-                                            widget.lightoutList?[index].status
-                                                    .toString() ==
-                                                "Approved"
-                                        ? CustomColors.backgroundColor
-                                        : widget.lightoutList?[index].status
-                                                    .toString() ==
-                                                "In Progress"
-                                            ? CustomColors.greyColor2
-                                            : CustomColors.backgroundColor,
+                                color: setStatusBackgroundColor(widget
+                                    .lightoutList?[index].status
+                                    .toString()
+                                    .toLowerCase()),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               padding: const EdgeInsets.only(
@@ -384,25 +336,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",
-                                  color: widget.lightoutList?[index].status
-                                                  .toString() ==
-                                              "Received" ||
-                                          widget.lightoutList?[index].status
-                                                  .toString() ==
-                                              "Rejected"
-                                      ? CustomColors.textColor9
-                                      : widget.lightoutList?[index].status
-                                                      .toString() ==
-                                                  "Answered" ||
-                                              widget.lightoutList?[index].status
-                                                      .toString() ==
-                                                  "Approved"
-                                          ? CustomColors.textColorBlack2
-                                          : widget.lightoutList?[index].status
-                                                      .toString() ==
-                                                  "In Progress"
-                                              ? CustomColors.brownColor
-                                              : CustomColors.textColorBlack2,
+                                  color: setStatusTextColor(widget
+                                      .lightoutList?[index].status
+                                      .toString()
+                                      .toLowerCase()),
                                 ),
                               ),
                             ),
@@ -543,28 +480,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   .isNotEmpty)
                             Container(
                               decoration: BoxDecoration(
-                                color: widget.airConditioningList?[index].status
-                                                .toString() ==
-                                            "Received" ||
-                                        widget.airConditioningList?[index]
-                                                .status
-                                                .toString() ==
-                                            "Rejected"
-                                    ? CustomColors.backgroundColor3
-                                    : widget.airConditioningList?[index].status
-                                                    .toString() ==
-                                                "Answered" ||
-                                            widget.airConditioningList?[index]
-                                                    .status
-                                                    .toString() ==
-                                                "Approved"
-                                        ? CustomColors.backgroundColor
-                                        : widget.airConditioningList?[index]
-                                                    .status
-                                                    .toString() ==
-                                                "In Progress"
-                                            ? CustomColors.greyColor2
-                                            : CustomColors.backgroundColor,
+                                color: setStatusBackgroundColor(widget
+                                    .airConditioningList?[index].status
+                                    .toString()
+                                    .toLowerCase()),
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               padding: const EdgeInsets.only(
@@ -577,30 +496,10 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",
-                                  color: widget.airConditioningList?[index]
-                                                  .status
-                                                  .toString() ==
-                                              "Received" ||
-                                          widget.airConditioningList?[index]
-                                                  .status
-                                                  .toString() ==
-                                              "Rejected"
-                                      ? CustomColors.textColor9
-                                      : widget.airConditioningList?[index]
-                                                      .status
-                                                      .toString() ==
-                                                  "Answered" ||
-                                              widget.airConditioningList?[index]
-                                                      .status
-                                                      .toString() ==
-                                                  "Approved"
-                                          ? CustomColors.textColorBlack2
-                                          : widget.airConditioningList?[index]
-                                                      .status
-                                                      .toString() ==
-                                                  "In Progress"
-                                              ? CustomColors.brownColor
-                                              : CustomColors.textColorBlack2,
+                                  color: setStatusTextColor(widget
+                                      .airConditioningList?[index].status
+                                      .toString()
+                                      .toLowerCase()),
                                 ),
                               ),
                             ),
@@ -650,5 +549,23 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 ),
               );
             })));
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.textColor9;
+    } else if (status == "completed") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }
