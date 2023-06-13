@@ -464,7 +464,10 @@ class _VisitReservationDetailsScreenState
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            visitReservationDetailModel?.visitorMobile ?? "",
+                            formatNumberStringWithDash(
+                                visitReservationDetailModel?.visitorMobile
+                                        .toString() ??
+                                    ""),
                             style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",

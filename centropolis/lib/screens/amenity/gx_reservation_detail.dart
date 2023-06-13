@@ -168,7 +168,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                             height: 8,
                           ),
                           Text(
-                            "${tr("krw")} ${formatNumberString(widget.gxReservationItem.totalPrice.toString())} ${tr("perMonth")}",
+                            "${tr("krw")} ${formatNumberStringWithComma(widget.gxReservationItem.totalPrice.toString())} ${tr("perMonth")}",
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
