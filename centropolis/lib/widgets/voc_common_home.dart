@@ -72,6 +72,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 //height: 62,
                 margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
                 child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Padding(
@@ -90,13 +91,16 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       onTap: () {
                         widget.onDrawerClick();
                       },
-                      child: SizedBox(
-                        child: SvgPicture.asset(
-                          'assets/images/ic_drawer.svg',
-                          semanticsLabel: 'Back',
-                          width: 25,
-                          height: 25,
-                          alignment: Alignment.center,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 3),
+                        child: SizedBox(
+                          child: SvgPicture.asset(
+                            'assets/images/ic_list.svg',
+                            semanticsLabel: 'Back',
+                            width: 20,
+                            height: 20,
+                            alignment: Alignment.center,
+                          ),
                         ),
                       ),
                     ),

@@ -81,8 +81,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Expanded(
-                          flex: 6,
+                        Flexible(
                           child: Text(tr("tenantCompanyInformation"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
@@ -94,50 +93,29 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                         ),
                         if (lightOutDetails != null &&
                             lightOutDetails!.status.toString().isNotEmpty)
-                          Expanded(
-                            flex: 2,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: lightOutDetails?.status.toString() ==
-                                            "Received" ||
-                                        lightOutDetails?.status.toString() ==
-                                            "Rejected"
-                                    ? CustomColors.backgroundColor3
-                                    : lightOutDetails?.status.toString() ==
-                                            "Approved"
-                                        ? CustomColors.backgroundColor
-                                        : lightOutDetails?.status.toString() ==
-                                                "In Progress"
-                                            ? CustomColors.greyColor2
-                                            : CustomColors.backgroundColor,
-                                borderRadius: BorderRadius.circular(4),
-                              ),
-                              padding: const EdgeInsets.only(
-                                  top: 5.0,
-                                  bottom: 5.0,
-                                  left: 10.0,
-                                  right: 10.0),
-                              child: Text(
-                                lightOutDetails?.status.toString() ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: "SemiBold",
-                                  color: lightOutDetails?.status.toString() ==
-                                              "Received" ||
-                                          lightOutDetails?.status.toString() ==
-                                              "Rejected"
-                                      ? CustomColors.textColor9
-                                      : lightOutDetails?.status.toString() ==
-                                              "Approved"
-                                          ? CustomColors.textColorBlack2
-                                          : lightOutDetails?.status
-                                                      .toString() ==
-                                                  "In Progress"
-                                              ? CustomColors.brownColor
-                                              : CustomColors.textColorBlack2,
-                                ),
+                          Container(
+                            decoration: BoxDecoration(
+                              color: setStatusBackgroundColor(lightOutDetails
+                                      ?.status
+                                      .toString()
+                                      .toLowerCase() ??
+                                  ""),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            padding: const EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text(
+                              lightOutDetails?.status.toString() ?? "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "SemiBold",
+                                color: setStatusTextColor(lightOutDetails
+                                        ?.status
+                                        .toString()
+                                        .toLowerCase() ??
+                                    ""),
                               ),
                             ),
                           ),
@@ -216,7 +194,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                             height: 8,
                           ),
                           Text(
-                            lightOutDetails?.contact.toString() ?? "",
+                            formatNumberStringWithDash(
+                                lightOutDetails?.contact.toString() ?? ""),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
@@ -388,5 +367,21 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
         isLoading = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected") {
+      return CustomColors.textColor9;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }
