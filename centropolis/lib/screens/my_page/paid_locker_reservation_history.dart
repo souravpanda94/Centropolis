@@ -40,6 +40,7 @@ class _PaidLockerReservationHistoryState
   List<PaidLockerHistoryListModel>? paidLockerHistoryListItem;
   String? currentSelectedSortingFilter;
   List<dynamic>? statusList = [];
+  String displayCategory = "";
 
   @override
   void initState() {
@@ -159,12 +160,11 @@ class _PaidLockerReservationHistoryState
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        //paidLockerHistoryListItem?[index].status.toString() ?? "",
-                                        "Locker",
+                                      Text(
+                                        displayCategory,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'SemiBold',
                                             fontSize: 14,
                                             color: CustomColors.textColor8),
@@ -429,6 +429,7 @@ class _PaidLockerReservationHistoryState
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
+          displayCategory = responseJson['display_category'];
           List<PaidLockerHistoryListModel> paidLockerHistoryList =
               List<PaidLockerHistoryListModel>.from(responseJson['inquiry_data']
                   .map((x) => PaidLockerHistoryListModel.fromJson(x)));

@@ -39,6 +39,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
   List<PaidPtHistoryListModel>? paidPtHistoryListItem;
   String? currentSelectedSortingFilter;
   List<dynamic>? statusList = [];
+  String displayCategory = "";
 
   @override
   void initState() {
@@ -156,12 +157,11 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        //paidPtHistoryListItem?[index].status.toString() ?? "",
-                                        "PT",
+                                      Text(
+                                        displayCategory,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'SemiBold',
                                             fontSize: 14,
                                             color: CustomColors.textColor8),
@@ -454,6 +454,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
+          displayCategory = responseJson['display_category'];
           List<PaidPtHistoryListModel> paidPtHistoryList =
               List<PaidPtHistoryListModel>.from(responseJson['inquiry_data']
                   .map((x) => PaidPtHistoryListModel.fromJson(x)));
