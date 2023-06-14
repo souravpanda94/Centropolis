@@ -6,7 +6,7 @@
   "fitness" : "피트니스",
   "facilities" : "편의시설",
   "inconvenience" : "불편사항 접수",
-  "lightOut" : "소등 신청",
+  "lightOut" : "소등 연장 신청",
   "airConditioning" : "냉 & 난방 신청",
   "loungeReservationComplete" : "라운지 예약 완료",
   "check" : "확인",
@@ -383,6 +383,27 @@
   "selectedSeat": "좌석 번호",
   "makeVisitorReservation": "방문 예약 신청",
   "paidLockerValidation": "최소 하루 이전 예약하여야 합니다",
+  "applicationFloorHint": "소속 회사의 층 수를 선택해 주세요.",
+  "krwDetail": "시간 (--원)",
+  "complaintsReceivedHistory": "불편사항 접수",
+  "lightsOutRequestHistory": "소등 연장 신청",
+  "heatingAndCoolingRequestHistory": "냉 & 난방 신청",
+  "customerComplaintsEngTitle": "Customer Complaints",
+  "lightOutEngTitle": "Request for Light Out",
+  "heatingAndCoolingEngTitle": "Request for Heating and Cooling",
+  "lightOutDetail": "소등 연장 신청",
+  "lightOutDetailCompany": "회사명",
+  "applicationFloorLightOut" : "신청 층 선택",
+  "dateOfApplicationLightOut" : "날짜 선택",
+  "coolingValue" : "냉방",
+  "usageTimeCoolingHeating" : "이용 시간",
+
+
+
+
+
+
+
 
 
 

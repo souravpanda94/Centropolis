@@ -65,7 +65,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
         backgroundColor: Colors.white,
         body: VocCommonHome(
           image: 'assets/images/ic_slider_6.png',
-          title: tr("requestForLightsOut"),
+          title: tr("lightOutEngTitle"),
           subTitle: tr("requestForLightsOut"),
           emptyTxt: tr("lightOutEmptyText"),
           airConditioningList: const [],
@@ -75,7 +75,11 @@ class _LightOutScreenState extends State<LightOutScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(builder: (context) => const LightsOutList()),
-            );
+            ).then((value) {
+              if (value) {
+                firstTimeLoadLightsOutList();
+              }
+            });
           },
           category: 'lightout',
         ),
@@ -106,6 +110,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
   void firstTimeLoadLightsOutList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
     loadLightsOutList();
   }

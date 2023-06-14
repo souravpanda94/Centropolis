@@ -383,6 +383,26 @@
   "selectedSeat": "Selected Seat",
   "makeVisitorReservation": "Make a Reservation",
   "paidLockerValidation": "You need to reserve before 1 day prior",
+  "applicationFloorHint": "Please select the application floor",
+  "krwDetail": "hours (--KRW)",
+  "complaintsReceivedHistory": "Complaints Received History",
+  "lightsOutRequestHistory": "Lights out request history",
+  "heatingAndCoolingRequestHistory": "Heating and Cooling Request History",
+  "customerComplaintsEngTitle": "Customer Complaints",
+  "lightOutEngTitle": "Request for Light Out",
+  "heatingAndCoolingEngTitle": "Request for Heating and Cooling",
+  "lightOutDetail": "Request for lights out",
+  "lightOutDetailCompany": "Tenant Company",
+  "applicationFloorLightOut" : "Application Floor",
+  "dateOfApplicationLightOut" : "Date of Application",
+  "usageTimeCoolingHeating" : "Usage Time",
+
+
+
+
+
+
+
 
 
 

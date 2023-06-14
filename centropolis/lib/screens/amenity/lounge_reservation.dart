@@ -696,7 +696,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     return TableCalendar(
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-      weekendDays: const [DateTime.sunday],
+      weekendDays: const [DateTime.sunday, DateTime.saturday],
       daysOfWeekHeight: 50,
       focusedDay: focusedDate,
       calendarFormat: selectedCalendarFormat,
@@ -766,7 +766,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       enabledDayPredicate: (day) {
-        if (day.weekday == DateTime.saturday) {
+        if (day.weekday == DateTime.saturday ||
+            day.weekday == DateTime.sunday) {
           return false;
         } else if (day.day == kFirstDay.day &&
             day.month == kFirstDay.month &&
