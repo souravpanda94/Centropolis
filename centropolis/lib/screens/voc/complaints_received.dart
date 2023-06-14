@@ -843,7 +843,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             : floorList.first["floor"].toString().trim(), //required
         "title": titleController.text.toString().trim(),
         // "file_name" : fileName
-        // "parent_complaint_id": 19, //optional
       };
     }
 
