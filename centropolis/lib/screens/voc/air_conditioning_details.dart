@@ -53,7 +53,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("AirConditioning"), false, () {
+            child: CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
@@ -142,7 +142,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                         const SizedBox(
                           height: 16,
                         ),
-                        Text(tr("tenantCompanyLounge"),
+                        Text(tr("lightOutDetailCompany"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,

@@ -64,7 +64,7 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
           backgroundColor: Colors.white,
           body: VocCommonHome(
             image: 'assets/images/inconvenience_dummy_image.png',
-            title: tr("customerComplaints"),
+            title: tr("customerComplaintsEngTitle"),
             subTitle: tr("customerComplaints"),
             emptyTxt: tr("inconvenienceEmptyText"),
             airConditioningList: const [],

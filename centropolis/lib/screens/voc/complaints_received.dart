@@ -180,12 +180,21 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Text(
-                    tr("floor"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
+                  RichText(
+                    text: TextSpan(
+                        text: tr("floor"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
                   ),
                   const SizedBox(
                     height: 8,

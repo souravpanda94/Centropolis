@@ -71,7 +71,8 @@ class _AirConditioningListState extends State<AirConditioningList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
+              child: CommonAppBar(tr("heatingAndCoolingRequestHistory"), false,
+                  () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, true);
               }, () {}),

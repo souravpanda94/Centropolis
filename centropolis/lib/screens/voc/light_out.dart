@@ -65,7 +65,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
         backgroundColor: Colors.white,
         body: VocCommonHome(
           image: 'assets/images/ic_slider_6.png',
-          title: tr("requestForLightsOut"),
+          title: tr("lightOutEngTitle"),
           subTitle: tr("requestForLightsOut"),
           emptyTxt: tr("lightOutEmptyText"),
           airConditioningList: const [],

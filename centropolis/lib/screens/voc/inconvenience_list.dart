@@ -71,7 +71,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("complaintsReceived"), false, () {
+              child: CommonAppBar(tr("complaintsReceivedHistory"), false, () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, true);
               }, () {}),
