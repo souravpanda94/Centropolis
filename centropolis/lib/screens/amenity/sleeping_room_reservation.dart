@@ -59,6 +59,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<ViewSeatSelectionModel> viewSeatSelectionListWithTimeSlot = [];
   List<ViewSeatSelectionModel> viewSeatSelectionListWithSeats = [];
   List<dynamic> timeSlotList = [];
+  String? totalUsageTimeSelectedText;
 
   @override
   void initState() {
@@ -827,6 +828,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       )
                     ],
                   ),
+                  onTap: () {
+                    setState(() {
+                      totalUsageTimeSelectedText = item["text"].toString();
+                    });
+                  },
                 ))
             .toList(),
         value: totalTimeSelectedValue,
@@ -1463,45 +1469,20 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }
     if (selectedSeatsValue == null) {
-      if (usageTimeList.isNotEmpty) {
+      if (selectedSeatList.isNotEmpty) {
         setState(() {
           selectedSeatsValue = selectedSeatList.first['seat'].toString();
         });
       }
     }
+    if (totalUsageTimeSelectedText == null) {
+      if (totalUsageTimeList.isNotEmpty) {
+        setState(() {
+          totalUsageTimeSelectedText = totalUsageTimeList.first['text'].toString();
+        });
+      }
+    }
 
-    // for (int i = 0; i < viewSeatSelectionListItem!.length; i++) {
-    //   debugPrint("i ===> $i");
-    //   debugPrint(
-    //       "viewSeatSelectionListItem length ===> ${viewSeatSelectionListItem!.length}");
-    //
-    //   if (i < viewSeatSelectionListItem!.length - 1) {
-    //     if (viewSeatSelectionListItem?[i].seat !=
-    //         viewSeatSelectionListItem?[i + 1].seat) {
-    //       int? seatValue = viewSeatSelectionListItem?[i].seat;
-    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(
-    //           seat: seatValue, available: true, slot: "", slotRange: "");
-    //       viewSeatSelectionListWithSeats.insert(i, model);
-    //     } else {
-    //       int? seatValue = viewSeatSelectionListItem?[i].seat;
-    //       bool? available = viewSeatSelectionListItem?[i].available;
-    //       String? slot = viewSeatSelectionListItem?[i].slot;
-    //       String? slotRange = viewSeatSelectionListItem?[i].slotRange;
-    //
-    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(
-    //           seat: seatValue,
-    //           available: available,
-    //           slot: slot,
-    //           slotRange: slotRange);
-    //       viewSeatSelectionListWithSeats.insert(i, model);
-    //     }
-    //   } else {
-    //     int? seatValue = viewSeatSelectionListItem?[i].seat;
-    //     ViewSeatSelectionModel model = ViewSeatSelectionModel(
-    //         seat: seatValue, available: true, slot: "", slotRange: "");
-    //     viewSeatSelectionListWithSeats.add(model);
-    //   }
-    // }
 
     for (int i = 0; i < timeSlotList.length; i++) {
       ViewSeatSelectionModel model = ViewSeatSelectionModel(
@@ -1559,9 +1540,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }
 
-
-
-
     showGeneralDialog(
         context: context,
         barrierColor: Colors.black12.withOpacity(0.6),
@@ -1575,12 +1553,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               timeSlotList,
               selectedSeatList,
               usageTimeSelectedValue,
-              selectedSeatsValue
+              selectedSeatsValue,
+              totalUsageTimeSelectedText,
+              usageTimeList.cast<String>()
           );
         });
-
-
-
 
     // Navigator.push(
     //   context,
@@ -1593,6 +1570,5 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     //         selectedSeatsValue),
     //   ),
     // );
-
   }
 }

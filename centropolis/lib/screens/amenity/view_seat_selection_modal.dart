@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:centropolis/models/view_seat_selection_model.dart';
 import 'package:centropolis/utils/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -13,6 +15,8 @@ class ViewSeatSelectionModalScreen extends StatefulWidget {
   final List<dynamic> selectedSeatList;
   final String? usageTimeSelectedValue;
   final String? selectedSeatsValue;
+  final String? totalTimeSelectedValue;
+  final List<String>? usageTimeList;
 
   const ViewSeatSelectionModalScreen(
       this.viewSeatSelectionListItem,
@@ -20,6 +24,8 @@ class ViewSeatSelectionModalScreen extends StatefulWidget {
       this.selectedSeatList,
       this.usageTimeSelectedValue,
       this.selectedSeatsValue,
+      this.totalTimeSelectedValue,
+      this.usageTimeList,
       {super.key});
 
   @override
@@ -27,11 +33,11 @@ class ViewSeatSelectionModalScreen extends StatefulWidget {
       _ViewSeatSelectionModalScreenState();
 }
 
-class _ViewSeatSelectionModalScreenState
-    extends State<ViewSeatSelectionModalScreen> {
+class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScreen> {
   bool selected = false;
   int selectedIndex = 0;
   double mainAxisExtentValue = 55.0;
+  List<String> selectedTimeRangList = [];
 
   @override
   void initState() {
@@ -40,6 +46,9 @@ class _ViewSeatSelectionModalScreenState
     debugPrint("Time list length ====> ${widget.timeSlotList.length}");
     debugPrint("usageTimeSelectedValue ====> ${widget.usageTimeSelectedValue}");
     debugPrint("selectedSeatsValue ====> ${widget.selectedSeatsValue}");
+    debugPrint("totalTimeSelectedValue ====> ${widget.totalTimeSelectedValue}");
+    debugPrint("usageTimeList ====> ${widget.usageTimeList}");
+    setSelectionTimeRange();
   }
 
   @override
@@ -186,7 +195,6 @@ class _ViewSeatSelectionModalScreenState
 
                                   mainAxisExtent: 50,
                                   // mainAxisExtent: 90,
-
                                 // mainAxisExtent: mainAxisExtentValue,
 
                                   ),
@@ -195,29 +203,18 @@ class _ViewSeatSelectionModalScreenState
                             return Container(
                               width: 50,
                               height: 34,
-                              // padding: const EdgeInsets.symmetric(
-                              //     horizontal: 10, vertical: 6),
-                              // margin: const EdgeInsets.only(bottom: 12),
                               decoration: BoxDecoration(
                                 color: setBackgroundColor(
-                                    widget.viewSeatSelectionListItem?[index]
-                                        .available,
-                                    widget
-                                        .viewSeatSelectionListItem?[index].slot
-                                        .toString(),
-                                    widget
-                                        .viewSeatSelectionListItem?[index].seat
-                                        .toString()),
+                                    widget.viewSeatSelectionListItem?[index].available,
+                                    widget.viewSeatSelectionListItem?[index].slot.toString(),
+                                    widget.viewSeatSelectionListItem?[index].slotRange.toString(),
+                                    widget.viewSeatSelectionListItem?[index].seat.toString()),
                                 border: Border.all(
                                     color: setBorderColor(
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .available,
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .slot
-                                            .toString(),
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .seat
-                                            .toString()),
+                                        widget.viewSeatSelectionListItem?[index].available,
+                                        widget.viewSeatSelectionListItem?[index].slot.toString(),
+                                        widget.viewSeatSelectionListItem?[index].slotRange.toString(),
+                                        widget.viewSeatSelectionListItem?[index].seat.toString()),
                                     width: 1.0),
                               ),
                               child: Center(
@@ -435,18 +432,20 @@ class _ViewSeatSelectionModalScreenState
     //
     //
     //     ));
+
   }
 
-  setBackgroundColor(bool? availableStatus, String? slot, String? seat) {
-    // debugPrint("slot ====> $slot");
-    // debugPrint("seat ====> $seat");
-
+  setBackgroundColor(bool? availableStatus, String? slot,String? slotRange, String? seat) {
     if (availableStatus == false) {
       return CustomColors.borderColor;
     } else {
-      if (widget.usageTimeSelectedValue == slot &&
-          widget.selectedSeatsValue == seat) {
-        return CustomColors.textColor9;
+      // if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
+      if (widget.selectedSeatsValue == seat) {
+        for(int i = 0; i< selectedTimeRangList.length ; i++){
+          if(selectedTimeRangList[i] == slotRange){
+            return CustomColors.textColor9;
+          }
+        }
       } else if (slot == "") {
         return CustomColors.backgroundColor;
       } else {
@@ -455,13 +454,16 @@ class _ViewSeatSelectionModalScreenState
     }
   }
 
-  setBorderColor(bool? availableStatus, String? slot, String? seat) {
+  setBorderColor(bool? availableStatus, String? slot,String? slotRange, String? seat) {
     if (availableStatus == false) {
       return CustomColors.borderColor;
     } else {
-      if (widget.usageTimeSelectedValue == slot &&
-          widget.selectedSeatsValue == seat) {
-        return CustomColors.textColor9;
+      if (widget.selectedSeatsValue == seat) {
+        for(int i = 0; i< selectedTimeRangList.length ; i++){
+          if(selectedTimeRangList[i] == slotRange){
+            return CustomColors.textColor9;
+          }
+        }
       } else if (slot == "") {
         return CustomColors.backgroundColor;
       } else {
@@ -512,4 +514,48 @@ class _ViewSeatSelectionModalScreenState
       }
     }
   }
+
+  void setSelectionTimeRange() {
+    String? timeValue = widget.totalTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
+    debugPrint("timeValue ===> $timeValue");
+    String hr = timeValue.substring(0,2);
+    debugPrint("hr ===> $hr");
+    String min = timeValue.substring(2,4);
+    debugPrint("min ===> $min");
+
+
+    String? usageTimeValue = widget.usageTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
+    debugPrint("usageTimeValue ===> $usageTimeValue");
+    String ushr = usageTimeValue.substring(0,2);
+    debugPrint("hr ===> $ushr");
+    String usmin = usageTimeValue.substring(2,4);
+    debugPrint("min ===> $usmin");
+
+
+    int newHr = int.parse(ushr) + int.parse(hr);
+    int newMin = int.parse(usmin) + int.parse(min);
+    if(newMin == 60){
+      newHr = newHr + 1;
+      newMin = 0;
+    }
+    String latestTimeRange = newMin == 0 ? '$newHr:0$newMin' : '$newHr:$newMin';
+    debugPrint("latestTimeRange ===> $latestTimeRange");
+
+
+    List<String>? ust = widget.usageTimeList;
+    var firstIndex = ust?.indexOf(widget.usageTimeSelectedValue.toString());
+    var secondIndex = ust?.indexOf(latestTimeRange.toString());
+    var getRange = ust?.getRange(firstIndex!, secondIndex!+1).join(",");
+    List<String> rangeList = getRange!.split(",");
+    debugPrint("rangeList =============> $rangeList");
+
+
+    for (int i = 0; i < rangeList!.length; i++) {
+      if (rangeList.length - 1 != i) {
+        selectedTimeRangList.add('${rangeList[i]}-${rangeList[i + 1]}');
+      }
+    }
+    debugPrint("selectedTimeRangList =============> $selectedTimeRangList");
+  }
+
 }
