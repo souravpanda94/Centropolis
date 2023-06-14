@@ -189,7 +189,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                     crossAxisAlignment:
                                         CrossAxisAlignment.start,
                                     children: [
-                                      Expanded(
+                                      Flexible(
                                         child: Text(
                                           airConditioningListItem?[index]
                                                   .description
@@ -201,6 +201,9 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                               fontSize: 14,
                                               color: CustomColors.textColor8),
                                         ),
+                                      ),
+                                      const SizedBox(
+                                        width: 10,
                                       ),
                                       if (airConditioningListItem != null &&
                                           airConditioningListItem![index]
@@ -262,9 +265,13 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                         const SizedBox(
                                           width: 8,
                                         ),
-                                        const VerticalDivider(
-                                          thickness: 1,
-                                          color: CustomColors.borderColor,
+                                        const Padding(
+                                          padding:
+                                              EdgeInsets.symmetric(vertical: 2),
+                                          child: VerticalDivider(
+                                            thickness: 1,
+                                            color: CustomColors.borderColor,
+                                          ),
                                         ),
                                         const SizedBox(
                                           width: 8,

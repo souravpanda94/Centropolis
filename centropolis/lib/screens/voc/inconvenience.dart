@@ -15,12 +15,8 @@ import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
-import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/voc_common_home.dart';
-import 'air_conditioning_application.dart';
-import 'air_conditioning_list.dart';
-import 'air_inc_light_list.dart';
 import 'complaints_received.dart';
 import 'inconvenience_list.dart';
 
@@ -79,7 +75,11 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
                 context,
                 MaterialPageRoute(
                     builder: (context) => const InconvenienceList()),
-              );
+              ).then((value) {
+                if (value) {
+                  firstTimeLoadInconvenienceList();
+                }
+              });
             },
             category: 'inconvenience',
           ),
@@ -116,6 +116,7 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
   void firstTimeLoadInconvenienceList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
     loadInconvenienceList();
   }

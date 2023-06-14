@@ -296,62 +296,69 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                   const SizedBox(
                     height: 8,
                   ),
-                  IntrinsicHeight(
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: Text(
-                            airConditioningDetailModel?.requestDate
-                                    .toString() ??
-                                "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                        ),
-                        const Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 4),
-                            child: VerticalDivider(
-                              thickness: 1,
-                              color: CustomColors.textColor3,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            airConditioningDetailModel?.startTime.toString() ??
-                                "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                        ),
-                        const Expanded(
-                          child: Padding(
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 6, vertical: 4),
-                            child: VerticalDivider(
-                              thickness: 1,
-                              color: CustomColors.textColor3,
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: Text(
-                            "${airConditioningDetailModel?.usageHours.toString() ?? ""} hours (--KRW)",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  Text(
+                    "${airConditioningDetailModel?.requestDate.toString() ?? ""}  |  ${airConditioningDetailModel?.startTime.toString() ?? ""}  |  ${airConditioningDetailModel?.usageHours.toString() ?? ""} ${tr("krwDetail")}",
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor8),
+                  )
+                  // IntrinsicHeight(
+                  //   child: Row(
+                  //     children: [
+                  //       Expanded(
+                  //         child: Text(
+                  //           airConditioningDetailModel?.requestDate
+                  //                   .toString() ??
+                  //               "",
+                  //           style: const TextStyle(
+                  //               fontFamily: 'Regular',
+                  //               fontSize: 14,
+                  //               color: CustomColors.textColor8),
+                  //         ),
+                  //       ),
+                  //       const Expanded(
+                  //         child: Padding(
+                  //           padding: EdgeInsets.symmetric(
+                  //               horizontal: 6, vertical: 4),
+                  //           child: VerticalDivider(
+                  //             thickness: 1,
+                  //             color: CustomColors.textColor3,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Expanded(
+                  //         child: Text(
+                  //           airConditioningDetailModel?.startTime.toString() ??
+                  //               "",
+                  //           style: const TextStyle(
+                  //               fontFamily: 'Regular',
+                  //               fontSize: 14,
+                  //               color: CustomColors.textColor8),
+                  //         ),
+                  //       ),
+                  //       const Expanded(
+                  //         child: Padding(
+                  //           padding: EdgeInsets.symmetric(
+                  //               horizontal: 6, vertical: 4),
+                  //           child: VerticalDivider(
+                  //             thickness: 1,
+                  //             color: CustomColors.textColor3,
+                  //           ),
+                  //         ),
+                  //       ),
+                  //       Expanded(
+                  //         child: Text(
+                  //           "${airConditioningDetailModel?.usageHours.toString() ?? ""} hours (--KRW)",
+                  //           style: const TextStyle(
+                  //               fontFamily: 'Regular',
+                  //               fontSize: 14,
+                  //               color: CustomColors.textColor8),
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),

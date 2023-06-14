@@ -510,7 +510,7 @@ class _AirConditioningApplicationState
                           contentPadding: const EdgeInsets.all(16),
                           hintText: tr('otherRequestHint'),
                           hintStyle: const TextStyle(
-                            color: CustomColors.textColorBlack2,
+                            color: CustomColors.textColor3,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
@@ -874,7 +874,7 @@ class _AirConditioningApplicationState
     return TableCalendar(
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-      weekendDays: const [DateTime.sunday],
+      weekendDays: const [],
       daysOfWeekHeight: 50,
       focusedDay: focusedDate,
       calendarFormat: selectedCalendarFormat,
@@ -944,9 +944,10 @@ class _AirConditioningApplicationState
         }
       },
       enabledDayPredicate: (day) {
-        if (day.weekday == DateTime.saturday) {
-          return false;
-        } else if (day.day == kFirstDay.day &&
+        // if (day.weekday == DateTime.saturday) {
+        //   return false;
+        // } else
+        if (day.day == kFirstDay.day &&
             day.month == kFirstDay.month &&
             day.year == kFirstDay.year) {
           return true;

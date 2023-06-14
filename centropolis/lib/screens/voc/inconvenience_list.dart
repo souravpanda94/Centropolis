@@ -72,7 +72,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("complaintsReceived"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, true);
               }, () {}),
             ),
           ),
@@ -169,11 +170,13 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
+                                        Flexible(
                                           child: Text(
                                             incovenienceListItem?[index]
                                                     .title ??
                                                 "",
+                                            maxLines: 2,
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 fontFamily: 'SemiBold',
                                                 fontSize: 14,
@@ -181,7 +184,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 10,
                                         ),
                                         if (incovenienceListItem != null &&
                                             incovenienceListItem![index]
@@ -239,9 +242,13 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                           const SizedBox(
                                             width: 8,
                                           ),
-                                          const VerticalDivider(
-                                            thickness: 1,
-                                            color: CustomColors.borderColor,
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2),
+                                            child: VerticalDivider(
+                                              thickness: 1,
+                                              color: CustomColors.borderColor,
+                                            ),
                                           ),
                                           const SizedBox(
                                             width: 8,

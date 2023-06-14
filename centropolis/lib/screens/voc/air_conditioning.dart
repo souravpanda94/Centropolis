@@ -77,7 +77,11 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) => const AirConditioningList()),
-            );
+            ).then((value) {
+              if (value) {
+                firstTimeLoadAirConditioningList();
+              }
+            });
           },
           category: 'airConditioning',
         ),
@@ -108,6 +112,7 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
   void firstTimeLoadAirConditioningList() {
     setState(() {
       isFirstLoadRunning = true;
+      page = 1;
     });
     loadAirConditioningList();
   }

@@ -383,6 +383,8 @@
   "selectedSeat": "Selected Seat",
   "makeVisitorReservation": "Make a Reservation",
   "paidLockerValidation": "You need to reserve before 1 day prior",
+  "applicationFloorHint": "Please select the application floor",
+  "krwDetail": "hours (--KRW)",
 
 
 
