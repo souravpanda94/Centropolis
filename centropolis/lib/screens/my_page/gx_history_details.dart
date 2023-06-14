@@ -124,8 +124,8 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                                   height: 8,
                                 ),
                                 Text(
-                                  gxHistoryDetailModel?.dayOfWeek?.join(",") ??
-                                      "",
+                                  formatStringWithSquareBrackets(
+                                      gxHistoryDetailModel?.dayOfWeekStr ?? ""),
                                   style: const TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 14,

@@ -213,3 +213,16 @@ String formatNumberStringWithDash(String number) {
     return "";
   }
 }
+
+String formatStringWithSquareBrackets(String text) {
+  if (text.isNotEmpty) {
+    if (text.contains("[") || text.contains("]")) {
+      final removedBrackets = text.substring(1, text.length - 1);
+      return removedBrackets;
+    } else {
+      return text;
+    }
+  } else {
+    return "";
+  }
+}
