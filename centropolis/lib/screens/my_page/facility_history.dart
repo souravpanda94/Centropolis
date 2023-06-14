@@ -217,7 +217,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                               right: 10.0),
                                           child: Text(
                                             sleepingRoomHistoryItem![index]
-                                                    .status ??
+                                                    .displayStatus ??
                                                 "",
                                             style: TextStyle(
                                               fontSize: 12,

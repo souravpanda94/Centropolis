@@ -286,7 +286,8 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                                       left: 10.0,
                                       right: 10.0),
                                   child: Text(
-                                    gxHistoryDetailModel?.status.toString() ??
+                                    gxHistoryDetailModel?.displayStatus
+                                            .toString() ??
                                         "",
                                     style: TextStyle(
                                       fontSize: 12,

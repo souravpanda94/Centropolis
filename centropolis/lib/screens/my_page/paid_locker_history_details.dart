@@ -131,7 +131,7 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
                                       left: 10.0,
                                       right: 10.0),
                                   child: Text(
-                                    paidLockerHistoryDetailModel?.status
+                                    paidLockerHistoryDetailModel?.displayStatus
                                             .toString() ??
                                         "",
                                     style: TextStyle(

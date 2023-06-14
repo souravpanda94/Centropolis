@@ -128,7 +128,7 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                                       left: 10.0,
                                       right: 10.0),
                                   child: Text(
-                                    paidPtHistoryDetailModel?.status
+                                    paidPtHistoryDetailModel?.displayStatus
                                             .toString() ??
                                         "",
                                     style: TextStyle(

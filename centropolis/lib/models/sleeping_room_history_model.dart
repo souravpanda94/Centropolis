@@ -10,6 +10,7 @@ class SleepingRoomHistoryModel {
   String? name;
   String? email;
   String? mobile;
+  String? displayStatus;
 
   SleepingRoomHistoryModel({
     this.reservationDate,
@@ -23,6 +24,7 @@ class SleepingRoomHistoryModel {
     this.name,
     this.email,
     this.mobile,
+    this.displayStatus,
   });
 
   SleepingRoomHistoryModel.fromJson(Map<String, dynamic> json) {
@@ -37,6 +39,7 @@ class SleepingRoomHistoryModel {
     name = json['name'].toString();
     email = json['email'].toString();
     mobile = json['mobile'].toString();
+    displayStatus = json['display_status'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -52,6 +55,7 @@ class SleepingRoomHistoryModel {
     data['name'] = name;
     data['mobile'] = mobile;
     data['email'] = email;
+    data['display_status'] = displayStatus;
     return data;
   }
 }

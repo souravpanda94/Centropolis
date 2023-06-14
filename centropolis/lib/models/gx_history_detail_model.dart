@@ -16,6 +16,7 @@ class GXHistoryDetailModel {
   String? mobile;
   String? companyName;
   String? status;
+  String? displayStatus;
   String? dayOfWeekStr;
   bool? success;
 
@@ -38,6 +39,7 @@ class GXHistoryDetailModel {
       this.companyName,
       this.status,
       this.dayOfWeekStr,
+      this.displayStatus,
       this.success});
 
   GXHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -65,6 +67,7 @@ class GXHistoryDetailModel {
     status = json['status'];
     success = json['success'];
     dayOfWeekStr = json['day_of_week_str'].toString();
+    displayStatus = json['display_status'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -90,6 +93,7 @@ class GXHistoryDetailModel {
     data['status'] = status;
     data['success'] = success;
     data['day_of_week_str'] = dayOfWeekStr;
+    data['display_status'] = displayStatus;
     return data;
   }
 }
