@@ -175,38 +175,10 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
                                               .isNotEmpty)
                                         Container(
                                           decoration: BoxDecoration(
-                                            color: gxHistoryListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Before Approval" ||
-                                                    gxHistoryListItem?[index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Before Use"
-                                                ? CustomColors.backgroundColor3
-                                                : gxHistoryListItem?[index]
-                                                            .status
-                                                            .toString()
-                                                            .toString() ==
-                                                        "Approved"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : gxHistoryListItem?[index]
-                                                                .status
-                                                                .toString()
-                                                                .toString() ==
-                                                            "Used"
-                                                        ? CustomColors
-                                                            .backgroundColor
-                                                        : gxHistoryListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Rejected"
-                                                            ? CustomColors
-                                                                .redColor
-                                                            : CustomColors
-                                                                .backgroundColor,
+                                            color: setStatusBackgroundColor(
+                                                gxHistoryListItem![index]
+                                                    .status
+                                                    .toString()),
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
@@ -223,37 +195,10 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
-                                              color: gxHistoryListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Before Approval" ||
-                                                      gxHistoryListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Before Use"
-                                                  ? CustomColors.textColor9
-                                                  : gxHistoryListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .textColorBlack2
-                                                      : gxHistoryListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Used"
-                                                          ? CustomColors
-                                                              .textColor3
-                                                          : gxHistoryListItem?[
-                                                                          index]
-                                                                      .status
-                                                                      .toString() ==
-                                                                  "Rejected"
-                                                              ? CustomColors
-                                                                  .headingColor
-                                                              : CustomColors
-                                                                  .textColorBlack2,
+                                              color: setStatusTextColor(
+                                                  gxHistoryListItem![index]
+                                                      .status
+                                                      .toString()),
                                             ),
                                           ),
                                         ),
@@ -516,5 +461,23 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

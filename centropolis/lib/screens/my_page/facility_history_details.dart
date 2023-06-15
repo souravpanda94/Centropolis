@@ -101,31 +101,10 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                   "")
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: sleepingRoomHistoryDetailModel
-                                                    ?.status
-                                                    .toString() ==
-                                                "Before Approval" ||
-                                            sleepingRoomHistoryDetailModel
-                                                    ?.status
-                                                    .toString() ==
-                                                "Before Use"
-                                        ? CustomColors.backgroundColor3
-                                        : sleepingRoomHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Approved"
-                                            ? CustomColors.backgroundColor
-                                            : sleepingRoomHistoryDetailModel
-                                                        ?.status
-                                                        .toString() ==
-                                                    "Used"
-                                                ? CustomColors.backgroundColor
-                                                : sleepingRoomHistoryDetailModel!
-                                                            .status
-                                                            .toString() ==
-                                                        "Rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        sleepingRoomHistoryDetailModel?.status
+                                            .toString()
+                                            .toLowerCase()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -140,33 +119,10 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: sleepingRoomHistoryDetailModel
-                                                      ?.status
-                                                      .toString() ==
-                                                  "Before Approval" ||
-                                              sleepingRoomHistoryDetailModel
-                                                      ?.status
-                                                      .toString() ==
-                                                  "Before Use"
-                                          ? CustomColors.textColor9
-                                          : sleepingRoomHistoryDetailModel
-                                                      ?.status
-                                                      .toString() ==
-                                                  "Approved"
-                                              ? CustomColors.textColorBlack2
-                                              : sleepingRoomHistoryDetailModel
-                                                          ?.status
-                                                          .toString() ==
-                                                      "Used"
-                                                  ? CustomColors.textColor3
-                                                  : sleepingRoomHistoryDetailModel!
-                                                              .status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          sleepingRoomHistoryDetailModel?.status
+                                              .toString()
+                                              .toLowerCase()),
                                     ),
                                   ),
                                 ),
@@ -507,5 +463,23 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

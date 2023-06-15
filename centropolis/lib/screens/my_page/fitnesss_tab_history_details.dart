@@ -103,28 +103,9 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                                       .isNotEmpty)
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: fitnessHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Approval" ||
-                                            fitnessHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Use"
-                                        ? CustomColors.backgroundColor3
-                                        : fitnessHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Approved"
-                                            ? CustomColors.backgroundColor
-                                            : fitnessHistoryDetailModel?.status
-                                                        .toString() ==
-                                                    "Used"
-                                                ? CustomColors.backgroundColor
-                                                : fitnessHistoryDetailModel
-                                                            ?.status
-                                                            .toString() ==
-                                                        "Rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        fitnessHistoryDetailModel!.status
+                                            .toString()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -139,30 +120,9 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: fitnessHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Before Approval" ||
-                                              fitnessHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Before Use"
-                                          ? CustomColors.textColor9
-                                          : fitnessHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Approved"
-                                              ? CustomColors.textColorBlack2
-                                              : fitnessHistoryDetailModel
-                                                          ?.status
-                                                          .toString() ==
-                                                      "Used"
-                                                  ? CustomColors.textColor3
-                                                  : fitnessHistoryDetailModel
-                                                              ?.status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          fitnessHistoryDetailModel!.status
+                                              .toString()),
                                     ),
                                   ),
                                 ),
@@ -502,5 +462,23 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

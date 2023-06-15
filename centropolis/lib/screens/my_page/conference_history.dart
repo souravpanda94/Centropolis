@@ -155,38 +155,10 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                             "")
                                           Container(
                                             decoration: BoxDecoration(
-                                              color: conferenceListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Before Approval" ||
-                                                      conferenceListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Pending"
-                                                  ? CustomColors
-                                                      .backgroundColor3
-                                                  : conferenceListItem?[index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .backgroundColor
-                                                      : conferenceListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Used"
-                                                          ? CustomColors
-                                                              .backgroundColor
-                                                          : conferenceListItem?[
-                                                                          index]
-                                                                      .status
-                                                                      .toString() ==
-                                                                  "Rejected"
-                                                              ? CustomColors
-                                                                  .redColor
-                                                              : CustomColors
-                                                                  .backgroundColor,
+                                              color: setStatusBackgroundColor(
+                                                  conferenceListItem?[index]
+                                                      .status
+                                                      .toString()),
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
@@ -202,39 +174,10 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                               style: TextStyle(
                                                 fontSize: 12,
                                                 fontFamily: "SemiBold",
-                                                color: conferenceListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Before Approval" ||
-                                                        conferenceListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Pending"
-                                                    ? CustomColors.textColor9
-                                                    : conferenceListItem?[index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Approved"
-                                                        ? CustomColors
-                                                            .textColorBlack2
-                                                        : conferenceListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Used"
-                                                            ? CustomColors
-                                                                .textColor3
-                                                            : conferenceListItem?[
-                                                                            index]
-                                                                        .status
-                                                                        .toString() ==
-                                                                    "Rejected"
-                                                                ? CustomColors
-                                                                    .headingColor
-                                                                : CustomColors
-                                                                    .textColorBlack2,
+                                                color: setStatusTextColor(
+                                                    conferenceListItem?[index]
+                                                        .status
+                                                        .toString()),
                                               ),
                                             ),
                                           ),
@@ -522,5 +465,23 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

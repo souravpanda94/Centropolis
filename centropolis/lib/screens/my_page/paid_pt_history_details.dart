@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
@@ -98,28 +99,9 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                                       .isNotEmpty)
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: paidPtHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Approval" ||
-                                            paidPtHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Use"
-                                        ? CustomColors.backgroundColor3
-                                        : paidPtHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Approved"
-                                            ? CustomColors.backgroundColor
-                                            : paidPtHistoryDetailModel?.status
-                                                        .toString() ==
-                                                    "Used"
-                                                ? CustomColors.backgroundColor
-                                                : paidPtHistoryDetailModel
-                                                            ?.status
-                                                            .toString() ==
-                                                        "Rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        paidPtHistoryDetailModel!.status
+                                            .toString()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -134,29 +116,9 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: paidPtHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Before Approval" ||
-                                              paidPtHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Before Use"
-                                          ? CustomColors.textColor9
-                                          : paidPtHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Approved"
-                                              ? CustomColors.textColorBlack2
-                                              : paidPtHistoryDetailModel?.status
-                                                          .toString() ==
-                                                      "Used"
-                                                  ? CustomColors.textColor3
-                                                  : paidPtHistoryDetailModel
-                                                              ?.status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          paidPtHistoryDetailModel!.status
+                                              .toString()),
                                     ),
                                   ),
                                 ),
@@ -358,5 +320,23 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
         isLoading = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

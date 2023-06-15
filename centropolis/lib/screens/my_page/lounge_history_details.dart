@@ -104,25 +104,9 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                                       "")
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: loungeHistoryDetailModel?.status
-                                                .toString() ==
-                                            "before_use"
-                                        ? CustomColors.backgroundColor3
-                                        : loungeHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "using"
-                                            ? CustomColors.backgroundColor
-                                            : loungeHistoryDetailModel?.status
-                                                        .toString() ==
-                                                    "used"
-                                                ? CustomColors.backgroundColor
-                                                : loungeHistoryDetailModel
-                                                            ?.status
-                                                            .toString() ==
-                                                        "rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        loungeHistoryDetailModel?.status
+                                            .toString()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -137,26 +121,9 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: loungeHistoryDetailModel?.status
-                                                  .toString() ==
-                                              "before_use"
-                                          ? CustomColors.textColor9
-                                          : loungeHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "using"
-                                              ? CustomColors.textColorBlack2
-                                              : loungeHistoryDetailModel?.status
-                                                          .toString() ==
-                                                      "used"
-                                                  ? CustomColors.textColor3
-                                                  : loungeHistoryDetailModel
-                                                              ?.status
-                                                              .toString() ==
-                                                          "rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          loungeHistoryDetailModel?.status
+                                              .toString()),
                                     ),
                                   ),
                                 ),
@@ -471,5 +438,23 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }
