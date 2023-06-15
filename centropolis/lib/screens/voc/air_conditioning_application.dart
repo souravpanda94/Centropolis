@@ -79,7 +79,9 @@ class _AirConditioningApplicationState
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
       progressIndicator: const CircularProgressIndicator(
@@ -550,7 +552,7 @@ class _AirConditioningApplicationState
           ],
         )),
       ),
-    );
+    ),);
   }
 
   void showReservationModal(String heading, String message) {
