@@ -167,7 +167,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                       ),
                                       Text(
                                         airConditioningListItem?[index]
-                                                .type
+                                                .displayType
                                                 .toString() ??
                                             "",
                                         maxLines: 1,
