@@ -317,8 +317,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                         margin: const EdgeInsets.only(top: 8),
                         width: MediaQuery.of(context).size.width,
                         child: Image.network(
-                          complaintsReceivedDetails?.attachment.toString() ??
-                              "",
+                          "${ApiEndPoint.baseImageFetchUrl}${complaintsReceivedDetails?.attachment.toString() ?? ""}",
                           fit: BoxFit.fill,
                           height: 194,
                         ),
