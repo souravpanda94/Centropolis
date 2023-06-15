@@ -54,6 +54,7 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
   Widget build(BuildContext context) {
     airConditioningListItem = Provider.of<AirConditioningListProvider>(context)
         .getairConditioningModelList;
+    debugPrint("airConditioningListItem length ====> ${airConditioningListItem?.length}");
 
     return LoadingOverlay(
       opacity: 0.5,
