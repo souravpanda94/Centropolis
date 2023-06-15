@@ -9,10 +9,14 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_app_bar.dart';
+import 'package:http/http.dart' as http;
 
 
 
@@ -50,6 +54,9 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     user.addListener(() {
       isPushAllow = user.userData['push_notification'].toString();
     });
+    debugPrint("===========isPushAllow =======> $isPushAllow");
+
+
 
     setSwitchButtonsValue();
     getAppVersion();
@@ -69,10 +76,11 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         textValue = 'Switch Button is OFF';
       });
     }
-    // setPushNotification();
+    setPushNotification();
   }
 
   void setSwitchButtonsValue() {
+    debugPrint("isPushAllow =======> $isPushAllow");
     if (isPushAllow == "y") {
       setState(() {
         isSwitched = true;
@@ -302,70 +310,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                   ],
                 ),
               ),
-
-              // const SizedBox(
-              //   height: 30,
-              //   child: Divider(
-              //     color: CustomColors.borderColor,
-              //     height: 1.0,
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     callLogout();
-              //   },
-              //   child: Container(
-              //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-              //     padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
-              //     child: Align(
-              //       alignment: Alignment.centerLeft,
-              //       child: Text(
-              //         tr("logOut"),
-              //         style: const TextStyle(
-              //           fontSize: 16,
-              //           color: CustomColors.blackColor,
-              //           fontFamily: 'SemiBold',
-              //         ),
-              //         textAlign: TextAlign.left,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 30,
-              //   child: Divider(
-              //     color: CustomColors.borderColor,
-              //     height: 1.0,
-              //   ),
-              // ),
-              // InkWell(
-              //   onTap: () {
-              //     showWithdrawalModal();
-              //   },
-              //   child: Container(
-              //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-              //     padding: const EdgeInsets.only(top: 7.0, bottom: 7.0),
-              //     child: Align(
-              //       alignment: Alignment.centerLeft,
-              //       child: Text(
-              //         tr("withdrawal"),
-              //         style: const TextStyle(
-              //           fontSize: 16,
-              //           color: CustomColors.blackColor,
-              //           fontFamily: 'SemiBold',
-              //         ),
-              //         textAlign: TextAlign.left,
-              //       ),
-              //     ),
-              //   ),
-              // ),
-              // const SizedBox(
-              //   height: 30,
-              //   child: Divider(
-              //     color: CustomColors.borderColor,
-              //     height: 1.0,
-              //   ),
-              // ),
             ],
           ),
         ),
@@ -396,6 +340,58 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         builder: (context) =>  const BottomNavigationScreen(0,0),
       ),
     );
+  }
+
+  // ----------set push notification section-----------
+  void setPushNotification() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callPushNotificationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callPushNotificationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "push_alarm": isPushAllow.trim()
+    };
+    debugPrint("input for set push notification ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.setPushNotificationUrl,  body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+      debugPrint(
+          "server response for set push notification ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+          var user = Provider.of<UserProvider>(context, listen: false);
+          user.userData['push_notification'] = isPushAllow.toString();
+          user.doAddUser(user.userData);
+        } else {
+          showCustomToast(
+              fToast, context, responseJson['message'].toString(), "");
+        }
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 
 

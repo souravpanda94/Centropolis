@@ -2,8 +2,6 @@ class ApiEndPoint {
   // static String baseUrl = "https://www.google.com/api/"; // Live server
   static String baseUrl =
       "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
-  static String baseImageFetchUrl =
-      "https://centropolis-api-dev.dvconsulting.org/"; // Development server
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
@@ -142,9 +140,9 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/sleeping-seat";
   static String getSelectedSeatListUrl =
       "${baseUrl}v1/amenity/available-sleeping-seat";
-
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
+  static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
 }
 
 class WebViewLinks {
@@ -156,4 +154,9 @@ class WebViewLinks {
   static String termsOfUseUrl = "https://docs.flutter.dev/reference/tutorials";
   static String freeParkingVehicleRegistrationUrl =
       "http://centropolis.co.kr/About/parking.asp";
+}
+
+class ImageLinks {
+  static String baseUrlForImage = "https://centropolis-api-dev.dvconsulting.org/"; // Development server
+
 }
