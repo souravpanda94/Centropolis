@@ -61,7 +61,9 @@ class _EditPersonalInformationScreenState
   Widget build(BuildContext context) {
     userInfoModel = Provider.of<UserInfoProvider>(context).getUserInformation;
 
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor3,
       progressIndicator: const CircularProgressIndicator(
@@ -388,7 +390,7 @@ class _EditPersonalInformationScreenState
         floatingActionButton: yourButtonWidget(),
         floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
-    );
+    ),);
   }
 
   yourButtonWidget() {

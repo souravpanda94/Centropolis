@@ -61,7 +61,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
       progressIndicator: const CircularProgressIndicator(
@@ -358,7 +360,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           ],
         )),
       ),
-    );
+    ),);
   }
 
   void showReservationModal(String heading, String message) {

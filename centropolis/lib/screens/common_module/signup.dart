@@ -70,7 +70,9 @@ class _SignupScreenState extends State<SignupScreen> {
     Locale myLocale = Localizations.localeOf(context);
     // companyListItem = Provider.of<CompanyProvider>(context).getCompanyList;
 
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
       progressIndicator: const CircularProgressIndicator(
@@ -797,7 +799,7 @@ class _SignupScreenState extends State<SignupScreen> {
           )),
         ),
       ),
-    );
+    ),);
   }
 
   void showSignUpSuccessModal(String title, String message) {

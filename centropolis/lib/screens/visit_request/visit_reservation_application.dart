@@ -83,7 +83,9 @@ class _VisitReservationApplicationState
   Widget build(BuildContext context) {
     Locale myLocale = Localizations.localeOf(context);
 
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.textColor4,
       progressIndicator: const CircularProgressIndicator(
@@ -771,7 +773,7 @@ class _VisitReservationApplicationState
           ),
         ),
       ),
-    );
+    ),);
   }
 
   visitTimeDropdownWidget() {

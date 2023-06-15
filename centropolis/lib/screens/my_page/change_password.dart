@@ -49,7 +49,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.textColor3,
         progressIndicator: const CircularProgressIndicator(
@@ -338,7 +340,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           floatingActionButton: yourButtonWidget(),
           floatingActionButtonLocation:
               FloatingActionButtonLocation.centerFloat,
-        ));
+        )),);
   }
 
   yourButtonWidget() {
