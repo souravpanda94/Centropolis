@@ -489,6 +489,7 @@ class _AirConditioningApplicationState
                           color: CustomColors.textColor8)),
                   Container(
                     margin: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 2, bottom: 2),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: CustomColors.dividerGreyColor,
@@ -502,10 +503,10 @@ class _AirConditioningApplicationState
                         maxLength: 500,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.multiline,
-                        maxLines: null,
+                        maxLines: 14,
                         decoration: InputDecoration(
                           counterText: "",
-                          hintMaxLines: 5,
+                          hintMaxLines: 500,
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
