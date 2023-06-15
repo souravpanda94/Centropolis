@@ -42,7 +42,8 @@ class WebService {
     return response;
   }
 
-  Future<http.Response> callPostMethodWithRawData(url, body, language, token) async {
+  Future<http.Response> callPostMethodWithRawData(
+      url, body, language, token) async {
     log("Calling url::::: $url");
     String xApiKey = 'anE4ser6h1vIc2pM22weB02t02A2ipA8';
 
@@ -71,11 +72,11 @@ class WebService {
     return response;
   }
 
-  Future<http.Response> callPostMethodWithMultipart(url, body, imageFile, imageFileKeyName, attachedFile, token, language) async {
+  Future<http.Response> callPostMethodWithMultipart(url, body, imageFile,
+      imageFileKeyName, attachedFile, token, language) async {
     log("Calling url::::: $url");
     var request = http.MultipartRequest('POST', Uri.parse(url));
     String xApiKey = 'anE4ser6h1vIc2pM22weB02t02A2ipA8';
-
 
     if (token != null) {
       request.headers.addAll({
@@ -85,8 +86,7 @@ class WebService {
         'x-api-key': xApiKey,
         'Accept-language': language
       });
-    }
-    else{
+    } else {
       request.headers.addAll({
         'Content-Type': 'application/json; charset=UTF-8;',
         'Accept': 'application/json',
@@ -95,22 +95,18 @@ class WebService {
       });
     }
 
-
     if (imageFile != null) {
-      var mimeType = lookupMimeType(imageFile);
+      var mimeType = lookupMimeType(imageFile.path);
       var fileType = mimeType?.split('/');
       if (kDebugMode) {
         print(imageFile);
         print('file type $fileType');
         print(mimeType);
       }
-      // request.files
-      //     .add(await http.MultipartFile.fromPath('image', imageFile.path));
+
       request.files.add(
         http.MultipartFile.fromBytes(
-            // 'image', File(imageFile.path).readAsBytesSync(),
-            imageFileKeyName,
-            File(imageFile.path).readAsBytesSync(),
+            imageFileKeyName, File(imageFile.path).readAsBytesSync(),
             filename: imageFile.path.split("/").last,
             contentType: MediaType.parse(mimeType!)),
       );
@@ -135,11 +131,6 @@ class WebService {
     var response = await http.Response.fromStream(streamedResponse);
     return response;
   }
-
-
-
-
-
 
   Future<http.Response> callPostMethodWithMultipleImage(
       url, body, imageFile, imageFileKeyName, attachedFile, token) async {
