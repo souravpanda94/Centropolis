@@ -176,35 +176,12 @@ class _PaidLockerReservationHistoryState
                                               .isNotEmpty)
                                         Container(
                                           decoration: BoxDecoration(
-                                            color: paidLockerHistoryListItem?[
-                                                            index]
-                                                        .status
-                                                        .toString() ==
-                                                    "Before Approval"
-                                                ? CustomColors.backgroundColor3
-                                                : paidLockerHistoryListItem?[
-                                                                index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Approved"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : paidLockerHistoryListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Used"
-                                                        ? CustomColors
-                                                            .backgroundColor
-                                                        : paidLockerHistoryListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Rejected"
-                                                            ? CustomColors
-                                                                .redColor
-                                                            : CustomColors
-                                                                .backgroundColor,
+                                            color: setStatusBackgroundColor(
+                                                paidLockerHistoryListItem![
+                                                        index]
+                                                    .status
+                                                    .toString()
+                                                    .toLowerCase()),
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
@@ -221,35 +198,12 @@ class _PaidLockerReservationHistoryState
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
-                                              color: paidLockerHistoryListItem?[
-                                                              index]
-                                                          .status
-                                                          .toString() ==
-                                                      "Before Approval"
-                                                  ? CustomColors.textColor9
-                                                  : paidLockerHistoryListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .textColorBlack2
-                                                      : paidLockerHistoryListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Used"
-                                                          ? CustomColors
-                                                              .textColor3
-                                                          : paidLockerHistoryListItem?[
-                                                                          index]
-                                                                      .status
-                                                                      .toString() ==
-                                                                  "Rejected"
-                                                              ? CustomColors
-                                                                  .headingColor
-                                                              : CustomColors
-                                                                  .textColorBlack2,
+                                              color: setStatusTextColor(
+                                                  paidLockerHistoryListItem![
+                                                          index]
+                                                      .status
+                                                      .toString()
+                                                      .toLowerCase()),
                                             ),
                                           ),
                                         ),
@@ -513,5 +467,23 @@ class _PaidLockerReservationHistoryState
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

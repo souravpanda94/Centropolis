@@ -160,36 +160,11 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                           "")
                                         Container(
                                           decoration: BoxDecoration(
-                                            color: executiveLoungeListItem?[
-                                                            index]
-                                                        .status
-                                                        .toString() ==
-                                                    "before_use"
-                                                // "Before Approval"
-                                                ? CustomColors.backgroundColor3
-                                                : executiveLoungeListItem?[
-                                                                index]
-                                                            .status
-                                                            .toString() ==
-                                                        "using"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : executiveLoungeListItem?[
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "used"
-                                                        ? CustomColors
-                                                            .backgroundColor
-                                                        : executiveLoungeListItem?[
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "rejected"
-                                                            ? CustomColors
-                                                                .redColor
-                                                            : CustomColors
-                                                                .textColorBlack2,
+                                            color: setStatusBackgroundColor(
+                                                executiveLoungeListItem?[index]
+                                                    .status
+                                                    .toString()
+                                                    .trim()),
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
@@ -206,36 +181,12 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
-                                              color: executiveLoungeListItem?[
-                                                              index]
-                                                          .status
-                                                          .toString() ==
-                                                      // "Before Approval"
-                                                      "before_use"
-                                                  ? CustomColors.textColor9
-                                                  : executiveLoungeListItem?[
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "using"
-                                                      ? CustomColors
-                                                          .textColorBlack2
-                                                      : executiveLoungeListItem?[
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "used"
-                                                          ? CustomColors
-                                                              .textColor3
-                                                          : executiveLoungeListItem?[
-                                                                          index]
-                                                                      .status
-                                                                      .toString() ==
-                                                                  "rejected"
-                                                              ? CustomColors
-                                                                  .headingColor
-                                                              : CustomColors
-                                                                  .textColorBlack2,
+                                              color: setStatusTextColor(
+                                                  executiveLoungeListItem?[
+                                                          index]
+                                                      .status
+                                                      .toString()
+                                                      .trim()),
                                             ),
                                           ),
                                         ),
@@ -515,5 +466,23 @@ class _LoungeHistoryState extends State<LoungeHistory> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

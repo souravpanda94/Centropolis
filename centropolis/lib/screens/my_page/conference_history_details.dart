@@ -102,28 +102,9 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                                   "")
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: conferenceHistoryDetails?.status
-                                                    .toString() ==
-                                                "before_use" ||
-                                            conferenceHistoryDetails?.status
-                                                    .toString() ==
-                                                "pending"
-                                        ? CustomColors.backgroundColor3
-                                        : conferenceHistoryDetails?.status
-                                                    .toString() ==
-                                                "using"
-                                            ? CustomColors.backgroundColor
-                                            : conferenceHistoryDetails?.status
-                                                        .toString() ==
-                                                    "used"
-                                                ? CustomColors.backgroundColor
-                                                : conferenceHistoryDetails
-                                                            ?.status
-                                                            .toString() ==
-                                                        "rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        conferenceHistoryDetails?.status
+                                            .toString()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -137,29 +118,9 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: conferenceHistoryDetails?.status
-                                                      .toString() ==
-                                                  "before_use" ||
-                                              conferenceHistoryDetails?.status
-                                                      .toString() ==
-                                                  "pending"
-                                          ? CustomColors.textColor9
-                                          : conferenceHistoryDetails?.status
-                                                      .toString() ==
-                                                  "using"
-                                              ? CustomColors.textColorBlack2
-                                              : conferenceHistoryDetails?.status
-                                                          .toString() ==
-                                                      "used"
-                                                  ? CustomColors.textColor3
-                                                  : conferenceHistoryDetails
-                                                              ?.status
-                                                              .toString() ==
-                                                          "rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          conferenceHistoryDetails?.status
+                                              .toString()),
                                     ),
                                   ),
                                 ),
@@ -495,5 +456,23 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

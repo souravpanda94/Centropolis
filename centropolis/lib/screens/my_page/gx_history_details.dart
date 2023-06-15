@@ -257,27 +257,9 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                                       .isNotEmpty)
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: gxHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Approval" ||
-                                            gxHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Use"
-                                        ? CustomColors.backgroundColor3
-                                        : gxHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Approved"
-                                            ? CustomColors.backgroundColor
-                                            : gxHistoryDetailModel?.status
-                                                        .toString() ==
-                                                    "Used"
-                                                ? CustomColors.backgroundColor
-                                                : gxHistoryDetailModel?.status
-                                                            .toString() ==
-                                                        "Rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        gxHistoryDetailModel!.status
+                                            .toString()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -292,28 +274,9 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: gxHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Before Approval" ||
-                                              gxHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Before Use"
-                                          ? CustomColors.textColor9
-                                          : gxHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Approved"
-                                              ? CustomColors.textColorBlack2
-                                              : gxHistoryDetailModel?.status
-                                                          .toString() ==
-                                                      "Used"
-                                                  ? CustomColors.textColor3
-                                                  : gxHistoryDetailModel?.status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          gxHistoryDetailModel!.status
+                                              .toString()),
                                     ),
                                   ),
                                 ),
@@ -452,5 +415,23 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
         isLoading = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

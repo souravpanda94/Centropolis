@@ -38,7 +38,7 @@ class SleepingRoomHistoryDetailModel {
     usageTime = json['usage_time'].toString();
     totalUsageTime = json['total_usage_time'].toString();
     canCancel = json['can_cancel'];
-    status = json['staus'];
+    status = json['status'];
     seat = json['seat'].toString();
     success = json['success'];
     displayStatus = json['display_status'];
@@ -55,7 +55,7 @@ class SleepingRoomHistoryDetailModel {
     data['usage_time'] = usageTime;
     data['total_usage_time'] = totalUsageTime;
     data['can_cancel'] = canCancel;
-    data['staus'] = status;
+    data['status'] = status;
     data['seat'] = seat;
     data['success'] = success;
     data['display_status'] = displayStatus;

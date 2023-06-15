@@ -100,29 +100,9 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
                                       .isNotEmpty)
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: paidLockerHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Approval" ||
-                                            paidLockerHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Before Use"
-                                        ? CustomColors.backgroundColor3
-                                        : paidLockerHistoryDetailModel?.status
-                                                    .toString() ==
-                                                "Approved"
-                                            ? CustomColors.backgroundColor
-                                            : paidLockerHistoryDetailModel
-                                                        ?.status
-                                                        .toString() ==
-                                                    "Used"
-                                                ? CustomColors.backgroundColor
-                                                : paidLockerHistoryDetailModel
-                                                            ?.status
-                                                            .toString() ==
-                                                        "Rejected"
-                                                    ? CustomColors.redColor
-                                                    : CustomColors
-                                                        .backgroundColor,
+                                    color: setStatusBackgroundColor(
+                                        paidLockerHistoryDetailModel!.status
+                                            .toString()),
                                     borderRadius: BorderRadius.circular(4),
                                   ),
                                   padding: const EdgeInsets.only(
@@ -137,32 +117,9 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
                                     style: TextStyle(
                                       fontSize: 12,
                                       fontFamily: "SemiBold",
-                                      color: paidLockerHistoryDetailModel
-                                                      ?.status
-                                                      .toString() ==
-                                                  "Before Approval" ||
-                                              paidLockerHistoryDetailModel
-                                                      ?.status
-                                                      .toString() ==
-                                                  "Before Use"
-                                          ? CustomColors.textColor9
-                                          : paidLockerHistoryDetailModel?.status
-                                                      .toString() ==
-                                                  "Approved"
-                                              ? CustomColors.textColorBlack2
-                                              : paidLockerHistoryDetailModel
-                                                          ?.status
-                                                          .toString() ==
-                                                      "Used"
-                                                  ? CustomColors.textColor3
-                                                  : paidLockerHistoryDetailModel
-                                                              ?.status
-                                                              .toString() ==
-                                                          "Rejected"
-                                                      ? CustomColors
-                                                          .headingColor
-                                                      : CustomColors
-                                                          .textColorBlack2,
+                                      color: setStatusTextColor(
+                                          paidLockerHistoryDetailModel!.status
+                                              .toString()),
                                     ),
                                   ),
                                 ),
@@ -348,5 +305,23 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
         isLoading = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }

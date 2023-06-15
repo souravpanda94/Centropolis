@@ -173,40 +173,10 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                           .isNotEmpty)
                                         Container(
                                           decoration: BoxDecoration(
-                                            color: sleepingRoomHistoryItem![
-                                                                index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Before Approval" ||
-                                                    sleepingRoomHistoryItem![
-                                                                index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Before Use"
-                                                ? CustomColors.backgroundColor3
-                                                : sleepingRoomHistoryItem![
-                                                                index]
-                                                            .status
-                                                            .toString() ==
-                                                        "Approved"
-                                                    ? CustomColors
-                                                        .backgroundColor
-                                                    : sleepingRoomHistoryItem![
-                                                                    index]
-                                                                .status
-                                                                .toString() ==
-                                                            "Used"
-                                                        ? CustomColors
-                                                            .backgroundColor
-                                                        : sleepingRoomHistoryItem![
-                                                                        index]
-                                                                    .status
-                                                                    .toString() ==
-                                                                "Rejected"
-                                                            ? CustomColors
-                                                                .redColor
-                                                            : CustomColors
-                                                                .backgroundColor,
+                                            color: setStatusBackgroundColor(
+                                                sleepingRoomHistoryItem![index]
+                                                    .status
+                                                    .toString()),
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
@@ -222,40 +192,11 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                             style: TextStyle(
                                               fontSize: 12,
                                               fontFamily: "SemiBold",
-                                              color: sleepingRoomHistoryItem![
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Before Approval" ||
-                                                      sleepingRoomHistoryItem![
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Before Use"
-                                                  ? CustomColors.textColor9
-                                                  : sleepingRoomHistoryItem![
-                                                                  index]
-                                                              .status
-                                                              .toString() ==
-                                                          "Approved"
-                                                      ? CustomColors
-                                                          .textColorBlack2
-                                                      : sleepingRoomHistoryItem![
-                                                                      index]
-                                                                  .status
-                                                                  .toString() ==
-                                                              "Used"
-                                                          ? CustomColors
-                                                              .textColor3
-                                                          : sleepingRoomHistoryItem![
-                                                                          index]
-                                                                      .status
-                                                                      .toString() ==
-                                                                  "Rejected"
-                                                              ? CustomColors
-                                                                  .headingColor
-                                                              : CustomColors
-                                                                  .textColorBlack2,
+                                              color: setStatusTextColor(
+                                                  sleepingRoomHistoryItem![
+                                                          index]
+                                                      .status
+                                                      .toString()),
                                             ),
                                           ),
                                         ),
@@ -542,5 +483,23 @@ class _FacilityHistoryState extends State<FacilityHistory> {
         isFirstLoadRunning = false;
       });
     });
+  }
+
+  Color setStatusBackgroundColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.backgroundColor3;
+    } else {
+      return CustomColors.backgroundColor;
+    }
+  }
+
+  Color setStatusTextColor(String? status) {
+    if (status == "rejected" || status == "cancelled") {
+      return CustomColors.textColor9;
+    } else if (status == "used") {
+      return CustomColors.textColor3;
+    } else {
+      return CustomColors.textColorBlack2;
+    }
   }
 }
