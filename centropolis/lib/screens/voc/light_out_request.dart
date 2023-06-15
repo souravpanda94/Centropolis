@@ -375,6 +375,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                           color: CustomColors.textColor8)),
                   Container(
                     margin: const EdgeInsets.only(top: 8),
+                    padding: const EdgeInsets.only(top: 2, bottom: 2),
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: CustomColors.dividerGreyColor,
@@ -387,9 +388,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
                         controller: otherRequestController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.multiline,
-                        maxLines: null,
+                        maxLines: 14,
                         decoration: InputDecoration(
-                          hintMaxLines: 5,
+                          hintMaxLines: 500,
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
@@ -1139,7 +1140,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
               responseJson['title'] != null) {
             showReservationModal(
                 responseJson['title'], responseJson['message']);
-          }else {
+          } else {
             if (responseJson['message'] != null) {
               showCustomToast(
                   fToast, context, responseJson['message'].toString(), "");
