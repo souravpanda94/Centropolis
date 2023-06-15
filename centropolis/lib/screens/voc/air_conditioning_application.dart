@@ -1244,14 +1244,26 @@ class _AirConditioningApplicationState
           setState(() {
             isLoadingRequired = true;
           });
-          showReservationModal(responseJson['title'].toString(),
-              responseJson['message'].toString());
+          if (responseJson['title'] != null) {
+            showReservationModal(
+                responseJson['title'], responseJson['message']);
+          } else {
+            if (responseJson['message'] != null) {
+              showCustomToast(
+                  fToast, context, responseJson['message'].toString(), "");
+            }
+          }
           otherRequestController.clear();
         } else {
           if (responseJson['message'] != null &&
               responseJson['title'] != null) {
             showReservationModal(
                 responseJson['title'], responseJson['message']);
+          } else {
+            if (responseJson['message'] != null) {
+              showCustomToast(
+                  fToast, context, responseJson['message'].toString(), "");
+            }
           }
         }
         setState(() {

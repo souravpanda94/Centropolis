@@ -832,7 +832,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             ? currentSelectedFloor.toString().trim()
             : floorList.first["floor"].toString().trim(), //required
         "title": titleController.text.toString().trim(),
-        "parent_complaint_id": widget.parentInquirId.toString().trim(), //optional
+        "parent_complaint_id":
+            widget.parentInquirId.toString().trim(), //optional
         // "file_name" : fileName
       };
     } else {
