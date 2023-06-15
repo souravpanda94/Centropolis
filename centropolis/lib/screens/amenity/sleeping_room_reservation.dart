@@ -1508,9 +1508,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
 
     for (int i = 0; i < viewSeatSelectionListWithTimeSlot.length; i++) {
-      debugPrint("i ===> $i");
-      debugPrint(
-          "viewSeatSelectionListItem length ===> ${viewSeatSelectionListWithTimeSlot.length}");
+      // debugPrint("i ===> $i");
+      // debugPrint("viewSeatSelectionListItem length ===> ${viewSeatSelectionListWithTimeSlot.length}");
 
       if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
         if (viewSeatSelectionListWithTimeSlot[i].seat !=

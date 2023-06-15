@@ -182,7 +182,7 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
                     Container(
                       // color: Colors.purple,
                       height: height,
-                      margin: const EdgeInsets.only(top: 20),
+                      margin: const EdgeInsets.only(top: 20,bottom: 10),
                       child: GridView.builder(
                           scrollDirection: Axis.horizontal,
                           shrinkWrap: true,
@@ -442,7 +442,10 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
       // if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
       if (widget.selectedSeatsValue == seat) {
         for(int i = 0; i< selectedTimeRangList.length ; i++){
-          if(selectedTimeRangList[i] == slotRange){
+          debugPrint("selectedTimeRangList[i] --------------------  ${selectedTimeRangList[i]}");
+          debugPrint("slotRange -----------------------  $slotRange");
+          if(selectedTimeRangList[i].trim() == slotRange?.trim()){
+            debugPrint(" @@@@@@@@@@@@@@@@@@@@@@@@@");
             return CustomColors.textColor9;
           }
         }
@@ -462,6 +465,14 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
         for(int i = 0; i< selectedTimeRangList.length ; i++){
           if(selectedTimeRangList[i] == slotRange){
             return CustomColors.textColor9;
+          }
+          else{
+            if (slot == "") {
+              return CustomColors.backgroundColor;
+            }
+            else {
+              return CustomColors.textColor9;
+            }
           }
         }
       } else if (slot == "") {
@@ -550,10 +561,17 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
     debugPrint("rangeList =============> $rangeList");
 
 
-    for (int i = 0; i < rangeList!.length; i++) {
-      if (rangeList.length - 1 != i) {
-        selectedTimeRangList.add('${rangeList[i]}-${rangeList[i + 1]}');
+    if(rangeList.length > 1) {
+      debugPrint("rangeList not empty ============= ");
+
+      for (int i = 0; i < rangeList.length; i++) {
+        if (rangeList.length - 1 != i) {
+          selectedTimeRangList.add('${rangeList[i]}-${rangeList[i + 1]}');
+        }
       }
+    }
+    else{
+      selectedTimeRangList.add('${widget.usageTimeSelectedValue}-$latestTimeRange');
     }
     debugPrint("selectedTimeRangList =============> $selectedTimeRangList");
   }
