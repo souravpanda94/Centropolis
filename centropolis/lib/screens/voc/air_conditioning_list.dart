@@ -71,8 +71,10 @@ class _AirConditioningListState extends State<AirConditioningList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
-                onBackButtonPress(context);
+              child: CommonAppBar(tr("heatingAndCoolingRequestHistory"), false,
+                  () {
+                //onBackButtonPress(context);
+                Navigator.pop(context, true);
               }, () {}),
             ),
           ),
@@ -207,18 +209,22 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
-                                        Expanded(
+                                        Flexible(
                                           child: Text(
                                             airConditioningListItem?[index]
                                                     .description
                                                     .toString() ??
                                                 "",
                                             maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 fontFamily: 'SemiBold',
                                                 fontSize: 14,
                                                 color: CustomColors.textColor8),
                                           ),
+                                        ),
+                                        const SizedBox(
+                                          width: 10,
                                         ),
                                         if (airConditioningListItem != null &&
                                             airConditioningListItem![index]
@@ -281,9 +287,13 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                           const SizedBox(
                                             width: 8,
                                           ),
-                                          const VerticalDivider(
-                                            thickness: 1,
-                                            color: CustomColors.borderColor,
+                                          const Padding(
+                                            padding: EdgeInsets.symmetric(
+                                                vertical: 2),
+                                            child: VerticalDivider(
+                                              thickness: 1,
+                                              color: CustomColors.borderColor,
+                                            ),
                                           ),
                                           const SizedBox(
                                             width: 8,

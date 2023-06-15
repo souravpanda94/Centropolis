@@ -133,7 +133,7 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                                       left: 10.0,
                                       right: 10.0),
                                   child: Text(
-                                    fitnessHistoryDetailModel?.status
+                                    fitnessHistoryDetailModel?.displayStatus
                                             .toString() ??
                                         "",
                                     style: TextStyle(

@@ -197,7 +197,7 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                                 right: 10.0),
                                             child: Text(
                                               conferenceListItem?[index]
-                                                      .status ??
+                                                      .displayStatus ??
                                                   "",
                                               style: TextStyle(
                                                 fontSize: 12,

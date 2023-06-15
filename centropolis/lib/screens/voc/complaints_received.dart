@@ -180,12 +180,21 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                   const SizedBox(
                     height: 24,
                   ),
-                  Text(
-                    tr("floor"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
+                  RichText(
+                    text: TextSpan(
+                        text: tr("floor"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                        children: const [
+                          TextSpan(
+                              text: ' *',
+                              style: TextStyle(
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12))
+                        ]),
+                    maxLines: 1,
                   ),
                   const SizedBox(
                     height: 8,
@@ -823,9 +832,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             ? currentSelectedFloor.toString().trim()
             : floorList.first["floor"].toString().trim(), //required
         "title": titleController.text.toString().trim(),
+        "parent_complaint_id": widget.parentInquirId.toString().trim(), //optional
         // "file_name" : fileName
-        "parent_complaint_id":
-            widget.parentInquirId.toString().trim(), //optional
       };
     } else {
       body = {
@@ -843,7 +851,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             : floorList.first["floor"].toString().trim(), //required
         "title": titleController.text.toString().trim(),
         // "file_name" : fileName
-        // "parent_complaint_id": 19, //optional
       };
     }
 

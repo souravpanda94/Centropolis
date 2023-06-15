@@ -148,8 +148,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      Expanded(
-                                        flex: 3,
+                                      Flexible(
                                         child: Text(
                                           employeeListItem?[index].name ?? "",
                                           maxLines: 1,
@@ -161,7 +160,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 20,
+                                        width: 10,
                                       ),
                                       if (employeeListItem != null &&
                                           employeeListItem![index]
@@ -172,8 +171,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                                     .accountType
                                                     .toString() !=
                                                 "tenant_employee"
-                                            ? Expanded(
-                                                flex: 2,
+                                            ? Flexible(
                                                 child: Container(
                                                   decoration: BoxDecoration(
                                                     color: CustomColors

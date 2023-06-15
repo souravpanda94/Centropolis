@@ -62,7 +62,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("requestForLightsOut"), false, () {
+              child: CommonAppBar(tr("lightOutDetail"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),
@@ -149,7 +149,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                           const SizedBox(
                             height: 16,
                           ),
-                          Text(tr("tenantCompanyLounge"),
+                          Text(tr("lightOutDetailCompany"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,

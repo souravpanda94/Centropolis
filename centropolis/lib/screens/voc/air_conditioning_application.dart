@@ -143,7 +143,7 @@ class _AirConditioningApplicationState
                         const SizedBox(
                           height: 16,
                         ),
-                        Text(tr("tenantCompanyLounge"),
+                        Text(tr("lightOutDetailCompany"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
@@ -188,7 +188,7 @@ class _AirConditioningApplicationState
                           height: 8,
                         ),
                         Text(
-                          mobile,
+                          formatNumberStringWithDash(mobile),
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
@@ -212,7 +212,7 @@ class _AirConditioningApplicationState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tr("applicationFloor"),
+                    tr("applicationFloorLightOut"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
                         fontSize: 16,
@@ -239,7 +239,7 @@ class _AirConditioningApplicationState
                               child: _selectedFloors.isEmpty
                                   ? Container(
                                       padding: const EdgeInsets.all(15),
-                                      child: Text(tr('floorHint')))
+                                      child: Text(tr('applicationFloorHint')))
                                   : Container(
                                       margin: const EdgeInsets.only(left: 15),
                                       child: Wrap(
@@ -339,7 +339,7 @@ class _AirConditioningApplicationState
                             Padding(
                               padding: const EdgeInsets.only(left: 10),
                               child: Text(
-                                tr("airConditioning"),
+                                tr("coolingValue"),
                                 style: const TextStyle(
                                     fontFamily: 'Regular',
                                     color: CustomColors.textColorBlack2,
@@ -404,7 +404,7 @@ class _AirConditioningApplicationState
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tr("dateOfApplication"),
+                    tr("dateOfApplicationLightOut"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
                         fontSize: 16,
@@ -453,7 +453,7 @@ class _AirConditioningApplicationState
                     height: 16,
                   ),
                   Text(
-                    tr("usageTime"),
+                    tr("usageTimeCoolingHeating"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
                         fontSize: 14,
@@ -510,7 +510,7 @@ class _AirConditioningApplicationState
                           contentPadding: const EdgeInsets.all(16),
                           hintText: tr('otherRequestHint'),
                           hintStyle: const TextStyle(
-                            color: CustomColors.textColorBlack2,
+                            color: CustomColors.textColor3,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
@@ -785,8 +785,8 @@ class _AirConditioningApplicationState
         hint: Text(
           //tr('selectEndTime'),
           usageTimeList.isNotEmpty
-              ? usageTimeList.first["text"]
-              : "1 hour (---KRW)",
+              ? "${usageTimeList.first["text"]}  ${tr("krwDetail")}"
+              : "1 ${tr("krwDetail")}",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -803,7 +803,7 @@ class _AirConditioningApplicationState
                       Padding(
                         padding: const EdgeInsets.only(left: 16, bottom: 16),
                         child: Text(
-                          item["text"],
+                          "${item["text"]} ${tr("krwDetail")}",
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -874,7 +874,7 @@ class _AirConditioningApplicationState
     return TableCalendar(
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-      weekendDays: const [DateTime.sunday],
+      weekendDays: const [],
       daysOfWeekHeight: 50,
       focusedDay: focusedDate,
       calendarFormat: selectedCalendarFormat,
@@ -944,9 +944,10 @@ class _AirConditioningApplicationState
         }
       },
       enabledDayPredicate: (day) {
-        if (day.weekday == DateTime.saturday) {
-          return false;
-        } else if (day.day == kFirstDay.day &&
+        // if (day.weekday == DateTime.saturday) {
+        //   return false;
+        // } else
+        if (day.day == kFirstDay.day &&
             day.month == kFirstDay.month &&
             day.year == kFirstDay.year) {
           return true;

@@ -72,6 +72,7 @@ class WebService {
   }
 
   Future<http.Response> callPostMethodWithMultipart(url, body, imageFile, imageFileKeyName, attachedFile, token, language) async {
+    log("Calling url::::: $url");
     var request = http.MultipartRequest('POST', Uri.parse(url));
     String xApiKey = 'anE4ser6h1vIc2pM22weB02t02A2ipA8';
 

@@ -134,7 +134,8 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                       left: 10.0,
                                       right: 10.0),
                                   child: Text(
-                                    sleepingRoomHistoryDetailModel?.status ??
+                                    sleepingRoomHistoryDetailModel
+                                            ?.displayStatus ??
                                         "",
                                     style: TextStyle(
                                       fontSize: 12,

@@ -161,9 +161,11 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
+                        Flexible(
                           child: Text(
                             widget.inconvenienceList?[index].title ?? "",
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
@@ -171,7 +173,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           ),
                         ),
                         const SizedBox(
-                          width: 8,
+                          width: 10,
                         ),
                         if (widget.inconvenienceList != null &&
                             widget.inconvenienceList![index].status
@@ -188,12 +190,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              widget.inconvenienceList?[index].status
-                                          .toString() ==
-                                      "Not Answered"
-                                  ? "Received"
-                                  : widget.inconvenienceList?[index].status ??
-                                      "",
+                              widget.inconvenienceList?[index].status ?? "",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",
@@ -224,9 +221,12 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           const SizedBox(
                             width: 8,
                           ),
-                          const VerticalDivider(
-                            thickness: 1,
-                            color: CustomColors.borderColor,
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 2),
+                            child: VerticalDivider(
+                              thickness: 1,
+                              color: CustomColors.borderColor,
+                            ),
                           ),
                           const SizedBox(
                             width: 8,
@@ -307,7 +307,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          Flexible(
                             child: Text(
                               widget.lightoutList?[index].description ?? "",
                               //"Centropolis",
@@ -317,6 +317,9 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   fontSize: 14,
                                   color: CustomColors.textColor8),
                             ),
+                          ),
+                          const SizedBox(
+                            width: 10,
                           ),
                           if (widget.lightoutList != null &&
                               widget.lightoutList![index].status
@@ -369,9 +372,12 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             const SizedBox(
                               width: 8,
                             ),
-                            const VerticalDivider(
-                              thickness: 1,
-                              color: CustomColors.borderColor,
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2),
+                              child: VerticalDivider(
+                                thickness: 1,
+                                color: CustomColors.borderColor,
+                              ),
                             ),
                             const SizedBox(
                               width: 8,
@@ -466,17 +472,21 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
+                          Flexible(
                             child: Text(
                               widget.airConditioningList?[index].description ??
                                   "",
                               //"Centropolis",
                               maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
                                   color: CustomColors.textColor8),
                             ),
+                          ),
+                          const SizedBox(
+                            width: 10,
                           ),
                           if (widget.airConditioningList != null &&
                               widget.airConditioningList![index].status
@@ -529,9 +539,12 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             const SizedBox(
                               width: 8,
                             ),
-                            const VerticalDivider(
-                              thickness: 1,
-                              color: CustomColors.borderColor,
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 2),
+                              child: VerticalDivider(
+                                thickness: 1,
+                                color: CustomColors.borderColor,
+                              ),
                             ),
                             const SizedBox(
                               width: 8,

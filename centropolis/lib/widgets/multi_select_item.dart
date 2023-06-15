@@ -52,10 +52,11 @@ class _MultiSelectState extends State<MultiSelect> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
       title: Transform.translate(
-        offset: const Offset(-5, 0),
+        offset: const Offset(0, 0),
         child: Text(
-          tr("applicationFloor"),
+          tr("applicationFloorLightOut"),
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
           style: const TextStyle(
@@ -71,13 +72,13 @@ class _MultiSelectState extends State<MultiSelect> {
                     height: 40,
                     padding: EdgeInsets.zero,
                     child: Transform.translate(
-                      offset: const Offset(-15, -15),
+                      offset: const Offset(-10, -10),
                       child: CheckboxListTile(
                         contentPadding: EdgeInsets.zero,
                         value: _selectedItems?.contains(item),
                         activeColor: CustomColors.textColor9,
                         title: Transform.translate(
-                            offset: const Offset(-20, 0), child: Text(item)),
+                            offset: const Offset(-15, 0), child: Text(item)),
                         controlAffinity: ListTileControlAffinity.leading,
                         onChanged: (isChecked) => _itemChange(item, isChecked!),
                       ),

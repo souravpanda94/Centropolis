@@ -86,7 +86,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("requestForLightsOut"), false, () {
+              child: CommonAppBar(tr("lightsOutRequestHistory"), false, () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, isLoadingRequired);
               }, () {}),
@@ -136,7 +136,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                         const SizedBox(
                           height: 16,
                         ),
-                        Text(tr("tenantCompanyLounge"),
+                        Text(tr("lightOutDetailCompany"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
@@ -181,7 +181,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                           height: 8,
                         ),
                         Text(
-                          mobile,
+                          formatNumberStringWithDash(mobile),
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
@@ -205,7 +205,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tr("applicationFloor"),
+                    tr("applicationFloorLightOut"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
                         fontSize: 16,
@@ -232,7 +232,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                               child: _selectedFloors.isEmpty
                                   ? Container(
                                       padding: const EdgeInsets.all(15),
-                                      child: Text(tr('floorHint')))
+                                      child: Text(tr('applicationFloorHint')))
                                   : Container(
                                       margin: const EdgeInsets.only(left: 15),
                                       child: Wrap(
@@ -292,7 +292,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    tr("dateOfApplication"),
+                    tr("dateOfApplicationLightOut"),
                     style: const TextStyle(
                         fontFamily: 'SemiBold',
                         fontSize: 16,
@@ -396,7 +396,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                           contentPadding: const EdgeInsets.all(16),
                           hintText: tr('otherRequestHint'),
                           hintStyle: const TextStyle(
-                            color: CustomColors.textColorBlack2,
+                            color: CustomColors.textColor3,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
@@ -757,7 +757,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
     return TableCalendar(
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
-      weekendDays: const [DateTime.sunday],
+      weekendDays: const [],
       daysOfWeekHeight: 50,
       focusedDay: focusedDate,
       calendarFormat: selectedCalendarFormat,
@@ -827,9 +827,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
         }
       },
       enabledDayPredicate: (day) {
-        if (day.weekday == DateTime.saturday) {
-          return false;
-        } else if (day.day == kFirstDay.day &&
+        // if (day.weekday == DateTime.saturday) {
+        //   return false;
+        // } else
+        if (day.day == kFirstDay.day &&
             day.month == kFirstDay.month &&
             day.year == kFirstDay.year) {
           return true;

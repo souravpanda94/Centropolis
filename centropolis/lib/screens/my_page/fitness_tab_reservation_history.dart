@@ -40,6 +40,7 @@ class _FitnessTabReservationHistoryState
   List<FitnessHistoryListModel>? fitnessHistoryListItem;
   String? currentSelectedSortingFilter;
   List<dynamic>? statusList = [];
+  String displayCategory = "";
 
   @override
   void initState() {
@@ -162,13 +163,11 @@ class _FitnessTabReservationHistoryState
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     children: [
-                                      const Text(
-                                        //fitnessHistoryListItem?[index].status.toString() ?? "",
-                                        "Fitness",
-
+                                      Text(
+                                        displayCategory,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
-                                        style: TextStyle(
+                                        style: const TextStyle(
                                             fontFamily: 'SemiBold',
                                             fontSize: 14,
                                             color: CustomColors.textColor8),
@@ -462,6 +461,7 @@ class _FitnessTabReservationHistoryState
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
+          displayCategory = responseJson['display_category'];
           List<FitnessHistoryListModel> fitnessHistoryList =
               List<FitnessHistoryListModel>.from(responseJson['inquiry_data']
                   .map((x) => FitnessHistoryListModel.fromJson(x)));

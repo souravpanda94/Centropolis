@@ -9,6 +9,7 @@ class PaidPtHistoryDetailModel {
   String? mobile;
   String? companyName;
   String? status;
+  String? displayStatus;
   bool? success;
 
   PaidPtHistoryDetailModel(
@@ -22,6 +23,7 @@ class PaidPtHistoryDetailModel {
       this.mobile,
       this.companyName,
       this.status,
+      this.displayStatus,
       this.success});
 
   PaidPtHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -36,6 +38,7 @@ class PaidPtHistoryDetailModel {
     companyName = json['company_name'];
     status = json['status'];
     success = json['success'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +54,7 @@ class PaidPtHistoryDetailModel {
     data['company_name'] = companyName;
     data['status'] = status;
     data['success'] = success;
+    data['display_status'] = displayStatus;
     return data;
   }
 }

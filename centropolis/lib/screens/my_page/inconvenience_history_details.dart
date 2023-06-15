@@ -79,11 +79,13 @@ class _InconvenienceHistoryDetailsState
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text(tr("applicantInformation"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8)),
+                      Flexible(
+                        child: Text(tr("applicantInformation"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColor8)),
+                      ),
                       const SizedBox(
                         width: 20,
                       ),
@@ -273,9 +275,11 @@ class _InconvenienceHistoryDetailsState
             Container(
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.all(16),
-              margin: complaintsReceivedDetails?.status.toString() == "Answered"
-                  ? null
-                  : const EdgeInsets.only(bottom: 120),
+              margin:
+                  complaintsReceivedDetails?.status.toString().toLowerCase() ==
+                          "answered"
+                      ? null
+                      : const EdgeInsets.only(bottom: 120),
               width: MediaQuery.of(context).size.width,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -322,7 +326,7 @@ class _InconvenienceHistoryDetailsState
               height: 8,
             ),
             if (complaintsReceivedDetails?.status.toString().toLowerCase() ==
-                "Answered")
+                "answered")
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
