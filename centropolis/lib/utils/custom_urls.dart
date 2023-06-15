@@ -140,9 +140,9 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/sleeping-seat";
   static String getSelectedSeatListUrl =
       "${baseUrl}v1/amenity/available-sleeping-seat";
-
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
+  static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
 }
 
 class WebViewLinks {

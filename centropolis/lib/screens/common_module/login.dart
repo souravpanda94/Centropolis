@@ -454,7 +454,8 @@ class _LoginScreenState extends State<LoginScreen> {
               userType,
               companyId,
               companyName,
-              gender;
+              gender,
+              pushAlarm;
           if (responseJson['access_token'] != null) {
             apiKey = responseJson['access_token'].toString();
           }
@@ -488,6 +489,9 @@ class _LoginScreenState extends State<LoginScreen> {
           if (responseJson['gender'] != null) {
             gender = responseJson['gender'].toString();
           }
+          if (responseJson['push_alarm'] != null) {
+            pushAlarm = responseJson['push_alarm'].toString();
+          }
 
           debugPrint("checkSigned ======> $checkSigned");
 
@@ -502,7 +506,8 @@ class _LoginScreenState extends State<LoginScreen> {
             "user_type": userType.trim(),
             "company_id": companyId.trim(),
             "company_name": companyName.trim(),
-            "gender": gender.trim()
+            "gender": gender.trim(),
+            "push_notification": pushAlarm.trim()
           };
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);
