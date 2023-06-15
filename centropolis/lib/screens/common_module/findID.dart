@@ -36,7 +36,9 @@ class _FindIdScreenState extends State<FindID> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.greyColor1,
       progressIndicator: const CircularProgressIndicator(
@@ -115,7 +117,7 @@ class _FindIdScreenState extends State<FindID> {
           ],
         ),
       ),
-    ),);
+    ),),);
   }
 
   void showSentUserIdModal(String title, String message) {

@@ -45,257 +45,260 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.blackColor,
-      progressIndicator: const CircularProgressIndicator(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
+        opacity: 0.5,
         color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: AppBar(
-          toolbarHeight: 54,
-          centerTitle: true,
-          shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(20.0),
-              topRight: Radius.circular(20.0),
-            ),
-          ),
-          elevation: 0,
-          backgroundColor: CustomColors.whiteColor,
-          title: Text(
-            tr("login"),
-            style: const TextStyle(
-              color: CustomColors.textColor8,
-              fontFamily: 'SemiBold',
-              fontSize: 16.0,
-            ),
-            textAlign: TextAlign.center,
-          ),
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
         ),
-        body: Container(
-          color: CustomColors.whiteColor,
-          width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image.asset(
-                  'assets/images/centropolis_logo.png',
-                  height: 69,
-                  fit: BoxFit.fill,
-                ),
-                const SizedBox(
-                  height: 32,
-                ),
-                TextField(
-                  controller: emailIDController,
-                  maxLength: 16,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('id'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: AppBar(
+            toolbarHeight: 54,
+            centerTitle: true,
+            shape: const RoundedRectangleBorder(
+              borderRadius: BorderRadius.only(
+                topLeft: Radius.circular(20.0),
+                topRight: Radius.circular(20.0),
+              ),
+            ),
+            elevation: 0,
+            backgroundColor: CustomColors.whiteColor,
+            title: Text(
+              tr("login"),
+              style: const TextStyle(
+                color: CustomColors.textColor8,
+                fontFamily: 'SemiBold',
+                fontSize: 16.0,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          body: Container(
+            color: CustomColors.whiteColor,
+            width: MediaQuery.of(context).size.width,
+            padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Image.asset(
+                    'assets/images/centropolis_logo.png',
+                    height: 69,
+                    fit: BoxFit.fill,
                   ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
+                  const SizedBox(
+                    height: 32,
                   ),
-                ),
-                const SizedBox(
-                  height: 16,
-                ),
-                TextField(
-                  controller: passwordController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  obscureText: true,
-                  keyboardType: TextInputType.visiblePassword,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('password'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      height: 12,
-                      width: 12,
-                      margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                      child: Checkbox(
-                        checkColor: CustomColors.whiteColor,
-                        activeColor: CustomColors.buttonBackgroundColor,
-                        side: const BorderSide(
-                            color: CustomColors.greyColor, width: 1),
-                        value: checkSigned,
-                        onChanged: (value) {
-                          setState(() {
-                            checkSigned = value!;
-                            if (checkSigned) {
-                            } else {}
-                          });
-                        },
+                  TextField(
+                    controller: emailIDController,
+                    maxLength: 16,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('id'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
                       ),
                     ),
-                    const SizedBox(
-                      width: 9,
-                    ),
-                    Text(
-                      tr("saveLoginInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    )
-                  ],
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.only(top: 32, bottom: 16),
-                  child: CommonButton(
-                      onCommonButtonTap: () {
-                        onLoginButtonClick();
-                        // goToHomeScreen();
-                        // showUserIdErrorModal();
-                        // showPasswordErrorModal();
-                        // showCredentialErrorModal();
-                        // showUnapprovedErrorModal();
-                      },
-                      buttonColor: CustomColors.buttonBackgroundColor,
-                      buttonName: tr("btnLogin"),
-                      isIconVisible: false),
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.only(top: 16),
-                  child: IntrinsicHeight(
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const FindIDPassword(page: 0),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            tr("findID"),
-                            style: const TextStyle(
-                                color: CustomColors.greyColor1,
-                                fontFamily: 'Regular',
-                                fontSize: 14),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 3),
-                          child: const VerticalDivider(
-                            width: 1,
-                            thickness: 1,
-                            color: CustomColors.borderColor,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    const FindIDPassword(page: 1),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            tr("passwordReset"),
-                            style: const TextStyle(
-                                color: CustomColors.greyColor1,
-                                fontFamily: 'Regular',
-                                fontSize: 14),
-                          ),
-                        ),
-                        Container(
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 12, vertical: 3),
-                          child: const VerticalDivider(
-                            width: 1,
-                            thickness: 1,
-                            color: CustomColors.borderColor,
-                          ),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => const SignupScreen(),
-                              ),
-                            );
-                          },
-                          child: Text(
-                            tr("signUp"),
-                            style: const TextStyle(
-                                color: CustomColors.greyColor1,
-                                fontFamily: 'Regular',
-                                fontSize: 14),
-                          ),
-                        )
-                      ],
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
                     ),
                   ),
-                )
-              ],
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  TextField(
+                    controller: passwordController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    obscureText: true,
+                    keyboardType: TextInputType.visiblePassword,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('password'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 12,
+                        width: 12,
+                        margin: const EdgeInsets.only(left: 5.0, right: 5.0),
+                        child: Checkbox(
+                          checkColor: CustomColors.whiteColor,
+                          activeColor: CustomColors.buttonBackgroundColor,
+                          side: const BorderSide(
+                              color: CustomColors.greyColor, width: 1),
+                          value: checkSigned,
+                          onChanged: (value) {
+                            setState(() {
+                              checkSigned = value!;
+                              if (checkSigned) {
+                              } else {}
+                            });
+                          },
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 9,
+                      ),
+                      Text(
+                        tr("saveLoginInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColorBlack2),
+                      )
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(top: 32, bottom: 16),
+                    child: CommonButton(
+                        onCommonButtonTap: () {
+                          onLoginButtonClick();
+                          // goToHomeScreen();
+                          // showUserIdErrorModal();
+                          // showPasswordErrorModal();
+                          // showCredentialErrorModal();
+                          // showUnapprovedErrorModal();
+                        },
+                        buttonColor: CustomColors.buttonBackgroundColor,
+                        buttonName: tr("btnLogin"),
+                        isIconVisible: false),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(top: 16),
+                    child: IntrinsicHeight(
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const FindIDPassword(page: 0),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              tr("findID"),
+                              style: const TextStyle(
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                  fontSize: 14),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 3),
+                            child: const VerticalDivider(
+                              width: 1,
+                              thickness: 1,
+                              color: CustomColors.borderColor,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) =>
+                                      const FindIDPassword(page: 1),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              tr("passwordReset"),
+                              style: const TextStyle(
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                  fontSize: 14),
+                            ),
+                          ),
+                          Container(
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 12, vertical: 3),
+                            child: const VerticalDivider(
+                              width: 1,
+                              thickness: 1,
+                              color: CustomColors.borderColor,
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => const SignupScreen(),
+                                ),
+                              );
+                            },
+                            child: Text(
+                              tr("signUp"),
+                              style: const TextStyle(
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                  fontSize: 14),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                  )
+                ],
+              ),
             ),
           ),
         ),
@@ -404,8 +407,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     if (emailIDController.text.trim().isEmpty) {
       showUserIdErrorModal(tr("pleaseEnterYourId"));
-    }
-    else if (!isValidUserId(emailIDController.text.trim())) {
+    } else if (!isValidUserId(emailIDController.text.trim())) {
       showUserIdErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (passwordController.text.trim().isEmpty) {
       showPasswordErrorModal();

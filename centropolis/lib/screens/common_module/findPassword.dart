@@ -39,7 +39,9 @@ class _FindPasswordState extends State<FindPassword> {
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
+    return GestureDetector(
+      onTap: () => hideKeyboard(),
+      child: LoadingOverlay(
       opacity: 0.5,
       color: CustomColors.greyColor1,
       progressIndicator: const CircularProgressIndicator(
@@ -171,7 +173,7 @@ class _FindPasswordState extends State<FindPassword> {
           ],
         ),
       ),
-    ),);
+    ),),);
   }
 
   void showUserIdErrorModal(String headingMessage) {
