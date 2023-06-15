@@ -312,7 +312,7 @@ class _InconvenienceHistoryDetailsState
                       margin: const EdgeInsets.only(top: 8),
                       width: MediaQuery.of(context).size.width,
                       child: Image.network(
-                        complaintsReceivedDetails?.attachment.toString() ?? "",
+                        "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.attachment.toString() ?? ""}",
                         fit: BoxFit.fill,
                         height: 194,
                       ),
