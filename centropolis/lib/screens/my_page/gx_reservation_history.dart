@@ -467,7 +467,8 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.backgroundColor3;
     } else {
       return CustomColors.backgroundColor;
@@ -475,9 +476,10 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.textColor9;
-    } else if (status == "used") {
+    } else if (status.toString().toLowerCase() == "used") {
       return CustomColors.textColor3;
     } else {
       return CustomColors.textColorBlack2;

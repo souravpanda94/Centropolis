@@ -467,7 +467,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "rejected") {
+    if (status.toString().toLowerCase() == "rejected") {
       return CustomColors.backgroundColor3;
     } else {
       return CustomColors.backgroundColor;
@@ -475,7 +475,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "rejected") {
+    if (status.toString().toLowerCase() == "rejected") {
       return CustomColors.textColor9;
     } else {
       return CustomColors.textColorBlack2;

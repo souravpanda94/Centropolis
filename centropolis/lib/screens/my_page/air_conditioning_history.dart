@@ -508,7 +508,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "rejected") {
+    if (status.toString().toLowerCase() == "rejected") {
       return CustomColors.backgroundColor3;
     } else {
       return CustomColors.backgroundColor;
@@ -516,7 +516,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "rejected") {
+    if (status.toString().toLowerCase() == "rejected") {
       return CustomColors.textColor9;
     } else {
       return CustomColors.textColorBlack2;
