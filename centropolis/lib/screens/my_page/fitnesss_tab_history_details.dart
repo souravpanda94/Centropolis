@@ -311,24 +311,32 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      networkCheckForCancelReservation();
+                      if (fitnessHistoryDetailModel?.canCancelButtonEnabled
+                              .toString()
+                              .trim()
+                              .toLowerCase() ==
+                          "y") {
+                        networkCheckForCancelReservation();
+                      }
                     },
-                    buttonBorderColor: fitnessHistoryDetailModel?.status
-                                    .toString() ==
-                                "rejected" ||
-                            fitnessHistoryDetailModel?.status.toString() ==
-                                "cancelled"
+                    buttonBorderColor: fitnessHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .trim()
+                                .toLowerCase() ==
+                            "n"
                         ? CustomColors.dividerGreyColor.withOpacity(0.3)
                         : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor:
-                        fitnessHistoryDetailModel?.status.toString() ==
-                                    "rejected" ||
-                                fitnessHistoryDetailModel?.status.toString() ==
-                                    "cancelled"
-                            ? CustomColors.textColor5.withOpacity(0.3)
-                            : CustomColors.textColor5),
+                    buttonTextColor: fitnessHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .trim()
+                                .toLowerCase() ==
+                            "n"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
               )
             : null,
       ),

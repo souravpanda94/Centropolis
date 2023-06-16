@@ -314,6 +314,9 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
   }
 
   void callInconvenienceListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),

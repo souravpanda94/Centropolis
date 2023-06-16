@@ -288,6 +288,9 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
   }
 
   void callLightsOutListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),

@@ -305,22 +305,32 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      if (conferenceHistoryDetails?.status == "pending") {
+                      if (conferenceHistoryDetails?.canCancelButtonEnabled
+                              .toString()
+                              .toLowerCase()
+                              .trim() ==
+                          "y") {
                         networkCheckForCancelReservation();
                       }
                     },
-                    buttonBorderColor:
-                        conferenceHistoryDetails?.status == "cancelled" ||
-                                conferenceHistoryDetails?.status == "rejected"
-                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                            : CustomColors.dividerGreyColor,
+                    buttonBorderColor: conferenceHistoryDetails
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .toLowerCase()
+                                .trim() ==
+                            "n"
+                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                        : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor:
-                        conferenceHistoryDetails?.status == "cancelled" ||
-                                conferenceHistoryDetails?.status == "rejected"
-                            ? CustomColors.textColor5.withOpacity(0.3)
-                            : CustomColors.textColor5),
+                    buttonTextColor: conferenceHistoryDetails
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .toLowerCase()
+                                .trim() ==
+                            "n"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
               )
             : null,
       ),

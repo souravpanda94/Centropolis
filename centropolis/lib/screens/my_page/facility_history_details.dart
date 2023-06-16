@@ -329,22 +329,30 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      networkCheckForCancelReservation();
+                      if (sleepingRoomHistoryDetailModel?.canCancelButtonEnabled
+                              .toString()
+                              .trim()
+                              .toLowerCase() ==
+                          "y") {
+                        networkCheckForCancelReservation();
+                      }
                     },
-                    buttonBorderColor: sleepingRoomHistoryDetailModel?.status
-                                    .toString() ==
-                                "rejected" ||
-                            sleepingRoomHistoryDetailModel?.status.toString() ==
-                                "cancelled"
+                    buttonBorderColor: sleepingRoomHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .trim()
+                                .toLowerCase() ==
+                            "n"
                         ? CustomColors.dividerGreyColor.withOpacity(0.3)
                         : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor: sleepingRoomHistoryDetailModel?.status
-                                    .toString() ==
-                                "rejected" ||
-                            sleepingRoomHistoryDetailModel?.status.toString() ==
-                                "cancelled"
+                    buttonTextColor: sleepingRoomHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .trim()
+                                .toLowerCase() ==
+                            "n"
                         ? CustomColors.textColor5.withOpacity(0.3)
                         : CustomColors.textColor5),
               )

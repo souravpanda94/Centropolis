@@ -326,6 +326,9 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   }
 
   void callAirConditioningListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
