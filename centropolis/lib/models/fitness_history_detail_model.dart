@@ -14,6 +14,7 @@ class FitnessHistoryDetailModel {
   String? canCancel;
   String? status;
   String? displayStatus;
+  String? canCancelButtonEnabled;
 
   FitnessHistoryDetailModel(
       {this.reservationId,
@@ -30,6 +31,7 @@ class FitnessHistoryDetailModel {
       this.companyName,
       this.canCancel,
       this.displayStatus,
+      this.canCancelButtonEnabled,
       this.status});
 
   FitnessHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -48,6 +50,7 @@ class FitnessHistoryDetailModel {
     canCancel = json['can_cancel'];
     status = json['status'];
     displayStatus = json['display_status'];
+    canCancelButtonEnabled = json['can_cancel_button_enabled'];
   }
 
   Map<String, dynamic> toJson() {
@@ -67,6 +70,8 @@ class FitnessHistoryDetailModel {
     data['can_cancel'] = canCancel;
     data['status'] = status;
     data['display_status'] = displayStatus;
+    data['can_cancel_button_enabled'] = canCancelButtonEnabled;
+
     return data;
   }
 }
