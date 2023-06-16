@@ -289,6 +289,9 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   }
 
   void callConferenceHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),

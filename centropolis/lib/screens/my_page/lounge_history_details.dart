@@ -281,30 +281,32 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      if (loungeHistoryDetailModel?.status.toString() ==
-                              "cancelled" ||
-                          loungeHistoryDetailModel?.status.toString() ==
-                              "rejected") {
-                      } else {
+                      if (loungeHistoryDetailModel?.canCancelButtonEnabled
+                              .toString()
+                              .toLowerCase()
+                              .trim() ==
+                          "y") {
                         networkCheckForCancelReservation();
                       }
                     },
-                    buttonBorderColor:
-                        loungeHistoryDetailModel?.status.toString() ==
-                                    "cancelled" ||
-                                loungeHistoryDetailModel?.status.toString() ==
-                                    "rejected"
-                            ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                            : CustomColors.dividerGreyColor,
+                    buttonBorderColor: loungeHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .toLowerCase()
+                                .trim() ==
+                            "n"
+                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
+                        : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor:
-                        loungeHistoryDetailModel?.status.toString() ==
-                                    "cancelled" ||
-                                loungeHistoryDetailModel?.status.toString() ==
-                                    "rejected"
-                            ? CustomColors.textColor5.withOpacity(0.3)
-                            : CustomColors.textColor5),
+                    buttonTextColor: loungeHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .toLowerCase()
+                                .trim() ==
+                            "n"
+                        ? CustomColors.textColor5.withOpacity(0.3)
+                        : CustomColors.textColor5),
               )
             : null,
       ),

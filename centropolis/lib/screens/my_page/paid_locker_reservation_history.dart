@@ -357,6 +357,9 @@ class _PaidLockerReservationHistoryState
   }
 
   void callPaidLockerHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
