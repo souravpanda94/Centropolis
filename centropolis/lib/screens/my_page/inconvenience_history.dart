@@ -314,6 +314,9 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
   }
 
   void callInconvenienceListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -491,7 +494,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "completed") {
+    if (status.toString().toLowerCase() == "completed") {
       return CustomColors.textColor3;
     } else {
       return CustomColors.textColorBlack2;

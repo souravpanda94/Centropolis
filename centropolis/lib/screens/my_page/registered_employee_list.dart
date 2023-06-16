@@ -68,6 +68,7 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
                               width: 0.5)),
                     ),
                     child: TabBar(
+                      labelPadding: EdgeInsets.zero,
                       tabs: myTabs,
                       labelColor: CustomColors.textColor8,
                       labelStyle: const TextStyle(

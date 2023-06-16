@@ -354,7 +354,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month'
                       },
-                      weekendDays: const [],
+                      weekendDays: const [DateTime.saturday, DateTime.sunday],
                       daysOfWeekHeight: 50,
                       focusedDay: focusedDate,
                       calendarFormat: selectedCalendarFormat,
@@ -435,10 +435,10 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                         }
                       },
                       enabledDayPredicate: (day) {
-                        // if (day.weekday == DateTime.saturday) {
-                        //   return false;
-                        // } else
-                        if (day.day == kFirstDay.day &&
+                        if (day.weekday == DateTime.saturday ||
+                            day.weekday == DateTime.sunday) {
+                          return false;
+                        } else if (day.day == kFirstDay.day &&
                             day.month == kFirstDay.month &&
                             day.year == kFirstDay.year) {
                           return true;

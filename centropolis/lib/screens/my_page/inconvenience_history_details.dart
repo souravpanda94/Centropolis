@@ -477,7 +477,7 @@ class _InconvenienceHistoryDetailsState
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "completed") {
+    if (status.toString().toLowerCase() == "completed") {
       return CustomColors.textColor3;
     } else {
       return CustomColors.textColorBlack2;

@@ -234,7 +234,27 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                   ),
                                 ),
                                 Text(
-                                  "${sleepingRoomHistoryDetailModel?.usageTime ?? ""} ~ ${sleepingRoomHistoryDetailModel?.totalUsageTime ?? ""}",
+                                  sleepingRoomHistoryDetailModel?.usageTime ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 6, vertical: 4),
+                                  child: VerticalDivider(
+                                    color: CustomColors.textColor3,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                Text(
+                                  sleepingRoomHistoryDetailModel
+                                          ?.totalUsageTime ??
+                                      "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
@@ -309,22 +329,30 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      networkCheckForCancelReservation();
+                      if (sleepingRoomHistoryDetailModel?.canCancelButtonEnabled
+                              .toString()
+                              .trim()
+                              .toLowerCase() ==
+                          "y") {
+                        networkCheckForCancelReservation();
+                      }
                     },
-                    buttonBorderColor: sleepingRoomHistoryDetailModel?.status
-                                    .toString() ==
-                                "rejected" ||
-                            sleepingRoomHistoryDetailModel?.status.toString() ==
-                                "cancelled"
+                    buttonBorderColor: sleepingRoomHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .trim()
+                                .toLowerCase() ==
+                            "n"
                         ? CustomColors.dividerGreyColor.withOpacity(0.3)
                         : CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
-                    buttonTextColor: sleepingRoomHistoryDetailModel?.status
-                                    .toString() ==
-                                "rejected" ||
-                            sleepingRoomHistoryDetailModel?.status.toString() ==
-                                "cancelled"
+                    buttonTextColor: sleepingRoomHistoryDetailModel
+                                ?.canCancelButtonEnabled
+                                .toString()
+                                .trim()
+                                .toLowerCase() ==
+                            "n"
                         ? CustomColors.textColor5.withOpacity(0.3)
                         : CustomColors.textColor5),
               )
@@ -466,7 +494,8 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.backgroundColor3;
     } else {
       return CustomColors.backgroundColor;
@@ -474,9 +503,10 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.textColor9;
-    } else if (status == "used") {
+    } else if (status.toString().toLowerCase() == "used") {
       return CustomColors.textColor3;
     } else {
       return CustomColors.textColorBlack2;

@@ -10,6 +10,7 @@ class LoungeHistoryDetailModel {
   String? displayStatus;
   String? status;
   String? canCancel;
+  String? canCancelButtonEnabled;
   String? usageHours;
   bool? success;
 
@@ -26,6 +27,7 @@ class LoungeHistoryDetailModel {
       this.status,
       this.canCancel,
       this.usageHours,
+      this.canCancelButtonEnabled,
       this.success});
 
   LoungeHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +44,7 @@ class LoungeHistoryDetailModel {
     canCancel = json['can_cancel'];
     usageHours = json['usage_hours'];
     success = json['success'];
+    canCancelButtonEnabled = json['can_cancel_button_enabled'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +62,7 @@ class LoungeHistoryDetailModel {
     data['can_cancel'] = canCancel;
     data['usage_hours'] = usageHours;
     data['success'] = success;
+    data['can_cancel_button_enabled'] = canCancelButtonEnabled;
     return data;
   }
 }

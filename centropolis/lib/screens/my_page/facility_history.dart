@@ -38,6 +38,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
   List<SleepingRoomHistoryModel>? sleepingRoomHistoryItem;
   String? currentSelectedSortingFilter;
   List<dynamic>? statusList = [];
+  String displayCategory = "";
 
   @override
   void initState() {
@@ -157,9 +158,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Text(
-                                        sleepingRoomHistoryItem![index]
-                                                .reservationDate ??
-                                            "",
+                                        displayCategory,
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -243,14 +242,9 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                         const SizedBox(
                                           width: 8,
                                         ),
-                                        const Text(
-                                          "~",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 12,
-                                              color: CustomColors.textColor3),
+                                        const VerticalDivider(
+                                          thickness: 1,
+                                          color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
                                           width: 8,
@@ -307,6 +301,9 @@ class _FacilityHistoryState extends State<FacilityHistory> {
   }
 
   void callSleepingRoomHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -333,6 +330,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           totalRecords = responseJson['total_records'];
+          displayCategory = responseJson['display_category'];
           List<SleepingRoomHistoryModel> sleepingRoomHistoryList =
               List<SleepingRoomHistoryModel>.from(responseJson['inquiry_data']
                   .map((x) => SleepingRoomHistoryModel.fromJson(x)));
@@ -486,7 +484,8 @@ class _FacilityHistoryState extends State<FacilityHistory> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.backgroundColor3;
     } else {
       return CustomColors.backgroundColor;
@@ -494,9 +493,10 @@ class _FacilityHistoryState extends State<FacilityHistory> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.textColor9;
-    } else if (status == "used") {
+    } else if (status.toString().toLowerCase() == "used") {
       return CustomColors.textColor3;
     } else {
       return CustomColors.textColorBlack2;

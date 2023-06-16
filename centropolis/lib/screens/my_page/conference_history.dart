@@ -186,55 +186,20 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                     const SizedBox(
                                       height: 18,
                                     ),
-                                    IntrinsicHeight(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            // list[index]["date"],
-                                            conferenceListItem?[index]
-                                                    .reservationDate ??
-                                                "",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          const VerticalDivider(
-                                            thickness: 1,
-                                            color: CustomColors.borderColor,
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(
-                                            tr("participants"),
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          const Text(
-                                            // list[index]["participants"]
-                                            "9 participants",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
-                                        ],
-                                      ),
+                                    Text(
+                                      // list[index]["date"],
+                                      conferenceListItem?[index]
+                                              .reservationDate ??
+                                          "",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 12,
+                                          color: CustomColors.textColor3),
+                                    ),
+                                    const SizedBox(
+                                      width: 8,
                                     )
                                   ],
                                 ),
@@ -289,6 +254,9 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   }
 
   void callConferenceHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -468,7 +436,8 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   }
 
   Color setStatusBackgroundColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.backgroundColor3;
     } else {
       return CustomColors.backgroundColor;
@@ -476,9 +445,10 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
   }
 
   Color setStatusTextColor(String? status) {
-    if (status == "rejected" || status == "cancelled") {
+    if (status.toString().toLowerCase() == "rejected" ||
+        status.toString().toLowerCase() == "cancelled") {
       return CustomColors.textColor9;
-    } else if (status == "used") {
+    } else if (status.toString().toLowerCase() == "used") {
       return CustomColors.textColor3;
     } else {
       return CustomColors.textColorBlack2;
