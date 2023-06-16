@@ -439,14 +439,9 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
     if (availableStatus == false) {
       return CustomColors.borderColor;
     } else {
-      // if (widget.usageTimeSelectedValue == slot && widget.selectedSeatsValue == seat) {
       if (widget.selectedSeatsValue == seat) {
           for (int i = 0; i < selectedTimeRangList.length; i++) {
-            debugPrint(
-                "selectedTimeRangList[i] --------------------  ${selectedTimeRangList[i]}");
-            debugPrint("slotRange -----------------------  $slotRange");
             if (selectedTimeRangList[i].toString().trim() == slotRange?.toString().trim()) {
-              debugPrint(" @@@@@@@@@@@@@@@@@@@@@@@@@");
               return CustomColors.textColor9;
             }
         }
@@ -550,7 +545,7 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
       newHr = newHr + 1;
       newMin = 0;
     }
-    String latestTimeRange = newMin == 0 ? '$newHr:0$newMin' : '$newHr:$newMin';
+    String latestTimeRange = setTime(newHr,newMin);
     debugPrint("latestTimeRange ===> $latestTimeRange");
 
 
@@ -572,10 +567,25 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
       }
     }
     else{
-      // selectedTimeRangList.add('${widget.usageTimeSelectedValue}-$latestTimeRange');
       selectedTimeRangList.add('${widget.usageTimeSelectedValue}-$latestTimeRange');
     }
     debugPrint("selectedTimeRangList =============> $selectedTimeRangList");
+  }
+
+  String setTime(int newHr, int newMin) {
+    if(newHr < 10 && newMin == 0){
+      return '0$newHr:0$newMin';
+    }
+    else if(newHr < 10){
+      return '0$newHr:$newMin';
+    }
+    else if(newMin == 0){
+      return '$newHr:0$newMin';
+    }
+    else{
+      return '$newHr:$newMin';
+    }
+    // newMin == 0 ? '$newHr:0$newMin' : '$newHr:$newMin';
   }
 
 }
