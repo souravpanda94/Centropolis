@@ -496,211 +496,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
-  // void setListData() {
-  //   List<String> names = [tr("selectable"), tr("closed")];
-  //
-  //   listData.clear();
-  //   for (int i = 1; i <= 15; i++) {
-  //     final random = Random();
-  //     String element = names[random.nextInt(names.length)];
-  //     listData.add(element);
-  //   }
-  // }
-  //
-  // void setFemaleListData() {
-  //   List<String> names = [tr("selectable"), tr("closed")];
-  //
-  //   femaleListData.clear();
-  //   for (int i = 16; i <= 20; i++) {
-  //     final random = Random();
-  //     String element = names[random.nextInt(names.length)];
-  //     femaleListData.add(element);
-  //   }
-  // }
-  // seatSelectionWidget() {
-  //   return Visibility(
-  //     visible: type == "male",
-  //     replacement: Container(
-  //       height: 116,
-  //       width: MediaQuery.of(context).size.width,
-  //       color: CustomColors.backgroundColor,
-  //       margin: const EdgeInsets.only(left: 16, right: 16),
-  //       padding:
-  //           const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-  //       child: Column(
-  //         children: [
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               Text(
-  //                 tr("sleepingRoom(Female)"),
-  //                 style: const TextStyle(
-  //                   fontSize: 14,
-  //                   color: CustomColors.textColorBlack2,
-  //                   fontFamily: 'SemiBold',
-  //                 ),
-  //               ),
-  //               const Text(
-  //                 "Total 5 seats",
-  //                 style: TextStyle(
-  //                   fontSize: 12,
-  //                   color: CustomColors.greyColor1,
-  //                   fontFamily: 'Regular',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 16,
-  //           ),
-  //           GridView.builder(
-  //               scrollDirection: Axis.vertical,
-  //               shrinkWrap: true,
-  //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //                 crossAxisCount: 5,
-  //                 childAspectRatio: 1,
-  //                 mainAxisExtent: 45,
-  //               ),
-  //               itemCount: femaleListData.length,
-  //               itemBuilder: (BuildContext ctx, index) {
-  //                 return InkWell(
-  //                     onTap: () {
-  //                       if (femaleListData[index] == tr("selectable")) {
-  //                         setState(() {
-  //                           selected = true;
-  //                           selectedIndex = index;
-  //                         });
-  //                       }
-  //                     },
-  //                     child: Container(
-  //                       width: 50,
-  //                       height: 34,
-  //                       padding: const EdgeInsets.symmetric(
-  //                           horizontal: 10, vertical: 6),
-  //                       margin: const EdgeInsets.only(right: 15, bottom: 12),
-  //                       decoration: BoxDecoration(
-  //                         color: femaleListData[index] == tr("closed")
-  //                             ? CustomColors.borderColor
-  //                             : selected && selectedIndex == index
-  //                                 ? CustomColors.textColor9
-  //                                 : CustomColors.whiteColor,
-  //                         border: Border.all(
-  //                             color: femaleListData[index] == tr("closed")
-  //                                 ? CustomColors.borderColor
-  //                                 : CustomColors.textColor9,
-  //                             width: 1.0),
-  //                       ),
-  //                       child: Center(
-  //                         child: Text(
-  //                           (index + 16).toString(),
-  //                           style: TextStyle(
-  //                             fontSize: 14,
-  //                             color: femaleListData[index] == tr("closed")
-  //                                 ? CustomColors.textColor3
-  //                                 : selected && selectedIndex == index
-  //                                     ? CustomColors.whiteColor
-  //                                     : CustomColors.textColor9,
-  //                             fontFamily: 'Regular',
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ));
-  //               }),
-  //         ],
-  //       ),
-  //     ),
-  //     child: Container(
-  //       height: 210,
-  //       width: MediaQuery.of(context).size.width,
-  //       color: CustomColors.backgroundColor,
-  //       margin: const EdgeInsets.only(left: 16, right: 16),
-  //       padding:
-  //           const EdgeInsets.only(left: 16, right: 16, top: 24, bottom: 12),
-  //       child: Column(
-  //         children: [
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-  //             children: [
-  //               Text(
-  //                 tr("sleepingRoom(Male)"),
-  //                 style: const TextStyle(
-  //                   fontSize: 14,
-  //                   color: CustomColors.textColorBlack2,
-  //                   fontFamily: 'SemiBold',
-  //                 ),
-  //               ),
-  //               const Text(
-  //                 "Total 15 seats",
-  //                 style: TextStyle(
-  //                   fontSize: 12,
-  //                   color: CustomColors.greyColor1,
-  //                   fontFamily: 'Regular',
-  //                 ),
-  //               ),
-  //             ],
-  //           ),
-  //           const SizedBox(
-  //             height: 16,
-  //           ),
-  //           GridView.builder(
-  //               scrollDirection: Axis.vertical,
-  //               shrinkWrap: true,
-  //               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-  //                 crossAxisCount: 5,
-  //                 childAspectRatio: 1,
-  //                 mainAxisExtent: 45,
-  //               ),
-  //               itemCount: listData.length,
-  //               itemBuilder: (BuildContext ctx, index) {
-  //                 return InkWell(
-  //                     onTap: () {
-  //                       if (listData[index] == tr("selectable")) {
-  //                         setState(() {
-  //                           selected = true;
-  //                           selectedIndex = index;
-  //                         });
-  //                       }
-  //                     },
-  //                     child: Container(
-  //                       width: 50,
-  //                       height: 34,
-  //                       padding: const EdgeInsets.symmetric(
-  //                           horizontal: 10, vertical: 6),
-  //                       margin: const EdgeInsets.only(right: 15, bottom: 12),
-  //                       decoration: BoxDecoration(
-  //                         color: listData[index] == tr("closed")
-  //                             ? CustomColors.borderColor
-  //                             : selected && selectedIndex == index
-  //                                 ? CustomColors.textColor9
-  //                                 : CustomColors.whiteColor,
-  //                         border: Border.all(
-  //                             color: listData[index] == tr("closed")
-  //                                 ? CustomColors.borderColor
-  //                                 : CustomColors.textColor9,
-  //                             width: 1.0),
-  //                       ),
-  //                       child: Center(
-  //                         child: Text(
-  //                           (index + 1).toString(),
-  //                           style: TextStyle(
-  //                             fontSize: 14,
-  //                             color: listData[index] == tr("closed")
-  //                                 ? CustomColors.textColor3
-  //                                 : selected && selectedIndex == index
-  //                                     ? CustomColors.whiteColor
-  //                                     : CustomColors.textColor9,
-  //                             fontFamily: 'Regular',
-  //                           ),
-  //                         ),
-  //                       ),
-  //                     ));
-  //               }),
-  //         ],
-  //       ),
-  //     ),
-  //   );
-  // }
-
   Widget usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -1461,6 +1256,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void goToViewSeatSelectionScreen() {
+    viewSeatSelectionListWithTimeSlot.clear();
+    viewSeatSelectionListWithSeats.clear();
+
     if (usageTimeSelectedValue == null) {
       if (usageTimeList.isNotEmpty) {
         setState(() {
@@ -1482,7 +1280,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         });
       }
     }
-
 
     for (int i = 0; i < timeSlotList.length; i++) {
       ViewSeatSelectionModel model = ViewSeatSelectionModel(
@@ -1542,7 +1339,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     showGeneralDialog(
         context: context,
         barrierColor: Colors.black12.withOpacity(0.6),
-        // Background color
         barrierDismissible: false,
         barrierLabel: 'Dialog',
         transitionDuration: const Duration(milliseconds: 400),
@@ -1557,17 +1353,5 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               usageTimeList.cast<String>()
           );
         });
-
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => ViewSeatSelectionScreen(
-    //         viewSeatSelectionListWithSeats,
-    //         timeSlotList,
-    //         selectedSeatList,
-    //         usageTimeSelectedValue,
-    //         selectedSeatsValue),
-    //   ),
-    // );
   }
 }
