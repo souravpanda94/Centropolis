@@ -142,8 +142,10 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/available-sleeping-seat";
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
-  static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
-  static String getNotificationListUrl = "${baseUrl}v1/mypage/notification-list";
+  static String setPushNotificationUrl =
+      "${baseUrl}v1/mypage/push-notification-update";
+  static String getNotificationListUrl =
+      "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
 }
 
@@ -152,13 +154,14 @@ class WebViewLinks {
   static String baseUrl = "https://www.google.com"; // Test server
 
   static String privacyPolicyUrl =
-      "https://docs.flutter.dev/reference/tutorials";
-  static String termsOfUseUrl = "https://docs.flutter.dev/reference/tutorials";
+      "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#termofuse";
+  static String termsOfUseUrl =
+      "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#termofuse";
   static String freeParkingVehicleRegistrationUrl =
       "http://centropolis.co.kr/About/parking.asp";
 }
 
 class ImageLinks {
-  static String baseUrlForImage = "https://centropolis-api-dev.dvconsulting.org/"; // Development server
-
+  static String baseUrlForImage =
+      "https://centropolis-api-dev.dvconsulting.org/"; // Development server
 }

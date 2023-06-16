@@ -30,7 +30,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
   // String userType = "member";
   // String userType = "tenant_admin";
   String userType = "";
-  late String apiKey, language, name, companyName;
+  late String apiKey, language, name, companyName, displayUserType;
   late FToast fToast;
   late String email, mobile;
   int page = 1;
@@ -49,6 +49,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
     name = user.userData['name'].toString();
     companyName = user.userData['company_name'].toString();
     userType = user.userData['user_type'].toString();
+    displayUserType = user.userData['display_user_type'].toString();
     language = tr("lang");
     debugPrint("userType  ===> $userType");
     firstTimeLoadEmployeeList();
@@ -89,9 +90,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                             width: 5,
                           ),
                           Text(
-                            userType == "tenant_admin"
-                                ? "Conference Room"
-                                : "Member",
+                            displayUserType,
                             style: const TextStyle(
                               fontSize: 12,
                               fontFamily: "Bold",

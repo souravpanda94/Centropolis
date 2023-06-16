@@ -18,9 +18,6 @@ import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_app_bar.dart';
 import 'package:http/http.dart' as http;
 
-
-
-
 class AppSettingsScreen extends StatefulWidget {
   const AppSettingsScreen({Key? key}) : super(key: key);
 
@@ -39,7 +36,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   var textValue = 'Switch is OFF';
   bool isLoading = false;
 
-
   @override
   void initState() {
     super.initState();
@@ -55,8 +51,6 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       isPushAllow = user.userData['push_notification'].toString();
     });
     debugPrint("===========isPushAllow =======> $isPushAllow");
-
-
 
     setSwitchButtonsValue();
     getAppVersion();
@@ -132,7 +126,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           child: Column(
             children: [
               Container(
-                padding: const EdgeInsets.only(top: 15.0, bottom: 15.0,left: 16.0, right: 16.0,),
+                padding: const EdgeInsets.only(
+                  top: 15.0,
+                  bottom: 15.0,
+                  left: 16.0,
+                  right: 16.0,
+                ),
                 color: CustomColors.whiteColor,
                 child: Column(
                   children: [
@@ -165,15 +164,11 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ],
                       ),
                     ),
-
-
-
                     InkWell(
-                      onTap: (){
-                        if(language == "ko"){
+                      onTap: () {
+                        if (language == "ko") {
                           context.setLocale(Locale('en'));
-                        }
-                        else{
+                        } else {
                           context.setLocale(Locale('ko'));
                         }
                         goToHomeScreen();
@@ -194,8 +189,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                               textAlign: TextAlign.left,
                             ),
                             Text(
-                              language == "en" ?
-                              "KOR" : "ENG",
+                              language == "en" ? "KOR" : "ENG",
                               style: const TextStyle(
                                 fontSize: 14,
                                 color: CustomColors.textColor9,
@@ -207,13 +201,9 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ),
                       ),
                     )
-
                   ],
                 ),
               ),
-
-
-
               Container(
                   margin: const EdgeInsets.only(top: 10.0),
                   padding: const EdgeInsets.only(left: 16.0, right: 16.0),
@@ -224,17 +214,31 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         // showPrivacyPolicyAndTermsServiceFullDialog(
                         //     tr("privacyPolicy"), WebViewLinks.privacyPolicyUrl);
 
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>  PrivacyPolicyAndTermsOfUseScreen(tr("privacyPolicy")),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) =>  PrivacyPolicyAndTermsOfUseScreen(tr("privacyPolicy")),
+                        //   ),
+                        // );
 
-
+                        showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(tr("privacyPolicy"),
+                                  WebViewLinks.privacyPolicyUrl);
+                            });
                       },
                       child: Container(
-                        padding: const EdgeInsets.only(top: 25.0, bottom: 15.0,),
+                        padding: const EdgeInsets.only(
+                          top: 25.0,
+                          bottom: 15.0,
+                        ),
                         // color: Colors.purple,
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -250,20 +254,35 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                         ),
                       ),
                     ),
-
                     InkWell(
                       onTap: () {
                         // showPrivacyPolicyAndTermsServiceFullDialog(
                         //     tr("termsOfUse"), WebViewLinks.termsOfUseUrl);
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>  PrivacyPolicyAndTermsOfUseScreen(tr("termsOfUse")),
-                          ),
-                        );
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) =>  PrivacyPolicyAndTermsOfUseScreen(tr("termsOfUse")),
+                        //   ),
+                        // );
+
+                        showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("termsOfUse"), WebViewLinks.termsOfUseUrl);
+                            });
                       },
                       child: Container(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 25.0,),
+                        padding: const EdgeInsets.only(
+                          top: 15.0,
+                          bottom: 25.0,
+                        ),
                         // color: Colors.yellow,
                         child: Align(
                           alignment: Alignment.centerLeft,
@@ -280,11 +299,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       ),
                     ),
                   ])),
-
-
               Container(
-                margin: const EdgeInsets.only(top: 10.0,),
-                padding: const EdgeInsets.only(top: 25.0, bottom: 25.0,left: 16.0, right: 16.0),
+                margin: const EdgeInsets.only(
+                  top: 10.0,
+                ),
+                padding: const EdgeInsets.only(
+                    top: 25.0, bottom: 25.0, left: 16.0, right: 16.0),
                 color: CustomColors.whiteColor,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -317,7 +337,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     );
   }
 
-  void showPrivacyPolicyAndTermsServiceFullDialog(String pageTitle, String url) {
+  void showPrivacyPolicyAndTermsServiceFullDialog(
+      String pageTitle, String url) {
     debugPrint("url =====> $url");
     showGeneralDialog(
         context: context,
@@ -337,7 +358,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(
-        builder: (context) =>  const BottomNavigationScreen(0,0),
+        builder: (context) => const BottomNavigationScreen(0, 0),
       ),
     );
   }
@@ -356,13 +377,11 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "push_alarm": isPushAllow.trim()
-    };
+    Map<String, String> body = {"push_alarm": isPushAllow.trim()};
     debugPrint("input for set push notification ===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.setPushNotificationUrl,  body, language, apiKey.trim());
+        ApiEndPoint.setPushNotificationUrl, body, language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
       debugPrint(
@@ -393,6 +412,4 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       });
     });
   }
-
-
 }
