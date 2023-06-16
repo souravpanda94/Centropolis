@@ -422,8 +422,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
                 child: Container(
                   height: 78,
                   width: double.infinity,
-                  margin:
-                      const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
+                  margin: const EdgeInsets.only(
+                      top: 20, left: 16.0, right: 16.0, bottom: 50),
                   decoration: BoxDecoration(
                       color: CustomColors.whiteColor,
                       borderRadius: BorderRadius.circular(4),
