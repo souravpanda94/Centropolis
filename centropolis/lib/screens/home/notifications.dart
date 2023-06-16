@@ -1,11 +1,23 @@
+import 'dart:convert';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
+import '../../models/notification_model.dart';
+import '../../providers/notification_provider.dart';
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/app_bar_for_dialog.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/view_more.dart';
+
+
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -15,103 +27,40 @@ class NotificationScreen extends StatefulWidget {
 }
 
 class _NotificationScreenState extends State<NotificationScreen> {
-  List<dynamic> notificationList = [
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "수면실",
-      "subtitle":
-          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "수면실",
-      "subtitle":
-          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "수면실",
-      "subtitle":
-          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "수면실",
-      "subtitle":
-          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "수면실",
-      "subtitle":
-          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "수면실",
-      "subtitle":
-          "Gildong Hong's sleeping room reservation has been completed. 수면실 예약이 완료되었습니다.",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-    {
-      "title": "불편사항 접수 게시판에 답변이 작성되었습니다.",
-      "subtitle":
-          "I heard that the feature is open, when will it be released? I heard that the feature is open, when will it be released?",
-      "datetime": "2023.00.00 13:00",
-      "content": "Contents"
-    },
-  ];
+  late String language, apiKey, email, mobile, name, companyName;
+  late FToast fToast;
+  int page = 1;
+  final int limit = 10;
+  int totalPages = 0;
+  bool isFirstLoadRunning = true;
+  List<NotificationModel>? notificationListItem;
+
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    firstTimeLoadNotificationList();
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    notificationListItem = Provider.of<NotificationProvider>(context).getNotificationList;
+
+
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor4,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isFirstLoadRunning,
+      child: Scaffold(
         backgroundColor: CustomColors.backgroundColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
@@ -130,7 +79,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
               children: [
                 Expanded(
                   child: ListView.builder(
-                      itemCount: notificationList.length,
+                      itemCount: notificationListItem?.length,
                       itemBuilder: ((context, index) {
                         return Container(
                           decoration: BoxDecoration(
@@ -146,7 +95,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                notificationList[index]["title"],
+                                // notificationList[index]["title"],
+                                notificationListItem?[index].notificationType.toString() ?? "",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -162,7 +112,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     Expanded(
                                       flex: 3,
                                       child: Text(
-                                        notificationList[index]["subtitle"],
+                                        // notificationList[index]["subtitle"],
+                                        notificationListItem?[index].content.toString() ?? "",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
@@ -176,7 +127,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                       width: 8,
                                     ),
                                     Text(
-                                      notificationList[index]["content"],
+                                      // notificationList[index]["content"],
+                                      "contents",
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                       style: const TextStyle(
@@ -188,7 +140,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                 ),
                               ),
                               Text(
-                                notificationList[index]["datetime"],
+                                // notificationList[index]["datetime"],
+                                notificationListItem?[index].createdDate.toString() ?? "",
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                                 style: const TextStyle(
@@ -201,8 +154,99 @@ class _NotificationScreenState extends State<NotificationScreen> {
                         );
                       })),
                 ),
-                 ViewMoreWidget(onViewMoreTap: (){},)
+
+                if (page < totalPages)
+                  ViewMoreWidget(
+                    onViewMoreTap: () {
+                      loadMore();
+                    },
+                  )
               ],
-            )));
+            ))),);
   }
+
+  void firstTimeLoadNotificationList() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    loadNotificationList();
+  }
+
+  void loadNotificationList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callNotificationListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callNotificationListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
+    Map<String, String> body = {
+      "page": page.toString(), //required
+      "limit": limit.toString()
+    };
+
+    debugPrint("Notification List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getNotificationListUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Notification List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          totalPages = responseJson['total_pages'];
+          List<NotificationModel> reservationListList =
+          List<NotificationModel>.from(
+              responseJson['inquiry_data']
+                  .map((x) => NotificationModel.fromJson(x)));
+          if (page == 1) {
+            Provider.of<NotificationProvider>(context, listen: false)
+                .setItem(reservationListList);
+          } else {
+            Provider.of<NotificationProvider>(context, listen: false)
+                .addItem(reservationListList);
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isFirstLoadRunning = false;
+      });
+    });
+  }
+
+  void loadMore() {
+    debugPrint("page ================> $page");
+    debugPrint("totalPages ================> $totalPages");
+
+    if (page < totalPages) {
+      debugPrint("load more called");
+      setState(() {
+        page++;
+      });
+      loadNotificationList();
+    }
+  }
+
+
 }
