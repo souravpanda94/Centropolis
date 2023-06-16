@@ -376,6 +376,9 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
   }
 
   void callPaidPtHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),

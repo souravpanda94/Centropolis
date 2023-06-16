@@ -291,6 +291,9 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   }
 
   void callLoungeHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),

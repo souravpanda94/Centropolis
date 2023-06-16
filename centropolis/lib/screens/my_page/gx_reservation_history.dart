@@ -351,6 +351,9 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
   }
 
   void callGXHistoryListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),

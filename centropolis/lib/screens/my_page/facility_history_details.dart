@@ -234,7 +234,27 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                                   ),
                                 ),
                                 Text(
-                                  "${sleepingRoomHistoryDetailModel?.usageTime ?? ""} ~ ${sleepingRoomHistoryDetailModel?.totalUsageTime ?? ""}",
+                                  sleepingRoomHistoryDetailModel?.usageTime ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                ),
+                                const Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: 6, vertical: 4),
+                                  child: VerticalDivider(
+                                    color: CustomColors.textColor3,
+                                    thickness: 1,
+                                  ),
+                                ),
+                                Text(
+                                  sleepingRoomHistoryDetailModel
+                                          ?.totalUsageTime ??
+                                      "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
