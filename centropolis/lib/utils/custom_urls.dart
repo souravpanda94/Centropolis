@@ -144,6 +144,7 @@ class ApiEndPoint {
   static String logoutUrl = "${baseUrl}v1/logout";
   static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
   static String getNotificationListUrl = "${baseUrl}v1/mypage/notification-list";
+  static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
 }
 
 class WebViewLinks {
