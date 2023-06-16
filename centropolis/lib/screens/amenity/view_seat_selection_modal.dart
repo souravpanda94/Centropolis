@@ -1,13 +1,13 @@
 import 'dart:convert';
-
 import 'package:centropolis/models/view_seat_selection_model.dart';
-import 'package:centropolis/utils/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
+import 'package:centropolis/utils/utils.dart';
 import '../../widgets/app_bar_for_dialog.dart';
 import '../../widgets/common_button.dart';
 import 'conference_reservation.dart';
+
 
 class ViewSeatSelectionModalScreen extends StatefulWidget {
   final List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
@@ -36,7 +36,6 @@ class ViewSeatSelectionModalScreen extends StatefulWidget {
 class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScreen> {
   bool selected = false;
   int selectedIndex = 0;
-  double mainAxisExtentValue = 55.0;
   List<String> selectedTimeRangList = [];
 
   @override
@@ -52,386 +51,380 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
   }
 
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-    double height = MediaQuery.of(context).size.height / 1.1;
+    double height = MediaQuery.of(context).size.height / 1.2;
 
-    return Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: AppBarForDialog(tr("viewSeatSelection"), () {
-                onBackButtonPress(context);
-              }),
-            ),
-          ),
+    // return Scaffold(
+    //     backgroundColor: CustomColors.whiteColor,
+    //     appBar: PreferredSize(
+    //       preferredSize: AppBar().preferredSize,
+    //       child: SafeArea(
+    //         child: Container(
+    //           color: CustomColors.whiteColor,
+    //           child: AppBarForDialog(tr("viewSeatSelection"), () {
+    //             onBackButtonPress(context);
+    //           }),
+    //         ),
+    //       ),
+    //     ),
+    //     body: SingleChildScrollView(
+    //       child: Container(
+    //         margin:
+    //             const EdgeInsets.only(top: 20, bottom: 20, left: 16, right: 16),
+    //         child: Column(
+    //           // mainAxisSize: MainAxisSize.min,
+    //           children: [
+    //             Container(
+    //               color: CustomColors.whiteColor,
+    //               child: Row(
+    //                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                 children: [
+    //                   Text(
+    //                     tr("seatSelection"),
+    //                     style: const TextStyle(
+    //                       fontSize: 16,
+    //                       color: CustomColors.textColor8,
+    //                       fontFamily: 'SemiBold',
+    //                     ),
+    //                   ),
+    //                   Row(
+    //                     children: [
+    //                       Row(
+    //                         children: [
+    //                           const Icon(
+    //                             Icons.square,
+    //                             size: 15,
+    //                             color: CustomColors.textColor9,
+    //                           ),
+    //                           const SizedBox(
+    //                             width: 4,
+    //                           ),
+    //                           Text(
+    //                             tr("select"),
+    //                             style: const TextStyle(
+    //                               fontSize: 12,
+    //                               color: CustomColors.greyColor1,
+    //                               fontFamily: 'Regular',
+    //                             ),
+    //                           )
+    //                         ],
+    //                       ),
+    //                       const SizedBox(
+    //                         width: 8,
+    //                       ),
+    //                       Row(
+    //                         children: [
+    //                           const Icon(
+    //                             Icons.square_outlined,
+    //                             size: 15,
+    //                             color: CustomColors.textColor9,
+    //                           ),
+    //                           const SizedBox(
+    //                             width: 4,
+    //                           ),
+    //                           Text(
+    //                             tr("selectable"),
+    //                             style: const TextStyle(
+    //                               fontSize: 12,
+    //                               color: CustomColors.greyColor1,
+    //                               fontFamily: 'Regular',
+    //                             ),
+    //                           )
+    //                         ],
+    //                       ),
+    //                       const SizedBox(
+    //                         width: 8,
+    //                       ),
+    //                       Row(
+    //                         children: [
+    //                           const Icon(
+    //                             Icons.square,
+    //                             size: 15,
+    //                             color: CustomColors.borderColor,
+    //                           ),
+    //                           const SizedBox(
+    //                             width: 4,
+    //                           ),
+    //                           Text(
+    //                             tr("closed"),
+    //                             style: const TextStyle(
+    //                               fontSize: 12,
+    //                               color: CustomColors.greyColor1,
+    //                               fontFamily: 'Regular',
+    //                             ),
+    //                           )
+    //                         ],
+    //                       )
+    //                     ],
+    //                   )
+    //                 ],
+    //               ),
+    //             ),
+    //             Container(
+    //               margin: const EdgeInsets.only(top: 10),
+    //               color: CustomColors.backgroundColor,
+    //               child: Column(children: [
+    //                 Padding(
+    //                   padding: const EdgeInsets.only(top: 15, left: 10),
+    //                   child: Align(
+    //                     alignment: Alignment.centerLeft,
+    //                     child: Text(
+    //                       tr("sleepingRoom(Female)"),
+    //                       style: const TextStyle(
+    //                           fontFamily: 'SemiBold',
+    //                           fontSize: 14,
+    //                           color: CustomColors.textColorBlack2),
+    //                     ),
+    //                   ),
+    //                 ),
+    //                 Container(
+    //                   // color: Colors.purple,
+    //                   height: height,
+    //                   margin: const EdgeInsets.only(top: 20,bottom: 10),
+    //                   child: GridView.builder(
+    //                       scrollDirection: Axis.horizontal,
+    //                       shrinkWrap: true,
+    //                       gridDelegate:
+    //                           SliverGridDelegateWithFixedCrossAxisCount(
+    //                               crossAxisCount: widget.timeSlotList.length,
+    //                               childAspectRatio: 1,
+    //                               mainAxisSpacing: 16,
+    //                               crossAxisSpacing: 10,
+    //
+    //                               mainAxisExtent: 50,
+    //                               // mainAxisExtent: 90,
+    //                             // mainAxisExtent: mainAxisExtentValue,
+    //
+    //                               ),
+    //                       itemCount: widget.viewSeatSelectionListItem?.length,
+    //                       itemBuilder: (BuildContext ctx, index) {
+    //                         return Container(
+    //                           width: 50,
+    //                           height: 34,
+    //                           decoration: BoxDecoration(
+    //                             color: setBackgroundColor(
+    //                                 widget.viewSeatSelectionListItem?[index].available,
+    //                                 widget.viewSeatSelectionListItem?[index].slot.toString(),
+    //                                 widget.viewSeatSelectionListItem?[index].slotRange.toString(),
+    //                                 widget.viewSeatSelectionListItem?[index].seat.toString()),
+    //                             border: Border.all(
+    //                                 color: setBorderColor(
+    //                                     widget.viewSeatSelectionListItem?[index].available,
+    //                                     widget.viewSeatSelectionListItem?[index].slot.toString(),
+    //                                     widget.viewSeatSelectionListItem?[index].slotRange.toString(),
+    //                                     widget.viewSeatSelectionListItem?[index].seat.toString()),
+    //                                 width: 1.0),
+    //                           ),
+    //                           child: Center(
+    //                             child: Text(
+    //                               setTextValue(index),
+    //                               style: const TextStyle(
+    //                                 fontSize: 14,
+    //                                 color: CustomColors.textColorBlack2,
+    //                                 fontFamily: 'Regular',
+    //                               ),
+    //                             ),
+    //                           ),
+    //                         );
+    //                       }),
+    //                 )
+    //               ]),
+    //             )
+    //           ],
+    //         ),
+    //       ),
+    //     ));
+
+    return AlertDialog(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(4),
         ),
-        body: SingleChildScrollView(
-          child: Container(
-            margin:
-                const EdgeInsets.only(top: 20, bottom: 20, left: 16, right: 16),
-            child: Column(
-              // mainAxisSize: MainAxisSize.min,
-              children: [
-                Container(
-                  color: CustomColors.whiteColor,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        tr("seatSelection"),
-                        style: const TextStyle(
-                          fontSize: 16,
-                          color: CustomColors.textColor8,
-                          fontFamily: 'SemiBold',
-                        ),
-                      ),
-                      Row(
+        insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
+        contentPadding: const EdgeInsets.only(
+            top: 10,
+            bottom: 20.0,
+            ),
+        scrollable: true,
+        content: SizedBox(
+            width: width,
+            height: height,
+            child: SingleChildScrollView(
+              child: Container(
+                margin:
+                const EdgeInsets.only(top: 20, left: 16, right: 16),
+                child: Column(
+                  children: [
+                    Container(
+                      color: CustomColors.whiteColor,
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          Flexible(child: Text(
+                            tr("seatSelection"),
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: CustomColors.textColor8,
+                              fontFamily: 'SemiBold',
+                            ),
+                          )),
                           Row(
                             children: [
-                              const Icon(
-                                Icons.square,
-                                size: 15,
-                                color: CustomColors.textColor9,
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.square,
+                                    size: 15,
+                                    color: CustomColors.textColor9,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    tr("select"),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: CustomColors.greyColor1,
+                                      fontFamily: 'Regular',
+                                    ),
+                                  )
+                                ],
                               ),
                               const SizedBox(
-                                width: 4,
+                                width: 8,
                               ),
-                              Text(
-                                tr("select"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.greyColor1,
-                                  fontFamily: 'Regular',
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.square_outlined,
-                                size: 15,
-                                color: CustomColors.textColor9,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                tr("selectable"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.greyColor1,
-                                  fontFamily: 'Regular',
-                                ),
-                              )
-                            ],
-                          ),
-                          const SizedBox(
-                            width: 8,
-                          ),
-                          Row(
-                            children: [
-                              const Icon(
-                                Icons.square,
-                                size: 15,
-                                color: CustomColors.borderColor,
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.square_outlined,
+                                    size: 15,
+                                    color: CustomColors.textColor9,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    tr("selectable"),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: CustomColors.greyColor1,
+                                      fontFamily: 'Regular',
+                                    ),
+                                  )
+                                ],
                               ),
                               const SizedBox(
-                                width: 4,
+                                width: 8,
                               ),
-                              Text(
-                                tr("closed"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.greyColor1,
-                                  fontFamily: 'Regular',
-                                ),
+                              Row(
+                                children: [
+                                  const Icon(
+                                    Icons.square,
+                                    size: 15,
+                                    color: CustomColors.borderColor,
+                                  ),
+                                  const SizedBox(
+                                    width: 4,
+                                  ),
+                                  Text(
+                                    tr("closed"),
+                                    style: const TextStyle(
+                                      fontSize: 12,
+                                      color: CustomColors.greyColor1,
+                                      fontFamily: 'Regular',
+                                    ),
+                                  )
+                                ],
                               )
                             ],
                           )
                         ],
-                      )
-                    ],
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 10),
-                  color: CustomColors.backgroundColor,
-                  child: Column(children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15, left: 10),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          tr("sleepingRoom(Female)"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
                       ),
                     ),
                     Container(
-                      // color: Colors.purple,
-                      height: height,
-                      margin: const EdgeInsets.only(top: 20,bottom: 10),
-                      child: GridView.builder(
-                          scrollDirection: Axis.horizontal,
-                          shrinkWrap: true,
-                          gridDelegate:
+                      margin: const EdgeInsets.only(top: 10),
+                      color: CustomColors.backgroundColor,
+                      child: Column(children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 15, left: 10),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              tr("sleepingRoom(Female)"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          height: height,
+                          margin: const EdgeInsets.only(top: 20,bottom: 10,left: 10),
+                          child: GridView.builder(
+                              scrollDirection: Axis.horizontal,
+                              shrinkWrap: true,
+                              gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: widget.timeSlotList.length,
-                                  childAspectRatio: 1,
-                                  mainAxisSpacing: 16,
-                                  crossAxisSpacing: 10,
+                                crossAxisCount: widget.timeSlotList.length,
+                                childAspectRatio: 1,
+                                mainAxisSpacing: 16,
+                                crossAxisSpacing: 10,
 
-                                  mainAxisExtent: 50,
-                                  // mainAxisExtent: 90,
+                                mainAxisExtent: 50,
+                                // mainAxisExtent: 90,
                                 // mainAxisExtent: mainAxisExtentValue,
 
-                                  ),
-                          itemCount: widget.viewSeatSelectionListItem?.length,
-                          itemBuilder: (BuildContext ctx, index) {
-                            return Container(
-                              width: 50,
-                              height: 34,
-                              decoration: BoxDecoration(
-                                color: setBackgroundColor(
-                                    widget.viewSeatSelectionListItem?[index].available,
-                                    widget.viewSeatSelectionListItem?[index].slot.toString(),
-                                    widget.viewSeatSelectionListItem?[index].slotRange.toString(),
-                                    widget.viewSeatSelectionListItem?[index].seat.toString()),
-                                border: Border.all(
-                                    color: setBorderColor(
+                              ),
+                              itemCount: widget.viewSeatSelectionListItem?.length,
+                              itemBuilder: (BuildContext ctx, index) {
+                                return Container(
+                                  width: 50,
+                                  height: 34,
+                                  decoration: BoxDecoration(
+                                    color: setBackgroundColor(
                                         widget.viewSeatSelectionListItem?[index].available,
                                         widget.viewSeatSelectionListItem?[index].slot.toString(),
                                         widget.viewSeatSelectionListItem?[index].slotRange.toString(),
                                         widget.viewSeatSelectionListItem?[index].seat.toString()),
-                                    width: 1.0),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  setTextValue(index),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2,
-                                    fontFamily: 'Regular',
+                                    border: Border.all(
+                                        color: setBorderColor(
+                                            widget.viewSeatSelectionListItem?[index].available,
+                                            widget.viewSeatSelectionListItem?[index].slot.toString(),
+                                            widget.viewSeatSelectionListItem?[index].slotRange.toString(),
+                                            widget.viewSeatSelectionListItem?[index].seat.toString()),
+                                        width: 1.0),
                                   ),
-                                ),
-                              ),
-                            );
-                          }),
+                                  child: Center(
+                                    child: Text(
+                                      setTextValue(index),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2,
+                                        fontFamily: 'Regular',
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              }),
+                        )
+                      ]),
                     )
-                  ]),
-                )
-              ],
+                  ],
+                ),
+              ),
             ),
-          ),
+
+
+
+
         ));
 
-    // return AlertDialog(
-    //     shape: RoundedRectangleBorder(
-    //       borderRadius: BorderRadius.circular(4),
-    //     ),
-    //     insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
-    //     contentPadding: const EdgeInsets.only(
-    //         top: 20,
-    //         bottom: 30.0,
-    //         left: 20.0,
-    //         right: 20.0),
-    //     scrollable: true,
-    //     content: SizedBox(
-    //         width: width,
-    //         height: height,
-    //         child: Column(
-    //             // mainAxisSize: MainAxisSize.min,
-    //             children: [
-    //               Container(
-    //                 color: CustomColors.whiteColor,
-    //                 child: Row(
-    //                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //                   children: [
-    //                     Text(
-    //                       tr("seatSelection"),
-    //                       style: const TextStyle(
-    //                         fontSize: 16,
-    //                         color: CustomColors.textColor8,
-    //                         fontFamily: 'SemiBold',
-    //                       ),
-    //                     ),
-    //                     Row(
-    //                       children: [
-    //                         Row(
-    //                           children: [
-    //                             const Icon(
-    //                               Icons.square,
-    //                               size: 15,
-    //                               color: CustomColors.textColor9,
-    //                             ),
-    //                             const SizedBox(
-    //                               width: 4,
-    //                             ),
-    //                             Text(
-    //                               tr("select"),
-    //                               style: const TextStyle(
-    //                                 fontSize: 12,
-    //                                 color: CustomColors.greyColor1,
-    //                                 fontFamily: 'Regular',
-    //                               ),
-    //                             )
-    //                           ],
-    //                         ),
-    //                         const SizedBox(
-    //                           width: 8,
-    //                         ),
-    //                         Row(
-    //                           children: [
-    //                             const Icon(
-    //                               Icons.square_outlined,
-    //                               size: 15,
-    //                               color: CustomColors.textColor9,
-    //                             ),
-    //                             const SizedBox(
-    //                               width: 4,
-    //                             ),
-    //                             Text(
-    //                               tr("selectable"),
-    //                               style: const TextStyle(
-    //                                 fontSize: 12,
-    //                                 color: CustomColors.greyColor1,
-    //                                 fontFamily: 'Regular',
-    //                               ),
-    //                             )
-    //                           ],
-    //                         ),
-    //                         const SizedBox(
-    //                           width: 8,
-    //                         ),
-    //                         Row(
-    //                           children: [
-    //                             const Icon(
-    //                               Icons.square,
-    //                               size: 15,
-    //                               color: CustomColors.borderColor,
-    //                             ),
-    //                             const SizedBox(
-    //                               width: 4,
-    //                             ),
-    //                             Text(
-    //                               tr("closed"),
-    //                               style: const TextStyle(
-    //                                 fontSize: 12,
-    //                                 color: CustomColors.greyColor1,
-    //                                 fontFamily: 'Regular',
-    //                               ),
-    //                             )
-    //                           ],
-    //                         )
-    //                       ],
-    //                     )
-    //                   ],
-    //                 ),
-    //               ),
-    //               Expanded(
-    //                   child: Container(
-    //                     margin: const EdgeInsets.only(top: 10),
-    //                     color: CustomColors.backgroundColor,
-    //                     child: Column(children: [
-    //                       Padding(
-    //                         padding: const EdgeInsets.only(top: 15, left: 10),
-    //                         child: Align(
-    //                           alignment: Alignment.centerLeft,
-    //                           child: Text(
-    //                             tr("sleepingRoom(Female)"),
-    //                             style: const TextStyle(
-    //                                 fontFamily: 'SemiBold',
-    //                                 fontSize: 14,
-    //                                 color: CustomColors.textColorBlack2),
-    //                           ),
-    //                         ),
-    //                       ),
-    //                       Flexible(
-    //                           child: Container(
-    //                             color: Colors.purple,
-    //                             margin: const EdgeInsets.only(top: 20),
-    //                             child: GridView.builder(
-    //                                 scrollDirection: Axis.horizontal,
-    //                                 shrinkWrap: true,
-    //                                 gridDelegate:
-    //                                 SliverGridDelegateWithFixedCrossAxisCount(
-    //                                   crossAxisCount: widget.timeSlotList.length,
-    //                                   childAspectRatio: 1,
-    //
-    //                                   // mainAxisExtent: 55,
-    //                                   mainAxisExtent: 205,
-    //                                 ),
-    //                                 itemCount: widget.viewSeatSelectionListItem?.length,
-    //                                 itemBuilder: (BuildContext ctx, index) {
-    //                                   return Container(
-    //                                     width: 40,
-    //                                     height: 34,
-    //                                     padding: const EdgeInsets.symmetric(
-    //                                         horizontal: 10, vertical: 6),
-    //                                     margin:
-    //                                     const EdgeInsets.only(right: 12, bottom: 12),
-    //                                     decoration: BoxDecoration(
-    //                                       color: setBackgroundColor(
-    //                                           widget.viewSeatSelectionListItem?[index]
-    //                                               .available,
-    //                                           widget
-    //                                               .viewSeatSelectionListItem?[index].slot
-    //                                               .toString(),
-    //                                           widget
-    //                                               .viewSeatSelectionListItem?[index].seat
-    //                                               .toString()),
-    //                                       border: Border.all(
-    //                                           color: setBorderColor(
-    //                                               widget.viewSeatSelectionListItem?[index]
-    //                                                   .available,
-    //                                               widget.viewSeatSelectionListItem?[index]
-    //                                                   .slot
-    //                                                   .toString(),
-    //                                               widget.viewSeatSelectionListItem?[index]
-    //                                                   .seat
-    //                                                   .toString()),
-    //                                           width: 1.0),
-    //                                     ),
-    //                                     child: Center(
-    //                                       child: Text(
-    //                                         setTextValue(index),
-    //
-    //                                         // widget.viewSeatSelectionListItem?[index].slot == "" ?
-    //                                         // '${widget.viewSeatSelectionListItem?[index].seat.toString()}'
-    //                                         // : 'seat -${widget.viewSeatSelectionListItem?[index].seat.toString() ?? ""} & time - ${widget.viewSeatSelectionListItem?[index].slot.toString() ?? ""}',
-    //                                         style: const TextStyle(
-    //                                           fontSize: 14,
-    //                                           // color: widget.viewSeatSelectionListItem?[index].available == false
-    //                                           //     ? CustomColors.textColor3 : CustomColors.whiteColor,
-    //                                           color: CustomColors.blackColor,
-    //                                           fontFamily: 'Regular',
-    //                                         ),
-    //                                       ),
-    //                                     ),
-    //                                   );
-    //                                 }),
-    //                           )),
-    //                     ]),
-    //                   ))
-    //             ],
-    //           ),
-    //
-    //
-    //
-    //
-    //     ));
 
   }
 
@@ -496,33 +489,8 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
     }
   }
 
-  setMainAxisExtent(int index) {
-    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" &&
-        widget.viewSeatSelectionListItem![index].seat == 0) {
-      // return 205;
-      setState(() {
-        mainAxisExtentValue = 120.0;
-      });
-    } else {
-      if (widget.viewSeatSelectionListItem![index].seat! > 0 &&
-          widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
-        setState(() {
-          mainAxisExtentValue = 55.0;
-        });
-      } else if (widget.viewSeatSelectionListItem![index].seat! == 0 &&
-          widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
-        setState(() {
-          mainAxisExtentValue = 120.0;
-        });
-      } else {
-        setState(() {
-          mainAxisExtentValue = 55.0;
-        });
-      }
-    }
-  }
-
   void setSelectionTimeRange() {
+    selectedTimeRangList.clear();
     String? timeValue = widget.totalTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
     debugPrint("timeValue ===> $timeValue");
     String hr = timeValue.substring(0,2);
@@ -587,5 +555,6 @@ class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScr
     }
     // newMin == 0 ? '$newHr:0$newMin' : '$newHr:$newMin';
   }
+
 
 }
