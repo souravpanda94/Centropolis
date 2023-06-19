@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ffi';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:centropolis/screens/visit_request/visit_reservation_application.dart';
@@ -8,17 +9,29 @@ import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:loading_overlay/loading_overlay.dart';
+import 'package:provider/provider.dart';
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
+import '../../providers/user_provider.dart';
+import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
+import '../../utils/custom_urls.dart';
+import '../../utils/internet_checking.dart';
+import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_button_with_border.dart';
 import '../amenity/conference_reservation.dart';
 import '../amenity/fitness_reservation.dart';
 import '../amenity/lounge_reservation.dart';
 import '../amenity/sleeping_room_reservation.dart';
-import '../rnd/qr_scanner_screen.dart';
+import 'package:http/http.dart' as http;
 import 'bar_code.dart';
-import '../rnd/bar_code_scanner.dart';
 import 'notifications.dart';
+
+
+
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -28,8 +41,13 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  late String apiKey, language;
+  late FToast fToast;
+  bool isLoading = false;
+  UserInfoModel? userInfoModel;
   CarouselController controller = CarouselController();
   int pageIndex = 0;
+  int unreadNotificationCount = 0;
   List<dynamic> dataList = [
     {
       "id": 0,
@@ -48,8 +66,29 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    loadPersonalInformation();
+  }
+
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    userInfoModel = Provider.of<UserInfoProvider>(context).getUserInformation;
+
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.textColor3,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isLoading,
+      child: Scaffold(
       backgroundColor: Colors.white,
       body: CarouselSlider(
         carouselController: controller,
@@ -101,13 +140,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             onPressed: () {
                               goToNotificationScreen();
                             },
-                            icon: SvgPicture.asset(
-                              'assets/images/ic_notification_white.svg',
+                            icon: unreadNotificationCount > 0 ?
+                            SvgPicture.asset(
+                              'assets/images/ic_notification_white.svg' ,
                               semanticsLabel: 'Back',
                               width: 25,
                               height: 25,
                               alignment: Alignment.center,
-                            ),
+                            )
+                            : SvgPicture.asset(
+                              'assets/images/ic_notification.svg' ,
+                              semanticsLabel: 'Back',
+                              width: 25,
+                              height: 25,
+                              alignment: Alignment.center,
+                            )
+                            ,
                           )
                         ],
                       ),
@@ -400,7 +448,7 @@ class _HomeScreenState extends State<HomeScreen> {
               });
             }),
       ),
-    );
+    ),);
   }
 
   String setTitle(type) {
@@ -611,4 +659,56 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+          setState(() {
+            unreadNotificationCount = userInfoModel.unreadNotificationCount!;
+          });
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+
 }
