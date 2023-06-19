@@ -154,7 +154,7 @@ class WebViewLinks {
   static String baseUrl = "https://www.google.com"; // Test server
 
   static String privacyPolicyUrl =
-      "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#termofuse";
+      "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#privacypolicy";
   static String termsOfUseUrl =
       "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#termofuse";
   static String freeParkingVehicleRegistrationUrl =
