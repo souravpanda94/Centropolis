@@ -150,7 +150,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    tr("tenantCompany"),
+                                    tr("lightOutDetailCompany"),
                                     style: const TextStyle(
                                       fontSize: 14,
                                       fontFamily: "Regular",

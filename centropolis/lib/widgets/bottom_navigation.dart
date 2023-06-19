@@ -169,7 +169,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     } else if (selectedIndex == 3) {
       return tr("voc");
     } else if (selectedIndex == 4) {
-      return tr("myPage");
+      return tr("myPageHeading");
     } else {
       return "";
     }

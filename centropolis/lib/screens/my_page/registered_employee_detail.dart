@@ -197,7 +197,8 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                       height: 8,
                     ),
                     Text(
-                      employeeDetails?.mobile.toString() ?? "",
+                      formatNumberStringWithDash(
+                          employeeDetails?.mobile.toString() ?? ""),
                       style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
@@ -207,7 +208,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                       height: 16,
                     ),
                     Text(
-                      tr("tenantCompany"),
+                      tr("tenantCompanyLounge"),
                       style: const TextStyle(
                           fontFamily: 'SemiBold',
                           fontSize: 14,
@@ -295,7 +296,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                                 employeeDetails?.accountType.toString() ?? "");
                           },
                           buttonColor: CustomColors.buttonBackgroundColor,
-                          buttonName: tr("save"),
+                          buttonName: tr("savebutton"),
                           isIconVisible: false),
                     ),
                     CommonButtonWithBorder(
