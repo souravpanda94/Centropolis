@@ -194,7 +194,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                           builder: (context) =>
                                               const RegisteredEmployeeList(),
                                         ),
-                                      );
+                                      ).then((value) {
+                                        if (value) {
+                                          firstTimeLoadEmployeeList();
+                                        }
+                                      });
                                     },
                                     child: Row(
                                       crossAxisAlignment:

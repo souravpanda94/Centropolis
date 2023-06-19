@@ -371,8 +371,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       showErrorModal(tr("pleaseEnterYourCurrentPassword"));
     } else if (!isValidPassword(currentPassword)) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
-    }
-    if (password.trim().isEmpty) {
+    } else if (password.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterPassword"));
     } else if (!isValidPassword(password)) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));

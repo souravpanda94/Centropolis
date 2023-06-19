@@ -318,14 +318,31 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       ),
                       textAlign: TextAlign.left,
                     ),
-                    Text(
-                      appVersion,
-                      style: const TextStyle(
-                        fontSize: 16,
-                        color: CustomColors.textColor4,
-                        fontFamily: 'Regular',
-                      ),
-                      textAlign: TextAlign.left,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          tr("version"),
+                          style: const TextStyle(
+                            fontSize: 12,
+                            color: CustomColors.textColor3,
+                            fontFamily: 'Regular',
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                        const SizedBox(
+                          width: 8,
+                        ),
+                        Text(
+                          appVersion,
+                          style: const TextStyle(
+                            fontSize: 14,
+                            color: CustomColors.textColor3,
+                            fontFamily: 'Regular',
+                          ),
+                          textAlign: TextAlign.left,
+                        ),
+                      ],
                     ),
                   ],
                 ),

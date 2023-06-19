@@ -63,7 +63,7 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("paidPtReservation"), false, () {
+              child: CommonAppBar(tr("ptReservationHistoryDetails"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),
