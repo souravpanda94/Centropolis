@@ -167,9 +167,9 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     InkWell(
                       onTap: () {
                         if (language == "ko") {
-                          context.setLocale(Locale('en'));
+                          context.setLocale(const Locale('en'));
                         } else {
-                          context.setLocale(Locale('ko'));
+                          context.setLocale(const Locale('ko'));
                         }
                         goToHomeScreen();
                       },
