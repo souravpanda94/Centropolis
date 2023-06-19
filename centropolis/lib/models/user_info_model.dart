@@ -10,6 +10,7 @@ class UserInfoModel {
   String? companyName;
   String? gender;
   String? building;
+  String? displayUserType;
   bool? success;
 
   UserInfoModel(
@@ -24,6 +25,7 @@ class UserInfoModel {
       this.companyName,
       this.gender,
       this.building,
+      this.displayUserType,
       this.success});
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +40,7 @@ class UserInfoModel {
     companyName = json['company_name'];
     gender = json['gender'];
     building = json['building'];
+    displayUserType = json['display_user_type'];
     success = json['success'];
   }
 
@@ -54,6 +57,7 @@ class UserInfoModel {
     data['company_name'] = companyName;
     data['gender'] = gender;
     data['building'] = building;
+    data['display_user_type'] = displayUserType;
     data['success'] = success;
     return data;
   }

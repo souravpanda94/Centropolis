@@ -52,7 +52,8 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
                 semanticsLabel: 'Back',
               ),
               onPressed: () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, true);
               },
             ),
             bottom: PreferredSize(

@@ -84,7 +84,7 @@ class _EmployeeListState extends State<EmployeeList> {
                           color: CustomColors.textColorBlack2),
                     ),
                     Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                      padding: const EdgeInsets.symmetric(horizontal: 4),
                       child: Text(
                         totalRecords.toString(),
                         style: const TextStyle(
@@ -92,6 +92,13 @@ class _EmployeeListState extends State<EmployeeList> {
                             fontSize: 14,
                             color: CustomColors.textColor9),
                       ),
+                    ),
+                    Text(
+                      tr("people"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColorBlack2),
                     ),
                   ],
                 ),
@@ -129,7 +136,11 @@ class _EmployeeListState extends State<EmployeeList> {
                                           id: employeeListItem?[index].userId ??
                                               ""),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  loadEmployeeList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
@@ -171,72 +182,64 @@ class _EmployeeListState extends State<EmployeeList> {
                                                     .accountType
                                                     .toString() !=
                                                 "tenant_employee"
-                                            ? Flexible(
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: CustomColors
-                                                        .backgroundColor2,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50),
-                                                  ),
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          top: 5.0,
-                                                          bottom: 5.0,
-                                                          left: 12.0,
-                                                          right: 12.0),
-                                                  child: Row(
-                                                    children: [
-                                                      SvgPicture.asset(
-                                                        'assets/images/ic_logo.svg',
-                                                        semanticsLabel: 'Back',
-                                                        width: 15,
-                                                        height: 15,
-                                                        alignment:
-                                                            Alignment.center,
+                                            ? Container(
+                                                decoration: BoxDecoration(
+                                                  color: CustomColors
+                                                      .backgroundColor2,
+                                                  borderRadius:
+                                                      BorderRadius.circular(50),
+                                                ),
+                                                padding: const EdgeInsets.only(
+                                                    top: 5.0,
+                                                    bottom: 5.0,
+                                                    left: 12.0,
+                                                    right: 12.0),
+                                                child: Row(
+                                                  children: [
+                                                    SvgPicture.asset(
+                                                      'assets/images/ic_logo.svg',
+                                                      semanticsLabel: 'Back',
+                                                      width: 15,
+                                                      height: 15,
+                                                      alignment:
+                                                          Alignment.center,
+                                                    ),
+                                                    const SizedBox(
+                                                      width: 5,
+                                                    ),
+                                                    Text(
+                                                      // employeeListItem![index]
+                                                      //             .accountType
+                                                      //             .toString() ==
+                                                      //         "tenant_lounge_employee"
+                                                      //     ? tr(
+                                                      //         "executiveLounge")
+                                                      //     : employeeListItem![
+                                                      //                     index]
+                                                      //                 .accountType
+                                                      //                 .toString() ==
+                                                      //             "tenant_conference_employee"
+                                                      //         ? tr(
+                                                      //             "conferenceRoom")
+                                                      //         : employeeListItem![
+                                                      //                     index]
+                                                      //                 .displayAccountType ??
+                                                      //             "",
+                                                      employeeListItem?[index]
+                                                              .displayAccountType
+                                                              .toString() ??
+                                                          "",
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                      style: const TextStyle(
+                                                        fontSize: 12,
+                                                        fontFamily: "Bold",
+                                                        color: CustomColors
+                                                            .textColor8,
                                                       ),
-                                                      const SizedBox(
-                                                        width: 5,
-                                                      ),
-                                                      Expanded(
-                                                        child: Text(
-                                                          // employeeListItem![index]
-                                                          //             .accountType
-                                                          //             .toString() ==
-                                                          //         "tenant_lounge_employee"
-                                                          //     ? tr(
-                                                          //         "executiveLounge")
-                                                          //     : employeeListItem![
-                                                          //                     index]
-                                                          //                 .accountType
-                                                          //                 .toString() ==
-                                                          //             "tenant_conference_employee"
-                                                          //         ? tr(
-                                                          //             "conferenceRoom")
-                                                          //         : employeeListItem![
-                                                          //                     index]
-                                                          //                 .displayAccountType ??
-                                                          //             "",
-                                                          employeeListItem?[
-                                                                      index]
-                                                                  .displayAccountType
-                                                                  .toString() ??
-                                                              "",
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
-                                                          style:
-                                                              const TextStyle(
-                                                            fontSize: 12,
-                                                            fontFamily: "Bold",
-                                                            color: CustomColors
-                                                                .textColor8,
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    ],
-                                                  ),
+                                                    ),
+                                                  ],
                                                 ),
                                               )
                                             : Container(),
@@ -327,6 +330,9 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   void callEmployeeListApi() {
+    setState(() {
+      isFirstLoadRunning = true;
+    });
     Map<String, String> body;
     if (currentSelectedSortingFilter != null) {
       body = {
