@@ -130,9 +130,8 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                        Row(
                          mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          SvgPicture.asset(
-                            'assets/images/ic_date.svg',
-                            semanticsLabel: 'Back',
+                          Image.asset(
+                            'assets/images/ic_timer.png',
                             width: 15,
                             height: 15,
                             alignment: Alignment.center,
@@ -140,23 +139,23 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
 
                           const SizedBox(width: 4,),
 
-                          const Text(
-                            "Timmer ",
+                           Text(
+                            tr('remaining_time'),
                             textAlign: TextAlign.center,
                             maxLines: 2,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
                                 color: CustomColors.textColor3),
                           ),
 
+                          const SizedBox(width: 4,),
 
                            Text(
-                            // "02 min",
-                            showTime,
+                            '$showTime ${tr('minutes')}',
                             textAlign: TextAlign.center,
                             maxLines: 2,
-                            style: TextStyle(
+                            style: const TextStyle(
                                 fontFamily: 'Medium',
                                 fontSize: 14,
                                 color: CustomColors.textColor9),
