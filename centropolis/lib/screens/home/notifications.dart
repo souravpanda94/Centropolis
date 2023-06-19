@@ -14,7 +14,6 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/app_bar_for_dialog.dart';
-import '../../widgets/common_app_bar.dart';
 import '../../widgets/view_more.dart';
 
 
@@ -33,6 +32,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
   final int limit = 10;
   int totalPages = 0;
   bool isFirstLoadRunning = true;
+  bool isLoading = true;
   List<NotificationModel>? notificationListItem;
 
 
@@ -44,6 +44,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    debugPrint("apiKey ==> $apiKey");
     firstTimeLoadNotificationList();
   }
 
@@ -59,7 +60,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       progressIndicator: const CircularProgressIndicator(
         color: CustomColors.blackColor,
       ),
-      isLoading: isFirstLoadRunning,
+      isLoading: isLoading,
       child: Scaffold(
         backgroundColor: CustomColors.backgroundColor,
         appBar: PreferredSize(
@@ -81,77 +82,82 @@ class _NotificationScreenState extends State<NotificationScreen> {
                   child: ListView.builder(
                       itemCount: notificationListItem?.length,
                       itemBuilder: ((context, index) {
-                        return Container(
-                          decoration: BoxDecoration(
-                              color: CustomColors.whiteColor,
-                              border: Border.all(
-                                color: CustomColors.borderColor,
-                              ),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(4))),
-                          padding: const EdgeInsets.all(16),
-                          margin: const EdgeInsets.only(bottom: 16),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                // notificationList[index]["title"],
-                                notificationListItem?[index].notificationType.toString() ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
-                              ),
-                              Container(
-                                margin:
-                                    const EdgeInsets.symmetric(vertical: 16),
-                                child: Row(
-                                  children: [
-                                    Expanded(
-                                      flex: 3,
-                                      child: Text(
-                                        // notificationList[index]["subtitle"],
-                                        notificationListItem?[index].content.toString() ?? "",
+                        return InkWell(
+                          onTap: (){
+                            goToDetailsScreen(notificationListItem?[index].notificationType.toString());
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: CustomColors.whiteColor,
+                                border: Border.all(
+                                  color: CustomColors.borderColor,
+                                ),
+                                borderRadius:
+                                const BorderRadius.all(Radius.circular(4))),
+                            padding: const EdgeInsets.all(16),
+                            margin: const EdgeInsets.only(bottom: 16),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  // notificationList[index]["title"],
+                                  notificationListItem?[index].title.toString() ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                ),
+                                Container(
+                                  margin:
+                                  const EdgeInsets.symmetric(vertical: 16),
+                                  child: Row(
+                                    children: [
+                                      Expanded(
+                                        flex: 3,
+                                        child: Text(
+                                          // notificationList[index]["subtitle"],
+                                          notificationListItem?[index].content.toString() ?? "",
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                          style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 14,
+                                              color:
+                                              CustomColors.textColorBlack2),
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        width: 8,
+                                      ),
+                                       Text(
+                                        tr("contents"),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                         style: const TextStyle(
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            color:
-                                                CustomColors.textColorBlack2),
+                                            color: CustomColors.textColorBlack2),
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      width: 8,
-                                    ),
-                                    Text(
-                                      // notificationList[index]["content"],
-                                      "contents",
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                      style: const TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
-                              ),
-                              Text(
-                                // notificationList[index]["datetime"],
-                                notificationListItem?[index].createdDate.toString() ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 12,
-                                    color: CustomColors.textColor3),
-                              ),
-                            ],
+                                Text(
+                                  // notificationList[index]["datetime"],
+                                  notificationListItem?[index].createdDate.toString() ?? "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 12,
+                                      color: CustomColors.textColor3),
+                                ),
+                              ],
+                            ),
                           ),
-                        );
+                        )
+                          ;
                       })),
                 ),
 
@@ -167,7 +173,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   void firstTimeLoadNotificationList() {
     setState(() {
-      isFirstLoadRunning = true;
+      isLoading = true;
     });
     loadNotificationList();
   }
@@ -183,7 +189,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
 
   void callNotificationListApi() {
     setState(() {
-      isFirstLoadRunning = true;
+      isLoading = true;
     });
     Map<String, String> body = {
       "page": page.toString(), //required
@@ -217,6 +223,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
             Provider.of<NotificationProvider>(context, listen: false)
                 .addItem(reservationListList);
           }
+
+          if(isFirstLoadRunning){
+            setState(() {
+              isFirstLoadRunning = false;
+            });
+            loadNotificationAllRead();
+          }
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -224,13 +237,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
           }
         }
         setState(() {
-          isFirstLoadRunning = false;
+          isLoading = false;
         });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {
-        isFirstLoadRunning = false;
+        isLoading = false;
       });
     });
   }
@@ -248,5 +261,65 @@ class _NotificationScreenState extends State<NotificationScreen> {
     }
   }
 
+  void goToDetailsScreen(String? notificationType) {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const FitnessReservation(position: 0),
+    //   ),
+    // );
+  }
+
+  void loadNotificationAllRead() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callNotificationAllReadApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callNotificationAllReadApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Notification Read input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.serReadNotification,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Notification Read ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['current_page'] != null) {
+            debugPrint(
+                "Notification Read ===> ${responseJson['current_page']}");
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
 
 }

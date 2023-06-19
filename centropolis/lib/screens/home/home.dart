@@ -15,7 +15,9 @@ import '../amenity/conference_reservation.dart';
 import '../amenity/fitness_reservation.dart';
 import '../amenity/lounge_reservation.dart';
 import '../amenity/sleeping_room_reservation.dart';
+import '../rnd/qr_scanner_screen.dart';
 import 'bar_code.dart';
+import '../rnd/bar_code_scanner.dart';
 import 'notifications.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -451,6 +453,8 @@ class _HomeScreenState extends State<HomeScreen> {
       context,
       MaterialPageRoute(
         builder: (context) => const NotificationScreen(),
+        // builder: (context) => const BarCodeScannerScreen(),
+        // builder: (context) => const QrScannerScreen(),
       ),
     );
   }

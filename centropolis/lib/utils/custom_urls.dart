@@ -147,6 +147,7 @@ class ApiEndPoint {
   static String getNotificationListUrl =
       "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
+  static String serReadNotification = "${baseUrl}v1/mypage/notification-read-all";
 }
 
 class WebViewLinks {

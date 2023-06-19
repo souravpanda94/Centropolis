@@ -49,6 +49,7 @@ class _BarCodeScannerScreenState extends State<BarCodeScannerScreen> {
                   scanQR();
                 },
                 child: const Text('SCAN QR CODE')),
+            const SizedBox(height: 20,),
             Text('Scan result : $scanBarcode\n',
                 style: const TextStyle(fontSize: 20))
           ],

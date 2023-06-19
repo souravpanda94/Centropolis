@@ -7,6 +7,7 @@ class NotificationModel {
   int? relId;
   String? notificationType;
   String? content;
+  String? title;
   String? isSeen;
   String? status;
   String? createdDate;
@@ -19,6 +20,7 @@ class NotificationModel {
         this.relId,
         this.notificationType,
         this.content,
+        this.title,
         this.isSeen,
         this.status,
         this.createdDate});
@@ -31,6 +33,7 @@ class NotificationModel {
     relId = json['rel_id'];
     notificationType = json['notification_type'];
     content = json['content'];
+    title = json['title'];
     isSeen = json['is_seen'];
     status = json['status'];
     createdDate = json['created_date'];
@@ -45,6 +48,7 @@ class NotificationModel {
     data['rel_id'] = relId;
     data['notification_type'] = notificationType;
     data['content'] = content;
+    data['title'] = title;
     data['is_seen'] = isSeen;
     data['status'] = status;
     data['created_date'] = createdDate;
