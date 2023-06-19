@@ -74,570 +74,571 @@ class _AddMemberState extends State<AddMember> {
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("addMember"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("addMember"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          margin:
-              const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
-          child: SingleChildScrollView(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      tr("enterPersonalInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'Bold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    RichText(
-                      textAlign: TextAlign.end,
+          body: Container(
+            width: MediaQuery.of(context).size.width,
+            margin:
+                const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
+            child: SingleChildScrollView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        tr("enterEmployeeDetails"),
+                        style: const TextStyle(
+                            fontFamily: 'Bold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      RichText(
+                        textAlign: TextAlign.end,
+                        text: TextSpan(
+                            text: '* ',
+                            style: const TextStyle(
+                                color: CustomColors.headingColor, fontSize: 12),
+                            children: [
+                              TextSpan(
+                                text: tr("requiredInput"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 12,
+                                    color: CustomColors.textColor8),
+                              )
+                            ]),
+                        maxLines: 1,
+                      ),
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 24, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
                       text: TextSpan(
-                          text: '* ',
+                          text: tr("tenantCompany"),
                           style: const TextStyle(
-                              color: CustomColors.headingColor, fontSize: 12),
-                          children: [
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
                             TextSpan(
-                              text: tr("requiredInput"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 12,
-                                  color: CustomColors.textColor8),
-                            )
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
                           ]),
                       maxLines: 1,
                     ),
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 24, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("tenantCompany"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
                   ),
-                ),
-                tenantCompanyDropdownWidget(),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("floor"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                floorDropdownWidget(),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("name"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                TextField(
-                  controller: nameController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
+                  tenantCompanyDropdownWidget(),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("floor"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
                     ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
+                  ),
+                  floorDropdownWidget(),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("name"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
                     ),
-                    hintText: tr('employeeNameHint'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
+                  ),
+                  TextField(
+                    controller: nameController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('employeeNameHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
                       fontSize: 14,
                       fontFamily: 'Regular',
                     ),
                   ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("IDHeading"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
                   ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("IDHeading"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: idController,
-                        cursorColor: CustomColors.textColorBlack2,
-                        keyboardType: TextInputType.text,
-                        decoration: InputDecoration(
-                          border: InputBorder.none,
-                          fillColor: CustomColors.whiteColor,
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(16),
-                          enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor,
-                                width: 1.0),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextField(
+                          controller: idController,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            hintText: tr('employeeIDHint'),
+                            hintStyle: const TextStyle(
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(4),
-                            borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor,
-                                width: 1.0),
-                          ),
-                          hintText: tr('employeeIDHint'),
-                          hintStyle: const TextStyle(
-                            color: CustomColors.textColor3,
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
                         ),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
+                      ),
+                      const SizedBox(
+                        width: 8,
+                      ),
+                      CommonButtonWithBorder(
+                        onCommonButtonTap: () {
+                          callVerifyUserId();
+                        },
+                        buttonName: tr("verify"),
+                        buttonBorderColor: CustomColors.buttonBackgroundColor,
+                        buttonTextColor: CustomColors.buttonBackgroundColor,
+                      )
+                    ],
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("passwordHeading"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
+                  ),
+                  TextField(
+                    controller: passwordController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('passwordHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("verifyPassword"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
+                  ),
+                  TextField(
+                    controller: verifyPasswordController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    obscureText: true,
+                    enableSuggestions: false,
+                    autocorrect: false,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('verifyPasswordHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("email"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
+                  ),
+                  TextField(
+                    controller: emailIDController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.emailAddress,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('emailDemoHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("contactNo"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                //text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
+                  ),
+                  TextField(
+                    controller: contactNoController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.number,
+                    maxLength: 11,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('contactNoHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
+                      fontSize: 14,
+                      fontFamily: 'Regular',
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 16, bottom: 8),
+                    width: MediaQuery.of(context).size.width,
+                    child: RichText(
+                      text: TextSpan(
+                          text: tr("gender"),
+                          style: const TextStyle(
+                              fontFamily: 'Bold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                // text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
+                  ),
+                  Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Radio<Gender>(
+                                activeColor: CustomColors.buttonBackgroundColor,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                value: Gender.male,
+                                groupValue: gender,
+                                onChanged: (Gender? value) {
+                                  setState(() {
+                                    gender = value;
+                                    if (gender == Gender.male) {
+                                      genderValue = "m";
+                                    } else {
+                                      genderValue = "f";
+                                    }
+                                  });
+                                },
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                tr("male"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    color: CustomColors.textColorBlack2,
+                                    fontSize: 14),
+                              ),
+                            )
+                          ],
                         ),
                       ),
-                    ),
-                    const SizedBox(
-                      width: 8,
-                    ),
-                    CommonButtonWithBorder(
-                      onCommonButtonTap: () {
-                        callVerifyUserId();
-                      },
-                      buttonName: tr("verify"),
-                      buttonBorderColor: CustomColors.buttonBackgroundColor,
-                      buttonTextColor: CustomColors.buttonBackgroundColor,
-                    )
-                  ],
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("passwordHeading"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                TextField(
-                  controller: passwordController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('passwordHint'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("verifyPassword"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                TextField(
-                  controller: verifyPasswordController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.text,
-                  obscureText: true,
-                  enableSuggestions: false,
-                  autocorrect: false,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('verifyPasswordHint'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("email"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                TextField(
-                  controller: emailIDController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('emailDemoHint'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("contactNo"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                TextField(
-                  controller: contactNoController,
-                  cursorColor: CustomColors.textColorBlack2,
-                  keyboardType: TextInputType.number,
-                  maxLength: 11,
-                  decoration: InputDecoration(
-                    counterText: '',
-                    border: InputBorder.none,
-                    fillColor: CustomColors.whiteColor,
-                    filled: true,
-                    contentPadding: const EdgeInsets.all(16),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(4),
-                      borderSide: const BorderSide(
-                          color: CustomColors.dividerGreyColor, width: 1.0),
-                    ),
-                    hintText: tr('contactNoHint'),
-                    hintStyle: const TextStyle(
-                      color: CustomColors.textColor3,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                  ),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 16, bottom: 8),
-                  width: MediaQuery.of(context).size.width,
-                  child: RichText(
-                    text: TextSpan(
-                        text: tr("gender"),
-                        style: const TextStyle(
-                            fontFamily: 'Bold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: Radio<Gender>(
-                              activeColor: CustomColors.buttonBackgroundColor,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              value: Gender.male,
-                              groupValue: gender,
-                              onChanged: (Gender? value) {
-                                setState(() {
-                                  gender = value;
-                                  if (gender == Gender.male) {
-                                    genderValue = "m";
-                                  } else {
-                                    genderValue = "f";
-                                  }
-                                });
-                              },
+                      Expanded(
+                        flex: 1,
+                        child: Row(
+                          children: [
+                            SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: Radio<Gender>(
+                                activeColor: CustomColors.buttonBackgroundColor,
+                                materialTapTargetSize:
+                                    MaterialTapTargetSize.shrinkWrap,
+                                value: Gender.female,
+                                groupValue: gender,
+                                onChanged: (Gender? value) {
+                                  setState(() {
+                                    gender = value;
+                                    if (gender == Gender.male) {
+                                      genderValue = "m";
+                                    } else {
+                                      genderValue = "f";
+                                    }
+                                  });
+                                },
+                              ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              tr("male"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  color: CustomColors.textColorBlack2,
-                                  fontSize: 14),
-                            ),
-                          )
-                        ],
+                            Padding(
+                              padding: const EdgeInsets.only(left: 10),
+                              child: Text(
+                                tr("female"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    color: CustomColors.textColorBlack2,
+                                    fontSize: 14),
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                    Expanded(
-                      flex: 1,
-                      child: Row(
-                        children: [
-                          SizedBox(
-                            height: 20,
-                            width: 20,
-                            child: Radio<Gender>(
-                              activeColor: CustomColors.buttonBackgroundColor,
-                              materialTapTargetSize:
-                                  MaterialTapTargetSize.shrinkWrap,
-                              value: Gender.female,
-                              groupValue: gender,
-                              onChanged: (Gender? value) {
-                                setState(() {
-                                  gender = value;
-                                  if (gender == Gender.male) {
-                                    genderValue = "m";
-                                  } else {
-                                    genderValue = "f";
-                                  }
-                                });
-                              },
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 10),
-                            child: Text(
-                              tr("female"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  color: CustomColors.textColorBlack2,
-                                  fontSize: 14),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  margin: const EdgeInsets.only(top: 34, bottom: 16),
-                  child: CommonButton(
-                      onCommonButtonTap: () {
-                        addMemberValidation();
-                      },
-                      buttonColor: CustomColors.buttonBackgroundColor,
-                      buttonName: tr("save"),
-                      isIconVisible: false),
-                ),
-                CommonButtonWithBorder(
-                  onCommonButtonTap: () {
-                    Navigator.pop(context);
-                  },
-                  buttonBorderColor: CustomColors.dividerGreyColor,
-                  buttonName: tr("before"),
-                  buttonTextColor: CustomColors.textColor5,
-                ),
-              ],
+                    ],
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(top: 34, bottom: 16),
+                    child: CommonButton(
+                        onCommonButtonTap: () {
+                          addMemberValidation();
+                        },
+                        buttonColor: CustomColors.buttonBackgroundColor,
+                        buttonName: tr("save"),
+                        isIconVisible: false),
+                  ),
+                  CommonButtonWithBorder(
+                    onCommonButtonTap: () {
+                      Navigator.pop(context);
+                    },
+                    buttonBorderColor: CustomColors.dividerGreyColor,
+                    buttonName: tr("before"),
+                    buttonTextColor: CustomColors.textColor5,
+                  ),
+                ],
+              ),
             ),
           ),
         ),
       ),
-    ),);
+    );
   }
 
   tenantCompanyDropdownWidget() {

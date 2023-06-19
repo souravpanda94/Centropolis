@@ -33,7 +33,6 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
   String password = "";
   String verifyPassword = "";
 
-
   @override
   void initState() {
     super.initState();
@@ -52,295 +51,296 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-        opacity: 0.5,
-        color: CustomColors.textColor3,
-        progressIndicator: const CircularProgressIndicator(
-          color: CustomColors.blackColor,
-        ),
-        isLoading: isLoading,
-        child: Scaffold(
-          backgroundColor: CustomColors.whiteColor,
-          appBar: PreferredSize(
-            preferredSize: AppBar().preferredSize,
-            child: SafeArea(
-              child: Container(
-                color: CustomColors.whiteColor,
-                child: CommonAppBar(tr("changePassword"), false, () {
-                  onBackButtonPress(context);
-                }, () {}),
+          opacity: 0.5,
+          color: CustomColors.textColor3,
+          progressIndicator: const CircularProgressIndicator(
+            color: CustomColors.blackColor,
+          ),
+          isLoading: isLoading,
+          child: Scaffold(
+            backgroundColor: CustomColors.whiteColor,
+            appBar: PreferredSize(
+              preferredSize: AppBar().preferredSize,
+              child: SafeArea(
+                child: Container(
+                  color: CustomColors.whiteColor,
+                  child: CommonAppBar(tr("changePassword"), false, () {
+                    onBackButtonPress(context);
+                  }, () {}),
+                ),
               ),
             ),
-          ),
-          body: Container(
-            margin: const EdgeInsets.only(bottom: 45.0),
-            child: SingleChildScrollView(
-                child: Column(children: [
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 40.0,
-                  left: 15.0,
-                  right: 15.0,
-                ),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    tr("currentPassword"),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: CustomColors.textColor8,
-                      fontFamily: 'Medium',
+            body: Container(
+              margin: const EdgeInsets.only(bottom: 45.0),
+              child: SingleChildScrollView(
+                  child: Column(children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 40.0,
+                    left: 15.0,
+                    right: 15.0,
+                  ),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      tr("currentPassword"),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.textColor8,
+                        fontFamily: 'Medium',
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 15.0,
-                  right: 15.0,
-                ),
-                child: SizedBox(
-                  height: 47.0,
-                  child: TextField(
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    maxLength: 16,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                        horizontal: 15.0,
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 15.0,
+                    right: 15.0,
+                  ),
+                  child: SizedBox(
+                    height: 47.0,
+                    child: TextField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      maxLength: 16,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal: 15.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr("pleaseEnterYourCurrentPassword"),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr("pleaseEnterYourCurrentPassword"),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.textColor8,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
+                      onChanged: (text) => {
+                        // cleanErrorField(),
+                        setState(() {
+                          currentPassword = text;
+                        }),
+                      },
                     ),
-                    style: const TextStyle(
-                      color: CustomColors.textColor8,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                    onChanged: (text) => {
-                      // cleanErrorField(),
-                      setState(() {
-                        currentPassword = text;
-                      }),
-                    },
                   ),
                 ),
-              ),
 
-              //   if (currentPasswordValidation)
-              // Container(
-              //   margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-              //   padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-              //   child: Align(
-              //     alignment: Alignment.centerLeft,
-              //     child: Text(
-              //       currentPasswordErrorMsg,
-              //       style: const TextStyle(
-              //         fontSize: 11,
-              //         color: CustomColors.textColor6,
-              //         fontFamily: 'Regular',
-              //       ),
-              //       textAlign: TextAlign.left,
-              //     ),
-              //   ),
-              // ),
+                //   if (currentPasswordValidation)
+                // Container(
+                //   margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+                //   padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                //   child: Align(
+                //     alignment: Alignment.centerLeft,
+                //     child: Text(
+                //       currentPasswordErrorMsg,
+                //       style: const TextStyle(
+                //         fontSize: 11,
+                //         color: CustomColors.textColor6,
+                //         fontFamily: 'Regular',
+                //       ),
+                //       textAlign: TextAlign.left,
+                //     ),
+                //   ),
+                // ),
 
-              Container(
-                margin:
-                    const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    tr("newPassword"),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: CustomColors.textColor8,
-                      fontFamily: 'Medium',
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      tr("newPassword"),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.textColor8,
+                        fontFamily: 'Medium',
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 15.0,
-                  right: 15.0,
-                ),
-                child: SizedBox(
-                  height: 47.0,
-                  child: TextField(
-                    keyboardType: TextInputType.visiblePassword,
-                    maxLength: 16,
-                    obscureText: true,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                        horizontal: 15.0,
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 15.0,
+                    right: 15.0,
+                  ),
+                  child: SizedBox(
+                    height: 47.0,
+                    child: TextField(
+                      keyboardType: TextInputType.visiblePassword,
+                      maxLength: 16,
+                      obscureText: true,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal: 15.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr("passwordHint"),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr("passwordHint"),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.textColor8,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
+                      onChanged: (text) => {
+                        // cleanErrorField(),
+                        setState(() {
+                          password = text;
+                        }),
+                      },
                     ),
-                    style: const TextStyle(
-                      color: CustomColors.textColor8,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                    onChanged: (text) => {
-                      // cleanErrorField(),
-                      setState(() {
-                        password = text;
-                      }),
-                    },
                   ),
                 ),
-              ),
 
-              // if (newPasswordValidation)
-              //   Container(
-              //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-              //     padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-              //     child: Align(
-              //       alignment: Alignment.centerLeft,
-              //       child: Text(
-              //         newPasswordErrorMsg,
-              //         style: const TextStyle(
-              //           fontSize: 11,
-              //           color: CustomColors.textColor6,
-              //           fontFamily: 'Regular',
-              //         ),
-              //         textAlign: TextAlign.left,
-              //       ),
-              //     ),
-              //   ),
+                // if (newPasswordValidation)
+                //   Container(
+                //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+                //     padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                //     child: Align(
+                //       alignment: Alignment.centerLeft,
+                //       child: Text(
+                //         newPasswordErrorMsg,
+                //         style: const TextStyle(
+                //           fontSize: 11,
+                //           color: CustomColors.textColor6,
+                //           fontFamily: 'Regular',
+                //         ),
+                //         textAlign: TextAlign.left,
+                //       ),
+                //     ),
+                //   ),
 
-              Container(
-                margin:
-                    const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    tr("newPasswordConfirmation"),
-                    style: const TextStyle(
-                      fontSize: 14,
-                      color: CustomColors.textColor8,
-                      fontFamily: 'Medium',
+                Container(
+                  margin:
+                      const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
+                  child: Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      tr("newPasswordConfirmation"),
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: CustomColors.textColor8,
+                        fontFamily: 'Medium',
+                      ),
+                      textAlign: TextAlign.left,
                     ),
-                    textAlign: TextAlign.left,
                   ),
                 ),
-              ),
-              Container(
-                margin: const EdgeInsets.only(
-                  top: 8.0,
-                  left: 15.0,
-                  right: 15.0,
-                ),
-                child: SizedBox(
-                  height: 47.0,
-                  child: TextField(
-                    keyboardType: TextInputType.visiblePassword,
-                    obscureText: true,
-                    maxLength: 16,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.symmetric(
-                        vertical: 15.0,
-                        horizontal: 15.0,
+                Container(
+                  margin: const EdgeInsets.only(
+                    top: 8.0,
+                    left: 15.0,
+                    right: 15.0,
+                  ),
+                  child: SizedBox(
+                    height: 47.0,
+                    child: TextField(
+                      keyboardType: TextInputType.visiblePassword,
+                      obscureText: true,
+                      maxLength: 16,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 15.0,
+                          horizontal: 15.0,
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4.0),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr("pleaseEnterYourNewPasswordOneMoreTime"),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4.0),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr("pleaseEnterYourNewPasswordOneMoreTime"),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.textColor8,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
+                      onChanged: (text) => {
+                        // cleanErrorField(),
+                        setState(() {
+                          verifyPassword = text;
+                        }),
+                      },
                     ),
-                    style: const TextStyle(
-                      color: CustomColors.textColor8,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                    onChanged: (text) => {
-                      // cleanErrorField(),
-                      setState(() {
-                        verifyPassword = text;
-                      }),
-                    },
                   ),
                 ),
-              ),
 
-              // if (confirmPasswordValidation)
-              //   Container(
-              //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
-              //     padding: const EdgeInsets.only(top: 5.0, left: 8.0),
-              //     child: Align(
-              //       alignment: Alignment.centerLeft,
-              //       child: Text(
-              //         confirmPasswordErrorMsg,
-              //         style: const TextStyle(
-              //           fontSize: 11,
-              //           color: CustomColors.textColor6,
-              //           fontFamily: 'Regular',
-              //         ),
-              //         textAlign: TextAlign.left,
-              //       ),
-              //     ),
-              //   ),
-            ])),
-          ),
-          floatingActionButton: yourButtonWidget(),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerFloat,
-        )),);
+                // if (confirmPasswordValidation)
+                //   Container(
+                //     margin: const EdgeInsets.only(left: 15.0, right: 15.0),
+                //     padding: const EdgeInsets.only(top: 5.0, left: 8.0),
+                //     child: Align(
+                //       alignment: Alignment.centerLeft,
+                //       child: Text(
+                //         confirmPasswordErrorMsg,
+                //         style: const TextStyle(
+                //           fontSize: 11,
+                //           color: CustomColors.textColor6,
+                //           fontFamily: 'Regular',
+                //         ),
+                //         textAlign: TextAlign.left,
+                //       ),
+                //     ),
+                //   ),
+              ])),
+            ),
+            floatingActionButton: yourButtonWidget(),
+            floatingActionButtonLocation:
+                FloatingActionButtonLocation.centerFloat,
+          )),
+    );
   }
 
   yourButtonWidget() {
@@ -358,7 +358,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
               onChangeButtonClick();
             },
             buttonColor: CustomColors.buttonBackgroundColor,
-            buttonName: tr("save"),
+            buttonName: tr("savebutton"),
             isIconVisible: false),
       ),
     );
@@ -369,23 +369,18 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
     if (currentPassword.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterYourCurrentPassword"));
-    }
-    else if (!isValidPassword(currentPassword)) {
+    } else if (!isValidPassword(currentPassword)) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
     }
     if (password.trim().isEmpty) {
       showErrorModal(tr("pleaseEnterPassword"));
-    }
-    else if (!isValidPassword(password)) {
+    } else if (!isValidPassword(password)) {
       showErrorModal(tr("onlyValidPasswordIsAllowed"));
-    }
-    else if (password == currentPassword) {
+    } else if (password == currentPassword) {
       showErrorModal(tr("currentPasswordValidation"));
-    }
-    else if (password != verifyPassword) {
+    } else if (password != verifyPassword) {
       showErrorModal(tr("youHaveEnteredDifferentPassword"));
-    }
-    else {
+    } else {
       final InternetChecking internetChecking = InternetChecking();
       if (await internetChecking.isInternet()) {
         callResetPasswordApi();
@@ -461,5 +456,4 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       });
     });
   }
-
 }

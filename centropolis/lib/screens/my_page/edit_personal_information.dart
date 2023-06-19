@@ -64,333 +64,333 @@ class _EditPersonalInformationScreenState
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor3,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("editPersonalInformation"), false, () {
-                onBackButtonPress(context);
-              }, () {}),
-            ),
-          ),
+        opacity: 0.5,
+        color: CustomColors.textColor3,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
         ),
-        body: Container(
-          margin: const EdgeInsets.only(bottom: 45.0),
-          child: SingleChildScrollView(
-            child: Container(
-              margin: const EdgeInsets.only(
-                left: 15.0,
-                right: 15.0,
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("editPersonalInformation"), false, () {
+                  onBackButtonPress(context);
+                }, () {}),
               ),
-              child: Column(children: [
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 20.0,
-                  ),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      tr("name"),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                    height: 47,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                      top: 8.0,
-                    ),
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    decoration: BoxDecoration(
-                        color: CustomColors.backgroundColor,
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4))),
-                    child: Center(
-                        child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        userInfoModel?.name.toString() ?? tr("name"),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                    ))),
-                Container(
-                  margin: const EdgeInsets.only(top: 15.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      tr("id"),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                    height: 47,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                      top: 8.0,
-                    ),
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    decoration: BoxDecoration(
-                        color: CustomColors.backgroundColor,
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4))),
-                    child: Center(
-                        child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        userInfoModel?.username.toString() ?? tr('id'),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                    ))),
-                Container(
-                  margin: const EdgeInsets.only(top: 15.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      tr("tenantCompany"),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                    height: 47,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                      top: 8.0,
-                    ),
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    decoration: BoxDecoration(
-                        color: CustomColors.backgroundColor,
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4))),
-                    child: Center(
-                        child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        userInfoModel?.companyName.toString() ??
-                            tr('tenantCompany'),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                    ))),
-                Container(
-                  margin: const EdgeInsets.only(top: 15.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      tr("gender"),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                    height: 47,
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(
-                      top: 8.0,
-                    ),
-                    padding: const EdgeInsets.only(left: 15, right: 15),
-                    decoration: BoxDecoration(
-                        color: CustomColors.backgroundColor,
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
-                        ),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(4))),
-                    child: Center(
-                        child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        genderValue ?? tr('gender'),
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                    ))),
-                Container(
-                  margin: const EdgeInsets.only(top: 15.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      tr("email"),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 8.0,
-                  ),
-                  child: SizedBox(
-                    height: 47.0,
-                    child: TextField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
-                      decoration: InputDecoration(
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        hintText: "test1@centropolis.com",
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.textColor8,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(top: 15.0),
-                  child: Align(
-                    alignment: Alignment.centerLeft,
-                    child: Text(
-                      tr("contactNo"),
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
-                      ),
-                      textAlign: TextAlign.left,
-                    ),
-                  ),
-                ),
-                Container(
-                  margin: const EdgeInsets.only(
-                    top: 8.0,
-                  ),
-                  child: SizedBox(
-                    height: 47.0,
-                    child: TextField(
-                      controller: contactNumberController,
-                      keyboardType: TextInputType.phone,
-                      decoration: InputDecoration(
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4.0),
-                          borderSide: BorderSide(
-                              color: nameValidation
-                                  ? CustomColors.textColor6
-                                  : CustomColors.dividerGreyColor,
-                              width: 1.0),
-                        ),
-                        hintText: "010-0000-0000",
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
-                      style: const TextStyle(
-                        color: CustomColors.textColor8,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                    ),
-                  ),
-                ),
-              ]),
             ),
           ),
+          body: Container(
+            margin: const EdgeInsets.only(bottom: 45.0),
+            child: SingleChildScrollView(
+              child: Container(
+                margin: const EdgeInsets.only(
+                  left: 15.0,
+                  right: 15.0,
+                ),
+                child: Column(children: [
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 20.0,
+                    ),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        tr("name"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: 47,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                        top: 8.0,
+                      ),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          userInfoModel?.name.toString() ?? tr("name"),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ))),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        tr("idHeading"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: 47,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                        top: 8.0,
+                      ),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          userInfoModel?.username.toString() ?? tr('id'),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ))),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        tr("tenantCompanyLounge"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: 47,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                        top: 8.0,
+                      ),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          userInfoModel?.companyName.toString() ??
+                              tr('tenantCompany'),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ))),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        tr("gender"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Container(
+                      height: 47,
+                      width: MediaQuery.of(context).size.width,
+                      margin: const EdgeInsets.only(
+                        top: 8.0,
+                      ),
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          genderValue ?? tr('gender'),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ))),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        tr("email"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(
+                      top: 8.0,
+                    ),
+                    child: SizedBox(
+                      height: 47.0,
+                      child: TextField(
+                        controller: emailController,
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: InputDecoration(
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15.0,
+                            horizontal: 15.0,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                                color: nameValidation
+                                    ? CustomColors.textColor6
+                                    : CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                                color: nameValidation
+                                    ? CustomColors.textColor6
+                                    : CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: "test1@centropolis.com",
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.textColor8,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 15.0),
+                    child: Align(
+                      alignment: Alignment.centerLeft,
+                      child: Text(
+                        tr("contactNo"),
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                        textAlign: TextAlign.left,
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: const EdgeInsets.only(top: 8.0, bottom: 40),
+                    child: SizedBox(
+                      height: 47.0,
+                      child: TextField(
+                        controller: contactNumberController,
+                        keyboardType: TextInputType.phone,
+                        decoration: InputDecoration(
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.symmetric(
+                            vertical: 15.0,
+                            horizontal: 15.0,
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                                color: nameValidation
+                                    ? CustomColors.textColor6
+                                    : CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4.0),
+                            borderSide: BorderSide(
+                                color: nameValidation
+                                    ? CustomColors.textColor6
+                                    : CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: "010-0000-0000",
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.textColor8,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+          ),
+          floatingActionButton: yourButtonWidget(),
+          floatingActionButtonLocation:
+              FloatingActionButtonLocation.centerFloat,
         ),
-        floatingActionButton: yourButtonWidget(),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       ),
-    ),);
+    );
   }
 
   yourButtonWidget() {
@@ -408,7 +408,7 @@ class _EditPersonalInformationScreenState
               onSaveButtonClick();
             },
             buttonColor: CustomColors.buttonBackgroundColor,
-            buttonName: tr("save"),
+            buttonName: tr("savebutton"),
             isIconVisible: false),
       ),
     );
@@ -419,14 +419,12 @@ class _EditPersonalInformationScreenState
 
     if (emailController.text.trim().isEmpty) {
       showErrorModal(tr("emailValidation"));
-    }
-    else if (!isValidEmail(emailController.text.trim())) {
+    } else if (!isValidEmail(emailController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    }
-    else if (contactNumberController.text.trim().isEmpty) {
+    } else if (contactNumberController.text.trim().isEmpty) {
       showErrorModal(tr("contactValidation"));
-    }
-    else if (!isValidPhoneNumber(contactNumberController.text.trim()) || !contactNumberController.text.trim().startsWith("010")) {
+    } else if (!isValidPhoneNumber(contactNumberController.text.trim()) ||
+        !contactNumberController.text.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else {
       checkNetworkConnectionForEditPersonalInfo();
@@ -562,7 +560,7 @@ class _EditPersonalInformationScreenState
     }
     emailController =
         TextEditingController(text: userInfoModel.email.toString());
-    contactNumberController =
-        TextEditingController(text: userInfoModel.mobile.toString());
+    contactNumberController = TextEditingController(
+        text: formatNumberStringWithDash(userInfoModel.mobile.toString()));
   }
 }
