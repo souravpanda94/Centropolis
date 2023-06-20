@@ -7,12 +7,14 @@ import '../utils/custom_colors.dart';
 
 class HomePageAppBar extends StatefulWidget {
   final String title;
+  final int selectedPage;
   final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
   const HomePageAppBar(
       {super.key,
       required this.title,
+      required this.selectedPage,
       required this.onSettingBtnTap,
       required this.onNotificationBtnTap});
 
@@ -58,7 +60,7 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
             //   },
             // ),
             actions: [
-              if (widget.title == tr("myPage"))
+              if (widget.selectedPage == 4)
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_setting.svg",
@@ -68,7 +70,7 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
                     widget.onSettingBtnTap();
                   },
                 ),
-              if (widget.title != tr("myPage"))
+              if (widget.selectedPage != 4)
                 IconButton(
                   icon: SvgPicture.asset(
                     "assets/images/ic_notification_with_indicator.svg",

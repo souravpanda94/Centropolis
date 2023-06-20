@@ -27,6 +27,7 @@ class BottomNavigationScreen extends StatefulWidget {
 
 class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int selectedPage = 0;
+
   @override
   void initState() {
     selectedPage = widget.tabIndex;
@@ -46,6 +47,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   color: CustomColors.whiteColor,
                   child: HomePageAppBar(
                       title: setTitle(selectedPage),
+                      selectedPage: selectedPage,
                       onSettingBtnTap: () {
                         Navigator.push(
                           context,
@@ -163,6 +165,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   setTitle(int selectedIndex) {
     if (selectedIndex == 1) {
+
       return tr("amenity");
     } else if (selectedIndex == 2) {
       return tr("visitRequest");
