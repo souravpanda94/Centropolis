@@ -22,7 +22,7 @@
   "visitInquiry" : "방문객 조회",
   "total" : "총",
   "all" : "전체",
-  "noDataFound" : "No Data Found",
+  "noDataFound" : "데이터를 찾을 수가 없습니다",
   "visitApproval" : "방문 승인",
   "approval" : "승인",
   "rejection" : "거절",
