@@ -219,6 +219,7 @@ class _GXReservationState extends State<GXReservation> {
                                 Container(
                                   padding: const EdgeInsets.symmetric(
                                       vertical: 5, horizontal: 12),
+                                  margin: const EdgeInsets.only(left: 20),
                                   decoration: BoxDecoration(
                                       color: CustomColors.whiteColor,
                                       border: Border.all(

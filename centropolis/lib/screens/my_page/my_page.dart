@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:http/http.dart' as http;
+import 'package:loading_overlay/loading_overlay.dart';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -32,7 +33,10 @@ class _MyPageScreenState extends State<MyPageScreen> {
   // String userType = "member";
   // String userType = "tenant_admin";
   String userType = "";
-  late String apiKey, language, name, companyName, displayUserType;
+  String displayUserType = "";
+  String companyName = "";
+  String name = "";
+  late String apiKey, language;
   late FToast fToast;
   late String email, mobile;
   int page = 1;
@@ -48,277 +52,330 @@ class _MyPageScreenState extends State<MyPageScreen> {
     fToast.init(context);
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    name = user.userData['name'].toString();
-    companyName = user.userData['company_name'].toString();
+    //name = user.userData['name'].toString();
+    //companyName = user.userData['company_name'].toString();
     userType = user.userData['user_type'].toString();
-    displayUserType = user.userData['display_user_type'].toString();
+    //displayUserType = user.userData['display_user_type'].toString();
     language = tr("lang");
     debugPrint("userType  ===> $userType");
-    //loadPersonalInformation();
+    loadPersonalInformation();
     firstTimeLoadEmployeeList();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(left: 16.0, right: 16.0),
-                margin: const EdgeInsets.only(bottom: 10.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 150,
-                      decoration: BoxDecoration(
-                        color: CustomColors.backgroundColor2,
-                        borderRadius: BorderRadius.circular(50),
+    return LoadingOverlay(
+      opacity: 0.5,
+      color: CustomColors.whiteColor,
+      progressIndicator: const CircularProgressIndicator(
+        color: CustomColors.blackColor,
+      ),
+      isLoading: isFirstLoadRunning,
+      child: Scaffold(
+          backgroundColor: CustomColors.backgroundColor,
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  margin: const EdgeInsets.only(bottom: 10.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: 150,
+                        decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor2,
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        padding: const EdgeInsets.only(
+                            top: 8.0, bottom: 8.0, left: 15.0, right: 15.0),
+                        child: Row(
+                          children: [
+                            SvgPicture.asset(
+                              'assets/images/ic_logo.svg',
+                              semanticsLabel: 'Back',
+                              width: 15,
+                              height: 15,
+                              alignment: Alignment.center,
+                            ),
+                            const SizedBox(
+                              width: 5,
+                            ),
+                            Text(
+                              displayUserType,
+                              style: const TextStyle(
+                                fontSize: 12,
+                                fontFamily: "Bold",
+                                color: CustomColors.textColor8,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      padding: const EdgeInsets.only(
-                          top: 8.0, bottom: 8.0, left: 15.0, right: 15.0),
-                      child: Row(
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const PersonalInformationScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(
+                            top: 12.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Text(
+                                name,
+                                style: const TextStyle(
+                                  fontSize: 22,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColor8,
+                                ),
+                              ),
+                              SvgPicture.asset(
+                                'assets/images/ic_right_arrow.svg',
+                                semanticsLabel: 'Back',
+                                width: 12,
+                                height: 12,
+                                alignment: Alignment.center,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Container(
+                          margin: const EdgeInsets.only(
+                            top: 20.0,
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Flexible(
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      tr("lightOutDetailCompany"),
+                                      style: const TextStyle(
+                                        fontSize: 14,
+                                        fontFamily: "Regular",
+                                        color: CustomColors.greyColor1,
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5,
+                                    ),
+                                    Text(
+                                      // "CENTROPOLIS",
+                                      companyName,
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 1,
+                                      style: const TextStyle(
+                                        fontSize: 16,
+                                        fontFamily: "SemiBold",
+                                        color: CustomColors.textColor9,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              if (userType == "tenant_admin")
+                                SvgPicture.asset(
+                                  'assets/images/ic_vertical_line.svg',
+                                  semanticsLabel: 'Back',
+                                  // width: 12,
+                                  height: 60,
+                                  alignment: Alignment.center,
+                                ),
+                              if (userType == "tenant_admin")
+                                Flexible(
+                                    child: Column(
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const RegisteredEmployeeList(),
+                                          ),
+                                        ).then((value) {
+                                          if (value) {
+                                            firstTimeLoadEmployeeList();
+                                          }
+                                        });
+                                      },
+                                      child: Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Flexible(
+                                            child: Text(
+                                              tr("numberOfRegisteredEmployee"),
+                                              style: const TextStyle(
+                                                fontSize: 14,
+                                                fontFamily: "Regular",
+                                                color: CustomColors.greyColor1,
+                                              ),
+                                            ),
+                                          ),
+
+                                          // SvgPicture.asset(
+                                          //   'assets/images/ic_right_arrow.svg',
+                                          //   semanticsLabel: 'Back',
+                                          //   width: 8,
+                                          //   height: 8,
+                                          //   alignment: Alignment.center,
+                                          // ),
+                                        ],
+                                      ),
+                                    ),
+                                    const SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Row(
+                                      children: [
+                                        Text(
+                                          "${totalRecords.toString()}  ",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: CustomColors.textColor9,
+                                            fontFamily: 'SemiBold',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                        Text(
+                                          tr("people"),
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            color: CustomColors.textColorBlack2,
+                                            fontFamily: 'SemiBold',
+                                          ),
+                                          textAlign: TextAlign.center,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ))
+                            ],
+                          )),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BarCodeScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 20.0, bottom: 20),
+                          height: 50,
+                          decoration: BoxDecoration(
+                              color: CustomColors.whiteColor,
+                              borderRadius: BorderRadius.circular(4),
+                              border: Border.all(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0)),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              SvgPicture.asset(
+                                'assets/images/ic_qr_code.svg',
+                                semanticsLabel: 'Back',
+                                width: 23,
+                                height: 23,
+                                alignment: Alignment.center,
+                              ),
+                              const SizedBox(
+                                width: 7,
+                              ),
+                              Text(
+                                tr("qrCode"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                if (userType == "tenant_admin")
+                  InkWell(
+                    onTap: () {
+                      showGeneralDialog(
+                          context: context,
+                          barrierColor: Colors.black12.withOpacity(0.6),
+                          // Background color
+                          barrierDismissible: false,
+                          barrierLabel: 'Dialog',
+                          transitionDuration: const Duration(milliseconds: 400),
+                          pageBuilder: (_, __, ___) {
+                            return WebViewUiScreen(
+                                tr("freeParkingVehicleRegistration"),
+                                WebViewLinks.freeParkingVehicleRegistrationUrl);
+                          });
+                    },
+                    child: Container(
+                      height: 78,
+                      width: double.infinity,
+                      margin: const EdgeInsets.only(
+                          top: 20, left: 16.0, right: 16.0),
+                      decoration: BoxDecoration(
+                          color: CustomColors.whiteColor,
+                          borderRadius: BorderRadius.circular(4),
+                          border: Border.all(
+                              color: CustomColors.dividerGreyColor,
+                              width: 1.0)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SvgPicture.asset(
-                            'assets/images/ic_logo.svg',
+                            'assets/images/ic_car.svg',
                             semanticsLabel: 'Back',
-                            width: 15,
-                            height: 15,
+                            width: 23,
+                            height: 23,
                             alignment: Alignment.center,
                           ),
                           const SizedBox(
-                            width: 5,
+                            height: 7,
                           ),
                           Text(
-                            displayUserType,
+                            tr("freeParkingVehicleRegistration"),
                             style: const TextStyle(
-                              fontSize: 12,
-                              fontFamily: "Bold",
-                              color: CustomColors.textColor8,
+                              fontSize: 14,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColorBlack2,
                             ),
                           ),
                         ],
                       ),
                     ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const PersonalInformationScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(
-                          top: 12.0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              name,
-                              style: const TextStyle(
-                                fontSize: 22,
-                                fontFamily: "SemiBold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            SvgPicture.asset(
-                              'assets/images/ic_right_arrow.svg',
-                              semanticsLabel: 'Back',
-                              width: 12,
-                              height: 12,
-                              alignment: Alignment.center,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Container(
-                        margin: const EdgeInsets.only(
-                          top: 20.0,
-                        ),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    tr("lightOutDetailCompany"),
-                                    style: const TextStyle(
-                                      fontSize: 14,
-                                      fontFamily: "Regular",
-                                      color: CustomColors.greyColor1,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  Text(
-                                    // "CENTROPOLIS",
-                                    companyName,
-                                    overflow: TextOverflow.ellipsis,
-                                    maxLines: 1,
-                                    style: const TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "SemiBold",
-                                      color: CustomColors.textColor9,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            if (userType == "tenant_admin")
-                              SvgPicture.asset(
-                                'assets/images/ic_vertical_line.svg',
-                                semanticsLabel: 'Back',
-                                // width: 12,
-                                height: 60,
-                                alignment: Alignment.center,
-                              ),
-                            if (userType == "tenant_admin")
-                              Flexible(
-                                  child: Column(
-                                children: [
-                                  InkWell(
-                                    onTap: () {
-                                      Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              const RegisteredEmployeeList(),
-                                        ),
-                                      ).then((value) {
-                                        if (value) {
-                                          firstTimeLoadEmployeeList();
-                                        }
-                                      });
-                                    },
-                                    child: Row(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            tr("numberOfRegisteredEmployee"),
-                                            style: const TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: "Regular",
-                                              color: CustomColors.greyColor1,
-                                            ),
-                                          ),
-                                        ),
-
-                                        // SvgPicture.asset(
-                                        //   'assets/images/ic_right_arrow.svg',
-                                        //   semanticsLabel: 'Back',
-                                        //   width: 8,
-                                        //   height: 8,
-                                        //   alignment: Alignment.center,
-                                        // ),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Row(
-                                    children: [
-                                      Text(
-                                        "${totalRecords.toString()}  ",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: CustomColors.textColor9,
-                                          fontFamily: 'SemiBold',
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                      Text(
-                                        tr("people"),
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          color: CustomColors.textColorBlack2,
-                                          fontFamily: 'SemiBold',
-                                        ),
-                                        textAlign: TextAlign.center,
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ))
-                          ],
-                        )),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const BarCodeScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 20.0, bottom: 20),
-                        height: 50,
-                        decoration: BoxDecoration(
-                            color: CustomColors.whiteColor,
-                            borderRadius: BorderRadius.circular(4),
-                            border: Border.all(
-                                color: CustomColors.dividerGreyColor,
-                                width: 1.0)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            SvgPicture.asset(
-                              'assets/images/ic_qr_code.svg',
-                              semanticsLabel: 'Back',
-                              width: 23,
-                              height: 23,
-                              alignment: Alignment.center,
-                            ),
-                            const SizedBox(
-                              width: 7,
-                            ),
-                            Text(
-                              tr("qrCode"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "SemiBold",
-                                color: CustomColors.textColorBlack2,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              if (userType == "tenant_admin")
+                  ),
                 InkWell(
                   onTap: () {
-                    showGeneralDialog(
-                        context: context,
-                        barrierColor: Colors.black12.withOpacity(0.6),
-                        // Background color
-                        barrierDismissible: false,
-                        barrierLabel: 'Dialog',
-                        transitionDuration: const Duration(milliseconds: 400),
-                        pageBuilder: (_, __, ___) {
-                          return WebViewUiScreen(
-                              tr("freeParkingVehicleRegistration"),
-                              WebViewLinks.freeParkingVehicleRegistrationUrl);
-                        });
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const AmenityReservationHistory(),
+                      ),
+                    );
                   },
                   child: Container(
                     height: 78,
@@ -335,7 +392,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
-                          'assets/images/ic_car.svg',
+                          'assets/images/ic_document.svg',
                           semanticsLabel: 'Back',
                           width: 23,
                           height: 23,
@@ -344,143 +401,99 @@ class _MyPageScreenState extends State<MyPageScreen> {
                         const SizedBox(
                           height: 7,
                         ),
-                        Text(
-                          tr("freeParkingVehicleRegistration"),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColorBlack2,
-                          ),
-                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              tr("amenityReservationHistory"),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: "SemiBold",
+                                color: CustomColors.textColorBlack2,
+                              ),
+                            ),
+                            // const SizedBox(
+                            //   width: 5,
+                            // ),
+                            // const Text(
+                            //   "12",
+                            //   style: TextStyle(
+                            //     fontSize: 14,
+                            //     fontFamily: "SemiBold",
+                            //     color: CustomColors.textColor9,
+                            //   ),
+                            // ),
+                          ],
+                        )
                       ],
                     ),
                   ),
                 ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AmenityReservationHistory(),
-                    ),
-                  );
-                },
-                child: Container(
-                  height: 78,
-                  width: double.infinity,
-                  margin:
-                      const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
-                  decoration: BoxDecoration(
-                      color: CustomColors.whiteColor,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                          color: CustomColors.dividerGreyColor, width: 1.0)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/ic_document.svg',
-                        semanticsLabel: 'Back',
-                        width: 23,
-                        height: 23,
-                        alignment: Alignment.center,
+                InkWell(
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const VOCReservationHistory(),
                       ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            tr("amenityReservationHistory"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "SemiBold",
-                              color: CustomColors.textColorBlack2,
+                    );
+                  },
+                  child: Container(
+                    height: 78,
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(
+                        top: 20, left: 16.0, right: 16.0, bottom: 50),
+                    decoration: BoxDecoration(
+                        color: CustomColors.whiteColor,
+                        borderRadius: BorderRadius.circular(4),
+                        border: Border.all(
+                            color: CustomColors.dividerGreyColor, width: 1.0)),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SvgPicture.asset(
+                          'assets/images/ic_light_bulb.svg',
+                          semanticsLabel: 'Back',
+                          width: 23,
+                          height: 23,
+                          alignment: Alignment.center,
+                        ),
+                        const SizedBox(
+                          height: 7,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              tr("vocApplicationHistory"),
+                              style: const TextStyle(
+                                fontSize: 14,
+                                fontFamily: "SemiBold",
+                                color: CustomColors.textColorBlack2,
+                              ),
                             ),
-                          ),
-                          // const SizedBox(
-                          //   width: 5,
-                          // ),
-                          // const Text(
-                          //   "12",
-                          //   style: TextStyle(
-                          //     fontSize: 14,
-                          //     fontFamily: "SemiBold",
-                          //     color: CustomColors.textColor9,
-                          //   ),
-                          // ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
-              ),
-              InkWell(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const VOCReservationHistory(),
+                            // const SizedBox(
+                            //   width: 5,
+                            // ),
+                            // const Text(
+                            //   "16",
+                            //   style: TextStyle(
+                            //     fontSize: 14,
+                            //     fontFamily: "SemiBold",
+                            //     color: CustomColors.textColor9,
+                            //   ),
+                            // ),
+                          ],
+                        )
+                      ],
                     ),
-                  );
-                },
-                child: Container(
-                  height: 78,
-                  width: double.infinity,
-                  margin: const EdgeInsets.only(
-                      top: 20, left: 16.0, right: 16.0, bottom: 50),
-                  decoration: BoxDecoration(
-                      color: CustomColors.whiteColor,
-                      borderRadius: BorderRadius.circular(4),
-                      border: Border.all(
-                          color: CustomColors.dividerGreyColor, width: 1.0)),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SvgPicture.asset(
-                        'assets/images/ic_light_bulb.svg',
-                        semanticsLabel: 'Back',
-                        width: 23,
-                        height: 23,
-                        alignment: Alignment.center,
-                      ),
-                      const SizedBox(
-                        height: 7,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            tr("vocApplicationHistory"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "SemiBold",
-                              color: CustomColors.textColorBlack2,
-                            ),
-                          ),
-                          // const SizedBox(
-                          //   width: 5,
-                          // ),
-                          // const Text(
-                          //   "16",
-                          //   style: TextStyle(
-                          //     fontSize: 14,
-                          //     fontFamily: "SemiBold",
-                          //     color: CustomColors.textColor9,
-                          //   ),
-                          // ),
-                        ],
-                      )
-                    ],
                   ),
-                ),
-              )
-            ],
-          ),
-        ));
+                )
+              ],
+            ),
+          )),
+    );
   }
 
   void firstTimeLoadEmployeeList() {
@@ -575,7 +588,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
           Provider.of<UserInfoProvider>(context, listen: false)
               .setItem(userInfoModel);
 
-          setDataField(userInfoModel);
+          setState(() {
+            displayUserType = userInfoModel.displayUserType.toString();
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -592,9 +609,5 @@ class _MyPageScreenState extends State<MyPageScreen> {
         isFirstLoadRunning = false;
       });
     });
-  }
-
-  void setDataField(UserInfoModel userInfoModel) {
-    displayUserType = userInfoModel.displayUserType.toString();
   }
 }

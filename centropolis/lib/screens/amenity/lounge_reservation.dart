@@ -9,6 +9,8 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -26,7 +28,9 @@ class LoungeReservation extends StatefulWidget {
 }
 
 class _LoungeReservationState extends State<LoungeReservation> {
-  late String language, apiKey, email, mobile, name, companyName;
+  late String language, apiKey, email, mobile;
+  String companyName = "";
+  String name = "";
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -52,11 +56,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
     apiKey = user.userData['api_key'].toString();
     email = user.userData['email_key'].toString();
     mobile = user.userData['mobile'].toString();
-    name = user.userData['name'].toString();
-    companyName = user.userData['company_name'].toString();
+    //name = user.userData['name'].toString();
+    //companyName = user.userData['company_name'].toString();
+    loadPersonalInformation();
     loadUsageTimeList();
     loadTimeList();
-    debugPrint("mobile  ==> $mobile");
   }
 
   @override
@@ -1011,5 +1015,57 @@ class _LoungeReservationState extends State<LoungeReservation> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+
+          setState(() {
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }
