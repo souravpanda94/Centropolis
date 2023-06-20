@@ -8,6 +8,7 @@ import '../utils/custom_colors.dart';
 class HomePageAppBar extends StatefulWidget {
   final String title;
   final int selectedPage;
+  final int unreadNotificationCount;
   final Function onSettingBtnTap;
   final Function onNotificationBtnTap;
 
@@ -15,6 +16,7 @@ class HomePageAppBar extends StatefulWidget {
       {super.key,
       required this.title,
       required this.selectedPage,
+      required this.unreadNotificationCount,
       required this.onSettingBtnTap,
       required this.onNotificationBtnTap});
 
@@ -71,15 +73,25 @@ class _HomePageAppBarState extends State<HomePageAppBar> {
                   },
                 ),
               if (widget.selectedPage != 4)
-                IconButton(
-                  icon: SvgPicture.asset(
-                    "assets/images/ic_notification_with_indicator.svg",
-                    semanticsLabel: 'Back',
-                  ),
-                  onPressed: () {
-                    widget.onNotificationBtnTap();
-                  },
-                )
+                widget.unreadNotificationCount > 0
+                    ? IconButton(
+                        icon: SvgPicture.asset(
+                          "assets/images/ic_notification_with_indicator.svg",
+                          semanticsLabel: 'Back',
+                        ),
+                        onPressed: () {
+                          widget.onNotificationBtnTap();
+                        },
+                      )
+                    : IconButton(
+                        icon: SvgPicture.asset(
+                          "assets/images/ic_notification_black.svg",
+                          semanticsLabel: 'Back',
+                        ),
+                        onPressed: () {
+                          widget.onNotificationBtnTap();
+                        },
+                      )
             ]),
         // const Divider(
         //   color: CustomColors.borderColor,
