@@ -88,6 +88,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     child: ListView.builder(
                         itemCount: notificationListItem?.length,
                         itemBuilder: ((context, index) {
+                          debugPrint("Notification Id -> ${notificationListItem?[index].id.toString()}");
+                          debugPrint("title -> ${notificationListItem?[index].title.toString()}");
+                          debugPrint("type -> ${notificationListItem?[index].notificationType.toString()}");
+
                           return InkWell(
                             onTap: () {
                               goToDetailsScreen(
@@ -423,8 +427,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            debugPrint(
+                "Notification Read false ===> ${responseJson['message']}");
           }
         }
         setState(() {
