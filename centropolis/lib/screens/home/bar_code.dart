@@ -37,8 +37,6 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
   String showTime = "5:00";
   bool isRunning = false;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -50,7 +48,6 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
     userType = user.userData['user_type'].toString();
     loadQrCode();
   }
-
 
   @override
   void dispose() {
@@ -118,7 +115,8 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                       color: CustomColors.whiteColor,
                       borderRadius: BorderRadius.circular(4)),
                   margin: const EdgeInsets.only(top: 32, bottom: 122),
-                  padding: const EdgeInsets.symmetric(horizontal: 66, vertical: 32),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 66, vertical: 32),
                   // child: BarcodeWidget(
                   //   barcode: Barcode.qrCode(),
                   //   data: 'Centropolis App QR code generator',
@@ -127,8 +125,8 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                   // ),
                   child: Column(
                     children: [
-                       Row(
-                         mainAxisAlignment: MainAxisAlignment.center,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image.asset(
                             'assets/images/ic_timer.png',
@@ -136,10 +134,10 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                             height: 15,
                             alignment: Alignment.center,
                           ),
-
-                          const SizedBox(width: 4,),
-
-                           Text(
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
                             tr('remaining_time'),
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -148,10 +146,10 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                                 fontSize: 14,
                                 color: CustomColors.textColor3),
                           ),
-
-                          const SizedBox(width: 4,),
-
-                           Text(
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
                             '$showTime ${tr('minutes')}',
                             textAlign: TextAlign.center,
                             maxLines: 2,
@@ -160,23 +158,17 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                                 fontSize: 14,
                                 color: CustomColors.textColor9),
                           ),
-
                         ],
                       ),
-
-
-
-
                       SizedBox(
-                        child:  qrCodeUrl != "" ?
-                        Image.network(
-                          '${ImageLinks.baseUrlForImage}$qrCodeUrl',
-                          width: 200, height: 200,) : null,
+                        child: qrCodeUrl != ""
+                            ? Image.network(
+                                '${ImageLinks.baseUrlForImage}$qrCodeUrl',
+                                width: 200,
+                                height: 200,
+                              )
+                            : null,
                       )
-
-
-
-
                     ],
                   ),
                 ),
@@ -249,7 +241,6 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
     });
   }
 
-
   void startTimer() {
     if (seconds == minSeconds) {
       resetTimer();
@@ -258,15 +249,14 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
     const oneSec = Duration(seconds: 1);
     timer = Timer.periodic(
       oneSec,
-          (Timer timer) {
+      (Timer timer) {
         if (seconds == 0) {
           stopTimer(true);
           setState(() {
             showTime = "";
           });
           loadQrCode();
-        }
-        else {
+        } else {
           setState(() {
             seconds--;
           });
@@ -303,6 +293,4 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
       // seconds = 20;
     });
   }
-
-
 }

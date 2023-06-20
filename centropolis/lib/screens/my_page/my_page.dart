@@ -59,7 +59,9 @@ class _MyPageScreenState extends State<MyPageScreen> {
     language = tr("lang");
     debugPrint("userType  ===> $userType");
     loadPersonalInformation();
-    firstTimeLoadEmployeeList();
+    if (userType == "tenant_admin") {
+      firstTimeLoadEmployeeList();
+    }
   }
 
   @override
@@ -75,6 +77,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
           backgroundColor: CustomColors.backgroundColor,
           body: SingleChildScrollView(
             child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
                 Container(
                   color: CustomColors.whiteColor,
@@ -82,9 +85,9 @@ class _MyPageScreenState extends State<MyPageScreen> {
                   margin: const EdgeInsets.only(bottom: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Container(
-                        width: 150,
                         decoration: BoxDecoration(
                           color: CustomColors.backgroundColor2,
                           borderRadius: BorderRadius.circular(50),
@@ -92,6 +95,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                         padding: const EdgeInsets.only(
                             top: 8.0, bottom: 8.0, left: 15.0, right: 15.0),
                         child: Row(
+                          mainAxisSize: MainAxisSize.min,
                           children: [
                             SvgPicture.asset(
                               'assets/images/ic_logo.svg',
