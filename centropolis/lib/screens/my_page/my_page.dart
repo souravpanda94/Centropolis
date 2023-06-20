@@ -588,9 +588,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
           Provider.of<UserInfoProvider>(context, listen: false)
               .setItem(userInfoModel);
 
-          displayUserType = userInfoModel.displayUserType.toString();
-          companyName = userInfoModel.companyName.toString();
-          name = userInfoModel.name.toString();
+          setState(() {
+            displayUserType = userInfoModel.displayUserType.toString();
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

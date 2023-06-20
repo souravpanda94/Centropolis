@@ -12,6 +12,8 @@ import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/custom_colors.dart';
@@ -30,7 +32,9 @@ class LightOutRequest extends StatefulWidget {
 }
 
 class _LightOutRequestState extends State<LightOutRequest> {
-  late String language, apiKey, email, mobile, companyId, companyName, name;
+  late String language, apiKey, email, mobile, companyId;
+  String companyName = "";
+  String name = "";
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -63,8 +67,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
     email = user.userData['email_key'].toString();
     mobile = user.userData['mobile'].toString();
     companyId = user.userData['company_id'].toString();
-    companyName = user.userData['company_name'].toString();
-    name = user.userData['name'].toString();
+    //companyName = user.userData['company_name'].toString();
+    //name = user.userData['name'].toString();
+    loadPersonalInformation();
     loadStartTimeList();
     loadUsageTimeList();
     loadFloorList();
@@ -75,370 +80,372 @@ class _LightOutRequestState extends State<LightOutRequest> {
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightsOutRequestHistory"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
-            ),
-          ),
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
         ),
-        body: SingleChildScrollView(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(tr("tenantCompanyInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8)),
-                  Container(
-                    margin: const EdgeInsets.only(top: 16),
-                    padding: const EdgeInsets.all(16),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: CustomColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(tr("nameLounge"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          name,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(tr("lightOutDetailCompany"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          companyName,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(tr("email"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          email,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(tr("contactNo"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          formatNumberStringWithDash(mobile),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("lightsOutRequestHistory"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
+          ),
+          body: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("applicationFloorLightOut"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      _showMultiSelect();
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.all(0),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                            width: 1.0, color: CustomColors.dividerGreyColor),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(5.0)),
-                      ),
-                      child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(tr("tenantCompanyInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8)),
+                    Container(
+                      margin: const EdgeInsets.only(top: 16),
+                      padding: const EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(4))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Expanded(
-                              child: _selectedFloors.isEmpty
-                                  ? Container(
-                                      padding: const EdgeInsets.all(15),
-                                      child: Text(tr('applicationFloorHint')))
-                                  : Container(
-                                      margin: const EdgeInsets.only(left: 15),
-                                      child: Wrap(
-                                        spacing: 6,
-                                        runSpacing: -10,
-                                        children: _selectedFloors
-                                            .map((e) => Chip(
-                                                  backgroundColor: CustomColors
-                                                      .selectedColor,
-                                                  padding: const EdgeInsets
-                                                      .symmetric(horizontal: 5),
-                                                  shape:
-                                                      const RoundedRectangleBorder(
-                                                          borderRadius:
-                                                              BorderRadius.all(
-                                                                  Radius
-                                                                      .circular(
-                                                                          5))),
-                                                  label: Text(e,
-                                                      style: const TextStyle(
-                                                          fontFamily: 'Regular',
-                                                          fontSize: 14,
-                                                          color: CustomColors
-                                                              .whiteColor)),
-                                                ))
-                                            .toList(),
-                                      ),
-                                    )),
-                          Container(
-                            margin: const EdgeInsets.only(right: 10),
-                            padding: EdgeInsets.only(
-                                bottom: floorSelectedValue != null ? 16 : 0),
-                            child: SvgPicture.asset(
-                              "assets/images/ic_drop_down_arrow.svg",
-                              width: 8,
-                              height: 8,
-                              color: CustomColors.textColorBlack2,
-                            ),
-                          )
+                          Text(tr("nameLounge"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            name,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(tr("lightOutDetailCompany"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            companyName,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(tr("email"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            email,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(tr("contactNo"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            formatNumberStringWithDash(mobile),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
                         ],
                       ),
                     ),
-                  ),
-                  //floorDropdownWidget(),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("dateOfApplicationLightOut"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  tableCalendarWidget(),
-                ],
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("timeOfApplication"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    tr("lightsOutStartTime"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  startTimeDropdownWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("lightsOutEndTime"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  endTimeDropdownWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(tr("otherRequests"),
+              Container(
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("applicationFloorLightOut"),
                       style: const TextStyle(
                           fontFamily: 'SemiBold',
                           fontSize: 16,
-                          color: CustomColors.textColor8)),
-                  Container(
-                    margin: const EdgeInsets.only(top: 8),
-                    padding: const EdgeInsets.only(top: 2, bottom: 2),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: CustomColors.dividerGreyColor,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
+                          color: CustomColors.textColor8),
                     ),
-                    height: 288,
-                    child: SingleChildScrollView(
-                      child: TextField(
-                        controller: otherRequestController,
-                        cursorColor: CustomColors.textColorBlack2,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 14,
-                        decoration: InputDecoration(
-                          hintMaxLines: 500,
-                          border: InputBorder.none,
-                          fillColor: CustomColors.whiteColor,
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(16),
-                          hintText: tr('otherRequestHint'),
-                          hintStyle: const TextStyle(
-                            color: CustomColors.textColor3,
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        _showMultiSelect();
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.all(0),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              width: 1.0, color: CustomColors.dividerGreyColor),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(5.0)),
+                        ),
+                        child: Row(
+                          children: [
+                            Expanded(
+                                child: _selectedFloors.isEmpty
+                                    ? Container(
+                                        padding: const EdgeInsets.all(15),
+                                        child: Text(tr('applicationFloorHint')))
+                                    : Container(
+                                        margin: const EdgeInsets.only(left: 15),
+                                        child: Wrap(
+                                          spacing: 6,
+                                          runSpacing: -10,
+                                          children: _selectedFloors
+                                              .map((e) => Chip(
+                                                    backgroundColor:
+                                                        CustomColors
+                                                            .selectedColor,
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        horizontal: 5),
+                                                    shape: const RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius.all(
+                                                                Radius.circular(
+                                                                    5))),
+                                                    label: Text(e,
+                                                        style: const TextStyle(
+                                                            fontFamily:
+                                                                'Regular',
+                                                            fontSize: 14,
+                                                            color: CustomColors
+                                                                .whiteColor)),
+                                                  ))
+                                              .toList(),
+                                        ),
+                                      )),
+                            Container(
+                              margin: const EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.only(
+                                  bottom: floorSelectedValue != null ? 16 : 0),
+                              child: SvgPicture.asset(
+                                "assets/images/ic_drop_down_arrow.svg",
+                                width: 8,
+                                height: 8,
+                                color: CustomColors.textColorBlack2,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    //floorDropdownWidget(),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("dateOfApplicationLightOut"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    tableCalendarWidget(),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("timeOfApplication"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    Text(
+                      tr("lightsOutStartTime"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    startTimeDropdownWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("lightsOutEndTime"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    endTimeDropdownWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(tr("otherRequests"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8)),
+                    Container(
+                      margin: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.only(top: 2, bottom: 2),
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: CustomColors.dividerGreyColor,
+                        ),
+                        borderRadius: BorderRadius.circular(4),
+                      ),
+                      height: 288,
+                      child: SingleChildScrollView(
+                        child: TextField(
+                          controller: otherRequestController,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 14,
+                          decoration: InputDecoration(
+                            hintMaxLines: 500,
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            hintText: tr('otherRequestHint'),
+                            hintStyle: const TextStyle(
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          style: const TextStyle(
+                            color: CustomColors.textColorBlack2,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
                         ),
-                        style: const TextStyle(
-                          color: CustomColors.textColorBlack2,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
                       ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              alignment: FractionalOffset.bottomCenter,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.only(
-                  left: 16, right: 16, top: 16, bottom: 40),
-              child: CommonButton(
-                onCommonButtonTap: () {
-                  requestLightOutValidationCheck();
-                  //showReservationModal();
-                },
-                buttonColor: CustomColors.buttonBackgroundColor,
-                buttonName: tr("apply"),
-                isIconVisible: false,
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
               ),
-            ),
-          ],
-        )),
+              Container(
+                alignment: FractionalOffset.bottomCenter,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.only(
+                    left: 16, right: 16, top: 16, bottom: 40),
+                child: CommonButton(
+                  onCommonButtonTap: () {
+                    requestLightOutValidationCheck();
+                    //showReservationModal();
+                  },
+                  buttonColor: CustomColors.buttonBackgroundColor,
+                  buttonName: tr("apply"),
+                  isIconVisible: false,
+                ),
+              ),
+            ],
+          )),
+        ),
       ),
-    ),);
+    );
   }
 
   void showReservationModal(String heading, String message) {
@@ -1153,6 +1160,58 @@ class _LightOutRequestState extends State<LightOutRequest> {
           isLoading = false;
         });
       }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+
+          setState(() {
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {

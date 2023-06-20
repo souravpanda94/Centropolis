@@ -673,8 +673,10 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           Provider.of<UserInfoProvider>(context, listen: false)
               .setItem(userInfoModel);
 
-          companyName = userInfoModel.companyName.toString();
-          name = userInfoModel.name.toString();
+          setState(() {
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

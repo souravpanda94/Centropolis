@@ -11,6 +11,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -29,7 +31,9 @@ class ComplaintsReceived extends StatefulWidget {
 }
 
 class _ComplaintsReceivedState extends State<ComplaintsReceived> {
-  late String language, apiKey, email, mobile, companyId, companyName, name;
+  late String language, apiKey, email, mobile, companyId;
+  String companyName = "";
+  String name = "";
   late FToast fToast;
   bool isLoading = false;
   final ImagePicker imagePicker = ImagePicker();
@@ -56,8 +60,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     email = user.userData['email_key'].toString();
     mobile = user.userData['mobile'].toString();
     companyId = user.userData['company_id'].toString();
-    companyName = user.userData['company_name'].toString();
-    name = user.userData['name'].toString();
+    //companyName = user.userData['company_name'].toString();
+    //name = user.userData['name'].toString();
+    loadPersonalInformation();
     loadComplaintTypeList();
     loadFloorList();
   }
@@ -67,390 +72,392 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("complaintsReceived"), false, () {
-                // onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
-            ),
-          ),
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
         ),
-        body: SingleChildScrollView(
-            child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("applicantInformation"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        tr("nameLounge"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      Text(
-                        // "Hong Gil Dong",
-                        name,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      )
-                    ],
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Divider(
-                      thickness: 1,
-                      height: 1,
-                      color: CustomColors.backgroundColor2,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        tr("tenantCompanyLounge"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      Text(
-                        // "CBRE",
-                        companyName,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      )
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                ],
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("complaintsReceived"), false, () {
+                  // onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
               ),
             ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
+          ),
+          body: SingleChildScrollView(
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("enterComplaintDetails"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  RichText(
-                    text: TextSpan(
-                        text: tr("floor"),
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("applicantInformation"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          tr("nameLounge"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        ),
+                        Text(
+                          // "Hong Gil Dong",
+                          name,
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        )
+                      ],
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 16),
+                      child: Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: CustomColors.backgroundColor2,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          tr("tenantCompanyLounge"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        ),
+                        Text(
+                          // "CBRE",
+                          companyName,
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        )
+                      ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
+              ),
+              Container(
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("enterComplaintDetails"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+                    RichText(
+                      text: TextSpan(
+                          text: tr("floor"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    floorDropdownWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(
+                      tr("typeOfComplaint"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    complaintTypeDropdownWidget(),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(tr("title"),
                         style: const TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 14,
-                            color: CustomColors.textColor8),
-                        children: const [
-                          TextSpan(
-                              text: ' *',
-                              style: TextStyle(
-                                  color: CustomColors.headingColor,
-                                  fontSize: 12))
-                        ]),
-                    maxLines: 1,
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  floorDropdownWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("typeOfComplaint"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  complaintTypeDropdownWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(tr("title"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8)),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextField(
-                    controller: titleController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
-                    showCursor: true,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr("titleHint"),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
+                            color: CustomColors.textColor8)),
+                    const SizedBox(
+                      height: 8,
                     ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
-                    ),
-                    onTap: () {},
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(tr("detail"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8)),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 8),
-                    padding: const EdgeInsets.only(top: 2, bottom: 2),
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: CustomColors.dividerGreyColor,
-                      ),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    height: 288,
-                    child: SingleChildScrollView(
-                      child: TextField(
-                        controller: detailController,
-                        maxLength: 500,
-                        cursorColor: CustomColors.textColorBlack2,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 14,
-                        decoration: InputDecoration(
-                          counterText: "",
-                          hintMaxLines: 500,
-                          border: InputBorder.none,
-                          fillColor: CustomColors.whiteColor,
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(16),
-                          hintText: tr('detailHint'),
-                          hintStyle: const TextStyle(
-                            color: CustomColors.textColor3,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
-                          ),
+                    TextField(
+                      controller: titleController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.text,
+                      showCursor: true,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
                         ),
-                        style: const TextStyle(
-                          color: CustomColors.textColorBlack2,
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr("titleHint"),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(tr("attachment"),
                       style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8)),
-                  if (imageFileList != null && imageFileList!.isNotEmpty)
-                    Container(
-                      height: 110,
-                      margin: const EdgeInsets.only(top: 8),
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        shrinkWrap: true,
-                        itemCount: imageFileList!.length,
-                        itemBuilder: (context, index) {
-                          return Container(
-                            height: 110,
-                            width: 110,
-                            margin: const EdgeInsets.only(right: 10),
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(4),
-                                border: Border.all(
-                                    color: CustomColors.dividerGreyColor)),
-                            child: Stack(
-                              children: [
-                                Image.file(
-                                  File(imageFileList![index].path),
-                                  fit: BoxFit.fill,
-                                  width: 110,
-                                  height: 110,
-                                ),
-                                Align(
-                                    alignment: Alignment.topRight,
-                                    child: InkWell(
-                                      onTap: () {
-                                        setState(() {
-                                          imageFileList!.removeAt(index);
-                                        });
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                          color: CustomColors.textColor3,
-                                          borderRadius:
-                                              BorderRadius.circular(100),
-                                        ),
-                                        padding: const EdgeInsets.all(2),
-                                        margin: const EdgeInsets.symmetric(
-                                            vertical: 6, horizontal: 4),
-                                        child: const Icon(
-                                          Icons.close,
-                                          size: 20,
-                                          color: CustomColors.whiteColor,
-                                        ),
-                                      ),
-                                    ))
-                              ],
-                            ),
-                          );
-                        },
+                        color: CustomColors.blackColor,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
                       ),
+                      onTap: () {},
                     ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      if (imageFileList != null && imageFileList!.length == 1) {
-                        showCustomToast(fToast, context,
-                            "Only 1 image can be uploaded", "");
-                      } else {
-                        // selectImages();
-                        openImagePicker(ImageSource.gallery);
-                      }
-                    },
-                    child: Container(
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(tr("detail"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8)),
+                    Container(
                       width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
+                      margin: const EdgeInsets.only(top: 8),
+                      padding: const EdgeInsets.only(top: 2, bottom: 2),
                       decoration: BoxDecoration(
                         border: Border.all(
                           color: CustomColors.dividerGreyColor,
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(tr("photo"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.buttonBackgroundColor)),
-                          const SizedBox(
-                            width: 10,
+                      height: 288,
+                      child: SingleChildScrollView(
+                        child: TextField(
+                          controller: detailController,
+                          maxLength: 500,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 14,
+                          decoration: InputDecoration(
+                            counterText: "",
+                            hintMaxLines: 500,
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            hintText: tr('detailHint'),
+                            hintStyle: const TextStyle(
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
                           ),
-                          const Icon(
-                            Icons.add,
-                            color: CustomColors.buttonBackgroundColor,
-                            size: 16,
-                          )
-                        ],
+                          style: const TextStyle(
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(tr("photoNote"),
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor3)),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              alignment: FractionalOffset.bottomCenter,
-              width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
-              child: Padding(
-                padding: const EdgeInsets.only(top: 24, bottom: 32),
-                child: CommonButton(
-                  onCommonButtonTap: () {
-                    //showReservationModal();
-                    submitComplaintValidationCheck();
-                  },
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("apply"),
-                  isIconVisible: false,
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Text(tr("attachment"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8)),
+                    if (imageFileList != null && imageFileList!.isNotEmpty)
+                      Container(
+                        height: 110,
+                        margin: const EdgeInsets.only(top: 8),
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          shrinkWrap: true,
+                          itemCount: imageFileList!.length,
+                          itemBuilder: (context, index) {
+                            return Container(
+                              height: 110,
+                              width: 110,
+                              margin: const EdgeInsets.only(right: 10),
+                              decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(4),
+                                  border: Border.all(
+                                      color: CustomColors.dividerGreyColor)),
+                              child: Stack(
+                                children: [
+                                  Image.file(
+                                    File(imageFileList![index].path),
+                                    fit: BoxFit.fill,
+                                    width: 110,
+                                    height: 110,
+                                  ),
+                                  Align(
+                                      alignment: Alignment.topRight,
+                                      child: InkWell(
+                                        onTap: () {
+                                          setState(() {
+                                            imageFileList!.removeAt(index);
+                                          });
+                                        },
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                            color: CustomColors.textColor3,
+                                            borderRadius:
+                                                BorderRadius.circular(100),
+                                          ),
+                                          padding: const EdgeInsets.all(2),
+                                          margin: const EdgeInsets.symmetric(
+                                              vertical: 6, horizontal: 4),
+                                          child: const Icon(
+                                            Icons.close,
+                                            size: 20,
+                                            color: CustomColors.whiteColor,
+                                          ),
+                                        ),
+                                      ))
+                                ],
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    InkWell(
+                      onTap: () {
+                        if (imageFileList != null &&
+                            imageFileList!.length == 1) {
+                          showCustomToast(fToast, context,
+                              "Only 1 image can be uploaded", "");
+                        } else {
+                          // selectImages();
+                          openImagePicker(ImageSource.gallery);
+                        }
+                      },
+                      child: Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.symmetric(vertical: 16),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius: BorderRadius.circular(4),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(tr("photo"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.buttonBackgroundColor)),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            const Icon(
+                              Icons.add,
+                              color: CustomColors.buttonBackgroundColor,
+                              size: 16,
+                            )
+                          ],
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(tr("photoNote"),
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor3)),
+                  ],
                 ),
               ),
-            ),
-          ],
-        )),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                height: 10,
+              ),
+              Container(
+                alignment: FractionalOffset.bottomCenter,
+                width: MediaQuery.of(context).size.width,
+                margin: const EdgeInsets.symmetric(horizontal: 16),
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 24, bottom: 32),
+                  child: CommonButton(
+                    onCommonButtonTap: () {
+                      //showReservationModal();
+                      submitComplaintValidationCheck();
+                    },
+                    buttonColor: CustomColors.buttonBackgroundColor,
+                    buttonName: tr("apply"),
+                    isIconVisible: false,
+                  ),
+                ),
+              ),
+            ],
+          )),
+        ),
       ),
-    ),);
+    );
   }
 
   void showReservationModal(String heading, String message) {
@@ -893,6 +900,58 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           isLoading = false;
         });
       }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+
+          setState(() {
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       setState(() {

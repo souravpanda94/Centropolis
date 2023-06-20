@@ -1147,8 +1147,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           Provider.of<UserInfoProvider>(context, listen: false)
               .setItem(userInfoModel);
 
-          companyName = userInfoModel.companyName.toString();
-          name = userInfoModel.name.toString();
+          setState(() {
+            companyName = userInfoModel.companyName.toString();
+            name = userInfoModel.name.toString();
+          });
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
