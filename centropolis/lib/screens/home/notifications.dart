@@ -15,8 +15,16 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/app_bar_for_dialog.dart';
 import '../../widgets/view_more.dart';
-
-
+import '../my_page/conference_history_details.dart';
+import '../my_page/facility_history_details.dart';
+import '../my_page/fitnesss_tab_history_details.dart';
+import '../my_page/gx_history_details.dart';
+import '../my_page/inconvenience_history_details.dart';
+import '../my_page/lounge_history_details.dart';
+import '../my_page/paid_locker_history_details.dart';
+import '../my_page/paid_pt_history_details.dart';
+import '../voc/air_conditioning_details.dart';
+import '../voc/light_out_details.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -35,7 +43,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
   bool isLoading = true;
   List<NotificationModel>? notificationListItem;
 
-
   @override
   void initState() {
     super.initState();
@@ -48,11 +55,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
     firstTimeLoadNotificationList();
   }
 
-
   @override
   Widget build(BuildContext context) {
-    notificationListItem = Provider.of<NotificationProvider>(context).getNotificationList;
-
+    notificationListItem =
+        Provider.of<NotificationProvider>(context).getNotificationList;
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -62,113 +68,126 @@ class _NotificationScreenState extends State<NotificationScreen> {
       ),
       isLoading: isLoading,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: AppBarForDialog(tr("notificationHistory"), () {
-                onBackButtonPress(context);
-              }),
+          backgroundColor: CustomColors.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: AppBarForDialog(tr("notificationHistory"), () {
+                  onBackButtonPress(context);
+                }),
+              ),
             ),
           ),
-        ),
-        body: Container(
-            margin: const EdgeInsets.only(top: 32, left: 16, right: 16),
-            child: Column(
-              children: [
-                Expanded(
-                  child: ListView.builder(
-                      itemCount: notificationListItem?.length,
-                      itemBuilder: ((context, index) {
-                        return InkWell(
-                          onTap: (){
-                            goToDetailsScreen(notificationListItem?[index].notificationType.toString());
-                          },
-                          child: Container(
-                            decoration: BoxDecoration(
-                                color: CustomColors.whiteColor,
-                                border: Border.all(
-                                  color: CustomColors.borderColor,
-                                ),
-                                borderRadius:
-                                const BorderRadius.all(Radius.circular(4))),
-                            padding: const EdgeInsets.all(16),
-                            margin: const EdgeInsets.only(bottom: 16),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  // notificationList[index]["title"],
-                                  notificationListItem?[index].title.toString() ?? "",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontFamily: 'SemiBold',
-                                      fontSize: 14,
-                                      color: CustomColors.textColor8),
-                                ),
-                                Container(
-                                  margin:
-                                  const EdgeInsets.symmetric(vertical: 16),
-                                  child: Row(
-                                    children: [
-                                      Expanded(
-                                        flex: 3,
-                                        child: Text(
-                                          // notificationList[index]["subtitle"],
-                                          notificationListItem?[index].content.toString() ?? "",
+          body: Container(
+              margin: const EdgeInsets.only(top: 32, left: 16, right: 16),
+              child: Column(
+                children: [
+                  Expanded(
+                    child: ListView.builder(
+                        itemCount: notificationListItem?.length,
+                        itemBuilder: ((context, index) {
+                          return InkWell(
+                            onTap: () {
+                              goToDetailsScreen(
+                                  notificationListItem?[index]
+                                      .notificationType
+                                      .toString(),
+                                  notificationListItem?[index].relId);
+                            },
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: CustomColors.whiteColor,
+                                  border: Border.all(
+                                    color: CustomColors.borderColor,
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(4))),
+                              padding: const EdgeInsets.all(16),
+                              margin: const EdgeInsets.only(bottom: 16),
+                              child: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    // notificationList[index]["title"],
+                                    notificationListItem?[index]
+                                            .title
+                                            .toString() ??
+                                        "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontFamily: 'SemiBold',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor8),
+                                  ),
+                                  Container(
+                                    margin: const EdgeInsets.symmetric(
+                                        vertical: 16),
+                                    child: Row(
+                                      children: [
+                                        Expanded(
+                                          flex: 3,
+                                          child: Text(
+                                            // notificationList[index]["subtitle"],
+                                            notificationListItem?[index]
+                                                    .content
+                                                    .toString() ??
+                                                "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .textColorBlack2),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          width: 8,
+                                        ),
+                                        Text(
+                                          tr("contents"),
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontFamily: 'Regular',
                                               fontSize: 14,
                                               color:
-                                              CustomColors.textColorBlack2),
+                                                  CustomColors.textColorBlack2),
                                         ),
-                                      ),
-                                      const SizedBox(
-                                        width: 8,
-                                      ),
-                                       Text(
-                                        tr("contents"),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                            fontSize: 14,
-                                            color: CustomColors.textColorBlack2),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                Text(
-                                  // notificationList[index]["datetime"],
-                                  notificationListItem?[index].createdDate.toString() ?? "",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 12,
-                                      color: CustomColors.textColor3),
-                                ),
-                              ],
+                                  Text(
+                                    // notificationList[index]["datetime"],
+                                    notificationListItem?[index]
+                                            .createdDate
+                                            .toString() ??
+                                        "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 12,
+                                        color: CustomColors.textColor3),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ),
-                        )
-                          ;
-                      })),
-                ),
-
-                if (page < totalPages)
-                  ViewMoreWidget(
-                    onViewMoreTap: () {
-                      loadMore();
-                    },
-                  )
-              ],
-            ))),);
+                          );
+                        })),
+                  ),
+                  if (page < totalPages)
+                    ViewMoreWidget(
+                      onViewMoreTap: () {
+                        loadMore();
+                      },
+                    )
+                ],
+              ))),
+    );
   }
 
   void firstTimeLoadNotificationList() {
@@ -199,22 +218,17 @@ class _NotificationScreenState extends State<NotificationScreen> {
     debugPrint("Notification List input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.getNotificationListUrl,
-        body,
-        language.toString(),
-        apiKey);
+        ApiEndPoint.getNotificationListUrl, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
-      debugPrint(
-          "server response for Notification List ===> $responseJson");
+      debugPrint("server response for Notification List ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           totalPages = responseJson['total_pages'];
           List<NotificationModel> reservationListList =
-          List<NotificationModel>.from(
-              responseJson['inquiry_data']
+              List<NotificationModel>.from(responseJson['inquiry_data']
                   .map((x) => NotificationModel.fromJson(x)));
           if (page == 1) {
             Provider.of<NotificationProvider>(context, listen: false)
@@ -224,7 +238,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                 .addItem(reservationListList);
           }
 
-          if(isFirstLoadRunning){
+          if (isFirstLoadRunning) {
             setState(() {
               isFirstLoadRunning = false;
             });
@@ -261,13 +275,120 @@ class _NotificationScreenState extends State<NotificationScreen> {
     }
   }
 
-  void goToDetailsScreen(String? notificationType) {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const FitnessReservation(position: 0),
-    //   ),
-    // );
+  void goToDetailsScreen(String? notificationType, int? relId) {
+    if (notificationType == "add_sleeping_reservation" ||
+        notificationType == "cancel_sleeping_reservation" ||
+        notificationType == "reject_sleeping_reservation") {
+      //sleeping room details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => FacilityHistoryDetails(id: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "add_fitness_reservation" ||
+        notificationType == "cancel_fitness_reservation" ||
+        notificationType == "reject_fitness_reservation") {
+      //fitness center details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              FitnessTabHistoryDetails(reservationId: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "reply_complaint") {
+      //complaint details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              InconvenienceHistoryDetails(inquiryId: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "add_lounge_reservation" ||
+        notificationType == "reject_lounge_reservation" ||
+        notificationType == "cancel_lounge_reservation") {
+      //lounge details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LoungeHistoryDetails(relId.toString()),
+        ),
+      );
+    } else if (notificationType == "add_locker_reservation" ||
+        notificationType == "reject_locker_reservation" ||
+        notificationType == "cancel_locker_reservation") {
+      //locker details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              PaidLockerHistoryDetails(reservationId: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "reject_pt_reservation" ||
+        notificationType == "cancel_pt_reservation" ||
+        notificationType == "add_pt_reservation") {
+      //pt details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              PaidPTHistoryDetails(reservationId: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "reject_conference_reservation" ||
+        notificationType == "add_conference_reservation" ||
+        notificationType == "cancel_conference_reservation") {
+      //conference details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => ConferenceHistoryDetails(relId.toString()),
+        ),
+      );
+    } else if (notificationType == "reply_lights_out_inquiry" ||
+        notificationType == "approve_lights_out_inquiry") {
+      //lights out inquiry details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => LightsOutDetails(id: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "reply_ac_inquiry" ||
+        notificationType == "approve_ac_inquiry") {
+      //ac inquiry details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              AirConditioningDetails(inquiryId: relId.toString()),
+        ),
+      );
+    } else if (notificationType == "add_gx_reservation" ||
+        notificationType == "cancel_gx_reservation" ||
+        notificationType == "reject_gx_reservation") {
+      // gx program details
+
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              GXHistoryDetails(reservationId: relId.toString()),
+        ),
+      );
+    }
   }
 
   void loadNotificationAllRead() async {
@@ -288,15 +409,11 @@ class _NotificationScreenState extends State<NotificationScreen> {
     debugPrint("Notification Read input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.serReadNotification,
-        body,
-        language.toString(),
-        apiKey);
+        ApiEndPoint.serReadNotification, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
-      debugPrint(
-          "server response for Notification Read ===> $responseJson");
+      debugPrint("server response for Notification Read ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
@@ -321,5 +438,4 @@ class _NotificationScreenState extends State<NotificationScreen> {
       });
     });
   }
-
 }
