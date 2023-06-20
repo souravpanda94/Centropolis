@@ -45,7 +45,7 @@ class _EditPersonalInformationScreenState
   // String contactNumber = "";
   bool nameValidation = false;
   UserInfoModel? userInfoModel;
-  String phoneNumber = "";
+  String mobile = "";
 
   @override
   void initState() {
@@ -344,7 +344,9 @@ class _EditPersonalInformationScreenState
                       child: TextField(
                         controller: contactNumberController,
                         keyboardType: TextInputType.phone,
+                        maxLength: 11,
                         decoration: InputDecoration(
+                          counterText: "",
                           fillColor: CustomColors.whiteColor,
                           filled: true,
                           contentPadding: const EdgeInsets.symmetric(
@@ -379,6 +381,14 @@ class _EditPersonalInformationScreenState
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
+                        onChanged: (value) {
+                          if (value.length == 11) {
+                            setState(() {
+                              contactNumberController.text =
+                                  formatNumberStringWithDash(value);
+                            });
+                          }
+                        },
                       ),
                     ),
                   ),
@@ -418,16 +428,16 @@ class _EditPersonalInformationScreenState
   void onSaveButtonClick() {
     hideKeyboard();
 
-    phoneNumber = contactNumberController.text.trim().replaceAll("-", "");
+    mobile = contactNumberController.text.trim().replaceAll("-", "");
 
     if (emailController.text.trim().isEmpty) {
       showErrorModal(tr("emailValidation"));
     } else if (!isValidEmail(emailController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
-    } else if (phoneNumber.isEmpty) {
+    } else if (mobile.isEmpty) {
       showErrorModal(tr("contactValidation"));
-    } else if (!isValidPhoneNumber(phoneNumber.trim()) ||
-        !phoneNumber.trim().startsWith("010")) {
+    } else if (!isValidPhoneNumber(mobile.trim()) ||
+        !mobile.trim().startsWith("010")) {
       showErrorModal(tr("onlyValidContactInformationIsApplicable"));
     } else {
       checkNetworkConnectionForEditPersonalInfo();
@@ -467,11 +477,11 @@ class _EditPersonalInformationScreenState
     setState(() {
       isLoading = true;
     });
-    phoneNumber = contactNumberController.text.trim().replaceAll("-", "");
+    mobile = contactNumberController.text.trim().replaceAll("-", "");
 
     Map<String, String> body = {
       "email": emailController.text.trim(),
-      "mobile": phoneNumber.trim(),
+      "mobile": mobile.trim(),
     };
 
     debugPrint("Edit personal info input===> $body");
