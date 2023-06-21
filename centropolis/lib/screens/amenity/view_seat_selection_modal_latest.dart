@@ -188,63 +188,68 @@ class _ViewSeatSelectionModalScreenState
                               child: AlignedGridView.count(
                                 crossAxisCount: widget.timeSlotList.length,
                                 scrollDirection: Axis.horizontal,
-                                // mainAxisSpacing: 4,
-                                // crossAxisSpacing: 4,
-                                itemCount:
-                                    widget.viewSeatSelectionListItem?.length,
+                                itemCount: widget.viewSeatSelectionListItem?.length,
                                 itemBuilder: (context, index) {
                                   return Container(
-                                    width: setItemWidth(index),
-                                    height: 35,
-                                    margin: const EdgeInsets.only(
-                                        left: 6, right: 6, top: 5, bottom: 5),
                                     decoration: BoxDecoration(
-                                      color: setBackgroundColor(
-                                          widget
-                                              .viewSeatSelectionListItem?[index]
-                                              .available,
-                                          widget
-                                              .viewSeatSelectionListItem?[index]
-                                              .slot
-                                              .toString(),
-                                          widget
-                                              .viewSeatSelectionListItem?[index]
-                                              .slotRange
-                                              .toString(),
-                                          widget
-                                              .viewSeatSelectionListItem?[index]
-                                              .seat
-                                              .toString()),
-                                      border: Border.all(
-                                          color: setBorderColor(
-                                              widget
-                                                  .viewSeatSelectionListItem?[
-                                                      index]
-                                                  .available,
-                                              widget
-                                                  .viewSeatSelectionListItem?[
-                                                      index]
-                                                  .slot
-                                                  .toString(),
-                                              widget
-                                                  .viewSeatSelectionListItem?[
-                                                      index]
-                                                  .slotRange
-                                                  .toString(),
-                                              widget
-                                                  .viewSeatSelectionListItem?[
-                                                      index]
-                                                  .seat
-                                                  .toString()),
-                                          width: 1.0),
-                                    ),
-                                    child: Center(
-                                      child: Text(
-                                        setTextValue(index),
-                                        style: const TextStyle(
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2,
-                                          fontFamily: 'Regular',
+                                        color: CustomColors.backgroundColor,
+                                        border: Border.all(
+                                          color: CustomColors.borderColor3,
+                                          width: 1.0
+                                        ),
+                                        ),
+                                    child: Container(
+                                      width: setItemWidth(index),
+                                      height: 34,
+                                      margin: const EdgeInsets.all(6),
+                                      decoration: BoxDecoration(
+                                        color: setBackgroundColor(
+                                            widget
+                                                .viewSeatSelectionListItem?[index]
+                                                .available,
+                                            widget
+                                                .viewSeatSelectionListItem?[index]
+                                                .slot
+                                                .toString(),
+                                            widget
+                                                .viewSeatSelectionListItem?[index]
+                                                .slotRange
+                                                .toString(),
+                                            widget
+                                                .viewSeatSelectionListItem?[index]
+                                                .seat
+                                                .toString()),
+                                        border: Border.all(
+                                            color: setBorderColor(
+                                                widget
+                                                    .viewSeatSelectionListItem?[
+                                                index]
+                                                    .available,
+                                                widget
+                                                    .viewSeatSelectionListItem?[
+                                                index]
+                                                    .slot
+                                                    .toString(),
+                                                widget
+                                                    .viewSeatSelectionListItem?[
+                                                index]
+                                                    .slotRange
+                                                    .toString(),
+                                                widget
+                                                    .viewSeatSelectionListItem?[
+                                                index]
+                                                    .seat
+                                                    .toString()),
+                                            width: 1.0),
+                                      ),
+                                      child: Center(
+                                        child: Text(
+                                          setTextValue(index),
+                                          style: const TextStyle(
+                                            fontSize: 14,
+                                            color: CustomColors.textColorBlack2,
+                                            fontFamily: 'Regular',
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -395,12 +400,12 @@ class _ViewSeatSelectionModalScreenState
     } else {
       if (widget.viewSeatSelectionListItem![index].seat! > 0 &&
           widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
-        return 45.0;
+        return 40.0;
       } else if (widget.viewSeatSelectionListItem![index].seat! == 0 &&
           widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         return 90.0;
       } else {
-        return 45.0;
+        return 40.0;
       }
     }
   }
