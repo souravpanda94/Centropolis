@@ -60,7 +60,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                   SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset(
-                      "assets/images/ic_slider_4.png",
+                      "assets/images/fitness.png",
                       height: 320,
                       fit: BoxFit.fill,
                     ),
