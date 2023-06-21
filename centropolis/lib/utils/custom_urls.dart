@@ -1,7 +1,9 @@
 class ApiEndPoint {
-  // static String baseUrl = "https://www.google.com/api/"; // Live server
-  static String baseUrl =
-      "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
+  // static String baseUrl = ""; // Live server
+  static String baseUrl = "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
+  // static String baseUrl = "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
+
+
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
