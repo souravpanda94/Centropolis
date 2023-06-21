@@ -207,12 +207,21 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     const SizedBox(
                       height: 24,
                     ),
-                    Text(
-                      tr("startTime"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
+                    RichText(
+                      text: TextSpan(
+                          text: tr("startTime"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
                     ),
                     const SizedBox(
                       height: 8,
@@ -221,12 +230,21 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     const SizedBox(
                       height: 16,
                     ),
-                    Text(
-                      tr("endTime"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
+                    RichText(
+                      text: TextSpan(
+                          text: tr("endTime"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                          children: const [
+                            TextSpan(
+                                text: ' *',
+                                style: TextStyle(
+                                    color: CustomColors.headingColor,
+                                    fontSize: 12))
+                          ]),
+                      maxLines: 1,
                     ),
                     const SizedBox(
                       height: 8,
