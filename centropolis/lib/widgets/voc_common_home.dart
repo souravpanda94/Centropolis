@@ -190,7 +190,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              widget.inconvenienceList?[index].status ?? "",
+                              widget.inconvenienceList?[index].displayStatus ??
+                                  "",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",
@@ -339,7 +340,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   left: 10.0,
                                   right: 10.0),
                               child: Text(
-                                widget.lightoutList?[index].status ?? "",
+                                widget.lightoutList?[index].displayStatus ?? "",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",
@@ -506,7 +507,9 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   left: 10.0,
                                   right: 10.0),
                               child: Text(
-                                widget.airConditioningList?[index].status ?? "",
+                                widget.airConditioningList?[index]
+                                        .displayStatus ??
+                                    "",
                                 style: TextStyle(
                                   fontSize: 12,
                                   fontFamily: "SemiBold",

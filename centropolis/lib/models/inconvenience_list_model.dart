@@ -4,13 +4,16 @@ class IncovenienceListModel {
   String? type;
   String? status;
   String? registeredDate;
+  String? displayStatus;
 
-  IncovenienceListModel(
-      {this.inquiryId,
-      this.title,
-      this.type,
-      this.status,
-      this.registeredDate});
+  IncovenienceListModel({
+    this.inquiryId,
+    this.title,
+    this.type,
+    this.status,
+    this.registeredDate,
+    this.displayStatus,
+  });
 
   IncovenienceListModel.fromJson(Map<String, dynamic> json) {
     inquiryId = json['inquiry_id'].toString();
@@ -18,6 +21,7 @@ class IncovenienceListModel {
     type = json['type'];
     status = json['status'];
     registeredDate = json['registered_date'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -27,6 +31,7 @@ class IncovenienceListModel {
     data['type'] = type;
     data['status'] = status;
     data['registered_date'] = registeredDate;
+    data['display_status'] = displayStatus;
     return data;
   }
 }

@@ -249,7 +249,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                                 right: 10.0),
                                             child: Text(
                                               airConditioningListItem?[index]
-                                                      .status
+                                                      .displayStatus
                                                       .toString() ??
                                                   "",
                                               style: TextStyle(

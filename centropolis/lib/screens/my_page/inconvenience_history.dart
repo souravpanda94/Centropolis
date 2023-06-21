@@ -199,7 +199,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                               right: 10.0),
                                           child: Text(
                                             incovenienceListItem![index]
-                                                    .status ??
+                                                    .displayStatus ??
                                                 "",
                                             style: TextStyle(
                                               fontSize: 12,
