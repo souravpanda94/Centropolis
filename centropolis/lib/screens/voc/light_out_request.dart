@@ -93,7 +93,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
             child: SafeArea(
               child: Container(
                 color: CustomColors.whiteColor,
-                child: CommonAppBar(tr("lightsOutRequestHistory"), false, () {
+                child: CommonAppBar(tr("lightOutDetail"), false, () {
                   //onBackButtonPress(context);
                   Navigator.pop(context, isLoadingRequired);
                 }, () {}),

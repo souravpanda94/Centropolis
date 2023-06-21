@@ -208,7 +208,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                                 right: 10.0),
                                             child: Text(
                                               incovenienceListItem![index]
-                                                      .status ??
+                                                      .displayStatus ??
                                                   "",
                                               style: TextStyle(
                                                 fontSize: 12,

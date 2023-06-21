@@ -9,6 +9,7 @@ class AirConditioningListModel {
   String? description;
   String? type;
   String? displayType;
+  String? displayStatus;
 
   AirConditioningListModel(
       {this.inquiryId,
@@ -20,6 +21,7 @@ class AirConditioningListModel {
       this.registeredDate,
       this.description,
       this.type,
+      this.displayStatus,
       this.displayType});
 
   AirConditioningListModel.fromJson(Map<String, dynamic> json) {
@@ -33,6 +35,7 @@ class AirConditioningListModel {
     description = json['description'];
     type = json['type'];
     displayType = json['display_type'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -47,6 +50,7 @@ class AirConditioningListModel {
     data['description'] = description;
     data['display_type'] = displayType;
     data['type'] = type;
+    data['display_status'] = displayStatus;
     return data;
   }
 }

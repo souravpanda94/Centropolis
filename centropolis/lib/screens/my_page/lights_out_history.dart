@@ -192,7 +192,8 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                               left: 10.0,
                                               right: 10.0),
                                           child: Text(
-                                            lightoutListItem?[index].status ??
+                                            lightoutListItem?[index]
+                                                    .displayStatus ??
                                                 "",
                                             style: TextStyle(
                                               fontSize: 12,
