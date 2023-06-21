@@ -64,7 +64,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         body: VocCommonHome(
-          image: 'assets/images/ic_slider_6.png',
+          image: 'assets/images/lightout.png',
           title: tr("lightOutEngTitle"),
           subTitle: tr("requestForLightsOut"),
           emptyTxt: tr("lightOutEmptyText"),
