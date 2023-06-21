@@ -1,9 +1,9 @@
 class ApiEndPoint {
   // static String baseUrl = ""; // Live server
-  static String baseUrl = "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
-  // static String baseUrl = "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
-
-
+  static String baseUrl =
+      "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
+  // static String baseUrl =
+  //     "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
@@ -149,7 +149,8 @@ class ApiEndPoint {
   static String getNotificationListUrl =
       "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
-  static String serReadNotification = "${baseUrl}v1/mypage/notification-read-all";
+  static String serReadNotification =
+      "${baseUrl}v1/mypage/notification-read-all";
 }
 
 class WebViewLinks {
@@ -167,4 +168,6 @@ class WebViewLinks {
 class ImageLinks {
   static String baseUrlForImage =
       "https://centropolis-api-dev.dvconsulting.org/"; // Development server
+  // static String baseUrlForImage =
+  //     "https://centropolis-api-qa.dvconsulting.org/"; // QA server
 }
