@@ -35,6 +35,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
   String isPushAllow = "n";
   var textValue = 'Switch is OFF';
   bool isLoading = false;
+  String privacyPolicyLink = "";
+  String termsOfUseLink = "";
 
   @override
   void initState() {
@@ -51,6 +53,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       isPushAllow = user.userData['push_notification'].toString();
     });
     debugPrint("===========isPushAllow =======> $isPushAllow");
+    setWebViewLink();
 
     setSwitchButtonsValue();
     getAppVersion();
@@ -230,8 +233,8 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             transitionDuration:
                                 const Duration(milliseconds: 400),
                             pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(tr("privacyPolicy"),
-                                  WebViewLinks.privacyPolicyUrl);
+                              return WebViewUiScreen(
+                                  tr("privacyPolicy"), privacyPolicyLink);
                             });
                       },
                       child: Container(
@@ -275,7 +278,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                                 const Duration(milliseconds: 400),
                             pageBuilder: (_, __, ___) {
                               return WebViewUiScreen(
-                                  tr("termsOfUse"), WebViewLinks.termsOfUseUrl);
+                                  tr("termsOfUse"), termsOfUseLink);
                             });
                       },
                       child: Container(
@@ -428,5 +431,19 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
         isLoading = false;
       });
     });
+  }
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        privacyPolicyLink = WebViewLinks.privacyPolicyUrlEng;
+        termsOfUseLink = WebViewLinks.termsOfUseUrlEng;
+      });
+    } else {
+      setState(() {
+        privacyPolicyLink = WebViewLinks.privacyPolicyUrlKo;
+        termsOfUseLink = WebViewLinks.termsOfUseUrlKo;
+      });
+    }
   }
 }

@@ -157,10 +157,17 @@ class WebViewLinks {
   // static String baseUrl = "https://www.google.com"; // Live server
   static String baseUrl = "https://www.google.com"; // Test server
 
-  static String privacyPolicyUrl =
-      "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#privacypolicy";
-  static String termsOfUseUrl =
-      "https://centropolis-frnt-dev.dvconsulting.org/terms-of-use#termofuse";
+  static String baseUrlForWebLinks =
+      "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
+  // static String baseUrlForWebLinks =
+  //     "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
+
+  static String privacyPolicyUrlEng = "${baseUrlForWebLinks}privacypolicy/en";
+  static String privacyPolicyUrlKo = "${baseUrlForWebLinks}privacypolicy/kr";
+
+  static String termsOfUseUrlEng = "${baseUrlForWebLinks}termsofuse/en";
+  static String termsOfUseUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+
   static String freeParkingVehicleRegistrationUrl =
       "http://centropolis.co.kr/About/parking.asp";
 }
