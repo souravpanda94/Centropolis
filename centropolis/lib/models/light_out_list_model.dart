@@ -5,6 +5,7 @@ class LightOutListModel {
   String? startTime;
   String? endTime;
   String? status;
+  String? displayStatus;
   String? registeredDate;
   String? description;
 
@@ -15,6 +16,7 @@ class LightOutListModel {
     this.startTime,
     this.endTime,
     this.status,
+    this.displayStatus,
     this.registeredDate,
     this.description,
   });
@@ -28,6 +30,7 @@ class LightOutListModel {
     status = json['status'];
     registeredDate = json['registered_date'];
     description = json['description'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -40,6 +43,7 @@ class LightOutListModel {
     data['status'] = status;
     data['registered_date'] = registeredDate;
     data['description'] = description;
+    data['display_status'] = displayStatus;
 
     return data;
   }

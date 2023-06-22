@@ -208,7 +208,8 @@ class _LightsOutListState extends State<LightsOutList> {
                                                 left: 10.0,
                                                 right: 10.0),
                                             child: Text(
-                                              lightoutListItem?[index].status ??
+                                              lightoutListItem?[index]
+                                                      .displayStatus ??
                                                   "",
                                               style: TextStyle(
                                                 fontSize: 12,

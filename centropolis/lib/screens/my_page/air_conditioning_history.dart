@@ -227,7 +227,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                               right: 10.0),
                                           child: Text(
                                             airConditioningListItem?[index]
-                                                    .status
+                                                    .displayStatus
                                                     .toString() ??
                                                 "",
                                             style: TextStyle(

@@ -5,7 +5,6 @@ class CustomColors {
   static const shadowColor = Color(0xFF00001A);
   static const whiteColor = Color(0xFFffffff);
   static const blackColor = Color(0xFF000000);
-  static const borderColor2 = Color(0xFFF1F0EE);
 
   static const textColor1 = Color(0xFF222722);
   static const textColor3 = Color(0xFFA4A4A4);
@@ -34,6 +33,8 @@ class CustomColors {
   static const fullColor = Color(0xFFD24545);
   static const tabColor = Color(0xFF735440);
   static const borderColor = Color(0xFFE0E0E0);
+  static const borderColor2 = Color(0xFFF1F0EE);
+  static const borderColor3 = Color(0xFFEAEBEF);
   static const redColor = Color(0xFFFFF6F6);
   static const homeButtonBackgroundColor = Color(0x1FB9644C);
   static const brownColor = Color(0xFFAC9573);
