@@ -1347,7 +1347,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     showGeneralDialog(
         context: context,
         barrierColor: Colors.black12.withOpacity(0.6),
-        barrierDismissible: false,
+        barrierDismissible: true,
         barrierLabel: 'Dialog',
         transitionDuration: const Duration(milliseconds: 400),
         pageBuilder: (_, __, ___) {
