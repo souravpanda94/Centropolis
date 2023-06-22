@@ -1,10 +1,10 @@
+import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:centropolis/screens/rnd/result_screen.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
-
 
 class QrScannerScreen extends StatefulWidget {
   const QrScannerScreen({Key? key}) : super(key: key);
@@ -123,7 +123,6 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
           //     ),
           //   ),
           // )
-
         ],
       ),
     );
@@ -132,7 +131,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
     var scanArea = (MediaQuery.of(context).size.width < 400 ||
-        MediaQuery.of(context).size.height < 400)
+            MediaQuery.of(context).size.height < 400)
         // ? 150.0
         // : 300.0;
         ? 250.0
@@ -148,7 +147,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
           borderLength: 30,
           borderWidth: 10,
           cutOutSize: scanArea),
-          onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
+      onPermissionSet: (ctrl, p) => _onPermissionSet(context, ctrl, p),
     );
   }
 
@@ -157,21 +156,19 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
       this.controller = controller;
     });
     controller.scannedDataStream.listen((scanData) {
-      // setState(() {
-      //   result = scanData;
-      // });
-      controller.pauseCamera();
-      final String qrCode = scanData as String;
-      controller.pauseCamera();
-      controller.resumeCamera();
+      String resultCode = scanData.code.toString();
+      Map<dynamic, dynamic> result = json.decode(resultCode);
+      String id = result['user_id'].toString();
+      String username = result['username'];
+      String code = result['code'];
+
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>  ResultScreen(qrCode),
+          builder: (context) => ResultScreen(resultCode),
         ),
       );
     });
-
   }
 
   void _onPermissionSet(BuildContext context, QRViewController ctrl, bool p) {
@@ -191,11 +188,7 @@ class _QrScannerScreenState extends State<QrScannerScreen> {
     //   ),
     // );
   }
-
 }
-
-
-
 
 // class QrScannerScreen extends StatefulWidget {
 //   const QrScannerScreen({super.key});
