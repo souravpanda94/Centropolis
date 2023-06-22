@@ -1,6 +1,9 @@
 import 'package:centropolis/utils/custom_colors.dart';
+import 'package:centropolis/utils/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
 
 class MultiSelect extends StatefulWidget {
   final List<String> items;
@@ -15,11 +18,18 @@ class MultiSelect extends StatefulWidget {
 class _MultiSelectState extends State<MultiSelect> {
   // this variable holds the selected items
   List<String>? _selectedItems = [];
+  List<String>? _previouslySelectedItems = [];
+  late FToast fToast;
 
   @override
   void initState() {
     super.initState();
-    _selectedItems = widget.alreadySelectedItems;
+    fToast = FToast();
+    fToast.init(context);
+    _previouslySelectedItems = widget.alreadySelectedItems;
+    _previouslySelectedItems?.forEach((element) {
+      _selectedItems?.add(element);
+    });
   }
 
 // This function is triggered when a checkbox is checked or unchecked
@@ -40,7 +50,11 @@ class _MultiSelectState extends State<MultiSelect> {
 
 // this function is called when the Submit button is tapped
   void _submit() {
-    Navigator.pop(context, _selectedItems);
+    if (_selectedItems!.isNotEmpty) {
+      Navigator.pop(context, _selectedItems);
+    } else {
+      showCustomToast(fToast, context, tr("applicationFloorHint"), "");
+    }
   }
 
   void _clearAll() {

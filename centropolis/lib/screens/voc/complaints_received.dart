@@ -484,7 +484,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
   Future openImagePicker(ImageSource source) async {
     try {
-      final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
+      // final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
+      final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70);
       if (selectedImages.isNotEmpty) {
         if (selectedImages.length == 1) {
           final tempImage = File(selectedImages[0].path);
@@ -498,14 +499,15 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
 
           debugPrint(getFileSizeString(bytes: tempImage.lengthSync()));
-          final bytes = (await tempImage.readAsBytes()).lengthInBytes;
+          // final bytes = (await tempImage.readAsBytes()).lengthInBytes;
+          final bytes = tempImage.readAsBytesSync().lengthInBytes;
           final kb = bytes / 1024;
           final mb = kb / 1024;
           debugPrint("----------------Image size in bytes   $bytes---------------");
           debugPrint("----------------Image size in KB   $kb---------------");
           debugPrint("----------------Image size in MB   $mb---------------");
 
-          if(mb > 1){
+          if(mb > 1.0){
             showCustomToast(fToast, context, "Image size must be under 1 MB", "");
           }
           else if(imageWidth > 670 && imageHeight > 670 ){

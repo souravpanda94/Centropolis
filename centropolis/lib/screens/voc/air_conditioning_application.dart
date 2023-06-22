@@ -587,15 +587,6 @@ class _AirConditioningApplicationState
   }
 
   void _showMultiSelect() async {
-    // final List<String> items = [
-    //   'Flutter',
-    //   'Node.js',
-    //   'React Native',
-    //   'Java',
-    //   'Docker',
-    //   'MySQL',
-    // ];
-
     final List<String>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {

@@ -190,15 +190,17 @@ class _ViewSeatSelectionModalScreenState
                                 scrollDirection: Axis.horizontal,
                                 itemCount: widget.viewSeatSelectionListItem?.length,
                                 itemBuilder: (context, index) {
-                                  return Container(
-                                    decoration: BoxDecoration(
-                                        color: CustomColors.backgroundColor,
-                                        border: Border.all(
-                                          color: CustomColors.borderColor3,
-                                          width: 1.0
-                                        ),
-                                        ),
-                                    child: Container(
+                                  return
+                                    // Container(
+                                    // decoration: BoxDecoration(
+                                    //     color: CustomColors.backgroundColor,
+                                    //     border: Border.all(
+                                    //       color: CustomColors.borderColor3,
+                                    //       width: 1.0
+                                    //     ),
+                                    //     ),
+                                    // child:
+                                    Container(
                                       width: setItemWidth(index),
                                       height: 34,
                                       margin: const EdgeInsets.all(6),
@@ -252,8 +254,8 @@ class _ViewSeatSelectionModalScreenState
                                           ),
                                         ),
                                       ),
-                                    ),
-                                  );
+                                    );
+                                  // );
                                 },
                               ),
                             )
