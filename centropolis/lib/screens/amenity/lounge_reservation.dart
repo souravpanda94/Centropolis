@@ -291,25 +291,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         const SizedBox(
                           width: 9,
                         ),
-                        myLocale.toString() == "ko"
-                            ? Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Text(
-                                  tr("loungeReservationConsent"),
-                                  style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 14,
-                                      color: CustomColors.textColorBlack2),
-                                ),
-                              )
-                            : Expanded(
-                                child: Text(
-                                tr("loungeReservationConsent"),
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ))
+                        Flexible(
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 4),
+                            child: Text(
+                              tr("loungeReservationConsent"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          ),
+                        )
                       ],
                     ),
                   ),
@@ -359,7 +352,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr('selectUsageTime'),
+          "${tr('selectUsageTime')}.",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -461,7 +454,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       return DropdownButtonHideUnderline(
         child: DropdownButton2(
           hint: Text(
-            tr('selectStartTime'),
+            "${tr('selectStartTime')}.",
             style: const TextStyle(
               color: CustomColors.textColorBlack2,
               fontSize: 14,
@@ -557,7 +550,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              startTimeSelectedValue ?? tr('selectStartTime'),
+              startTimeSelectedValue ?? "${tr('selectStartTime')}.",
               style: const TextStyle(
                 color: CustomColors.blackColor,
                 fontSize: 14,
@@ -581,7 +574,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       return DropdownButtonHideUnderline(
         child: DropdownButton2(
           hint: Text(
-            tr('selectEndTime'),
+            "${tr('selectEndTime')}.",
             style: const TextStyle(
               color: CustomColors.textColorBlack2,
               fontSize: 14,
@@ -677,7 +670,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              endTimeSelectedValue ?? tr('selectEndTime'),
+              endTimeSelectedValue ?? "${tr('selectEndTime')}.",
               style: const TextStyle(
                 color: CustomColors.blackColor,
                 fontSize: 14,

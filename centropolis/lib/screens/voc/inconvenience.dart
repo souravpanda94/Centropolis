@@ -63,7 +63,7 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
       child: Scaffold(
           backgroundColor: Colors.white,
           body: VocCommonHome(
-            image: 'assets/images/inconvenience_dummy_image.png',
+            image: 'assets/images/inconvenience.png',
             title: tr("customerComplaintsEngTitle"),
             subTitle: tr("customerComplaints"),
             emptyTxt: tr("inconvenienceEmptyText"),
