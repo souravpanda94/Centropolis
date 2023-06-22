@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -483,16 +484,47 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
   Future openImagePicker(ImageSource source) async {
     try {
-      final List<XFile> selectedImages = await ImagePicker()
-          .pickMultiImage(imageQuality: 70, maxHeight: 600, maxWidth: 600);
+      final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
       if (selectedImages.isNotEmpty) {
         if (selectedImages.length == 1) {
           final tempImage = File(selectedImages[0].path);
-          setState(() {
-            fileImage = tempImage;
-            fileName = fileImage!.path.split('/').last.replaceAll("image_", "");
-            imageFileList!.addAll(selectedImages);
-          });
+
+
+          var decodedImage = await decodeImageFromList(tempImage.readAsBytesSync());
+          int imageWidth = decodedImage.width;
+          int imageHeight = decodedImage.height;
+          debugPrint('----------------Image resolution ${decodedImage.width} X ${decodedImage.height}----------------');
+
+
+
+          debugPrint(getFileSizeString(bytes: tempImage.lengthSync()));
+          final bytes = (await tempImage.readAsBytes()).lengthInBytes;
+          final kb = bytes / 1024;
+          final mb = kb / 1024;
+          debugPrint("----------------Image size in bytes   $bytes---------------");
+          debugPrint("----------------Image size in KB   $kb---------------");
+          debugPrint("----------------Image size in MB   $mb---------------");
+
+          if(mb > 1){
+            showCustomToast(fToast, context, "Image size must be under 1 MB", "");
+          }
+          else if(imageWidth > 670 && imageHeight > 670 ){
+            showCustomToast(fToast, context, "Image dimention must be under 670 X 670", "");
+          }
+          else if(imageWidth > 670){
+            showCustomToast(fToast, context, "Image width must be under 670", "");
+          }
+          else if(imageHeight > 670){
+            showCustomToast(fToast, context, "Image height must be under 670", "");
+          }
+          else{
+            setState(() {
+              fileImage = tempImage;
+              fileName = fileImage!.path.split('/').last.replaceAll("image_", "");
+              imageFileList!.addAll(selectedImages);
+            });
+          }
+
         } else {
           showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
         }
@@ -501,6 +533,17 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       debugPrint("image pick null");
     }
   }
+
+
+  // Format File Size
+   String getFileSizeString({required int bytes, int decimals = 0}) {
+    if (bytes <= 0) return "0 Bytes";
+    const suffixes = [" Bytes", "KB", "MB", "GB", "TB"];
+    var i = (log(bytes) / log(1024)).floor();
+    return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) + suffixes[i];
+  }
+
+
 
   floorDropdownWidget() {
     return DropdownButtonHideUnderline(
