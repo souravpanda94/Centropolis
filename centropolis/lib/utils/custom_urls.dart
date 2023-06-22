@@ -153,12 +153,9 @@ class ApiEndPoint {
 
 class WebViewLinks {
   // static String baseUrl = "https://www.google.com"; // Live server
-  static String baseUrl = "https://www.google.com"; // Test server
 
-  static String baseUrlForWebLinks =
-      "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
-  // static String baseUrlForWebLinks =
-  //     "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
+  // static String baseUrlForWebLinks = "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
+  static String baseUrlForWebLinks = "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
 
   static String privacyPolicyUrlEng = "${baseUrlForWebLinks}privacypolicy/en";
   static String privacyPolicyUrlKo = "${baseUrlForWebLinks}privacypolicy/kr";
@@ -171,8 +168,6 @@ class WebViewLinks {
 }
 
 class ImageLinks {
-  static String baseUrlForImage =
-      "https://centropolis-api-dev.dvconsulting.org/"; // Development server
-  // static String baseUrlForImage =
-  //     "https://centropolis-api-qa.dvconsulting.org/"; // QA server
+  // static String baseUrlForImage = "https://centropolis-api-dev.dvconsulting.org/"; // Development server
+  static String baseUrlForImage = "https://centropolis-api-qa.dvconsulting.org/"; // QA server
 }
