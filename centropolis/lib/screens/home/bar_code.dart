@@ -116,7 +116,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                       borderRadius: BorderRadius.circular(4)),
                   margin: const EdgeInsets.only(top: 32, bottom: 122),
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 66, vertical: 32),
+                      const EdgeInsets.symmetric(horizontal: 56, vertical: 32),
                   // child: BarcodeWidget(
                   //   barcode: Barcode.qrCode(),
                   //   data: 'Centropolis App QR code generator',
