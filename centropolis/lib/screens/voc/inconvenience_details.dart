@@ -108,7 +108,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              complaintsReceivedDetails?.status.toString() ??
+                              complaintsReceivedDetails?.displayStatus
+                                      .toString() ??
                                   "",
                               style: TextStyle(
                                 fontSize: 12,

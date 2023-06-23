@@ -454,7 +454,13 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          showReservationModal(responseJson['title'], responseJson['message']);
+          if (responseJson['title'] != null) {
+            showReservationModal(
+                responseJson['title'].toString().replaceAll(".", ""),
+                responseJson['message']);
+          } else {
+            showReservationModal(responseJson['message'], "");
+          }
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(

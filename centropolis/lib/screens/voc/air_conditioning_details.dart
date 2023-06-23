@@ -100,7 +100,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                           child: Text(
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            airConditioningDetailModel?.status.toString() ?? "",
+                            airConditioningDetailModel?.displayStatus
+                                    .toString() ??
+                                "",
                             style: TextStyle(
                               fontSize: 12,
                               fontFamily: "SemiBold",

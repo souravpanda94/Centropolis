@@ -407,6 +407,8 @@
   "savebutton" : "Save",
   "version" : "Version",
   "ptReservationHistoryDetails": "Paid PT Reservation",
+  "imageSizeValidation": "Please select an image file smaller than 1 MB",
+  "imageDimensionValidation": "Please select image file with size under 670 X 670 pixels",
 
 
 
