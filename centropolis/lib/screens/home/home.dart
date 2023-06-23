@@ -1,10 +1,12 @@
 import 'dart:convert';
 import 'dart:ffi';
+import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:centropolis/screens/visit_request/visit_reservation_application.dart';
 import 'package:centropolis/screens/voc/air_conditioning_application.dart';
 import 'package:centropolis/screens/voc/complaints_received.dart';
 import 'package:centropolis/screens/voc/light_out_request.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:dots_indicator/dots_indicator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +18,7 @@ import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
+import '../../services/notification_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
@@ -64,6 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
     {"id": 4, "type": "refresh", "image": 'assets/images/ic_slider_5.png'},
     {"id": 5, "type": "voc", "image": 'assets/images/ic_slider_6.png'},
   ];
+  String deviceType = '';
+  String deviceId = '';
+  String fcmToken = '';
+
+
 
   @override
   void initState() {
@@ -71,8 +79,10 @@ class _HomeScreenState extends State<HomeScreen> {
     fToast = FToast();
     fToast.init(context);
     language = tr("lang");
+    getDeviceIdAndDeviceType();
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    // setFirebase();
     loadPersonalInformation();
   }
 
@@ -699,6 +709,7 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         }
       }
+      setDeviceInformation();
       setState(() {
         isLoading = false;
       });
@@ -709,6 +720,75 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     });
   }
+
+
+  void setFirebase() {
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+
+    firebaseMessaging.fcmTokenCtlr.stream.listen((event) {
+      setState(() {
+        fcmToken = event.toString();
+      });
+      debugPrint("FCM Token: $fcmToken");
+
+    });
+  }
+
+  void getDeviceIdAndDeviceType() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      deviceId =
+          iosDeviceInfo.identifierForVendor.toString(); // unique ID on iOS
+      deviceType = "ios";
+    } else if (Platform.isAndroid) {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      // deviceId = androidDeviceInfo.androidId.toString();// unique ID on Android
+      deviceId = androidDeviceInfo.id.toString(); // unique ID on Android
+      deviceType = "android";
+    }
+    setFirebase();
+  }
+
+  void setDeviceInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callSetDeviceInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callSetDeviceInformationApi() {
+    Map<String, String> body = {
+      "device_id": deviceId.trim(),
+      "device_type": deviceType.trim(),
+      "device_token": fcmToken.trim(),
+    };
+    debugPrint("input for Set Device Information ===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(ApiEndPoint.setDeviceInformationUrl, body, language,apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+      debugPrint(
+          "server response for Set Device Information ===> $responseJson");
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['message'] != null) {
+            debugPrint(responseJson['message'].toString());
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            debugPrint(responseJson['message'].toString());
+          }
+        }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+    });
+  }
+
 
 
 }

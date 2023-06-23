@@ -21,6 +21,7 @@ import '../screens/my_page/my_page.dart';
 import '../screens/visit_request/visi_request.dart';
 import '../screens/voc/voc_application.dart';
 import '../services/api_service.dart';
+import '../services/notification_service.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_urls.dart';
 import '../utils/internet_checking.dart';
@@ -55,7 +56,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   bool isLoading = false;
   int selectedPage = 0;
   int unreadNotificationCount = 0;
-
 
 
   @override
@@ -533,6 +533,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       // notificationReadApiCall(id, pushNotificationType);
     }
   }
+
+
+
 
 
 
