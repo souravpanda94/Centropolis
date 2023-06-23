@@ -1,5 +1,4 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:centropolis/screens/visit_request/visit_reservation_application.dart';
@@ -722,6 +721,7 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
 
+//-----------------------------For Push Notification----------------------------
   void setFirebase() {
     final firebaseMessaging = FCM();
     firebaseMessaging.setNotifications();
@@ -788,7 +788,5 @@ class _HomeScreenState extends State<HomeScreen> {
       debugPrint("catchError ================> $onError");
     });
   }
-
-
 
 }
