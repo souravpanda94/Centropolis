@@ -67,6 +67,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    initializeNotifications();
+    setupInteractedMessage();
     loadPersonalInformation();
   }
 
