@@ -105,7 +105,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              lightOutDetails?.status.toString() ?? "",
+                              lightOutDetails?.displayStatus.toString() ?? "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: TextStyle(

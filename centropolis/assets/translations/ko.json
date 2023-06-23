@@ -405,6 +405,10 @@
   "savebutton" : "저장하기",
   "version" : "최신 버전",
   "ptReservationHistoryDetails": "유료 PT 예약",
+  "imageSizeValidation": "1MB이하의 이미지 파일을 선택해 주세요",
+  "imageDimensionValidation": "Please select image file with size under 670 X 670 pixels",
+
+
 
 
 

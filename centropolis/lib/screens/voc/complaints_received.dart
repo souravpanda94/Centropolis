@@ -485,48 +485,48 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   Future openImagePicker(ImageSource source) async {
     try {
       // final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
-      final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70);
+      final List<XFile> selectedImages =
+          await ImagePicker().pickMultiImage(imageQuality: 70);
       if (selectedImages.isNotEmpty) {
         if (selectedImages.length == 1) {
           final tempImage = File(selectedImages[0].path);
 
-
-          var decodedImage = await decodeImageFromList(tempImage.readAsBytesSync());
+          var decodedImage =
+              await decodeImageFromList(tempImage.readAsBytesSync());
           int imageWidth = decodedImage.width;
           int imageHeight = decodedImage.height;
-          debugPrint('----------------Image resolution ${decodedImage.width} X ${decodedImage.height}----------------');
-
-
+          debugPrint(
+              '----------------Image resolution ${decodedImage.width} X ${decodedImage.height}----------------');
 
           debugPrint(getFileSizeString(bytes: tempImage.lengthSync()));
           // final bytes = (await tempImage.readAsBytes()).lengthInBytes;
           final bytes = tempImage.readAsBytesSync().lengthInBytes;
           final kb = bytes / 1024;
           final mb = kb / 1024;
-          debugPrint("----------------Image size in bytes   $bytes---------------");
+          debugPrint(
+              "----------------Image size in bytes   $bytes---------------");
           debugPrint("----------------Image size in KB   $kb---------------");
           debugPrint("----------------Image size in MB   $mb---------------");
 
-          if(mb > 1.0){
-            showCustomToast(fToast, context, "Image size must be under 1 MB", "");
-          }
-          else if(imageWidth > 670 && imageHeight > 670 ){
-            showCustomToast(fToast, context, "Image dimention must be under 670 X 670", "");
-          }
-          else if(imageWidth > 670){
-            showCustomToast(fToast, context, "Image width must be under 670", "");
-          }
-          else if(imageHeight > 670){
-            showCustomToast(fToast, context, "Image height must be under 670", "");
-          }
-          else{
+          if (mb > 1.0) {
+            showCustomToast(fToast, context, tr("imageSizeValidation"), "");
+          } else if (imageWidth > 670 && imageHeight > 670) {
+            showCustomToast(
+                fToast, context, tr("imageDimensionValidation"), "");
+          } else if (imageWidth > 670) {
+            showCustomToast(
+                fToast, context, tr("imageDimensionValidation"), "");
+          } else if (imageHeight > 670) {
+            showCustomToast(
+                fToast, context, tr("imageDimensionValidation"), "");
+          } else {
             setState(() {
               fileImage = tempImage;
-              fileName = fileImage!.path.split('/').last.replaceAll("image_", "");
+              fileName =
+                  fileImage!.path.split('/').last.replaceAll("image_", "");
               imageFileList!.addAll(selectedImages);
             });
           }
-
         } else {
           showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
         }
@@ -536,16 +536,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     }
   }
 
-
   // Format File Size
-   String getFileSizeString({required int bytes, int decimals = 0}) {
+  String getFileSizeString({required int bytes, int decimals = 0}) {
     if (bytes <= 0) return "0 Bytes";
     const suffixes = [" Bytes", "KB", "MB", "GB", "TB"];
     var i = (log(bytes) / log(1024)).floor();
     return ((bytes / pow(1024, i)).toStringAsFixed(decimals)) + suffixes[i];
   }
-
-
 
   floorDropdownWidget() {
     return DropdownButtonHideUnderline(

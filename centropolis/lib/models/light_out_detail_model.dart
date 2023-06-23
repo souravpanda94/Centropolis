@@ -10,6 +10,7 @@ class LightOutDetailModel {
   String? endTime;
   String? detail;
   String? status;
+  String? displayStatus;
   bool? success;
 
   LightOutDetailModel(
@@ -24,6 +25,7 @@ class LightOutDetailModel {
       this.endTime,
       this.detail,
       this.status,
+      this.displayStatus,
       this.success});
 
   LightOutDetailModel.fromJson(Map<String, dynamic> json) {
@@ -39,6 +41,7 @@ class LightOutDetailModel {
     detail = json['detail'];
     status = json['status'];
     success = json['success'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -55,6 +58,7 @@ class LightOutDetailModel {
     data['detail'] = detail;
     data['status'] = status;
     data['success'] = success;
+    data['display_status'] = displayStatus;
     return data;
   }
 }
