@@ -48,28 +48,31 @@ class _FindPasswordState extends State<FindPassword> {
         isLoading: isLoading,
         child: Container(
           width: MediaQuery.of(context).size.width,
-          padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
+          padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
           child: SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RichText(
-                  text: TextSpan(
-                      text: tr("IDHeading"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(tr("IDHeading"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8)),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 6),
+                      child: Text(" *",
+                          style: TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.headingColor)),
+                    ),
+                  ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 6,
                 ),
                 SizedBox(
                   height: 46,
@@ -109,25 +112,28 @@ class _FindPasswordState extends State<FindPassword> {
                   ),
                 ),
                 const SizedBox(
-                  height: 16,
+                  height: 14,
                 ),
-                RichText(
-                  text: TextSpan(
-                      text: tr("email"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                      children: const [
-                        TextSpan(
-                            text: ' *',
-                            style: TextStyle(
-                                color: CustomColors.headingColor, fontSize: 12))
-                      ]),
-                  maxLines: 1,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(tr("email"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8)),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 6),
+                      child: Text(" *",
+                          style: TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.headingColor)),
+                    ),
+                  ],
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 6,
                 ),
                 SizedBox(
                   height: 46,
