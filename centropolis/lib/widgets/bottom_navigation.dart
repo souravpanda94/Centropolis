@@ -132,8 +132,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   selectedPage == 0
                       ? "assets/images/ic_home_red.svg"
                       : "assets/images/ic_home.svg",
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
               ),
               label: tr("home"),
@@ -146,8 +146,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_tenant_service_red.svg"
                       : "assets/images/ic_tenant_service.svg",
                   semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
               ),
               label: tr("amenity"),
@@ -160,8 +160,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_visit_reservation_red.svg"
                       : "assets/images/ic_visit_reservation.svg",
                   semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
               ),
               label: tr("visitRequest"),
@@ -174,8 +174,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_voc_red.svg"
                       : "assets/images/ic_voc.svg",
                   semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
               ),
               label: tr("voc"),
@@ -188,8 +188,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_my_page_red.svg"
                       : "assets/images/ic_my_page.svg",
                   semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
               ),
               label: tr("myPage"),
