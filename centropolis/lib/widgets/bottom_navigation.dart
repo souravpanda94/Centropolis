@@ -29,13 +29,9 @@ import '../utils/push_data_singleton.dart';
 import '../utils/utils.dart';
 import 'home_page_app_bar.dart';
 
-
-
-
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 FirebaseMessaging messaging = FirebaseMessaging.instance;
-
 
 class BottomNavigationScreen extends StatefulWidget {
   final int tabIndex;
@@ -56,7 +52,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   bool isLoading = false;
   int selectedPage = 0;
   int unreadNotificationCount = 0;
-
 
   @override
   void initState() {
@@ -86,7 +81,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                   child: HomePageAppBar(
                       title: setTitle(selectedPage),
                       selectedPage: selectedPage,
-                      unreadNotificationCount : unreadNotificationCount,
+                      unreadNotificationCount: unreadNotificationCount,
                       onSettingBtnTap: () {
                         Navigator.push(
                           context,
@@ -123,56 +118,71 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         showUnselectedLabels: true,
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                selectedPage == 0
-                    ? "assets/images/ic_home_red.svg"
-                    : "assets/images/ic_home.svg",
-                width: 25,
-                height: 25,
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: SvgPicture.asset(
+                  selectedPage == 0
+                      ? "assets/images/ic_home_red.svg"
+                      : "assets/images/ic_home.svg",
+                  width: 20,
+                  height: 20,
+                ),
               ),
               label: tr("home"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                selectedPage == 1
-                    ? "assets/images/ic_tenant_service_red.svg"
-                    : "assets/images/ic_tenant_service.svg",
-                semanticsLabel: 'Back',
-                width: 25,
-                height: 25,
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: SvgPicture.asset(
+                  selectedPage == 1
+                      ? "assets/images/ic_tenant_service_red.svg"
+                      : "assets/images/ic_tenant_service.svg",
+                  semanticsLabel: 'Back',
+                  width: 20,
+                  height: 20,
+                ),
               ),
               label: tr("amenity"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                selectedPage == 2
-                    ? "assets/images/ic_visit_reservation_red.svg"
-                    : "assets/images/ic_visit_reservation.svg",
-                semanticsLabel: 'Back',
-                width: 25,
-                height: 25,
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: SvgPicture.asset(
+                  selectedPage == 2
+                      ? "assets/images/ic_visit_reservation_red.svg"
+                      : "assets/images/ic_visit_reservation.svg",
+                  semanticsLabel: 'Back',
+                  width: 20,
+                  height: 20,
+                ),
               ),
               label: tr("visitRequest"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                selectedPage == 3
-                    ? "assets/images/ic_voc_red.svg"
-                    : "assets/images/ic_voc.svg",
-                semanticsLabel: 'Back',
-                width: 25,
-                height: 25,
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: SvgPicture.asset(
+                  selectedPage == 3
+                      ? "assets/images/ic_voc_red.svg"
+                      : "assets/images/ic_voc.svg",
+                  semanticsLabel: 'Back',
+                  width: 20,
+                  height: 20,
+                ),
               ),
               label: tr("voc"),
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
-              icon: SvgPicture.asset(
-                selectedPage == 4
-                    ? "assets/images/ic_my_page_red.svg"
-                    : "assets/images/ic_my_page.svg",
-                semanticsLabel: 'Back',
-                width: 25,
-                height: 25,
+              icon: Padding(
+                padding: const EdgeInsets.only(bottom: 8),
+                child: SvgPicture.asset(
+                  selectedPage == 4
+                      ? "assets/images/ic_my_page_red.svg"
+                      : "assets/images/ic_my_page.svg",
+                  semanticsLabel: 'Back',
+                  width: 20,
+                  height: 20,
+                ),
               ),
               label: tr("myPage"),
               backgroundColor: CustomColors.whiteColor),
@@ -204,7 +214,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   setTitle(int selectedIndex) {
     if (selectedIndex == 1) {
-
       return tr("amenity");
     } else if (selectedIndex == 2) {
       return tr("visitRequest");
@@ -267,20 +276,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     });
   }
 
-
-
-
-
-
-
-
-
 //-----------------------------For Push Notification----------------------------
   Future<void> setupInteractedMessage() async {
     // Get any messages which caused the application to open from
     // a terminated state.
     RemoteMessage? initialMessage =
-    await FirebaseMessaging.instance.getInitialMessage();
+        await FirebaseMessaging.instance.getInitialMessage();
 
     // If the message also contains a data property with a "type" of "chat",
     // navigate to a chat screen
@@ -378,16 +379,16 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           var postUserId = data['postUserId'];
           var postType = data['postType'];
           // if (apartmentIdPost == apartmentId) {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //       builder: (context) => PostDetail(
-            //         postType: postType,
-            //         postId: postId,
-            //         postUserId: postUserId,
-            //         clickOnPush: true,
-            //       )),
-            // );
+          // Navigator.push(
+          //   context,
+          //   MaterialPageRoute(
+          //       builder: (context) => PostDetail(
+          //         postType: postType,
+          //         postId: postId,
+          //         postUserId: postUserId,
+          //         clickOnPush: true,
+          //       )),
+          // );
           // }
         } else {
           if (url != null && url != "") {
@@ -434,14 +435,15 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   initializeNotifications() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-    const AndroidInitializationSettings('app_icon');
-    DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+        const AndroidInitializationSettings('app_icon');
+    DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onSelectNotification,
-      onDidReceiveBackgroundNotificationResponse: onSelectNotification
-    );
-
+        onDidReceiveBackgroundNotificationResponse: onSelectNotification);
 
     if (Platform.isIOS) {
       NotificationSettings settings = await messaging.requestPermission(
@@ -482,7 +484,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       print(
           "notification detail select notification ====>  ${notificationData.pushData}");
     }
-
 
     if (notificationData.pushData.isNotEmpty) {
       Map data = notificationData.pushData;
@@ -535,12 +536,4 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       // notificationReadApiCall(id, pushNotificationType);
     }
   }
-
-
-
-
-
-
-
-
 }

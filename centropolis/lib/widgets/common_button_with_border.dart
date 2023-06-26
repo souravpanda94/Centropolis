@@ -32,13 +32,13 @@ class _CommonButtonWithBorderState extends State<CommonButtonWithBorder> {
         widget.onCommonButtonTap();
       },
       child: Container(
-        height: 46,
+        height: 43,
         decoration: BoxDecoration(
           color: widget.buttonColor,
           borderRadius: BorderRadius.circular(4),
           border: Border.all(color: widget.buttonBorderColor, width: 1.0),
         ),
-        padding: const EdgeInsets.only(left: 16,right: 16),
+        padding: const EdgeInsets.only(left: 16, right: 16),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
