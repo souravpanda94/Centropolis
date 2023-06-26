@@ -102,7 +102,9 @@ class _HomeScreenState extends State<HomeScreen> {
             return Container(
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
+                color: CustomColors.blackColor,
                 image: DecorationImage(
+                  opacity: 0.8,
                   image: AssetImage(
                     data['image'].trim().toString(),
                   ),
@@ -400,6 +402,8 @@ class _HomeScreenState extends State<HomeScreen> {
                           dotsCount: dataList.length,
                           position: pageIndex.toDouble(),
                           decorator: DotsDecorator(
+                            size: const Size(7, 7),
+                            activeSize: const Size(7, 7),
                             shapes: [
                               RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15.0),
