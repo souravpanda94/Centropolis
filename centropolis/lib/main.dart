@@ -1,3 +1,5 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
 import 'package:centropolis/providers/company_provider.dart';
 import 'package:centropolis/providers/conference_history_provider.dart';
@@ -11,6 +13,8 @@ import 'package:centropolis/providers/view_seat_selection_provider.dart';
 import 'package:centropolis/providers/view_visit_reservation_list_provider.dart';
 import 'package:centropolis/providers/visit_inquiry_list_provider.dart';
 import 'package:centropolis/providers/visit_reservation_list_provider.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -48,9 +52,22 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  await Firebase.initializeApp();
+  final streamCtlr = StreamController<String>.broadcast();
+  streamCtlr.sink.add(jsonEncode(message.data));
+  if (kDebugMode) {
+    print("Handling a background message: ${message.data}");
+  }
+}
+
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
+  await Firebase.initializeApp();
+  FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
+
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(

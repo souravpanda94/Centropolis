@@ -14,6 +14,7 @@ class ComplaintsReceivedDetailsModel {
   String? canReply;
   String? registeredDate;
   String? floor;
+  String? displayStatus;
   bool? success;
 
   ComplaintsReceivedDetailsModel(
@@ -32,6 +33,7 @@ class ComplaintsReceivedDetailsModel {
       this.canReply,
       this.registeredDate,
       this.floor,
+      this.displayStatus,
       this.success});
 
   ComplaintsReceivedDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class ComplaintsReceivedDetailsModel {
     registeredDate = json['registered_date'];
     floor = json['floor'];
     success = json['success'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +74,7 @@ class ComplaintsReceivedDetailsModel {
     data['registered_date'] = registeredDate;
     data['floor'] = floor;
     data['success'] = success;
+    data['display_status'] = displayStatus;
     return data;
   }
 }

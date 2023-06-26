@@ -11,6 +11,7 @@ class AirConditioningDetailModel {
   String? startTime;
   String? usageHours;
   String? requestDate;
+  String? displayStatus;
   bool? success;
 
   AirConditioningDetailModel(
@@ -26,6 +27,7 @@ class AirConditioningDetailModel {
       this.detail,
       this.startTime,
       this.usageHours,
+      this.displayStatus,
       this.success});
 
   AirConditioningDetailModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +44,7 @@ class AirConditioningDetailModel {
     usageHours = json['usage_hour'].toString();
     requestDate = json['request_date'];
     success = json['success'];
+    displayStatus = json['display_status'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +62,7 @@ class AirConditioningDetailModel {
     data['usage_hour'] = usageHours;
     data['request_date'] = requestDate;
     data['success'] = success;
+    data['display_status'] = displayStatus;
     return data;
   }
 }
