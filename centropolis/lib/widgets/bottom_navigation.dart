@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:developer';
 import 'dart:io';
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:http/http.dart' as http;
 import 'package:easy_localization/easy_localization.dart';
@@ -32,10 +35,8 @@ import 'home_page_app_bar.dart';
 
 
 
-
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 FirebaseMessaging messaging = FirebaseMessaging.instance;
-
 
 class BottomNavigationScreen extends StatefulWidget {
   final int tabIndex;
@@ -56,6 +57,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   bool isLoading = false;
   int selectedPage = 0;
   int unreadNotificationCount = 0;
+  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  final Connectivity _connectivity = Connectivity();
 
 
   @override
@@ -67,6 +70,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    initConnectivity();
     initializeNotifications();
     setupInteractedMessage();
     loadPersonalInformation();
@@ -434,12 +438,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
   initializeNotifications() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-    const AndroidInitializationSettings('app_icon');
+    const AndroidInitializationSettings('@drawable/ic_notification');
     DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
     InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onSelectNotification,
-      onDidReceiveBackgroundNotificationResponse: onSelectNotification
     );
 
 
@@ -536,7 +539,37 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     }
   }
 
+  Future<void> initConnectivity() async {
+    late ConnectivityResult result;
+    // Platform messages may fail, so we use a try/catch PlatformException.
+    try {
+      result = await _connectivity.checkConnectivity();
+    } on PlatformException catch (e) {
+      log('Couldn\'t check connectivity status', error: e);
+      return;
+    }
 
+    // If the widget was removed from the tree while the asynchronous platform
+    // message was in flight, we want to discard the reply rather than calling
+    // setState to update our non-existent appearance.
+    if (!mounted) {
+      return Future.value(null);
+    }
+
+    return _updateConnectionStatus(result);
+  }
+
+
+  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+    setState(() {
+      _connectionStatus = result;
+    });
+    if (_connectionStatus.toString() == "ConnectivityResult.none") {
+      if (Platform.isAndroid) {
+        showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      }
+    }
+  }
 
 
 
