@@ -68,7 +68,6 @@ class WebService {
           },
           body: json.encode(body));
     }
-
     return response;
   }
 
