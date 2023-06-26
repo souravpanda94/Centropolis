@@ -36,8 +36,6 @@ import 'home_page_app_bar.dart';
 
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
-    FlutterLocalNotificationsPlugin();
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -451,16 +449,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     await flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onDidReceiveNotificationResponse: onSelectNotification,
     );
-
-        const AndroidInitializationSettings('app_icon');
-    DarwinInitializationSettings initializationSettingsIOS =
-        DarwinInitializationSettings(
-            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    InitializationSettings initializationSettings = InitializationSettings(
-        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onSelectNotification,
-        onDidReceiveBackgroundNotificationResponse: onSelectNotification);
 
     if (Platform.isIOS) {
       NotificationSettings settings = await messaging.requestPermission(
