@@ -30,7 +30,7 @@ class _CommonButtonState extends State<CommonButton> {
         widget.onCommonButtonTap();
       },
       child: Container(
-        height: 46,
+        height: 43,
         decoration: BoxDecoration(
           color: widget.buttonColor,
           borderRadius: BorderRadius.circular(4),

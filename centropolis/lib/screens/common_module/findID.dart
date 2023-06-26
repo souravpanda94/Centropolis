@@ -39,85 +39,90 @@ class _FindIdScreenState extends State<FindID> {
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.greyColor1,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RichText(
-              text: TextSpan(
-                  text: tr("email"),
-                  style: const TextStyle(
-                      fontFamily: 'Bold',
+        opacity: 0.5,
+        color: CustomColors.greyColor1,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                RichText(
+                  text: TextSpan(
+                      text: tr("email"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                      children: const [
+                        TextSpan(
+                            text: ' *',
+                            style: TextStyle(
+                                color: CustomColors.headingColor, fontSize: 12))
+                      ]),
+                  maxLines: 1,
+                ),
+                const SizedBox(
+                  height: 8,
+                ),
+                SizedBox(
+                  height: 46,
+                  child: TextField(
+                    controller: emailIDController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('emailHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
                       fontSize: 14,
-                      color: CustomColors.textColor8),
-                  children: const [
-                    TextSpan(
-                        text: ' *',
-                        style: TextStyle(
-                            color: CustomColors.headingColor, fontSize: 12))
-                  ]),
-              maxLines: 1,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: emailIDController,
-              cursorColor: CustomColors.textColorBlack2,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                fillColor: CustomColors.whiteColor,
-                filled: true,
-                contentPadding: const EdgeInsets.all(16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
+                      fontFamily: 'Regular',
+                    ),
+                  ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
+                Container(
+                  margin: const EdgeInsets.only(top: 32, bottom: 16),
+                  child: CommonButton(
+                      onCommonButtonTap: () {
+                        // showSentUserIdModal();
+                        // showSentTemporaryPasswordModal();
+                        findIdValidation();
+                      },
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      buttonName: tr("findID"),
+                      isIconVisible: false),
                 ),
-                hintText: tr('emailHint'),
-                hintStyle: const TextStyle(
-                  color: CustomColors.textColor3,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-              ),
-              style: const TextStyle(
-                color: CustomColors.blackColor,
-                fontSize: 14,
-                fontFamily: 'Regular',
-              ),
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 32, bottom: 16),
-              child: CommonButton(
-                  onCommonButtonTap: () {
-                    // showSentUserIdModal();
-                    // showSentTemporaryPasswordModal();
-                    findIdValidation();
-                  },
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("findID"),
-                  isIconVisible: false),
-            ),
-          ],
+          ),
         ),
       ),
-    ),),);
+    );
   }
 
   void showSentUserIdModal(String title, String message) {
@@ -166,8 +171,7 @@ class _FindIdScreenState extends State<FindID> {
   void findIdValidation() {
     if (emailIDController.text.trim().isEmpty) {
       showEmailErrorModal(tr("emailValidation"));
-    }
-    else if (!isValidEmail(emailIDController.text.trim())) {
+    } else if (!isValidEmail(emailIDController.text.trim())) {
       showEmailErrorModal(tr("onlyValidEmailIsApplicable"));
     } else {
       callFindIdNetworkCheck();
@@ -236,5 +240,4 @@ class _FindIdScreenState extends State<FindID> {
   void clearDataField() {
     emailIDController.clear();
   }
-
 }

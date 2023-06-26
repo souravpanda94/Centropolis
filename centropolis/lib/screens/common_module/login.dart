@@ -92,74 +92,80 @@ class _LoginScreenState extends State<LoginScreen> {
                   const SizedBox(
                     height: 32,
                   ),
-                  TextField(
-                    controller: emailIDController,
-                    maxLength: 16,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: emailIDController,
+                      maxLength: 16,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('id'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('id'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  TextField(
-                    controller: passwordController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    obscureText: true,
-                    keyboardType: TextInputType.visiblePassword,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: passwordController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      obscureText: true,
+                      keyboardType: TextInputType.visiblePassword,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('password'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('password'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   const SizedBox(
@@ -171,20 +177,23 @@ class _LoginScreenState extends State<LoginScreen> {
                       Container(
                         height: 12,
                         width: 12,
-                        margin: const EdgeInsets.only(left: 5.0, right: 5.0),
-                        child: Checkbox(
-                          checkColor: CustomColors.whiteColor,
-                          activeColor: CustomColors.buttonBackgroundColor,
-                          side: const BorderSide(
-                              color: CustomColors.greyColor, width: 1),
-                          value: checkSigned,
-                          onChanged: (value) {
-                            setState(() {
-                              checkSigned = value!;
-                              if (checkSigned) {
-                              } else {}
-                            });
-                          },
+                        margin: const EdgeInsets.only(left: 5.0),
+                        child: Transform.scale(
+                          scale: 0.8,
+                          child: Checkbox(
+                            checkColor: CustomColors.whiteColor,
+                            activeColor: CustomColors.buttonBackgroundColor,
+                            side: const BorderSide(
+                                color: CustomColors.greyColor, width: 1),
+                            value: checkSigned,
+                            onChanged: (value) {
+                              setState(() {
+                                checkSigned = value!;
+                                if (checkSigned) {
+                                } else {}
+                              });
+                            },
+                          ),
                         ),
                       ),
                       const SizedBox(
@@ -215,9 +224,8 @@ class _LoginScreenState extends State<LoginScreen> {
                         buttonName: tr("btnLogin"),
                         isIconVisible: false),
                   ),
-                  Container(
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
-                    margin: const EdgeInsets.only(top: 16),
                     child: IntrinsicHeight(
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.center,
@@ -406,7 +414,7 @@ class _LoginScreenState extends State<LoginScreen> {
     hideKeyboard();
 
     if (emailIDController.text.trim().isEmpty) {
-      showUserIdErrorModal(tr("pleaseEnterYourId"));
+      showUserIdErrorModal(tr("IDHint"));
     } else if (!isValidUserId(emailIDController.text.trim())) {
       showUserIdErrorModal(tr("onlyValidEmailIsApplicable"));
     } else if (passwordController.text.trim().isEmpty) {

@@ -36,7 +36,6 @@ class _CommonModalState extends State<CommonModal> {
     AssetImage cancelImage = const AssetImage('assets/images/ic_cancel.png');
     double width = MediaQuery.of(context).size.width;
 
-
     return AlertDialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(4),
@@ -51,10 +50,10 @@ class _CommonModalState extends State<CommonModal> {
             SizedBox(
               child: Text(
                 widget.heading,
-                style: const TextStyle(
+                style: TextStyle(
                   color: CustomColors.textColor8,
                   fontSize: 16,
-                  fontFamily: 'Bold',
+                  fontFamily: widget.description.isEmpty ? 'SemiBold' : 'Bold',
                 ),
                 textAlign: TextAlign.center,
               ),
@@ -81,7 +80,7 @@ class _CommonModalState extends State<CommonModal> {
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      // padding: const EdgeInsets.only(left: 45.0, right: 45.0),
+                        // padding: const EdgeInsets.only(left: 45.0, right: 45.0),
                         primary: CustomColors.buttonBackgroundColor,
                         shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(4),
@@ -112,31 +111,31 @@ class _CommonModalState extends State<CommonModal> {
                     children: [
                       Expanded(
                           child: SizedBox(
-                            height: 52,
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                primary: CustomColors.whiteColor,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(4),
-                                  side: const BorderSide(
-                                      color: CustomColors.buttonBackgroundColor),
-                                ),
-                                shadowColor: Colors.transparent,
-                              ),
-                              child: Text(
-                                widget.firstButtonName,
-                                style: const TextStyle(
-                                  fontSize: 14,
-                                  color: CustomColors.buttonBackgroundColor,
-                                  fontFamily: 'Bold',
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              onPressed: () {
-                                widget.onFirstBtnTap();
-                              },
+                        height: 52,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            primary: CustomColors.whiteColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              side: const BorderSide(
+                                  color: CustomColors.buttonBackgroundColor),
                             ),
-                          )),
+                            shadowColor: Colors.transparent,
+                          ),
+                          child: Text(
+                            widget.firstButtonName,
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: CustomColors.buttonBackgroundColor,
+                              fontFamily: 'Bold',
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          onPressed: () {
+                            widget.onFirstBtnTap();
+                          },
+                        ),
+                      )),
                       const SizedBox(
                         width: 8.0,
                       ),
@@ -170,6 +169,5 @@ class _CommonModalState extends State<CommonModal> {
                   )),
           ]),
         ));
-
   }
 }
