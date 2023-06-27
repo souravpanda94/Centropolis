@@ -26,7 +26,7 @@ class _LoungeScreenState extends State<LoungeScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
                     "assets/images/lounge.png",
-                    height: 320,
+                    height: 300,
                     fit: BoxFit.fill,
                   ),
                 ),

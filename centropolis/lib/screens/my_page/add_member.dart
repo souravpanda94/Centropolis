@@ -108,7 +108,7 @@ class _AddMemberState extends State<AddMember> {
                       Text(
                         tr("enterEmployeeDetails"),
                         style: const TextStyle(
-                            fontFamily: 'Bold',
+                            fontFamily: 'SemiBold',
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
@@ -138,7 +138,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("tenantCompany"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -159,7 +159,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("floor"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -180,7 +180,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("name"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -193,36 +193,39 @@ class _AddMemberState extends State<AddMember> {
                       maxLines: 1,
                     ),
                   ),
-                  TextField(
-                    controller: nameController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: nameController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('employeeNameHint'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('employeeNameHint'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   Container(
@@ -232,7 +235,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("IDHeading"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -248,38 +251,41 @@ class _AddMemberState extends State<AddMember> {
                   Row(
                     children: [
                       Expanded(
-                        child: TextField(
-                          controller: idController,
-                          cursorColor: CustomColors.textColorBlack2,
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            border: InputBorder.none,
-                            fillColor: CustomColors.whiteColor,
-                            filled: true,
-                            contentPadding: const EdgeInsets.all(16),
-                            enabledBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                  color: CustomColors.dividerGreyColor,
-                                  width: 1.0),
+                        child: SizedBox(
+                          height: 46,
+                          child: TextField(
+                            controller: idController,
+                            cursorColor: CustomColors.textColorBlack2,
+                            keyboardType: TextInputType.text,
+                            decoration: InputDecoration(
+                              border: InputBorder.none,
+                              fillColor: CustomColors.whiteColor,
+                              filled: true,
+                              contentPadding: const EdgeInsets.all(16),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: CustomColors.dividerGreyColor,
+                                    width: 1.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(4),
+                                borderSide: const BorderSide(
+                                    color: CustomColors.dividerGreyColor,
+                                    width: 1.0),
+                              ),
+                              hintText: tr('employeeIDHint'),
+                              hintStyle: const TextStyle(
+                                color: CustomColors.textColor3,
+                                fontSize: 14,
+                                fontFamily: 'Regular',
+                              ),
                             ),
-                            focusedBorder: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(4),
-                              borderSide: const BorderSide(
-                                  color: CustomColors.dividerGreyColor,
-                                  width: 1.0),
-                            ),
-                            hintText: tr('employeeIDHint'),
-                            hintStyle: const TextStyle(
-                              color: CustomColors.textColor3,
+                            style: const TextStyle(
+                              color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
-                          ),
-                          style: const TextStyle(
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
                           ),
                         ),
                       ),
@@ -303,7 +309,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("passwordHeading"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -316,39 +322,42 @@ class _AddMemberState extends State<AddMember> {
                       maxLines: 1,
                     ),
                   ),
-                  TextField(
-                    controller: passwordController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: passwordController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('passwordHint'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('passwordHint'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   Container(
@@ -358,7 +367,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("verifyPassword"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -371,39 +380,42 @@ class _AddMemberState extends State<AddMember> {
                       maxLines: 1,
                     ),
                   ),
-                  TextField(
-                    controller: verifyPasswordController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
-                    obscureText: true,
-                    enableSuggestions: false,
-                    autocorrect: false,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: verifyPasswordController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.text,
+                      obscureText: true,
+                      enableSuggestions: false,
+                      autocorrect: false,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('verifyPasswordHint'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('verifyPasswordHint'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   Container(
@@ -413,7 +425,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("email"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -426,36 +438,39 @@ class _AddMemberState extends State<AddMember> {
                       maxLines: 1,
                     ),
                   ),
-                  TextField(
-                    controller: emailIDController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.emailAddress,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: emailIDController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.emailAddress,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('emailDemoHint'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('emailDemoHint'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   Container(
@@ -465,7 +480,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("contactNo"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -478,38 +493,41 @@ class _AddMemberState extends State<AddMember> {
                       maxLines: 1,
                     ),
                   ),
-                  TextField(
-                    controller: contactNoController,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.number,
-                    maxLength: 11,
-                    decoration: InputDecoration(
-                      counterText: '',
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: contactNoController,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.number,
+                      maxLength: 11,
+                      decoration: InputDecoration(
+                        counterText: '',
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('contactNoHint'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('contactNoHint'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.blackColor,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   ),
                   Container(
@@ -519,7 +537,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("gender"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [

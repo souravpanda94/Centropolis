@@ -153,9 +153,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
                 ],
               ),
             ),
@@ -272,19 +269,22 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           child: SizedBox(
                             height: 15,
                             width: 15,
-                            child: Checkbox(
-                              checkColor: CustomColors.whiteColor,
-                              activeColor: CustomColors.buttonBackgroundColor,
-                              side: const BorderSide(
-                                  color: CustomColors.greyColor, width: 1),
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value!;
-                                  if (isChecked) {
-                                  } else {}
-                                });
-                              },
+                            child: Transform.scale(
+                              scale: 0.8,
+                              child: Checkbox(
+                                checkColor: CustomColors.whiteColor,
+                                activeColor: CustomColors.buttonBackgroundColor,
+                                side: const BorderSide(
+                                    color: CustomColors.greyColor, width: 1),
+                                value: isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                    if (isChecked) {
+                                    } else {}
+                                  });
+                                },
+                              ),
                             ),
                           ),
                         ),
@@ -368,7 +368,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 16, bottom: 16),
+                      padding: const EdgeInsets.only(left: 12, bottom: 12),
                       child: Text(
                         item["text"],
                         style: const TextStyle(
@@ -378,11 +378,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         ),
                       ),
                     ),
-                    const Divider(
-                      thickness: 1,
-                      height: 1,
-                      color: Colors.grey,
-                    )
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    if (item != usageTimeList.last)
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: CustomColors.dividerGreyColor,
+                      )
                   ],
                 ),
                 onTap: () {
@@ -406,8 +410,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
           });
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
           isOverButton: false,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           elevation: 0,
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
@@ -419,7 +423,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: usageTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: usageTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -428,7 +432,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -436,14 +440,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: usageTimeSelectedValue != null ? 0 : 16,
-                bottom: usageTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: usageTimeSelectedValue != null ? 0 : 13,
+                bottom: usageTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );
@@ -469,7 +475,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 16, bottom: 16),
+                          padding: const EdgeInsets.only(left: 12, bottom: 12),
                           child: Text(
                             item,
                             style: const TextStyle(
@@ -479,11 +485,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             ),
                           ),
                         ),
-                        const Divider(
-                          thickness: 1,
-                          height: 1,
-                          color: Colors.grey,
-                        )
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        if (item != timeList.last)
+                          const Divider(
+                            thickness: 1,
+                            height: 1,
+                            color: CustomColors.dividerGreyColor,
+                          )
                       ],
                     ),
                   ))
@@ -498,6 +508,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             maxHeight: 200,
             isOverButton: false,
             elevation: 0,
+            padding: const EdgeInsets.only(top: 0, bottom: 0),
             decoration: BoxDecoration(
                 color: CustomColors.whiteColor,
                 border: Border.all(
@@ -508,7 +519,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           iconStyleData: IconStyleData(
               icon: Padding(
             padding: EdgeInsets.only(
-                bottom: startTimeSelectedValue != null ? 16 : 0),
+                bottom: startTimeSelectedValue != null ? 12 : 0),
             child: SvgPicture.asset(
               "assets/images/ic_drop_down_arrow.svg",
               width: 8,
@@ -517,7 +528,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             ),
           )),
           buttonStyleData: ButtonStyleData(
-              height: 53,
+              height: 48,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   border: Border.all(
@@ -525,20 +536,22 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   ),
                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               padding: EdgeInsets.only(
-                  top: 16,
-                  right: 16,
-                  left: startTimeSelectedValue != null ? 0 : 16,
-                  bottom: startTimeSelectedValue != null ? 0 : 16),
+                  top: 12,
+                  right: 12,
+                  left: startTimeSelectedValue != null ? 0 : 13,
+                  bottom: startTimeSelectedValue != null ? 0 : 11),
               elevation: 0),
           menuItemStyleData: const MenuItemStyleData(
-            padding: EdgeInsets.all(0),
-            height: 53,
+            overlayColor:
+                MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+            padding: EdgeInsets.only(top: 13),
+            height: 48,
           ),
         ),
       );
     } else {
       return Container(
-        height: 53,
+        height: 48,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(left: 16, right: 16),
         decoration: BoxDecoration(
@@ -589,7 +602,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Padding(
-                          padding: const EdgeInsets.only(left: 16, bottom: 16),
+                          padding: const EdgeInsets.only(left: 12, bottom: 12),
                           child: Text(
                             item,
                             style: const TextStyle(
@@ -599,11 +612,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             ),
                           ),
                         ),
-                        const Divider(
-                          thickness: 1,
-                          height: 1,
-                          color: Colors.grey,
-                        )
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        if (item != timeList.last)
+                          const Divider(
+                            thickness: 1,
+                            height: 1,
+                            color: CustomColors.dividerGreyColor,
+                          )
                       ],
                     ),
                   ))
@@ -618,6 +635,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             maxHeight: 200,
             isOverButton: false,
             elevation: 0,
+            padding: const EdgeInsets.only(top: 0, bottom: 0),
             decoration: BoxDecoration(
                 color: CustomColors.whiteColor,
                 border: Border.all(
@@ -628,7 +646,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           iconStyleData: IconStyleData(
               icon: Padding(
             padding:
-                EdgeInsets.only(bottom: endTimeSelectedValue != null ? 16 : 0),
+                EdgeInsets.only(bottom: endTimeSelectedValue != null ? 12 : 0),
             child: SvgPicture.asset(
               "assets/images/ic_drop_down_arrow.svg",
               width: 8,
@@ -637,7 +655,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             ),
           )),
           buttonStyleData: ButtonStyleData(
-              height: 53,
+              height: 48,
               width: MediaQuery.of(context).size.width,
               decoration: BoxDecoration(
                   border: Border.all(
@@ -645,14 +663,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   ),
                   borderRadius: const BorderRadius.all(Radius.circular(4))),
               padding: EdgeInsets.only(
-                  top: 16,
-                  right: 16,
-                  left: endTimeSelectedValue != null ? 0 : 16,
-                  bottom: endTimeSelectedValue != null ? 0 : 16),
+                  top: 12,
+                  right: 12,
+                  left: endTimeSelectedValue != null ? 0 : 13,
+                  bottom: endTimeSelectedValue != null ? 0 : 11),
               elevation: 0),
           menuItemStyleData: const MenuItemStyleData(
-            padding: EdgeInsets.all(0),
-            height: 53,
+            overlayColor:
+                MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+            padding: EdgeInsets.only(top: 13),
+            height: 48,
           ),
         ),
       );

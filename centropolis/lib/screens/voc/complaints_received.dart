@@ -186,26 +186,28 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           color: CustomColors.textColor8),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 20,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("floor"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("floor"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     floorDropdownWidget(),
                     const SizedBox(
@@ -233,39 +235,44 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     const SizedBox(
                       height: 8,
                     ),
-                    TextField(
-                      controller: titleController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
-                      showCursor: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
+                    SizedBox(
+                      height: 46,
+                      child: TextField(
+                        controller: titleController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.text,
+                        showCursor: true,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr("titleHint"),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr("titleHint"),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
+                        onTap: () {},
                       ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      onTap: () {},
                     ),
                     const SizedBox(
                       height: 16,

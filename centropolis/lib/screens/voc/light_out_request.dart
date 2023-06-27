@@ -391,30 +391,28 @@ class _LightOutRequestState extends State<LightOutRequest> {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       height: 288,
-                      child: SingleChildScrollView(
-                        child: TextField(
-                          controller: otherRequestController,
-                          cursorColor: CustomColors.textColorBlack2,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 14,
-                          decoration: InputDecoration(
-                            hintMaxLines: 500,
-                            border: InputBorder.none,
-                            fillColor: CustomColors.whiteColor,
-                            filled: true,
-                            contentPadding: const EdgeInsets.all(16),
-                            hintText: tr('otherRequestHint'),
-                            hintStyle: const TextStyle(
-                              color: CustomColors.textColor3,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                          style: const TextStyle(
-                            color: CustomColors.textColorBlack2,
+                      child: TextField(
+                        controller: otherRequestController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 14,
+                        decoration: InputDecoration(
+                          hintMaxLines: 500,
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          hintText: tr('otherRequestHint'),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.textColorBlack2,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
                         ),
                       ),
                     ),

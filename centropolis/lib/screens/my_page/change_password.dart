@@ -76,9 +76,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: Column(children: [
                 Container(
                   margin: const EdgeInsets.only(
-                    top: 40.0,
-                    left: 15.0,
-                    right: 15.0,
+                    top: 16.0,
+                    left: 16.0,
+                    right: 16.0,
                   ),
                   child: Align(
                     alignment: Alignment.centerLeft,
@@ -96,11 +96,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 Container(
                   margin: const EdgeInsets.only(
                     top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
+                    left: 16.0,
+                    right: 16.0,
                   ),
                   child: SizedBox(
-                    height: 47.0,
+                    height: 46.0,
                     child: TextField(
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -165,7 +165,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
                 Container(
                   margin:
-                      const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
+                      const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -182,11 +182,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 Container(
                   margin: const EdgeInsets.only(
                     top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
+                    left: 16.0,
+                    right: 16.0,
                   ),
                   child: SizedBox(
-                    height: 47.0,
+                    height: 46.0,
                     child: TextField(
                       keyboardType: TextInputType.visiblePassword,
                       maxLength: 16,
@@ -251,7 +251,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
 
                 Container(
                   margin:
-                      const EdgeInsets.only(left: 15.0, right: 15.0, top: 28.0),
+                      const EdgeInsets.only(left: 16.0, right: 16.0, top: 16.0),
                   child: Align(
                     alignment: Alignment.centerLeft,
                     child: Text(
@@ -268,11 +268,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 Container(
                   margin: const EdgeInsets.only(
                     top: 8.0,
-                    left: 15.0,
-                    right: 15.0,
+                    left: 16.0,
+                    right: 16.0,
                   ),
                   child: SizedBox(
-                    height: 47.0,
+                    height: 46.0,
                     child: TextField(
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
@@ -316,6 +316,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                     ),
                   ),
                 ),
+                yourButtonWidget()
 
                 // if (confirmPasswordValidation)
                 //   Container(
@@ -336,31 +337,22 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                 //   ),
               ])),
             ),
-            floatingActionButton: yourButtonWidget(),
-            floatingActionButtonLocation:
-                FloatingActionButtonLocation.centerFloat,
           )),
     );
   }
 
   yourButtonWidget() {
-    return Align(
-      alignment: FractionalOffset.bottomCenter,
-      child: Container(
-        height: 52,
-        width: double.infinity,
-        margin: const EdgeInsets.only(
-          left: 15.0,
-          right: 15.0,
-        ),
-        child: CommonButton(
-            onCommonButtonTap: () {
-              onChangeButtonClick();
-            },
-            buttonColor: CustomColors.buttonBackgroundColor,
-            buttonName: tr("savebutton"),
-            isIconVisible: false),
-      ),
+    return Container(
+      height: 46,
+      width: double.infinity,
+      margin: const EdgeInsets.only(left: 15.0, right: 15.0, top: 24),
+      child: CommonButton(
+          onCommonButtonTap: () {
+            onChangeButtonClick();
+          },
+          buttonColor: CustomColors.buttonBackgroundColor,
+          buttonName: tr("savebutton"),
+          isIconVisible: false),
     );
   }
 

@@ -154,9 +154,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
                   ],
                 ),
               ),
@@ -205,49 +202,53 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           color: CustomColors.textColor8),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 20,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("startTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("startTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     startTimeDropdownWidget(),
                     const SizedBox(
-                      height: 16,
+                      height: 14,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("endTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("endTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     endTimeDropdownWidget(),
                   ],
@@ -278,33 +279,31 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      height: 288,
-                      child: SingleChildScrollView(
-                        child: TextField(
-                          controller: rentalInfoController,
-                          cursorColor: CustomColors.textColorBlack2,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 14,
-                          maxLength: 500,
-                          decoration: InputDecoration(
-                            counterText: "",
-                            hintMaxLines: 5,
-                            border: InputBorder.none,
-                            fillColor: CustomColors.whiteColor,
-                            filled: true,
-                            contentPadding: const EdgeInsets.all(16),
-                            hintText: tr('rentalInformationHint'),
-                            hintStyle: const TextStyle(
-                              color: CustomColors.textColorBlack2,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                          style: const TextStyle(
+                      height: 278,
+                      child: TextField(
+                        controller: rentalInfoController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 14,
+                        maxLength: 500,
+                        decoration: InputDecoration(
+                          counterText: "",
+                          hintMaxLines: 5,
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          hintText: tr('rentalInformationHint'),
+                          hintStyle: const TextStyle(
                             color: CustomColors.textColorBlack2,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.textColorBlack2,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
                         ),
                       ),
                     ),
@@ -334,19 +333,23 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                             child: SizedBox(
                               height: 15,
                               width: 15,
-                              child: Checkbox(
-                                checkColor: CustomColors.whiteColor,
-                                activeColor: CustomColors.buttonBackgroundColor,
-                                side: const BorderSide(
-                                    color: CustomColors.greyColor, width: 1),
-                                value: isChecked,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isChecked = value!;
-                                    if (isChecked) {
-                                    } else {}
-                                  });
-                                },
+                              child: Transform.scale(
+                                scale: 0.8,
+                                child: Checkbox(
+                                  checkColor: CustomColors.whiteColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
+                                  side: const BorderSide(
+                                      color: CustomColors.greyColor, width: 1),
+                                  value: isChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isChecked = value!;
+                                      if (isChecked) {
+                                      } else {}
+                                    });
+                                  },
+                                ),
                               ),
                             ),
                           ),
@@ -428,7 +431,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -438,11 +441,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != timeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -457,6 +464,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -467,7 +475,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: startTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: startTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -476,7 +484,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -484,14 +492,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: startTimeSelectedValue != null ? 0 : 16,
-                bottom: startTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: startTimeSelectedValue != null ? 0 : 13,
+                bottom: startTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 13),
+          height: 48,
         ),
       ),
     );
@@ -516,7 +526,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -526,11 +536,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != timeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -545,6 +559,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -555,7 +570,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: endTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: endTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -564,7 +579,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -572,14 +587,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: endTimeSelectedValue != null ? 0 : 16,
-                bottom: endTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: endTimeSelectedValue != null ? 0 : 13,
+                bottom: endTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 13),
+          height: 48,
         ),
       ),
     );

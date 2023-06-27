@@ -61,7 +61,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset(
                       "assets/images/fitness.png",
-                      height: 320,
+                      height: 300,
                       fit: BoxFit.fill,
                     ),
                   ),

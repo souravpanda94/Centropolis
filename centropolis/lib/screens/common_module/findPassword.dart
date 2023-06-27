@@ -13,8 +13,6 @@ import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 
-
-
 class FindPassword extends StatefulWidget {
   const FindPassword({super.key});
 
@@ -42,138 +40,152 @@ class _FindPasswordState extends State<FindPassword> {
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.greyColor1,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Container(
-      width: MediaQuery.of(context).size.width,
-      padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            RichText(
-              text: TextSpan(
-                  text: tr("IDHeading"),
-                  style: const TextStyle(
-                      fontFamily: 'Bold',
+        opacity: 0.5,
+        color: CustomColors.greyColor1,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          padding: const EdgeInsets.only(top: 30, left: 16, right: 16),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(tr("IDHeading"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8)),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 6),
+                      child: Text(" *",
+                          style: TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.headingColor)),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 6,
+                ),
+                SizedBox(
+                  height: 46,
+                  child: TextField(
+                    controller: idController,
+                    maxLength: 16,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      counterText: '',
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('IDHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
                       fontSize: 14,
-                      color: CustomColors.textColor8),
-                  children: const [
-                    TextSpan(
-                        text: ' *',
-                        style: TextStyle(
-                            color: CustomColors.headingColor, fontSize: 12))
-                  ]),
-              maxLines: 1,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: idController,
-              maxLength: 16,
-              cursorColor: CustomColors.textColorBlack2,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                counterText: '',
-                border: InputBorder.none,
-                fillColor: CustomColors.whiteColor,
-                filled: true,
-                contentPadding: const EdgeInsets.all(16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
+                      fontFamily: 'Regular',
+                    ),
+                  ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
+                const SizedBox(
+                  height: 14,
                 ),
-                hintText: tr('IDHint'),
-                hintStyle: const TextStyle(
-                  color: CustomColors.textColor3,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Text(tr("email"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8)),
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 6),
+                      child: Text(" *",
+                          style: TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.headingColor)),
+                    ),
+                  ],
                 ),
-              ),
-              style: const TextStyle(
-                color: CustomColors.blackColor,
-                fontSize: 14,
-                fontFamily: 'Regular',
-              ),
-            ),
-            const SizedBox(
-              height: 16,
-            ),
-            RichText(
-              text: TextSpan(
-                  text: tr("email"),
-                  style: const TextStyle(
-                      fontFamily: 'Bold',
+                const SizedBox(
+                  height: 6,
+                ),
+                SizedBox(
+                  height: 46,
+                  child: TextField(
+                    controller: emailIDController,
+                    cursorColor: CustomColors.textColorBlack2,
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: tr('emailHint'),
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColor3,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                    ),
+                    style: const TextStyle(
+                      color: CustomColors.blackColor,
                       fontSize: 14,
-                      color: CustomColors.textColor8),
-                  children: const [
-                    TextSpan(
-                        text: ' *',
-                        style: TextStyle(
-                            color: CustomColors.headingColor, fontSize: 12))
-                  ]),
-              maxLines: 1,
-            ),
-            const SizedBox(
-              height: 8,
-            ),
-            TextField(
-              controller: emailIDController,
-              cursorColor: CustomColors.textColorBlack2,
-              keyboardType: TextInputType.text,
-              decoration: InputDecoration(
-                border: InputBorder.none,
-                fillColor: CustomColors.whiteColor,
-                filled: true,
-                contentPadding: const EdgeInsets.all(16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
+                      fontFamily: 'Regular',
+                    ),
+                  ),
                 ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
+                Container(
+                  margin: const EdgeInsets.only(top: 32, bottom: 16),
+                  child: CommonButton(
+                      onCommonButtonTap: () {
+                        findPasswordValidation();
+                      },
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      buttonName: tr("findPassword"),
+                      isIconVisible: false),
                 ),
-                hintText: tr('emailHint'),
-                hintStyle: const TextStyle(
-                  color: CustomColors.textColor3,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-              ),
-              style: const TextStyle(
-                color: CustomColors.blackColor,
-                fontSize: 14,
-                fontFamily: 'Regular',
-              ),
+              ],
             ),
-            Container(
-              margin: const EdgeInsets.only(top: 32, bottom: 16),
-              child: CommonButton(
-                  onCommonButtonTap: () {
-                    findPasswordValidation();
-                  },
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("findPassword"),
-                  isIconVisible: false),
-            ),
-          ],
+          ),
         ),
       ),
-    ),),);
+    );
   }
 
   void showUserIdErrorModal(String headingMessage) {
@@ -217,19 +229,15 @@ class _FindPasswordState extends State<FindPassword> {
   }
 
   void findPasswordValidation() {
-    if(idController.text.trim().isEmpty){
-      showUserIdErrorModal(tr("pleaseEnterYourId"));
-    }
-    else if(!isValidUserId(idController.text.trim())){
+    if (idController.text.trim().isEmpty) {
+      showUserIdErrorModal(tr("IDHint"));
+    } else if (!isValidUserId(idController.text.trim())) {
       showUserIdErrorModal(tr("onlyValidIdIsAllowed"));
-    }
-    else if(emailIDController.text.trim().isEmpty){
+    } else if (emailIDController.text.trim().isEmpty) {
       showEmailErrorModal(tr("emailValidation"));
-    }
-    else if (!isValidEmail(emailIDController.text.trim())) {
+    } else if (!isValidEmail(emailIDController.text.trim())) {
       showEmailErrorModal(tr("onlyValidEmailIsApplicable"));
-    }
-    else {
+    } else {
       callFindPasswordNetworkCheck();
     }
   }
@@ -319,7 +327,4 @@ class _FindPasswordState extends State<FindPassword> {
     idController.clear();
     emailIDController.clear();
   }
-
-
-
 }
