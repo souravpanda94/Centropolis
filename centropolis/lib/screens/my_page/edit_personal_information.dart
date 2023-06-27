@@ -111,7 +111,7 @@ class _EditPersonalInformationScreenState
                     ),
                   ),
                   Container(
-                      height: 47,
+                      height: 46,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                         top: 8.0,
@@ -152,7 +152,7 @@ class _EditPersonalInformationScreenState
                     ),
                   ),
                   Container(
-                      height: 47,
+                      height: 46,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                         top: 8.0,
@@ -193,7 +193,7 @@ class _EditPersonalInformationScreenState
                     ),
                   ),
                   Container(
-                      height: 47,
+                      height: 46,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                         top: 8.0,
@@ -235,7 +235,7 @@ class _EditPersonalInformationScreenState
                     ),
                   ),
                   Container(
-                      height: 47,
+                      height: 46,
                       width: MediaQuery.of(context).size.width,
                       margin: const EdgeInsets.only(
                         top: 8.0,
@@ -280,7 +280,7 @@ class _EditPersonalInformationScreenState
                       top: 8.0,
                     ),
                     child: SizedBox(
-                      height: 47.0,
+                      height: 46.0,
                       child: TextField(
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -340,7 +340,7 @@ class _EditPersonalInformationScreenState
                   Container(
                     margin: const EdgeInsets.only(top: 8.0, bottom: 40),
                     child: SizedBox(
-                      height: 47.0,
+                      height: 46.0,
                       child: TextField(
                         controller: contactNumberController,
                         keyboardType: TextInputType.phone,
@@ -408,7 +408,7 @@ class _EditPersonalInformationScreenState
     return Align(
       alignment: FractionalOffset.bottomCenter,
       child: Container(
-        height: 52,
+        height: 46,
         width: double.infinity,
         margin: const EdgeInsets.only(
           left: 15.0,

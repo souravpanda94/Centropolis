@@ -233,39 +233,44 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     const SizedBox(
                       height: 8,
                     ),
-                    TextField(
-                      controller: titleController,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.text,
-                      showCursor: true,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
+                    SizedBox(
+                      height: 46,
+                      child: TextField(
+                        controller: titleController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.text,
+                        showCursor: true,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(4),
+                            borderSide: const BorderSide(
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
+                          ),
+                          hintText: tr("titleHint"),
+                          hintStyle: const TextStyle(
+                            color: CustomColors.textColor3,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
                         ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr("titleHint"),
-                        hintStyle: const TextStyle(
-                          color: CustomColors.textColor3,
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
+                        onTap: () {},
                       ),
-                      style: const TextStyle(
-                        color: CustomColors.blackColor,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
-                      ),
-                      onTap: () {},
                     ),
                     const SizedBox(
                       height: 16,
