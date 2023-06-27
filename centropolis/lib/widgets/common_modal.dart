@@ -66,6 +66,7 @@ class _CommonModalState extends State<CommonModal> {
                   style: const TextStyle(
                     color: CustomColors.textColor5,
                     fontSize: 14,
+                    height: 1.5,
                     fontFamily: 'Regular',
                   ),
                   textAlign: TextAlign.center,
@@ -76,7 +77,7 @@ class _CommonModalState extends State<CommonModal> {
                   margin: const EdgeInsets.only(
                     top: 30.0,
                   ),
-                  height: 50,
+                  height: 46,
                   width: double.infinity,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
@@ -105,7 +106,7 @@ class _CommonModalState extends State<CommonModal> {
                     top: 30.0,
                   ),
                   width: double.infinity,
-                  height: 52,
+                  height: 46,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -141,7 +142,7 @@ class _CommonModalState extends State<CommonModal> {
                       ),
                       Expanded(
                         child: SizedBox(
-                          height: 52,
+                          height: 46,
                           child: ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               primary: CustomColors.buttonBackgroundColor,

@@ -39,6 +39,7 @@ class CustomColors {
   static const homeButtonBackgroundColor = Color(0x1FB9644C);
   static const brownColor = Color(0xFFAC9573);
   static const coolingColor = Color(0xFF2F80ED);
+  static const dropdownHoverColor = Color(0xFFEEECE3);
 
 // ====================== Unused color code ================
   static const selectedColor = Color(0xFFB25A42);

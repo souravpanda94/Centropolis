@@ -57,8 +57,9 @@ class _CommonButtonState extends State<CommonButton> {
                     child: SvgPicture.asset(
                       'assets/images/ic_right_arrow_white.svg',
                       semanticsLabel: 'Back',
-                      width: 10,
-                      height: 10,
+                      color: CustomColors.whiteColor,
+                      width: 11,
+                      height: 11,
                       alignment: Alignment.center,
                     ),
                   )

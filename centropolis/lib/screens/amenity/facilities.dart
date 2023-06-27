@@ -61,7 +61,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset(
                       "assets/images/refresh.png",
-                      height: 320,
+                      height: 300,
                       fit: BoxFit.fill,
                     ),
                   ),

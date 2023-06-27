@@ -132,6 +132,126 @@ class _HomeScreenState extends State<HomeScreen> {
                                   semanticsLabel: 'Back',
                                   width: 25,
                                   height: 25,
+              child: Stack(
+                children: [
+                  Column(
+                    children: [
+                      Container(
+                        margin:
+                            const EdgeInsets.only(left: 10, right: 10, top: 32),
+                        child: Row(
+                          children: [
+                            IconButton(
+                              onPressed: () {
+                                goToQrCodeScreen();
+                              },
+                              icon: SvgPicture.asset(
+                                'assets/images/ic_qr_code_white.svg',
+                                semanticsLabel: 'Back',
+                                width: 25,
+                                height: 25,
+                                alignment: Alignment.center,
+                              ),
+                            ),
+                            Expanded(
+                              child: SvgPicture.asset(
+                                'assets/images/ic_logo_for_home.svg',
+                                semanticsLabel: 'Back',
+                                // width: 12,
+                                // height: 12,
+                                alignment: Alignment.center,
+                              ),
+                            ),
+                            IconButton(
+                              onPressed: () {
+                                goToNotificationScreen();
+                              },
+                              icon: unreadNotificationCount > 0
+                                  ? SvgPicture.asset(
+                                      'assets/images/ic_notification_white.svg',
+                                      semanticsLabel: 'Back',
+                                      width: 25,
+                                      height: 25,
+                                      alignment: Alignment.center,
+                                    )
+                                  : SvgPicture.asset(
+                                      'assets/images/ic_notification.svg',
+                                      semanticsLabel: 'Back',
+                                      width: 25,
+                                      height: 25,
+                                      alignment: Alignment.center,
+                                    ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Container(
+                        margin:
+                            const EdgeInsets.only(left: 16, right: 16, top: 30),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            setTitle(data["type"]),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.whiteColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        margin:
+                            const EdgeInsets.only(left: 16, right: 16, top: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            setHeading(data["type"]),
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.whiteColor,
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          if (data["type"] == "visitorReservation") {
+                            goToVisitReservationHomeScreen();
+                          } else if (data["type"] == "voc") {
+                            goToVOCHomeScreen();
+                          } else if (data["type"] == "centropolisExecutive") {
+                            goToLoungeHomeScreen();
+                          } else if (data["type"] == "conference") {
+                            goToConferenceHomeScreen();
+                          } else if (data["type"] == "refresh") {
+                            goToFacilityHomeScreen();
+                          } else if (data["type"] == "fitness") {
+                            goToFitnessHomeScreen();
+                          }
+                        },
+                        child: Container(
+                            margin: const EdgeInsets.only(
+                                left: 16, right: 16, top: 25),
+                            child: Row(
+                              children: [
+                                Text(
+                                  tr("viewMoreHomePage"),
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontFamily: "Regular",
+                                    color: CustomColors.whiteColor,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 8,
+                                ),
+                                SvgPicture.asset(
+                                  'assets/images/ic_right_arrow_white.svg',
+                                  semanticsLabel: 'Back',
+                                  width: 12,
+                                  height: 12,
                                   alignment: Alignment.center,
                                 ),
                               ),

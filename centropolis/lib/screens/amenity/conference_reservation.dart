@@ -154,9 +154,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                         )
                       ],
                     ),
-                    const SizedBox(
-                      height: 16,
-                    ),
                   ],
                 ),
               ),
@@ -282,7 +279,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      height: 288,
+                      height: 278,
                       child: TextField(
                         controller: rentalInfoController,
                         cursorColor: CustomColors.textColorBlack2,
@@ -434,7 +431,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -444,11 +441,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != timeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -463,6 +464,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -473,7 +475,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: startTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: startTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -482,7 +484,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -490,14 +492,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: startTimeSelectedValue != null ? 0 : 16,
-                bottom: startTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: startTimeSelectedValue != null ? 0 : 13,
+                bottom: startTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 13),
+          height: 48,
         ),
       ),
     );
@@ -522,7 +526,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -532,11 +536,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != timeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -551,6 +559,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -561,7 +570,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: endTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: endTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -570,7 +579,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -578,14 +587,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: endTimeSelectedValue != null ? 0 : 16,
-                bottom: endTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: endTimeSelectedValue != null ? 0 : 13,
+                bottom: endTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 13),
+          height: 48,
         ),
       ),
     );
