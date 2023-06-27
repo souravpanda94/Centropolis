@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:centropolis/widgets/bottom_navigation.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,17 +7,17 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
-import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import 'package:http/http.dart' as http;
-import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import 'find_ID_password.dart';
 import 'signup.dart';
+
+
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -214,11 +213,6 @@ class _LoginScreenState extends State<LoginScreen> {
                     child: CommonButton(
                         onCommonButtonTap: () {
                           onLoginButtonClick();
-                          // goToHomeScreen();
-                          // showUserIdErrorModal();
-                          // showPasswordErrorModal();
-                          // showCredentialErrorModal();
-                          // showUnapprovedErrorModal();
                         },
                         buttonColor: CustomColors.buttonBackgroundColor,
                         buttonName: tr("btnLogin"),
