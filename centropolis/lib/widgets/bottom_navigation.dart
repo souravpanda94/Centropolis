@@ -127,7 +127,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8,top: 3),
                 child: SvgPicture.asset(
                   selectedPage == 0
                       ? "assets/images/ic_home_red.svg"
@@ -140,7 +140,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8,top: 3),
                 child: SvgPicture.asset(
                   selectedPage == 1
                       ? "assets/images/ic_tenant_service_red.svg"
@@ -154,7 +154,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8,top: 3),
                 child: SvgPicture.asset(
                   selectedPage == 2
                       ? "assets/images/ic_visit_reservation_red.svg"
@@ -168,7 +168,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8,top: 3),
                 child: SvgPicture.asset(
                   selectedPage == 3
                       ? "assets/images/ic_voc_red.svg"
@@ -182,7 +182,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
               backgroundColor: CustomColors.whiteColor),
           BottomNavigationBarItem(
               icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8),
+                padding: const EdgeInsets.only(bottom: 8,top: 3),
                 child: SvgPicture.asset(
                   selectedPage == 4
                       ? "assets/images/ic_my_page_red.svg"
