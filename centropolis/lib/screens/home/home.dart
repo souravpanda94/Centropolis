@@ -117,7 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     children: [
                       Container(
                         margin:
-                            const EdgeInsets.only(left: 10, right: 10, top: 50),
+                            const EdgeInsets.only(left: 10, right: 10, top: 32),
                         child: Row(
                           children: [
                             IconButton(
