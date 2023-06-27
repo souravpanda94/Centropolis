@@ -116,7 +116,8 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     children: [
                       Container(
-                        margin: EdgeInsets.only(top: Platform.isAndroid ? 35 : 0),
+                        margin:
+                            EdgeInsets.only(top: Platform.isAndroid ? 35 : 0),
                         child: Row(
                           children: [
                             IconButton(
@@ -264,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               },
                               buttonName: tr("makeReservation"),
                               buttonColor:
-                                  CustomColors.whiteColor.withOpacity(0.3),
+                                  CustomColors.whiteColor.withOpacity(0.2),
                               buttonBorderColor: CustomColors.whiteColor,
                               buttonTextColor: CustomColors.whiteColor,
                             ),
@@ -287,7 +288,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("gxReservation"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
@@ -301,7 +302,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("paidPtReservation"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
@@ -315,7 +316,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("fitnessReservation"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
@@ -329,7 +330,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("paidLockersReservation"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
@@ -356,7 +357,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("customerComplaints"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
@@ -370,7 +371,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("requestForLightsOut"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
@@ -384,7 +385,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 },
                                 buttonName: tr("requestForHeatingAndCooling"),
                                 buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.3),
+                                    CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
                                 buttonTextColor: CustomColors.whiteColor,
                               ),
