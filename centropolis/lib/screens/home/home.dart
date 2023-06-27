@@ -104,7 +104,7 @@ class _HomeScreenState extends State<HomeScreen> {
               decoration: BoxDecoration(
                 color: CustomColors.blackColor,
                 image: DecorationImage(
-                  opacity: 0.8,
+                  opacity: 0.7,
                   image: AssetImage(
                     data['image'].trim().toString(),
                   ),
