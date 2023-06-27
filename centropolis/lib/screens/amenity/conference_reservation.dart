@@ -205,49 +205,53 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           color: CustomColors.textColor8),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 20,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("startTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("startTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     startTimeDropdownWidget(),
                     const SizedBox(
-                      height: 16,
+                      height: 14,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("endTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("endTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     endTimeDropdownWidget(),
                   ],

@@ -81,8 +81,6 @@ class _VisitReservationApplicationState
 
   @override
   Widget build(BuildContext context) {
-    Locale myLocale = Localizations.localeOf(context);
-
     return GestureDetector(
       onTap: () => hideKeyboard(),
       child: LoadingOverlay(
@@ -233,7 +231,8 @@ class _VisitReservationApplicationState
                         ),
                         Container(
                           margin: const EdgeInsets.only(top: 16),
-                          padding: const EdgeInsets.all(16),
+                          padding: const EdgeInsets.only(
+                              top: 14, left: 16, right: 16, bottom: 16),
                           width: MediaQuery.of(context).size.width,
                           decoration: const BoxDecoration(
                               color: CustomColors.backgroundColor,
@@ -242,24 +241,26 @@ class _VisitReservationApplicationState
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              RichText(
-                                text: TextSpan(
-                                    text: tr("nameOfPersonInCharge"),
-                                    style: const TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 14,
-                                        color: CustomColors.textColor8),
-                                    children: const [
-                                      TextSpan(
-                                          text: ' *',
-                                          style: TextStyle(
-                                              color: CustomColors.headingColor,
-                                              fontSize: 12))
-                                    ]),
-                                maxLines: 1,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(tr("nameOfPersonInCharge"),
+                                      style: const TextStyle(
+                                          fontFamily: 'SemiBold',
+                                          fontSize: 14,
+                                          color: CustomColors.textColor8)),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 6),
+                                    child: Text(" *",
+                                        style: TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 14,
+                                            color: CustomColors.headingColor)),
+                                  ),
+                                ],
                               ),
                               const SizedBox(
-                                height: 8,
+                                height: 6,
                               ),
                               Text(
                                 visitedPersonName,
@@ -269,26 +270,28 @@ class _VisitReservationApplicationState
                                     color: CustomColors.textColorBlack2),
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: 14,
                               ),
-                              RichText(
-                                text: TextSpan(
-                                    text: tr("tenantCompany"),
-                                    style: const TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 14,
-                                        color: CustomColors.textColor8),
-                                    children: const [
-                                      TextSpan(
-                                          text: ' *',
-                                          style: TextStyle(
-                                              color: CustomColors.headingColor,
-                                              fontSize: 12))
-                                    ]),
-                                maxLines: 1,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(tr("tenantCompany"),
+                                      style: const TextStyle(
+                                          fontFamily: 'SemiBold',
+                                          fontSize: 14,
+                                          color: CustomColors.textColor8)),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 6),
+                                    child: Text(" *",
+                                        style: TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 14,
+                                            color: CustomColors.headingColor)),
+                                  ),
+                                ],
                               ),
                               const SizedBox(
-                                height: 8,
+                                height: 6,
                               ),
                               Text(
                                 visitedPersonCompanyName,
@@ -298,26 +301,28 @@ class _VisitReservationApplicationState
                                     color: CustomColors.textColorBlack2),
                               ),
                               const SizedBox(
-                                height: 16,
+                                height: 14,
                               ),
-                              RichText(
-                                text: TextSpan(
-                                    text: tr("visitBuilding"),
-                                    style: const TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 14,
-                                        color: CustomColors.textColor8),
-                                    children: const [
-                                      TextSpan(
-                                          text: ' *',
-                                          style: TextStyle(
-                                              color: CustomColors.headingColor,
-                                              fontSize: 12))
-                                    ]),
-                                maxLines: 1,
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Text(tr("visitBuilding"),
+                                      style: const TextStyle(
+                                          fontFamily: 'SemiBold',
+                                          fontSize: 14,
+                                          color: CustomColors.textColor8)),
+                                  const Padding(
+                                    padding: EdgeInsets.only(bottom: 6),
+                                    child: Text(" *",
+                                        style: TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 14,
+                                            color: CustomColors.headingColor)),
+                                  ),
+                                ],
                               ),
                               const SizedBox(
-                                height: 8,
+                                height: 6,
                               ),
                               Text(
                                 visitedPersonBuilding,
@@ -326,37 +331,6 @@ class _VisitReservationApplicationState
                                     fontSize: 14,
                                     color: CustomColors.textColorBlack2),
                               ),
-
-                              //
-                              // const SizedBox(
-                              //   height: 16,
-                              // ),
-                              // RichText(
-                              //   text: TextSpan(
-                              //       text: tr("landingFloor"),
-                              //       style: const TextStyle(
-                              //           fontFamily: 'SemiBold',
-                              //           fontSize: 14,
-                              //           color: CustomColors.textColor8),
-                              //       children: const [
-                              //         TextSpan(
-                              //             text: ' *',
-                              //             style: TextStyle(
-                              //                 color: CustomColors.headingColor,
-                              //                 fontSize: 12))
-                              //       ]),
-                              //   maxLines: 1,
-                              // ),
-                              // const SizedBox(
-                              //   height: 8,
-                              // ),
-                              // const Text(
-                              //   "11F",
-                              //   style: TextStyle(
-                              //       fontFamily: 'Regular',
-                              //       fontSize: 14,
-                              //       color: CustomColors.textColorBlack2),
-                              // ),
                             ],
                           ),
                         )
@@ -383,26 +357,28 @@ class _VisitReservationApplicationState
                               color: CustomColors.textColor8),
                         ),
                         const SizedBox(
-                          height: 24,
+                          height: 20,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("visitorName"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("visitorName"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 6,
                         ),
                         SizedBox(
                           height: 46,
@@ -442,26 +418,28 @@ class _VisitReservationApplicationState
                           ),
                         ),
                         const SizedBox(
-                          height: 16,
+                          height: 14,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("companyName"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("companyName"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 6,
                         ),
                         SizedBox(
                           height: 46,
@@ -501,26 +479,28 @@ class _VisitReservationApplicationState
                           ),
                         ),
                         const SizedBox(
-                          height: 16,
+                          height: 14,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("email"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("email"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 6,
                         ),
                         SizedBox(
                           height: 46,
@@ -560,26 +540,28 @@ class _VisitReservationApplicationState
                           ),
                         ),
                         const SizedBox(
-                          height: 16,
+                          height: 14,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("contact"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("contact"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 6,
                         ),
                         SizedBox(
                           height: 46,
@@ -621,26 +603,28 @@ class _VisitReservationApplicationState
                           ),
                         ),
                         const SizedBox(
-                          height: 16,
+                          height: 14,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("dateOfVisit"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("dateOfVisit"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
                         ),
                         const SizedBox(
-                          height: 8,
+                          height: 6,
                         ),
                         SizedBox(
                           height: 46,
@@ -694,68 +678,74 @@ class _VisitReservationApplicationState
                           ),
                         ),
                         const SizedBox(
-                          height: 16,
+                          height: 14,
                         ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("visitTime"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        visitTimeDropdownWidget(),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        RichText(
-                          text: TextSpan(
-                              text: tr("purposeOfVisit"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8),
-                              children: const [
-                                TextSpan(
-                                    text: ' *',
-                                    style: TextStyle(
-                                        color: CustomColors.headingColor,
-                                        fontSize: 12))
-                              ]),
-                          maxLines: 1,
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        purposeVisitDropdownWidget(),
-                        Container(
-                          margin: const EdgeInsets.only(top: 16, bottom: 8),
-                          child: RichText(
-                            text: TextSpan(
-                                text: tr("visitingFloor"),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("visitTime"),
                                 style: const TextStyle(
                                     fontFamily: 'SemiBold',
                                     fontSize: 14,
-                                    color: CustomColors.textColor8),
-                                children: const [
-                                  TextSpan(
-                                      text: ' *',
-                                      style: TextStyle(
-                                          color: CustomColors.headingColor,
-                                          fontSize: 12))
-                                ]),
-                            maxLines: 1,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        visitTimeDropdownWidget(),
+                        const SizedBox(
+                          height: 14,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("purposeOfVisit"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        purposeVisitDropdownWidget(),
+                        Container(
+                          margin: const EdgeInsets.only(top: 14, bottom: 6),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(tr("visitingFloor"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8)),
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 6),
+                                child: Text(" *",
+                                    style: TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.headingColor)),
+                              ),
+                            ],
                           ),
                         ),
                         visitFloorDropdownWidget(),

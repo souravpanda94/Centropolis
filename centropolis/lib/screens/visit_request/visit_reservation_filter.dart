@@ -70,45 +70,51 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
         padding: const EdgeInsets.all(16),
         color: CustomColors.whiteColor,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          RichText(
-            text: TextSpan(
-                text: tr("reservationStatus"),
-                style: const TextStyle(
-                    fontFamily: 'SemiBold',
-                    fontSize: 14,
-                    color: CustomColors.textColor8),
-                children: const [
-                  TextSpan(
-                      text: ' *',
-                      style: TextStyle(
-                          color: CustomColors.headingColor, fontSize: 12))
-                ]),
-            maxLines: 1,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(tr("reservationStatus"),
+                  style: const TextStyle(
+                      fontFamily: 'SemiBold',
+                      fontSize: 14,
+                      color: CustomColors.textColor8)),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child: Text(" *",
+                    style: TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.headingColor)),
+              ),
+            ],
           ),
           const SizedBox(
-            height: 8,
+            height: 6,
           ),
           reservationStatusDropdownWidget(),
           const SizedBox(
-            height: 16,
+            height: 14,
           ),
-          RichText(
-            text: TextSpan(
-                text: tr("periodOfUse"),
-                style: const TextStyle(
-                    fontFamily: 'SemiBold',
-                    fontSize: 14,
-                    color: CustomColors.textColor8),
-                children: const [
-                  TextSpan(
-                      text: ' *',
-                      style: TextStyle(
-                          color: CustomColors.headingColor, fontSize: 12))
-                ]),
-            maxLines: 1,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(tr("periodOfUse"),
+                  style: const TextStyle(
+                      fontFamily: 'SemiBold',
+                      fontSize: 14,
+                      color: CustomColors.textColor8)),
+              const Padding(
+                padding: EdgeInsets.only(bottom: 6),
+                child: Text(" *",
+                    style: TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.headingColor)),
+              ),
+            ],
           ),
           const SizedBox(
-            height: 8,
+            height: 6,
           ),
           Container(
             height: 50,

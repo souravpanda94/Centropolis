@@ -108,7 +108,7 @@ class _AddMemberState extends State<AddMember> {
                       Text(
                         tr("enterEmployeeDetails"),
                         style: const TextStyle(
-                            fontFamily: 'Bold',
+                            fontFamily: 'SemiBold',
                             fontSize: 16,
                             color: CustomColors.textColor8),
                       ),
@@ -138,7 +138,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("tenantCompany"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -159,7 +159,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("floor"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -180,7 +180,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("name"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -235,7 +235,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("IDHeading"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -309,7 +309,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("passwordHeading"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -367,7 +367,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("verifyPassword"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -425,7 +425,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("email"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -480,7 +480,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("contactNo"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
@@ -537,7 +537,7 @@ class _AddMemberState extends State<AddMember> {
                       text: TextSpan(
                           text: tr("gender"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor8),
                           children: const [
