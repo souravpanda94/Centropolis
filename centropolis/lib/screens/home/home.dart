@@ -229,8 +229,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                 SvgPicture.asset(
                                   'assets/images/ic_right_arrow_white.svg',
                                   semanticsLabel: 'Back',
-                                  width: 8,
-                                  height: 8,
+                                  width: 12,
+                                  height: 12,
                                   alignment: Alignment.center,
                                 ),
                               ],
