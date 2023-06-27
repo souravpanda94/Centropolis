@@ -205,49 +205,53 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           color: CustomColors.textColor8),
                     ),
                     const SizedBox(
-                      height: 24,
+                      height: 20,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("startTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("startTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     startTimeDropdownWidget(),
                     const SizedBox(
-                      height: 16,
+                      height: 14,
                     ),
-                    RichText(
-                      text: TextSpan(
-                          text: tr("endTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                          children: const [
-                            TextSpan(
-                                text: ' *',
-                                style: TextStyle(
-                                    color: CustomColors.headingColor,
-                                    fontSize: 12))
-                          ]),
-                      maxLines: 1,
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(tr("endTime"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColor8)),
+                        const Padding(
+                          padding: EdgeInsets.only(bottom: 6),
+                          child: Text(" *",
+                              style: TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.headingColor)),
+                        ),
+                      ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 6,
                     ),
                     endTimeDropdownWidget(),
                   ],
@@ -279,32 +283,30 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                         borderRadius: BorderRadius.circular(4),
                       ),
                       height: 288,
-                      child: SingleChildScrollView(
-                        child: TextField(
-                          controller: rentalInfoController,
-                          cursorColor: CustomColors.textColorBlack2,
-                          keyboardType: TextInputType.multiline,
-                          maxLines: 14,
-                          maxLength: 500,
-                          decoration: InputDecoration(
-                            counterText: "",
-                            hintMaxLines: 5,
-                            border: InputBorder.none,
-                            fillColor: CustomColors.whiteColor,
-                            filled: true,
-                            contentPadding: const EdgeInsets.all(16),
-                            hintText: tr('rentalInformationHint'),
-                            hintStyle: const TextStyle(
-                              color: CustomColors.textColorBlack2,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
-                          style: const TextStyle(
+                      child: TextField(
+                        controller: rentalInfoController,
+                        cursorColor: CustomColors.textColorBlack2,
+                        keyboardType: TextInputType.multiline,
+                        maxLines: 14,
+                        maxLength: 500,
+                        decoration: InputDecoration(
+                          counterText: "",
+                          hintMaxLines: 5,
+                          border: InputBorder.none,
+                          fillColor: CustomColors.whiteColor,
+                          filled: true,
+                          contentPadding: const EdgeInsets.all(16),
+                          hintText: tr('rentalInformationHint'),
+                          hintStyle: const TextStyle(
                             color: CustomColors.textColorBlack2,
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
+                        ),
+                        style: const TextStyle(
+                          color: CustomColors.textColorBlack2,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
                         ),
                       ),
                     ),
@@ -334,19 +336,23 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                             child: SizedBox(
                               height: 15,
                               width: 15,
-                              child: Checkbox(
-                                checkColor: CustomColors.whiteColor,
-                                activeColor: CustomColors.buttonBackgroundColor,
-                                side: const BorderSide(
-                                    color: CustomColors.greyColor, width: 1),
-                                value: isChecked,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isChecked = value!;
-                                    if (isChecked) {
-                                    } else {}
-                                  });
-                                },
+                              child: Transform.scale(
+                                scale: 0.8,
+                                child: Checkbox(
+                                  checkColor: CustomColors.whiteColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
+                                  side: const BorderSide(
+                                      color: CustomColors.greyColor, width: 1),
+                                  value: isChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isChecked = value!;
+                                      if (isChecked) {
+                                      } else {}
+                                    });
+                                  },
+                                ),
                               ),
                             ),
                           ),

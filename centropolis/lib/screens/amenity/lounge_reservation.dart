@@ -272,19 +272,22 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           child: SizedBox(
                             height: 15,
                             width: 15,
-                            child: Checkbox(
-                              checkColor: CustomColors.whiteColor,
-                              activeColor: CustomColors.buttonBackgroundColor,
-                              side: const BorderSide(
-                                  color: CustomColors.greyColor, width: 1),
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value!;
-                                  if (isChecked) {
-                                  } else {}
-                                });
-                              },
+                            child: Transform.scale(
+                              scale: 0.8,
+                              child: Checkbox(
+                                checkColor: CustomColors.whiteColor,
+                                activeColor: CustomColors.buttonBackgroundColor,
+                                side: const BorderSide(
+                                    color: CustomColors.greyColor, width: 1),
+                                value: isChecked,
+                                onChanged: (value) {
+                                  setState(() {
+                                    isChecked = value!;
+                                    if (isChecked) {
+                                    } else {}
+                                  });
+                                },
+                              ),
                             ),
                           ),
                         ),
