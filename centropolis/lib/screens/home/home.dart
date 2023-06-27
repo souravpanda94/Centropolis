@@ -116,8 +116,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     children: [
                       Container(
-                        margin:
-                             EdgeInsets.only(left: 10, right: 10, top: Platform.isAndroid ? 35 : 0),
+                        margin: EdgeInsets.only(top: Platform.isAndroid ? 35 : 0),
                         child: Row(
                           children: [
                             IconButton(
@@ -437,7 +436,8 @@ class _HomeScreenState extends State<HomeScreen> {
                                       width: 1.0)),
                             ],
                             spacing: const EdgeInsets.all(4),
-                            color: Colors.transparent, // Inactive color
+                            color: Colors.transparent,
+                            // Inactive color
                             activeColor: Colors.white,
                           ),
                         ),
