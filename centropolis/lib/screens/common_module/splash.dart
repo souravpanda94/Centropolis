@@ -80,9 +80,13 @@ class _SplashScreenState extends State<SplashScreen> {
           decoration: const BoxDecoration(
             image: DecorationImage(
               alignment: Alignment.center,
-              image: AssetImage("assets/images/splash_image.png"),
+              image: AssetImage("assets/images/ic_splash_bg.png"),
               fit: BoxFit.fill,
             ),
+          ),
+          child: Center(
+            child: Image.asset("assets/images/ic_splash_logo.png",
+                width: MediaQuery.of(context).size.width, height: 95),
           ),
         ));
   }
