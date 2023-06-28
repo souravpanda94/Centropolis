@@ -337,13 +337,13 @@ class _LoginScreenState extends State<LoginScreen> {
         });
   }
 
-  void showPasswordErrorModal() {
+  void showPasswordErrorModal(String heading) {
     showDialog(
         barrierDismissible: false,
         context: context,
         builder: (BuildContext context) {
           return CommonModal(
-            heading: tr("pleaseEnterPassword"),
+            heading: heading,
             description: "",
             buttonName: tr("check"),
             firstButtonName: "",
@@ -406,14 +406,19 @@ class _LoginScreenState extends State<LoginScreen> {
 
   void loginValidation() async {
     hideKeyboard();
-
     if (emailIDController.text.trim().isEmpty) {
       showUserIdErrorModal(tr("IDHint"));
-    } else if (!isValidUserId(emailIDController.text.trim())) {
+    }
+    else if (!isValidUserId(emailIDController.text.trim())) {
       showUserIdErrorModal(tr("onlyValidEmailIsApplicable"));
-    } else if (passwordController.text.trim().isEmpty) {
-      showPasswordErrorModal();
-    } else {
+    }
+    else if (passwordController.text.trim().isEmpty) {
+      showPasswordErrorModal(tr("pleaseEnterPassword"));
+    }
+    else if (!isValidPassword(passwordController.text.trim())) {
+      showPasswordErrorModal(tr("onlyValidPasswordIsAllowed"));
+    }
+    else {
       doLogin();
     }
   }

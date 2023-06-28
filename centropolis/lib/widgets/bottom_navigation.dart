@@ -20,8 +20,18 @@ import '../screens/amenity/tenant_service.dart';
 import '../screens/home/home.dart';
 import '../screens/home/notifications.dart';
 import '../screens/my_page/app_settings.dart';
+import '../screens/my_page/conference_history_details.dart';
+import '../screens/my_page/facility_history_details.dart';
+import '../screens/my_page/fitnesss_tab_history_details.dart';
+import '../screens/my_page/gx_history_details.dart';
+import '../screens/my_page/inconvenience_history_details.dart';
+import '../screens/my_page/lounge_history_details.dart';
 import '../screens/my_page/my_page.dart';
+import '../screens/my_page/paid_locker_history_details.dart';
+import '../screens/my_page/paid_pt_history_details.dart';
 import '../screens/visit_request/visi_request.dart';
+import '../screens/voc/air_conditioning_details.dart';
+import '../screens/voc/light_out_details.dart';
 import '../screens/voc/voc_application.dart';
 import '../services/api_service.dart';
 import '../services/notification_service.dart';
@@ -306,140 +316,147 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   }
 
   void _handleMessage(RemoteMessage message) async {
-    // var notificationData =
-    //     Provider.of<PushDataProvider>(context, listen: false);
     final streamCtlr = StreamController<String>.broadcast();
     streamCtlr.sink.add(jsonEncode(message.data));
-    if (kDebugMode) {
-      print("click _handleMessage");
-    }
-    //if (message.data.containsKey('data')) {
-    //streamCtlr.sink.add(message.data['data']);
-    // notificationData.addAll(json.decode(message.data['data']));
-    //notificationData.doAddPushData(json.decode(message.data['data']));
+    debugPrint("click _handleMessage");
+
     var notificationData = PushDataSingleton();
-    if (kDebugMode) {
-      print("Home screen notificationData iOS: ${message.data}");
-    }
-    // }
+    debugPrint("Home screen notificationData iOS: ${message.data}");
+
     notificationData.doAddPushData(message.data);
+    debugPrint("notification detail handle message ====>  ${notificationData.pushData}");
 
-    if (kDebugMode) {
-      print(
-          "notification detail handle message ====>  ${notificationData.pushData}");
-    }
 
-    // if (notificationData.pushData.isNotEmpty &&
-    //     notificationData.pushData.containsKey('click_action')) {
     if (notificationData.pushData.isNotEmpty) {
       Map data = notificationData.pushData;
-      var type = data['type'];
-      int id = 0;
-      String pushNotificationType = "";
+      var type = data['notification_type'];
+      var relId = data['rel_id'];
+      int id = int.parse(relId.toString());
+      // String pushNotificationType = "";
 
-      if (kDebugMode) {
-        print("notification type ====>  $type");
+      debugPrint("notification type ====>  $type");
+
+      if (type == 'add_sleeping_reservation' ||
+          type == 'cancel_sleeping_reservation' ||
+          type == 'reject_sleeping_reservation'
+      ) {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FacilityHistoryDetails(id: id.toString()),
+        ));
       }
-      if (type == 'ADMIN_NOTICE') {
-        var noticeId = data['notice_id'];
-        id = int.parse(noticeId.toString());
-        pushNotificationType = "notice";
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => NoticeDetailsScreen(noticeId)),
-        // );
-      } else if (type == 'RECEIVED_HONEY') {
-        var roomId = data['room_id'];
-        id = int.parse(roomId.toString());
-        pushNotificationType = "chat";
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     // builder: (context) => const BottomNavigationScreen(2),
-        //     builder: (context) => ChatRoomScreen(int.parse(roomId)),
-        //   ),
-        // );
-      } else if (type == 'COMMENT_REPLY' || type == 'COMMENT_POST') {
-        var postType = data['post_type'];
-        var postId = data['post_id'];
-        // var userId = data['user_id'];
-        var postCreatorId = data['post_creator_id'];
-        id = int.parse(postId.toString());
-        pushNotificationType = "comment";
+      else if (type == "add_fitness_reservation" ||
+          type == "cancel_fitness_reservation" ||
+          type == "reject_fitness_reservation") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FitnessTabHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "reply_complaint") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => InconvenienceHistoryDetails(inquiryId: id.toString()),
+          ),
+        );
+      }
+      else if (type == "add_lounge_reservation" ||
+          type == "reject_lounge_reservation" ||
+          type == "cancel_lounge_reservation") {
 
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => PostDetail(
-        //         postType: postType,
-        //         postId: postId,
-        //         postUserId: postCreatorId,
-        //       )),
-        // );
-      } else if (type == 'adminPushNotification') {
-        var url = data['url'];
-        id = int.parse(data['notification_id'].toString());
-        pushNotificationType = "push_notification";
-        var postId = data['postId'];
-        if (postId != null && postId != "") {
-          var apartmentIdPost = data['apartmentId'];
-          var postUserId = data['postUserId'];
-          var postType = data['postType'];
-          // if (apartmentIdPost == apartmentId) {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => PostDetail(
-          //         postType: postType,
-          //         postId: postId,
-          //         postUserId: postUserId,
-          //         clickOnPush: true,
-          //       )),
-          // );
-          // }
-        } else {
-          if (url != null && url != "") {
-            // Navigator.push(
-            //   context,
-            //   MaterialPageRoute(
-            //       builder: (context) =>
-            //           PrivacyPolicyAndTermsOfUseScreen('', url)),
-            // );
-          } else {
-            debugPrint("from background #### 1111");
-            // Navigator.pushReplacement(
-            //   context,
-            //   MaterialPageRoute(
-            //     builder: (context) => const BottomNavigationScreen(0,""),
-            //   ),
-            // );
-          }
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoungeHistoryDetails(id.toString()),
+          ),
+        );
         }
 
-        // final decoded = Uri.decodeFull(url);
-        // var uri = Uri.dataFromString(decoded);
-        // Map<String, String> params =
-        //     uri.queryParameters; // query parameters automatically populated
-        // var link = params['link'];
-        // var postId =
-        //     link?.replaceAll("${DynamicLinkUrls.dynamicLinkUrl}/?postId=", "");
-        // var apartmentId = params['apartmentId'];
-        // var postUserId = params['postUserId'];
-        // var postType = params['postType'];
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => PostDetail(
-        //             postType: postType,
-        //             postId: postId,
-        //             postUserId: postUserId,
-        //           )),
-        // );
+      else if (type == "add_locker_reservation" ||
+          type == "reject_locker_reservation" ||
+          type == "cancel_locker_reservation") {
+        //locker details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PaidLockerHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "reject_pt_reservation" ||
+          type == "cancel_pt_reservation" ||
+          type == "add_pt_reservation") {
+        //pt details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PaidPTHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "reject_conference_reservation" ||
+          type == "add_conference_reservation" ||
+          type == "cancel_conference_reservation") {
+        //conference details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConferenceHistoryDetails(id.toString()),
+          ),
+        );
+      } else if (type == "reply_lights_out_inquiry" ||
+          type == "approve_lights_out_inquiry") {
+        //lights out inquiry details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LightsOutDetails(id: id.toString()),
+          ),
+        );
+      } else if (type == "reply_ac_inquiry" ||
+          type == "approve_ac_inquiry") {
+        //ac inquiry details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                AirConditioningDetails(inquiryId: id.toString()),
+          ),
+        );
+      } else if (type == "add_gx_reservation" ||
+          type == "cancel_gx_reservation" ||
+          type == "reject_gx_reservation") {
+        // gx program details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                GXHistoryDetails(reservationId: id.toString()),
+          ),
+        );
       }
+      else {
+            debugPrint("from background #### 1111");
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const BottomNavigationScreen(0,0),
+              ),
+            );
+          }
+        }
       // notificationReadApiCall(id, pushNotificationType);
     }
-  }
+
 
   initializeNotifications() async {
     AndroidInitializationSettings initializationSettingsAndroid =
@@ -485,61 +502,140 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   // void onSelectNotification(String? payload) async {
   onSelectNotification(NotificationResponse notificationResponse) async {
     var notificationData = PushDataSingleton();
-    if (kDebugMode) {
-      print(
-          "notification detail select notification ====>  ${notificationData.pushData}");
-    }
+      debugPrint("notification detail select notification ====>  ${notificationData.pushData}");
 
     if (notificationData.pushData.isNotEmpty) {
       Map data = notificationData.pushData;
-      var type = data['type'];
+      var type = data['notification_type'];
+      var relId = data['rel_id'];
+      int id = int.parse(relId.toString());
       // int notificationId = int.parse(data['notification_id'].toString());
-      int id = 0;
-      String pushNotificationType = "";
+      // int id = 0;
+      // String pushNotificationType = "";
 
       debugPrint("notification type ====>  ${data.toString()}");
 
-      if (type == 'ADMIN_NOTICE') {
-        var noticeId = data['notice_id'];
-        id = int.parse(noticeId.toString());
-        pushNotificationType = "notice";
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => NoticeDetailsScreen(noticeId)),
-        // );
-      } else if (type == 'RECEIVED_HONEY') {
-        var roomId = data['room_id'];
-        id = int.parse(roomId.toString());
-        pushNotificationType = "chat";
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     // builder: (context) => const BottomNavigationScreen(2),
-        //     builder: (context) => ChatRoomScreen(int.parse(roomId)),
-        //   ),
-        // );
-      } else if (type == 'COMMENT_REPLY' || type == 'COMMENT_POST') {
-        var postType = data['post_type'];
-        var postId = data['post_id'];
-        var userId = data['user_id'];
-        var postCreatorId = data['post_creator_id'];
-        id = int.parse(postId.toString());
-        pushNotificationType = "comment";
+      if (type == 'add_sleeping_reservation' ||
+          type == 'cancel_sleeping_reservation' ||
+          type == 'reject_sleeping_reservation'
+      ) {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => FacilityHistoryDetails(id: id.toString()),
+            ));
+      }
+      else if (type == "add_fitness_reservation" ||
+          type == "cancel_fitness_reservation" ||
+          type == "reject_fitness_reservation") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => FitnessTabHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "reply_complaint") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => InconvenienceHistoryDetails(inquiryId: id.toString()),
+          ),
+        );
+      }
+      else if (type == "add_lounge_reservation" ||
+          type == "reject_lounge_reservation" ||
+          type == "cancel_lounge_reservation") {
 
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //       builder: (context) => PostDetail(
-        //         postType: postType,
-        //         postId: postId,
-        //         postUserId: postCreatorId,
-        //       )),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LoungeHistoryDetails(id.toString()),
+          ),
+        );
       }
 
-      // notificationReadApiCall(id, pushNotificationType);
+      else if (type == "add_locker_reservation" ||
+          type == "reject_locker_reservation" ||
+          type == "cancel_locker_reservation") {
+        //locker details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PaidLockerHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "reject_pt_reservation" ||
+          type == "cancel_pt_reservation" ||
+          type == "add_pt_reservation") {
+        //pt details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                PaidPTHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "reject_conference_reservation" ||
+          type == "add_conference_reservation" ||
+          type == "cancel_conference_reservation") {
+        //conference details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => ConferenceHistoryDetails(id.toString()),
+          ),
+        );
+      } else if (type == "reply_lights_out_inquiry" ||
+          type == "approve_lights_out_inquiry") {
+        //lights out inquiry details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => LightsOutDetails(id: id.toString()),
+          ),
+        );
+      } else if (type == "reply_ac_inquiry" ||
+          type == "approve_ac_inquiry") {
+        //ac inquiry details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                AirConditioningDetails(inquiryId: id.toString()),
+          ),
+        );
+      } else if (type == "add_gx_reservation" ||
+          type == "cancel_gx_reservation" ||
+          type == "reject_gx_reservation") {
+        // gx program details
+
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                GXHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      }
+      else {
+        debugPrint("from background #### 1111");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const BottomNavigationScreen(0,0),
+          ),
+        );
+      }
     }
+
+    // notificationReadApiCall(id, pushNotificationType);
+
   }
 
   Future<void> initConnectivity() async {
@@ -573,10 +669,5 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       }
     }
   }
-
-
-
-
-
 
 }
