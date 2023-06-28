@@ -1,7 +1,8 @@
 class ApiEndPoint {
   // static String baseUrl = ""; // Live server
   // static String baseUrl = "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
-  static String baseUrl = "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
+  static String baseUrl =
+      "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
@@ -147,7 +148,8 @@ class ApiEndPoint {
   static String getNotificationListUrl =
       "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
-  static String serReadNotification = "${baseUrl}v1/mypage/notification-read-all";
+  static String serReadNotification =
+      "${baseUrl}v1/mypage/notification-read-all";
   static String setDeviceInformationUrl = "${baseUrl}v1/add-device";
 }
 
@@ -155,7 +157,8 @@ class WebViewLinks {
   // static String baseUrl = "https://www.google.com"; // Live server
 
   // static String baseUrlForWebLinks = "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
-  static String baseUrlForWebLinks = "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
+  static String baseUrlForWebLinks =
+      "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
 
   static String privacyPolicyUrlEng = "${baseUrlForWebLinks}privacypolicy/en";
   static String privacyPolicyUrlKo = "${baseUrlForWebLinks}privacypolicy/kr";
@@ -169,5 +172,6 @@ class WebViewLinks {
 
 class ImageLinks {
   // static String baseUrlForImage = "https://centropolis-api-dev.dvconsulting.org/"; // Development server
-  static String baseUrlForImage = "https://centropolis-api-qa.dvconsulting.org/"; // QA server
+  static String baseUrlForImage =
+      "https://centropolis-api-qa.dvconsulting.org/"; // QA server
 }

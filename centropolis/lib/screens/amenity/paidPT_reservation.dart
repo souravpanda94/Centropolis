@@ -140,9 +140,6 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 16,
-                ),
               ],
             ),
           ),
@@ -296,7 +293,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["value"],
                           style: const TextStyle(
@@ -306,11 +303,15 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != timeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                   onTap: () {
@@ -328,9 +329,10 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           });
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          maxHeight: 140,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -341,7 +343,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: rangeTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: rangeTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -350,7 +352,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -358,14 +360,16 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: rangeTimeSelectedValue != null ? 0 : 16,
-                bottom: rangeTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: rangeTimeSelectedValue != null ? 0 : 13,
+                bottom: rangeTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );

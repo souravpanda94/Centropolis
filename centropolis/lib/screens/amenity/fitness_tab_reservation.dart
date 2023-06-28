@@ -248,9 +248,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       )
                     ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
                 ],
               ),
             ),
@@ -341,37 +338,40 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                   const SizedBox(
                     height: 8,
                   ),
-                  TextField(
-                    controller: seatController,
-                    readOnly: true,
-                    cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.number,
-                    decoration: InputDecoration(
-                      border: InputBorder.none,
-                      fillColor: CustomColors.whiteColor,
-                      filled: true,
-                      contentPadding: const EdgeInsets.all(16),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
+                  SizedBox(
+                    height: 46,
+                    child: TextField(
+                      controller: seatController,
+                      readOnly: true,
+                      cursorColor: CustomColors.textColorBlack2,
+                      keyboardType: TextInputType.number,
+                      decoration: InputDecoration(
+                        border: InputBorder.none,
+                        fillColor: CustomColors.whiteColor,
+                        filled: true,
+                        contentPadding: const EdgeInsets.all(16),
+                        enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(4),
+                          borderSide: const BorderSide(
+                              color: CustomColors.dividerGreyColor, width: 1.0),
+                        ),
+                        hintText: tr('seatValidation'),
+                        hintStyle: const TextStyle(
+                          color: CustomColors.textColor3,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
                       ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(4),
-                        borderSide: const BorderSide(
-                            color: CustomColors.dividerGreyColor, width: 1.0),
-                      ),
-                      hintText: tr('seatValidation'),
-                      hintStyle: const TextStyle(
-                        color: CustomColors.textColor3,
+                      style: const TextStyle(
+                        color: CustomColors.textColorBlack2,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
-                    ),
-                    style: const TextStyle(
-                      color: CustomColors.textColorBlack2,
-                      fontSize: 14,
-                      fontFamily: 'Regular',
                     ),
                   )
                 ],
@@ -475,7 +475,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -485,11 +485,15 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != timeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -505,6 +509,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -515,7 +520,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: usageTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: usageTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -524,7 +529,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -532,14 +537,16 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: usageTimeSelectedValue != null ? 0 : 16,
-                bottom: usageTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: usageTimeSelectedValue != null ? 0 : 13,
+                bottom: usageTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );
@@ -566,7 +573,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -576,11 +583,15 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != totalUsageTimeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -596,6 +607,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -606,7 +618,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: totalTimeSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: totalTimeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -615,7 +627,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -623,14 +635,16 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: totalTimeSelectedValue != null ? 0 : 16,
-                bottom: totalTimeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: totalTimeSelectedValue != null ? 0 : 13,
+                bottom: totalTimeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );

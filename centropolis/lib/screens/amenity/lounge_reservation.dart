@@ -632,7 +632,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             });
           },
           dropdownStyleData: DropdownStyleData(
-            maxHeight: 200,
+            maxHeight: 150,
             isOverButton: false,
             elevation: 0,
             padding: const EdgeInsets.only(top: 0, bottom: 0),
@@ -678,7 +678,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       );
     } else {
       return Container(
-        height: 53,
+        height: 48,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(left: 16, right: 16),
         decoration: BoxDecoration(
