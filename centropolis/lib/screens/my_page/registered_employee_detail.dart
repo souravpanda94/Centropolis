@@ -187,7 +187,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                       height: 16,
                     ),
                     Text(
-                      tr("contactNo"),
+                      tr("contactNo").replaceAll(".", ""),
                       style: const TextStyle(
                           fontFamily: 'SemiBold',
                           fontSize: 14,

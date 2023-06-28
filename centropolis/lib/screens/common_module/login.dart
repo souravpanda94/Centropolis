@@ -17,8 +17,6 @@ import '../../widgets/common_modal.dart';
 import 'find_ID_password.dart';
 import 'signup.dart';
 
-
-
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
 
@@ -408,17 +406,13 @@ class _LoginScreenState extends State<LoginScreen> {
     hideKeyboard();
     if (emailIDController.text.trim().isEmpty) {
       showUserIdErrorModal(tr("IDHint"));
-    }
-    else if (!isValidUserId(emailIDController.text.trim())) {
-      showUserIdErrorModal(tr("onlyValidEmailIsApplicable"));
-    }
-    else if (passwordController.text.trim().isEmpty) {
+    } else if (!isValidUserId(emailIDController.text.trim())) {
+      showUserIdErrorModal(tr("onlyValidIdIsAllowed"));
+    } else if (passwordController.text.trim().isEmpty) {
       showPasswordErrorModal(tr("pleaseEnterPassword"));
-    }
-    else if (!isValidPassword(passwordController.text.trim())) {
+    } else if (!isValidPassword(passwordController.text.trim())) {
       showPasswordErrorModal(tr("onlyValidPasswordIsAllowed"));
-    }
-    else {
+    } else {
       doLogin();
     }
   }

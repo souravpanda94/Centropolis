@@ -407,6 +407,8 @@
   "ptReservationHistoryDetails": "유료 PT 예약",
   "imageSizeValidation": "1MB이하의 이미지 파일을 선택해 주세요",
   "imageDimensionValidation": "670x670 픽셀 이하의 이미지 파일을 선택해 주세요",
+  "verifyAddMemberPasswordHint" : "비밀번호를 한번 더 입력해 주세요.",
+
 
 
 

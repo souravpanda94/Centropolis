@@ -404,7 +404,7 @@ class _AddMemberState extends State<AddMember> {
                           borderSide: const BorderSide(
                               color: CustomColors.dividerGreyColor, width: 1.0),
                         ),
-                        hintText: tr('verifyPasswordHint'),
+                        hintText: tr('verifyAddMemberPasswordHint'),
                         hintStyle: const TextStyle(
                           color: CustomColors.textColor3,
                           fontSize: 14,
@@ -478,7 +478,7 @@ class _AddMemberState extends State<AddMember> {
                     width: MediaQuery.of(context).size.width,
                     child: RichText(
                       text: TextSpan(
-                          text: tr("contactNo"),
+                          text: tr("contactNo").replaceAll(".", ""),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
