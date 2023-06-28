@@ -73,327 +73,329 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
           ),
         ),
         body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("programInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.all(16),
-                      decoration: const BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("programName"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            widget.gxReservationItem.title ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("dayOfTheWeek"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            widget.gxReservationItem.programDaysData.toString(),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("time"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            widget.gxReservationItem.startTime ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("usageAmount"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "${tr("krw")} ${formatNumberStringWithComma(widget.gxReservationItem.totalPrice.toString())} ${tr("perMonth")}",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("dateOfUse"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "${widget.gxReservationItem.startDate.toString()} ~ ${widget.gxReservationItem.endDate.toString()}",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("applicationPeriod"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "${widget.gxReservationItem.applicationStartDate.toString()} ~ ${widget.gxReservationItem.applicationEndDate.toString()}",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("application/NumberOfPeople"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            "${widget.gxReservationItem.appliedNop.toString()} / ${widget.gxReservationItem.totalNop.toString()}",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        ],
+          child: Container(
+            color: CustomColors.whiteColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("programInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 10,
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("reservationInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("nameLounge"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        Text(
-                          name,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        )
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: CustomColors.backgroundColor2,
+                      const SizedBox(
+                        height: 16,
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("tenantCompanyLounge"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        Text(
-                          companyName,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        )
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                height: 10,
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-              ),
-              Container(
-                alignment: FractionalOffset.bottomCenter,
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: SizedBox(
-                              height: 15,
-                              width: 15,
-                              child: Transform.scale(
-                                scale: 0.8,
-                                child: Checkbox(
-                                  checkColor: CustomColors.whiteColor,
-                                  activeColor:
-                                      CustomColors.buttonBackgroundColor,
-                                  side: const BorderSide(
-                                      color: CustomColors.greyColor, width: 1),
-                                  value: isChecked,
-                                  onChanged: (value) {
-                                    setState(() {
-                                      isChecked = value!;
-                                      if (isChecked) {
-                                      } else {}
-                                    });
-                                  },
-                                ),
-                              ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.all(16),
+                        decoration: const BoxDecoration(
+                            color: CustomColors.backgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("programName"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
                             ),
-                          ),
-                          const SizedBox(
-                            width: 9,
-                          ),
-                          Padding(
-                            padding: const EdgeInsets.only(top: 3),
-                            child: Text(
-                              tr("gxReservationConsent"),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              widget.gxReservationItem.title ?? "",
                               style: const TextStyle(
                                   fontFamily: 'Regular',
                                   fontSize: 14,
                                   color: CustomColors.textColorBlack2),
                             ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("dayOfTheWeek"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              widget.gxReservationItem.programDaysData
+                                  .toString(),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("time"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              widget.gxReservationItem.startTime ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("usageAmount"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "${tr("krw")} ${formatNumberStringWithComma(widget.gxReservationItem.totalPrice.toString())} ${tr("perMonth")}",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("dateOfUse"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "${widget.gxReservationItem.startDate.toString()} ~ ${widget.gxReservationItem.endDate.toString()}",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("applicationPeriod"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "${widget.gxReservationItem.applicationStartDate.toString()} ~ ${widget.gxReservationItem.applicationEndDate.toString()}",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("application/NumberOfPeople"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              "${widget.gxReservationItem.appliedNop.toString()} / ${widget.gxReservationItem.totalNop.toString()}",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  height: 10,
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("reservationInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("nameLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            name,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
                           )
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24, bottom: 32),
-                      child: CommonButton(
-                        onCommonButtonTap: () {
-                          reservationValidationCheck();
-                        },
-                        buttonColor: CustomColors.buttonBackgroundColor,
-                        buttonName: tr("apply"),
-                        isIconVisible: false,
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.backgroundColor2,
+                        ),
                       ),
-                    )
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("tenantCompanyLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            companyName,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                Container(
+                  height: 10,
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                ),
+                Container(
+                  alignment: FractionalOffset.bottomCenter,
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 5),
+                              child: SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: Transform.scale(
+                                  scale: 0.8,
+                                  child: Checkbox(
+                                    checkColor: CustomColors.whiteColor,
+                                    activeColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    side: const BorderSide(
+                                        color: CustomColors.greyColor,
+                                        width: 1),
+                                    value: isChecked,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isChecked = value!;
+                                        if (isChecked) {
+                                        } else {}
+                                      });
+                                    },
+                                  ),
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 9,
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(top: 3),
+                              child: Text(
+                                tr("gxReservationConsent"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24, bottom: 32),
+                        child: CommonButton(
+                          onCommonButtonTap: () {
+                            reservationValidationCheck();
+                          },
+                          buttonColor: CustomColors.buttonBackgroundColor,
+                          buttonName: tr("apply"),
+                          isIconVisible: false,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
