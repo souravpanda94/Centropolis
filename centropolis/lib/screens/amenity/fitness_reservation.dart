@@ -52,7 +52,8 @@ class _FitnessReservationState extends State<FitnessReservation> {
         children: [
           Container(
               color: CustomColors.whiteColor,
-              height: 77,
+              height: 70,
+              width: MediaQuery.of(context).size.width,
               padding: const EdgeInsets.all(16),
               child: ListView.builder(
                   shrinkWrap: true,
@@ -66,26 +67,32 @@ class _FitnessReservationState extends State<FitnessReservation> {
                         });
                       },
                       child: Container(
+                        height: 38,
                         padding: const EdgeInsets.symmetric(
-                            vertical: 12, horizontal: 16),
+                            vertical: 10, horizontal: 16),
                         margin: const EdgeInsets.only(right: 12),
                         decoration: BoxDecoration(
                             color: index == showIndex
                                 ? CustomColors.tabColor
                                 : CustomColors.backgroundColor,
                             border: Border.all(
-                              color: CustomColors.borderColor,
+                              color: index == showIndex
+                                  ? CustomColors.tabColor
+                                  : CustomColors.borderColor,
                             ),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8))),
-                        child: Text(
-                          fitnessTabList[index],
-                          style: TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: index == showIndex
-                                  ? CustomColors.whiteColor
-                                  : CustomColors.textColor8),
+                        child: Center(
+                          child: Text(
+                            fitnessTabList[index],
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: index == showIndex
+                                    ? CustomColors.whiteColor
+                                    : CustomColors.textColor8),
+                          ),
                         ),
                       ),
                     );

@@ -362,7 +362,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -372,11 +372,15 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != accountStatusList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -391,6 +395,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -401,7 +406,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: statusSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: statusSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -410,7 +415,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -418,14 +423,16 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: statusSelectedValue != null ? 0 : 16,
-                bottom: statusSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: statusSelectedValue != null ? 0 : 13,
+                bottom: statusSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );
@@ -450,7 +457,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -460,11 +467,15 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != accountTypeList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -479,6 +490,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -488,7 +500,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
-          padding: EdgeInsets.only(bottom: typeSelectedValue != null ? 16 : 0),
+          padding: EdgeInsets.only(bottom: typeSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -497,7 +509,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -505,14 +517,16 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: typeSelectedValue != null ? 0 : 16,
-                bottom: typeSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: typeSelectedValue != null ? 0 : 13,
+                bottom: typeSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );

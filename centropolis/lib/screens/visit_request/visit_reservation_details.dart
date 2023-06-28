@@ -138,31 +138,29 @@ class _VisitReservationDetailsScreenState
                     borderRadius: BorderRadius.circular(4),
                   ),
                   padding: const EdgeInsets.only(
-                      top: 22, bottom: 22, left: 15, right: 15),
+                      top: 20, bottom: 22, left: 15, right: 15),
                   child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            tr("nameOfPersonInCharge"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "Bold",
-                              color: CustomColors.textColor8,
-                            ),
-                          ),
-                          Text(
-                            tr("*"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "Bold",
-                              color: CustomColors.headingColor,
-                            ),
+                          Text(tr("nameOfPersonInCharge"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(" *",
+                                style: TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.headingColor)),
                           ),
                         ],
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -177,30 +175,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("tenantCompany"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("tenantCompany"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -216,30 +212,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("visitBuilding"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("visitBuilding"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -253,30 +247,27 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
-                        child: Row(
-                          children: [
-                            Text(
-                              tr("landingFloor"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
+                          margin: const EdgeInsets.only(top: 16.0),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
+                              Text(tr("landingFloor"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8)),
+                              const Padding(
+                                padding: EdgeInsets.only(bottom: 6),
+                                child: Text(" *",
+                                    style: TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.headingColor)),
                               ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
+                            ],
+                          )),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -318,31 +309,29 @@ class _VisitReservationDetailsScreenState
                     borderRadius: BorderRadius.circular(4),
                   ),
                   padding: const EdgeInsets.only(
-                      top: 22, bottom: 22, left: 15, right: 15),
+                      top: 20, bottom: 22, left: 15, right: 15),
                   child: Column(
                     children: [
                       Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
                         children: [
-                          Text(
-                            tr("visitorName"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "Bold",
-                              color: CustomColors.textColor8,
-                            ),
-                          ),
-                          Text(
-                            tr("*"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "Bold",
-                              color: CustomColors.headingColor,
-                            ),
+                          Text(tr("visitorName"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const Padding(
+                            padding: EdgeInsets.only(bottom: 6),
+                            child: Text(" *",
+                                style: TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.headingColor)),
                           ),
                         ],
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -356,30 +345,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("company"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("company"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -394,30 +381,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("email"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("email"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -431,30 +416,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("contactNo"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("contactNo"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -471,30 +454,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("dateOfVisit"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("dateOfVisit"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -508,30 +489,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("visitTime"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("visitTime"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
@@ -545,30 +524,28 @@ class _VisitReservationDetailsScreenState
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 18.0),
+                        margin: const EdgeInsets.only(top: 16.0),
                         child: Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
-                            Text(
-                              tr("purposeOfVisit"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.textColor8,
-                              ),
-                            ),
-                            Text(
-                              tr("*"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "Bold",
-                                color: CustomColors.headingColor,
-                              ),
+                            Text(tr("purposeOfVisit"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
                             ),
                           ],
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 7.0),
+                        margin: const EdgeInsets.only(top: 5.0),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(

@@ -292,8 +292,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                           left: 16,
                           right: 16,
                         ),
-                        padding: const EdgeInsets.only(
-                            top: 25, bottom: 25, left: 35, right: 35),
+                        padding: const EdgeInsets.all(24),
                         child: Text(
                           tr("thereAreNoScheduledVisitorReservations"),
                           textAlign: TextAlign.center,

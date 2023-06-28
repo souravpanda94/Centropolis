@@ -180,7 +180,7 @@ class _GXReservationState extends State<GXReservation> {
                         width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.symmetric(
                             vertical: 18, horizontal: 16),
-                        margin: const EdgeInsets.only(bottom: 8),
+                        margin: const EdgeInsets.only(bottom: 13),
                         decoration: BoxDecoration(
                             color: CustomColors.whiteColor,
                             border: Border.all(
@@ -203,6 +203,8 @@ class _GXReservationState extends State<GXReservation> {
                                   child: Text(
                                     // gxList[index]["title"],
                                     gxReservationListItem?[index].title ?? "",
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
                                     style: TextStyle(
                                         fontFamily: 'SemiBold',
                                         fontSize: 14,

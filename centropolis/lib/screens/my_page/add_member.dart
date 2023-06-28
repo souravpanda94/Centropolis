@@ -678,7 +678,7 @@ class _AddMemberState extends State<AddMember> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["company_name"],
                           style: const TextStyle(
@@ -688,11 +688,15 @@ class _AddMemberState extends State<AddMember> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != companyList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -709,6 +713,7 @@ class _AddMemberState extends State<AddMember> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -719,7 +724,7 @@ class _AddMemberState extends State<AddMember> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: companySelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: companySelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -728,7 +733,7 @@ class _AddMemberState extends State<AddMember> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -736,14 +741,16 @@ class _AddMemberState extends State<AddMember> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: companySelectedValue != null ? 0 : 16,
-                bottom: companySelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: companySelectedValue != null ? 0 : 13,
+                bottom: companySelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );
@@ -768,7 +775,7 @@ class _AddMemberState extends State<AddMember> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["floor"],
                           style: const TextStyle(
@@ -778,11 +785,15 @@ class _AddMemberState extends State<AddMember> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != floorList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -797,6 +808,7 @@ class _AddMemberState extends State<AddMember> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -806,7 +818,7 @@ class _AddMemberState extends State<AddMember> {
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
-          padding: EdgeInsets.only(bottom: floorSelectedValue != null ? 16 : 0),
+          padding: EdgeInsets.only(bottom: floorSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -815,7 +827,7 @@ class _AddMemberState extends State<AddMember> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -823,14 +835,16 @@ class _AddMemberState extends State<AddMember> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: floorSelectedValue != null ? 0 : 16,
-                bottom: floorSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: floorSelectedValue != null ? 0 : 13,
+                bottom: floorSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );
