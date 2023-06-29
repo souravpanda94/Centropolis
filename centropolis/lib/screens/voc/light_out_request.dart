@@ -605,7 +605,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -658,7 +658,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -666,7 +666,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: startTimeSelectedValue != null ? 0 : 13,
                 bottom: startTimeSelectedValue != null ? 0 : 11),
@@ -674,7 +674,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -700,7 +700,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -753,7 +753,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -761,7 +761,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: endTimeSelectedValue != null ? 0 : 13,
                 bottom: endTimeSelectedValue != null ? 0 : 11),
@@ -769,7 +769,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),

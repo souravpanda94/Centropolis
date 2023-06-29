@@ -18,6 +18,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_icon.dart';
 import '../../widgets/voc_common_home.dart';
 import 'air_conditioning_application.dart';
 import 'air_conditioning_list.dart';
@@ -54,7 +55,8 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
   Widget build(BuildContext context) {
     airConditioningListItem = Provider.of<AirConditioningListProvider>(context)
         .getairConditioningModelList;
-    debugPrint("airConditioningListItem length ====> ${airConditioningListItem?.length}");
+    debugPrint(
+        "airConditioningListItem length ====> ${airConditioningListItem?.length}");
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -89,10 +91,9 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
         bottomSheet: Container(
           margin:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
-          child: CommonButton(
+          child: CommonButtonWithIcon(
             buttonName: tr("AirConditioning"),
             buttonColor: CustomColors.buttonBackgroundColor,
-            isIconVisible: true,
             onCommonButtonTap: () {
               Navigator.push(
                 context,

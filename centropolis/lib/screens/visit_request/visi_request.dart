@@ -143,8 +143,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                           .toString());
                                 },
                                 child: Container(
-                                    margin: const EdgeInsets.only(
-                                        top: 5.0, bottom: 5.0),
+                                    margin: const EdgeInsets.only(bottom: 16.0),
                                     decoration: BoxDecoration(
                                       color: CustomColors.whiteColor,
                                       borderRadius: BorderRadius.circular(4),
@@ -167,7 +166,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                   "",
                                               style: const TextStyle(
                                                   fontSize: 14,
-                                                  fontFamily: "Bold",
+                                                  fontFamily: "SemiBold",
                                                   color:
                                                       CustomColors.textColor8),
                                             ),
@@ -194,7 +193,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                     "",
                                                 style: TextStyle(
                                                     fontSize: 12,
-                                                    fontFamily: "Bold",
+                                                    fontFamily: "SemiBold",
                                                     color: setStatusTextColor(
                                                         visitReservationListItem?[
                                                                 index]
@@ -255,7 +254,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                             )),
                                         Container(
                                             margin:
-                                                const EdgeInsets.only(top: 6),
+                                                const EdgeInsets.only(top: 12),
                                             child: Row(
                                               children: [
                                                 Text(

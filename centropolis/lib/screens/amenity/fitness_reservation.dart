@@ -54,7 +54,7 @@ class _FitnessReservationState extends State<FitnessReservation> {
               color: CustomColors.whiteColor,
               height: 70,
               width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
+              padding: const EdgeInsets.only(top: 16, bottom: 16, left: 16),
               child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
@@ -79,10 +79,10 @@ class _FitnessReservationState extends State<FitnessReservation> {
                                 ? CustomColors.tabColor
                                 : CustomColors.backgroundColor,
                             border: Border.all(
-                              color: index == showIndex
-                                  ? CustomColors.tabColor
-                                  : CustomColors.borderColor,
-                            ),
+                                color: index == showIndex
+                                    ? CustomColors.tabColor
+                                    : CustomColors.borderColor,
+                                width: index == showIndex ? 0 : 1),
                             borderRadius:
                                 const BorderRadius.all(Radius.circular(8))),
                         child: Center(

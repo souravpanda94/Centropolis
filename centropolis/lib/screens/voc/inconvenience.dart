@@ -15,7 +15,8 @@ import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
-import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_icon.dart';
+
 import '../../widgets/voc_common_home.dart';
 import 'complaints_received.dart';
 import 'inconvenience_list.dart';
@@ -86,16 +87,10 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
           bottomSheet: Container(
             margin:
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
-            child: CommonButton(
+            child: CommonButtonWithIcon(
               buttonName: tr("complaintsReceived"),
               buttonColor: CustomColors.buttonBackgroundColor,
-              isIconVisible: true,
               onCommonButtonTap: () {
-                // Navigator.push(
-                //   context,
-                //   MaterialPageRoute(
-                //       builder: (context) => const ComplaintsReceived()),
-                // );
                 Navigator.push(
                   context,
                   MaterialPageRoute(

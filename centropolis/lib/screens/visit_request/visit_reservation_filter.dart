@@ -121,7 +121,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
               ),
               Container(
                 height: 50,
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 8),
                 width: MediaQuery.of(context).size.width,
                 decoration: const BoxDecoration(
                   color: CustomColors.backgroundColor,
@@ -150,6 +150,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                         });
                       },
                       child: Container(
+                        alignment: FractionalOffset.center,
                         padding: const EdgeInsets.symmetric(
                             horizontal: 20, vertical: 8),
                         decoration: BoxDecoration(
@@ -287,7 +288,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -340,7 +341,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -348,7 +349,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: statusSelectedValue != null ? 0 : 13,
                 bottom: statusSelectedValue != null ? 0 : 11),
@@ -356,7 +357,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
