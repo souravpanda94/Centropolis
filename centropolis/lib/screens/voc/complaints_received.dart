@@ -569,7 +569,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(left: 12, bottom: 12),
+                      padding: const EdgeInsets.only(left: 12, bottom: 9),
                       child: Text(
                         item["floor"],
                         style: const TextStyle(
@@ -623,7 +623,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -631,7 +631,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: currentSelectedFloor != null ? 0 : 13,
                 bottom: currentSelectedFloor != null ? 0 : 11),
@@ -639,7 +639,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -719,7 +719,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -772,7 +772,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -780,7 +780,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: complaintTypeTimeSelectedValue != null ? 0 : 13,
                 bottom: complaintTypeTimeSelectedValue != null ? 0 : 11),
@@ -788,7 +788,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),

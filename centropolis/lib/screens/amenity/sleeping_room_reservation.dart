@@ -516,7 +516,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item,
                           style: const TextStyle(
@@ -570,7 +570,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -578,7 +578,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: usageTimeSelectedValue != null ? 0 : 13,
                 bottom: usageTimeSelectedValue != null ? 0 : 11),
@@ -586,7 +586,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -614,7 +614,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -673,7 +673,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -681,7 +681,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: totalTimeSelectedValue != null ? 0 : 13,
                 bottom: totalTimeSelectedValue != null ? 0 : 11),
@@ -689,7 +689,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -716,7 +716,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item['seat'].toString(),
                           style: const TextStyle(
@@ -768,7 +768,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -776,7 +776,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: selectedSeatsValue != null ? 0 : 13,
                 bottom: selectedSeatsValue != null ? 0 : 11),
@@ -784,7 +784,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),

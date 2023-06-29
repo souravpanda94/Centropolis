@@ -284,7 +284,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -336,7 +336,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -344,7 +344,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: selectedTime != null ? 0 : 13,
                 bottom: selectedTime != null ? 0 : 11),
@@ -352,7 +352,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
