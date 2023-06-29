@@ -321,7 +321,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     debugPrint("click _handleMessage");
 
     var notificationData = PushDataSingleton();
-    debugPrint("Home screen notificationData iOS: ${message.data}");
+    // debugPrint("Home screen notificationData iOS: ${message.data}");
+    debugPrint("Home screen notificationData for data: ${message.data}");
+    debugPrint("Home screen notificationData for notification: ${message.notification}");
 
     notificationData.doAddPushData(message.data);
     debugPrint("notification detail handle message ====>  ${notificationData.pushData}");
