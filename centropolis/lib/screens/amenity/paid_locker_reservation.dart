@@ -180,7 +180,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  tr("timeSelection"),
+                  tr("selectPeriod"),
                   style: const TextStyle(
                       fontFamily: 'SemiBold',
                       fontSize: 16,

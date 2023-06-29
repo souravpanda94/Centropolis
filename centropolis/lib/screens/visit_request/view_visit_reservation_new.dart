@@ -207,12 +207,7 @@ class _ViewVisitReservationScreenState
                                   .toString());
                             },
                             child: Container(
-                                margin: EdgeInsets.only(
-                                    top: visitReservationListItem?[index] ==
-                                            visitReservationListItem?.first
-                                        ? 0
-                                        : 5.0,
-                                    bottom: 5.0),
+                                margin: const EdgeInsets.only(bottom: 16.0),
                                 decoration: BoxDecoration(
                                   color: CustomColors.whiteColor,
                                   borderRadius: BorderRadius.circular(4),
@@ -260,7 +255,7 @@ class _ViewVisitReservationScreenState
                                                 "",
                                             style: TextStyle(
                                                 fontSize: 12,
-                                                fontFamily: "Bold",
+                                                fontFamily: "SemiBold",
                                                 color: setStatusTextColor(
                                                     visitReservationListItem?[
                                                             index]
@@ -317,7 +312,7 @@ class _ViewVisitReservationScreenState
                                           ],
                                         )),
                                     Container(
-                                        margin: const EdgeInsets.only(top: 10),
+                                        margin: const EdgeInsets.only(top: 12),
                                         child: Row(
                                           children: [
                                             Text(
@@ -413,7 +408,7 @@ class _ViewVisitReservationScreenState
                   style: const TextStyle(
                     color: CustomColors.textColorBlack2,
                     fontSize: 12,
-                    fontFamily: 'SemiBold',
+                    fontFamily: 'Medium',
                   ),
                 ),
               ),

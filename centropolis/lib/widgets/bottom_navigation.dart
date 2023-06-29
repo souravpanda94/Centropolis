@@ -42,10 +42,8 @@ import '../utils/push_data_singleton.dart';
 import '../utils/utils.dart';
 import 'home_page_app_bar.dart';
 
-
-
-
-final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
+    FlutterLocalNotificationsPlugin();
 FirebaseMessaging messaging = FirebaseMessaging.instance;
 
 class BottomNavigationScreen extends StatefulWidget {
@@ -130,96 +128,86 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           const MyPageScreen()
         ].elementAt(selectedPage),
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: CustomColors.whiteColor,
-        showSelectedLabels: true,
-        showUnselectedLabels: true,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8,top: 3),
-                child: SvgPicture.asset(
+      bottomNavigationBar: SizedBox(
+        height: 70,
+        child: BottomNavigationBar(
+          backgroundColor: CustomColors.whiteColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
                   selectedPage == 0
                       ? "assets/images/ic_home_red.svg"
                       : "assets/images/ic_home.svg",
-                  width: 22,
-                  height: 22,
+                  width: 18,
+                  height: 18,
                 ),
-              ),
-              label: tr("home"),
-              backgroundColor: CustomColors.whiteColor),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8,top: 3),
-                child: SvgPicture.asset(
+                label: tr("home"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
                   selectedPage == 1
                       ? "assets/images/ic_tenant_service_red.svg"
                       : "assets/images/ic_tenant_service.svg",
                   semanticsLabel: 'Back',
-                  width: 22,
-                  height: 22,
+                  width: 18,
+                  height: 18,
                 ),
-              ),
-              label: tr("amenity"),
-              backgroundColor: CustomColors.whiteColor),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8,top: 3),
-                child: SvgPicture.asset(
+                label: tr("amenity"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
                   selectedPage == 2
                       ? "assets/images/ic_visit_reservation_red.svg"
                       : "assets/images/ic_visit_reservation.svg",
                   semanticsLabel: 'Back',
-                  width: 22,
-                  height: 22,
+                  width: 18,
+                  height: 18,
                 ),
-              ),
-              label: tr("visitRequest"),
-              backgroundColor: CustomColors.whiteColor),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8,top: 3),
-                child: SvgPicture.asset(
+                label: tr("visitRequest"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
                   selectedPage == 3
                       ? "assets/images/ic_voc_red.svg"
                       : "assets/images/ic_voc.svg",
                   semanticsLabel: 'Back',
-                  width: 22,
-                  height: 22,
+                  width: 18,
+                  height: 18,
                 ),
-              ),
-              label: tr("voc"),
-              backgroundColor: CustomColors.whiteColor),
-          BottomNavigationBarItem(
-              icon: Padding(
-                padding: const EdgeInsets.only(bottom: 8,top: 3),
-                child: SvgPicture.asset(
+                label: tr("voc"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
                   selectedPage == 4
                       ? "assets/images/ic_my_page_red.svg"
                       : "assets/images/ic_my_page.svg",
                   semanticsLabel: 'Back',
-                  width: 22,
-                  height: 22,
+                  width: 18,
+                  height: 18,
                 ),
-              ),
-              label: tr("myPage"),
-              backgroundColor: CustomColors.whiteColor),
-        ],
-        type: BottomNavigationBarType.fixed,
-        currentIndex: selectedPage,
-        selectedItemColor: CustomColors.textColor9,
-        selectedLabelStyle: const TextStyle(
-          fontSize: 12.0,
-          fontFamily: 'Regular',
-          color: CustomColors.textColor9,
-        ),
-        unselectedItemColor: CustomColors.textColor3,
-        unselectedLabelStyle: const TextStyle(
+                label: tr("myPage"),
+                backgroundColor: CustomColors.whiteColor),
+          ],
+          type: BottomNavigationBarType.fixed,
+          currentIndex: selectedPage,
+          selectedItemColor: CustomColors.textColor9,
+          selectedLabelStyle: const TextStyle(
+            height: 2,
             fontSize: 12.0,
             fontFamily: 'Regular',
-            color: CustomColors.textColor3),
-        onTap: _onItemTapped,
-        elevation: 5,
+            color: CustomColors.textColor9,
+          ),
+          unselectedItemColor: CustomColors.textColor3,
+          unselectedLabelStyle: const TextStyle(
+              fontSize: 12.0,
+              height: 2,
+              fontFamily: 'Regular',
+              color: CustomColors.textColor3),
+          onTap: _onItemTapped,
+          elevation: 5,
+        ),
       ),
     );
   }
@@ -324,8 +312,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     debugPrint("Home screen notificationData iOS: ${message.data}");
 
     notificationData.doAddPushData(message.data);
-    debugPrint("notification detail handle message ====>  ${notificationData.pushData}");
-
+    debugPrint(
+        "notification detail handle message ====>  ${notificationData.pushData}");
 
     if (notificationData.pushData.isNotEmpty) {
       Map data = notificationData.pushData;
@@ -338,44 +326,40 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
       if (type == 'add_sleeping_reservation' ||
           type == 'cancel_sleeping_reservation' ||
-          type == 'reject_sleeping_reservation'
-      ) {
+          type == 'reject_sleeping_reservation') {
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => FacilityHistoryDetails(id: id.toString()),
-        ));
-      }
-      else if (type == "add_fitness_reservation" ||
+            context,
+            MaterialPageRoute(
+              builder: (context) => FacilityHistoryDetails(id: id.toString()),
+            ));
+      } else if (type == "add_fitness_reservation" ||
           type == "cancel_fitness_reservation" ||
           type == "reject_fitness_reservation") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FitnessTabHistoryDetails(reservationId: id.toString()),
+            builder: (context) =>
+                FitnessTabHistoryDetails(reservationId: id.toString()),
           ),
         );
       } else if (type == "reply_complaint") {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => InconvenienceHistoryDetails(inquiryId: id.toString()),
+            builder: (context) =>
+                InconvenienceHistoryDetails(inquiryId: id.toString()),
           ),
         );
-      }
-      else if (type == "add_lounge_reservation" ||
+      } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
           type == "cancel_lounge_reservation") {
-
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => LoungeHistoryDetails(id.toString()),
           ),
         );
-        }
-
-      else if (type == "add_locker_reservation" ||
+      } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
           type == "cancel_locker_reservation") {
         //locker details
@@ -420,8 +404,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             builder: (context) => LightsOutDetails(id: id.toString()),
           ),
         );
-      } else if (type == "reply_ac_inquiry" ||
-          type == "approve_ac_inquiry") {
+      } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
         //ac inquiry details
 
         Navigator.push(
@@ -443,28 +426,30 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 GXHistoryDetails(reservationId: id.toString()),
           ),
         );
+      } else {
+        debugPrint("from background #### 1111");
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const BottomNavigationScreen(0, 0),
+          ),
+        );
       }
-      else {
-            debugPrint("from background #### 1111");
-            Navigator.pushReplacement(
-              context,
-              MaterialPageRoute(
-                builder: (context) => const BottomNavigationScreen(0,0),
-              ),
-            );
-          }
-        }
-      // notificationReadApiCall(id, pushNotificationType);
     }
-
+    // notificationReadApiCall(id, pushNotificationType);
+  }
 
   initializeNotifications() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-    const AndroidInitializationSettings('@drawable/ic_notification');
-    DarwinInitializationSettings initializationSettingsIOS = DarwinInitializationSettings(onDidReceiveLocalNotification: onDidReceiveLocalNotification);
-    InitializationSettings initializationSettings = InitializationSettings(android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-    await flutterLocalNotificationsPlugin.initialize(initializationSettings,
-        onDidReceiveNotificationResponse: onSelectNotification,
+        const AndroidInitializationSettings('@drawable/ic_notification');
+    DarwinInitializationSettings initializationSettingsIOS =
+        DarwinInitializationSettings(
+            onDidReceiveLocalNotification: onDidReceiveLocalNotification);
+    InitializationSettings initializationSettings = InitializationSettings(
+        android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
+    await flutterLocalNotificationsPlugin.initialize(
+      initializationSettings,
+      onDidReceiveNotificationResponse: onSelectNotification,
     );
 
     if (Platform.isIOS) {
@@ -502,7 +487,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   // void onSelectNotification(String? payload) async {
   onSelectNotification(NotificationResponse notificationResponse) async {
     var notificationData = PushDataSingleton();
-      debugPrint("notification detail select notification ====>  ${notificationData.pushData}");
+    debugPrint(
+        "notification detail select notification ====>  ${notificationData.pushData}");
 
     if (notificationData.pushData.isNotEmpty) {
       Map data = notificationData.pushData;
@@ -517,44 +503,40 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
 
       if (type == 'add_sleeping_reservation' ||
           type == 'cancel_sleeping_reservation' ||
-          type == 'reject_sleeping_reservation'
-      ) {
+          type == 'reject_sleeping_reservation') {
         Navigator.push(
             context,
             MaterialPageRoute(
               builder: (context) => FacilityHistoryDetails(id: id.toString()),
             ));
-      }
-      else if (type == "add_fitness_reservation" ||
+      } else if (type == "add_fitness_reservation" ||
           type == "cancel_fitness_reservation" ||
           type == "reject_fitness_reservation") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => FitnessTabHistoryDetails(reservationId: id.toString()),
+            builder: (context) =>
+                FitnessTabHistoryDetails(reservationId: id.toString()),
           ),
         );
       } else if (type == "reply_complaint") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => InconvenienceHistoryDetails(inquiryId: id.toString()),
+            builder: (context) =>
+                InconvenienceHistoryDetails(inquiryId: id.toString()),
           ),
         );
-      }
-      else if (type == "add_lounge_reservation" ||
+      } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
           type == "cancel_lounge_reservation") {
-
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => LoungeHistoryDetails(id.toString()),
           ),
         );
-      }
-
-      else if (type == "add_locker_reservation" ||
+      } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
           type == "cancel_locker_reservation") {
         //locker details
@@ -599,8 +581,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             builder: (context) => LightsOutDetails(id: id.toString()),
           ),
         );
-      } else if (type == "reply_ac_inquiry" ||
-          type == "approve_ac_inquiry") {
+      } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
         //ac inquiry details
 
         Navigator.push(
@@ -622,20 +603,18 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 GXHistoryDetails(reservationId: id.toString()),
           ),
         );
-      }
-      else {
+      } else {
         debugPrint("from background #### 1111");
         Navigator.pushReplacement(
           context,
           MaterialPageRoute(
-            builder: (context) => const BottomNavigationScreen(0,0),
+            builder: (context) => const BottomNavigationScreen(0, 0),
           ),
         );
       }
     }
 
     // notificationReadApiCall(id, pushNotificationType);
-
   }
 
   Future<void> initConnectivity() async {
@@ -658,7 +637,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     return _updateConnectionStatus(result);
   }
 
-
   Future<void> _updateConnectionStatus(ConnectivityResult result) async {
     setState(() {
       _connectionStatus = result;
@@ -669,5 +647,4 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       }
     }
   }
-
 }
