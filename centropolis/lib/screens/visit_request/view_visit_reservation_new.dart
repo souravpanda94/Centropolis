@@ -446,12 +446,13 @@ class _ViewVisitReservationScreenState
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,
-            height: 7,
+            height: 6,
             color: CustomColors.textColorBlack2,
           ),
         )),
+        buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          padding: EdgeInsets.only(left: 16, top: 10, bottom: 10),
         ),
       ),
     );

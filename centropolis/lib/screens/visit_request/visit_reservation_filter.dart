@@ -69,179 +69,199 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.all(16),
         color: CustomColors.whiteColor,
-        child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+        child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
             children: [
-              Text(tr("reservationStatus"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 14,
-                      color: CustomColors.textColor8)),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 6),
-                child: Text(" *",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.headingColor)),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(tr("reservationStatus"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8)),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 6),
+                    child: Text(" *",
+                        style: TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.headingColor)),
+                  ),
+                ],
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          reservationStatusDropdownWidget(),
-          const SizedBox(
-            height: 14,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            children: [
-              Text(tr("periodOfUse"),
-                  style: const TextStyle(
-                      fontFamily: 'SemiBold',
-                      fontSize: 14,
-                      color: CustomColors.textColor8)),
-              const Padding(
-                padding: EdgeInsets.only(bottom: 6),
-                child: Text(" *",
-                    style: TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.headingColor)),
+              const SizedBox(
+                height: 6,
               ),
-            ],
-          ),
-          const SizedBox(
-            height: 6,
-          ),
-          Container(
-            height: 50,
-            padding: const EdgeInsets.symmetric(vertical: 8),
-            width: MediaQuery.of(context).size.width,
-            decoration: const BoxDecoration(
-              color: CustomColors.backgroundColor,
-            ),
-            child: ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: dateFilterList.length,
-              itemBuilder: (context, index) {
-                return InkWell(
-                  onTap: () {
-                    setState(() {
-                      showIndex = index;
-                      selectedDate = null;
-                      focusedDate = DateTime.now();
-                      showIndex == 0
-                          ? dateController.text =
-                              "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now())}"
-                          : showIndex == 1
+              reservationStatusDropdownWidget(),
+              const SizedBox(
+                height: 14,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Text(tr("periodOfUse"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 14,
+                          color: CustomColors.textColor8)),
+                  const Padding(
+                    padding: EdgeInsets.only(bottom: 6),
+                    child: Text(" *",
+                        style: TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.headingColor)),
+                  ),
+                ],
+              ),
+              const SizedBox(
+                height: 6,
+              ),
+              Container(
+                height: 50,
+                padding: const EdgeInsets.symmetric(vertical: 8),
+                width: MediaQuery.of(context).size.width,
+                decoration: const BoxDecoration(
+                  color: CustomColors.backgroundColor,
+                ),
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: dateFilterList.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        setState(() {
+                          showIndex = index;
+                          selectedDate = null;
+                          focusedDate = DateTime.now();
+                          showIndex == 0
                               ? dateController.text =
-                                  "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now().add(const Duration(days: 7)))}"
-                              : showIndex == 2
+                                  "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now())}"
+                              : showIndex == 1
                                   ? dateController.text =
-                                      "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now().add(const Duration(days: 30)))}"
-                                  : dateController.clear();
-                    });
+                                      "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now().add(const Duration(days: 7)))}"
+                                  : showIndex == 2
+                                      ? dateController.text =
+                                          "${DateFormat('yyyy.MM.dd').format(DateTime.now())} - ${DateFormat('yyyy.MM.dd').format(DateTime.now().add(const Duration(days: 30)))}"
+                                      : dateController.clear();
+                        });
+                      },
+                      child: Container(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 8),
+                        decoration: BoxDecoration(
+                            color: showIndex == index
+                                ? CustomColors.whiteColor
+                                : CustomColors.backgroundColor,
+                            border: showIndex == index
+                                ? Border.all(
+                                    color: CustomColors.textColorBlack2,
+                                  )
+                                : null,
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(50))),
+                        child: Text(
+                          dateFilterList[index],
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                              color: showIndex == index
+                                  ? CustomColors.textColorBlack2
+                                  : CustomColors.textColor3),
+                        ),
+                      ),
+                    );
                   },
-                  child: Container(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                    decoration: BoxDecoration(
-                        color: showIndex == index
-                            ? CustomColors.whiteColor
-                            : CustomColors.backgroundColor,
-                        border: showIndex == index
-                            ? Border.all(
-                                color: CustomColors.textColorBlack2,
-                              )
-                            : null,
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(50))),
-                    child: Text(
-                      dateFilterList[index],
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: TextStyle(
-                          color: showIndex == index
-                              ? CustomColors.textColorBlack2
-                              : CustomColors.textColor3),
-                    ),
-                  ),
-                );
-              },
-            ),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          TextField(
-            controller: dateController,
-            cursorColor: CustomColors.textColorBlack2,
-            keyboardType: TextInputType.datetime,
-            readOnly: true,
-            showCursor: false,
-            decoration: InputDecoration(
-                border: InputBorder.none,
-                fillColor: CustomColors.whiteColor,
-                filled: true,
-                contentPadding: const EdgeInsets.all(16),
-                enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
-                ),
-                focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(4),
-                  borderSide: const BorderSide(
-                      color: CustomColors.dividerGreyColor, width: 1.0),
-                ),
-                hintText: "YYYY.MM.DD - YYYY.MM.DD",
-                hintStyle: const TextStyle(
-                  color: CustomColors.textColorBlack2,
-                  fontSize: 14,
-                  fontFamily: 'Regular',
-                ),
-                suffixIcon: Padding(
-                  padding: const EdgeInsets.all(18.0),
-                  child: SvgPicture.asset(
-                    "assets/images/ic_date.svg",
-                    width: 8,
-                    height: 4,
-                    color: CustomColors.textColorBlack2,
-                  ),
-                )),
-            style: const TextStyle(
-              color: CustomColors.blackColor,
-              fontSize: 14,
-              fontFamily: 'Regular',
-            ),
-            onTap: () {
-              if (showIndex == 3) {
-                openDateRangePickerWidget();
-              }
-            },
-          ),
-          Expanded(
-            child: Align(
-              alignment: FractionalOffset.bottomCenter,
-              child: Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(top: 16, bottom: 24),
-                child: CommonButton(
-                  onCommonButtonTap: () {
-                    goToPreviousPage();
-                  },
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("check"),
-                  isIconVisible: false,
                 ),
               ),
-            ),
-          )
-        ]),
+              const SizedBox(
+                height: 8,
+              ),
+              SizedBox(
+                height: 46,
+                child: TextField(
+                  controller: dateController,
+                  cursorColor: CustomColors.textColorBlack2,
+                  keyboardType: TextInputType.datetime,
+                  readOnly: true,
+                  showCursor: false,
+                  decoration: InputDecoration(
+                      border: InputBorder.none,
+                      fillColor: CustomColors.whiteColor,
+                      filled: true,
+                      contentPadding: const EdgeInsets.all(16),
+                      enabledBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(4),
+                        borderSide: const BorderSide(
+                            color: CustomColors.dividerGreyColor, width: 1.0),
+                      ),
+                      hintText: "YYYY.MM.DD - YYYY.MM.DD",
+                      hintStyle: const TextStyle(
+                        color: CustomColors.textColorBlack2,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
+                      ),
+                      suffixIcon: Padding(
+                        padding: const EdgeInsets.all(18.0),
+                        child: SvgPicture.asset(
+                          "assets/images/ic_date.svg",
+                          width: 8,
+                          height: 4,
+                          color: CustomColors.textColorBlack2,
+                        ),
+                      )),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                  onTap: () {
+                    if (showIndex == 3) {
+                      openDateRangePickerWidget();
+                    }
+                  },
+                ),
+              ),
+              // Expanded(
+              //   child: Align(
+              //     alignment: FractionalOffset.bottomCenter,
+              //     child: Container(
+              //       color: CustomColors.whiteColor,
+              //       padding: const EdgeInsets.only(top: 16, bottom: 24),
+              //       child: CommonButton(
+              //         onCommonButtonTap: () {
+              //           goToPreviousPage();
+              //         },
+              //         buttonColor: CustomColors.buttonBackgroundColor,
+              //         buttonName: tr("check"),
+              //         isIconVisible: false,
+              //       ),
+              //     ),
+              //   ),
+              // )
+            ]),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Container(
+        color: CustomColors.whiteColor,
+        padding:
+            const EdgeInsets.only(top: 16, bottom: 24, right: 16, left: 16),
+        child: CommonButton(
+          onCommonButtonTap: () {
+            goToPreviousPage();
+          },
+          buttonColor: CustomColors.buttonBackgroundColor,
+          buttonName: tr("check"),
+          isIconVisible: false,
+        ),
       ),
     );
   }
@@ -267,7 +287,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 16, bottom: 16),
+                        padding: const EdgeInsets.only(left: 12, bottom: 12),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -277,11 +297,15 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                           ),
                         ),
                       ),
-                      const Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: Colors.grey,
-                      )
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != widget.filteredStatusList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
                     ],
                   ),
                 ))
@@ -296,6 +320,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
           decoration: BoxDecoration(
               color: CustomColors.whiteColor,
               border: Border.all(
@@ -306,7 +331,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
         iconStyleData: IconStyleData(
             icon: Padding(
           padding:
-              EdgeInsets.only(bottom: statusSelectedValue != null ? 16 : 0),
+              EdgeInsets.only(bottom: statusSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -315,7 +340,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 53,
+            height: 48,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -323,14 +348,16 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 16,
-                right: 16,
-                left: statusSelectedValue != null ? 0 : 16,
-                bottom: statusSelectedValue != null ? 0 : 16),
+                top: 12,
+                right: 12,
+                left: statusSelectedValue != null ? 0 : 13,
+                bottom: statusSelectedValue != null ? 0 : 11),
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.all(0),
-          height: 53,
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 12),
+          height: 46,
         ),
       ),
     );
