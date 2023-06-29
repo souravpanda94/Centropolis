@@ -14,6 +14,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_icon.dart';
 import '../../widgets/fitness_congestion.dart';
 import 'sleeping_room_reservation.dart';
 
@@ -191,7 +192,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                 child: Container(
                   margin:
                       const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                  child: CommonButton(
+                  child: CommonButtonWithIcon(
                     onCommonButtonTap: () {
                       Navigator.push(
                         context,
@@ -202,7 +203,6 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                     },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("makeSleepingRoomReservation"),
-                    isIconVisible: true,
                   ),
                 ),
               )
