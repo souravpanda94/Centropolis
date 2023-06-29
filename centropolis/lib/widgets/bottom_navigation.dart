@@ -307,11 +307,13 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     final streamCtlr = StreamController<String>.broadcast();
     streamCtlr.sink.add(jsonEncode(message.data));
     debugPrint("click _handleMessage");
+    debugPrint("Push notification data ===========>  ${message.data}");
+
 
     var notificationData = PushDataSingleton();
-    // debugPrint("Home screen notificationData iOS: ${message.data}");
-    debugPrint("Home screen notificationData for data: ${message.data}");
-    debugPrint("Home screen notificationData for notification: ${message.notification}");
+    debugPrint("Home screen notificationData iOS: ${message.data}");
+    // debugPrint("Home screen notificationData for data: ${message.data}");
+    // debugPrint("Home screen notificationData for notification: ${message.notification}");
 
     notificationData.doAddPushData(message.data);
     debugPrint(
@@ -477,14 +479,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     debugPrint('onDidReceiveLocalNotification payload ::::::: $payload');
     // display a dialog with the notification details, tap ok to go to another page
     var notificationData = PushDataSingleton();
-
-    // if (kDebugMode) {
-    //   print("notificationData : ${notificationData.pushData}");
-    // }
-    if (kDebugMode) {
-      print(
-          "notification detail selecte notification ====>  ${notificationData.pushData}");
-    }
+    debugPrint("notification detail select notification (onDidReceiveLocalNotification) ====>  ${notificationData.pushData}");
   }
 
   // void onSelectNotification(String? payload) async {
@@ -498,11 +493,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       var type = data['notification_type'];
       var relId = data['rel_id'];
       int id = int.parse(relId.toString());
-      // int notificationId = int.parse(data['notification_id'].toString());
-      // int id = 0;
-      // String pushNotificationType = "";
+      debugPrint("notification type ====>  $type");
 
-      debugPrint("notification type ====>  ${data.toString()}");
+
+
 
       if (type == 'add_sleeping_reservation' ||
           type == 'cancel_sleeping_reservation' ||
