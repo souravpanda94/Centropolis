@@ -67,6 +67,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   int unreadNotificationCount = 0;
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
+  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
 
   @override
   void initState() {
@@ -78,6 +79,35 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     initConnectivity();
+    _connectivitySubscription =
+        _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    final firebaseMessaging = FCM();
+    firebaseMessaging.setNotifications();
+
+    firebaseMessaging.streamCtlr.stream.listen((event) {
+      Map pushObject = json.decode(event);
+      var notificationData = PushDataSingleton();
+      notificationData.doAddPushData(pushObject);
+      if (kDebugMode) {
+        print("pushNotification: ============== $pushObject");
+      }
+
+      // if (pushObject.isNotEmpty) {
+      //   Map data = notificationData.pushData;
+      //   String notificationId = data['value'].toString();
+      //   debugPrint("======================> initState $notificationId");
+
+      //   if (notificationId == '0') {
+      //     checkInternetConnection(isTokenValidApi, context);
+      //   }
+
+      //   if (mounted) {
+      //     // Provider.of<NotificationListProvider>(context, listen: false)
+      //     //     .isNotificationAlert(id, title, date, description, status, false);
+      //     //Provider.of<NotificationListProvider>(context, listen: false).reloadNotificationAPI();
+      //   }
+      // }
+    });
     initializeNotifications();
     setupInteractedMessage();
     loadPersonalInformation();
@@ -309,7 +339,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     debugPrint("click _handleMessage");
     debugPrint("Push notification data ===========>  ${message.data}");
 
-
     var notificationData = PushDataSingleton();
     debugPrint("Home screen notificationData iOS: ${message.data}");
     // debugPrint("Home screen notificationData for data: ${message.data}");
@@ -479,7 +508,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     debugPrint('onDidReceiveLocalNotification payload ::::::: $payload');
     // display a dialog with the notification details, tap ok to go to another page
     var notificationData = PushDataSingleton();
-    debugPrint("notification detail select notification (onDidReceiveLocalNotification) ====>  ${notificationData.pushData}");
+    debugPrint(
+        "notification detail select notification (onDidReceiveLocalNotification) ====>  ${notificationData.pushData}");
   }
 
   // void onSelectNotification(String? payload) async {
@@ -494,9 +524,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       var relId = data['rel_id'];
       int id = int.parse(relId.toString());
       debugPrint("notification type ====>  $type");
-
-
-
 
       if (type == 'add_sleeping_reservation' ||
           type == 'cancel_sleeping_reservation' ||

@@ -42,8 +42,6 @@ import 'providers/visit_reservation_detail_provider.dart';
 import 'screens/common_module/splash.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-
-
 class MyHttpOverrides extends HttpOverrides {
   @override
   HttpClient createHttpClient(SecurityContext? context) {
@@ -52,6 +50,7 @@ class MyHttpOverrides extends HttpOverrides {
           (X509Certificate cert, String host, int port) => true;
   }
 }
+
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp();
   final streamCtlr = StreamController<String>.broadcast();
@@ -61,13 +60,11 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   }
 }
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   HttpOverrides.global = MyHttpOverrides();
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
-
 
   SystemChrome.setSystemUIOverlayStyle(
     SystemUiOverlayStyle(
