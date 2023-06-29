@@ -365,8 +365,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       }
       else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation") {
-
+          type == "cancel_lounge_reservation" ||
+          type == "payment_pending_lounge_reservation") {
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -544,7 +544,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       }
       else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation") {
+          type == "cancel_lounge_reservation" ||
+          type == "payment_pending_lounge_reservation"
+      ) {
 
         Navigator.push(
           context,
