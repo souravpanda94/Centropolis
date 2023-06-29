@@ -2,6 +2,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import '../../utils/custom_colors.dart';
 import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_icon.dart';
 import 'conference_reservation.dart';
 
 class ConferenceScreen extends StatefulWidget {
@@ -118,7 +119,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
               alignment: Alignment.bottomCenter,
               child: Container(
                 margin: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
-                child: CommonButton(
+                child: CommonButtonWithIcon(
                   onCommonButtonTap: () {
                     Navigator.push(
                       context,
@@ -129,7 +130,6 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("makeConferenceRoomReservation"),
-                  isIconVisible: true,
                 ),
               ),
             )

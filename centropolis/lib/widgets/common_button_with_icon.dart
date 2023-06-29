@@ -28,7 +28,7 @@ class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
     return Material(
       color: Colors.transparent,
       child: Ink(
-          height: 60,
+          height: 43,
           decoration: BoxDecoration(
             color: widget.buttonColor,
             borderRadius: BorderRadius.circular(5),
@@ -43,14 +43,17 @@ class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Expanded(
-                    child: Text(
-                      widget.buttonName,
-                      style: const TextStyle(
-                        fontSize: 14,
-                        color: CustomColors.whiteColor,
-                        fontFamily: 'SemiBold',
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 13),
+                      child: Text(
+                        widget.buttonName,
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: CustomColors.whiteColor,
+                          fontFamily: 'SemiBold',
+                        ),
+                        textAlign: TextAlign.center,
                       ),
-                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
