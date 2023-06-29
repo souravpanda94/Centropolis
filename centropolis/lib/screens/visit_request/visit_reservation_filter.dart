@@ -53,7 +53,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(
@@ -231,6 +231,14 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   },
                 ),
               ),
+              const SizedBox(
+                height: 16,
+              ),
+              Expanded(
+                child: Container(
+                  color: CustomColors.backgroundColor,
+                ),
+              )
               // Expanded(
               //   child: Align(
               //     alignment: FractionalOffset.bottomCenter,
