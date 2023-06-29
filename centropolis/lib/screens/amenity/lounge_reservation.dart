@@ -254,7 +254,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
             ),
             Container(
               width: MediaQuery.of(context).size.width,
-              margin: const EdgeInsets.symmetric(horizontal: 16),
+              padding: const EdgeInsets.symmetric(horizontal: 16),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

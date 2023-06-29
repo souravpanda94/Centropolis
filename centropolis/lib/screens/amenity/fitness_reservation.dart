@@ -70,7 +70,10 @@ class _FitnessReservationState extends State<FitnessReservation> {
                         height: 38,
                         padding: const EdgeInsets.symmetric(
                             vertical: 10, horizontal: 16),
-                        margin: const EdgeInsets.only(right: 12),
+                        margin: EdgeInsets.only(
+                            right: fitnessTabList[index] != fitnessTabList.last
+                                ? 12
+                                : 0),
                         decoration: BoxDecoration(
                             color: index == showIndex
                                 ? CustomColors.tabColor

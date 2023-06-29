@@ -164,17 +164,17 @@ class _GXReservationState extends State<GXReservation> {
                   itemBuilder: ((context, index) {
                     return InkWell(
                       onTap: () {
-                        if (gxReservationListItem?[index].status ==
-                            "receiving") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GXReservationDetail(
-                                  gxReservationItem:
-                                      gxReservationListItem![index]),
-                            ),
-                          );
-                        }
+                        // if (gxReservationListItem?[index].status ==
+                        //     "receiving") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => GXReservationDetail(
+                                gxReservationItem:
+                                    gxReservationListItem![index]),
+                          ),
+                        );
+                        // }
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
@@ -202,7 +202,11 @@ class _GXReservationState extends State<GXReservation> {
                                 Expanded(
                                   child: Text(
                                     // gxList[index]["title"],
-                                    gxReservationListItem?[index].title ?? "",
+                                    gxReservationListItem?[index]
+                                            .title
+                                            .toString()
+                                            .toUpperCase() ??
+                                        "",
                                     maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                     style: TextStyle(

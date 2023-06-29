@@ -288,7 +288,6 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                           borderRadius: BorderRadius.circular(4),
                         ),
                         margin: const EdgeInsets.only(
-                          top: 20,
                           left: 16,
                           right: 16,
                         ),
@@ -296,6 +295,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                         child: Text(
                           tr("thereAreNoScheduledVisitorReservations"),
                           textAlign: TextAlign.center,
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
                           style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",

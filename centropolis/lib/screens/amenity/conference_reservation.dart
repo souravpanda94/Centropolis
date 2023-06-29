@@ -318,7 +318,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
               Container(
                 alignment: FractionalOffset.bottomCenter,
                 width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.symmetric(horizontal: 16),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [

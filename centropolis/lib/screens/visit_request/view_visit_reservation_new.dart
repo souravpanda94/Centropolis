@@ -140,7 +140,7 @@ class _ViewVisitReservationScreenState
           children: [
             Container(
               margin: const EdgeInsets.only(
-                top: 20.0,
+                top: 16.0,
                 left: 16,
                 right: 16,
               ),
@@ -154,7 +154,7 @@ class _ViewVisitReservationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColorBlack2,
-                          fontFamily: 'SemiBold',
+                          fontFamily: 'Medium',
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -166,7 +166,7 @@ class _ViewVisitReservationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor9,
-                          fontFamily: 'SemiBold',
+                          fontFamily: 'Medium',
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -178,7 +178,7 @@ class _ViewVisitReservationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColorBlack2,
-                          fontFamily: 'SemiBold',
+                          fontFamily: 'Medium',
                         ),
                         textAlign: TextAlign.center,
                       ),
@@ -207,8 +207,12 @@ class _ViewVisitReservationScreenState
                                   .toString());
                             },
                             child: Container(
-                                margin: const EdgeInsets.only(
-                                    top: 5.0, bottom: 5.0),
+                                margin: EdgeInsets.only(
+                                    top: visitReservationListItem?[index] ==
+                                            visitReservationListItem?.first
+                                        ? 0
+                                        : 5.0,
+                                    bottom: 5.0),
                                 decoration: BoxDecoration(
                                   color: CustomColors.whiteColor,
                                   borderRadius: BorderRadius.circular(4),
@@ -231,7 +235,7 @@ class _ViewVisitReservationScreenState
                                               "",
                                           style: const TextStyle(
                                               fontSize: 14,
-                                              fontFamily: "Bold",
+                                              fontFamily: "SemiBold",
                                               color: CustomColors.textColor8),
                                         ),
                                         Container(
@@ -313,7 +317,7 @@ class _ViewVisitReservationScreenState
                                           ],
                                         )),
                                     Container(
-                                        margin: const EdgeInsets.only(top: 6),
+                                        margin: const EdgeInsets.only(top: 10),
                                         child: Row(
                                           children: [
                                             Text(
@@ -441,8 +445,8 @@ class _ViewVisitReservationScreenState
               left: 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 7,
             color: CustomColors.textColorBlack2,
           ),
         )),
