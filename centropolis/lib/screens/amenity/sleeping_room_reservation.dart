@@ -429,52 +429,47 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     padding: const EdgeInsets.symmetric(horizontal: 16),
                     width: MediaQuery.of(context).size.width,
                     child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(top: 16),
                           child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
-                              Padding(
-                                padding: const EdgeInsets.only(top: 5),
-                                child: SizedBox(
-                                  height: 15,
-                                  width: 15,
-                                  child: Transform.scale(
-                                    scale: 0.8,
-                                    child: Checkbox(
-                                      checkColor: CustomColors.whiteColor,
-                                      activeColor:
-                                          CustomColors.buttonBackgroundColor,
-                                      side: const BorderSide(
-                                          color: CustomColors.greyColor,
-                                          width: 1),
-                                      value: isChecked,
-                                      onChanged: (value) {
-                                        setState(() {
-                                          isChecked = value!;
-                                          if (isChecked) {
-                                          } else {}
-                                        });
-                                      },
-                                    ),
+                              SizedBox(
+                                height: 15,
+                                width: 15,
+                                child: Transform.scale(
+                                  scale: 0.8,
+                                  child: Checkbox(
+                                    checkColor: CustomColors.whiteColor,
+                                    activeColor:
+                                        CustomColors.buttonBackgroundColor,
+                                    side: const BorderSide(
+                                        color: CustomColors.greyColor,
+                                        width: 1),
+                                    value: isChecked,
+                                    onChanged: (value) {
+                                      setState(() {
+                                        isChecked = value!;
+                                        if (isChecked) {
+                                        } else {}
+                                      });
+                                    },
                                   ),
                                 ),
                               ),
                               const SizedBox(
                                 width: 9,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Text(
-                                  tr("sleepingRoomReservationConsent"),
-                                  style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 14,
-                                      color: CustomColors.textColorBlack2),
-                                ),
+                              Text(
+                                tr("sleepingRoomReservationConsent"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
                               )
                             ],
                           ),
