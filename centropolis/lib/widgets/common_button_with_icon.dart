@@ -28,7 +28,7 @@ class _CommonButtonWithIconState extends State<CommonButtonWithIcon> {
     return Material(
       color: Colors.transparent,
       child: Ink(
-          height: 43,
+          height: 45,
           decoration: BoxDecoration(
             color: widget.buttonColor,
             borderRadius: BorderRadius.circular(5),

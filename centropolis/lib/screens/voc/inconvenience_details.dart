@@ -237,7 +237,10 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                       height: 8,
                     ),
                     Text(
-                      complaintsReceivedDetails?.floor.toString() ?? "",
+                      complaintsReceivedDetails?.floor
+                              .toString()
+                              .toUpperCase() ??
+                          "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

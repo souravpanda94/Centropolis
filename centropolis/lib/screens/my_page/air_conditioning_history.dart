@@ -253,7 +253,8 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                         Text(
                                           airConditioningListItem?[index]
                                                   .requestedFloors
-                                                  .toString() ??
+                                                  .toString()
+                                                  .toUpperCase() ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,

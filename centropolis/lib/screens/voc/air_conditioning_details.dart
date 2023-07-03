@@ -229,7 +229,10 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                     height: 8,
                   ),
                   Text(
-                    airConditioningDetailModel?.requestedFloor.toString() ?? "",
+                    airConditioningDetailModel?.requestedFloor
+                            .toString()
+                            .toUpperCase() ??
+                        "",
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: const TextStyle(

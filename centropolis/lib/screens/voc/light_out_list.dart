@@ -91,7 +91,7 @@ class _LightsOutListState extends State<LightsOutList> {
                       Text(
                         tr("total"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'Medium',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
@@ -100,7 +100,7 @@ class _LightsOutListState extends State<LightsOutList> {
                         child: Text(
                           totalRecords.toString(),
                           style: const TextStyle(
-                              fontFamily: 'Regular',
+                              fontFamily: 'Medium',
                               fontSize: 14,
                               color: CustomColors.textColor9),
                         ),
@@ -108,7 +108,7 @@ class _LightsOutListState extends State<LightsOutList> {
                       Text(
                         tr("items"),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'Medium',
                             fontSize: 14,
                             color: CustomColors.textColorBlack2),
                       ),
@@ -226,6 +226,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                     ),
                                     const SizedBox(
                                       height: 18,
+                                      
                                     ),
                                     IntrinsicHeight(
                                       child: Row(
@@ -233,7 +234,8 @@ class _LightsOutListState extends State<LightsOutList> {
                                           Text(
                                             lightoutListItem?[index]
                                                     .requestedFloors
-                                                    .toString() ??
+                                                    .toString()
+                                                    .toUpperCase() ??
                                                 "",
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
@@ -381,7 +383,7 @@ class _LightsOutListState extends State<LightsOutList> {
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
-            fontFamily: 'Regular',
+            fontFamily: 'Medium',
           ),
         ),
         items: statusList
@@ -423,11 +425,12 @@ class _LightsOutListState extends State<LightsOutList> {
               left: 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
             color: CustomColors.textColorBlack2,
           ),
         )),
+        buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
           padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
         ),

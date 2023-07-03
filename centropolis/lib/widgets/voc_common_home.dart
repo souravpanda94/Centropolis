@@ -53,7 +53,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 widget.image,
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
-                height: 320,
+                height: 300,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 15),
@@ -62,27 +62,26 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 child: Text(
                   widget.title,
                   style: const TextStyle(
-                      fontFamily: 'Regular',
+                      fontFamily: 'SemiBold',
                       fontSize: 14,
-                      fontWeight: FontWeight.w600,
                       color: CustomColors.textColor9),
                 ),
               ),
               Container(
                 //height: 62,
-                margin: const EdgeInsets.only(top: 5, left: 15, right: 15),
+                margin: const EdgeInsets.only(top: 8, left: 15, right: 15),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Expanded(
                       child: Padding(
-                        padding: const EdgeInsets.only(top: 0),
+                        padding: const EdgeInsets.only(top: 0, right: 8),
                         child: Text(
                           widget.subTitle,
+                          maxLines: 2,
                           style: const TextStyle(
-                              fontFamily: 'Regular',
+                              fontFamily: 'SemiBold',
                               fontSize: 22,
-                              fontWeight: FontWeight.w900,
                               color: CustomColors.textColorBlack2),
                         ),
                       ),
@@ -256,11 +255,12 @@ class _VocCommonHomeState extends State<VocCommonHome> {
   emptyViewWidget() {
     return Container(
       color: CustomColors.backgroundColor,
-      margin: const EdgeInsets.only(top: 20, left: 20, right: 20, bottom: 100),
+      margin: const EdgeInsets.only(top: 16, left: 16, right: 16, bottom: 100),
       alignment: Alignment.center,
-      padding: const EdgeInsets.only(top: 40, bottom: 40),
+      padding: const EdgeInsets.all(24),
       child: Text(
         widget.emptyTxt,
+        textAlign: TextAlign.center,
         style: const TextStyle(
             fontFamily: 'Regular',
             fontSize: 14,
@@ -361,7 +361,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           children: [
                             Text(
                               widget.lightoutList?[index].requestedFloors
-                                      .toString() ??
+                                      .toString()
+                                      .toUpperCase() ??
                                   "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -467,11 +468,11 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         ],
                       ),
                       const SizedBox(
-                        height: 18,
+                        height: 10,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Flexible(
                             child: Text(
@@ -523,14 +524,15 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         ],
                       ),
                       const SizedBox(
-                        height: 18,
+                        height: 10,
                       ),
                       IntrinsicHeight(
                         child: Row(
                           children: [
                             Text(
                               widget.airConditioningList?[index].requestedFloors
-                                      .toString() ??
+                                      .toString()
+                                      .toUpperCase() ??
                                   "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

@@ -217,7 +217,8 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                         Text(
                                           lightoutListItem?[index]
                                                   .requestedFloors
-                                                  .toString() ??
+                                                  .toString()
+                                                  .toUpperCase() ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
