@@ -201,13 +201,13 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 18,
+                                      height: 10,
                                     ),
                                     Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Flexible(
                                           child: Text(
@@ -267,7 +267,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 18,
+                                      height: 10,
                                     ),
                                     IntrinsicHeight(
                                       child: Row(
