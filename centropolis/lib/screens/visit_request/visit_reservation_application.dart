@@ -91,7 +91,7 @@ class _VisitReservationApplicationState
         ),
         isLoading: isLoading,
         child: Scaffold(
-          backgroundColor: CustomColors.backgroundColor,
+          backgroundColor: CustomColors.whiteColor,
           appBar: PreferredSize(
             preferredSize: AppBar().preferredSize,
             child: SafeArea(
@@ -122,7 +122,7 @@ class _VisitReservationApplicationState
                         Text(
                           tr("signUpConsent"),
                           style: const TextStyle(
-                              fontFamily: 'Bold',
+                              fontFamily: 'SemiBold',
                               fontSize: 16,
                               color: CustomColors.textColor8),
                         ),
@@ -800,7 +800,7 @@ class _VisitReservationApplicationState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item.toString(),
                           style: const TextStyle(
@@ -852,7 +852,7 @@ class _VisitReservationApplicationState
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -860,7 +860,7 @@ class _VisitReservationApplicationState
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: timeSelectedValue != null ? 0 : 13,
                 bottom: timeSelectedValue != null ? 0 : 11),
@@ -868,7 +868,7 @@ class _VisitReservationApplicationState
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -896,7 +896,7 @@ class _VisitReservationApplicationState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["text"],
                           style: const TextStyle(
@@ -949,7 +949,7 @@ class _VisitReservationApplicationState
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -957,7 +957,7 @@ class _VisitReservationApplicationState
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: purposeSelectedValue != null ? 0 : 13,
                 bottom: purposeSelectedValue != null ? 0 : 11),
@@ -965,7 +965,7 @@ class _VisitReservationApplicationState
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -991,7 +991,7 @@ class _VisitReservationApplicationState
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 12),
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item["floor"],
                           style: const TextStyle(
@@ -1044,7 +1044,7 @@ class _VisitReservationApplicationState
           ),
         )),
         buttonStyleData: ButtonStyleData(
-            height: 48,
+            height: 46,
             width: MediaQuery.of(context).size.width,
             decoration: BoxDecoration(
                 border: Border.all(
@@ -1052,7 +1052,7 @@ class _VisitReservationApplicationState
                 ),
                 borderRadius: const BorderRadius.all(Radius.circular(4))),
             padding: EdgeInsets.only(
-                top: 12,
+                top: 10,
                 right: 12,
                 left: currentSelectedFloor != null ? 0 : 13,
                 bottom: currentSelectedFloor != null ? 0 : 11),
@@ -1060,7 +1060,7 @@ class _VisitReservationApplicationState
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 12),
+          padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
       ),
@@ -1076,8 +1076,10 @@ class _VisitReservationApplicationState
               (BuildContext context, void Function(void Function()) setState) {
             return Dialog(
               insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
+              child: Container(
                 width: MediaQuery.of(context).size.width,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -1086,7 +1088,7 @@ class _VisitReservationApplicationState
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month'
                       },
-                      weekendDays: const [DateTime.sunday],
+                      weekendDays: const [DateTime.sunday, DateTime.saturday],
                       daysOfWeekHeight: 50,
                       focusedDay: focusedDate,
                       calendarFormat: selectedCalendarFormat,
@@ -1095,6 +1097,22 @@ class _VisitReservationApplicationState
                       headerStyle: HeaderStyle(
                         formatButtonVisible: false,
                         titleCentered: true,
+                        leftChevronPadding: EdgeInsets.zero,
+                        rightChevronPadding: EdgeInsets.zero,
+                        leftChevronIcon: SvgPicture.asset(
+                          "assets/images/ic_back.svg",
+                          width: 0,
+                          height: 18,
+                          color: kFirstDay.month == focusedDate.month
+                              ? CustomColors.dividerGreyColor
+                              : CustomColors.greyColor,
+                        ),
+                        rightChevronIcon: SvgPicture.asset(
+                          "assets/images/ic_right_arrow.svg",
+                          width: 0,
+                          height: 18,
+                          color: CustomColors.greyColor,
+                        ),
                         titleTextStyle: const TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 16,
@@ -1153,7 +1171,8 @@ class _VisitReservationApplicationState
                         }
                       },
                       enabledDayPredicate: (day) {
-                        if (day.weekday == DateTime.saturday) {
+                        if (day.weekday == DateTime.saturday ||
+                            day.weekday == DateTime.sunday) {
                           return false;
                         } else if (day.day == kFirstDay.day &&
                             day.month == kFirstDay.month &&
