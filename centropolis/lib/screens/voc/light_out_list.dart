@@ -65,7 +65,7 @@ class _LightsOutListState extends State<LightsOutList> {
       ),
       isLoading: isFirstLoadRunning,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
@@ -79,6 +79,7 @@ class _LightsOutListState extends State<LightsOutList> {
           ),
         ),
         body: Container(
+          color: CustomColors.backgroundColor,
           padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -226,7 +227,6 @@ class _LightsOutListState extends State<LightsOutList> {
                                     ),
                                     const SizedBox(
                                       height: 18,
-                                      
                                     ),
                                     IntrinsicHeight(
                                       child: Row(

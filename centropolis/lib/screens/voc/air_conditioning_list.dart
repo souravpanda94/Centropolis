@@ -65,7 +65,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
       ),
       isLoading: isFirstLoadRunning,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
