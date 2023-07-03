@@ -62,7 +62,7 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
       ),
       isLoading: isFirstLoadRunning,
       child: Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: CustomColors.whiteColor,
           body: VocCommonHome(
             image: 'assets/images/inconvenience.png',
             title: tr("customerComplaintsEngTitle"),
@@ -85,10 +85,11 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
             category: 'inconvenience',
           ),
           bottomSheet: Container(
-            margin:
+            color: CustomColors.whiteColor,
+            padding:
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
             child: CommonButtonWithIcon(
-              buttonName: tr("complaintsReceived"),
+              buttonName: tr("complaintsReceivedTitle"),
               buttonColor: CustomColors.buttonBackgroundColor,
               onCommonButtonTap: () {
                 Navigator.push(

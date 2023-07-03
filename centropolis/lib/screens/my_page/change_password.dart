@@ -426,8 +426,9 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showSuccessModal(responseJson['message'].toString(), "");
           }
           Navigator.pop(context);
         } else {
@@ -446,5 +447,26 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         isLoading = false;
       });
     });
+  }
+
+  void showSuccessModal(String heading, String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: message,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

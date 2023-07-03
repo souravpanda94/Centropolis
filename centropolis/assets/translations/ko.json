@@ -271,6 +271,7 @@
   "lockerNumber": "사물함 번호",
   "newInquiry": "신규 문의",
   "complaintsReceived" : "불편사항접수",
+  "complaintsReceivedTitle" : "불편사항접수",
   "applicantInformation" : "작성자 정보",
   "typeOfComplaint" : "민원 종류 ",
   "complaintTitle" : "불편사항 문의 제목이 들어갑니다. ",

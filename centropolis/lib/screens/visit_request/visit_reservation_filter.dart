@@ -381,8 +381,10 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
               (BuildContext context, void Function(void Function()) setState) {
             return Dialog(
               insetPadding: const EdgeInsets.symmetric(horizontal: 16),
-              child: SizedBox(
+              child: Container(
                 width: MediaQuery.of(context).size.width,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
@@ -403,6 +405,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
                       headerStyle: HeaderStyle(
+                        leftChevronPadding: EdgeInsets.zero,
+                        rightChevronPadding: EdgeInsets.zero,
                         leftChevronIcon: SvgPicture.asset(
                           "assets/images/ic_back.svg",
                           width: 0,

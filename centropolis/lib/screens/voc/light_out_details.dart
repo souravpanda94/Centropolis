@@ -232,7 +232,10 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                       height: 8,
                     ),
                     Text(
-                      lightOutDetails?.requestedFloors.toString() ?? "",
+                      lightOutDetails?.requestedFloors
+                              .toString()
+                              .toUpperCase() ??
+                          "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(

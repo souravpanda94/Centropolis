@@ -273,6 +273,7 @@
   "lockerNumber": "Locker Number",
   "newInquiry": "New Inquiry",
   "complaintsReceived" : "Complaints received",
+  "complaintsReceivedTitle" : "Complaints Received",
   "applicantInformation" : "Applicant Information",
   "typeOfComplaint" : "Type of Complaint",
   "complaintTitle" : "Enter the title of the complaint inquiry.",

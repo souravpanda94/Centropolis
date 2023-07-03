@@ -85,7 +85,8 @@ class _LightOutScreenState extends State<LightOutScreen> {
           category: 'lightout',
         ),
         bottomSheet: Container(
-          margin:
+          color: CustomColors.whiteColor,
+          padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
           child: CommonButtonWithIcon(
             buttonName: tr("requestForLightsOut"),

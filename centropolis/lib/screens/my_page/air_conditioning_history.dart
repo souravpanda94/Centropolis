@@ -181,13 +181,13 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 18,
+                                    height: 10,
                                   ),
                                   Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Flexible(
                                         child: Text(
@@ -245,7 +245,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 18,
+                                    height: 10,
                                   ),
                                   IntrinsicHeight(
                                     child: Row(
@@ -253,7 +253,8 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                         Text(
                                           airConditioningListItem?[index]
                                                   .requestedFloors
-                                                  .toString() ??
+                                                  .toString()
+                                                  .toUpperCase() ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
