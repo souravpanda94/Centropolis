@@ -66,9 +66,14 @@ class _MultiSelectState extends State<MultiSelect> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      insetPadding: const EdgeInsets.only(top: 16, bottom: 16),
-      actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
-      contentPadding: const EdgeInsets.only(top: 10, left: 22, right: 16),
+      elevation: 0,
+      buttonPadding: EdgeInsets.zero,
+      insetPadding: EdgeInsets.zero,
+      actionsPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+      contentPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+      titlePadding: const EdgeInsets.all(16),
+      iconPadding: EdgeInsets.zero,
+      actionsAlignment: MainAxisAlignment.spaceBetween,
       title: Transform.translate(
         offset: const Offset(0, 0),
         child: Text(
@@ -90,6 +95,8 @@ class _MultiSelectState extends State<MultiSelect> {
                     child: Transform.translate(
                       offset: const Offset(-10, -10),
                       child: CheckboxListTile(
+                        side: const BorderSide(
+                            width: 1, color: CustomColors.dividerGreyColor),
                         contentPadding: EdgeInsets.zero,
                         value: _selectedItems?.contains(item),
                         activeColor: CustomColors.textColor9,
@@ -113,17 +120,14 @@ class _MultiSelectState extends State<MultiSelect> {
       actions: [
         InkWell(
           onTap: _clearAll,
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: Text(
-              tr('clearAll'),
-              style: const TextStyle(
-                fontSize: 15,
-                color: CustomColors.textColor9,
-                fontFamily: 'SemiBold',
-              ),
-              textAlign: TextAlign.left,
+          child: Text(
+            tr('clearAll'),
+            style: const TextStyle(
+              fontSize: 15,
+              color: CustomColors.textColor9,
+              fontFamily: 'SemiBold',
             ),
+            textAlign: TextAlign.left,
           ),
         ),
         Container(
@@ -140,27 +144,21 @@ class _MultiSelectState extends State<MultiSelect> {
         ),
         InkWell(
           onTap: _cancel,
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: Text(tr('cancel'),
-                style: const TextStyle(
-                  fontSize: 15,
-                  color: CustomColors.textColor9,
-                  fontFamily: 'SemiBold',
-                )),
-          ),
-        ),
-        InkWell(
-          onTap: _submit,
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: Text(
-              tr('ok'),
+          child: Text(tr('cancel'),
               style: const TextStyle(
                 fontSize: 15,
                 color: CustomColors.textColor9,
                 fontFamily: 'SemiBold',
-              ),
+              )),
+        ),
+        InkWell(
+          onTap: _submit,
+          child: Text(
+            tr('ok'),
+            style: const TextStyle(
+              fontSize: 15,
+              color: CustomColors.textColor9,
+              fontFamily: 'SemiBold',
             ),
           ),
         ),

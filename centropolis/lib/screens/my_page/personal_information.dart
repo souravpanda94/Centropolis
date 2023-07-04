@@ -55,127 +55,70 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       ),
       isLoading: isLoading,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("personalInformationSetting"), false, () {
-                onBackButtonPress(context);
-              }, () {}),
-            ),
-          ),
-        ),
-        body: SingleChildScrollView(
-            child: Column(
-          children: [
-            Container(
-              width: double.infinity,
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.only(left: 16, right: 16),
-              color: CustomColors.whiteColor,
-              child: Column(
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                    child: Align(
-                      alignment: Alignment.centerLeft,
-                      child: Text(
-                        tr("myProfile"),
-                        style: const TextStyle(
-                          fontSize: 14,
-                          fontFamily: "SemiBold",
-                          color: CustomColors.textColor5,
-                        ),
-                      ),
-                    ),
-                  ),
-                  Container(
-                    height: 1.0,
-                    color: CustomColors.dividerGreyColor,
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const EditPersonalInformationScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(top: 15.0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 15.0, bottom: 12.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            tr("editPersonalInformation"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "SemiBold",
-                              color: CustomColors.textColor5,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  InkWell(
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const ChangePasswordScreen(),
-                        ),
-                      );
-                    },
-                    child: Container(
-                      margin: const EdgeInsets.only(bottom: 12.0),
-                      child: Padding(
-                        padding: const EdgeInsets.only(top: 13.0, bottom: 15.0),
-                        child: Align(
-                          alignment: Alignment.centerLeft,
-                          child: Text(
-                            tr("changePassword"),
-                            style: const TextStyle(
-                              fontSize: 14,
-                              fontFamily: "SemiBold",
-                              color: CustomColors.textColor5,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                  )
-                ],
+          backgroundColor: CustomColors.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child:
+                    CommonAppBar(tr("personalInformationSetting"), false, () {
+                  onBackButtonPress(context);
+                }, () {}),
               ),
             ),
-            Container(
+          ),
+          body: SingleChildScrollView(
+              child: Column(
+            children: [
+              Container(
                 width: double.infinity,
                 margin: const EdgeInsets.only(top: 10),
                 padding: const EdgeInsets.only(left: 16, right: 16),
                 color: CustomColors.whiteColor,
                 child: Column(
                   children: [
+                    Padding(
+                      padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          tr("myProfile"),
+                          style: const TextStyle(
+                            fontSize: 14,
+                            fontFamily: "SemiBold",
+                            color: CustomColors.textColor5,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Container(
+                      height: 1.0,
+                      color: CustomColors.dividerGreyColor,
+                    ),
                     InkWell(
                       onTap: () {
-                        showWithdrawalModal();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                const EditPersonalInformationScreen(),
+                          ),
+                        );
                       },
                       child: Container(
-                        margin: const EdgeInsets.only(top: 10.0),
+                        margin: const EdgeInsets.only(top: 15.0),
                         child: Padding(
                           padding:
                               const EdgeInsets.only(top: 15.0, bottom: 12.0),
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              tr("withdrawal"),
+                              tr("editPersonalInformation"),
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontFamily: "SemiBold",
-                                color: CustomColors.textColor3,
+                                color: CustomColors.textColor5,
                               ),
                             ),
                           ),
@@ -184,7 +127,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ),
                     InkWell(
                       onTap: () {
-                        showLogoutModal();
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const ChangePasswordScreen(),
+                          ),
+                        );
                       },
                       child: Container(
                         margin: const EdgeInsets.only(bottom: 12.0),
@@ -194,11 +142,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              tr("logOut"),
+                              tr("changePassword"),
                               style: const TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontFamily: "SemiBold",
-                                color: CustomColors.textColor3,
+                                color: CustomColors.textColor5,
                               ),
                             ),
                           ),
@@ -206,9 +154,66 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       ),
                     )
                   ],
-                ))
-          ],
-        ))),);
+                ),
+              ),
+              Container(
+                  width: double.infinity,
+                  margin: const EdgeInsets.only(top: 10),
+                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  color: CustomColors.whiteColor,
+                  child: Column(
+                    children: [
+                      InkWell(
+                        onTap: () {
+                          showWithdrawalModal();
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(top: 10.0),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 15.0, bottom: 12.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                tr("withdrawal"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColor3,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          showLogoutModal();
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 12.0),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 13.0, bottom: 15.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                tr("logOut"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColor3,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ))
+            ],
+          ))),
+    );
   }
 
   // ----------Withdrawal section-----------
@@ -253,7 +258,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     debugPrint("input for Withdrawal ===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.withdrawalUrl, body, language ,apiKey.trim());
+        ApiEndPoint.withdrawalUrl, body, language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -267,7 +272,6 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           // }
 
           showWithdrawalSuccessModal();
-
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
@@ -309,16 +313,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   Navigator.of(context).pop();
                   removeLoginCredential(context);
                 },
-                onFirstBtnTap: () {
-
-                },
-                onSecondBtnTap: () {
-
-                },
+                onFirstBtnTap: () {},
+                onSecondBtnTap: () {},
               ));
         });
-
-
 
     // showDialog(
     //     barrierDismissible: false,
@@ -342,11 +340,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     //         },
     //       );
     //     });
-
-
   }
-
-
 
   // ----------Logout section-----------
   void showLogoutModal() {
@@ -407,7 +401,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
 
     // String logOutUrl = ApiEndPoint.logoutUrl + deviceId;
 
-    Future<http.Response> response = WebService().callPostMethodWithRawData(ApiEndPoint.logoutUrl, body, language, apiKey.trim());
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.logoutUrl, body, language, apiKey.trim());
     response.then((response) {
       var responseJson = json.decode(response.body);
 
