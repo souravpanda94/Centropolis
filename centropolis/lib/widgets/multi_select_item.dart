@@ -66,7 +66,9 @@ class _MultiSelectState extends State<MultiSelect> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      insetPadding: const EdgeInsets.only(top: 16, bottom: 16),
       actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
+      contentPadding: const EdgeInsets.only(top: 10, left: 22, right: 16),
       title: Transform.translate(
         offset: const Offset(0, 0),
         child: Text(
@@ -92,7 +94,14 @@ class _MultiSelectState extends State<MultiSelect> {
                         value: _selectedItems?.contains(item),
                         activeColor: CustomColors.textColor9,
                         title: Transform.translate(
-                            offset: const Offset(-15, 0), child: Text(item)),
+                            offset: const Offset(-15, 0),
+                            child: Text(
+                              item.toUpperCase(),
+                              style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: 'Regular',
+                                  color: CustomColors.greyColor1),
+                            )),
                         controlAffinity: ListTileControlAffinity.leading,
                         onChanged: (isChecked) => _itemChange(item, isChecked!),
                       ),

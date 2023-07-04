@@ -160,7 +160,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Flexible(
                                         child: Text(

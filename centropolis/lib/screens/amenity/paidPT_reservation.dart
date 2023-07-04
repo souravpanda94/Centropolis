@@ -163,7 +163,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                       color: CustomColors.textColor8),
                 ),
                 const SizedBox(
-                  height: 8,
+                  height: 16,
                 ),
                 tableCalendarWidget(),
               ],
@@ -380,6 +380,8 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
+        leftChevronPadding: const EdgeInsets.only(left: 4),
+        rightChevronPadding: const EdgeInsets.only(right: 4),
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
           width: 0,

@@ -234,7 +234,7 @@ class _AirConditioningApplicationState
                         _showMultiSelect();
                       },
                       child: Container(
-                        height: 48,
+                        height: 46,
                         padding: const EdgeInsets.all(0),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -247,13 +247,16 @@ class _AirConditioningApplicationState
                             Expanded(
                                 child: _selectedFloors.isEmpty
                                     ? Container(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 10,
+                                            bottom: 10),
                                         child: Text(tr('applicationFloorHint')))
                                     : Container(
                                         margin: const EdgeInsets.only(left: 15),
                                         child: Wrap(
-                                          spacing: 6,
-                                          runSpacing: -10,
+                                          direction: Axis.vertical,
                                           children: _selectedFloors
                                               .map((e) => Chip(
                                                     backgroundColor:

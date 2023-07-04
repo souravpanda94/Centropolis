@@ -48,7 +48,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         Provider.of<AirConditioningDetailsProvider>(context)
             .getAirConditioningDetailModel;
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(
@@ -64,6 +64,10 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              height: 8,
+              color: CustomColors.backgroundColor,
+            ),
             Container(
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.all(16),
@@ -127,7 +131,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(tr("nameLounge"),
+                        Text(tr("CoolingHeatingName"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
