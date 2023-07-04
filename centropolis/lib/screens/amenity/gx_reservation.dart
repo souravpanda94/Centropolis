@@ -58,6 +58,7 @@ class _GXReservationState extends State<GXReservation> {
       ),
       isLoading: isFirstLoadRunning,
       child: Container(
+        color: CustomColors.backgroundColor,
         width: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.only(top: 32, left: 16, right: 16),
         child: Column(

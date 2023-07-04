@@ -323,12 +323,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             hintText: tr('nameHint'),
                             hintStyle: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
                           ),
                           style: const TextStyle(
+                            height: 1.5,
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontFamily: 'Regular',
@@ -386,12 +388,14 @@ class _SignupScreenState extends State<SignupScreen> {
                                   ),
                                   hintText: tr('IDHint'),
                                   hintStyle: const TextStyle(
+                                    height: 1.5,
                                     color: CustomColors.textColor3,
                                     fontSize: 14,
                                     fontFamily: 'Regular',
                                   ),
                                 ),
                                 style: const TextStyle(
+                                  height: 1.5,
                                   color: CustomColors.blackColor,
                                   fontSize: 14,
                                   fontFamily: 'Regular',
@@ -462,12 +466,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             hintText: tr('passwordHint'),
                             hintStyle: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
                           ),
                           style: const TextStyle(
+                            height: 1.5,
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontFamily: 'Regular',
@@ -523,6 +529,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             hintText: tr('verifyPasswordHint'),
                             hintStyle: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
@@ -531,6 +538,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
+                            height: 1.5,
                             fontFamily: 'Regular',
                           ),
                         ),
@@ -583,10 +591,12 @@ class _SignupScreenState extends State<SignupScreen> {
                             hintStyle: const TextStyle(
                               color: CustomColors.textColor3,
                               fontSize: 14,
+                              height: 1.5,
                               fontFamily: 'Regular',
                             ),
                           ),
                           style: const TextStyle(
+                            height: 1.5,
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontFamily: 'Regular',
@@ -641,12 +651,14 @@ class _SignupScreenState extends State<SignupScreen> {
                             ),
                             hintText: tr('contactNoHint'),
                             hintStyle: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
                           ),
                           style: const TextStyle(
+                            height: 1.5,
                             color: CustomColors.blackColor,
                             fontSize: 14,
                             fontFamily: 'Regular',

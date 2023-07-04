@@ -362,12 +362,14 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         ),
                         hintText: tr('seatValidation'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.textColorBlack2,
                         fontSize: 14,
                         fontFamily: 'Regular',

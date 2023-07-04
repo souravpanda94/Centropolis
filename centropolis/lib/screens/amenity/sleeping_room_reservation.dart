@@ -94,7 +94,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         .getViewSeatSelectionList;
 
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(

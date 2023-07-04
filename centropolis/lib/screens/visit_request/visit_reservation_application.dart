@@ -405,12 +405,14 @@ class _VisitReservationApplicationState
                               ),
                               hintText: tr('visitorNameHint'),
                               hintStyle: const TextStyle(
+                                height: 1.5,
                                 color: CustomColors.textColor3,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
                             ),
                             style: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
@@ -466,12 +468,14 @@ class _VisitReservationApplicationState
                               ),
                               hintText: tr('companyNameHint'),
                               hintStyle: const TextStyle(
+                                height: 1.5,
                                 color: CustomColors.textColor3,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
                             ),
                             style: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
@@ -527,12 +531,14 @@ class _VisitReservationApplicationState
                               ),
                               hintText: tr('emailDemoHint'),
                               hintStyle: const TextStyle(
+                                height: 1.5,
                                 color: CustomColors.textColor3,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
                             ),
                             style: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
@@ -590,12 +596,14 @@ class _VisitReservationApplicationState
                               ),
                               hintText: tr('contactHint'),
                               hintStyle: const TextStyle(
+                                height: 1.5,
                                 color: CustomColors.textColor3,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
                             ),
                             style: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
@@ -661,12 +669,14 @@ class _VisitReservationApplicationState
                               ),
                               hintText: "YYYY.MM.DD",
                               hintStyle: const TextStyle(
+                                height: 1.5,
                                 color: CustomColors.textColor3,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
                             ),
                             style: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
