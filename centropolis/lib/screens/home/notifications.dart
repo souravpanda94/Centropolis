@@ -88,9 +88,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     child: ListView.builder(
                         itemCount: notificationListItem?.length,
                         itemBuilder: ((context, index) {
-                          debugPrint("Notification Id -> ${notificationListItem?[index].id.toString()}");
-                          debugPrint("title -> ${notificationListItem?[index].title.toString()}");
-                          debugPrint("type -> ${notificationListItem?[index].notificationType.toString()}");
+                          debugPrint(
+                              "Notification Id -> ${notificationListItem?[index].id.toString()}");
+                          debugPrint(
+                              "title -> ${notificationListItem?[index].title.toString()}");
+                          debugPrint(
+                              "type -> ${notificationListItem?[index].notificationType.toString()}");
 
                           return InkWell(
                             onTap: () {
@@ -316,8 +319,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     } else if (notificationType == "add_lounge_reservation" ||
         notificationType == "reject_lounge_reservation" ||
         notificationType == "cancel_lounge_reservation" ||
-        notificationType == "payment_pending_lounge_reservation"
-    ) {
+        notificationType == "payment_pending_lounge_reservation") {
       //lounge details
 
       Navigator.push(
@@ -326,8 +328,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
           builder: (context) => LoungeHistoryDetails(relId.toString()),
         ),
       );
-    }
-    else if (notificationType == "add_locker_reservation" ||
+    } else if (notificationType == "add_locker_reservation" ||
         notificationType == "reject_locker_reservation" ||
         notificationType == "cancel_locker_reservation") {
       //locker details
@@ -379,8 +380,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) =>
-              AirConditioningDetails(inquiryId: relId.toString()),
+          builder: (context) => AirConditioningDetails(
+              inquiryId: relId.toString(), appBarTitle: tr("AirConditioning")),
         ),
       );
     } else if (notificationType == "add_gx_reservation" ||
@@ -396,7 +397,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
         ),
       );
     }
-
   }
 
   void loadNotificationAllRead() async {

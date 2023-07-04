@@ -444,8 +444,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                AirConditioningDetails(inquiryId: id.toString()),
+            builder: (context) => AirConditioningDetails(
+                inquiryId: id.toString(), appBarTitle: tr("AirConditioning")),
           ),
         );
       } else if (type == "add_gx_reservation" ||
@@ -612,8 +612,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) =>
-                AirConditioningDetails(inquiryId: id.toString()),
+            builder: (context) => AirConditioningDetails(
+                inquiryId: id.toString(), appBarTitle: tr("AirConditioning")),
           ),
         );
       } else if (type == "add_gx_reservation" ||

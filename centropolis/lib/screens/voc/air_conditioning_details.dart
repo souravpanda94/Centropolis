@@ -17,8 +17,9 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
 class AirConditioningDetails extends StatefulWidget {
-  final String inquiryId;
-  const AirConditioningDetails({super.key, required this.inquiryId});
+  final String inquiryId, appBarTitle;
+  const AirConditioningDetails(
+      {super.key, required this.inquiryId, required this.appBarTitle});
 
   @override
   State<AirConditioningDetails> createState() => _AirConditioningDetailsState();
@@ -53,7 +54,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
+            child: CommonAppBar(widget.appBarTitle, false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
