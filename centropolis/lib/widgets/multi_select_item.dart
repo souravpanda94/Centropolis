@@ -8,6 +8,7 @@ import 'package:provider/provider.dart';
 class MultiSelect extends StatefulWidget {
   final List<String> items;
   final List<String>? alreadySelectedItems;
+
   const MultiSelect({Key? key, required this.items, this.alreadySelectedItems})
       : super(key: key);
 
@@ -65,8 +66,14 @@ class _MultiSelectState extends State<MultiSelect> {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return AlertDialog(
-      actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
+      // actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
+      insetPadding: const EdgeInsets.only(
+          left: 18.0, right: 18.0, top: 100.0, bottom: 100.0),
+      contentPadding: const EdgeInsets.only(
+          top: 15.0, bottom: 5.0, left: 16.0, right: 16.0),
       title: Transform.translate(
         offset: const Offset(0, 0),
         child: Text(
@@ -79,56 +86,51 @@ class _MultiSelectState extends State<MultiSelect> {
               color: CustomColors.textColor8),
         ),
       ),
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: widget.items
-              .map((item) => Container(
-                    height: 40,
-                    padding: EdgeInsets.zero,
-                    child: Transform.translate(
-                      offset: const Offset(-10, -10),
-                      child: CheckboxListTile(
-                        contentPadding: EdgeInsets.zero,
-                        value: _selectedItems?.contains(item),
-                        activeColor: CustomColors.textColor9,
-                        title: Transform.translate(
-                            offset: const Offset(-15, 0), child: Text(item)),
-                        controlAffinity: ListTileControlAffinity.leading,
-                        onChanged: (isChecked) => _itemChange(item, isChecked!),
+      content: SizedBox(
+        width: width,
+        child: SingleChildScrollView(
+          child: ListBody(
+            children: widget.items
+                .map((item) => Container(
+                      height: 40,
+                      padding: EdgeInsets.zero,
+                      child: Transform.translate(
+                        offset: const Offset(-10, -10),
+                        child: CheckboxListTile(
+                          contentPadding: EdgeInsets.zero,
+                          value: _selectedItems?.contains(item),
+                          activeColor: CustomColors.textColor9,
+                          title: Transform.translate(
+                              offset: const Offset(-15, 0), child: Text(item)),
+                          controlAffinity: ListTileControlAffinity.leading,
+                          onChanged: (isChecked) =>
+                              _itemChange(item, isChecked!),
+                        ),
                       ),
-                    ),
-                  ))
-              .toList(),
+                    ))
+                .toList(),
+          ),
         ),
       ),
+
       actions: [
         InkWell(
-          onTap: _clearAll,
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: Text(
-              tr('clearAll'),
-              style: const TextStyle(
-                fontSize: 15,
-                color: CustomColors.textColor9,
-                fontFamily: 'SemiBold',
-              ),
-              textAlign: TextAlign.left,
-            ),
-          ),
-        ),
-        Container(
-          padding: const EdgeInsets.only(left: 50, right: 30),
-          child: const Text(
-            "",
-            style: TextStyle(
-              fontSize: 15,
-              color: CustomColors.textColor9,
-              fontFamily: 'SemiBold',
-            ),
-            textAlign: TextAlign.left,
-          ),
-        ),
+            onTap: _clearAll,
+            child:  Container(
+                padding: const EdgeInsets.only(bottom: 10, right: 10),
+                child: Text(
+                  tr('clearAll'),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: CustomColors.textColor9,
+                    fontFamily: 'SemiBold',
+                  ),
+                  textAlign: TextAlign.left,
+                ),
+            )),
+
+
+
         InkWell(
           onTap: _cancel,
           child: Container(
@@ -141,21 +143,24 @@ class _MultiSelectState extends State<MultiSelect> {
                 )),
           ),
         ),
+
+
         InkWell(
-          onTap: _submit,
-          child: Container(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
-            child: Text(
-              tr('ok'),
-              style: const TextStyle(
-                fontSize: 15,
-                color: CustomColors.textColor9,
-                fontFamily: 'SemiBold',
-              ),
-            ),
-          ),
-        ),
+            onTap: _submit,
+            child:  Container(
+                padding: const EdgeInsets.only(bottom: 10, right: 10),
+                child: Text(
+                  tr('ok'),
+                  style: const TextStyle(
+                    fontSize: 15,
+                    color: CustomColors.textColor9,
+                    fontFamily: 'SemiBold',
+                  ),
+                ),
+            )),
       ],
+      actionsAlignment: MainAxisAlignment.spaceBetween,
+      actionsPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
     );
   }
 }
