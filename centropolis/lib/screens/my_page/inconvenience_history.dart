@@ -78,7 +78,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                     Text(
                       tr("total"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -87,7 +87,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                       child: Text(
                         totalRecords.toString(),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'Medium',
                             fontSize: 14,
                             color: CustomColors.textColor9),
                       ),
@@ -95,7 +95,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                     Text(
                       tr("items"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -389,7 +389,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
-            fontFamily: 'Regular',
+            fontFamily: 'Medium',
           ),
         ),
         items: statusList
@@ -401,7 +401,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                   style: const TextStyle(
                     color: CustomColors.textColor5,
                     fontSize: 12,
-                    fontFamily: 'SemiBold',
+                    fontFamily: 'Medium',
                   ),
                 ),
               ),
@@ -423,6 +423,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
               color: CustomColors.whiteColor,
               border: Border.all(color: CustomColors.borderColor, width: 1)),
         ),
+        buttonStyleData: const ButtonStyleData(height: 35),
         iconStyleData: IconStyleData(
             icon: Padding(
           padding: EdgeInsets.only(
@@ -431,8 +432,8 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
               left: 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
             color: CustomColors.textColorBlack2,
           ),
         )),

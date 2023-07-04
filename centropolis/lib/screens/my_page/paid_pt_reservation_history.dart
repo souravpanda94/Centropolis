@@ -79,7 +79,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                     Text(
                       tr("total"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -88,7 +88,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                       child: Text(
                         totalRecords.toString(),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'Medium',
                             fontSize: 14,
                             color: CustomColors.textColor9),
                       ),
@@ -96,7 +96,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                     Text(
                       tr("items"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -303,7 +303,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
-            fontFamily: 'Regular',
+            fontFamily: 'Medium',
           ),
         ),
         items: statusList
@@ -315,7 +315,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                   style: const TextStyle(
                     color: CustomColors.textColor5,
                     fontSize: 12,
-                    fontFamily: 'SemiBold',
+                    fontFamily: 'Medium',
                   ),
                 ),
               ),
@@ -349,6 +349,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
             color: CustomColors.textColorBlack2,
           ),
         )),
+        buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
           padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
         ),

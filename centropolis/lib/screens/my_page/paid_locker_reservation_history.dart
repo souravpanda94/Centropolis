@@ -80,7 +80,7 @@ class _PaidLockerReservationHistoryState
                     Text(
                       tr("total"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -89,7 +89,7 @@ class _PaidLockerReservationHistoryState
                       child: Text(
                         totalRecords.toString(),
                         style: const TextStyle(
-                            fontFamily: 'Regular',
+                            fontFamily: 'Medium',
                             fontSize: 14,
                             color: CustomColors.textColor9),
                       ),
@@ -97,7 +97,7 @@ class _PaidLockerReservationHistoryState
                     Text(
                       tr("items"),
                       style: const TextStyle(
-                          fontFamily: 'Regular',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -284,7 +284,7 @@ class _PaidLockerReservationHistoryState
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
-            fontFamily: 'Regular',
+            fontFamily: 'Medium',
           ),
         ),
         items: statusList
@@ -296,7 +296,7 @@ class _PaidLockerReservationHistoryState
                   style: const TextStyle(
                     color: CustomColors.textColor5,
                     fontSize: 12,
-                    fontFamily: 'SemiBold',
+                    fontFamily: 'Medium',
                   ),
                 ),
               ),
@@ -325,11 +325,12 @@ class _PaidLockerReservationHistoryState
               left: 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
             color: CustomColors.textColorBlack2,
           ),
         )),
+        buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
           padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
         ),

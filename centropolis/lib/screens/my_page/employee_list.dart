@@ -79,7 +79,7 @@ class _EmployeeListState extends State<EmployeeList> {
                     Text(
                       tr("total"),
                       style: const TextStyle(
-                          fontFamily: 'SemiBold',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -88,7 +88,7 @@ class _EmployeeListState extends State<EmployeeList> {
                       child: Text(
                         totalRecords.toString(),
                         style: const TextStyle(
-                            fontFamily: 'SemiBold',
+                            fontFamily: 'Medium',
                             fontSize: 14,
                             color: CustomColors.textColor9),
                       ),
@@ -96,7 +96,7 @@ class _EmployeeListState extends State<EmployeeList> {
                     Text(
                       tr("people"),
                       style: const TextStyle(
-                          fontFamily: 'SemiBold',
+                          fontFamily: 'Medium',
                           fontSize: 14,
                           color: CustomColors.textColorBlack2),
                     ),
@@ -416,7 +416,7 @@ class _EmployeeListState extends State<EmployeeList> {
           style: const TextStyle(
             color: CustomColors.textColor5,
             fontSize: 14,
-            fontFamily: 'Regular',
+            fontFamily: 'Medium',
           ),
         ),
         items: accountTypeList
@@ -428,7 +428,7 @@ class _EmployeeListState extends State<EmployeeList> {
                   style: const TextStyle(
                     color: CustomColors.textColor5,
                     fontSize: 12,
-                    fontFamily: 'SemiBold',
+                    fontFamily: 'Medium',
                   ),
                 ),
               ),
@@ -457,11 +457,12 @@ class _EmployeeListState extends State<EmployeeList> {
               left: 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
+            width: 6,
+            height: 6,
             color: CustomColors.textColorBlack2,
           ),
         )),
+        buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
           padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
         ),
