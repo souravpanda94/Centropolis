@@ -75,7 +75,7 @@ class _MultiSelectState extends State<MultiSelect> {
       contentPadding: const EdgeInsets.only(
           top: 15.0, bottom: 5.0, left: 16.0, right: 16.0),
       title: Transform.translate(
-        offset: const Offset(0, 0),
+        offset: const Offset(-7, 0),
         child: Text(
           tr("applicationFloorLightOut"),
           maxLines: 1,
@@ -84,6 +84,7 @@ class _MultiSelectState extends State<MultiSelect> {
               fontFamily: 'SemiBold',
               fontSize: 16,
               color: CustomColors.textColor8),
+          textAlign: TextAlign.left,
         ),
       ),
       content: SizedBox(
@@ -116,18 +117,137 @@ class _MultiSelectState extends State<MultiSelect> {
       actions: [
         InkWell(
             onTap: _clearAll,
-            child:  Container(
-                padding: const EdgeInsets.only(bottom: 10, right: 10),
-                child: Text(
-                  tr('clearAll'),
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: CustomColors.textColor9,
-                    fontFamily: 'SemiBold',
-                  ),
-                  textAlign: TextAlign.left,
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
+              child: Text(
+                tr('clearAll'),
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: CustomColors.textColor9,
+                  fontFamily: 'SemiBold',
                 ),
+                textAlign: TextAlign.left,
+              ),
             )),
+
+
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
+        const Text(
+          "",
+          style: TextStyle(
+            fontSize: 15,
+            color: CustomColors.textColor9,
+            fontFamily: 'SemiBold',
+          ),
+          textAlign: TextAlign.left,
+        ),
 
 
 
@@ -143,20 +263,18 @@ class _MultiSelectState extends State<MultiSelect> {
                 )),
           ),
         ),
-
-
         InkWell(
             onTap: _submit,
-            child:  Container(
-                padding: const EdgeInsets.only(bottom: 10, right: 10),
-                child: Text(
-                  tr('ok'),
-                  style: const TextStyle(
-                    fontSize: 15,
-                    color: CustomColors.textColor9,
-                    fontFamily: 'SemiBold',
-                  ),
+            child: Container(
+              padding: const EdgeInsets.only(bottom: 10, right: 10),
+              child: Text(
+                tr('ok'),
+                style: const TextStyle(
+                  fontSize: 15,
+                  color: CustomColors.textColor9,
+                  fontFamily: 'SemiBold',
                 ),
+              ),
             )),
       ],
       actionsAlignment: MainAxisAlignment.spaceBetween,
