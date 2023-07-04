@@ -30,6 +30,7 @@ import '../screens/my_page/my_page.dart';
 import '../screens/my_page/paid_locker_history_details.dart';
 import '../screens/my_page/paid_pt_history_details.dart';
 import '../screens/visit_request/visi_request.dart';
+import '../screens/visit_request/visit_reservation_details.dart';
 import '../screens/voc/air_conditioning_details.dart';
 import '../screens/voc/light_out_details.dart';
 import '../screens/voc/voc_application.dart';
@@ -460,7 +461,21 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                 GXHistoryDetails(reservationId: id.toString()),
           ),
         );
-      } else {
+      }
+      else if (type == "notif_addVisitorReservation" ||
+          type == "notif_rejectVisitorReservationByAdmin" ||
+          type == "notif_rejectVisitorReservationByTenantMaster" ||
+          type == "notif_cancelVisitorReservationByTenantMaster" ||
+          type == "notif_addVisitorReservationByAdmin" ||
+          type == "notif_cancelVisitorReservationAuto") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VisitReservationDetailsScreen(id.toString()),
+          ),
+        );
+      }
+      else {
         debugPrint("from background #### 1111");
         Navigator.pushReplacement(
           context,
@@ -626,6 +641,18 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           MaterialPageRoute(
             builder: (context) =>
                 GXHistoryDetails(reservationId: id.toString()),
+          ),
+        );
+      } else if (type == "notif_addVisitorReservation" ||
+          type == "notif_rejectVisitorReservationByAdmin" ||
+          type == "notif_rejectVisitorReservationByTenantMaster" ||
+          type == "notif_cancelVisitorReservationByTenantMaster" ||
+          type == "notif_addVisitorReservationByAdmin" ||
+          type == "notif_cancelVisitorReservationAuto") {
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => VisitReservationDetailsScreen(id.toString()),
           ),
         );
       } else {
