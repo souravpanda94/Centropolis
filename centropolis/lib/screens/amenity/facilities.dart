@@ -62,7 +62,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                     width: MediaQuery.of(context).size.width,
                     child: Image.asset(
                       "assets/images/refresh.png",
-                      height: 300,
+                      height: 316,
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -173,7 +173,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                           height: 16,
                         ),
                         Text(
-                          tr("fitnessCongestion"),
+                          tr("sleepingRoomCongestion"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
@@ -217,7 +217,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           const Padding(
-            padding: EdgeInsets.only(top: 7, right: 10),
+            padding: EdgeInsets.only(top: 7, right: 10, left: 8),
             child: Icon(
               Icons.circle,
               size: 5,

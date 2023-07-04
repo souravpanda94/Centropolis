@@ -94,7 +94,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         .getViewSeatSelectionList;
 
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(
@@ -304,7 +304,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                         color: CustomColors.textColor8),
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 16,
                   ),
                   tableCalendarWidget(),
                 ],
@@ -802,6 +802,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
+        leftChevronPadding: const EdgeInsets.only(left: 4),
+        rightChevronPadding: const EdgeInsets.only(right: 4),
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
           width: 0,

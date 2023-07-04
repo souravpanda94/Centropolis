@@ -26,7 +26,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                   width: MediaQuery.of(context).size.width,
                   child: Image.asset(
                     "assets/images/conference.png",
-                    height: 300,
+                    height: 316,
                     fit: BoxFit.fill,
                   ),
                 ),

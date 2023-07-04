@@ -169,7 +169,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Flexible(
                                           child: Text(

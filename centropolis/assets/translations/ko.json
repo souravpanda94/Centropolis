@@ -261,7 +261,7 @@
   "accountStatus": "계정 상태",
   "accountType": "계정 유형",
   "deleteTitle": "해당 직원의 계정을 삭제하시겠습니까?",
-  "deleteDesc": "삭제 후, 해당 사용자는 로그인되지 않습니다. 직원을 삭제하시겠습니까?",
+  "deleteDesc": "삭제 후, 해당 사용자는 로그인되지 않습니다.\n 직원을 삭제하시겠습니까?",
   "deleteSuccessful": "삭제 완료",
   "deleted": "삭제 처리가 성공적으로 완료되었습니다.",
   "noReservationHistory": "예약 내역이 없습니다.",
@@ -409,6 +409,11 @@
   "imageSizeValidation": "1MB이하의 이미지 파일을 선택해 주세요",
   "imageDimensionValidation": "670x670 픽셀 이하의 이미지 파일을 선택해 주세요",
   "verifyAddMemberPasswordHint" : "비밀번호를 한번 더 입력해 주세요.",
+  "applyVOC" : "확인",
+  "complaintReceivedName" : "작성자명",
+  "CoolingHeatingName" : "신청자명",
+  "sleepingRoomCongestion" : "수면실 실시간 혼잡도",
+
 
 
 

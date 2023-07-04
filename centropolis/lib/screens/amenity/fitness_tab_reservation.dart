@@ -271,7 +271,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         color: CustomColors.textColor8),
                   ),
                   const SizedBox(
-                    height: 8,
+                    height: 16,
                   ),
                   tableCalendarWidget(),
                 ],
@@ -362,12 +362,14 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         ),
                         hintText: tr('seatValidation'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.textColorBlack2,
                         fontSize: 14,
                         fontFamily: 'Regular',
@@ -655,6 +657,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
+        leftChevronPadding: const EdgeInsets.only(left: 4),
+        rightChevronPadding: const EdgeInsets.only(right: 4),
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
           width: 0,

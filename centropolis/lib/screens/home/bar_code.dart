@@ -65,7 +65,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
       ),
       isLoading: isLoading,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
@@ -80,6 +80,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
         body: Center(
             child: SingleChildScrollView(
           child: Container(
+            color: CustomColors.backgroundColor,
             width: MediaQuery.of(context).size.width,
             margin: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -130,8 +131,8 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                         children: [
                           Image.asset(
                             'assets/images/ic_timer.png',
-                            width: 15,
-                            height: 15,
+                            width: 12,
+                            height: 12,
                             alignment: Alignment.center,
                           ),
                           const SizedBox(
@@ -143,19 +144,21 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
                             maxLines: 2,
                             style: const TextStyle(
                                 fontFamily: 'Regular',
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: CustomColors.textColor3),
                           ),
                           const SizedBox(
                             width: 4,
                           ),
                           Text(
-                            '$showTime ${tr('minutes')}',
+                            language == "ko"
+                                ? '$showTime${tr('minutes')}'
+                                : '$showTime ${tr('minutes')}',
                             textAlign: TextAlign.center,
                             maxLines: 2,
                             style: const TextStyle(
                                 fontFamily: 'Medium',
-                                fontSize: 14,
+                                fontSize: 12,
                                 color: CustomColors.textColor9),
                           ),
                         ],

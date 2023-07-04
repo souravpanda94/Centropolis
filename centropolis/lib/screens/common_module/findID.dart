@@ -98,10 +98,12 @@ class _FindIdScreenState extends State<FindID> {
                       hintStyle: const TextStyle(
                         color: CustomColors.textColor3,
                         fontSize: 14,
+                        height: 1.5,
                         fontFamily: 'Regular',
                       ),
                     ),
                     style: const TextStyle(
+                      height: 1.5,
                       color: CustomColors.blackColor,
                       fontSize: 14,
                       fontFamily: 'Regular',

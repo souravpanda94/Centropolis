@@ -99,12 +99,14 @@ class _FindPasswordState extends State<FindPassword> {
                       ),
                       hintText: tr('IDHint'),
                       hintStyle: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.textColor3,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
                     ),
                     style: const TextStyle(
+                      height: 1.5,
                       color: CustomColors.blackColor,
                       fontSize: 14,
                       fontFamily: 'Regular',
@@ -158,12 +160,14 @@ class _FindPasswordState extends State<FindPassword> {
                       ),
                       hintText: tr('emailHint'),
                       hintStyle: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.textColor3,
                         fontSize: 14,
                         fontFamily: 'Regular',
                       ),
                     ),
                     style: const TextStyle(
+                      height: 1.5,
                       color: CustomColors.blackColor,
                       fontSize: 14,
                       fontFamily: 'Regular',

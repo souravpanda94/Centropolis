@@ -1,6 +1,6 @@
 import 'package:centropolis/screens/voc/light_out_details.dart';
 import 'package:centropolis/utils/custom_colors.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -9,6 +9,7 @@ import '../models/inconvenience_list_model.dart';
 import '../models/light_out_list_model.dart';
 import '../screens/voc/air_conditioning_details.dart';
 import '../screens/voc/inconvenience_details.dart';
+import '../../utils/utils.dart';
 
 class VocCommonHome extends StatefulWidget {
   final String image;
@@ -158,7 +159,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Flexible(
                           child: Text(
@@ -422,7 +423,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           inquiryId: widget
                                   .airConditioningList?[index].inquiryId
                                   .toString() ??
-                              ""),
+                              "",
+                          appBarTitle: tr("requestForHeatingAndCooling")),
                     ),
                   );
                 },
@@ -456,7 +458,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           ),
                           Text(
                             widget.airConditioningList?[index].displayType
-                                    .toString() ??
+                                    .toString()
+                                    .capitalize() ??
                                 "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

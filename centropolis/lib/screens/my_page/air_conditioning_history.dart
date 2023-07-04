@@ -131,7 +131,8 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                       inquiryId: airConditioningListItem?[index]
                                               .inquiryId
                                               .toString() ??
-                                          ""),
+                                          "",
+                                      appBarTitle: tr("AirConditioning")),
                                 ),
                               );
                             },
@@ -168,7 +169,8 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                       Text(
                                         airConditioningListItem?[index]
                                                 .displayType
-                                                .toString() ??
+                                                .toString()
+                                                .capitalize() ??
                                             "",
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,

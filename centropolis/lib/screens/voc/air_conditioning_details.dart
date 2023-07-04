@@ -17,8 +17,9 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 
 class AirConditioningDetails extends StatefulWidget {
-  final String inquiryId;
-  const AirConditioningDetails({super.key, required this.inquiryId});
+  final String inquiryId, appBarTitle;
+  const AirConditioningDetails(
+      {super.key, required this.inquiryId, required this.appBarTitle});
 
   @override
   State<AirConditioningDetails> createState() => _AirConditioningDetailsState();
@@ -47,13 +48,13 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         Provider.of<AirConditioningDetailsProvider>(context)
             .getAirConditioningDetailModel;
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
+            child: CommonAppBar(widget.appBarTitle, false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
@@ -63,6 +64,10 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Container(
+              height: 8,
+              color: CustomColors.backgroundColor,
+            ),
             Container(
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.all(16),
@@ -126,7 +131,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(tr("nameLounge"),
+                        Text(tr("CoolingHeatingName"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,
@@ -268,7 +273,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                     height: 8,
                   ),
                   Text(
-                    airConditioningDetailModel?.type.toString() ?? "",
+                    airConditioningDetailModel?.type.toString().capitalize() ??
+                        "",
                     style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,

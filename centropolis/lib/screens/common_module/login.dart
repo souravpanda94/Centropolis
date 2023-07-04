@@ -116,10 +116,12 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintStyle: const TextStyle(
                           color: CustomColors.textColor3,
                           fontSize: 14,
+                          height: 1.5,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
@@ -154,11 +156,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         hintText: tr('password'),
                         hintStyle: const TextStyle(
                           color: CustomColors.textColor3,
+                          height: 1.5,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',

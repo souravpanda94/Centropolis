@@ -42,7 +42,7 @@ class _CommonModalState extends State<CommonModal> {
         ),
         insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
         contentPadding: const EdgeInsets.only(
-            top: 40, bottom: 30.0, left: 20.0, right: 20.0),
+            top: 30, bottom: 30.0, left: 20.0, right: 20.0),
         scrollable: true,
         content: SizedBox(
           width: width,
@@ -50,10 +50,10 @@ class _CommonModalState extends State<CommonModal> {
             SizedBox(
               child: Text(
                 widget.heading,
-                style: TextStyle(
+                style: const TextStyle(
                   color: CustomColors.textColor8,
                   fontSize: 16,
-                  fontFamily: widget.description.isEmpty ? 'SemiBold' : 'Bold',
+                  fontFamily: 'SemiBold',
                 ),
                 textAlign: TextAlign.center,
               ),

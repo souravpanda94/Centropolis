@@ -216,12 +216,14 @@ class _AddMemberState extends State<AddMember> {
                         ),
                         hintText: tr('employeeNameHint'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
@@ -276,12 +278,14 @@ class _AddMemberState extends State<AddMember> {
                               ),
                               hintText: tr('employeeIDHint'),
                               hintStyle: const TextStyle(
+                                height: 1.5,
                                 color: CustomColors.textColor3,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
                             ),
                             style: const TextStyle(
+                              height: 1.5,
                               color: CustomColors.blackColor,
                               fontSize: 14,
                               fontFamily: 'Regular',
@@ -348,12 +352,14 @@ class _AddMemberState extends State<AddMember> {
                         ),
                         hintText: tr('passwordHint'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
@@ -406,12 +412,14 @@ class _AddMemberState extends State<AddMember> {
                         ),
                         hintText: tr('verifyAddMemberPasswordHint'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
@@ -461,12 +469,14 @@ class _AddMemberState extends State<AddMember> {
                         ),
                         hintText: tr('emailDemoHint'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',
@@ -518,12 +528,14 @@ class _AddMemberState extends State<AddMember> {
                         ),
                         hintText: tr('contactNoHint'),
                         hintStyle: const TextStyle(
+                          height: 1.5,
                           color: CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
                       ),
                       style: const TextStyle(
+                        height: 1.5,
                         color: CustomColors.blackColor,
                         fontSize: 14,
                         fontFamily: 'Regular',

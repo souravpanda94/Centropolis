@@ -153,7 +153,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
                                     crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Flexible(
                                         child: Text(

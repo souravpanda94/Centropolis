@@ -133,7 +133,7 @@ class _AirConditioningApplicationState
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(tr("nameLounge"),
+                          Text(tr("CoolingHeatingName"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
@@ -234,7 +234,7 @@ class _AirConditioningApplicationState
                         _showMultiSelect();
                       },
                       child: Container(
-                        height: 48,
+                        height: 46,
                         padding: const EdgeInsets.all(0),
                         decoration: BoxDecoration(
                           border: Border.all(
@@ -247,13 +247,16 @@ class _AirConditioningApplicationState
                             Expanded(
                                 child: _selectedFloors.isEmpty
                                     ? Container(
-                                        padding: const EdgeInsets.all(15),
+                                        padding: const EdgeInsets.only(
+                                            left: 15,
+                                            right: 15,
+                                            top: 10,
+                                            bottom: 10),
                                         child: Text(tr('applicationFloorHint')))
                                     : Container(
                                         margin: const EdgeInsets.only(left: 15),
                                         child: Wrap(
-                                          spacing: 6,
-                                          runSpacing: -10,
+                                          direction: Axis.vertical,
                                           children: _selectedFloors
                                               .map((e) => Chip(
                                                     backgroundColor:
@@ -423,7 +426,7 @@ class _AirConditioningApplicationState
                           color: CustomColors.textColor8),
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 16,
                     ),
                     tableCalendarWidget(),
                   ],
@@ -898,6 +901,8 @@ class _AirConditioningApplicationState
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
+        leftChevronPadding: const EdgeInsets.only(left: 4),
+        rightChevronPadding: const EdgeInsets.only(right: 4),
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
           width: 0,

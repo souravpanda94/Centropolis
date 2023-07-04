@@ -151,7 +151,9 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                                 airConditioningListItem?[index]
                                                         .inquiryId
                                                         .toString() ??
-                                                    ""),
+                                                    "",
+                                            appBarTitle: tr(
+                                                "requestForHeatingAndCooling")),
                                   ),
                                 );
                               },
@@ -188,7 +190,8 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                         Text(
                                           airConditioningListItem?[index]
                                                   .displayType
-                                                  .toString() ??
+                                                  .toString()
+                                                  .capitalize() ??
                                               "",
                                           maxLines: 1,
                                           overflow: TextOverflow.ellipsis,

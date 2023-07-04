@@ -172,7 +172,7 @@
   "barCodeTitle" : "QR code for entry",
   "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
   "loungeReservation" : "Lounge reservation",
-  "reservationInformation" : "Reservation information",
+  "reservationInformation" : "Reservation Information",
   "selectReservationDate" : "Select Reservation Date",
   "timeSelection" : "Time selection",
   "usageTime" : "Usage Time",
@@ -411,6 +411,13 @@
   "imageSizeValidation": "Please select an image file smaller than 1 MB",
   "imageDimensionValidation": "Please select image file with size under 670 X 670 pixels",
   "verifyAddMemberPasswordHint" : "Please enter the employee password once more.",
+  "applyVOC" : "Apply",
+  "complaintReceivedName" : "Name",
+  "CoolingHeatingName" : "Name",
+  "sleepingRoomCongestion" : "Fitness real-time congestion",
+
+
+
 
 
 
