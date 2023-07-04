@@ -23,6 +23,7 @@ import '../my_page/inconvenience_history_details.dart';
 import '../my_page/lounge_history_details.dart';
 import '../my_page/paid_locker_history_details.dart';
 import '../my_page/paid_pt_history_details.dart';
+import '../visit_request/visit_reservation_details.dart';
 import '../voc/air_conditioning_details.dart';
 import '../voc/light_out_details.dart';
 
@@ -394,6 +395,19 @@ class _NotificationScreenState extends State<NotificationScreen> {
         MaterialPageRoute(
           builder: (context) =>
               GXHistoryDetails(reservationId: relId.toString()),
+        ),
+      );
+    }
+    else if (notificationType == "notif_addVisitorReservation" ||
+        notificationType == "notif_rejectVisitorReservationByAdmin" ||
+        notificationType == "notif_rejectVisitorReservationByTenantMaster" ||
+        notificationType == "notif_cancelVisitorReservationByTenantMaster" ||
+        notificationType == "notif_addVisitorReservationByAdmin" ||
+        notificationType == "notif_cancelVisitorReservationAuto") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => VisitReservationDetailsScreen(relId.toString()),
         ),
       );
     }
