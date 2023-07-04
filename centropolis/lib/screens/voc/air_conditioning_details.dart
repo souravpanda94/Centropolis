@@ -269,7 +269,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                     height: 8,
                   ),
                   Text(
-                    airConditioningDetailModel?.type.toString() ?? "",
+                    airConditioningDetailModel?.type.toString().capitalize() ??
+                        "",
                     style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,

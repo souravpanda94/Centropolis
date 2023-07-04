@@ -282,6 +282,7 @@ class _EditPersonalInformationScreenState
                     child: SizedBox(
                       height: 46.0,
                       child: TextField(
+                        cursorColor: CustomColors.blackColor,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
@@ -342,9 +343,10 @@ class _EditPersonalInformationScreenState
                     child: SizedBox(
                       height: 46.0,
                       child: TextField(
+                        cursorColor: CustomColors.blackColor,
                         controller: contactNumberController,
                         keyboardType: TextInputType.phone,
-                        maxLength: 11,
+                        maxLength: 13,
                         decoration: InputDecoration(
                           counterText: "",
                           fillColor: CustomColors.whiteColor,
@@ -388,6 +390,9 @@ class _EditPersonalInformationScreenState
                                   formatNumberStringWithDash(value);
                             });
                           }
+                          contactNumberController.selection =
+                              TextSelection.fromPosition(TextPosition(
+                                  offset: contactNumberController.text.length));
                         },
                       ),
                     ),

@@ -411,6 +411,11 @@
   "imageSizeValidation": "Please select an image file smaller than 1 MB",
   "imageDimensionValidation": "Please select image file with size under 670 X 670 pixels",
   "verifyAddMemberPasswordHint" : "Please enter the employee password once more.",
+  "applyVOC" : "Apply",
+  "complaintReceivedName" : "Name",
+  "CoolingHeatingName" : "Name",
+
+
 
 
 

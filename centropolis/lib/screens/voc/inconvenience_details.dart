@@ -63,7 +63,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("complaintsReceived"), false, () {
+              child: CommonAppBar(tr("complaintsReceivedTitle"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),

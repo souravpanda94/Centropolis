@@ -9,6 +9,7 @@ import '../models/inconvenience_list_model.dart';
 import '../models/light_out_list_model.dart';
 import '../screens/voc/air_conditioning_details.dart';
 import '../screens/voc/inconvenience_details.dart';
+import '../../utils/utils.dart';
 
 class VocCommonHome extends StatefulWidget {
   final String image;
@@ -457,7 +458,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           ),
                           Text(
                             widget.airConditioningList?[index].displayType
-                                    .toString() ??
+                                    .toString()
+                                    .capitalize() ??
                                 "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,

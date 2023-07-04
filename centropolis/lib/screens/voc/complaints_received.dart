@@ -86,7 +86,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             child: SafeArea(
               child: Container(
                 color: CustomColors.whiteColor,
-                child: CommonAppBar(tr("complaintsReceived"), false, () {
+                child: CommonAppBar(tr("complaintsReceivedTitle"), false, () {
                   // onBackButtonPress(context);
                   Navigator.pop(context, isLoadingRequired);
                 }, () {}),
@@ -117,7 +117,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          tr("nameLounge"),
+                          tr("complaintReceivedName"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
@@ -258,6 +258,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           ),
                           hintText: tr("titleHint"),
                           hintStyle: const TextStyle(
+                            height: 1.5,
                             color: CustomColors.textColor3,
                             fontSize: 14,
                             fontFamily: 'Regular',
@@ -289,7 +290,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         ),
                         borderRadius: BorderRadius.circular(4),
                       ),
-                      height: 288,
+                      height: 258,
                       child: SingleChildScrollView(
                         child: TextField(
                           controller: detailController,
@@ -337,8 +338,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           itemCount: imageFileList!.length,
                           itemBuilder: (context, index) {
                             return Container(
-                              height: 110,
-                              width: 110,
+                              height: 107,
+                              width: 107,
                               margin: const EdgeInsets.only(right: 10),
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
@@ -346,11 +347,14 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                                       color: CustomColors.dividerGreyColor)),
                               child: Stack(
                                 children: [
-                                  Image.file(
-                                    File(imageFileList![index].path),
-                                    fit: BoxFit.fill,
-                                    width: 110,
-                                    height: 110,
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(4.0),
+                                    child: Image.file(
+                                      File(imageFileList![index].path),
+                                      fit: BoxFit.fill,
+                                      width: 107,
+                                      height: 107,
+                                    ),
                                   ),
                                   Align(
                                       alignment: Alignment.topRight,
@@ -371,7 +375,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                                               vertical: 6, horizontal: 4),
                                           child: const Icon(
                                             Icons.close,
-                                            size: 20,
+                                            size: 14,
                                             color: CustomColors.whiteColor,
                                           ),
                                         ),
@@ -454,7 +458,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                       submitComplaintValidationCheck();
                     },
                     buttonColor: CustomColors.buttonBackgroundColor,
-                    buttonName: tr("apply"),
+                    buttonName: tr("applyVOC"),
                     isIconVisible: false,
                   ),
                 ),
@@ -553,7 +557,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          floorList.isNotEmpty ? floorList.first["floor"] : tr('floorHint'),
+          floorList.isNotEmpty
+              ? floorList.first["floor"].toString().toUpperCase()
+              : tr('floorHint'),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -571,7 +577,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                     Padding(
                       padding: const EdgeInsets.only(left: 12, bottom: 9),
                       child: Text(
-                        item["floor"],
+                        item["floor"].toString().toUpperCase(),
                         style: const TextStyle(
                           color: CustomColors.blackColor,
                           fontSize: 14,
