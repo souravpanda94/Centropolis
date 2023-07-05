@@ -125,7 +125,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(tr("nameLounge"),
+                          Text(tr("CoolingHeatingName"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,

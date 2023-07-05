@@ -1151,12 +1151,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
-    } else if (selectedIndex == 0) {
+    } else if (selectedSeatsValue == null) {
       showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
     } else {
-      //networkCheckForReservation();
+      networkCheckForReservation();
     }
   }
 
@@ -1195,7 +1195,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
+    Map<String, Object> body = {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
       "reservation_date": reservationDate.toString().trim(), //required
@@ -1207,7 +1207,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
           : totalUsageTimeList.first["value"], //required
-      "seat": (selectedIndex + 1).toString().trim(), //required
+      "seat": selectedSeatsValue!.toString().trim(), //required
     };
 
     debugPrint("sleeping room reservation input===> $body");

@@ -54,7 +54,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 widget.image,
                 fit: BoxFit.fill,
                 width: MediaQuery.of(context).size.width,
-                height: 300,
+                height: 318,
               ),
               Container(
                 margin: const EdgeInsets.only(top: 20, left: 15),
@@ -307,7 +307,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        crossAxisAlignment: CrossAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
                           Flexible(
                             child: Text(
@@ -316,7 +316,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                               maxLines: 1,
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
-                                  fontSize: 14,
+                                  fontSize: 16,
                                   color: CustomColors.textColor8),
                             ),
                           ),
@@ -355,7 +355,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         ],
                       ),
                       const SizedBox(
-                        height: 18,
+                        height: 14,
                       ),
                       IntrinsicHeight(
                         child: Row(

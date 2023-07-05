@@ -169,7 +169,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Flexible(
                                           child: Text(
@@ -226,7 +226,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 18,
+                                      height: 14,
                                     ),
                                     IntrinsicHeight(
                                       child: Row(
