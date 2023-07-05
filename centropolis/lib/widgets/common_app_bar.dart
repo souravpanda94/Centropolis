@@ -21,6 +21,7 @@ class CommonAppBar extends StatelessWidget {
     return Column(
       children: [
         AppBar(
+            //titleSpacing: 0.0,
             toolbarHeight: 54,
             centerTitle: true,
             shape: const RoundedRectangleBorder(

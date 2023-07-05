@@ -333,7 +333,7 @@ class _InconvenienceHistoryDetailsState
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(bottom: 150),
+                margin: const EdgeInsets.only(bottom: 250),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -400,20 +400,25 @@ class _InconvenienceHistoryDetailsState
                   buttonName: tr("addInquiry"),
                   buttonTextColor: CustomColors.buttonBackgroundColor),
             ),
-          Container(
-            width: MediaQuery.of(context).size.width,
-            color: CustomColors.whiteColor,
-            padding:
-                const EdgeInsets.only(left: 16, top: 16, right: 16, bottom: 40),
-            child: CommonButtonWithBorder(
-                onCommonButtonTap: () {
-                  Navigator.pop(context, isLoadingRequired);
-                },
-                buttonBorderColor: CustomColors.dividerGreyColor,
-                buttonColor: CustomColors.whiteColor,
-                buttonName: tr("toList"),
-                buttonTextColor: CustomColors.textColor5),
-          )
+          if (complaintsReceivedDetails?.canReply
+                  .toString()
+                  .trim()
+                  .toLowerCase() ==
+              "y")
+            Container(
+              width: MediaQuery.of(context).size.width,
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.only(
+                  left: 16, top: 16, right: 16, bottom: 40),
+              child: CommonButtonWithBorder(
+                  onCommonButtonTap: () {
+                    Navigator.pop(context, isLoadingRequired);
+                  },
+                  buttonBorderColor: CustomColors.dividerGreyColor,
+                  buttonColor: CustomColors.whiteColor,
+                  buttonName: tr("toList"),
+                  buttonTextColor: CustomColors.textColor5),
+            )
         ],
       ),
     );

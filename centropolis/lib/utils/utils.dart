@@ -77,6 +77,7 @@ bool isValidUserId(String userId) {
   if (userId.isEmpty) {
     return false;
   }
+
   if (userId.contains(RegExp(r'[A-Z]'))) {
     return false;
   } else {
