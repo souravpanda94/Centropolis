@@ -2,6 +2,8 @@ import 'package:centropolis/models/view_seat_selection_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
+import '../../providers/user_provider.dart';
 import '../../utils/custom_colors.dart';
 
 class ViewSeatSelectionModalScreenLatest extends StatefulWidget {
@@ -28,8 +30,8 @@ class ViewSeatSelectionModalScreenLatest extends StatefulWidget {
       _ViewSeatSelectionModalScreenState();
 }
 
-class _ViewSeatSelectionModalScreenState
-    extends State<ViewSeatSelectionModalScreenLatest> {
+class _ViewSeatSelectionModalScreenState extends State<ViewSeatSelectionModalScreenLatest> {
+  late String gender;
   bool selected = false;
   int selectedIndex = 0;
   List<String> selectedTimeRangList = [];
@@ -37,6 +39,9 @@ class _ViewSeatSelectionModalScreenState
   @override
   void initState() {
     super.initState();
+    var user = Provider.of<UserProvider>(context, listen: false);
+    gender = user.userData['gender'].toString();
+    debugPrint("Gender  ====> $gender");
     debugPrint("Time slot list  ====> ${widget.timeSlotList}");
     debugPrint("Time list length ====> ${widget.timeSlotList.length}");
     debugPrint("usageTimeSelectedValue ====> ${widget.usageTimeSelectedValue}");
@@ -171,7 +176,8 @@ class _ViewSeatSelectionModalScreenState
                               child: Align(
                                 alignment: Alignment.centerLeft,
                                 child: Text(
-                                  tr("sleepingRoom(Female)"),
+                                  gender == "f" ?
+                                  tr("sleepingRoom(Female)") : tr("sleepingRoom(Male)"),
                                   style: const TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
