@@ -430,7 +430,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             //     fToast, context, responseJson['message'].toString(), "");
             showSuccessModal(responseJson['message'].toString(), "");
           }
-          Navigator.pop(context);
+          //Navigator.pop(context);
         } else {
           if (responseJson['message'] != null) {
             showCustomToast(
