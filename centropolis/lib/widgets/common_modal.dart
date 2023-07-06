@@ -42,7 +42,7 @@ class _CommonModalState extends State<CommonModal> {
         ),
         insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
         contentPadding: const EdgeInsets.only(
-            top: 30, bottom: 30.0, left: 20.0, right: 20.0),
+            top: 30, bottom: 30.0, left: 30.0, right: 30.0),
         scrollable: true,
         content: SizedBox(
           width: width,
@@ -74,9 +74,7 @@ class _CommonModalState extends State<CommonModal> {
               ),
             if (widget.buttonName != "")
               Container(
-                  margin: const EdgeInsets.only(
-                    top: 30.0,
-                  ),
+                  margin: const EdgeInsets.only(top: 30.0, bottom: 2),
                   height: 46,
                   width: double.infinity,
                   child: ElevatedButton(
@@ -102,9 +100,7 @@ class _CommonModalState extends State<CommonModal> {
                   )),
             if (widget.firstButtonName != "" && widget.secondButtonName != "")
               Container(
-                  margin: const EdgeInsets.only(
-                    top: 30.0,
-                  ),
+                  margin: const EdgeInsets.only(top: 30.0, bottom: 2),
                   width: double.infinity,
                   height: 46,
                   child: Row(
@@ -138,7 +134,7 @@ class _CommonModalState extends State<CommonModal> {
                         ),
                       )),
                       const SizedBox(
-                        width: 8.0,
+                        width: 14.0,
                       ),
                       Expanded(
                         child: SizedBox(

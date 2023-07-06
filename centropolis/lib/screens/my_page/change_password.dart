@@ -87,7 +87,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       style: const TextStyle(
                         fontSize: 14,
                         color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
+                        fontFamily: 'SemiBold',
                       ),
                       textAlign: TextAlign.left,
                     ),
@@ -173,7 +173,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       style: const TextStyle(
                         fontSize: 14,
                         color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
+                        fontFamily: 'SemiBold',
                       ),
                       textAlign: TextAlign.left,
                     ),
@@ -259,7 +259,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       style: const TextStyle(
                         fontSize: 14,
                         color: CustomColors.textColor8,
-                        fontFamily: 'Medium',
+                        fontFamily: 'SemiBold',
                       ),
                       textAlign: TextAlign.left,
                     ),

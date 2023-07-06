@@ -296,13 +296,16 @@ class _AddMemberState extends State<AddMember> {
                       const SizedBox(
                         width: 8,
                       ),
-                      CommonButtonWithBorder(
-                        onCommonButtonTap: () {
-                          callVerifyUserId();
-                        },
-                        buttonName: tr("verify"),
-                        buttonBorderColor: CustomColors.buttonBackgroundColor,
-                        buttonTextColor: CustomColors.buttonBackgroundColor,
+                      SizedBox(
+                        width: 109,
+                        child: CommonButtonWithBorder(
+                          onCommonButtonTap: () {
+                            callVerifyUserId();
+                          },
+                          buttonName: tr("verify"),
+                          buttonBorderColor: CustomColors.buttonBackgroundColor,
+                          buttonTextColor: CustomColors.buttonBackgroundColor,
+                        ),
                       )
                     ],
                   ),

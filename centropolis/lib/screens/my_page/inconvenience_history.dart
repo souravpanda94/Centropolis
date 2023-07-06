@@ -231,7 +231,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const Padding(
                                           padding:
@@ -242,7 +242,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           incovenienceListItem?[index]
@@ -438,7 +438,9 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           ),
         )),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12),
         ),
       ),
     );

@@ -81,7 +81,7 @@ class _RegisteredEmployeeListState extends State<RegisteredEmployeeList> {
                       unselectedLabelStyle: const TextStyle(
                         color: CustomColors.greyColor1,
                         fontSize: 14,
-                        fontFamily: 'Regular',
+                        fontFamily: 'Medium',
                       ),
                       indicatorColor: CustomColors.textColor9,
                       indicator: const UnderlineTabIndicator(

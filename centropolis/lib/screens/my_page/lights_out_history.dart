@@ -228,7 +228,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const Padding(
                                           padding:
@@ -239,7 +239,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           "${lightoutListItem?[index].registeredDate ?? ""} ${lightoutListItem?[index].startTime ?? ""}",

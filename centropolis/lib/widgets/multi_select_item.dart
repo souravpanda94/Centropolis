@@ -71,9 +71,8 @@ class _MultiSelectState extends State<MultiSelect> {
     return AlertDialog(
       // actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
       insetPadding: const EdgeInsets.only(
-          left: 18.0, right: 18.0, top: 100.0, bottom: 100.0),
-      contentPadding: const EdgeInsets.only(
-          top: 15.0, bottom: 5.0, left: 16.0, right: 16.0),
+          left: 18.0, right: 18.0, top: 90.0, bottom: 90.0),
+      contentPadding: const EdgeInsets.only(top: 10.0, left: 16.0, right: 16.0),
       title: Transform.translate(
         offset: const Offset(-7, 0),
         child: Text(
@@ -96,13 +95,23 @@ class _MultiSelectState extends State<MultiSelect> {
                       height: 40,
                       padding: EdgeInsets.zero,
                       child: Transform.translate(
-                        offset: const Offset(-10, -10),
+                        offset: const Offset(-10, -5),
                         child: CheckboxListTile(
+                          side: const BorderSide(
+                              color: CustomColors.dividerGreyColor),
                           contentPadding: EdgeInsets.zero,
                           value: _selectedItems?.contains(item),
                           activeColor: CustomColors.textColor9,
                           title: Transform.translate(
-                              offset: const Offset(-15, 0), child: Text(item)),
+                              offset: const Offset(-15, 0),
+                              child: Text(
+                                item.toString().toUpperCase(),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
+                                ),
+                              )),
                           controlAffinity: ListTileControlAffinity.leading,
                           onChanged: (isChecked) =>
                               _itemChange(item, isChecked!),
@@ -129,8 +138,6 @@ class _MultiSelectState extends State<MultiSelect> {
                 textAlign: TextAlign.left,
               ),
             )),
-
-
         const Text(
           "",
           style: TextStyle(
@@ -248,13 +255,10 @@ class _MultiSelectState extends State<MultiSelect> {
           ),
           textAlign: TextAlign.left,
         ),
-
-
-
         InkWell(
           onTap: _cancel,
           child: Container(
-            padding: const EdgeInsets.only(bottom: 10, right: 10),
+            padding: const EdgeInsets.only(bottom: 10, right: 8, left: 10),
             child: Text(tr('cancel'),
                 style: const TextStyle(
                   fontSize: 15,
@@ -266,7 +270,7 @@ class _MultiSelectState extends State<MultiSelect> {
         InkWell(
             onTap: _submit,
             child: Container(
-              padding: const EdgeInsets.only(bottom: 10, right: 10),
+              padding: const EdgeInsets.only(bottom: 10),
               child: Text(
                 tr('ok'),
                 style: const TextStyle(
@@ -278,7 +282,8 @@ class _MultiSelectState extends State<MultiSelect> {
             )),
       ],
       actionsAlignment: MainAxisAlignment.spaceBetween,
-      actionsPadding: const EdgeInsets.only(left: 16, right: 16, bottom: 8),
+      actionsPadding:
+          const EdgeInsets.only(left: 16, right: 16, bottom: 8, top: 8),
     );
   }
 }

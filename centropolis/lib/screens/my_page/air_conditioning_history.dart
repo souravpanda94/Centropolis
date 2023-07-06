@@ -266,7 +266,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const Padding(
                                           padding:
@@ -277,7 +277,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           "${airConditioningListItem?[index].registeredDate.toString() ?? ""} ${airConditioningListItem?[index].startTime.toString() ?? ""}",
