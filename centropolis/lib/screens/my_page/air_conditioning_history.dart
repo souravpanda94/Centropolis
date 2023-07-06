@@ -183,7 +183,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 14,
                                   ),
                                   Row(
                                     mainAxisAlignment:
@@ -247,7 +247,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 10,
+                                    height: 14,
                                   ),
                                   IntrinsicHeight(
                                     child: Row(
@@ -434,6 +434,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
           firstTimeLoadAirConditioningList();
         },
         dropdownStyleData: DropdownStyleData(
+          width: 160,
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
@@ -446,7 +447,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,
@@ -456,7 +457,9 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
         )),
         buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 16),
         ),
       ),
     );

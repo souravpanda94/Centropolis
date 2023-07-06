@@ -452,7 +452,7 @@ class _EmployeeListState extends State<EmployeeList> {
           firstTimeLoadEmployeeList();
         },
         dropdownStyleData: DropdownStyleData(
-          //width: 196,
+          width: 196,
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
@@ -465,7 +465,7 @@ class _EmployeeListState extends State<EmployeeList> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,
@@ -473,9 +473,7 @@ class _EmployeeListState extends State<EmployeeList> {
             color: CustomColors.textColorBlack2,
           ),
         )),
-        buttonStyleData: const ButtonStyleData(
-          height: 35,
-        ),
+        buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
