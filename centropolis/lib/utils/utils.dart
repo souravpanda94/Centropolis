@@ -78,7 +78,8 @@ bool isValidUserId(String userId) {
     return false;
   }
 
-  if (userId.contains(RegExp(r'[A-Z]')) || userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))) {
+  if (userId.contains(RegExp(r'[A-Z]')) ||
+      userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))) {
     return false;
   } else {
     bool hasDigits = userId.contains(RegExp(r'[0-9]'));
@@ -231,5 +232,15 @@ String formatStringWithSquareBrackets(String text) {
 extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+
+  String capitalizeByWord() {
+    if (trim().isEmpty) {
+      return '';
+    }
+    return split(' ')
+        .map((element) =>
+            "${element[0].toUpperCase()}${element.substring(1).toLowerCase()}")
+        .join(" ");
   }
 }

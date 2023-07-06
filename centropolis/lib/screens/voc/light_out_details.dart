@@ -56,7 +56,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
       ),
       isLoading: isLoading,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
@@ -131,7 +131,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(tr("nameLounge"),
+                          Text(tr("CoolingHeatingName"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,

@@ -53,7 +53,7 @@ class _InconvenienceHistoryDetailsState
         Provider.of<ComplaintsReceivedDetailsProvider>(context)
             .getComplaintsReceivedDetailModel;
     return Scaffold(
-      backgroundColor: CustomColors.backgroundColor,
+      backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
         preferredSize: AppBar().preferredSize,
         child: SafeArea(
@@ -131,7 +131,7 @@ class _InconvenienceHistoryDetailsState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(tr("nameLounge"),
+                        Text(tr("complaintReceivedName"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
                                 fontSize: 14,

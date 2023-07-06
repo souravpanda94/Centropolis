@@ -151,7 +151,11 @@ class _EmployeeListState extends State<EmployeeList> {
                                   borderRadius: const BorderRadius.all(
                                       Radius.circular(4))),
                               padding: const EdgeInsets.all(16),
-                              margin: const EdgeInsets.only(bottom: 16),
+                              margin: EdgeInsets.only(
+                                  bottom: employeeListItem?[index] !=
+                                          employeeListItem?.last
+                                      ? 16
+                                      : 0),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
@@ -227,7 +231,8 @@ class _EmployeeListState extends State<EmployeeList> {
                                                       //             "",
                                                       employeeListItem?[index]
                                                               .displayAccountType
-                                                              .toString() ??
+                                                              .toString()
+                                                              .capitalizeByWord() ??
                                                           "",
                                                       maxLines: 1,
                                                       overflow:
@@ -246,7 +251,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                     ],
                                   ),
                                   const SizedBox(
-                                    height: 18,
+                                    height: 16,
                                   ),
                                   Row(
                                     children: [
@@ -409,9 +414,14 @@ class _EmployeeListState extends State<EmployeeList> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         alignment: AlignmentDirectional.centerEnd,
+        style: const TextStyle(
+          color: CustomColors.textColorBlack2,
+          fontSize: 14,
+          fontFamily: 'Medium',
+        ),
         hint: Text(
           accountTypeList.isNotEmpty
-              ? accountTypeList.first["text"]
+              ? accountTypeList.first["text"].toString().capitalizeByWord()
               : tr('all'),
           style: const TextStyle(
             color: CustomColors.textColor5,
@@ -424,7 +434,7 @@ class _EmployeeListState extends State<EmployeeList> {
               (item) => DropdownMenuItem<String>(
                 value: item["value"],
                 child: Text(
-                  item["text"],
+                  item["text"].toString().capitalizeByWord(),
                   style: const TextStyle(
                     color: CustomColors.textColor5,
                     fontSize: 12,
@@ -442,6 +452,7 @@ class _EmployeeListState extends State<EmployeeList> {
           firstTimeLoadEmployeeList();
         },
         dropdownStyleData: DropdownStyleData(
+          //width: 196,
           maxHeight: 200,
           isOverButton: false,
           elevation: 0,
@@ -462,9 +473,13 @@ class _EmployeeListState extends State<EmployeeList> {
             color: CustomColors.textColorBlack2,
           ),
         )),
-        buttonStyleData: const ButtonStyleData(height: 35),
+        buttonStyleData: const ButtonStyleData(
+          height: 35,
+        ),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 16),
         ),
       ),
     );

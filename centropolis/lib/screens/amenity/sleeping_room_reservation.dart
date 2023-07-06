@@ -1202,12 +1202,14 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       "start_time": usageTimeSelectedValue != null &&
               usageTimeSelectedValue.toString().isNotEmpty
           ? usageTimeSelectedValue.toString().trim()
-          : usageTimeList.first, //required
+          : usageTimeList.first.toString().trim(), //required
       "usage_hours": totalTimeSelectedValue != null &&
               totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
-          : totalUsageTimeList.first["value"], //required
+          : totalUsageTimeList.first["value"].toString().trim(), //required
       "seat": selectedSeatsValue!.toString().trim(), //required
+      // "usage_hours": 0.5,
+      // "seat": 16
     };
 
     debugPrint("sleeping room reservation input===> $body");

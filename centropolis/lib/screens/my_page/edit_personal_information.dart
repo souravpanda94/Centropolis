@@ -104,7 +104,7 @@ class _EditPersonalInformationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
+                          fontFamily: 'SemiBold',
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -145,7 +145,7 @@ class _EditPersonalInformationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
+                          fontFamily: 'SemiBold',
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -186,7 +186,7 @@ class _EditPersonalInformationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
+                          fontFamily: 'SemiBold',
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -228,7 +228,7 @@ class _EditPersonalInformationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
+                          fontFamily: 'SemiBold',
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -269,7 +269,7 @@ class _EditPersonalInformationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
+                          fontFamily: 'SemiBold',
                         ),
                         textAlign: TextAlign.left,
                       ),
@@ -332,7 +332,7 @@ class _EditPersonalInformationScreenState
                         style: const TextStyle(
                           fontSize: 14,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
+                          fontFamily: 'SemiBold',
                         ),
                         textAlign: TextAlign.left,
                       ),

@@ -256,9 +256,12 @@ class _AirConditioningApplicationState
                                     : Container(
                                         margin: const EdgeInsets.only(left: 15),
                                         child: Wrap(
+                                          runSpacing: 1.5,
                                           direction: Axis.vertical,
                                           children: _selectedFloors
                                               .map((e) => Chip(
+                                                    visualDensity:
+                                                        VisualDensity.standard,
                                                     backgroundColor:
                                                         CustomColors
                                                             .selectedColor,
@@ -270,13 +273,21 @@ class _AirConditioningApplicationState
                                                             BorderRadius.all(
                                                                 Radius.circular(
                                                                     5))),
-                                                    label: Text(e,
-                                                        style: const TextStyle(
-                                                            fontFamily:
-                                                                'Regular',
-                                                            fontSize: 14,
-                                                            color: CustomColors
-                                                                .whiteColor)),
+                                                    label: SizedBox(
+                                                      width: 20,
+                                                      child: Text(
+                                                          e
+                                                              .toString()
+                                                              .toUpperCase(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: const TextStyle(
+                                                              fontFamily:
+                                                                  'SemiBold',
+                                                              fontSize: 12,
+                                                              color: CustomColors
+                                                                  .whiteColor)),
+                                                    ),
                                                   ))
                                               .toList(),
                                         ),
