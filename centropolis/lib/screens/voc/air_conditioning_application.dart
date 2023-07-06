@@ -100,8 +100,7 @@ class _AirConditioningApplicationState
             child: SafeArea(
               child: Container(
                 color: CustomColors.whiteColor,
-                child:
-                    CommonAppBar(tr("requestForHeatingAndCooling"), false, () {
+                child: CommonAppBar(tr("CoolingHeatingSubtitle"), false, () {
                   //onBackButtonPress(context);
                   Navigator.pop(context, isLoadingRequired);
                 }, () {}),

@@ -62,7 +62,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightOutDetail"), false, () {
+              child: CommonAppBar(tr("lightOutSubtitle"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),

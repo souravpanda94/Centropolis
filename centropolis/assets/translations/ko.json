@@ -413,6 +413,11 @@
   "complaintReceivedName" : "작성자명",
   "CoolingHeatingName" : "신청자명",
   "sleepingRoomCongestion" : "수면실 실시간 혼잡도",
+  "lightOutSubtitle" : "소등 연장 신청",
+  "CoolingHeatingSubtitle" : "냉&난방 연장 신청",
+  "lightOutListTitle" : "소등 연장 신청",
+
+
 
 
 

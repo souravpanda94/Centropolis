@@ -23,6 +23,27 @@ class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
     Tab(text: tr("conferenceHeading")),
     Tab(text: tr("fitness")),
     Tab(text: tr("sleepingRoom")),
+    // Tab(
+    //     child: Text(
+    //   tr("lounge"),
+    //   textAlign: TextAlign.center,
+    // )),
+    // Tab(
+    //     child: Text(
+    //   tr("conferenceHeading"),
+    //   textAlign: TextAlign.center,
+    // )),
+    // Tab(
+    //     child: Text(
+    //   tr("fitness"),
+    //   textAlign: TextAlign.center,
+    // )),
+    // Tab(
+    //     child: Text(
+    //   tr("sleepingRoom"),
+    //   maxLines: 1,
+    //   textAlign: TextAlign.center,
+    // )),
   ];
 
   @override

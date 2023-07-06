@@ -71,7 +71,7 @@ class _LightsOutListState extends State<LightsOutList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightsOutRequestHistory"), false, () {
+              child: CommonAppBar(tr("lightOutListTitle"), false, () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, true);
               }, () {}),

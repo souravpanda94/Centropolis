@@ -415,6 +415,11 @@
   "complaintReceivedName" : "Name",
   "CoolingHeatingName" : "Name",
   "sleepingRoomCongestion" : "Fitness real-time congestion",
+  "lightOutSubtitle" : "Light Out Extension Inquiry",
+  "CoolingHeatingSubtitle" : "Air Conditioning Extension Inquiry",
+  "lightOutListTitle" : "Light Out Extension History",
+
+
 
 
 
