@@ -355,67 +355,76 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       var relId = data['rel_id'];
       int id = int.parse(relId.toString());
       // String pushNotificationType = "";
-
       debugPrint("notification type ====>  $type");
 
-      if (type == 'add_sleeping_reservation' ||
-          type == 'cancel_sleeping_reservation' ||
-          type == 'reject_sleeping_reservation') {
+      if (type == "add_sleeping_reservation" ||
+          type == "cancel_sleeping_reservation" ||
+          type == "reject_sleeping_reservation") {
+        //sleeping room details
+
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FacilityHistoryDetails(id: id.toString()),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => FacilityHistoryDetails(id: relId.toString()),
+          ),
+        );
       } else if (type == "add_fitness_reservation" ||
           type == "cancel_fitness_reservation" ||
           type == "reject_fitness_reservation") {
+        //fitness center details
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                FitnessTabHistoryDetails(reservationId: id.toString()),
+                FitnessTabHistoryDetails(reservationId: relId.toString()),
           ),
         );
       } else if (type == "reply_complaint") {
+        //complaint details
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                InconvenienceHistoryDetails(inquiryId: id.toString()),
+                InconvenienceHistoryDetails(inquiryId: relId.toString()),
           ),
         );
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation" ||
-          type == "payment_pending_lounge_reservation") {
+          type == "cancel_lounge_reservation") {
+        //lounge details
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LoungeHistoryDetails(id.toString()),
+            builder: (context) => LoungeHistoryDetails(relId.toString()),
           ),
         );
       } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
-          type == "cancel_locker_reservation") {
+          type == "cancel_locker_reservation" ||
+          type == "payment_pending_lounge_reservation") {
         //locker details
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                PaidLockerHistoryDetails(reservationId: id.toString()),
+                PaidLockerHistoryDetails(reservationId: relId.toString()),
           ),
         );
       } else if (type == "reject_pt_reservation" ||
           type == "cancel_pt_reservation" ||
-          type == "add_pt_reservation") {
+          type == "add_pt_reservation" ||
+          type == "reminder_pending_locker_reservation") {
         //pt details
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                PaidPTHistoryDetails(reservationId: id.toString()),
+                PaidPTHistoryDetails(reservationId: relId.toString()),
           ),
         );
       } else if (type == "reject_conference_reservation" ||
@@ -426,7 +435,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ConferenceHistoryDetails(id.toString()),
+            builder: (context) => ConferenceHistoryDetails(relId.toString()),
           ),
         );
       } else if (type == "reply_lights_out_inquiry" ||
@@ -436,7 +445,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LightsOutDetails(id: id.toString()),
+            builder: (context) => LightsOutDetails(id: relId.toString()),
           ),
         );
       } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
@@ -446,7 +455,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => AirConditioningDetails(
-                inquiryId: id.toString(), appBarTitle: tr("AirConditioning")),
+                inquiryId: relId.toString(),
+                appBarTitle: tr("AirConditioning")),
           ),
         );
       } else if (type == "add_gx_reservation" ||
@@ -458,29 +468,17 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                GXHistoryDetails(reservationId: id.toString()),
+                GXHistoryDetails(reservationId: relId.toString()),
           ),
         );
-      }
-      else if (type == "notif_addVisitorReservation" ||
-          type == "notif_rejectVisitorReservationByAdmin" ||
-          type == "notif_rejectVisitorReservationByTenantMaster" ||
-          type == "notif_cancelVisitorReservationByTenantMaster" ||
-          type == "notif_addVisitorReservationByAdmin" ||
-          type == "notif_cancelVisitorReservationAuto") {
+      } else if (type == "add_visitor_reservation" ||
+          type == "cancel_visitor_reservation" ||
+          type == "reject_visitor_reservation") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => VisitReservationDetailsScreen(id.toString()),
-          ),
-        );
-      }
-      else {
-        debugPrint("from background #### 1111");
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const BottomNavigationScreen(0, 0),
+            builder: (context) =>
+                VisitReservationDetailsScreen(relId.toString()),
           ),
         );
       }
@@ -540,64 +538,74 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       int id = int.parse(relId.toString());
       debugPrint("notification type ====>  $type");
 
-      if (type == 'add_sleeping_reservation' ||
-          type == 'cancel_sleeping_reservation' ||
-          type == 'reject_sleeping_reservation') {
+      if (type == "add_sleeping_reservation" ||
+          type == "cancel_sleeping_reservation" ||
+          type == "reject_sleeping_reservation") {
+        //sleeping room details
+
         Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => FacilityHistoryDetails(id: id.toString()),
-            ));
+          context,
+          MaterialPageRoute(
+            builder: (context) => FacilityHistoryDetails(id: relId.toString()),
+          ),
+        );
       } else if (type == "add_fitness_reservation" ||
           type == "cancel_fitness_reservation" ||
           type == "reject_fitness_reservation") {
+        //fitness center details
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                FitnessTabHistoryDetails(reservationId: id.toString()),
+                FitnessTabHistoryDetails(reservationId: relId.toString()),
           ),
         );
       } else if (type == "reply_complaint") {
+        //complaint details
+
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                InconvenienceHistoryDetails(inquiryId: id.toString()),
+                InconvenienceHistoryDetails(inquiryId: relId.toString()),
           ),
         );
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation" ||
-          type == "payment_pending_lounge_reservation") {
+          type == "cancel_lounge_reservation") {
+        //lounge details
+
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LoungeHistoryDetails(id.toString()),
+            builder: (context) => LoungeHistoryDetails(relId.toString()),
           ),
         );
       } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
-          type == "cancel_locker_reservation") {
+          type == "cancel_locker_reservation" ||
+          type == "payment_pending_lounge_reservation") {
         //locker details
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                PaidLockerHistoryDetails(reservationId: id.toString()),
+                PaidLockerHistoryDetails(reservationId: relId.toString()),
           ),
         );
       } else if (type == "reject_pt_reservation" ||
           type == "cancel_pt_reservation" ||
-          type == "add_pt_reservation") {
+          type == "add_pt_reservation" ||
+          type == "reminder_pending_locker_reservation") {
         //pt details
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) =>
-                PaidPTHistoryDetails(reservationId: id.toString()),
+                PaidPTHistoryDetails(reservationId: relId.toString()),
           ),
         );
       } else if (type == "reject_conference_reservation" ||
@@ -608,7 +616,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ConferenceHistoryDetails(id.toString()),
+            builder: (context) => ConferenceHistoryDetails(relId.toString()),
           ),
         );
       } else if (type == "reply_lights_out_inquiry" ||
@@ -618,17 +626,19 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LightsOutDetails(id: id.toString()),
+            builder: (context) => LightsOutDetails(id: relId.toString()),
           ),
         );
-      } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
+      } else if (type == "reply_ac_inquiry" ||
+          type == "approve_ac_inquiry") {
         //ac inquiry details
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => AirConditioningDetails(
-                inquiryId: id.toString(), appBarTitle: tr("AirConditioning")),
+                inquiryId: relId.toString(),
+                appBarTitle: tr("AirConditioning")),
           ),
         );
       } else if (type == "add_gx_reservation" ||
@@ -640,27 +650,17 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           context,
           MaterialPageRoute(
             builder: (context) =>
-                GXHistoryDetails(reservationId: id.toString()),
+                GXHistoryDetails(reservationId: relId.toString()),
           ),
         );
-      } else if (type == "notif_addVisitorReservation" ||
-          type == "notif_rejectVisitorReservationByAdmin" ||
-          type == "notif_rejectVisitorReservationByTenantMaster" ||
-          type == "notif_cancelVisitorReservationByTenantMaster" ||
-          type == "notif_addVisitorReservationByAdmin" ||
-          type == "notif_cancelVisitorReservationAuto") {
+      } else if (type == "add_visitor_reservation" ||
+          type == "cancel_visitor_reservation" ||
+          type == "reject_visitor_reservation") {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => VisitReservationDetailsScreen(id.toString()),
-          ),
-        );
-      } else {
-        debugPrint("from background #### 1111");
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const BottomNavigationScreen(0, 0),
+            builder: (context) =>
+                VisitReservationDetailsScreen(relId.toString()),
           ),
         );
       }
