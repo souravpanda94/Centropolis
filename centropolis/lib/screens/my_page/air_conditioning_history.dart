@@ -435,7 +435,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
         },
         dropdownStyleData: DropdownStyleData(
           width: 160,
-          maxHeight: 200,
+          //maxHeight: 200,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(

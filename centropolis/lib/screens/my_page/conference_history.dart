@@ -132,7 +132,11 @@ class _ConferenceHistoryState extends State<ConferenceHistory> {
                                     borderRadius: const BorderRadius.all(
                                         Radius.circular(4))),
                                 padding: const EdgeInsets.all(16),
-                                margin: const EdgeInsets.only(bottom: 16),
+                                margin: EdgeInsets.only(
+                                    bottom: conferenceListItem?[index] ==
+                                            conferenceListItem?.last
+                                        ? 0
+                                        : 16),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [

@@ -420,7 +420,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           firstTimeLoadInconvenienceList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          //maxHeight: 200,
           width: 160,
           isOverButton: false,
           elevation: 0,
