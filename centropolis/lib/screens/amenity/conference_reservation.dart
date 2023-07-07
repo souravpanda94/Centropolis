@@ -30,9 +30,11 @@ class ConferenceReservation extends StatefulWidget {
 }
 
 class _ConferenceReservationState extends State<ConferenceReservation> {
-  late String language, apiKey, email, mobile;
+  late String language, apiKey;
   String companyName = "";
   String name = "";
+  String email = "";
+  String mobile = "";
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -56,8 +58,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
     loadPersonalInformation();
@@ -906,6 +908,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           setState(() {
             companyName = userInfoModel.companyName.toString();
             name = userInfoModel.name.toString();
+            email = userInfoModel.email.toString();
+            mobile = userInfoModel.mobile.toString();
           });
         } else {
           if (responseJson['message'] != null) {

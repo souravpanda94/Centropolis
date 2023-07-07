@@ -55,7 +55,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       ),
       isLoading: isLoading,
       child: Scaffold(
-          backgroundColor: CustomColors.backgroundColor,
+          backgroundColor: CustomColors.whiteColor,
           appBar: PreferredSize(
             preferredSize: AppBar().preferredSize,
             child: SafeArea(
@@ -68,107 +68,117 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
               ),
             ),
           ),
-          body: SingleChildScrollView(
-              child: Column(
-            children: [
-              Container(
-                width: double.infinity,
-                margin: const EdgeInsets.only(top: 10),
-                padding: const EdgeInsets.only(left: 16, right: 16),
-                color: CustomColors.whiteColor,
+          body: Container(
+            height: MediaQuery.of(context).size.height,
+            color: CustomColors.backgroundColor,
+            child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          tr("myProfile"),
-                          style: const TextStyle(
-                            fontSize: 14,
-                            fontFamily: "SemiBold",
-                            color: CustomColors.textColor5,
-                          ),
-                        ),
-                      ),
-                    ),
-                    Container(
-                      height: 1.0,
-                      color: CustomColors.dividerGreyColor,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                const EditPersonalInformationScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(top: 15.0),
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(top: 15.0, bottom: 12.0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              tr("editPersonalInformation"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "SemiBold",
-                                color: CustomColors.textColor5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    ),
-                    InkWell(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const ChangePasswordScreen(),
-                          ),
-                        );
-                      },
-                      child: Container(
-                        margin: const EdgeInsets.only(bottom: 12.0),
-                        child: Padding(
-                          padding:
-                              const EdgeInsets.only(top: 13.0, bottom: 15.0),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              tr("changePassword"),
-                              style: const TextStyle(
-                                fontSize: 14,
-                                fontFamily: "SemiBold",
-                                color: CustomColors.textColor5,
-                              ),
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                  ],
-                ),
-              ),
-              Container(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
                   width: double.infinity,
-                  margin: const EdgeInsets.only(top: 10),
-                  padding: const EdgeInsets.only(left: 16, right: 16),
+                  padding: const EdgeInsets.only(left: 16, right: 16, top: 10),
                   color: CustomColors.whiteColor,
                   child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15.0, bottom: 15.0),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            tr("myProfile"),
+                            style: const TextStyle(
+                              fontSize: 14,
+                              fontFamily: "SemiBold",
+                              color: CustomColors.textColor5,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Container(
+                        height: 1.0,
+                        color: CustomColors.dividerGreyColor,
+                      ),
                       InkWell(
                         onTap: () {
-                          showWithdrawalModal();
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const EditPersonalInformationScreen(),
+                            ),
+                          );
                         },
                         child: Container(
-                          margin: const EdgeInsets.only(top: 10.0),
+                          margin: const EdgeInsets.only(top: 15.0),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 15.0, bottom: 12.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                tr("editPersonalInformation"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  const ChangePasswordScreen(),
+                            ),
+                          );
+                        },
+                        child: Container(
+                          margin: const EdgeInsets.only(bottom: 12.0),
+                          child: Padding(
+                            padding:
+                                const EdgeInsets.only(top: 13.0, bottom: 15.0),
+                            child: Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                tr("changePassword"),
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  fontFamily: "SemiBold",
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(top: 10),
+                    padding: const EdgeInsets.only(left: 16, right: 16),
+                    color: CustomColors.whiteColor,
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        InkWell(
+                          onTap: () {
+                            showWithdrawalModal();
+                          },
                           child: Padding(
                             padding:
                                 const EdgeInsets.only(top: 15.0, bottom: 12.0),
@@ -185,34 +195,34 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             ),
                           ),
                         ),
-                      ),
-                      InkWell(
-                        onTap: () {
-                          showLogoutModal();
-                        },
-                        child: Container(
-                          margin: const EdgeInsets.only(bottom: 12.0),
-                          child: Padding(
-                            padding:
-                                const EdgeInsets.only(top: 13.0, bottom: 15.0),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                tr("logOut"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  fontFamily: "SemiBold",
-                                  color: CustomColors.textColor3,
+                        InkWell(
+                          onTap: () {
+                            showLogoutModal();
+                          },
+                          child: Container(
+                            margin: const EdgeInsets.only(bottom: 12.0),
+                            child: Padding(
+                              padding: const EdgeInsets.only(
+                                  top: 13.0, bottom: 15.0),
+                              child: Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  tr("logOut"),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    fontFamily: "SemiBold",
+                                    color: CustomColors.textColor3,
+                                  ),
                                 ),
                               ),
                             ),
                           ),
-                        ),
-                      )
-                    ],
-                  ))
-            ],
-          ))),
+                        )
+                      ],
+                    )),
+              ],
+            )),
+          )),
     );
   }
 

@@ -7,14 +7,13 @@ import '../../widgets/app_bar_for_dialog.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_web_view.dart';
 
-
 class WebViewUiScreen extends StatefulWidget {
-  final String pageTitle,webUrl;
+  final String pageTitle, webUrl;
 
   const WebViewUiScreen(
-      this.pageTitle,
-      this.webUrl, {
-    Key ?key,
+    this.pageTitle,
+    this.webUrl, {
+    Key? key,
   }) : super(key: key);
 
   @override
@@ -24,11 +23,10 @@ class WebViewUiScreen extends StatefulWidget {
 }
 
 class _WebViewUiScreenState extends State<WebViewUiScreen> {
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
@@ -42,8 +40,6 @@ class _WebViewUiScreenState extends State<WebViewUiScreen> {
         ),
         body: CommonWebview(
           webUrl: widget.webUrl,
-        )
-
-    );
+        ));
   }
 }

@@ -77,7 +77,9 @@ bool isValidUserId(String userId) {
   if (userId.isEmpty) {
     return false;
   }
-  if (userId.contains(RegExp(r'[A-Z]'))) {
+
+  if (userId.contains(RegExp(r'[A-Z]')) ||
+      userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))) {
     return false;
   } else {
     bool hasDigits = userId.contains(RegExp(r'[0-9]'));
@@ -85,7 +87,7 @@ bool isValidUserId(String userId) {
     bool hasMinLength = userId.length >= 4;
     bool hasMaxLength = userId.length <= 16;
 
-    return hasDigits & hasLowercase & hasMaxLength & hasMinLength;
+    return hasDigits || hasLowercase & hasMaxLength & hasMinLength;
   }
 }
 
@@ -230,5 +232,15 @@ String formatStringWithSquareBrackets(String text) {
 extension StringExtension on String {
   String capitalize() {
     return "${this[0].toUpperCase()}${substring(1).toLowerCase()}";
+  }
+
+  String capitalizeByWord() {
+    if (trim().isEmpty) {
+      return '';
+    }
+    return split(' ')
+        .map((element) =>
+            "${element[0].toUpperCase()}${element.substring(1).toLowerCase()}")
+        .join(" ");
   }
 }

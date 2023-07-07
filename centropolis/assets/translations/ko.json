@@ -219,8 +219,8 @@
   "closed" : "선택 불가",
   "totalUsageTime" : "총 사용 시간",
   "lockerSelection" : "사물함 선택",
-  "sleepingRoom(Male)" : "남성 수면실",
-  "sleepingRoom(Female)" : "여성 수면실",
+  "sleepingRoom(Male)" : "남성 수면실(Male)",
+  "sleepingRoom(Female)" : "남성 수면실(Female)",
   "filter" : "조회 조건",
   "reservationStatus": "예약 상태",
   "periodOfUse": "이용 기간",
@@ -330,7 +330,7 @@
   "fitnessInquiry" : "02-6370-5154",
   "facilityOperatingTime" : "오전 9시 ~ 오후 6시 (평일Only)",
   "facilityInfoText1" : "수면실 : 최대 여성 5명, 남성 15명 이용 가능",
-  "facilityInfoText2" : "샤워실 : 최대 여성 4명, 남성 8명 이용 가능 (피트니스 이용 고객 오후 8시30분까지 이용가능)",
+  "facilityInfoText2" : "샤워실 : 최대 여성 4명, 남성 8명 이용 가능 \n(피트니스 이용 고객 오후 8시30분까지 이용가능)",
   "facilityInfoText3" : "수유실 : 여성 전용시설로 동시 최대 2명 이용 가능",
   "facilityUsage" : "안내데스크에서 출입카드 수령/반납(무료)",
   "facilityUsageText1" : "수면실 : 예약 후 안내데스크 방문",
@@ -413,6 +413,13 @@
   "complaintReceivedName" : "작성자명",
   "CoolingHeatingName" : "신청자명",
   "sleepingRoomCongestion" : "수면실 실시간 혼잡도",
+  "lightOutSubtitle" : "소등 연장 신청",
+  "CoolingHeatingSubtitle" : "냉&난방 연장 신청",
+  "lightOutListTitle" : "소등 연장 신청",
+  "coolingHeatingListTitle": "냉 & 난방 신청",
+
+
+
 
 
 

@@ -71,7 +71,7 @@ class _LightsOutListState extends State<LightsOutList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightsOutRequestHistory"), false, () {
+              child: CommonAppBar(tr("lightOutListTitle"), false, () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, true);
               }, () {}),
@@ -169,7 +169,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       crossAxisAlignment:
-                                          CrossAxisAlignment.start,
+                                          CrossAxisAlignment.center,
                                       children: [
                                         Flexible(
                                           child: Text(
@@ -226,7 +226,7 @@ class _LightsOutListState extends State<LightsOutList> {
                                       ],
                                     ),
                                     const SizedBox(
-                                      height: 18,
+                                      height: 14,
                                     ),
                                     IntrinsicHeight(
                                       child: Row(
@@ -410,7 +410,8 @@ class _LightsOutListState extends State<LightsOutList> {
           firstTimeLoadLightsOutList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          //maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -422,7 +423,7 @@ class _LightsOutListState extends State<LightsOutList> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,

@@ -211,14 +211,14 @@ class _LoungeHistoryState extends State<LoungeHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           // list[index]["interval"],
@@ -398,7 +398,8 @@ class _LoungeHistoryState extends State<LoungeHistory> {
           firstTimeLoadLoungeHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          // maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -410,7 +411,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,

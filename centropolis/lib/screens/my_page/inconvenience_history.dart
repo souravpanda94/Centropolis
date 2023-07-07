@@ -231,7 +231,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const Padding(
                                           padding:
@@ -242,7 +242,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           incovenienceListItem?[index]
@@ -281,7 +281,11 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                       builder: (context) =>
                           const ComplaintsReceived(parentInquirId: ""),
                     ),
-                  );
+                  ).then((value) {
+                    if (value) {
+                      firstTimeLoadInconvenienceList();
+                    }
+                  });
                 },
                 buttonColor: CustomColors.buttonBackgroundColor,
                 buttonName: tr("newInquiry"),
@@ -416,7 +420,8 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           firstTimeLoadInconvenienceList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          //maxHeight: 200,
+          width: 160,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -429,7 +434,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,
@@ -438,7 +443,9 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           ),
         )),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12),
         ),
       ),
     );

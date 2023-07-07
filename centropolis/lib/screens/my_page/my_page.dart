@@ -81,7 +81,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
               children: [
                 Container(
                   color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(left: 16.0, right: 16.0),
+                  padding:
+                      const EdgeInsets.only(left: 16.0, right: 16.0, top: 16),
                   margin: const EdgeInsets.only(bottom: 10.0),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +94,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                           borderRadius: BorderRadius.circular(50),
                         ),
                         padding: const EdgeInsets.only(
-                            top: 8.0, bottom: 8.0, left: 15.0, right: 15.0),
+                            top: 6.0, bottom: 6.0, left: 12.0, right: 12.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
@@ -110,8 +111,9 @@ class _MyPageScreenState extends State<MyPageScreen> {
                             Text(
                               displayUserType,
                               style: const TextStyle(
+                                height: 1.5,
                                 fontSize: 12,
-                                fontFamily: "Bold",
+                                fontFamily: "SemiBold",
                                 color: CustomColors.textColor8,
                               ),
                             ),
@@ -144,18 +146,22 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                   color: CustomColors.textColor8,
                                 ),
                               ),
-                              SvgPicture.asset(
-                                'assets/images/ic_right_arrow.svg',
-                                semanticsLabel: 'Back',
-                                width: 12,
-                                height: 12,
-                                alignment: Alignment.center,
+                              Padding(
+                                padding: const EdgeInsets.only(right: 6),
+                                child: SvgPicture.asset(
+                                  'assets/images/ic_right_arrow.svg',
+                                  semanticsLabel: 'Back',
+                                  width: 12,
+                                  height: 12,
+                                  alignment: Alignment.center,
+                                ),
                               ),
                             ],
                           ),
                         ),
                       ),
                       Container(
+                          width: MediaQuery.of(context).size.width,
                           margin: const EdgeInsets.only(
                             top: 20.0,
                           ),
@@ -193,83 +199,89 @@ class _MyPageScreenState extends State<MyPageScreen> {
                                 ),
                               ),
                               if (userType == "tenant_admin")
-                                SvgPicture.asset(
-                                  'assets/images/ic_vertical_line.svg',
-                                  semanticsLabel: 'Back',
-                                  // width: 12,
-                                  height: 60,
-                                  alignment: Alignment.center,
+                                Padding(
+                                  padding: const EdgeInsets.only(left: 25),
+                                  child: SvgPicture.asset(
+                                    'assets/images/ic_vertical_line.svg',
+                                    semanticsLabel: 'Back',
+                                    // width: 12,
+                                    height: 60,
+                                    alignment: Alignment.center,
+                                  ),
                                 ),
                               if (userType == "tenant_admin")
                                 Flexible(
-                                    child: Column(
-                                  children: [
-                                    InkWell(
-                                      onTap: () {
-                                        Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                const RegisteredEmployeeList(),
-                                          ),
-                                        ).then((value) {
-                                          if (value) {
-                                            firstTimeLoadEmployeeList();
-                                          }
-                                        });
-                                      },
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.center,
-                                        children: [
-                                          Flexible(
-                                            child: Text(
-                                              tr("numberOfRegisteredEmployee"),
-                                              style: const TextStyle(
-                                                fontSize: 14,
-                                                fontFamily: "Regular",
-                                                color: CustomColors.greyColor1,
+                                  child: Column(
+                                    children: [
+                                      InkWell(
+                                        onTap: () {
+                                          Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) =>
+                                                  const RegisteredEmployeeList(),
+                                            ),
+                                          ).then((value) {
+                                            if (value) {
+                                              firstTimeLoadEmployeeList();
+                                            }
+                                          });
+                                        },
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.center,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                tr("numberOfRegisteredEmployee"),
+                                                style: const TextStyle(
+                                                  fontSize: 14,
+                                                  fontFamily: "Regular",
+                                                  color:
+                                                      CustomColors.greyColor1,
+                                                ),
                                               ),
                                             ),
-                                          ),
 
-                                          // SvgPicture.asset(
-                                          //   'assets/images/ic_right_arrow.svg',
-                                          //   semanticsLabel: 'Back',
-                                          //   width: 8,
-                                          //   height: 8,
-                                          //   alignment: Alignment.center,
-                                          // ),
+                                            // SvgPicture.asset(
+                                            //   'assets/images/ic_right_arrow.svg',
+                                            //   semanticsLabel: 'Back',
+                                            //   width: 8,
+                                            //   height: 8,
+                                            //   alignment: Alignment.center,
+                                            // ),
+                                          ],
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Text(
+                                            "${totalRecords.toString()}  ",
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color: CustomColors.textColor9,
+                                              fontFamily: 'SemiBold',
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          Text(
+                                            tr("people"),
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              color:
+                                                  CustomColors.textColorBlack2,
+                                              fontFamily: 'SemiBold',
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
                                         ],
                                       ),
-                                    ),
-                                    const SizedBox(
-                                      height: 5.0,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Text(
-                                          "${totalRecords.toString()}  ",
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: CustomColors.textColor9,
-                                            fontFamily: 'SemiBold',
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                        Text(
-                                          tr("people"),
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            color: CustomColors.textColorBlack2,
-                                            fontFamily: 'SemiBold',
-                                          ),
-                                          textAlign: TextAlign.center,
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                ))
+                                    ],
+                                  ),
+                                )
                             ],
                           )),
                       InkWell(
@@ -341,10 +353,18 @@ class _MyPageScreenState extends State<MyPageScreen> {
                       margin: const EdgeInsets.only(
                           top: 20, left: 16.0, right: 16.0),
                       decoration: BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: CustomColors.dividerGreyColor
+                                  .withOpacity(0.2),
+                              offset: const Offset(0.0, 3.0), //(x,y)
+                              blurRadius: 3.0,
+                            ),
+                          ],
                           color: CustomColors.whiteColor,
                           borderRadius: BorderRadius.circular(4),
                           border: Border.all(
-                              color: CustomColors.dividerGreyColor,
+                              color: CustomColors.backgroundColor2,
                               width: 1.0)),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
@@ -364,7 +384,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                             tr("freeParkingVehicleRegistration"),
                             style: const TextStyle(
                               fontSize: 14,
-                              fontFamily: "SemiBold",
+                              fontFamily: "Medium",
                               color: CustomColors.textColorBlack2,
                             ),
                           ),
@@ -387,10 +407,18 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     margin:
                         const EdgeInsets.only(top: 20, left: 16.0, right: 16.0),
                     decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                CustomColors.dividerGreyColor.withOpacity(0.2),
+                            offset: const Offset(0.0, 3.0), //(x,y)
+                            blurRadius: 3.0,
+                          ),
+                        ],
                         color: CustomColors.whiteColor,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                            color: CustomColors.dividerGreyColor, width: 1.0)),
+                            color: CustomColors.backgroundColor2, width: 1.0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -412,7 +440,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                               tr("amenityReservationHistory"),
                               style: const TextStyle(
                                 fontSize: 14,
-                                fontFamily: "SemiBold",
+                                fontFamily: "Medium",
                                 color: CustomColors.textColorBlack2,
                               ),
                             ),
@@ -448,10 +476,18 @@ class _MyPageScreenState extends State<MyPageScreen> {
                     margin: const EdgeInsets.only(
                         top: 20, left: 16.0, right: 16.0, bottom: 50),
                     decoration: BoxDecoration(
+                        boxShadow: [
+                          BoxShadow(
+                            color:
+                                CustomColors.dividerGreyColor.withOpacity(0.2),
+                            offset: const Offset(0.0, 3.0), //(x,y)
+                            blurRadius: 3.0,
+                          ),
+                        ],
                         color: CustomColors.whiteColor,
                         borderRadius: BorderRadius.circular(4),
                         border: Border.all(
-                            color: CustomColors.dividerGreyColor, width: 1.0)),
+                            color: CustomColors.backgroundColor2, width: 1.0)),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -473,7 +509,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
                               tr("vocApplicationHistory"),
                               style: const TextStyle(
                                 fontSize: 14,
-                                fontFamily: "SemiBold",
+                                fontFamily: "Medium",
                                 color: CustomColors.textColorBlack2,
                               ),
                             ),

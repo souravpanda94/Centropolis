@@ -56,13 +56,13 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
       ),
       isLoading: isLoading,
       child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
+        backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
           preferredSize: AppBar().preferredSize,
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightOutDetail"), false, () {
+              child: CommonAppBar(tr("lightOutSubtitle"), false, () {
                 onBackButtonPress(context);
               }, () {}),
             ),
@@ -131,7 +131,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(tr("nameLounge"),
+                          Text(tr("CoolingHeatingName"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
@@ -271,7 +271,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                       height: 8,
                     ),
                     Text(
-                      "${lightOutDetails?.applicationDate.toString() ?? ""} | ${lightOutDetails?.startTime.toString() ?? ""} ~ ${lightOutDetails?.endTime.toString() ?? ""}",
+                      "${lightOutDetails?.applicationDate.toString() ?? ""}   |   ${lightOutDetails?.startTime.toString() ?? ""} ~ ${lightOutDetails?.endTime.toString() ?? ""}",
                       style: const TextStyle(
                           fontFamily: 'Regular',
                           fontSize: 14,
@@ -308,6 +308,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                     Text(
                       lightOutDetails?.detail.toString() ?? "",
                       style: const TextStyle(
+                          height: 1.5,
                           fontFamily: 'Regular',
                           fontSize: 14,
                           color: CustomColors.textColor8),

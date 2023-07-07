@@ -71,8 +71,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("heatingAndCoolingRequestHistory"), false,
-                  () {
+              child: CommonAppBar(tr("coolingHeatingListTitle"), false, () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, true);
               }, () {}),
@@ -152,8 +151,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                                         .inquiryId
                                                         .toString() ??
                                                     "",
-                                            appBarTitle: tr(
-                                                "requestForHeatingAndCooling")),
+                                            fromPage: "VOC"),
                                   ),
                                 );
                               },
@@ -458,7 +456,8 @@ class _AirConditioningListState extends State<AirConditioningList> {
           firstTimeLoadAirConditioningList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          //maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -470,7 +469,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,

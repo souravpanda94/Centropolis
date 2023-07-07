@@ -66,8 +66,8 @@ class _LightOutScreenState extends State<LightOutScreen> {
         backgroundColor: Colors.white,
         body: VocCommonHome(
           image: 'assets/images/lightout.png',
-          title: tr("lightOutEngTitle"),
-          subTitle: tr("lightOutDetail"),
+          title: "Light Out Extension Inquiry",
+          subTitle: tr("lightOutSubtitle"),
           emptyTxt: tr("lightOutEmptyText"),
           airConditioningList: const [],
           inconvenienceList: const [],

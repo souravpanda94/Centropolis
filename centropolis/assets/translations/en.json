@@ -37,7 +37,7 @@
   "cancelReservation" : "Cancel Reservation",
   "appSettings" : "App Settings",
   "pushNotification" : "PUSH notification",
-  "changeLanguage" : "Change language",
+  "changeLanguage" : "Change Language",
   "privacyPolicy" : "Privacy policy",
   "termsOfUse" : "Terms of use",
   "versionInformation" : "Version information",
@@ -171,7 +171,7 @@
   "barCodeHeader" : "QR check-in",
   "barCodeTitle" : "QR code for entry",
   "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
-  "loungeReservation" : "Lounge reservation",
+  "loungeReservation" : "Lounge Reservation",
   "reservationInformation" : "Reservation Information",
   "selectReservationDate" : "Select Reservation Date",
   "timeSelection" : "Time selection",
@@ -332,9 +332,9 @@
   "fitnessInquiry" : "02-6370-5154",
   "facilityOperatingTime" : "9 am to 6 pm (weekdays only)",
   "facilityInfoText1" : "Sleeping room: up to 5 females and 15 males",
-  "facilityInfoText2" : "Shower room: up to 4 females and 8 males (available until 8:30pm for fitness users)",
+  "facilityInfoText2" : "Shower room: up to 4 females and 8 males\n (available until 8:30pm for fitness users)",
   "facilityInfoText3" : "Nursing room: This is a female-only facility and can be used by up to 2 people at the same time",
-  "facilityUsage" : "Receive/return the access card at the information desk (free)",
+  "facilityUsage" : "Receive/return the access card at the information\n desk (free)",
   "facilityUsageText1" : "Sleeping room: visit the information desk after making a reservation",
   "facilityUsageText2" : "Shower Room & Nursing Room : Visit the information desk",
   "facilityInquiry" : "02-6370-5151 / 5152",
@@ -415,6 +415,13 @@
   "complaintReceivedName" : "Name",
   "CoolingHeatingName" : "Name",
   "sleepingRoomCongestion" : "Fitness real-time congestion",
+  "lightOutSubtitle" : "Light Out Extension Inquiry",
+  "CoolingHeatingSubtitle" : "Air Conditioning Extension Inquiry",
+  "lightOutListTitle" : "Light Out Extension History",
+  "coolingHeatingListTitle": "Air Conditioning Extension History",
+
+
+
 
 
 

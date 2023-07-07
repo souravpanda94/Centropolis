@@ -89,12 +89,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
                     child: ListView.builder(
                         itemCount: notificationListItem?.length,
                         itemBuilder: ((context, index) {
-                          debugPrint(
-                              "Notification Id -> ${notificationListItem?[index].id.toString()}");
-                          debugPrint(
-                              "title -> ${notificationListItem?[index].title.toString()}");
-                          debugPrint(
-                              "type -> ${notificationListItem?[index].notificationType.toString()}");
+                          // debugPrint(
+                          //     "Notification Id -> ${notificationListItem?[index].id.toString()}");
+                          // debugPrint(
+                          //     "title -> ${notificationListItem?[index].title.toString()}");
+                          // debugPrint(
+                          //     "type -> ${notificationListItem?[index].notificationType.toString()}");
 
                           return InkWell(
                             onTap: () {
@@ -319,8 +319,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
       );
     } else if (notificationType == "add_lounge_reservation" ||
         notificationType == "reject_lounge_reservation" ||
-        notificationType == "cancel_lounge_reservation" ||
-        notificationType == "payment_pending_lounge_reservation") {
+        notificationType == "cancel_lounge_reservation") {
       //lounge details
 
       Navigator.push(
@@ -331,7 +330,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       );
     } else if (notificationType == "add_locker_reservation" ||
         notificationType == "reject_locker_reservation" ||
-        notificationType == "cancel_locker_reservation") {
+        notificationType == "cancel_locker_reservation" ||
+        notificationType == "payment_pending_lounge_reservation") {
       //locker details
 
       Navigator.push(
@@ -343,7 +343,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       );
     } else if (notificationType == "reject_pt_reservation" ||
         notificationType == "cancel_pt_reservation" ||
-        notificationType == "add_pt_reservation") {
+        notificationType == "add_pt_reservation" ||
+        notificationType == "reminder_pending_locker_reservation") {
       //pt details
 
       Navigator.push(
@@ -382,7 +383,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
         context,
         MaterialPageRoute(
           builder: (context) => AirConditioningDetails(
-              inquiryId: relId.toString(), appBarTitle: tr("AirConditioning")),
+              inquiryId: relId.toString(), fromPage: "MyPage"),
         ),
       );
     } else if (notificationType == "add_gx_reservation" ||
@@ -397,13 +398,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
               GXHistoryDetails(reservationId: relId.toString()),
         ),
       );
-    }
-    else if (notificationType == "notif_addVisitorReservation" ||
-        notificationType == "notif_rejectVisitorReservationByAdmin" ||
-        notificationType == "notif_rejectVisitorReservationByTenantMaster" ||
-        notificationType == "notif_cancelVisitorReservationByTenantMaster" ||
-        notificationType == "notif_addVisitorReservationByAdmin" ||
-        notificationType == "notif_cancelVisitorReservationAuto") {
+    } else if (notificationType == "add_visitor_reservation" ||
+        notificationType == "cancel_visitor_reservation" ||
+        notificationType == "reject_visitor_reservation") {
       Navigator.push(
         context,
         MaterialPageRoute(

@@ -232,6 +232,10 @@ class _GXHistoryDetailsState extends State<GXHistoryDetails> {
                       ),
                     ),
                     Container(
+                      height: 8,
+                      color: CustomColors.backgroundColor,
+                    ),
+                    Container(
                       color: CustomColors.whiteColor,
                       padding: const EdgeInsets.all(16),
                       margin: const EdgeInsets.only(bottom: 120),

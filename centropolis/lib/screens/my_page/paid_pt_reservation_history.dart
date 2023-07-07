@@ -223,14 +223,14 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           paidPtHistoryListItem?[index]
@@ -329,7 +329,8 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
           firstTimeLoadPaidPtHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          // maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -341,7 +342,7 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,

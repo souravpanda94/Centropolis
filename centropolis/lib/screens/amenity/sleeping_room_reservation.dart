@@ -36,10 +36,12 @@ class SleepingRoomReservation extends StatefulWidget {
 }
 
 class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
-  late String language, apiKey, email, mobile;
+  late String language, apiKey;
   late FToast fToast;
   String companyName = "";
   String name = "";
+  String email = "";
+  String mobile = "";
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
@@ -74,8 +76,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
     debugPrint("Api key ===> $apiKey");
@@ -1151,12 +1153,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
-    } else if (selectedIndex == 0) {
+    } else if (selectedSeatsValue == null) {
       showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
     } else {
-      //networkCheckForReservation();
+      networkCheckForReservation();
     }
   }
 
@@ -1195,19 +1197,21 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
+    Map<String, Object> body = {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
       "reservation_date": reservationDate.toString().trim(), //required
       "start_time": usageTimeSelectedValue != null &&
               usageTimeSelectedValue.toString().isNotEmpty
           ? usageTimeSelectedValue.toString().trim()
-          : usageTimeList.first, //required
+          : usageTimeList.first.toString().trim(), //required
       "usage_hours": totalTimeSelectedValue != null &&
               totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
-          : totalUsageTimeList.first["value"], //required
-      "seat": (selectedIndex + 1).toString().trim(), //required
+          : totalUsageTimeList.first["value"].toString().trim(), //required
+      "seat": selectedSeatsValue!.toString().trim(), //required
+      // "usage_hours": 0.5,
+      // "seat": 16
     };
 
     debugPrint("sleeping room reservation input===> $body");
@@ -1414,6 +1418,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           setState(() {
             companyName = userInfoModel.companyName.toString();
             name = userInfoModel.name.toString();
+            email = userInfoModel.email.toString();
+            mobile = userInfoModel.mobile.toString();
           });
         } else {
           if (responseJson['message'] != null) {

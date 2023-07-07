@@ -229,7 +229,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                                 ),
                                 const Padding(
                                   padding: EdgeInsets.symmetric(
-                                      horizontal: 6, vertical: 4),
+                                      horizontal: 3, vertical: 4),
                                   child: VerticalDivider(
                                     color: CustomColors.textColor3,
                                     thickness: 1,

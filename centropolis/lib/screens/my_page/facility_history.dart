@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 import '../../models/sleeping_room_history_model.dart';
 import '../../providers/sleeping_room_history_provider.dart';
 import '../../providers/user_provider.dart';
@@ -219,14 +217,14 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           sleepingRoomHistoryItem![index]
@@ -240,14 +238,14 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           sleepingRoomHistoryItem![index]
@@ -407,7 +405,8 @@ class _FacilityHistoryState extends State<FacilityHistory> {
           firstTimeLoadSleepingRoomHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          // maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -419,7 +418,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,

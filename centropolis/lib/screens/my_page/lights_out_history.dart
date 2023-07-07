@@ -228,7 +228,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const Padding(
                                           padding:
@@ -239,7 +239,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                           ),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           "${lightoutListItem?[index].registeredDate ?? ""} ${lightoutListItem?[index].startTime ?? ""}",
@@ -392,7 +392,8 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
           firstTimeLoadLightsOutList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          width: 160,
+          //maxHeight: 200,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -404,7 +405,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,
@@ -414,7 +415,9 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
         )),
         buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 16),
         ),
       ),
     );

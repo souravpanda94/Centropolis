@@ -32,9 +32,11 @@ class LightOutRequest extends StatefulWidget {
 }
 
 class _LightOutRequestState extends State<LightOutRequest> {
-  late String language, apiKey, email, mobile, companyId;
+  late String language, apiKey, companyId;
   String companyName = "";
   String name = "";
+  String email = "";
+  String mobile = "";
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -64,8 +66,8 @@ class _LightOutRequestState extends State<LightOutRequest> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
     companyId = user.userData['company_id'].toString();
     //companyName = user.userData['company_name'].toString();
     //name = user.userData['name'].toString();
@@ -93,7 +95,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
             child: SafeArea(
               child: Container(
                 color: CustomColors.whiteColor,
-                child: CommonAppBar(tr("lightOutDetail"), false, () {
+                child: CommonAppBar(tr("lightOutSubtitle"), false, () {
                   //onBackButtonPress(context);
                   Navigator.pop(context, isLoadingRequired);
                 }, () {}),
@@ -125,7 +127,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(tr("nameLounge"),
+                          Text(tr("CoolingHeatingName"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 14,
@@ -248,9 +250,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
                                     : Container(
                                         margin: const EdgeInsets.only(left: 15),
                                         child: Wrap(
+                                          runSpacing: 1.5,
                                           direction: Axis.vertical,
                                           children: _selectedFloors
                                               .map((e) => Chip(
+                                                    visualDensity:
+                                                        VisualDensity.standard,
                                                     backgroundColor:
                                                         CustomColors
                                                             .selectedColor,
@@ -262,13 +267,21 @@ class _LightOutRequestState extends State<LightOutRequest> {
                                                             BorderRadius.all(
                                                                 Radius.circular(
                                                                     5))),
-                                                    label: Text(e,
-                                                        style: const TextStyle(
-                                                            fontFamily:
-                                                                'Regular',
-                                                            fontSize: 14,
-                                                            color: CustomColors
-                                                                .whiteColor)),
+                                                    label: SizedBox(
+                                                      width: 20,
+                                                      child: Text(
+                                                          e
+                                                              .toString()
+                                                              .toUpperCase(),
+                                                          textAlign:
+                                                              TextAlign.center,
+                                                          style: const TextStyle(
+                                                              fontFamily:
+                                                                  'SemiBold',
+                                                              fontSize: 12,
+                                                              color: CustomColors
+                                                                  .whiteColor)),
+                                                    ),
                                                   ))
                                               .toList(),
                                         ),
@@ -1219,6 +1232,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
           setState(() {
             companyName = userInfoModel.companyName.toString();
             name = userInfoModel.name.toString();
+            email = userInfoModel.email.toString();
+            mobile = userInfoModel.mobile.toString();
+            companyId = userInfoModel.companyId.toString();
           });
         } else {
           if (responseJson['message'] != null) {

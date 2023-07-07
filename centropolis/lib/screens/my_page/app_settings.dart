@@ -146,17 +146,17 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                           Text(
                             tr("pushNotification"),
                             style: const TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               color: CustomColors.blackColor,
                               fontFamily: 'SemiBold',
                             ),
                             textAlign: TextAlign.left,
                           ),
                           FlutterSwitch(
-                            height: 28.0,
-                            width: 45.0,
+                            height: 22.0,
+                            width: 40.0,
                             padding: 2.0,
-                            toggleSize: 24.0,
+                            toggleSize: 19.0,
                             borderRadius: 15.0,
                             activeColor: CustomColors.textColor9,
                             inactiveColor: CustomColors.dividerGreyColor,
@@ -185,7 +185,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                             Text(
                               tr("changeLanguage"),
                               style: const TextStyle(
-                                fontSize: 16,
+                                fontSize: 14,
                                 color: CustomColors.blackColor,
                                 fontFamily: 'SemiBold',
                               ),
@@ -248,7 +248,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                           child: Text(
                             tr("privacyPolicy"),
                             style: const TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               color: CustomColors.blackColor,
                               fontFamily: 'SemiBold',
                             ),
@@ -292,7 +292,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                           child: Text(
                             tr("termsOfUse"),
                             style: const TextStyle(
-                              fontSize: 16,
+                              fontSize: 14,
                               color: CustomColors.blackColor,
                               fontFamily: 'SemiBold',
                             ),
@@ -303,9 +303,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     ),
                   ])),
               Container(
-                margin: const EdgeInsets.only(
-                  top: 10.0,
-                ),
+                margin: const EdgeInsets.only(top: 10.0, bottom: 100),
                 padding: const EdgeInsets.only(
                     top: 25.0, bottom: 25.0, left: 16.0, right: 16.0),
                 color: CustomColors.whiteColor,
@@ -315,7 +313,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                     Text(
                       tr("versionInformation"),
                       style: const TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         color: CustomColors.blackColor,
                         fontFamily: 'SemiBold',
                       ),

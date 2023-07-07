@@ -2,6 +2,8 @@ import 'package:centropolis/models/view_seat_selection_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
+import 'package:provider/provider.dart';
+import '../../providers/user_provider.dart';
 import '../../utils/custom_colors.dart';
 
 class ViewSeatSelectionModalScreenLatest extends StatefulWidget {
@@ -30,6 +32,7 @@ class ViewSeatSelectionModalScreenLatest extends StatefulWidget {
 
 class _ViewSeatSelectionModalScreenState
     extends State<ViewSeatSelectionModalScreenLatest> {
+  late String gender;
   bool selected = false;
   int selectedIndex = 0;
   List<String> selectedTimeRangList = [];
@@ -37,6 +40,9 @@ class _ViewSeatSelectionModalScreenState
   @override
   void initState() {
     super.initState();
+    var user = Provider.of<UserProvider>(context, listen: false);
+    gender = user.userData['gender'].toString();
+    debugPrint("Gender  ====> $gender");
     debugPrint("Time slot list  ====> ${widget.timeSlotList}");
     debugPrint("Time list length ====> ${widget.timeSlotList.length}");
     debugPrint("usageTimeSelectedValue ====> ${widget.usageTimeSelectedValue}");
@@ -57,212 +63,208 @@ class _ViewSeatSelectionModalScreenState
     double height = MediaQuery.of(context).size.height / 1.2;
 
     return AlertDialog(
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(4),
-        ),
-        insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
-        contentPadding: const EdgeInsets.only(
-          top: 10,
-          bottom: 20.0,
-        ),
-        scrollable: true,
-        content: SizedBox(
-            width: width,
-            height: height,
-            child: SingleChildScrollView(
-                child: Container(
-                    margin: const EdgeInsets.only(top: 20, left: 16, right: 16),
-                    child: Column(children: [
-                      Container(
-                        color: CustomColors.whiteColor,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Flexible(
-                                child: Text(
-                              tr("seatSelection"),
-                              style: const TextStyle(
-                                fontSize: 16,
-                                color: CustomColors.textColor8,
-                                fontFamily: 'SemiBold',
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(4),
+      ),
+      insetPadding: const EdgeInsets.only(left: 18.0, right: 18.0),
+      contentPadding: const EdgeInsets.only(
+        top: 10,
+        bottom: 20.0,
+      ),
+      scrollable: true,
+      content: SizedBox(
+        width: width,
+        height: height,
+        child: SingleChildScrollView(
+          child: Container(
+            margin: const EdgeInsets.only(top: 20, left: 16, right: 16),
+            child: Column(
+              children: [
+                Container(
+                  color: CustomColors.whiteColor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                          child: Text(
+                        tr("seatSelection"),
+                        style: const TextStyle(
+                          fontSize: 16,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'SemiBold',
+                        ),
+                      )),
+                      Row(
+                        children: [
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.square,
+                                size: 15,
+                                color: CustomColors.textColor9,
                               ),
-                            )),
-                            Row(
-                              children: [
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.square,
-                                      size: 15,
-                                      color: CustomColors.textColor9,
-                                    ),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      tr("select"),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: CustomColors.greyColor1,
-                                        fontFamily: 'Regular',
-                                      ),
-                                    )
-                                  ],
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("select"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
                                 ),
-                                const SizedBox(
-                                  width: 8,
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.square_outlined,
+                                size: 15,
+                                color: CustomColors.textColor9,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("selectable"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
                                 ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.square_outlined,
-                                      size: 15,
-                                      color: CustomColors.textColor9,
-                                    ),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      tr("selectable"),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: CustomColors.greyColor1,
-                                        fontFamily: 'Regular',
-                                      ),
-                                    )
-                                  ],
+                              )
+                            ],
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          Row(
+                            children: [
+                              const Icon(
+                                Icons.square,
+                                size: 15,
+                                color: CustomColors.borderColor,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("closed"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.greyColor1,
+                                  fontFamily: 'Regular',
                                 ),
-                                const SizedBox(
-                                  width: 8,
-                                ),
-                                Row(
-                                  children: [
-                                    const Icon(
-                                      Icons.square,
-                                      size: 15,
-                                      color: CustomColors.borderColor,
-                                    ),
-                                    const SizedBox(
-                                      width: 4,
-                                    ),
-                                    Text(
-                                      tr("closed"),
-                                      style: const TextStyle(
-                                        fontSize: 12,
-                                        color: CustomColors.greyColor1,
-                                        fontFamily: 'Regular',
-                                      ),
-                                    )
-                                  ],
-                                )
-                              ],
-                            )
-                          ],
+                              )
+                            ],
+                          )
+                        ],
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  color: CustomColors.backgroundColor,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 15, left: 10),
+                        child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            gender == "f"
+                                ? tr("sleepingRoom(Female)")
+                                : tr("sleepingRoom(Male)"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
                         ),
                       ),
                       Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        color: CustomColors.backgroundColor,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.only(top: 15, left: 10),
-                              child: Align(
-                                alignment: Alignment.centerLeft,
+                        // color: Colors.purple,
+                        width: double.infinity,
+                        height: height,
+                        margin: const EdgeInsets.only(
+                            top: 20, bottom: 10, left: 10),
+                        child: AlignedGridView.count(
+                          crossAxisCount: widget.timeSlotList.length,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: widget.viewSeatSelectionListItem?.length,
+                          itemBuilder: (context, index) {
+                            return
+                                // Container(
+                                // decoration: BoxDecoration(
+                                //     color: CustomColors.backgroundColor,
+                                //     border: Border.all(
+                                //       color: CustomColors.borderColor3,
+                                //       width: 1.0
+                                //     ),
+                                //     ),
+                                // child:
+                                Container(
+                              width: setItemWidth(index),
+                              height: 34,
+                              margin: const EdgeInsets.all(6),
+                              decoration: BoxDecoration(
+                                color: setBackgroundColor(
+                                    widget.viewSeatSelectionListItem?[index]
+                                        .available,
+                                    widget
+                                        .viewSeatSelectionListItem?[index].slot
+                                        .toString(),
+                                    widget.viewSeatSelectionListItem?[index]
+                                        .slotRange
+                                        .toString(),
+                                    widget
+                                        .viewSeatSelectionListItem?[index].seat
+                                        .toString()),
+                                border: Border.all(
+                                    color: setBorderColor(
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .available,
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .slot
+                                            .toString(),
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .slotRange
+                                            .toString(),
+                                        widget.viewSeatSelectionListItem?[index]
+                                            .seat
+                                            .toString()),
+                                    width: 1.0),
+                              ),
+                              child: Center(
                                 child: Text(
-                                  tr("sleepingRoom(Female)"),
+                                  setTextValue(index),
                                   style: const TextStyle(
-                                      fontFamily: 'SemiBold',
-                                      fontSize: 14,
-                                      color: CustomColors.textColorBlack2),
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2,
+                                    fontFamily: 'Regular',
+                                  ),
                                 ),
                               ),
-                            ),
-                            Container(
-                              // color: Colors.purple,
-                              width: double.infinity,
-                              height: height,
-                              margin: const EdgeInsets.only(
-                                  top: 20, bottom: 10, left: 10),
-                              child: AlignedGridView.count(
-                                crossAxisCount: widget.timeSlotList.length,
-                                scrollDirection: Axis.horizontal,
-                                itemCount: widget.viewSeatSelectionListItem?.length,
-                                itemBuilder: (context, index) {
-                                  return
-                                    // Container(
-                                    // decoration: BoxDecoration(
-                                    //     color: CustomColors.backgroundColor,
-                                    //     border: Border.all(
-                                    //       color: CustomColors.borderColor3,
-                                    //       width: 1.0
-                                    //     ),
-                                    //     ),
-                                    // child:
-                                    Container(
-                                      width: setItemWidth(index),
-                                      height: 34,
-                                      margin: const EdgeInsets.all(6),
-                                      decoration: BoxDecoration(
-                                        color: setBackgroundColor(
-                                            widget
-                                                .viewSeatSelectionListItem?[index]
-                                                .available,
-                                            widget
-                                                .viewSeatSelectionListItem?[index]
-                                                .slot
-                                                .toString(),
-                                            widget
-                                                .viewSeatSelectionListItem?[index]
-                                                .slotRange
-                                                .toString(),
-                                            widget
-                                                .viewSeatSelectionListItem?[index]
-                                                .seat
-                                                .toString()),
-                                        border: Border.all(
-                                            color: setBorderColor(
-                                                widget
-                                                    .viewSeatSelectionListItem?[
-                                                index]
-                                                    .available,
-                                                widget
-                                                    .viewSeatSelectionListItem?[
-                                                index]
-                                                    .slot
-                                                    .toString(),
-                                                widget
-                                                    .viewSeatSelectionListItem?[
-                                                index]
-                                                    .slotRange
-                                                    .toString(),
-                                                widget
-                                                    .viewSeatSelectionListItem?[
-                                                index]
-                                                    .seat
-                                                    .toString()),
-                                            width: 1.0),
-                                      ),
-                                      child: Center(
-                                        child: Text(
-                                          setTextValue(index),
-                                          style: const TextStyle(
-                                            fontSize: 14,
-                                            color: CustomColors.textColorBlack2,
-                                            fontFamily: 'Regular',
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  // );
-                                },
-                              ),
-                            )
-                          ],
+                            );
+                            // );
+                          },
                         ),
                       )
-                    ],),),),),);
+                    ],
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
   }
 
   setBackgroundColor(
@@ -326,7 +328,7 @@ class _ViewSeatSelectionModalScreenState
         return '${widget.viewSeatSelectionListItem?[index].seat.toString()}';
       } else if (widget.viewSeatSelectionListItem![index].seat! == 0 &&
           widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
-        return "Seat :";
+        return "Seat ";
       } else {
         return "";
       }
