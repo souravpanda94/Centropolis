@@ -18,8 +18,6 @@ import '../../utils/utils.dart';
 import '../../widgets/view_more.dart';
 import 'facility_history_details.dart';
 
-
-
 class FacilityHistory extends StatefulWidget {
   const FacilityHistory({super.key});
 
@@ -219,14 +217,14 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           sleepingRoomHistoryItem![index]
@@ -240,14 +238,14 @@ class _FacilityHistoryState extends State<FacilityHistory> {
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           sleepingRoomHistoryItem![index]
@@ -408,6 +406,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
         },
         dropdownStyleData: DropdownStyleData(
           // maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -419,7 +418,7 @@ class _FacilityHistoryState extends State<FacilityHistory> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,

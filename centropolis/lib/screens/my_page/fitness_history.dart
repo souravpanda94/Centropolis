@@ -30,10 +30,12 @@ class _FitnessHistoryState extends State<FitnessHistory> {
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
       children: [
         Container(
             color: CustomColors.whiteColor,
-            height: 77,
+            width: MediaQuery.of(context).size.width,
+            height: 65,
             padding: const EdgeInsets.all(16),
             child: ListView.builder(
                 shrinkWrap: true,
@@ -48,8 +50,8 @@ class _FitnessHistoryState extends State<FitnessHistory> {
                     },
                     child: Container(
                       padding: const EdgeInsets.symmetric(
-                          vertical: 12, horizontal: 16),
-                      margin: const EdgeInsets.only(right: 12),
+                          vertical: 6, horizontal: 13),
+                      margin: const EdgeInsets.only(right: 3),
                       decoration: BoxDecoration(
                           color: CustomColors.whiteColor,
                           border: Border.all(
@@ -60,14 +62,16 @@ class _FitnessHistoryState extends State<FitnessHistory> {
                           borderRadius: index == showIndex
                               ? const BorderRadius.all(Radius.circular(50))
                               : null),
-                      child: Text(
-                        fitnessTabList[index],
-                        style: TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: index == showIndex
-                                ? CustomColors.textColorBlack2
-                                : CustomColors.textColor3),
+                      child: Center(
+                        child: Text(
+                          fitnessTabList[index],
+                          style: TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: index == showIndex
+                                  ? CustomColors.textColorBlack2
+                                  : CustomColors.textColor3),
+                        ),
                       ),
                     ),
                   );

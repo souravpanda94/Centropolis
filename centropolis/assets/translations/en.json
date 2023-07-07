@@ -171,7 +171,7 @@
   "barCodeHeader" : "QR check-in",
   "barCodeTitle" : "QR code for entry",
   "barCodeSubTitle" : "Check in with the QR code at the facility you want to use.",
-  "loungeReservation" : "Lounge reservation",
+  "loungeReservation" : "Lounge Reservation",
   "reservationInformation" : "Reservation Information",
   "selectReservationDate" : "Select Reservation Date",
   "timeSelection" : "Time selection",
