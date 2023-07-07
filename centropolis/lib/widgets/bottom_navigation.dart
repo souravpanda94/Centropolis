@@ -455,8 +455,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           context,
           MaterialPageRoute(
             builder: (context) => AirConditioningDetails(
-                inquiryId: relId.toString(),
-                appBarTitle: tr("AirConditioning")),
+                inquiryId: relId.toString(), fromPage: "MyPage"),
           ),
         );
       } else if (type == "add_gx_reservation" ||
@@ -629,16 +628,14 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
             builder: (context) => LightsOutDetails(id: relId.toString()),
           ),
         );
-      } else if (type == "reply_ac_inquiry" ||
-          type == "approve_ac_inquiry") {
+      } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
         //ac inquiry details
 
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => AirConditioningDetails(
-                inquiryId: relId.toString(),
-                appBarTitle: tr("AirConditioning")),
+                inquiryId: relId.toString(), fromPage: "MyPage"),
           ),
         );
       } else if (type == "add_gx_reservation" ||

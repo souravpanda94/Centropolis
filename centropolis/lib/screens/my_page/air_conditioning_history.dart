@@ -132,7 +132,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                               .inquiryId
                                               .toString() ??
                                           "",
-                                      appBarTitle: tr("AirConditioning")),
+                                      fromPage: "MyPage"),
                                 ),
                               );
                             },
