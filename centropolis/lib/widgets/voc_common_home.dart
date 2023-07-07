@@ -424,7 +424,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                                   .airConditioningList?[index].inquiryId
                                   .toString() ??
                               "",
-                          appBarTitle: tr("requestForHeatingAndCooling")),
+                          fromPage: "VOC"),
                     ),
                   );
                 },

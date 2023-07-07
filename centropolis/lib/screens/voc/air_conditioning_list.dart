@@ -71,8 +71,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
           child: SafeArea(
             child: Container(
               color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("heatingAndCoolingRequestHistory"), false,
-                  () {
+              child: CommonAppBar(tr("coolingHeatingListTitle"), false, () {
                 //onBackButtonPress(context);
                 Navigator.pop(context, true);
               }, () {}),
@@ -152,8 +151,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                                         .inquiryId
                                                         .toString() ??
                                                     "",
-                                            appBarTitle: tr(
-                                                "requestForHeatingAndCooling")),
+                                            fromPage: "VOC"),
                                   ),
                                 );
                               },
