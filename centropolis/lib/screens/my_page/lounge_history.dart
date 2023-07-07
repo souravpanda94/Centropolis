@@ -398,7 +398,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
           firstTimeLoadLoungeHistoryList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          // maxHeight: 200,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
