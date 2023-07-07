@@ -409,7 +409,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
           firstTimeLoadInconvenienceList();
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          //maxHeight: 200,
+          width: 150,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
@@ -421,7 +422,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
           padding: EdgeInsets.only(
               bottom: currentSelectedSortingFilter != null ? 6 : 0,
               top: currentSelectedSortingFilter != null ? 6 : 0,
-              left: 0),
+              left: 8),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 6,

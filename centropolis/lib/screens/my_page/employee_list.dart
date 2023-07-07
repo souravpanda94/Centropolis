@@ -453,7 +453,7 @@ class _EmployeeListState extends State<EmployeeList> {
         },
         dropdownStyleData: DropdownStyleData(
           width: 196,
-          maxHeight: 200,
+          //maxHeight: 200,
           isOverButton: false,
           elevation: 0,
           decoration: BoxDecoration(
