@@ -37,6 +37,7 @@ class _FitnessHistoryState extends State<FitnessHistory> {
             width: MediaQuery.of(context).size.width,
             height: 65,
             padding: const EdgeInsets.all(16),
+            alignment: Alignment.center,
             child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
