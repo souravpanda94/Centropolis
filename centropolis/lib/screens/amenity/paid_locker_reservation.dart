@@ -29,9 +29,11 @@ class PaidLockerReservation extends StatefulWidget {
 }
 
 class _PaidLockerReservationState extends State<PaidLockerReservation> {
-  late String language, apiKey, email, mobile;
+  late String language, apiKey;
   String companyName = "";
   String name = "";
+  String email = "";
+  String mobile = "";
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -53,8 +55,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
     // name = user.userData['name'].toString();
     // companyName = user.userData['company_name'].toString();
     loadPersonalInformation();
@@ -679,6 +681,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           setState(() {
             companyName = userInfoModel.companyName.toString();
             name = userInfoModel.name.toString();
+            mobile = userInfoModel.mobile.toString();
+            email = userInfoModel.email.toString();
           });
         } else {
           if (responseJson['message'] != null) {

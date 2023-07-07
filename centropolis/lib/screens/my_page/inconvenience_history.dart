@@ -281,7 +281,11 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                       builder: (context) =>
                           const ComplaintsReceived(parentInquirId: ""),
                     ),
-                  );
+                  ).then((value) {
+                    if (value) {
+                      firstTimeLoadInconvenienceList();
+                    }
+                  });
                 },
                 buttonColor: CustomColors.buttonBackgroundColor,
                 buttonName: tr("newInquiry"),

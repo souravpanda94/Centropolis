@@ -30,11 +30,13 @@ class GXReservationDetail extends StatefulWidget {
 
 class _GXReservationDetailState extends State<GXReservationDetail> {
   bool isChecked = false;
-  late String language, apiKey, email, mobile;
+  late String language, apiKey;
   late FToast fToast;
   bool isLoading = false;
   String companyName = "";
   String name = "";
+  String email = "";
+  String mobile = "";
 
   @override
   void initState() {
@@ -44,8 +46,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
     //name = user.userData['user_name'].toString();
     //companyName = user.userData['company_name'].toString();
     loadPersonalInformation();
@@ -534,6 +536,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
           setState(() {
             companyName = userInfoModel.companyName.toString();
             name = userInfoModel.name.toString();
+            email = userInfoModel.email.toString();
+            mobile = userInfoModel.mobile.toString();
           });
         } else {
           if (responseJson['message'] != null) {

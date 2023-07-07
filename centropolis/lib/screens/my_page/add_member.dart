@@ -31,7 +31,11 @@ class AddMember extends StatefulWidget {
 enum Gender { male, female }
 
 class _AddMemberState extends State<AddMember> {
-  late String language, apiKey, email, mobile, name, companyName;
+  late String language, apiKey;
+  String companyName = "";
+  String name = "";
+  String email = "";
+  String mobile = "";
   Gender? gender = Gender.male;
   String genderValue = "m";
   String? companySelectedValue;
@@ -60,10 +64,10 @@ class _AddMemberState extends State<AddMember> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
-    name = user.userData['user_name'].toString();
-    companyName = user.userData['company_name'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
+    // name = user.userData['user_name'].toString();
+    // companyName = user.userData['company_name'].toString();
 
     setPlatform();
     loadCompanyList();

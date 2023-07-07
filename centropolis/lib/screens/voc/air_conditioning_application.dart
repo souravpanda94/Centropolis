@@ -37,9 +37,11 @@ class _AirConditioningApplicationState
     extends State<AirConditioningApplication> {
   Type? type = Type.airConditioning;
 
-  late String language, apiKey, email, mobile, companyId;
+  late String language, apiKey, companyId;
   String companyName = "";
   String name = "";
+  String email = "";
+  String mobile = "";
   late FToast fToast;
   bool isLoading = false;
   DateTime kFirstDay = DateTime.now();
@@ -71,8 +73,8 @@ class _AirConditioningApplicationState
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    email = user.userData['email_key'].toString();
-    mobile = user.userData['mobile'].toString();
+    // email = user.userData['email_key'].toString();
+    // mobile = user.userData['mobile'].toString();
     companyId = user.userData['company_id'].toString();
     //companyName = user.userData['company_name'].toString();
     //name = user.userData['name'].toString();
@@ -1343,6 +1345,9 @@ class _AirConditioningApplicationState
           setState(() {
             companyName = userInfoModel.companyName.toString();
             name = userInfoModel.name.toString();
+            email = userInfoModel.email.toString();
+            mobile = userInfoModel.mobile.toString();
+            companyId = userInfoModel.companyId.toString();
           });
         } else {
           if (responseJson['message'] != null) {

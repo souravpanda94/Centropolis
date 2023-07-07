@@ -5,6 +5,8 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/constants.dart';
@@ -26,7 +28,8 @@ class ChangePasswordScreen extends StatefulWidget {
 }
 
 class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
-  late String apiKey, email, language;
+  late String apiKey, language;
+  String email = "";
   late FToast fToast;
   bool isLoading = false;
   String currentPassword = "";
@@ -39,11 +42,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
     fToast = FToast();
     fToast.init(context);
     var user = Provider.of<UserProvider>(context, listen: false);
-    email = user.userData['email_key'].toString();
+    //email = user.userData['email_key'].toString();
     apiKey = user.userData['api_key'].toString();
     language = tr("lang");
     debugPrint("email ===> $email");
     debugPrint("apiKey ===> $apiKey");
+    loadPersonalInformation();
   }
 
   @override
@@ -468,5 +472,56 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+
+          setState(() {
+            email = userInfoModel.email.toString();
+          });
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }
