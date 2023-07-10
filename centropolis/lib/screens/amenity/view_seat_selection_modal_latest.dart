@@ -336,17 +336,24 @@ class _ViewSeatSelectionModalScreenState
   }
 
   void setSelectionTimeRange() {
+    String hr = "00";
+    String min = "00";
     selectedTimeRangList.clear();
-    String? timeValue =
-        widget.totalTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
+    String? timeValue = widget.totalTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
     debugPrint("timeValue ===> $timeValue");
-    String hr = timeValue.substring(0, 2);
-    debugPrint("hr ===> $hr");
-    String min = timeValue.substring(2, 4);
-    debugPrint("min ===> $min");
+    if(timeValue == "30"){
+      min = timeValue.substring(0, 2);
+      debugPrint("min ===> $min");
+    }
+    else{
+      hr = timeValue.substring(0, 2);
+      debugPrint("hr ===> $hr");
+      min = timeValue.substring(2, 4);
+      debugPrint("min ===> $min");
+    }
 
-    String? usageTimeValue =
-        widget.usageTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
+
+    String? usageTimeValue = widget.usageTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
     debugPrint("usageTimeValue ===> $usageTimeValue");
     String ushr = usageTimeValue.substring(0, 2);
     debugPrint("hr ===> $ushr");
