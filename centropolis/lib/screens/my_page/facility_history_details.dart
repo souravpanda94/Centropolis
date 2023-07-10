@@ -337,14 +337,7 @@ class _FacilityHistoryDetails extends State<FacilityHistoryDetails> {
                         networkCheckForCancelReservation();
                       }
                     },
-                    buttonBorderColor: sleepingRoomHistoryDetailModel
-                                ?.canCancelButtonEnabled
-                                .toString()
-                                .trim()
-                                .toLowerCase() ==
-                            "n"
-                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                        : CustomColors.dividerGreyColor,
+                    buttonBorderColor: CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
                     buttonTextColor: sleepingRoomHistoryDetailModel

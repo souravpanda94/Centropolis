@@ -289,14 +289,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                         networkCheckForCancelReservation();
                       }
                     },
-                    buttonBorderColor: loungeHistoryDetailModel
-                                ?.canCancelButtonEnabled
-                                .toString()
-                                .toLowerCase()
-                                .trim() ==
-                            "n"
-                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                        : CustomColors.dividerGreyColor,
+                    buttonBorderColor: CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
                     buttonTextColor: loungeHistoryDetailModel
