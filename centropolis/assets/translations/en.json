@@ -205,7 +205,7 @@
   "commonly" : "Commonly",
   "spare" : "Spare",
   "makeFitnessAppointment" : "Make a Fitness Appointment",
-  "fitnessReservation" : "Fitness reservation",
+  "fitnessReservation" : "Fitness Reservation",
   "gx" : "GX",
   "paidPT" : "Paid PT",
   "paidLockers" : "Paid Lockers",
@@ -419,6 +419,8 @@
   "CoolingHeatingSubtitle" : "Air Conditioning Extension Inquiry",
   "lightOutListTitle" : "Light Out Extension History",
   "coolingHeatingListTitle": "Air Conditioning Extension History",
+  "periodOfUsePaidLocker": "Period of Use",
+
 
 
 

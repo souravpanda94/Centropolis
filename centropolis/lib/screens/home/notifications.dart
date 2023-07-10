@@ -127,7 +127,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontFamily: 'SemiBold',
-                                        fontSize: 14,
+                                        fontSize: 15,
                                         color: CustomColors.textColor8),
                                   ),
                                   Container(

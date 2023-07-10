@@ -333,7 +333,7 @@ class _PaidLockerReservationHistoryState
         )),
         buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12),
         ),
       ),
     );

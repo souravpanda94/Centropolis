@@ -229,14 +229,14 @@ class _FitnessTabReservationHistoryState
                                               color: CustomColors.textColor3),
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         const VerticalDivider(
                                           thickness: 1,
                                           color: CustomColors.borderColor,
                                         ),
                                         const SizedBox(
-                                          width: 8,
+                                          width: 4,
                                         ),
                                         Text(
                                           fitnessHistoryListItem?[index]
@@ -358,7 +358,7 @@ class _FitnessTabReservationHistoryState
         )),
         buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
-          padding: EdgeInsets.only(left: 16, top: 16, bottom: 16),
+          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12),
         ),
       ),
     );

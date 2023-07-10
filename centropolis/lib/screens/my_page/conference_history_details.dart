@@ -313,14 +313,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                         networkCheckForCancelReservation();
                       }
                     },
-                    buttonBorderColor: conferenceHistoryDetails
-                                ?.canCancelButtonEnabled
-                                .toString()
-                                .toLowerCase()
-                                .trim() ==
-                            "n"
-                        ? CustomColors.dividerGreyColor.withOpacity(0.3)
-                        : CustomColors.dividerGreyColor,
+                    buttonBorderColor: CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
                     buttonName: tr("cancelReservation"),
                     buttonTextColor: conferenceHistoryDetails
