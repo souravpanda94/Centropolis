@@ -1192,8 +1192,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void callReservationApi() {
-    var reservationDate = dateFormat.format(focusedDate);
-
     setState(() {
       isLoading = true;
     });
