@@ -22,7 +22,7 @@ class _AmenityReservationHistoryState extends State<AmenityReservationHistory> {
     Tab(text: tr("lounge")),
     Tab(text: tr("conferenceHeading")),
     Tab(text: tr("fitness")),
-    Tab(text: tr("sleepingRoom")),
+    Tab(text: tr("refreshMyPage")),
     // Tab(
     //     child: Text(
     //   tr("lounge"),
