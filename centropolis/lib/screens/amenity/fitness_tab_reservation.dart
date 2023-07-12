@@ -30,7 +30,7 @@ class FitnessTabReservation extends StatefulWidget {
 }
 
 class _FitnessTabReservationState extends State<FitnessTabReservation> {
-  late String language, apiKey;
+  late String language, apiKey, gender;
   String companyName = "";
   String name = "";
   String email = "";
@@ -64,6 +64,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    gender = user.userData['gender'].toString();
     // email = user.userData['email_key'].toString();
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
@@ -89,11 +90,12 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              width: MediaQuery.of(context).size.width,
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.only(
                   left: 16, right: 16, top: 16, bottom: 8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     tr("lockerSelection"),
@@ -103,12 +105,16 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       fontFamily: 'SemiBold',
                     ),
                   ),
+                  const SizedBox(
+                    height: 8,
+                  ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
                           const Icon(
-                            Icons.square,
+                            Icons.square_outlined,
                             size: 15,
                             color: CustomColors.textColor9,
                           ),
@@ -116,11 +122,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             width: 4,
                           ),
                           Text(
-                            tr("select"),
+                            tr("availableBasket"),
                             style: const TextStyle(
                               fontSize: 12,
-                              color: CustomColors.greyColor1,
-                              fontFamily: 'Regular',
+                              color: CustomColors.textColor8,
+                              fontFamily: 'Medium',
                             ),
                           )
                         ],
@@ -133,17 +139,17 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                           const Icon(
                             Icons.square_outlined,
                             size: 15,
-                            color: CustomColors.textColor9,
+                            color: CustomColors.tabColor,
                           ),
                           const SizedBox(
                             width: 4,
                           ),
                           Text(
-                            tr("selectable"),
+                            tr("availableLocker"),
                             style: const TextStyle(
                               fontSize: 12,
-                              color: CustomColors.greyColor1,
-                              fontFamily: 'Regular',
+                              color: CustomColors.textColor8,
+                              fontFamily: 'Medium',
                             ),
                           )
                         ],
@@ -156,23 +162,77 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                           const Icon(
                             Icons.square,
                             size: 15,
-                            color: CustomColors.borderColor,
+                            color: CustomColors.textColor9,
                           ),
                           const SizedBox(
                             width: 4,
                           ),
                           Text(
-                            tr("closed"),
+                            tr("selectBasket"),
                             style: const TextStyle(
                               fontSize: 12,
-                              color: CustomColors.greyColor1,
-                              fontFamily: 'Regular',
+                              color: CustomColors.textColor8,
+                              fontFamily: 'Medium',
                             ),
                           )
                         ],
-                      )
+                      ),
                     ],
-                  )
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Expanded(
+                        flex: 2,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.square,
+                              size: 15,
+                              color: CustomColors.tabColor,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              tr("selectLocker"),
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: CustomColors.textColor8,
+                                fontFamily: 'Medium',
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      Expanded(
+                        flex: 3,
+                        child: Row(
+                          children: [
+                            const Icon(
+                              Icons.square,
+                              size: 15,
+                              color: CustomColors.borderColor,
+                            ),
+                            const SizedBox(
+                              width: 4,
+                            ),
+                            Text(
+                              tr("taken"),
+                              style: const TextStyle(
+                                fontSize: 12,
+                                color: CustomColors.textColor8,
+                                fontFamily: 'Medium',
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ],
               ),
             ),
@@ -779,7 +839,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           itemBuilder: (BuildContext ctx, index) {
             return InkWell(
                 onTap: () {
-                  if (seatAvailibilityList[index]["available"] == true) {
+                  if (seatAvailibilityList[index]["available"] == true &&
+                      seatAvailibilityList[index]["block"] == false) {
                     setState(() {
                       selected = true;
                       selectedIndex = index;
@@ -795,15 +856,31 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
                   margin: const EdgeInsets.only(right: 12, bottom: 12),
                   decoration: BoxDecoration(
-                    color: seatAvailibilityList[index]["available"] == false
+                    color: seatAvailibilityList[index]["available"] == false ||
+                            seatAvailibilityList[index]["block"] == true
                         ? CustomColors.borderColor
                         : selected && selectedIndex == index
-                            ? CustomColors.textColor9
+                            ? seatAvailibilityList[index]["seat"] >= 21 &&
+                                    seatAvailibilityList[index]["seat"] <= 41
+                                ? CustomColors.tabColor
+                                : CustomColors.textColor9
                             : CustomColors.whiteColor,
                     border: Border.all(
-                        color: seatAvailibilityList[index]["available"] == false
+                        color: seatAvailibilityList[index]["available"] ==
+                                    false ||
+                                seatAvailibilityList[index]["block"] == true
                             ? CustomColors.borderColor
-                            : CustomColors.textColor9,
+                            : gender == "f" &&
+                                    seatAvailibilityList[index]["seat"] >= 29 &&
+                                    seatAvailibilityList[index]["seat"] <= 41
+                                ? CustomColors.tabColor
+                                : gender == "m" &&
+                                        seatAvailibilityList[index]["seat"] >=
+                                            21 &&
+                                        seatAvailibilityList[index]["seat"] <=
+                                            28
+                                    ? CustomColors.tabColor
+                                    : CustomColors.textColor9,
                         width: 1.0),
                   ),
                   child: Center(
@@ -811,11 +888,27 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       seatAvailibilityList[index]["seat"].toString(),
                       style: TextStyle(
                         fontSize: 14,
-                        color: seatAvailibilityList[index]["available"] == false
+                        color: seatAvailibilityList[index]["available"] ==
+                                    false ||
+                                seatAvailibilityList[index]["block"] == true
                             ? CustomColors.textColor3
                             : selected && selectedIndex == index
                                 ? CustomColors.whiteColor
-                                : CustomColors.textColor9,
+                                : gender == "f" &&
+                                        seatAvailibilityList[index]["seat"] >=
+                                            29 &&
+                                        seatAvailibilityList[index]["seat"] <=
+                                            41
+                                    ? CustomColors.tabColor
+                                    : gender == "m" &&
+                                            seatAvailibilityList[index]
+                                                    ["seat"] >=
+                                                21 &&
+                                            seatAvailibilityList[index]
+                                                    ["seat"] <=
+                                                28
+                                        ? CustomColors.tabColor
+                                        : CustomColors.textColor9,
                         fontFamily: 'Regular',
                       ),
                     ),
@@ -885,6 +978,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
+
+      debugPrint("seatAvailibilityList ================> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {

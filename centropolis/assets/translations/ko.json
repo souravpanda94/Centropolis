@@ -420,6 +420,11 @@
   "periodOfUsePaidLocker": "사용 기간",
   "reject": "Reject",
   "refreshMyPage": "수면실",
+  "availableBasket": "바스켓 선택 가능",
+  "availableLocker": "라커 선택 가능",
+  "selectBasket": "바스켓 선택",
+  "selectLocker": "라커 선택",
+  "taken": "선택 불가",
 
 
 
