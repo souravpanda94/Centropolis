@@ -15,6 +15,9 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_border.dart';
+import '../../widgets/common_modal.dart';
 
 class AirConditioningDetails extends StatefulWidget {
   final String inquiryId, fromPage;
@@ -30,6 +33,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
   late FToast fToast;
   bool isLoading = false;
   AirConditioningDetailModel? airConditioningDetailModel;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -55,7 +59,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
           child: Container(
             color: CustomColors.whiteColor,
             child: CommonAppBar(tr("CoolingHeatingSubtitle"), false, () {
-              onBackButtonPress(context);
+              //onBackButtonPress(context);
+              Navigator.pop(context, isLoadingRequired);
             }, () {}),
           ),
         ),
@@ -382,8 +387,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
             Container(
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.all(16),
-              margin: const EdgeInsets.only(bottom: 140),
               width: MediaQuery.of(context).size.width,
+              margin:
+                  EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -410,6 +416,105 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                 ],
               ),
             ),
+            if (widget.fromPage == "MyPage")
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    height: 8,
+                    color: CustomColors.backgroundColor,
+                  ),
+                  Container(
+                    color: CustomColors.whiteColor,
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(bottom: 40),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        CommonButtonWithBorder(
+                          onCommonButtonTap: () {
+                            Navigator.pop(context, isLoadingRequired);
+                          },
+                          buttonName: tr("toList"),
+                          buttonBorderColor: CustomColors.buttonBackgroundColor,
+                          buttonTextColor: CustomColors.buttonBackgroundColor,
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        if (airConditioningDetailModel?.canChange
+                                .toString()
+                                .toLowerCase() ==
+                            "y")
+                          CommonButtonWithBorder(
+                            onCommonButtonTap: () {
+                              if (airConditioningDetailModel
+                                      ?.canChangeButtonEnabled
+                                      .toString()
+                                      .toLowerCase() ==
+                                  "y") {
+                                networkCheckForStatusChange("rejected");
+                              }
+                            },
+                            buttonName: tr("reject"),
+                            buttonBorderColor: airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.buttonBackgroundColor
+                                : CustomColors.dividerGreyColor,
+                            buttonTextColor: airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.buttonBackgroundColor
+                                : CustomColors.dividerGreyColor,
+                          ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        CommonButtonWithBorder(
+                          onCommonButtonTap: () {
+                            if (airConditioningDetailModel
+                                    ?.canChangeButtonEnabled
+                                    .toString()
+                                    .toLowerCase() ==
+                                "y") {
+                              networkCheckForStatusChange(
+                                  "waiting_for_approval");
+                            }
+                          },
+                          buttonName: tr("approved"),
+                          buttonColor: airConditioningDetailModel
+                                      ?.canChangeButtonEnabled
+                                      .toString()
+                                      .toLowerCase() ==
+                                  "y"
+                              ? CustomColors.buttonBackgroundColor
+                              : CustomColors.whiteColor,
+                          buttonBorderColor: airConditioningDetailModel
+                                      ?.canChangeButtonEnabled
+                                      .toString()
+                                      .toLowerCase() ==
+                                  "y"
+                              ? CustomColors.buttonBackgroundColor
+                              : CustomColors.dividerGreyColor,
+                          buttonTextColor: airConditioningDetailModel
+                                      ?.canChangeButtonEnabled
+                                      .toString()
+                                      .toLowerCase() ==
+                                  "y"
+                              ? CustomColors.whiteColor
+                              : CustomColors.dividerGreyColor,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              )
           ],
         ),
       ),
@@ -486,5 +591,82 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
     } else {
       return CustomColors.textColorBlack2;
     }
+  }
+
+  void networkCheckForStatusChange(String status) async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusChangeApi(status);
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callStatusChangeApi(String status) {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "inquiry_id":
+          airConditioningDetailModel!.inquiryId.toString().trim(), //required
+      "status": status.toString().trim(),
+    };
+
+    debugPrint("Air conditioning StatusChange input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.airConditioningChangeStatusUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for Air conditioning StatusChange ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
+          showReservationModal(responseJson['message']);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showReservationModal(String text) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: text,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

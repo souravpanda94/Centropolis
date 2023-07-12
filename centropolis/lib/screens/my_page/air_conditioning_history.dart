@@ -134,7 +134,11 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                           "",
                                       fromPage: "MyPage"),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadAirConditioningList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(

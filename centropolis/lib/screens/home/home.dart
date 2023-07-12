@@ -173,7 +173,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             setTitle(data["type"]),
                             style: const TextStyle(
                               fontSize: 14,
-                              fontFamily: "SemiBold",
+                              fontFamily: "Medium",
                               color: CustomColors.whiteColor,
                             ),
                           ),
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       Container(
                         margin:
-                            const EdgeInsets.only(left: 16, right: 16, top: 10),
+                            const EdgeInsets.only(left: 16, right: 16, top: 8),
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(

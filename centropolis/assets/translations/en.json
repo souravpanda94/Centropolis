@@ -99,7 +99,7 @@
   "youHaveEnteredDifferentPassword": "You have entered different password",
   "onlyValidContactInformationIsApplicable": "Only Valid Contact Information is applicable",
   "pleaseSelectGender": "Please Select a Gender",
-  "centropolisExecutiveLounge" : "Centropolis Executive Lounge By HAEVICHI",
+  "centropolisExecutiveLounge" : "Centropolis Executive Lounge By\n HAEVICHI",
   "visitingFloor" : "Visiting Floor",
 
   "businessDiscussion" : "business discussion",
@@ -420,6 +420,7 @@
   "lightOutListTitle" : "Light Out Extension History",
   "coolingHeatingListTitle": "Air Conditioning Extension History",
   "periodOfUsePaidLocker": "Period of Use",
+  "reject": "Reject",
 
 
 

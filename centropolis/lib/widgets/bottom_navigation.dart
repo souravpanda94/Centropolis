@@ -445,7 +445,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LightsOutDetails(id: relId.toString()),
+            builder: (context) =>
+                LightsOutDetails(id: relId.toString(), fromPage: "MyPage"),
           ),
         );
       } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
@@ -625,7 +626,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LightsOutDetails(id: relId.toString()),
+            builder: (context) =>
+                LightsOutDetails(id: relId.toString(), fromPage: "MyPage"),
           ),
         );
       } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {

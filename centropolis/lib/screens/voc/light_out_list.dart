@@ -148,7 +148,8 @@ class _LightsOutListState extends State<LightsOutList> {
                                         id: lightoutListItem?[index]
                                                 .inquiryId
                                                 .toString() ??
-                                            ""),
+                                            "",
+                                        fromPage: "VOC"),
                                   ),
                                 );
                               },

@@ -129,12 +129,18 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                 context,
                                 MaterialPageRoute(
                                   builder: (context) => LightsOutDetails(
-                                      id: lightoutListItem?[index]
-                                              .inquiryId
-                                              .toString() ??
-                                          ""),
+                                    id: lightoutListItem?[index]
+                                            .inquiryId
+                                            .toString() ??
+                                        "",
+                                    fromPage: 'MyPage',
+                                  ),
                                 ),
-                              );
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadLightsOutList();
+                                }
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
