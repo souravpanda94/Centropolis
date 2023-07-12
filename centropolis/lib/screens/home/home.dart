@@ -248,7 +248,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           margin: const EdgeInsets.only(
                               left: 16, right: 16, bottom: 50),
                           child: SizedBox(
-                            height: 78,
+                            height: Platform.isAndroid ? 78 : 81,
                             child: CommonButtonWithBorder(
                               onCommonButtonTap: () {
                                 if (data["type"] == "conference") {
@@ -281,7 +281,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             SizedBox(
-                              height: 78,
+                              height: Platform.isAndroid ? 78 : 81,
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToGXReservationScreen();
@@ -294,7 +294,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Container(
-                              height: 78,
+                              height: Platform.isAndroid ? 78 : 81,
                               margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
@@ -308,7 +308,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Container(
-                              height: 78,
+                              height: Platform.isAndroid ? 78 : 81,
                               margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
@@ -322,7 +322,7 @@ class _HomeScreenState extends State<HomeScreen> {
                               ),
                             ),
                             Container(
-                              height: 78,
+                              height: Platform.isAndroid ? 78 : 81,
                               margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
