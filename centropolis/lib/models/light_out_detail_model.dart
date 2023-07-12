@@ -11,6 +11,8 @@ class LightOutDetailModel {
   String? detail;
   String? status;
   String? displayStatus;
+  String? canChange;
+  String? canChangeButtonEnabled;
   bool? success;
 
   LightOutDetailModel(
@@ -26,6 +28,8 @@ class LightOutDetailModel {
       this.detail,
       this.status,
       this.displayStatus,
+      this.canChangeButtonEnabled,
+      this.canChange,
       this.success});
 
   LightOutDetailModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +46,8 @@ class LightOutDetailModel {
     status = json['status'];
     success = json['success'];
     displayStatus = json['display_status'];
+    canChangeButtonEnabled = json['can_change_button_enabled'];
+    canChange = json['can_change'];
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +65,8 @@ class LightOutDetailModel {
     data['status'] = status;
     data['success'] = success;
     data['display_status'] = displayStatus;
+    data['can_change_button_enabled'] = canChangeButtonEnabled;
+    data['can_change'] = canChange;
     return data;
   }
 }

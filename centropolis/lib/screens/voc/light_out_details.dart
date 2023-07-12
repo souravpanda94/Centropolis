@@ -17,10 +17,11 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_modal.dart';
 
 class LightsOutDetails extends StatefulWidget {
-  final String id;
-  const LightsOutDetails({super.key, required this.id});
+  final String id, fromPage;
+  const LightsOutDetails({super.key, required this.id, required this.fromPage});
 
   @override
   State<LightsOutDetails> createState() => _LightsOutDetailsState();
@@ -31,6 +32,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
   late FToast fToast;
   bool isLoading = false;
   LightOutDetailModel? lightOutDetails;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -63,7 +65,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("lightOutSubtitle"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -288,7 +291,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
-                margin: const EdgeInsets.only(bottom: 140),
+                margin:
+                    EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -316,6 +320,103 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                   ],
                 ),
               ),
+              if (widget.fromPage == "MyPage")
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 8,
+                      color: CustomColors.backgroundColor,
+                    ),
+                    Container(
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.only(bottom: 40),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CommonButtonWithBorder(
+                            onCommonButtonTap: () {
+                              Navigator.pop(context, isLoadingRequired);
+                            },
+                            buttonName: tr("toList"),
+                            buttonBorderColor:
+                                CustomColors.buttonBackgroundColor,
+                            buttonTextColor: CustomColors.buttonBackgroundColor,
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          if (lightOutDetails?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            CommonButtonWithBorder(
+                              onCommonButtonTap: () {
+                                if (lightOutDetails?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y") {
+                                  networkCheckForStatusChange("rejected");
+                                }
+                              },
+                              buttonName: tr("reject"),
+                              buttonBorderColor: lightOutDetails
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.dividerGreyColor,
+                              buttonTextColor: lightOutDetails
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.dividerGreyColor,
+                            ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          CommonButtonWithBorder(
+                            onCommonButtonTap: () {
+                              if (lightOutDetails?.canChangeButtonEnabled
+                                      .toString()
+                                      .toLowerCase() ==
+                                  "y") {
+                                networkCheckForStatusChange(
+                                    "waiting_for_approval");
+                              }
+                            },
+                            buttonName: tr("approved"),
+                            buttonColor: lightOutDetails?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.buttonBackgroundColor
+                                : CustomColors.whiteColor,
+                            buttonBorderColor: lightOutDetails
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.buttonBackgroundColor
+                                : CustomColors.dividerGreyColor,
+                            buttonTextColor: lightOutDetails
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.whiteColor
+                                : CustomColors.dividerGreyColor,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                )
             ],
           ),
         ),
@@ -387,5 +488,78 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
     } else {
       return CustomColors.textColorBlack2;
     }
+  }
+
+  void networkCheckForStatusChange(String status) async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusChangeApi(status);
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callStatusChangeApi(String status) {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "inquiry_id": lightOutDetails!.inquiryId.toString().trim(), //required
+      "status": status.toString().trim(),
+    };
+
+    debugPrint("lightOutDetails StatusChange input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.lightOutChangeStatusUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "server response for lightOutDetails StatusChange ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
+          showReservationModal(responseJson['message']);
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void showReservationModal(String text) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: text,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

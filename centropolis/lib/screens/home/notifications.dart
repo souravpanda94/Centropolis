@@ -372,7 +372,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => LightsOutDetails(id: relId.toString()),
+          builder: (context) =>
+              LightsOutDetails(id: relId.toString(), fromPage: "MyPage"),
         ),
       );
     } else if (notificationType == "reply_ac_inquiry" ||
