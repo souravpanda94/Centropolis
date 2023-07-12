@@ -193,8 +193,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_visit_reservation_red.svg"
                       : "assets/images/ic_visit_reservation.svg",
                   semanticsLabel: 'Back',
-                  width: 18,
-                  height: 18,
+                  width: 20,
+                  height: 20,
                 ),
                 label: tr("visitRequest"),
                 backgroundColor: CustomColors.whiteColor),
@@ -204,8 +204,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_voc_red.svg"
                       : "assets/images/ic_voc.svg",
                   semanticsLabel: 'Back',
-                  width: 18,
-                  height: 18,
+                  width: 19,
+                  height: 19,
                 ),
                 label: tr("voc"),
                 backgroundColor: CustomColors.whiteColor),
@@ -215,8 +215,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_my_page_red.svg"
                       : "assets/images/ic_my_page.svg",
                   semanticsLabel: 'Back',
-                  width: 18,
-                  height: 18,
+                  width: 20,
+                  height: 20,
                 ),
                 label: tr("myPage"),
                 backgroundColor: CustomColors.whiteColor),
@@ -445,7 +445,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LightsOutDetails(id: relId.toString()),
+            builder: (context) =>
+                LightsOutDetails(id: relId.toString(), fromPage: "MyPage"),
           ),
         );
       } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {
@@ -625,7 +626,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => LightsOutDetails(id: relId.toString()),
+            builder: (context) =>
+                LightsOutDetails(id: relId.toString(), fromPage: "MyPage"),
           ),
         );
       } else if (type == "reply_ac_inquiry" || type == "approve_ac_inquiry") {

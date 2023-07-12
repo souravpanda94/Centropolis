@@ -289,7 +289,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       builder: (context) => LightsOutDetails(
                           id: widget.lightoutList?[index].inquiryId
                                   .toString() ??
-                              ""),
+                              "",
+                          fromPage: "VOC"),
                     ),
                   );
                 },

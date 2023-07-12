@@ -373,7 +373,7 @@
   "krw": "월",
   "perMonth": "원 (부가세별도)",
   "visitReservationHomeHeading": "Visitor Reservation",
-  "loungeHomeHeading": "Centropolis Executive Lounge By HAEVICHI",
+  "loungeHomeHeading": "Centropolis Executive\n Lounge By HAEVICHI",
   "conferenceHomeHeading": "Conference",
   "fitnessHomeHeading": "Fitness",
   "refreshHomeHeading": "Refresh",
@@ -417,6 +417,17 @@
   "CoolingHeatingSubtitle" : "냉&난방 연장 신청",
   "lightOutListTitle" : "소등 연장 신청",
   "coolingHeatingListTitle": "냉 & 난방 신청",
+  "periodOfUsePaidLocker": "사용 기간",
+  "reject": "거정",
+  "refreshMyPage": "수면실",
+  "availableBasket": "바스켓 선택 가능",
+  "availableLocker": "라커 선택 가능",
+  "selectBasket": "바스켓 선택",
+  "selectLocker": "라커 선택",
+  "taken": "선택 불가",
+
+
+
 
 
 

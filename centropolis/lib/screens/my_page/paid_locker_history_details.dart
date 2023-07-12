@@ -199,7 +199,7 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            tr("periodOfUse"),
+                            tr("periodOfUsePaidLocker"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(

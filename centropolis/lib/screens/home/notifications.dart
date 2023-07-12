@@ -127,7 +127,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                     overflow: TextOverflow.ellipsis,
                                     style: const TextStyle(
                                         fontFamily: 'SemiBold',
-                                        fontSize: 14,
+                                        fontSize: 15,
                                         color: CustomColors.textColor8),
                                   ),
                                   Container(
@@ -372,7 +372,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
       Navigator.push(
         context,
         MaterialPageRoute(
-          builder: (context) => LightsOutDetails(id: relId.toString()),
+          builder: (context) =>
+              LightsOutDetails(id: relId.toString(), fromPage: "MyPage"),
         ),
       );
     } else if (notificationType == "reply_ac_inquiry" ||

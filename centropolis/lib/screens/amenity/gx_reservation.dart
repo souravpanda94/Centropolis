@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 import 'package:centropolis/widgets/app_loading.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -181,7 +182,7 @@ class _GXReservationState extends State<GXReservation> {
                         width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.symmetric(
                             vertical: 18, horizontal: 16),
-                        margin: const EdgeInsets.only(bottom: 13),
+                        margin: EdgeInsets.only(bottom: Platform.isAndroid ? 13 : 9),
                         decoration: BoxDecoration(
                             color: CustomColors.whiteColor,
                             border: Border.all(
@@ -224,8 +225,8 @@ class _GXReservationState extends State<GXReservation> {
                                   ),
                                 ),
                                 Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 5, horizontal: 12),
+                                  padding: EdgeInsets.symmetric(
+                                      vertical: Platform.isAndroid ? 5 : 2, horizontal: 12),
                                   margin: const EdgeInsets.only(left: 20),
                                   decoration: BoxDecoration(
                                       color: CustomColors.whiteColor,

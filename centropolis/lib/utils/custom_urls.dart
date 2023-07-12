@@ -19,7 +19,7 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/exceutive-lounge-reservation";
   static String changePasswordUrl = "${baseUrl}v1/mypage/update-password";
   static String getConferenceTimeListUrl =
-      "${baseUrl}v1/common/sleeping-room-schedule";
+      "${baseUrl}v1/common/conference-time";
   static String makeConferenceReservation =
       "${baseUrl}v1/amenity/conference-reservation-inquiry";
   static String updatePersonalInfoUrl = "${baseUrl}v1/mypage/update-profile";
@@ -48,7 +48,7 @@ class ApiEndPoint {
   static String getSleepingRoomTotalUsageTimeListUrl =
       "${baseUrl}v1/common/sleeping-room-usage-time";
   static String makeSleepingRoomReservation =
-      "${baseUrl}amenity/sleeping-room-reservation";
+      "${baseUrl}v1/amenity/sleeping-room-reservation";
   static String addMemberUrl = "${baseUrl}v1/employee/add";
   static String conferenceHistoryDetailsUrl =
       "${baseUrl}v1/mypage/conference-details";
@@ -129,6 +129,10 @@ class ApiEndPoint {
       "${baseUrl}v1/common/reservation-status-list";
   static String fittnessSleepingRoomHistoryStatusUrl =
       "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
+  static String airConditioningChangeStatusUrl =
+      "${baseUrl}v1/mypage/ac-inquiry-approve";
+  static String lightOutChangeStatusUrl =
+      "${baseUrl}v1/mypage/light-out-approve";
 
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =

@@ -503,7 +503,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          usageTimeList.isNotEmpty ? usageTimeList.first : "11:00",
+          usageTimeList.isNotEmpty ? usageTimeList.first : "09:00",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -886,6 +886,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         setState(() {
           focusedDate = focusedDay;
           selectedDate = selectedDay;
+          usageTimeSelectedValue = null;
+          totalTimeSelectedValue = null;
+          selectedSeatsValue = null;
         });
         loadViewSeatSelectionList();
       },
@@ -1192,8 +1195,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void callReservationApi() {
-    var reservationDate = dateFormat.format(focusedDate);
-
     setState(() {
       isLoading = true;
     });

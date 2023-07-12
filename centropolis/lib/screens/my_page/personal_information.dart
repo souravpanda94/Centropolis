@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'dart:io';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -33,6 +35,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   late String apiKey, userId, language;
   late FToast fToast;
   bool isLoading = false;
+  String deviceId = '';
+  String deviceType = '';
 
   @override
   void initState() {
@@ -43,6 +47,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     var user = Provider.of<UserProvider>(context, listen: false);
     userId = user.userData['user_id'].toString();
     apiKey = user.userData['api_key'].toString();
+    getDeviceIdAndDeviceType();
+  }
+
+  void getDeviceIdAndDeviceType() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      deviceId =
+          iosDeviceInfo.identifierForVendor.toString(); // unique ID on iOS
+      deviceType = "ios";
+    } else if (Platform.isAndroid) {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      // deviceId = androidDeviceInfo.androidId.toString();// unique ID on Android
+      deviceId = androidDeviceInfo.id.toString(); // unique ID on Android
+      deviceType = "android";
+    }
   }
 
   @override
@@ -403,13 +423,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {};
+    Map<String, String> body = {
+      "device_id" : deviceId.trim()
+    };
     debugPrint("input for logout ===> $body");
 
-    // String logOutUrl =
-    //     "https://gscm-api.dvconsulting.org/api/v1/device/$deviceId";  // Test server
-
-    // String logOutUrl = ApiEndPoint.logoutUrl + deviceId;
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.logoutUrl, body, language, apiKey.trim());
