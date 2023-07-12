@@ -295,7 +295,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 15.0),
+                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToPaidPTReservationScreen();
@@ -309,7 +309,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 15.0),
+                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToFitnessReservationScreen();
@@ -323,7 +323,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 15.0),
+                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToPaidLockerReservationScreen();
@@ -364,7 +364,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 15.0),
+                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToLightOutRequestScreen();
@@ -378,7 +378,7 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin: const EdgeInsets.only(top: 15.0),
+                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToAirConditiongRequestScreen();
