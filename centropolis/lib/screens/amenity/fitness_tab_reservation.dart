@@ -109,7 +109,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     height: 8,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Row(
                         children: [
@@ -132,7 +132,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         ],
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 5,
                       ),
                       Row(
                         children: [
@@ -155,7 +155,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         ],
                       ),
                       const SizedBox(
-                        width: 8,
+                        width: 5,
                       ),
                       Row(
                         children: [
@@ -179,15 +179,14 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                       ),
                     ],
                   ),
+
                   const SizedBox(
                     height: 8,
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                      Expanded(
-                        flex: 2,
-                        child: Row(
+                       Row(
                           children: [
                             const Icon(
                               Icons.square,
@@ -207,10 +206,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             )
                           ],
                         ),
+                      const SizedBox(
+                        width: 5,
                       ),
-                      Expanded(
-                        flex: 3,
-                        child: Row(
+                      Row(
                           children: [
                             const Icon(
                               Icons.square,
@@ -230,7 +229,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             )
                           ],
                         ),
-                      ),
                     ],
                   ),
                 ],
