@@ -332,7 +332,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             color: CustomColors.textColor8)),
                     if (imageFileList != null && imageFileList!.isNotEmpty)
                       Container(
-                        height: 110,
+                        height: 107,
                         margin: const EdgeInsets.only(top: 8),
                         child: ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -343,6 +343,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                               height: 107,
                               width: 107,
                               margin: const EdgeInsets.only(right: 10),
+                              padding: EdgeInsets.zero,
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
@@ -350,7 +351,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                               child: Stack(
                                 children: [
                                   ClipRRect(
-                                    borderRadius: BorderRadius.circular(4.0),
+                                    borderRadius: BorderRadius.circular(3.0),
                                     child: Image.file(
                                       File(imageFileList![index].path),
                                       fit: BoxFit.fill,

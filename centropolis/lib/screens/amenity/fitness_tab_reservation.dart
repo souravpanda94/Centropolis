@@ -109,126 +109,146 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     height: 8,
                   ),
                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.square_outlined,
-                            size: 15,
-                            color: CustomColors.textColor9,
+                      Expanded(
+                        child: SizedBox(
+                          height: 12,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.square_outlined,
+                                size: 15,
+                                color: CustomColors.textColor9,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("availableBasket"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.textColor8,
+                                  fontFamily: 'Medium',
+                                ),
+                              )
+                            ],
                           ),
-                          const SizedBox(
-                            width: 4,
+                        ),
+                      ),
+                      Expanded(
+                        child: SizedBox(
+                          height: 12,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.square_outlined,
+                                size: 15,
+                                color: CustomColors.tabColor,
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("availableLocker"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.textColor8,
+                                  fontFamily: 'Medium',
+                                ),
+                              )
+                            ],
                           ),
-                          Text(
-                            tr("availableBasket"),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.textColor8,
-                              fontFamily: 'Medium',
-                            ),
-                          )
-                        ],
+                        ),
                       ),
                       const SizedBox(
                         width: 5,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.square_outlined,
-                            size: 15,
-                            color: CustomColors.tabColor,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            tr("availableLocker"),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.textColor8,
-                              fontFamily: 'Medium',
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      Row(
-                        children: [
-                          const Icon(
-                            Icons.square,
-                            size: 15,
-                            color: CustomColors.textColor9,
-                          ),
-                          const SizedBox(
-                            width: 4,
-                          ),
-                          Text(
-                            tr("selectBasket"),
-                            style: const TextStyle(
-                              fontSize: 12,
-                              color: CustomColors.textColor8,
-                              fontFamily: 'Medium',
-                            ),
-                          )
-                        ],
                       ),
                     ],
                   ),
-
                   const SizedBox(
                     height: 8,
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                       Row(
-                          children: [
-                            const Icon(
-                              Icons.square,
-                              size: 15,
-                              color: CustomColors.tabColor,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              tr("selectLocker"),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: CustomColors.textColor8,
-                                fontFamily: 'Medium',
+                      Expanded(
+                        child: SizedBox(
+                          height: 12,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.square,
+                                size: 15,
+                                color: CustomColors.tabColor,
                               ),
-                            )
-                          ],
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("selectLocker"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.textColor8,
+                                  fontFamily: 'Medium',
+                                ),
+                              )
+                            ],
+                          ),
                         ),
-                      const SizedBox(
-                        width: 5,
                       ),
-                      Row(
-                          children: [
-                            const Icon(
-                              Icons.square,
-                              size: 15,
-                              color: CustomColors.borderColor,
-                            ),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            Text(
-                              tr("taken"),
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: CustomColors.textColor8,
-                                fontFamily: 'Medium',
+                      Expanded(
+                        child: SizedBox(
+                          height: 12,
+                          width: MediaQuery.of(context).size.width / 3,
+                          child: Row(
+                            children: [
+                              const Icon(
+                                Icons.square,
+                                size: 15,
+                                color: CustomColors.textColor9,
                               ),
-                            )
-                          ],
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              Text(
+                                tr("selectBasket"),
+                                style: const TextStyle(
+                                  fontSize: 12,
+                                  color: CustomColors.textColor8,
+                                  fontFamily: 'Medium',
+                                ),
+                              )
+                            ],
+                          ),
                         ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  Row(
+                    children: [
+                      const Icon(
+                        Icons.square,
+                        size: 15,
+                        color: CustomColors.borderColor,
+                      ),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      Text(
+                        tr("taken"),
+                        style: const TextStyle(
+                          fontSize: 12,
+                          color: CustomColors.textColor8,
+                          fontFamily: 'Medium',
+                        ),
+                      )
                     ],
                   ),
                 ],
