@@ -84,452 +84,456 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       ),
       isLoading: isLoading,
       child: SingleChildScrollView(
-        primary: false,
+          primary: false,
           child: Container(
-        color: CustomColors.whiteColor,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, top: 16, bottom: 8),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("lockerSelection"),
-                    style: const TextStyle(
-                      fontSize: 16,
-                      color: CustomColors.textColor8,
-                      fontFamily: 'SemiBold',
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            color: CustomColors.whiteColor,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 8),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 12,
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.square_outlined,
-                                size: 15,
-                                color: CustomColors.textColor9,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                tr("availableBasket"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.textColor8,
-                                  fontFamily: 'Medium',
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 12,
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.square_outlined,
-                                size: 15,
-                                color: CustomColors.tabColor,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                tr("availableLocker"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.textColor8,
-                                  fontFamily: 'Medium',
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          height: 12,
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.square,
-                                size: 15,
-                                color: CustomColors.tabColor,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                tr("selectLocker"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.textColor8,
-                                  fontFamily: 'Medium',
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        child: SizedBox(
-                          height: 12,
-                          width: MediaQuery.of(context).size.width / 3,
-                          child: Row(
-                            children: [
-                              const Icon(
-                                Icons.square,
-                                size: 15,
-                                color: CustomColors.textColor9,
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              Text(
-                                tr("selectBasket"),
-                                style: const TextStyle(
-                                  fontSize: 12,
-                                  color: CustomColors.textColor8,
-                                  fontFamily: 'Medium',
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Row(
-                    children: [
-                      const Icon(
-                        Icons.square,
-                        size: 15,
-                        color: CustomColors.borderColor,
-                      ),
-                      const SizedBox(
-                        width: 4,
-                      ),
                       Text(
-                        tr("taken"),
+                        tr("lockerSelection"),
                         style: const TextStyle(
-                          fontSize: 12,
+                          fontSize: 16,
                           color: CustomColors.textColor8,
-                          fontFamily: 'Medium',
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            lockerSelectionWidget(),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.whiteColor,
-              height: 10,
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("reservationInformation"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        tr("nameLounge"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      Text(
-                        name,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      )
-                    ],
-                  ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Divider(
-                      thickness: 1,
-                      height: 1,
-                      color: CustomColors.backgroundColor2,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        tr("tenantCompanyLounge"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      Text(
-                        companyName,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      )
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("selectReservationDate"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  tableCalendarWidget(),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, top: 16, bottom: 16),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("timeSelection"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 24,
-                  ),
-                  Text(
-                    tr("usageTime"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  usageTimeDropdownWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("totalUsageTime"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  totalUsageTimeDropdownWidget(),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Text(
-                    tr("selectedSeat"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  SizedBox(
-                    height: 46,
-                    child: TextField(
-                      controller: seatController,
-                      readOnly: true,
-                      cursorColor: CustomColors.textColorBlack2,
-                      keyboardType: TextInputType.number,
-                      decoration: InputDecoration(
-                        border: InputBorder.none,
-                        fillColor: CustomColors.whiteColor,
-                        filled: true,
-                        contentPadding: const EdgeInsets.all(16),
-                        enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(4),
-                          borderSide: const BorderSide(
-                              color: CustomColors.dividerGreyColor, width: 1.0),
-                        ),
-                        hintText: tr('seatValidation'),
-                        hintStyle: const TextStyle(
-                          height: 1.5,
-                          color: CustomColors.textColor3,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
+                          fontFamily: 'SemiBold',
                         ),
                       ),
-                      style: const TextStyle(
-                        height: 1.5,
-                        color: CustomColors.textColorBlack2,
-                        fontSize: 14,
-                        fontFamily: 'Regular',
+                      const SizedBox(
+                        height: 8,
                       ),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              alignment: FractionalOffset.bottomCenter,
-              color: CustomColors.whiteColor,
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.only(top: 16),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 15,
-                          width: 15,
-                          child: Transform.scale(
-                            scale: 0.8,
-                            child: Checkbox(
-                              checkColor: CustomColors.whiteColor,
-                              activeColor: CustomColors.buttonBackgroundColor,
-                              side: const BorderSide(
-                                  color: CustomColors.greyColor, width: 1),
-                              value: isChecked,
-                              onChanged: (value) {
-                                setState(() {
-                                  isChecked = value!;
-                                  if (isChecked) {
-                                  } else {}
-                                });
-                              },
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.square_outlined,
+                                  size: 15,
+                                  color: CustomColors.textColor9,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  tr("availableBasket"),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: CustomColors.textColor8,
+                                    fontFamily: 'Medium',
+                                  ),
+                                )
+                              ],
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          width: 9,
-                        ),
-                        Text(
-                          tr("gxReservationConsent"),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        )
-                      ],
-                    ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.square_outlined,
+                                  size: 15,
+                                  color: CustomColors.tabColor,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  tr("availableLocker"),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: CustomColors.textColor8,
+                                    fontFamily: 'Medium',
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.square,
+                                  size: 15,
+                                  color: CustomColors.textColor9,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  tr("selectBasket"),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: CustomColors.textColor8,
+                                    fontFamily: 'Medium',
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                const Icon(
+                                  Icons.square,
+                                  size: 15,
+                                  color: CustomColors.tabColor,
+                                ),
+                                const SizedBox(
+                                  width: 4,
+                                ),
+                                Text(
+                                  tr("selectLocker"),
+                                  style: const TextStyle(
+                                    fontSize: 12,
+                                    color: CustomColors.textColor8,
+                                    fontFamily: 'Medium',
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Row(
+                        children: [
+                          const Icon(
+                            Icons.square,
+                            size: 15,
+                            color: CustomColors.borderColor,
+                          ),
+                          const SizedBox(
+                            width: 4,
+                          ),
+                          Text(
+                            tr("taken"),
+                            style: const TextStyle(
+                              fontSize: 12,
+                              color: CustomColors.textColor8,
+                              fontFamily: 'Medium',
+                            ),
+                          )
+                        ],
+                      ),
+                    ],
                   ),
-                  Padding(
-                    padding: const EdgeInsets.only(top: 24, bottom: 32),
-                    child: CommonButton(
-                      onCommonButtonTap: () {
-                        reservationValidationCheck();
-                      },
-                      buttonColor: CustomColors.buttonBackgroundColor,
-                      buttonName: tr("makeReservation"),
-                      isIconVisible: false,
-                    ),
-                  )
-                ],
-              ),
+                ),
+                lockerSelectionWidget(),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("reservationInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("nameLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            name,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
+                        ],
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.backgroundColor2,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("tenantCompanyLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            companyName,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("selectReservationDate"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      tableCalendarWidget(),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("timeSelection"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 24,
+                      ),
+                      Text(
+                        tr("usageTime"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      usageTimeDropdownWidget(),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        tr("totalUsageTime"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      totalUsageTimeDropdownWidget(),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        tr("selectedSeat"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      SizedBox(
+                        height: 46,
+                        child: TextField(
+                          controller: seatController,
+                          readOnly: true,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            hintText: tr('seatValidation'),
+                            hintStyle: const TextStyle(
+                              height: 1.5,
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          style: const TextStyle(
+                            height: 1.5,
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  alignment: FractionalOffset.bottomCenter,
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: Transform.scale(
+                                scale: 0.8,
+                                child: Checkbox(
+                                  checkColor: CustomColors.whiteColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
+                                  side: const BorderSide(
+                                      color: CustomColors.greyColor, width: 1),
+                                  value: isChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isChecked = value!;
+                                      if (isChecked) {
+                                      } else {}
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 9,
+                            ),
+                            Text(
+                              tr("gxReservationConsent"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            )
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24, bottom: 32),
+                        child: CommonButton(
+                          onCommonButtonTap: () {
+                            reservationValidationCheck();
+                          },
+                          buttonColor: CustomColors.buttonBackgroundColor,
+                          buttonName: tr("makeReservation"),
+                          isIconVisible: false,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      )),
+          )),
     );
   }
 
