@@ -103,6 +103,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
             ),
           ),
           body: SingleChildScrollView(
+            primary: false,
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -794,6 +795,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [],

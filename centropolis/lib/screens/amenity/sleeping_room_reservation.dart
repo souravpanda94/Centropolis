@@ -116,6 +116,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         ),
         isLoading: isLoading,
         child: SingleChildScrollView(
+          primary: false,
             child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -795,6 +796,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday, DateTime.saturday],

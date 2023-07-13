@@ -73,6 +73,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       ),
       isLoading: isLoading,
       child: SingleChildScrollView(
+        primary: false,
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -363,6 +364,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday, DateTime.saturday],

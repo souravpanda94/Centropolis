@@ -110,6 +110,7 @@ class _VisitReservationApplicationState
             color: CustomColors.whiteColor,
             padding: const EdgeInsets.symmetric(vertical: 16),
             child: SingleChildScrollView(
+              primary: false,
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -1094,6 +1095,7 @@ class _VisitReservationApplicationState
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     TableCalendar(
+                      availableGestures: AvailableGestures.horizontalSwipe,
                       locale: Localizations.localeOf(context).languageCode,
                       availableCalendarFormats: const {
                         CalendarFormat.month: 'Month'
