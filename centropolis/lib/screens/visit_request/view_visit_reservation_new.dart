@@ -448,6 +448,8 @@ class _ViewVisitReservationScreenState
         )),
         buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
           padding: EdgeInsets.only(left: 16, top: 10, bottom: 10),
         ),
       ),

@@ -167,45 +167,57 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           showUnselectedLabels: true,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 0
-                      ? "assets/images/ic_home_red.svg"
-                      : "assets/images/ic_home.svg",
-                  width: 18,
-                  height: 18,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 0
+                        ? "assets/images/ic_home_red.svg"
+                        : "assets/images/ic_home.svg",
+                    width: 18,
+                    height: 18,
+                  ),
                 ),
                 label: tr("home"),
                 backgroundColor: CustomColors.whiteColor),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 1
-                      ? "assets/images/ic_tenant_service_red.svg"
-                      : "assets/images/ic_tenant_service.svg",
-                  semanticsLabel: 'Back',
-                  width: 18,
-                  height: 18,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 1
+                        ? "assets/images/ic_tenant_service_red.svg"
+                        : "assets/images/ic_tenant_service.svg",
+                    semanticsLabel: 'Back',
+                    width: 18,
+                    height: 18,
+                  ),
                 ),
                 label: tr("amenity"),
                 backgroundColor: CustomColors.whiteColor),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 2
-                      ? "assets/images/ic_visit_reservation_red.svg"
-                      : "assets/images/ic_visit_reservation.svg",
-                  semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 1, top: 1),
+                  child: SvgPicture.asset(
+                    selectedPage == 2
+                        ? "assets/images/ic_visit_reservation_red.svg"
+                        : "assets/images/ic_visit_reservation.svg",
+                    semanticsLabel: 'Back',
+                    width: 21,
+                    height: 21,
+                  ),
                 ),
                 label: tr("visitRequest"),
                 backgroundColor: CustomColors.whiteColor),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 3
-                      ? "assets/images/ic_voc_red.svg"
-                      : "assets/images/ic_voc.svg",
-                  semanticsLabel: 'Back',
-                  width: 19,
-                  height: 19,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 3
+                        ? "assets/images/ic_voc_red.svg"
+                        : "assets/images/ic_voc.svg",
+                    semanticsLabel: 'Back',
+                    width: 19,
+                    height: 19,
+                  ),
                 ),
                 label: tr("voc"),
                 backgroundColor: CustomColors.whiteColor),
@@ -215,8 +227,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_my_page_red.svg"
                       : "assets/images/ic_my_page.svg",
                   semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
                 label: tr("myPage"),
                 backgroundColor: CustomColors.whiteColor),
