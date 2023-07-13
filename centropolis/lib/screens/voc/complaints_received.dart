@@ -347,16 +347,17 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                               decoration: BoxDecoration(
                                   borderRadius: BorderRadius.circular(4),
                                   border: Border.all(
-                                      color: CustomColors.dividerGreyColor)),
+                                      color: CustomColors.dividerGreyColor, width: 2.0),),
                               child: Stack(
                                 children: [
                                   ClipRRect(
                                     borderRadius: BorderRadius.circular(3.0),
-                                    child: Image.file(
+                                    child:
+                                    Image.file(
                                       File(imageFileList![index].path),
                                       fit: BoxFit.fill,
-                                      width: 107,
-                                      height: 107,
+                                      width: 108,
+                                      height: 108,
                                     ),
                                   ),
                                   Align(
