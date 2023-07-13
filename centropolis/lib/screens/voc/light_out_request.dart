@@ -815,11 +815,8 @@ class _LightOutRequestState extends State<LightOutRequest> {
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
-        leftChevronPadding: EdgeInsets.zero,
-        rightChevronPadding: EdgeInsets.zero,
-        leftChevronMargin: EdgeInsets.zero,
-        rightChevronMargin: EdgeInsets.zero,
-        headerPadding: const EdgeInsets.symmetric(vertical: 2),
+        leftChevronPadding: const EdgeInsets.only(left: 4),
+        rightChevronPadding: const EdgeInsets.only(right: 4),
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
           width: 0,
