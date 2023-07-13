@@ -190,8 +190,8 @@ class _LoginScreenState extends State<LoginScreen> {
                             onChanged: (value) {
                               setState(() {
                                 checkSigned = value!;
-                                if (checkSigned) {
-                                } else {}
+                                // if (checkSigned) {
+                                // } else {}
                               });
                             },
                           ),

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'dart:io';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
@@ -17,6 +18,7 @@ import '../models/user_info_model.dart';
 import '../providers/user_info_provider.dart';
 import '../providers/user_provider.dart';
 import '../screens/amenity/tenant_service.dart';
+import '../screens/common_module/login.dart';
 import '../screens/home/home.dart';
 import '../screens/home/notifications.dart';
 import '../screens/my_page/app_settings.dart';
@@ -60,7 +62,7 @@ class BottomNavigationScreen extends StatefulWidget {
   }
 }
 
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
+class _BottomNavigationScreenState extends State<BottomNavigationScreen> with WidgetsBindingObserver {
   late String apiKey, language;
   late FToast fToast;
   bool isLoading = false;
@@ -69,6 +71,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
   ConnectivityResult _connectionStatus = ConnectivityResult.none;
   final Connectivity _connectivity = Connectivity();
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  String deviceId = '';
+  String deviceType = '';
+  String checkedSignedIn = "";
+
 
   @override
   void initState() {
@@ -79,6 +85,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    checkedSignedIn = user.userData['checked_signed_in'].toString();
+    WidgetsBinding.instance.addObserver(this);
     initConnectivity();
     _connectivitySubscription =
         _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
@@ -112,6 +120,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
     initializeNotifications();
     setupInteractedMessage();
     loadPersonalInformation();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
   }
 
   @override
@@ -167,45 +181,57 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
           showUnselectedLabels: true,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 0
-                      ? "assets/images/ic_home_red.svg"
-                      : "assets/images/ic_home.svg",
-                  width: 18,
-                  height: 18,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 0
+                        ? "assets/images/ic_home_red.svg"
+                        : "assets/images/ic_home.svg",
+                    width: 18,
+                    height: 18,
+                  ),
                 ),
                 label: tr("home"),
                 backgroundColor: CustomColors.whiteColor),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 1
-                      ? "assets/images/ic_tenant_service_red.svg"
-                      : "assets/images/ic_tenant_service.svg",
-                  semanticsLabel: 'Back',
-                  width: 18,
-                  height: 18,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 1
+                        ? "assets/images/ic_tenant_service_red.svg"
+                        : "assets/images/ic_tenant_service.svg",
+                    semanticsLabel: 'Back',
+                    width: 18,
+                    height: 18,
+                  ),
                 ),
                 label: tr("amenity"),
                 backgroundColor: CustomColors.whiteColor),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 2
-                      ? "assets/images/ic_visit_reservation_red.svg"
-                      : "assets/images/ic_visit_reservation.svg",
-                  semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 1, top: 1),
+                  child: SvgPicture.asset(
+                    selectedPage == 2
+                        ? "assets/images/ic_visit_reservation_red.svg"
+                        : "assets/images/ic_visit_reservation.svg",
+                    semanticsLabel: 'Back',
+                    width: 21,
+                    height: 21,
+                  ),
                 ),
                 label: tr("visitRequest"),
                 backgroundColor: CustomColors.whiteColor),
             BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 3
-                      ? "assets/images/ic_voc_red.svg"
-                      : "assets/images/ic_voc.svg",
-                  semanticsLabel: 'Back',
-                  width: 19,
-                  height: 19,
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 3
+                        ? "assets/images/ic_voc_red.svg"
+                        : "assets/images/ic_voc.svg",
+                    semanticsLabel: 'Back',
+                    width: 19,
+                    height: 19,
+                  ),
                 ),
                 label: tr("voc"),
                 backgroundColor: CustomColors.whiteColor),
@@ -215,8 +241,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
                       ? "assets/images/ic_my_page_red.svg"
                       : "assets/images/ic_my_page.svg",
                   semanticsLabel: 'Back',
-                  width: 20,
-                  height: 20,
+                  width: 22,
+                  height: 22,
                 ),
                 label: tr("myPage"),
                 backgroundColor: CustomColors.whiteColor),
@@ -392,7 +418,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         );
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation") {
+          type == "cancel_lounge_reservation" ||
+          type == "payment_pending_lounge_reservation"
+      ) {
         //lounge details
 
         Navigator.push(
@@ -404,6 +432,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
           type == "cancel_locker_reservation" ||
+          type == "reminder_pending_locker_reservation" ||
           type == "payment_pending_lounge_reservation") {
         //locker details
 
@@ -573,7 +602,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         );
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation") {
+          type == "cancel_lounge_reservation" ||
+          type == "payment_pending_lounge_reservation"
+      ) {
         //lounge details
 
         Navigator.push(
@@ -585,6 +616,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
           type == "cancel_locker_reservation" ||
+          type == "reminder_pending_locker_reservation" ||
           type == "payment_pending_lounge_reservation") {
         //locker details
 
@@ -698,4 +730,103 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       }
     }
   }
+
+
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    switch (state) {
+      case AppLifecycleState.resumed:
+        debugPrint("app in resumed");
+        break;
+      case AppLifecycleState.inactive:
+        debugPrint("app in inactive -- For background");
+        break;
+      case AppLifecycleState.paused:
+        debugPrint("app in paused -- For background");
+        if(checkedSignedIn == "false") {
+          getDeviceIdAndDeviceType();
+          callLogout();
+        }
+        break;
+      case AppLifecycleState.detached:
+        debugPrint("app in detached -- For background");
+        break;
+    }
+  }
+
+  void getDeviceIdAndDeviceType() async {
+    var deviceInfo = DeviceInfoPlugin();
+    if (Platform.isIOS) {
+      var iosDeviceInfo = await deviceInfo.iosInfo;
+      deviceId =
+          iosDeviceInfo.identifierForVendor.toString(); // unique ID on iOS
+      deviceType = "ios";
+    } else if (Platform.isAndroid) {
+      var androidDeviceInfo = await deviceInfo.androidInfo;
+      // deviceId = androidDeviceInfo.androidId.toString();// unique ID on Android
+      deviceId = androidDeviceInfo.id.toString(); // unique ID on Android
+      deviceType = "android";
+    }
+  }
+
+  void callLogout() async {
+    Navigator.of(context).pop();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      doLogout();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void doLogout() {
+    hideKeyboard();
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "device_id" : deviceId.trim()
+    };
+    debugPrint("input for logout ===> $body");
+
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.logoutUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for logout ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const LoginScreen(),
+            ),
+          );
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
 }

@@ -352,6 +352,8 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
         )),
         buttonStyleData: const ButtonStyleData(height: 35),
         menuItemStyleData: const MenuItemStyleData(
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
           padding: EdgeInsets.only(left: 16, top: 12, bottom: 12),
         ),
       ),

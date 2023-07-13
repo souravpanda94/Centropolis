@@ -76,6 +76,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
       ),
       isLoading: isLoading,
       child: SingleChildScrollView(
+        primary: false,
           child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -373,6 +374,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday, DateTime.saturday],

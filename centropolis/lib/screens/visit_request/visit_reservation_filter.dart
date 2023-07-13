@@ -522,7 +522,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                     ),
                     Container(
                       margin: const EdgeInsets.only(
-                          left: 16, right: 16, top: 16, bottom: 30),
+                          left: 14, right: 14, top: 16, bottom: 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

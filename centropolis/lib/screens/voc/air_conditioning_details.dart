@@ -69,11 +69,11 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            if (widget.fromPage == "VOC")
-              Container(
-                height: 8,
-                color: CustomColors.backgroundColor,
-              ),
+            // if (widget.fromPage == "VOC")
+            //   Container(
+            //     height: 8,
+            //     color: CustomColors.backgroundColor,
+            //   ),
             Container(
               color: CustomColors.whiteColor,
               padding: const EdgeInsets.all(16),
