@@ -110,6 +110,7 @@ class _AirConditioningApplicationState
             ),
           ),
           body: SingleChildScrollView(
+            primary: false,
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -904,6 +905,7 @@ class _AirConditioningApplicationState
 
   tableCalendarWidget() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [],

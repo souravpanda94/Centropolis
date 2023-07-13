@@ -84,6 +84,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       ),
       isLoading: isLoading,
       child: SingleChildScrollView(
+        primary: false,
           child: Container(
         color: CustomColors.whiteColor,
         child: Column(
@@ -728,6 +729,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday, DateTime.saturday],
