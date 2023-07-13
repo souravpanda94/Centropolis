@@ -392,7 +392,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         );
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation") {
+          type == "cancel_lounge_reservation" ||
+          type == "payment_pending_lounge_reservation"
+      ) {
         //lounge details
 
         Navigator.push(
@@ -404,6 +406,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
           type == "cancel_locker_reservation" ||
+          type == "reminder_pending_locker_reservation" ||
           type == "payment_pending_lounge_reservation") {
         //locker details
 
@@ -573,7 +576,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
         );
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
-          type == "cancel_lounge_reservation") {
+          type == "cancel_lounge_reservation" ||
+          type == "payment_pending_lounge_reservation"
+      ) {
         //lounge details
 
         Navigator.push(
@@ -585,6 +590,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> {
       } else if (type == "add_locker_reservation" ||
           type == "reject_locker_reservation" ||
           type == "cancel_locker_reservation" ||
+          type == "reminder_pending_locker_reservation" ||
           type == "payment_pending_lounge_reservation") {
         //locker details
 

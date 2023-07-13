@@ -319,7 +319,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
       );
     } else if (notificationType == "add_lounge_reservation" ||
         notificationType == "reject_lounge_reservation" ||
-        notificationType == "cancel_lounge_reservation") {
+        notificationType == "cancel_lounge_reservation" ||
+        notificationType == "payment_pending_lounge_reservation"
+    ) {
       //lounge details
 
       Navigator.push(
@@ -331,6 +333,7 @@ class _NotificationScreenState extends State<NotificationScreen> {
     } else if (notificationType == "add_locker_reservation" ||
         notificationType == "reject_locker_reservation" ||
         notificationType == "cancel_locker_reservation" ||
+        notificationType == "reminder_pending_locker_reservation" ||
         notificationType == "payment_pending_lounge_reservation") {
       //locker details
 
