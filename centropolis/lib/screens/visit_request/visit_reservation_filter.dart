@@ -405,8 +405,24 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
                       headerStyle: HeaderStyle(
-                        leftChevronPadding: EdgeInsets.zero,
-                        rightChevronPadding: EdgeInsets.zero,
+                        // leftChevronPadding: EdgeInsets.zero,
+                        // rightChevronPadding: EdgeInsets.zero,
+
+                        // leftChevronPadding: const EdgeInsets.only(left: 4),
+                        // rightChevronPadding: const EdgeInsets.only(right: 4),
+                        headerPadding:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        formatButtonPadding:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        leftChevronPadding:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        leftChevronMargin:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        rightChevronPadding:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        rightChevronMargin:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+
                         leftChevronIcon: SvgPicture.asset(
                           "assets/images/ic_back.svg",
                           width: 0,
