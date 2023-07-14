@@ -541,7 +541,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          timeList.isNotEmpty ? timeList.first : "11:00",
+          timeList.isNotEmpty ? timeList.first : "06:30",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -894,11 +894,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                                     false ||
                                 seatAvailibilityList[index]["block"] == true
                             ? CustomColors.borderColor
-                            : gender == "f" &&
+                            : gender.toString().toLowerCase().trim() == "f" &&
                                     seatAvailibilityList[index]["seat"] >= 29 &&
                                     seatAvailibilityList[index]["seat"] <= 41
                                 ? CustomColors.tabColor
-                                : gender == "m" &&
+                                : gender.toString().toLowerCase().trim() == "m" &&
                                         seatAvailibilityList[index]["seat"] >=
                                             21 &&
                                         seatAvailibilityList[index]["seat"] <=
@@ -918,13 +918,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             ? CustomColors.textColor3
                             : selected && selectedIndex == index
                                 ? CustomColors.whiteColor
-                                : gender == "f" &&
+                                : gender.toString().toLowerCase().trim() == "f" &&
                                         seatAvailibilityList[index]["seat"] >=
                                             29 &&
                                         seatAvailibilityList[index]["seat"] <=
                                             41
                                     ? CustomColors.tabColor
-                                    : gender == "m" &&
+                                    : gender.toString().toLowerCase().trim() == "m" &&
                                             seatAvailibilityList[index]
                                                     ["seat"] >=
                                                 21 &&
@@ -987,14 +987,15 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           ? usageTimeSelectedValue.toString().trim()
           : timeList.isNotEmpty
               ? timeList.first.toString().trim()
-              : "", //required
+              : "06:30", //required
       "usage_time": totalTimeSelectedValue != null &&
               totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
           : totalUsageTimeList.isNotEmpty
               ? totalUsageTimeList.first["value"].toString().trim()
-              : "" //required
+              : "0.5" //required
     };
+
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessSeatAvailibilitytUrl,
         body,
