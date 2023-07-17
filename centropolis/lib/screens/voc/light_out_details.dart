@@ -345,9 +345,13 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                                 CustomColors.buttonBackgroundColor,
                             buttonTextColor: CustomColors.buttonBackgroundColor,
                           ),
-                          const SizedBox(
-                            height: 16,
-                          ),
+                          if (lightOutDetails?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            const SizedBox(
+                              height: 16,
+                            ),
                           if (lightOutDetails?.canChange
                                   .toString()
                                   .toLowerCase() ==
@@ -377,41 +381,50 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                                   ? CustomColors.buttonBackgroundColor
                                   : CustomColors.dividerGreyColor,
                             ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          CommonButtonWithBorder(
-                            onCommonButtonTap: () {
-                              if (lightOutDetails?.canChangeButtonEnabled
-                                      .toString()
-                                      .toLowerCase() ==
-                                  "y") {
-                                networkCheckForStatusChange(
-                                    "waiting_for_approval");
-                              }
-                            },
-                            buttonName: tr("approved"),
-                            buttonColor: lightOutDetails?.canChangeButtonEnabled
+                          if (lightOutDetails?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            const SizedBox(
+                              height: 16,
+                            ),
+                          if (lightOutDetails?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            CommonButtonWithBorder(
+                              onCommonButtonTap: () {
+                                if (lightOutDetails?.canChangeButtonEnabled
                                         .toString()
                                         .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.buttonBackgroundColor
-                                : CustomColors.whiteColor,
-                            buttonBorderColor: lightOutDetails
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.buttonBackgroundColor
-                                : CustomColors.dividerGreyColor,
-                            buttonTextColor: lightOutDetails
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.whiteColor
-                                : CustomColors.dividerGreyColor,
-                          ),
+                                    "y") {
+                                  networkCheckForStatusChange(
+                                      "waiting_for_approval");
+                                }
+                              },
+                              buttonName: tr("approved"),
+                              buttonColor: lightOutDetails
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.whiteColor,
+                              buttonBorderColor: lightOutDetails
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.dividerGreyColor,
+                              buttonTextColor: lightOutDetails
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.whiteColor
+                                  : CustomColors.dividerGreyColor,
+                            ),
                         ],
                       ),
                     ),

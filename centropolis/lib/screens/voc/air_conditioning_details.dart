@@ -440,9 +440,13 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                           buttonBorderColor: CustomColors.buttonBackgroundColor,
                           buttonTextColor: CustomColors.buttonBackgroundColor,
                         ),
-                        const SizedBox(
-                          height: 16,
-                        ),
+                        if (airConditioningDetailModel?.canChange
+                                .toString()
+                                .toLowerCase() ==
+                            "y")
+                          const SizedBox(
+                            height: 16,
+                          ),
                         if (airConditioningDetailModel?.canChange
                                 .toString()
                                 .toLowerCase() ==
@@ -473,43 +477,51 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                                 ? CustomColors.buttonBackgroundColor
                                 : CustomColors.dividerGreyColor,
                           ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        CommonButtonWithBorder(
-                          onCommonButtonTap: () {
-                            if (airConditioningDetailModel
-                                    ?.canChangeButtonEnabled
-                                    .toString()
-                                    .toLowerCase() ==
-                                "y") {
-                              networkCheckForStatusChange(
-                                  "waiting_for_approval");
-                            }
-                          },
-                          buttonName: tr("approved"),
-                          buttonColor: airConditioningDetailModel
+                        if (airConditioningDetailModel?.canChange
+                                .toString()
+                                .toLowerCase() ==
+                            "y")
+                          const SizedBox(
+                            height: 16,
+                          ),
+                        if (airConditioningDetailModel?.canChange
+                                .toString()
+                                .toLowerCase() ==
+                            "y")
+                          CommonButtonWithBorder(
+                            onCommonButtonTap: () {
+                              if (airConditioningDetailModel
                                       ?.canChangeButtonEnabled
                                       .toString()
                                       .toLowerCase() ==
-                                  "y"
-                              ? CustomColors.buttonBackgroundColor
-                              : CustomColors.whiteColor,
-                          buttonBorderColor: airConditioningDetailModel
-                                      ?.canChangeButtonEnabled
-                                      .toString()
-                                      .toLowerCase() ==
-                                  "y"
-                              ? CustomColors.buttonBackgroundColor
-                              : CustomColors.dividerGreyColor,
-                          buttonTextColor: airConditioningDetailModel
-                                      ?.canChangeButtonEnabled
-                                      .toString()
-                                      .toLowerCase() ==
-                                  "y"
-                              ? CustomColors.whiteColor
-                              : CustomColors.dividerGreyColor,
-                        ),
+                                  "y") {
+                                networkCheckForStatusChange(
+                                    "waiting_for_approval");
+                              }
+                            },
+                            buttonName: tr("approved"),
+                            buttonColor: airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.buttonBackgroundColor
+                                : CustomColors.whiteColor,
+                            buttonBorderColor: airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.buttonBackgroundColor
+                                : CustomColors.dividerGreyColor,
+                            buttonTextColor: airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y"
+                                ? CustomColors.whiteColor
+                                : CustomColors.dividerGreyColor,
+                          ),
                       ],
                     ),
                   ),

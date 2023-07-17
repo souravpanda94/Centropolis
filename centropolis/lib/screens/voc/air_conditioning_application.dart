@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:centropolis/widgets/multi_select_item.dart';
@@ -110,471 +111,481 @@ class _AirConditioningApplicationState
             ),
           ),
           body: SingleChildScrollView(
-            primary: false,
+              primary: false,
               child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(tr("tenantCompanyInformation"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 16,
-                            color: CustomColors.textColor8)),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tr("CoolingHeatingName"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            name,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("lightOutDetailCompany"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            companyName,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("email"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            email,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("contactNo"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            formatNumberStringWithDash(mobile),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("applicationFloorLightOut"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    InkWell(
-                      onTap: () {
-                        _showMultiSelect();
-                      },
-                      child: Container(
-                        height: 46,
-                        padding: const EdgeInsets.all(0),
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                              width: 1.0, color: CustomColors.dividerGreyColor),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(5.0)),
-                        ),
-                        child: Row(
-                          children: [
-                            Expanded(
-                                child: _selectedFloors.isEmpty
-                                    ? Container(
-                                        padding: const EdgeInsets.only(
-                                            left: 15,
-                                            right: 15,
-                                            top: 10,
-                                            bottom: 10),
-                                        child: Text(tr('applicationFloorHint')))
-                                    : Container(
-                                        margin: const EdgeInsets.only(left: 15),
-                                        child: Wrap(
-                                          runSpacing: 1.5,
-                                          direction: Axis.vertical,
-                                          children: _selectedFloors
-                                              .map((e) => Chip(
-                                                    visualDensity:
-                                                        VisualDensity.standard,
-                                                    backgroundColor:
-                                                        CustomColors
-                                                            .selectedColor,
-                                                    padding: const EdgeInsets
-                                                            .symmetric(
-                                                        horizontal: 5),
-                                                    shape: const RoundedRectangleBorder(
-                                                        borderRadius:
-                                                            BorderRadius.all(
-                                                                Radius.circular(
-                                                                    5))),
-                                                    label: SizedBox(
-                                                      width: 20,
-                                                      child: Text(
-                                                          e
-                                                              .toString()
-                                                              .toUpperCase(),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                          style: const TextStyle(
-                                                              fontFamily:
-                                                                  'SemiBold',
-                                                              fontSize: 12,
-                                                              color: CustomColors
-                                                                  .whiteColor)),
-                                                    ),
-                                                  ))
-                                              .toList(),
-                                        ),
-                                      )),
-                            Container(
-                              margin: const EdgeInsets.only(right: 10),
-                              padding: EdgeInsets.only(
-                                  bottom: floorSelectedValue != null ? 16 : 0),
-                              child: SvgPicture.asset(
-                                "assets/images/ic_drop_down_arrow.svg",
-                                width: 8,
-                                height: 8,
-                                color: CustomColors.textColorBlack2,
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                    //floorDropdownWidget(),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("airConditioning/Heating"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    color: CustomColors.whiteColor,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Expanded(
-                          flex: 1,
-                          child: Row(
+                        Text(tr("tenantCompanyInformation"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColor8)),
+                        Container(
+                          margin: const EdgeInsets.only(top: 16),
+                          padding: const EdgeInsets.all(16),
+                          width: MediaQuery.of(context).size.width,
+                          decoration: const BoxDecoration(
+                              color: CustomColors.backgroundColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Radio<Type>(
-                                  activeColor:
-                                      CustomColors.buttonBackgroundColor,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  value: Type.airConditioning,
-                                  groupValue: type,
-                                  onChanged: (Type? value) {
-                                    setState(() {
-                                      type = value;
-                                      if (type == Type.airConditioning) {
-                                        typeValue = "cooling";
-                                      } else {
-                                        typeValue = "heating";
-                                      }
-                                    });
-                                  },
-                                ),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Text(
-                                  tr("coolingValue"),
+                              Text(tr("CoolingHeatingName"),
                                   style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      color: CustomColors.textColorBlack2,
-                                      fontSize: 14),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                        Expanded(
-                          flex: 1,
-                          child: Row(
-                            children: [
-                              SizedBox(
-                                height: 20,
-                                width: 20,
-                                child: Radio<Type>(
-                                  activeColor:
-                                      CustomColors.buttonBackgroundColor,
-                                  materialTapTargetSize:
-                                      MaterialTapTargetSize.shrinkWrap,
-                                  value: Type.heating,
-                                  groupValue: type,
-                                  onChanged: (Type? value) {
-                                    setState(() {
-                                      type = value;
-                                      if (type == Type.airConditioning) {
-                                        typeValue = "cooling";
-                                      } else {
-                                        typeValue = "heating";
-                                      }
-                                    });
-                                  },
-                                ),
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8)),
+                              const SizedBox(
+                                height: 8,
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(left: 10),
-                                child: Text(
-                                  tr("heating"),
+                              Text(
+                                name,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Text(tr("lightOutDetailCompany"),
                                   style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      color: CustomColors.textColorBlack2,
-                                      fontSize: 14),
-                                ),
-                              )
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8)),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                companyName,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Text(tr("email"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8)),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                email,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                              Text(tr("contactNo"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8)),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Text(
+                                formatNumberStringWithDash(mobile),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                              ),
                             ],
                           ),
                         ),
                       ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("dateOfApplicationLightOut"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    tableCalendarWidget(),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                padding: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("timeOfApplication"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 24,
-                    ),
-                    Text(
-                      tr("uptime"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    startTimeDropdownWidget(),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      tr("usageTimeCoolingHeating"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    endTimeDropdownWidget(),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(tr("otherRequests"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 16,
-                            color: CustomColors.textColor8)),
-                    Container(
-                      margin: const EdgeInsets.only(top: 8),
-                      padding: const EdgeInsets.only(top: 2, bottom: 2),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: CustomColors.dividerGreyColor,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("applicationFloorLightOut"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
                         ),
-                        borderRadius: BorderRadius.circular(4),
-                      ),
-                      height: 288,
-                      child: TextField(
-                        controller: otherRequestController,
-                        maxLength: 500,
-                        cursorColor: CustomColors.textColorBlack2,
-                        keyboardType: TextInputType.multiline,
-                        maxLines: 14,
-                        decoration: InputDecoration(
-                          counterText: "",
-                          hintMaxLines: 500,
-                          border: InputBorder.none,
-                          fillColor: CustomColors.whiteColor,
-                          filled: true,
-                          contentPadding: const EdgeInsets.all(16),
-                          hintText: tr('otherRequestHint'),
-                          hintStyle: const TextStyle(
-                            color: CustomColors.textColor3,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            _showMultiSelect();
+                          },
+                          child: Container(
+                            height: 46,
+                            padding: const EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1.0,
+                                  color: CustomColors.dividerGreyColor),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(5.0)),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: _selectedFloors.isEmpty
+                                        ? Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                top: 10,
+                                                bottom: 10),
+                                            child: Text(
+                                                tr('applicationFloorHint')))
+                                        : Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 15),
+                                            child: Wrap(
+                                              runSpacing: 1.5,
+                                              direction: Axis.vertical,
+                                              children: _selectedFloors
+                                                  .map((e) => Chip(
+                                                        visualDensity:
+                                                            VisualDensity
+                                                                .standard,
+                                                        backgroundColor:
+                                                            CustomColors
+                                                                .selectedColor,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 5),
+                                                        shape: const RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            5))),
+                                                        label: SizedBox(
+                                                          width: 20,
+                                                          child: Text(
+                                                              e
+                                                                  .toString()
+                                                                  .toUpperCase(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: const TextStyle(
+                                                                  fontFamily:
+                                                                      'SemiBold',
+                                                                  fontSize: 12,
+                                                                  color: CustomColors
+                                                                      .whiteColor)),
+                                                        ),
+                                                      ))
+                                                  .toList(),
+                                            ),
+                                          )),
+                                Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.only(
+                                      bottom:
+                                          floorSelectedValue != null ? 16 : 0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/ic_drop_down_arrow.svg",
+                                    width: 8,
+                                    height: 8,
+                                    color: CustomColors.textColorBlack2,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                        style: const TextStyle(
-                          color: CustomColors.textColorBlack2,
-                          fontSize: 14,
-                          fontFamily: 'Regular',
-                        ),
-                      ),
+                        //floorDropdownWidget(),
+                      ],
                     ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                alignment: FractionalOffset.bottomCenter,
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(
-                    left: 16, right: 16, top: 16, bottom: 40),
-                child: CommonButton(
-                  onCommonButtonTap: () {
-                    airConditioningApplicationValidationCheck();
-                    //showReservationModal();
-                  },
-                  buttonColor: CustomColors.buttonBackgroundColor,
-                  buttonName: tr("apply"),
-                  isIconVisible: false,
-                ),
-              ),
-            ],
-          )),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.all(16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("airConditioning/Heating"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: Radio<Type>(
+                                      activeColor:
+                                          CustomColors.buttonBackgroundColor,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      value: Type.airConditioning,
+                                      groupValue: type,
+                                      onChanged: (Type? value) {
+                                        setState(() {
+                                          type = value;
+                                          if (type == Type.airConditioning) {
+                                            typeValue = "cooling";
+                                          } else {
+                                            typeValue = "heating";
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      tr("coolingValue"),
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          color: CustomColors.textColorBlack2,
+                                          fontSize: 14),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Expanded(
+                              flex: 1,
+                              child: Row(
+                                children: [
+                                  SizedBox(
+                                    height: 20,
+                                    width: 20,
+                                    child: Radio<Type>(
+                                      activeColor:
+                                          CustomColors.buttonBackgroundColor,
+                                      materialTapTargetSize:
+                                          MaterialTapTargetSize.shrinkWrap,
+                                      value: Type.heating,
+                                      groupValue: type,
+                                      onChanged: (Type? value) {
+                                        setState(() {
+                                          type = value;
+                                          if (type == Type.airConditioning) {
+                                            typeValue = "cooling";
+                                          } else {
+                                            typeValue = "heating";
+                                          }
+                                        });
+                                      },
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.only(left: 10),
+                                    child: Text(
+                                      tr("heating"),
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          color: CustomColors.textColorBlack2,
+                                          fontSize: 14),
+                                    ),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("dateOfApplicationLightOut"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        tableCalendarWidget(),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    padding:
+                        const EdgeInsets.only(left: 16, right: 16, top: 16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("timeOfApplication"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 24,
+                        ),
+                        Text(
+                          tr("uptime"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        startTimeDropdownWidget(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          tr("usageTimeCoolingHeating"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        endTimeDropdownWidget(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(tr("otherRequests"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColor8)),
+                        Container(
+                          margin: const EdgeInsets.only(top: 8),
+                          padding: const EdgeInsets.only(top: 2, bottom: 2),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: CustomColors.dividerGreyColor,
+                            ),
+                            borderRadius: BorderRadius.circular(4),
+                          ),
+                          height: 288,
+                          child: TextField(
+                            controller: otherRequestController,
+                            maxLength: 500,
+                            cursorColor: CustomColors.textColorBlack2,
+                            keyboardType: TextInputType.multiline,
+                            maxLines: 14,
+                            decoration: InputDecoration(
+                              counterText: "",
+                              hintMaxLines: 500,
+                              border: InputBorder.none,
+                              fillColor: CustomColors.whiteColor,
+                              filled: true,
+                              contentPadding: const EdgeInsets.all(16),
+                              hintText: tr('otherRequestHint'),
+                              hintStyle: const TextStyle(
+                                color: CustomColors.textColor3,
+                                fontSize: 14,
+                                fontFamily: 'Regular',
+                              ),
+                            ),
+                            style: const TextStyle(
+                              color: CustomColors.textColorBlack2,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    alignment: FractionalOffset.bottomCenter,
+                    width: MediaQuery.of(context).size.width,
+                    margin: const EdgeInsets.only(
+                        left: 16, right: 16, top: 16, bottom: 40),
+                    child: CommonButton(
+                      onCommonButtonTap: () {
+                        airConditioningApplicationValidationCheck();
+                        //showReservationModal();
+                      },
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      buttonName: tr("apply"),
+                      isIconVisible: false,
+                    ),
+                  ),
+                ],
+              )),
         ),
       ),
     );
@@ -714,7 +725,7 @@ class _AirConditioningApplicationState
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr('selectStartTime'),
+          "${tr('selectStartTime')}.",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -915,8 +926,17 @@ class _AirConditioningApplicationState
       firstDay: kFirstDay,
       lastDay: kLastDay,
       headerStyle: HeaderStyle(
-        leftChevronPadding: const EdgeInsets.only(left: 4),
-        rightChevronPadding: const EdgeInsets.only(right: 4),
+        // leftChevronPadding: const EdgeInsets.only(left: 4),
+        // rightChevronPadding: const EdgeInsets.only(right: 4),
+        headerPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+        formatButtonPadding: const EdgeInsets.symmetric(horizontal: 0.0),
+        leftChevronPadding:
+            EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
+        leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0.0),
+        rightChevronPadding:
+            EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
+        rightChevronMargin: const EdgeInsets.symmetric(horizontal: 0.0),
+
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
           width: 0,
