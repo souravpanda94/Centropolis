@@ -271,7 +271,10 @@ class _VisitReservationDetailsScreenState
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            visitReservationDetailModel?.floor ?? "",
+                            visitReservationDetailModel?.floor
+                                    .toString()
+                                    .toUpperCase() ??
+                                "",
                             style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",

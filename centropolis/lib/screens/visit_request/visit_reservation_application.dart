@@ -163,6 +163,7 @@ class _VisitReservationApplicationState
                         ),
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
                               padding: const EdgeInsets.only(top: 5),
@@ -1004,7 +1005,7 @@ class _VisitReservationApplicationState
                       Padding(
                         padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
-                          item["floor"],
+                          item["floor"].toString().toUpperCase(),
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
