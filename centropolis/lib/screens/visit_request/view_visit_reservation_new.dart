@@ -298,7 +298,7 @@ class _ViewVisitReservationScreenState
                                                   // dataList[index]["type"],
                                                   visitReservationListItem?[
                                                               index]
-                                                          .visitedPersonCompanyName
+                                                          .displayVisitPurpose
                                                           .toString() ??
                                                       "",
                                                   style: const TextStyle(

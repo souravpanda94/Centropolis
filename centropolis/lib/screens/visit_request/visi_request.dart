@@ -239,7 +239,7 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
                                                       // todayList[index]["type"],
                                                       visitReservationListItem?[
                                                                   index]
-                                                              .visitedPersonCompanyName
+                                                              .displayVisitPurpose
                                                               .toString() ??
                                                           "",
                                                       style: const TextStyle(

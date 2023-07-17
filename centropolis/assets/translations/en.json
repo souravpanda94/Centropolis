@@ -240,7 +240,7 @@
   "month": "A Month",
   "year": "A Year",
   "directInput": "Direct Input",
-  "visitReservationApplicationWarning": "If you do not agree to the collection and use of personal information, it will not be accepted.",
+  "visitReservationApplicationWarning": "If you do not agree to the collection and use of\n personal information, it will not be accepted.",
   "companyName": "Company Name",
   "contact": "Contact",
   "visitorName": "Visitor Name",
