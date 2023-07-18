@@ -166,23 +166,24 @@ class _GXReservationState extends State<GXReservation> {
                   itemBuilder: ((context, index) {
                     return InkWell(
                       onTap: () {
-                        // if (gxReservationListItem?[index].status ==
-                        //     "receiving") {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => GXReservationDetail(
-                                gxReservationItem:
-                                    gxReservationListItem![index]),
-                          ),
-                        );
-                        // }
+                        if (gxReservationListItem?[index].status ==
+                            "receiving") {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => GXReservationDetail(
+                                  gxReservationItem:
+                                      gxReservationListItem![index]),
+                            ),
+                          );
+                        }
                       },
                       child: Container(
                         width: MediaQuery.of(context).size.width,
                         padding: const EdgeInsets.symmetric(
                             vertical: 18, horizontal: 16),
-                        margin: EdgeInsets.only(bottom: Platform.isAndroid ? 13 : 9),
+                        margin: EdgeInsets.only(
+                            bottom: Platform.isAndroid ? 13 : 9),
                         decoration: BoxDecoration(
                             color: CustomColors.whiteColor,
                             border: Border.all(
@@ -226,7 +227,8 @@ class _GXReservationState extends State<GXReservation> {
                                 ),
                                 Container(
                                   padding: EdgeInsets.symmetric(
-                                      vertical: Platform.isAndroid ? 5 : 2, horizontal: 12),
+                                      vertical: Platform.isAndroid ? 5 : 2,
+                                      horizontal: 12),
                                   margin: const EdgeInsets.only(left: 20),
                                   decoration: BoxDecoration(
                                       color: CustomColors.whiteColor,
