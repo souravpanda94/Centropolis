@@ -162,11 +162,14 @@ class _VisitReservationApplicationState
                           ),
                         ),
                         Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: language == 'ko'
+                              ? CrossAxisAlignment.center
+                              : CrossAxisAlignment.start,
                           mainAxisAlignment: MainAxisAlignment.start,
                           children: [
                             Padding(
-                              padding: const EdgeInsets.only(top: 5),
+                              padding: EdgeInsets.only(
+                                  top: language == 'ko' ? 0 : 2),
                               child: SizedBox(
                                 height: 15,
                                 width: 15,
@@ -193,15 +196,12 @@ class _VisitReservationApplicationState
                               width: 9,
                             ),
                             Flexible(
-                              child: Padding(
-                                padding: const EdgeInsets.only(top: 3),
-                                child: Text(
-                                  tr("visitReservationApplicationConsent"),
-                                  style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 14,
-                                      color: CustomColors.textColorBlack2),
-                                ),
+                              child: Text(
+                                tr("visitReservationApplicationConsent"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
                               ),
                             )
                           ],
