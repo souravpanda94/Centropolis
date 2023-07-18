@@ -407,13 +407,21 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       firstDay: kFirstDay,
                       lastDay: kLastDay,
                       headerStyle: HeaderStyle(
-                        headerPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-                        formatButtonPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-                        leftChevronPadding:  EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
-                        leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0.0),
-                        rightChevronPadding: EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
-                        rightChevronMargin: const EdgeInsets.symmetric(horizontal: 0.0),
-
+                        headerPadding: EdgeInsets.only(
+                            left: 0,
+                            right: 0,
+                            bottom: 8,
+                            top: Platform.isAndroid ? 16 : 8),
+                        formatButtonPadding:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        leftChevronPadding: EdgeInsets.symmetric(
+                            horizontal: Platform.isAndroid ? 10.0 : 0.0),
+                        leftChevronMargin:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
+                        rightChevronPadding: EdgeInsets.symmetric(
+                            horizontal: Platform.isAndroid ? 10.0 : 0.0),
+                        rightChevronMargin:
+                            const EdgeInsets.symmetric(horizontal: 0.0),
                         leftChevronIcon: SvgPicture.asset(
                           "assets/images/ic_back.svg",
                           width: 0,
@@ -528,8 +536,11 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       },
                     ),
                     Container(
-                      margin: const EdgeInsets.only(
-                          left: 14, right: 14, top: 16, bottom: 30),
+                      margin: EdgeInsets.only(
+                          left: 14,
+                          right: 14,
+                          top: 16,
+                          bottom: Platform.isAndroid ? 15 : 30),
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
