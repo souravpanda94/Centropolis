@@ -818,9 +818,11 @@ class _LightOutRequestState extends State<LightOutRequest> {
       headerStyle: HeaderStyle(
         headerPadding: const EdgeInsets.symmetric(horizontal: 0.0),
         formatButtonPadding: const EdgeInsets.symmetric(horizontal: 0.0),
-        leftChevronPadding:  EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
+        leftChevronPadding:
+            EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
         leftChevronMargin: const EdgeInsets.symmetric(horizontal: 0.0),
-        rightChevronPadding: EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
+        rightChevronPadding:
+            EdgeInsets.symmetric(horizontal: Platform.isAndroid ? 10.0 : 0.0),
         rightChevronMargin: const EdgeInsets.symmetric(horizontal: 0.0),
         leftChevronIcon: SvgPicture.asset(
           "assets/images/ic_back.svg",
@@ -1145,6 +1147,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
   }
 
   void networkCheckForReservation() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLightOutApplyApi();
