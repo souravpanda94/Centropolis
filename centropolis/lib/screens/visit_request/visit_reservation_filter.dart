@@ -32,7 +32,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   ];
   TextEditingController dateController = TextEditingController();
   String? statusSelectedValue;
-
+  late String language;
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
@@ -44,6 +44,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
   @override
   void initState() {
     super.initState();
+    language = tr("lang");
+
     if (showIndex == 0) {
       selectedStartDate = DateTime.now();
       selectedEndDate = DateTime.now();
@@ -128,7 +130,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                 decoration: const BoxDecoration(
                   color: CustomColors.backgroundColor,
                 ),
-                child: ListView.builder(
+                child: ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: dateFilterList.length,
@@ -154,7 +156,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       child: Container(
                         alignment: FractionalOffset.center,
                         padding: const EdgeInsets.symmetric(
-                            horizontal: 20, vertical: 8),
+                            horizontal: 16, vertical: 8),
                         decoration: BoxDecoration(
                             color: showIndex == index
                                 ? CustomColors.whiteColor
@@ -171,11 +173,18 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
                               color: showIndex == index
                                   ? CustomColors.textColorBlack2
                                   : CustomColors.textColor3),
                         ),
                       ),
+                    );
+                  },
+                  separatorBuilder: (BuildContext context, int index) {
+                    return SizedBox(
+                      width: language == 'ko' ? 15 : 0,
                     );
                   },
                 ),
