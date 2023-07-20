@@ -894,6 +894,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           totalTimeSelectedValue = null;
           selectedSeatsValue = null;
         });
+        loadSelectedSeatList();
         loadViewSeatSelectionList();
       },
       onFormatChanged: (format) {

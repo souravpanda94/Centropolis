@@ -583,6 +583,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         onChanged: (value) {
           setState(() {
             usageTimeSelectedValue = value as String;
+            selectedSeat = 0;
+            selectedIndex = 0;
+            selected = false;
+
+            seatController.clear();
           });
           loadSeatAvailability();
         },
@@ -681,6 +686,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         onChanged: (value) {
           setState(() {
             totalTimeSelectedValue = value.toString();
+            selectedSeat = 0;
+            selectedIndex = 0;
+            selected = false;
+
+            seatController.clear();
           });
           loadSeatAvailability();
         },
@@ -825,7 +835,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         setState(() {
           focusedDate = focusedDay;
           selectedDate = selectedDay;
+          selectedSeat = 0;
+          selectedIndex = 0;
+          selected = false;
+
+          seatController.clear();
         });
+        loadSeatAvailability();
       },
       onFormatChanged: (format) {
         if (selectedCalendarFormat != format) {
@@ -1001,6 +1017,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
               ? totalUsageTimeList.first["value"].toString().trim()
               : "0.5" //required
     };
+    debugPrint("seatAvailibilityList input================> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessSeatAvailibilitytUrl,
@@ -1154,7 +1171,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
-    } else if (selectedIndex == 0 || selectedSeat == 0) {
+    } else if (selectedSeat == 0) {
       showErrorModal(tr("lockerValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
