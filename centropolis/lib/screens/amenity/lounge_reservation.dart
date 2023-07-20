@@ -960,6 +960,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
   }
 
   void networkCheckForReservation() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callReservationApi();

@@ -116,386 +116,388 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         ),
         isLoading: isLoading,
         child: SingleChildScrollView(
-          primary: false,
+            primary: false,
             child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // Container(
-            //   color: CustomColors.whiteColor,
-            //   padding: const EdgeInsets.only(
-            //       left: 16, right: 16, top: 16, bottom: 8),
-            //   child: Row(
-            //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //     children: [
-            //       Text(
-            //         tr("seatSelection"),
-            //         style: const TextStyle(
-            //           fontSize: 16,
-            //           color: CustomColors.textColor8,
-            //           fontFamily: 'SemiBold',
-            //         ),
-            //       ),
-            //       Row(
-            //         children: [
-            //           Row(
-            //             children: [
-            //               const Icon(
-            //                 Icons.square,
-            //                 size: 15,
-            //                 color: CustomColors.textColor9,
-            //               ),
-            //               const SizedBox(
-            //                 width: 4,
-            //               ),
-            //               Text(
-            //                 tr("select"),
-            //                 style: const TextStyle(
-            //                   fontSize: 12,
-            //                   color: CustomColors.greyColor1,
-            //                   fontFamily: 'Regular',
-            //                 ),
-            //               )
-            //             ],
-            //           ),
-            //           const SizedBox(
-            //             width: 8,
-            //           ),
-            //           Row(
-            //             children: [
-            //               const Icon(
-            //                 Icons.square_outlined,
-            //                 size: 15,
-            //                 color: CustomColors.textColor9,
-            //               ),
-            //               const SizedBox(
-            //                 width: 4,
-            //               ),
-            //               Text(
-            //                 tr("selectable"),
-            //                 style: const TextStyle(
-            //                   fontSize: 12,
-            //                   color: CustomColors.greyColor1,
-            //                   fontFamily: 'Regular',
-            //                 ),
-            //               )
-            //             ],
-            //           ),
-            //           const SizedBox(
-            //             width: 8,
-            //           ),
-            //           Row(
-            //             children: [
-            //               const Icon(
-            //                 Icons.square,
-            //                 size: 15,
-            //                 color: CustomColors.borderColor,
-            //               ),
-            //               const SizedBox(
-            //                 width: 4,
-            //               ),
-            //               Text(
-            //                 tr("closed"),
-            //                 style: const TextStyle(
-            //                   fontSize: 12,
-            //                   color: CustomColors.greyColor1,
-            //                   fontFamily: 'Regular',
-            //                 ),
-            //               )
-            //             ],
-            //           )
-            //         ],
-            //       )
-            //     ],
-            //   ),
-            // ),
-            // seatSelectionWidget(),
-            // Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   color: CustomColors.whiteColor,
-            //   height: 10,
-            // ),
-            // Container(
-            //   width: MediaQuery.of(context).size.width,
-            //   color: CustomColors.backgroundColor,
-            //   height: 10,
-            // ),
-            //
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Container(
+                //   color: CustomColors.whiteColor,
+                //   padding: const EdgeInsets.only(
+                //       left: 16, right: 16, top: 16, bottom: 8),
+                //   child: Row(
+                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //     children: [
+                //       Text(
+                //         tr("seatSelection"),
+                //         style: const TextStyle(
+                //           fontSize: 16,
+                //           color: CustomColors.textColor8,
+                //           fontFamily: 'SemiBold',
+                //         ),
+                //       ),
+                //       Row(
+                //         children: [
+                //           Row(
+                //             children: [
+                //               const Icon(
+                //                 Icons.square,
+                //                 size: 15,
+                //                 color: CustomColors.textColor9,
+                //               ),
+                //               const SizedBox(
+                //                 width: 4,
+                //               ),
+                //               Text(
+                //                 tr("select"),
+                //                 style: const TextStyle(
+                //                   fontSize: 12,
+                //                   color: CustomColors.greyColor1,
+                //                   fontFamily: 'Regular',
+                //                 ),
+                //               )
+                //             ],
+                //           ),
+                //           const SizedBox(
+                //             width: 8,
+                //           ),
+                //           Row(
+                //             children: [
+                //               const Icon(
+                //                 Icons.square_outlined,
+                //                 size: 15,
+                //                 color: CustomColors.textColor9,
+                //               ),
+                //               const SizedBox(
+                //                 width: 4,
+                //               ),
+                //               Text(
+                //                 tr("selectable"),
+                //                 style: const TextStyle(
+                //                   fontSize: 12,
+                //                   color: CustomColors.greyColor1,
+                //                   fontFamily: 'Regular',
+                //                 ),
+                //               )
+                //             ],
+                //           ),
+                //           const SizedBox(
+                //             width: 8,
+                //           ),
+                //           Row(
+                //             children: [
+                //               const Icon(
+                //                 Icons.square,
+                //                 size: 15,
+                //                 color: CustomColors.borderColor,
+                //               ),
+                //               const SizedBox(
+                //                 width: 4,
+                //               ),
+                //               Text(
+                //                 tr("closed"),
+                //                 style: const TextStyle(
+                //                   fontSize: 12,
+                //                   color: CustomColors.greyColor1,
+                //                   fontFamily: 'Regular',
+                //                 ),
+                //               )
+                //             ],
+                //           )
+                //         ],
+                //       )
+                //     ],
+                //   ),
+                // ),
+                // seatSelectionWidget(),
+                // Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   color: CustomColors.whiteColor,
+                //   height: 10,
+                // ),
+                // Container(
+                //   width: MediaQuery.of(context).size.width,
+                //   color: CustomColors.backgroundColor,
+                //   height: 10,
+                // ),
+                //
 
-            Container(
-              color: CustomColors.whiteColor,
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("reservationInformation"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        tr("nameLounge"),
+                        tr("reservationInformation"),
                         style: const TextStyle(
                             fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
                       ),
-                      Text(
-                        name,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      )
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("nameLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            name,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
+                        ],
+                      ),
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.backgroundColor2,
+                        ),
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("tenantCompanyLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            companyName,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
+                        ],
+                      ),
                     ],
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 16),
-                    child: Divider(
-                      thickness: 1,
-                      height: 1,
-                      color: CustomColors.backgroundColor2,
-                    ),
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        tr("tenantCompanyLounge"),
+                        tr("selectReservationDate"),
                         style: const TextStyle(
                             fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
                       ),
-                      Text(
-                        companyName,
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      )
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      tableCalendarWidget(),
                     ],
                   ),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              width: MediaQuery.of(context).size.width,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("selectReservationDate"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  tableCalendarWidget(),
-                ],
-              ),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              color: CustomColors.backgroundColor,
-              height: 10,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.symmetric(vertical: 16),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.symmetric(vertical: 16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("timeSelection"),
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 16,
+                                      color: CustomColors.textColor8),
+                                ),
+                                InkWell(
+                                  onTap: () {
+                                    goToViewSeatSelectionScreen();
+                                  },
+                                  child: Text(
+                                    tr("viewSeatSelection"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Medium',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor9),
+                                  ),
+                                )
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Text(
+                              tr("usageTime"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            usageTimeDropdownWidget(),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("totalUsageTime"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            totalUsageDropdownWidget(),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: CustomColors.backgroundColor,
+                        margin: const EdgeInsets.only(top: 16),
+                        height: 10,
+                      ),
+                      Container(
+                        margin:
+                            const EdgeInsets.only(left: 16, right: 16, top: 16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(
-                              tr("timeSelection"),
+                              tr("seatSelection"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 16,
                                   color: CustomColors.textColor8),
                             ),
-                            InkWell(
-                              onTap: () {
-                                goToViewSeatSelectionScreen();
-                              },
-                              child: Text(
-                                tr("viewSeatSelection"),
-                                style: const TextStyle(
-                                    fontFamily: 'Medium',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor9),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Text(
+                              tr("selectSeats"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            selectSeatsDropdownWidget(),
+                          ],
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        color: CustomColors.backgroundColor,
+                        margin: const EdgeInsets.only(top: 16),
+                        height: 10,
+                      ),
+                      Container(
+                        alignment: FractionalOffset.bottomCenter,
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(top: 16),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  SizedBox(
+                                    height: 15,
+                                    width: 15,
+                                    child: Transform.scale(
+                                      scale: 0.8,
+                                      child: Checkbox(
+                                        checkColor: CustomColors.whiteColor,
+                                        activeColor:
+                                            CustomColors.buttonBackgroundColor,
+                                        side: const BorderSide(
+                                            color: CustomColors.greyColor,
+                                            width: 1),
+                                        value: isChecked,
+                                        onChanged: (value) {
+                                          setState(() {
+                                            isChecked = value!;
+                                            if (isChecked) {
+                                            } else {}
+                                          });
+                                        },
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 9,
+                                  ),
+                                  Text(
+                                    tr("sleepingRoomReservationConsent"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                  )
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(top: 24, bottom: 32),
+                              child: CommonButton(
+                                onCommonButtonTap: () {
+                                  reservationValidationCheck();
+                                },
+                                buttonColor: CustomColors.buttonBackgroundColor,
+                                buttonName: tr("makeReservation"),
+                                isIconVisible: false,
                               ),
                             )
                           ],
                         ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          tr("usageTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        usageTimeDropdownWidget(),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(
-                          tr("totalUsageTime"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        totalUsageDropdownWidget(),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.backgroundColor,
-                    margin: const EdgeInsets.only(top: 16),
-                    height: 10,
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(left: 16, right: 16, top: 16),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          tr("seatSelection"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8),
-                        ),
-                        const SizedBox(
-                          height: 24,
-                        ),
-                        Text(
-                          tr("selectSeats"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColor8),
-                        ),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        selectSeatsDropdownWidget(),
-                      ],
-                    ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.backgroundColor,
-                    margin: const EdgeInsets.only(top: 16),
-                    height: 10,
-                  ),
-                  Container(
-                    alignment: FractionalOffset.bottomCenter,
-                    color: CustomColors.whiteColor,
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(top: 16),
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              SizedBox(
-                                height: 15,
-                                width: 15,
-                                child: Transform.scale(
-                                  scale: 0.8,
-                                  child: Checkbox(
-                                    checkColor: CustomColors.whiteColor,
-                                    activeColor:
-                                        CustomColors.buttonBackgroundColor,
-                                    side: const BorderSide(
-                                        color: CustomColors.greyColor,
-                                        width: 1),
-                                    value: isChecked,
-                                    onChanged: (value) {
-                                      setState(() {
-                                        isChecked = value!;
-                                        if (isChecked) {
-                                        } else {}
-                                      });
-                                    },
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(
-                                width: 9,
-                              ),
-                              Text(
-                                tr("sleepingRoomReservationConsent"),
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              )
-                            ],
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(top: 24, bottom: 32),
-                          child: CommonButton(
-                            onCommonButtonTap: () {
-                              reservationValidationCheck();
-                            },
-                            buttonColor: CustomColors.buttonBackgroundColor,
-                            buttonName: tr("makeReservation"),
-                            isIconVisible: false,
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        )),
+                ),
+              ],
+            )),
       ),
     );
   }
@@ -1188,6 +1190,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void networkCheckForReservation() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callReservationApi();

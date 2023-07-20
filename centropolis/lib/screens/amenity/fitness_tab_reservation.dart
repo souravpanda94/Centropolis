@@ -898,7 +898,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                                     seatAvailibilityList[index]["seat"] >= 29 &&
                                     seatAvailibilityList[index]["seat"] <= 41
                                 ? CustomColors.tabColor
-                                : gender.toString().toLowerCase().trim() == "m" &&
+                                : gender.toString().toLowerCase().trim() ==
+                                            "m" &&
                                         seatAvailibilityList[index]["seat"] >=
                                             21 &&
                                         seatAvailibilityList[index]["seat"] <=
@@ -918,13 +919,18 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             ? CustomColors.textColor3
                             : selected && selectedIndex == index
                                 ? CustomColors.whiteColor
-                                : gender.toString().toLowerCase().trim() == "f" &&
+                                : gender.toString().toLowerCase().trim() ==
+                                            "f" &&
                                         seatAvailibilityList[index]["seat"] >=
                                             29 &&
                                         seatAvailibilityList[index]["seat"] <=
                                             41
                                     ? CustomColors.tabColor
-                                    : gender.toString().toLowerCase().trim() == "m" &&
+                                    : gender
+                                                    .toString()
+                                                    .toLowerCase()
+                                                    .trim() ==
+                                                "m" &&
                                             seatAvailibilityList[index]
                                                     ["seat"] >=
                                                 21 &&
@@ -1178,6 +1184,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   }
 
   void networkCheckForReservation() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callReservationApi();

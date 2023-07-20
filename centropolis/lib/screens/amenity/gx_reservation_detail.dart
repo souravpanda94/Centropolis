@@ -428,6 +428,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
   }
 
   void networkCheckForReservation() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callReservationApi();

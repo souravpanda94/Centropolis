@@ -1385,6 +1385,7 @@ class _VisitReservationApplicationState
   // }
 
   void networkCheckForVisitReservation() async {
+    hideKeyboard();
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadVisitReservationApplicationApi();
