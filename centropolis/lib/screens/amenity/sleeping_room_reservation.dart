@@ -548,8 +548,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         onChanged: (value) {
           setState(() {
             usageTimeSelectedValue = value as String;
+            selectedSeatsValue = null;
           });
           loadSelectedSeatList();
+          loadViewSeatSelectionList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -651,8 +653,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         onChanged: (value) {
           setState(() {
             totalTimeSelectedValue = value.toString();
+            selectedSeatsValue = null;
           });
           loadSelectedSeatList();
+          loadViewSeatSelectionList();
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
