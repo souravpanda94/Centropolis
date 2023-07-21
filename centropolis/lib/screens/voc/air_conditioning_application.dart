@@ -820,10 +820,10 @@ class _AirConditioningApplicationState
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          //tr('selectEndTime'),
-          usageTimeList.isNotEmpty
-              ? "${usageTimeList.first["text"]}  ${tr("krwDetail")}"
-              : "1 ${tr("krwDetail")}",
+          "${tr('selectEndTime')}.",
+          // usageTimeList.isNotEmpty
+          //     ? "${usageTimeList.first["text"]}  ${tr("krwDetail")}"
+          //     : "1 ${tr("krwDetail")}",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
