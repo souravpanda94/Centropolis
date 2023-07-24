@@ -246,6 +246,26 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                                   fontSize: 14,
                                   color: CustomColors.textColorBlack2),
                             ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("instructor"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              widget.gxReservationItem.instructor ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
                           ],
                         ),
                       ),

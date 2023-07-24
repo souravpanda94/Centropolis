@@ -17,6 +17,7 @@ class GxFitnessReservationModel {
   String? createdDate;
   String? startTime;
   String? programDaysData;
+  String? instructor;
 
   GxFitnessReservationModel(
       {this.id,
@@ -36,6 +37,7 @@ class GxFitnessReservationModel {
       this.displayStatus,
       this.createdDate,
       this.startTime,
+      this.instructor,
       this.programDaysData});
 
   GxFitnessReservationModel.fromJson(Map<String, dynamic> json) {
@@ -62,6 +64,7 @@ class GxFitnessReservationModel {
     createdDate = json['created_date'];
     startTime = json['start_time'];
     programDaysData = json['program_days_data'];
+    instructor = json['instructor'];
   }
 
   Map<String, dynamic> toJson() {
@@ -86,6 +89,7 @@ class GxFitnessReservationModel {
     data['created_date'] = createdDate;
     data['start_time'] = startTime;
     data['program_days_data'] = programDaysData;
+    data['instructor'] = instructor;
     return data;
   }
 }
