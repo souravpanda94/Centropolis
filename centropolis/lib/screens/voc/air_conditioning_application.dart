@@ -81,7 +81,7 @@ class _AirConditioningApplicationState
     //name = user.userData['name'].toString();
     loadPersonalInformation();
     loadStartTimeList();
-    loadUsageTimeList();
+    //loadUsageTimeList();
     loadFloorList();
   }
 
@@ -830,9 +830,9 @@ class _AirConditioningApplicationState
             fontFamily: 'Regular',
           ),
         ),
-        items: usageTimeList
+        items: startTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["value"].toString(),
+                  value: item,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -840,7 +840,7 @@ class _AirConditioningApplicationState
                       Padding(
                         padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
-                          "${item["text"]} ${tr("krwDetail")}",
+                          item,
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -851,7 +851,7 @@ class _AirConditioningApplicationState
                       const SizedBox(
                         height: 3,
                       ),
-                      if (item != usageTimeList.last)
+                      if (item != startTimeList.last)
                         const Divider(
                           thickness: 1,
                           height: 1,
@@ -1063,8 +1063,11 @@ class _AirConditioningApplicationState
       showErrorModal(tr("applicationDateValidation"));
     } else if (startTimeSelectedValue == null) {
       showErrorModal(tr("selectStartTime"));
-    } else if (endTimeSelectedValue == null && usageTimeList.isEmpty) {
-      showErrorModal(tr("lightsOutEndTimeValidation"));
+    } else if (endTimeSelectedValue == null) {
+      showErrorModal(tr("endTimeValidation"));
+    } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
+        0) {
+      showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
     } else if (otherRequestController.text.trim().isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (typeValue.trim().isEmpty) {
@@ -1279,10 +1282,10 @@ class _AirConditioningApplicationState
       "application_start_date": reservationDate.toString().trim(), //required
       "floors": _selectedFloors, //required
       "start_time": startTimeSelectedValue.toString().trim(), //required
-      "usage_hour": endTimeSelectedValue != null &&
+      "end_time": endTimeSelectedValue != null &&
               endTimeSelectedValue.toString().isNotEmpty
           ? endTimeSelectedValue.toString().trim()
-          : usageTimeList.first["value"].toString().trim(), //required
+          : startTimeList.first.toString().trim(), //required
       "description": otherRequestController.text.toString().trim(), //required
       "type": typeValue.toString().trim(), //required
     };

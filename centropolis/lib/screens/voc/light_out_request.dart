@@ -74,7 +74,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
     //name = user.userData['name'].toString();
     loadPersonalInformation();
     loadStartTimeList();
-    loadUsageTimeList();
+    //loadUsageTimeList();
     loadFloorList();
   }
 
@@ -720,9 +720,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
             fontFamily: 'Regular',
           ),
         ),
-        items: usageTimeList
+        items: startTimeList
             .map((item) => DropdownMenuItem<String>(
-                  value: item["value"].toString(),
+                  value: item,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -730,7 +730,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                       Padding(
                         padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
-                          item["text"],
+                          item,
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -741,7 +741,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                       const SizedBox(
                         height: 3,
                       ),
-                      if (item != usageTimeList.last)
+                      if (item != startTimeList.last)
                         const Divider(
                           thickness: 1,
                           height: 1,
@@ -953,7 +953,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
     } else if (startTimeSelectedValue == null) {
       showErrorModal(tr("selectStartTime"));
     } else if (endTimeSelectedValue == null) {
-      showErrorModal(tr("lightsOutEndTimeValidation"));
+      showErrorModal(tr("endTimeValidation"));
+    } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
+        0) {
+      showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
     } else if (otherRequestController.text.trim().isEmpty) {
       showErrorModal(tr("complaintDescriptionValidation"));
     } else {
@@ -1166,7 +1169,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
       "application_date": reservationDate.toString().trim(), //required
       "floors": _selectedFloors, //required
       "start_time": startTimeSelectedValue.toString().trim(), //required
-      "usage_hour": endTimeSelectedValue.toString().trim(), //required
+      "end_time": endTimeSelectedValue.toString().trim(), //required
       "description": otherRequestController.text.toString().trim(), //required
     };
 

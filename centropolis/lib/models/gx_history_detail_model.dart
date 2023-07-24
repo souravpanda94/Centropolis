@@ -18,6 +18,7 @@ class GXHistoryDetailModel {
   String? status;
   String? displayStatus;
   String? dayOfWeekStr;
+  String? instructor;
   bool? success;
 
   GXHistoryDetailModel(
@@ -40,6 +41,7 @@ class GXHistoryDetailModel {
       this.status,
       this.dayOfWeekStr,
       this.displayStatus,
+      this.instructor,
       this.success});
 
   GXHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -68,6 +70,7 @@ class GXHistoryDetailModel {
     success = json['success'];
     dayOfWeekStr = json['day_of_week_str'].toString();
     displayStatus = json['display_status'].toString();
+    instructor = json['instructor'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -94,6 +97,7 @@ class GXHistoryDetailModel {
     data['success'] = success;
     data['day_of_week_str'] = dayOfWeekStr;
     data['display_status'] = displayStatus;
+    data['instructor'] = instructor;
     return data;
   }
 }
