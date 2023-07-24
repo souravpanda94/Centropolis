@@ -46,7 +46,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   TextEditingController rentalInfoController = TextEditingController();
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
+  String? meetingPackageSelectedValue;
   List<dynamic> timeList = [];
+  List<dynamic> meetingPackageList = [];
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
 
@@ -64,6 +66,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     //companyName = user.userData['company_name'].toString();
     loadPersonalInformation();
     loadTimeList();
+    loadMeetingPackageList();
   }
 
   @override
@@ -254,6 +257,53 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           height: 6,
                         ),
                         endTimeDropdownWidget(),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    height: 10,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 16, right: 16, top: 16, bottom: 16),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("meetingPackage"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 20,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Text(tr("meetingPackage"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const Padding(
+                              padding: EdgeInsets.only(bottom: 6),
+                              child: Text(" *",
+                                  style: TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.headingColor)),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(
+                          height: 6,
+                        ),
+                        meetingPackageDropdownWidget(),
                       ],
                     ),
                   ),
@@ -606,6 +656,101 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     );
   }
 
+  meetingPackageDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          tr('meetingPackageHint'),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: meetingPackageList
+            .map((item) => DropdownMenuItem<String>(
+                  value: item["package_id"].toString(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
+                        child: Text(
+                          item["package_name"].toString(),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != meetingPackageList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
+                    ],
+                  ),
+                ))
+            .toList(),
+        value: meetingPackageSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            meetingPackageSelectedValue = value.toString();
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding: EdgeInsets.only(
+              bottom: meetingPackageSelectedValue != null ? 12 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 46,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 10,
+                right: 12,
+                left: meetingPackageSelectedValue != null ? 0 : 13,
+                bottom: meetingPackageSelectedValue != null ? 0 : 11),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 14),
+          height: 46,
+        ),
+      ),
+    );
+  }
+
   tableCalendarWidget() {
     return TableCalendar(
       availableGestures: AvailableGestures.horizontalSwipe,
@@ -764,6 +909,53 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     });
   }
 
+  void loadMeetingPackageList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadMeetingPackageListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadMeetingPackageListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getConferenceMeetingPackageListUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              meetingPackageList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   void reservationValidationCheck() {
     String selectedDate = "";
     String day = focusedDate.day.toString();
@@ -792,6 +984,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
+    } else if (meetingPackageSelectedValue == null ||
+        meetingPackageSelectedValue == "") {
+      showErrorModal(tr("meetingPackageHint"));
     } else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (!isChecked) {
@@ -842,6 +1037,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "end_time": endTimeSelectedValue.toString().trim(), //required
       "description": rentalInfoController.text.toString().trim(), //required
+      "package_id": meetingPackageSelectedValue.toString().trim(), //required
     };
 
     debugPrint("conferencce reservation input===> $body");

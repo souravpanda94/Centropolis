@@ -11,6 +11,7 @@ class ConferenceHistoryDetailModel {
   String? displayStatus;
   String? canCancel;
   String? canCancelButtonEnabled;
+  String? packageName;
 
   bool? success;
 
@@ -27,6 +28,7 @@ class ConferenceHistoryDetailModel {
       this.displayStatus,
       this.canCancel,
       this.canCancelButtonEnabled,
+      this.packageName,
       this.success});
 
   ConferenceHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -43,6 +45,7 @@ class ConferenceHistoryDetailModel {
     canCancel = json['can_cancel'];
     success = json['success'];
     canCancelButtonEnabled = json['can_cancel_button_enabled'];
+    packageName = json['package_name'];
   }
 
   Map<String, dynamic> toJson() {
@@ -60,6 +63,7 @@ class ConferenceHistoryDetailModel {
     data['can_cancel'] = canCancel;
     data['success'] = success;
     data['can_cancel_button_enabled'] = canCancelButtonEnabled;
+    data['package_name'] = packageName;
 
     return data;
   }
