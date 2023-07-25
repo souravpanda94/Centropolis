@@ -14,6 +14,7 @@ class AirConditioningDetailModel {
   String? displayStatus;
   String? canChange;
   String? canChangeButtonEnabled;
+  String? endTime;
   bool? success;
 
   AirConditioningDetailModel(
@@ -32,6 +33,7 @@ class AirConditioningDetailModel {
       this.displayStatus,
       this.canChangeButtonEnabled,
       this.canChange,
+      this.endTime,
       this.success});
 
   AirConditioningDetailModel.fromJson(Map<String, dynamic> json) {
@@ -51,6 +53,7 @@ class AirConditioningDetailModel {
     displayStatus = json['display_status'];
     canChangeButtonEnabled = json['can_change_button_enabled'];
     canChange = json['can_change'];
+    endTime = json['end_time'];
   }
 
   Map<String, dynamic> toJson() {
@@ -71,6 +74,7 @@ class AirConditioningDetailModel {
     data['display_status'] = displayStatus;
     data['can_change_button_enabled'] = canChangeButtonEnabled;
     data['can_change'] = canChange;
+    data['end_time'] = endTime;
     return data;
   }
 }

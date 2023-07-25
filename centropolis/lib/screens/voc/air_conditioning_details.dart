@@ -314,7 +314,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                     height: 8,
                   ),
                   Text(
-                    "${airConditioningDetailModel?.requestDate.toString() ?? ""}  |  ${airConditioningDetailModel?.startTime.toString() ?? ""}  |  ${airConditioningDetailModel?.usageHours.toString() ?? ""} ${tr("krwDetail")}",
+                    "${airConditioningDetailModel?.requestDate.toString() ?? ""}  |  ${airConditioningDetailModel?.startTime.toString() ?? ""}  |  ${airConditioningDetailModel?.endTime.toString() ?? ""}",
                     style: const TextStyle(
                         fontFamily: 'Regular',
                         fontSize: 14,
