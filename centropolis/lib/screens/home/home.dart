@@ -284,6 +284,21 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: Platform.isAndroid ? 78 : 79,
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
+                                  goToFitnessReservationScreen();
+                                },
+                                buttonName: tr("fitnessReservation"),
+                                buttonColor:
+                                    CustomColors.whiteColor.withOpacity(0.2),
+                                buttonBorderColor: CustomColors.whiteColor,
+                                buttonTextColor: CustomColors.whiteColor,
+                              ),
+                            ),
+                            Container(
+                              height: Platform.isAndroid ? 78 : 79,
+                              margin: EdgeInsets.only(
+                                  top: Platform.isAndroid ? 15.0 : 10.0),
+                              child: CommonButtonWithBorder(
+                                onCommonButtonTap: () {
                                   goToGXReservationScreen();
                                 },
                                 buttonName: tr("gxReservation"),
@@ -295,7 +310,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: Platform.isAndroid ? 78 : 79,
-                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
+                              margin: EdgeInsets.only(
+                                  top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToPaidPTReservationScreen();
@@ -309,26 +325,13 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: Platform.isAndroid ? 78 : 79,
-                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
-                              child: CommonButtonWithBorder(
-                                onCommonButtonTap: () {
-                                  goToFitnessReservationScreen();
-                                },
-                                buttonName: tr("fitnessReservation"),
-                                buttonColor:
-                                    CustomColors.whiteColor.withOpacity(0.2),
-                                buttonBorderColor: CustomColors.whiteColor,
-                                buttonTextColor: CustomColors.whiteColor,
-                              ),
-                            ),
-                            Container(
-                              height: Platform.isAndroid ? 78 : 79,
-                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
+                              margin: EdgeInsets.only(
+                                  top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToPaidLockerReservationScreen();
                                 },
-                                buttonName: tr("paidLockersReservation"),
+                                buttonName: tr("paidLockersReservationHome"),
                                 buttonColor:
                                     CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
@@ -364,7 +367,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
+                              margin: EdgeInsets.only(
+                                  top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToLightOutRequestScreen();
@@ -378,7 +382,8 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                             Container(
                               height: 78,
-                              margin:  EdgeInsets.only(top: Platform.isAndroid ? 15.0 : 10.0),
+                              margin: EdgeInsets.only(
+                                  top: Platform.isAndroid ? 15.0 : 10.0),
                               child: CommonButtonWithBorder(
                                 onCommonButtonTap: () {
                                   goToAirConditiongRequestScreen();

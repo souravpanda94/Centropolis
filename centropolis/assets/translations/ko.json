@@ -61,6 +61,7 @@
   "gxReservation" : "GX 예약",
   "paidPtReservation" : "PT 예약",
   "paidLockersReservation": "유로 라커 에약",
+  "paidLockersReservationHome": "개인 사물함 예약",
   "customerComplaints" : "불편사항 접수",
   "requestForLightsOut" : "소등 신청",
   "requestForHeatingAndCooling" : "냉 & 난방 신청",
