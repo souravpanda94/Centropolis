@@ -426,8 +426,8 @@
   "selectBasket": "바스켓 선택",
   "selectLocker": "라커 선택",
   "taken": "선택 불가",
-  "meetingPackage": "Meeting Package",
-  "meetingPackageHint": "Please select a meeting package",
+  "meetingPackage": "미팅 패키지",
+  "meetingPackageHint": "미팅 패키지를 선택해주세요",
   "instructor": "강사",
 
 

@@ -931,6 +931,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     response.then((response) {
       var responseJson = json.decode(response.body);
 
+      debugPrint(
+          "meeting package responseJson ================> $responseJson");
+
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['data'] != null) {
