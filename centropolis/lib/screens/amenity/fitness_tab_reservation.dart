@@ -901,7 +901,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         ? CustomColors.borderColor
                         : selected && selectedIndex == index
                             ? seatAvailibilityList[index]["seat"] >= 21 &&
-                                    seatAvailibilityList[index]["seat"] <= 41
+                                    seatAvailibilityList[index]["seat"] <= 47
                                 ? CustomColors.tabColor
                                 : CustomColors.textColor9
                             : CustomColors.whiteColor,
@@ -912,14 +912,14 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             ? CustomColors.borderColor
                             : gender.toString().toLowerCase().trim() == "f" &&
                                     seatAvailibilityList[index]["seat"] >= 29 &&
-                                    seatAvailibilityList[index]["seat"] <= 41
+                                    seatAvailibilityList[index]["seat"] <= 47
                                 ? CustomColors.tabColor
                                 : gender.toString().toLowerCase().trim() ==
                                             "m" &&
                                         seatAvailibilityList[index]["seat"] >=
                                             21 &&
                                         seatAvailibilityList[index]["seat"] <=
-                                            28
+                                            34
                                     ? CustomColors.tabColor
                                     : CustomColors.textColor9,
                         width: 1.0),
@@ -940,7 +940,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                                         seatAvailibilityList[index]["seat"] >=
                                             29 &&
                                         seatAvailibilityList[index]["seat"] <=
-                                            41
+                                            47
                                     ? CustomColors.tabColor
                                     : gender
                                                     .toString()
@@ -952,7 +952,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                                                 21 &&
                                             seatAvailibilityList[index]
                                                     ["seat"] <=
-                                                28
+                                                34
                                         ? CustomColors.tabColor
                                         : CustomColors.textColor9,
                         fontFamily: 'Regular',
