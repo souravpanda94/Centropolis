@@ -660,7 +660,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr('meetingPackageHint'),
+          meetingPackageList.isNotEmpty
+              ? meetingPackageList.first["package_name"]
+              : tr('meetingPackageHint'),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -939,6 +941,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           if (responseJson['data'] != null) {
             setState(() {
               meetingPackageList = responseJson['data'];
+              Map<dynamic, dynamic> allMap = {
+                "package_name": tr("noPackage"),
+                "package_id": "0"
+              };
+              meetingPackageList.insert(0, allMap);
             });
           }
         } else {
@@ -987,8 +994,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
-    } else if (meetingPackageSelectedValue == null ||
-        meetingPackageSelectedValue == "") {
+    } else if (meetingPackageSelectedValue == null &&
+        meetingPackageList.isEmpty) {
       showErrorModal(tr("meetingPackageHint"));
     } else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
@@ -1033,6 +1040,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     setState(() {
       isLoading = true;
     });
+    debugPrint("meetingPackageSelectedValue :: $meetingPackageSelectedValue");
     Map<String, String> body = {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
@@ -1040,7 +1048,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "end_time": endTimeSelectedValue.toString().trim(), //required
       "description": rentalInfoController.text.toString().trim(), //required
-      "package_id": meetingPackageSelectedValue.toString().trim(), //required
+      "package_id": meetingPackageSelectedValue != null
+          ? meetingPackageSelectedValue.toString().trim()
+          : "0", //no package
     };
 
     debugPrint("conferencce reservation input===> $body");
