@@ -267,7 +267,8 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             height: 8,
                           ),
                           Text(
-                            conferenceHistoryDetails?.packageName ?? "",
+                            conferenceHistoryDetails?.packageName ??
+                                tr("noPackage"),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,

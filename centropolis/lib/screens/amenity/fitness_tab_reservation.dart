@@ -889,6 +889,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                     });
                   }
                 },
+                // Common seats 1-20 , Female - 29-47, Male - 21-34
                 child: Container(
                   width: 40,
                   height: 34,
