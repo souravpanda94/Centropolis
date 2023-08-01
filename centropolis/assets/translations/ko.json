@@ -430,6 +430,13 @@
   "meetingPackageHint": "미팅 패키지를 선택해주세요",
   "instructor": "강사",
   "noPackage": "패키지 선택 안함",
+  "latestVersion": "최신 버전",
+  "updateNow": "업데이트",
+  "skip": "다음에 할래요",
+  "exitApp": "나가기",
+  "appUpdateContent": "새로운 버전이 업데이트 되었어요! 안정적인 서비스 사용을 위해 최신 버전으로 업데이트해주세요.",
+
+
 
 
 

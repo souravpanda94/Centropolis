@@ -432,6 +432,11 @@
   "meetingPackageHint": "Please select a meeting package",
   "instructor": "Instructor",
   "noPackage": "No Package",
+  "latestVersion": "Latest Version",
+  "updateNow": "Update Now",
+  "skip": "Skip",
+  "exitApp": "Exit App",
+  "appUpdateContent": "You are using older version of the application. Please update your app to take advantages of the latest features.",
 
 
 
