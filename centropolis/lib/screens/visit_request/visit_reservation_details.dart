@@ -6,7 +6,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import '../../models/user_info_model.dart';
 import '../../models/visit_reservation_detail_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../providers/visit_reservation_detail_provider.dart';
 import '../../services/api_service.dart';
@@ -41,6 +43,7 @@ class _VisitReservationDetailsScreenState
   bool isLoading = false;
   VisitReservationDetailModel? visitReservationDetailModel;
   bool isLoadingRequired = false;
+  String accountType = "";
 
   @override
   void initState() {
@@ -51,6 +54,7 @@ class _VisitReservationDetailsScreenState
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     userType = user.userData['user_type'].toString();
+    loadPersonalInformation();
     loadVisitReservationDetails();
   }
 
@@ -570,7 +574,8 @@ class _VisitReservationDetailsScreenState
                   color: CustomColors.backgroundColor,
                   margin: const EdgeInsets.only(top: 20, bottom: 20),
                 ),
-                if (userType == "tenant_admin" &&
+                if ((accountType == "tenant_manager" ||
+                        accountType == "tenant_visitor_employee") &&
                     ((visitReservationDetailModel?.status ==
                         "request_for_approval")))
                   Container(
@@ -682,7 +687,7 @@ class _VisitReservationDetailsScreenState
                       ],
                     ),
                   ),
-                if (userType == "tenant_admin" &&
+                if (accountType == "tenant_manager" &&
                     visitReservationDetailModel?.status == "approved")
                   Container(
                       margin: const EdgeInsets.only(
@@ -705,7 +710,7 @@ class _VisitReservationDetailsScreenState
                             "visit_completed" ||
                         visitReservationDetailModel?.status == "using" ||
                         visitReservationDetailModel?.status == "cancelled") &&
-                    userType == "tenant_admin")
+                    accountType == "tenant_manager")
                   Container(
                       margin: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 25),
@@ -719,7 +724,7 @@ class _VisitReservationDetailsScreenState
                         buttonBorderColor: CustomColors.dividerGreyColor,
                         buttonTextColor: CustomColors.textColor5,
                       )),
-                if (userType != "tenant_admin")
+                if (accountType != "tenant_manager")
                   Container(
                       margin: const EdgeInsets.only(
                           left: 16.0, right: 16.0, bottom: 25),
@@ -885,5 +890,56 @@ class _VisitReservationDetailsScreenState
     } else {
       return CustomColors.textColorBlack2;
     }
+  }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+
+          setState(() {
+            accountType = userInfoModel.accountType.toString();
+          });
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }
