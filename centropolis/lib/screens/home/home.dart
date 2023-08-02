@@ -504,18 +504,18 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void goToQrCodeScreen() {
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const BarCodeScreen(),
-    //   ),
-    // );
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const AppUpdateScreen(),
+        builder: (context) => const BarCodeScreen(),
       ),
     );
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const AppUpdateScreen(),
+    //   ),
+    // );
   }
 
   void goToNotificationScreen() {
