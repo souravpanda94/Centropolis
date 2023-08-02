@@ -1,4 +1,9 @@
+import 'package:centropolis/utils/custom_colors.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+
+import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_border.dart';
 
 class AppUpdateScreen extends StatefulWidget {
   const AppUpdateScreen({super.key});
@@ -8,18 +13,80 @@ class AppUpdateScreen extends StatefulWidget {
 }
 
 class _AppUpdateScreenState extends State<AppUpdateScreen> {
+  bool forceUpdateFlag = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            Image.asset(
-              'assets/images/centropolis_logo.png',
-              height: 69,
-              fit: BoxFit.fill,
+      backgroundColor: CustomColors.whiteColor,
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            width: double.infinity,
+            color: CustomColors.whiteColor,
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/images/centropolis_logo.png',
+                  height: 69,
+                  fit: BoxFit.fill,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Text(
+                  "${tr("latestVersion")} 1.1.2",
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 14,
+                      color: CustomColors.greyColor1),
+                ),
+                Container(
+                  width: double.infinity,
+                  color: CustomColors.whiteColor,
+                  margin: const EdgeInsets.symmetric(vertical: 40),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 18),
+                  child: Text(
+                    tr("appUpdateContent"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        height: 1.5,
+                        color: CustomColors.greyColor1),
+                  ),
+                ),
+                CommonButton(
+                  onCommonButtonTap: () {
+                    // update to latest version
+                  },
+                  buttonColor: CustomColors.buttonBackgroundColor,
+                  buttonName: tr("updateNow"),
+                  isIconVisible: false,
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                CommonButtonWithBorder(
+                    onCommonButtonTap: () {
+                      if (forceUpdateFlag) {
+                        // force update to latest version
+                      } else {
+                        Navigator.pop(context);
+                      }
+                    },
+                    buttonName: forceUpdateFlag ? tr("exitApp") : tr("skip"),
+                    buttonColor: CustomColors.whiteColor,
+                    buttonBorderColor: CustomColors.buttonBackgroundColor,
+                    buttonTextColor: CustomColors.buttonBackgroundColor),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );

@@ -30,6 +30,7 @@ import '../amenity/lounge_reservation.dart';
 import '../amenity/sleeping_room_reservation.dart';
 import 'package:http/http.dart' as http;
 import 'bar_code.dart';
+import 'app_update.dart';
 import 'notifications.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -503,10 +504,16 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void goToQrCodeScreen() {
+    // Navigator.push(
+    //   context,
+    //   MaterialPageRoute(
+    //     builder: (context) => const BarCodeScreen(),
+    //   ),
+    // );
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const BarCodeScreen(),
+        builder: (context) => const AppUpdateScreen(),
       ),
     );
   }
