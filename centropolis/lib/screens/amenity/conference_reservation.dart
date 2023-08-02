@@ -660,9 +660,10 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          meetingPackageList.isNotEmpty
-              ? meetingPackageList.first["package_name"]
-              : tr('meetingPackageHint'),
+          tr('meetingPackageHint'),
+          // meetingPackageList.isNotEmpty
+          //     ? meetingPackageList.first["package_name"]
+          //     : tr('meetingPackageHint'),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -994,8 +995,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
-    } else if (meetingPackageSelectedValue == null &&
-        meetingPackageList.isEmpty) {
+    } else if (meetingPackageSelectedValue == null ||
+        meetingPackageSelectedValue == "") {
       showErrorModal(tr("meetingPackageHint"));
     } else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
