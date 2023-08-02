@@ -12,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 import 'package:provider/provider.dart';
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
@@ -67,6 +68,7 @@ class _HomeScreenState extends State<HomeScreen> {
   String deviceType = '';
   String deviceId = '';
   String fcmToken = '';
+  String appVersion = "";
 
   @override
   void initState() {
@@ -78,7 +80,10 @@ class _HomeScreenState extends State<HomeScreen> {
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     // setFirebase();
+    getAppVersion();
+
     loadPersonalInformation();
+    loadFetchAppUpdateDetails();
   }
 
   @override
@@ -510,12 +515,6 @@ class _HomeScreenState extends State<HomeScreen> {
         builder: (context) => const BarCodeScreen(),
       ),
     );
-    // Navigator.push(
-    //   context,
-    //   MaterialPageRoute(
-    //     builder: (context) => const AppUpdateScreen(),
-    //   ),
-    // );
   }
 
   void goToNotificationScreen() {
@@ -730,6 +729,93 @@ class _HomeScreenState extends State<HomeScreen> {
       setState(() {
         isLoading = false;
       });
+    });
+  }
+
+  void loadFetchAppUpdateDetails() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadFetchAppUpdateDetailsApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadFetchAppUpdateDetailsApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    debugPrint("user appVersion  ==> $appVersion");
+
+    debugPrint("FetchAppUpdateDetail input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.appUpdateUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for FetchAppUpdateDetail ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          int userAppVersion = getExtendedVersionNumber(appVersion);
+          int minAppVersion = getExtendedVersionNumber(Platform.isAndroid
+              ? responseJson["minimum_android_version"]
+              : responseJson["minimum_ios_version"]);
+          int latestAppVersion = getExtendedVersionNumber(Platform.isAndroid
+              ? responseJson["latest_android_version"]
+              : responseJson["latest_ios_version"]);
+
+          if (userAppVersion < minAppVersion) {
+            //Force update
+            Navigator.pushReplacement(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppUpdateScreen(
+                    forceUpdateFlag: true,
+                    latestVersion: Platform.isAndroid
+                        ? responseJson["latest_android_version"]
+                        : responseJson["latest_ios_version"]),
+              ),
+            );
+          } else if (userAppVersion > minAppVersion &&
+              userAppVersion < latestAppVersion) {
+            //Normal update
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => AppUpdateScreen(
+                    forceUpdateFlag: false,
+                    latestVersion: Platform.isAndroid
+                        ? responseJson["latest_android_version"]
+                        : responseJson["latest_ios_version"]),
+              ),
+            );
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void getAppVersion() async {
+    PackageInfo packageInfo = await PackageInfo.fromPlatform();
+    String version = packageInfo.version;
+    setState(() {
+      appVersion = version;
     });
   }
 

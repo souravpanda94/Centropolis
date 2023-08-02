@@ -1,19 +1,26 @@
 import 'package:centropolis/utils/custom_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
 
 class AppUpdateScreen extends StatefulWidget {
-  const AppUpdateScreen({super.key});
+  final bool forceUpdateFlag;
+  final String latestVersion;
+  const AppUpdateScreen(
+      {super.key, required this.forceUpdateFlag, required this.latestVersion});
 
   @override
   State<AppUpdateScreen> createState() => _AppUpdateScreenState();
 }
 
 class _AppUpdateScreenState extends State<AppUpdateScreen> {
-  bool forceUpdateFlag = false;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +46,7 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                   height: 16,
                 ),
                 Text(
-                  "${tr("latestVersion")} 1.1.2",
+                  "${tr("latestVersion")} ${widget.latestVersion}",
                   style: const TextStyle(
                       fontFamily: 'Regular',
                       fontSize: 14,
@@ -74,13 +81,14 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                 ),
                 CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      if (forceUpdateFlag) {
-                        // force update to latest version
+                      if (widget.forceUpdateFlag) {
+                        // exit app
                       } else {
                         Navigator.pop(context);
                       }
                     },
-                    buttonName: forceUpdateFlag ? tr("exitApp") : tr("skip"),
+                    buttonName:
+                        widget.forceUpdateFlag ? tr("exitApp") : tr("skip"),
                     buttonColor: CustomColors.whiteColor,
                     buttonBorderColor: CustomColors.buttonBackgroundColor,
                     buttonTextColor: CustomColors.buttonBackgroundColor),
