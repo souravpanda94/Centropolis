@@ -70,7 +70,7 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                 ),
                 CommonButton(
                   onCommonButtonTap: () {
-                    // update to latest version
+                    // update to latest version play store link
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("updateNow"),

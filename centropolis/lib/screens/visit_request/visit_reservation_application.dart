@@ -62,6 +62,7 @@ class _VisitReservationApplicationState
   String visitedPersonId = "";
   String visitedPersonCompanyId = "";
   bool isLoadingRequired = false;
+  bool tooltip = false;
 
   @override
   void initState() {
@@ -610,8 +611,29 @@ class _VisitReservationApplicationState
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
+                            onTap: () {
+                              setState(() {
+                                tooltip = true;
+                              });
+                            },
+                            onTapOutside: (event) {
+                              setState(() {
+                                tooltip = false;
+                              });
+                            },
                           ),
                         ),
+                        if (tooltip)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              tr("contactTooltip"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.blackColor),
+                            ),
+                          ),
                         const SizedBox(
                           height: 14,
                         ),
