@@ -287,28 +287,30 @@ class _GXReservationState extends State<GXReservation> {
                                   ),
                                   Container(
                                     margin: const EdgeInsets.only(
-                                        left: 8, right: 8),
+                                        left: 4, right: 4),
                                     child: const VerticalDivider(
                                       color: CustomColors.borderColor,
                                     ),
                                   ),
-                                  Text(
-                                    gxReservationListItem?[index]
-                                            .programDaysData
-                                            .toString()
-                                            .trim() ??
-                                        "",
-                                    style: TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 12,
-                                        color:
-                                            // gxList[index]["status"] == "Active"
-                                            gxReservationListItem?[index]
-                                                        .status ==
-                                                    "receiving"
-                                                ? CustomColors.textColor3
-                                                : CustomColors
-                                                    .dividerGreyColor),
+                                  Flexible(
+                                    child: Text(
+                                      gxReservationListItem?[index]
+                                              .programDaysData
+                                              .toString()
+                                              .trim() ??
+                                          "",
+                                      style: TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 12,
+                                          color:
+                                              // gxList[index]["status"] == "Active"
+                                              gxReservationListItem?[index]
+                                                          .status ==
+                                                      "receiving"
+                                                  ? CustomColors.textColor3
+                                                  : CustomColors
+                                                      .dividerGreyColor),
+                                    ),
                                   ),
                                 ],
                               ),

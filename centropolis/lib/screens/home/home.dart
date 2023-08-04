@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
     getDeviceIdAndDeviceType();
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
+    debugPrint("apiKey :: $apiKey");
     // setFirebase();
     getAppVersion();
 

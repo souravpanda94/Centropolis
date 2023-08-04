@@ -420,6 +420,13 @@ class _VisitReservationApplicationState
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
+                            onTap: () {
+                              if (tooltip) {
+                                setState(() {
+                                  tooltip = false;
+                                });
+                              }
+                            },
                           ),
                         ),
                         const SizedBox(
@@ -449,41 +456,47 @@ class _VisitReservationApplicationState
                         SizedBox(
                           height: 46,
                           child: TextField(
-                            controller: companyNameController,
-                            cursorColor: CustomColors.textColorBlack2,
-                            keyboardType: TextInputType.text,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              fillColor: CustomColors.whiteColor,
-                              filled: true,
-                              contentPadding: const EdgeInsets.all(16),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: CustomColors.dividerGreyColor,
-                                    width: 1.0),
+                              controller: companyNameController,
+                              cursorColor: CustomColors.textColorBlack2,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                fillColor: CustomColors.whiteColor,
+                                filled: true,
+                                contentPadding: const EdgeInsets.all(16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
+                                ),
+                                hintText: tr('companyNameHint'),
+                                hintStyle: const TextStyle(
+                                  height: 1.5,
+                                  color: CustomColors.textColor3,
+                                  fontSize: 14,
+                                  fontFamily: 'Regular',
+                                ),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: CustomColors.dividerGreyColor,
-                                    width: 1.0),
-                              ),
-                              hintText: tr('companyNameHint'),
-                              hintStyle: const TextStyle(
+                              style: const TextStyle(
                                 height: 1.5,
-                                color: CustomColors.textColor3,
+                                color: CustomColors.blackColor,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
-                            ),
-                            style: const TextStyle(
-                              height: 1.5,
-                              color: CustomColors.blackColor,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
+                              onTap: () {
+                                if (tooltip) {
+                                  setState(() {
+                                    tooltip = false;
+                                  });
+                                }
+                              }),
                         ),
                         const SizedBox(
                           height: 14,
@@ -512,41 +525,47 @@ class _VisitReservationApplicationState
                         SizedBox(
                           height: 46,
                           child: TextField(
-                            controller: emailController,
-                            cursorColor: CustomColors.textColorBlack2,
-                            keyboardType: TextInputType.emailAddress,
-                            decoration: InputDecoration(
-                              border: InputBorder.none,
-                              fillColor: CustomColors.whiteColor,
-                              filled: true,
-                              contentPadding: const EdgeInsets.all(16),
-                              enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: CustomColors.dividerGreyColor,
-                                    width: 1.0),
+                              controller: emailController,
+                              cursorColor: CustomColors.textColorBlack2,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                fillColor: CustomColors.whiteColor,
+                                filled: true,
+                                contentPadding: const EdgeInsets.all(16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
+                                ),
+                                hintText: tr('emailDemoHint'),
+                                hintStyle: const TextStyle(
+                                  height: 1.5,
+                                  color: CustomColors.textColor3,
+                                  fontSize: 14,
+                                  fontFamily: 'Regular',
+                                ),
                               ),
-                              focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(4),
-                                borderSide: const BorderSide(
-                                    color: CustomColors.dividerGreyColor,
-                                    width: 1.0),
-                              ),
-                              hintText: tr('emailDemoHint'),
-                              hintStyle: const TextStyle(
+                              style: const TextStyle(
                                 height: 1.5,
-                                color: CustomColors.textColor3,
+                                color: CustomColors.blackColor,
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
-                            ),
-                            style: const TextStyle(
-                              height: 1.5,
-                              color: CustomColors.blackColor,
-                              fontSize: 14,
-                              fontFamily: 'Regular',
-                            ),
-                          ),
+                              onTap: () {
+                                if (tooltip) {
+                                  setState(() {
+                                    tooltip = false;
+                                  });
+                                }
+                              }),
                         ),
                         const SizedBox(
                           height: 14,

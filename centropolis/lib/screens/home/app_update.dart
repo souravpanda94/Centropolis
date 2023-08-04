@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:centropolis/utils/custom_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_exit_app/flutter_exit_app.dart';
 
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
@@ -83,7 +86,9 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                     onCommonButtonTap: () {
                       if (widget.forceUpdateFlag) {
                         // exit app
+                        closeApp();
                       } else {
+                        //skip
                         Navigator.pop(context);
                       }
                     },
@@ -98,5 +103,13 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
         ),
       ),
     );
+  }
+
+  void closeApp() {
+    if (Platform.isAndroid) {
+      SystemNavigator.pop();
+    } else if (Platform.isIOS) {
+      FlutterExitApp.exitApp(iosForceExit: true);
+    }
   }
 }
