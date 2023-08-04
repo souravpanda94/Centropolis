@@ -780,7 +780,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         : responseJson["latest_ios_version"]),
               ),
             );
-          } else if (userAppVersion > minAppVersion &&
+          } else if (userAppVersion >= minAppVersion &&
               userAppVersion < latestAppVersion) {
             //Normal update
             Navigator.push(
