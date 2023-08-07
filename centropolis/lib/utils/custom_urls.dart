@@ -31,6 +31,8 @@ class ApiEndPoint {
       "${baseUrl}v1/mypage/conference-list";
   static String getConferenceMeetingPackageListUrl =
       "${baseUrl}v1/common/conference-packages";
+  static String getConferenceRoomListUrl =
+      "${baseUrl}v1/common/conference-halls";
 
   static String getPtTimeListUrl = "${baseUrl}v1/common/pt-time";
   static String makePtReservation =
