@@ -288,6 +288,38 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
+                            tr("preferredConferenceRoom"),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColor8),
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            conferenceHistoryDetails?.conferenceRoom ?? "",
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor8),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Container(
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
                             tr("enterRentalInformation"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
