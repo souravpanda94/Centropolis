@@ -441,6 +441,8 @@
   "appUpdateContent": "You are using older version of the application.\nPlease update your app to take advantages of the latest features.",
   "contactTooltip": "Please enter the correct contact information. A visit approval QR will be texted to the entered contact information.",
   "numberOfUses": "Number of uses",
+  "preferredDate": "Preferred Date",
+  "preferredTime": "Preferred Time",
 
 
 

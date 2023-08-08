@@ -159,7 +159,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tr("selectReservationDate"),
+                      tr("preferredDate"),
                       style: const TextStyle(
                           fontFamily: 'SemiBold',
                           fontSize: 16,
@@ -186,7 +186,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      tr("timeSelection"),
+                      tr("preferredTime"),
                       style: const TextStyle(
                           fontFamily: 'SemiBold',
                           fontSize: 16,
