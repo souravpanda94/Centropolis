@@ -122,6 +122,16 @@ class _VisitReservationApplicationState
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
+                          tr("visitReservationApplicationInfo"),
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
                           tr("signUpConsent"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
