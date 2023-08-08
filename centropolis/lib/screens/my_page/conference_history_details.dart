@@ -255,7 +255,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            tr("meetingPackage"),
+                            tr("preferredConferenceRoom"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -267,8 +267,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             height: 8,
                           ),
                           Text(
-                            conferenceHistoryDetails?.packageName ??
-                                tr("noPackage"),
+                            conferenceHistoryDetails?.conferenceRoom ?? "",
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
@@ -288,7 +287,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            tr("preferredConferenceRoom"),
+                            tr("meetingPackage"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -300,7 +299,8 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                             height: 8,
                           ),
                           Text(
-                            conferenceHistoryDetails?.conferenceRoom ?? "",
+                            conferenceHistoryDetails?.packageName ??
+                                tr("noPackage"),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
