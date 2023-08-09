@@ -121,12 +121,131 @@ class _VisitReservationApplicationState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          tr("visitReservationApplicationInfo"),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
+                        Container(
+                          width: MediaQuery.of(context).size.width,
+                          padding: const EdgeInsets.all(16),
+                          decoration: const BoxDecoration(
+                              color: CustomColors.backgroundColor,
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 9),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: CustomColors.textColorBlack2,
+                                      size: 5,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      tr("visitReservationApplicationInfo1"),
+                                      style: const TextStyle(
+                                          height: 1.5,
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 9),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: CustomColors.textColorBlack2,
+                                      size: 5,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      tr("visitReservationApplicationInfo2"),
+                                      style: const TextStyle(
+                                          height: 1.5,
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 9),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: CustomColors.textColorBlack2,
+                                      size: 5,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      tr("visitReservationApplicationInfo3"),
+                                      style: const TextStyle(
+                                          height: 1.5,
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              const SizedBox(
+                                height: 8,
+                              ),
+                              Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  const Padding(
+                                    padding: EdgeInsets.only(top: 9),
+                                    child: Icon(
+                                      Icons.circle,
+                                      color: CustomColors.textColorBlack2,
+                                      size: 5,
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 8,
+                                  ),
+                                  Flexible(
+                                    child: Text(
+                                      tr("visitReservationApplicationInfo4"),
+                                      style: const TextStyle(
+                                          height: 1.5,
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                         const SizedBox(
                           height: 8,

@@ -443,7 +443,10 @@
   "numberOfUses": "Number of uses",
   "preferredDate": "Preferred Date",
   "preferredTime": "Preferred Time",
-  "visitReservationApplicationInfo": "When applying for visit registration, a visit approval QR will be sent via text message to your phone number. Please tag the QR at the information desk on the day of your visit and receive an access card. Please enter accurate visitor information.When visiting Centropolis building, please note visit approval QR is mandatory.",
+  "visitReservationApplicationInfo1": "When applying for visit registration, a visit approval QR will be sent via text message to your phone number.",
+  "visitReservationApplicationInfo2": "Please tag the QR at the information desk on the day of your visit and receive an access card.",
+  "visitReservationApplicationInfo3": "Please enter accurate visitor information.",
+  "visitReservationApplicationInfo4": "When visiting Centropolis building, please note visit approval QR is mandatory.",
 
 
 

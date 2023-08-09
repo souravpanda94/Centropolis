@@ -1167,12 +1167,12 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
-    } else if (meetingPackageSelectedValue == null ||
-        meetingPackageSelectedValue == "") {
-      showErrorModal(tr("meetingPackageHint"));
     } else if (conferenceRoomSelectedValue == null ||
         conferenceRoomSelectedValue == "") {
       showErrorModal(tr("preferredConferenceRoomHint"));
+    } else if (meetingPackageSelectedValue == null ||
+        meetingPackageSelectedValue == "") {
+      showErrorModal(tr("meetingPackageHint"));
     } else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (!isChecked) {
