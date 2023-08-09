@@ -65,6 +65,7 @@ dependencies:
   firebase_analytics: ^10.4.3
   device_info_plus: ^9.0.2
   flutter_exit_app: ^1.1.2
+  flutter_rating_bar: ^4.0.1
 
 
 dev_dependencies:

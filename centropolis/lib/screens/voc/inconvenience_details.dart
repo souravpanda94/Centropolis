@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
@@ -17,6 +18,8 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_button.dart';
+import '../../widgets/rating_modal.dart';
 
 class InconvenienceDetails extends StatefulWidget {
   final String inquiryId;
@@ -283,12 +286,12 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
-                margin: complaintsReceivedDetails?.status
-                            .toString()
-                            .toLowerCase() ==
-                        "answered"
-                    ? null
-                    : const EdgeInsets.only(bottom: 120),
+                // margin: complaintsReceivedDetails?.status
+                //             .toString()
+                //             .toLowerCase() ==
+                //         "answered"
+                //     ? null
+                //     : const EdgeInsets.only(bottom: 120),
                 width: MediaQuery.of(context).size.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -339,7 +342,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                 Container(
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(bottom: 150),
+                  //margin: const EdgeInsets.only(bottom: 150),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -364,6 +367,97 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                             color: CustomColors.textColor8),
                       ),
                     ],
+                  ),
+                ),
+              if (complaintsReceivedDetails?.rating != "null" &&
+                  complaintsReceivedDetails?.rating != null &&
+                  complaintsReceivedDetails!.rating
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("inquiryRating"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      IgnorePointer(
+                        child: RatingBar(
+                          itemSize: 32,
+                          wrapAlignment: WrapAlignment.center,
+                          initialRating: complaintsReceivedDetails?.rating !=
+                                  null
+                              ? double.parse(complaintsReceivedDetails!.rating!)
+                              : 0.0,
+                          direction: Axis.horizontal,
+                          allowHalfRating: false,
+                          itemCount: 5,
+                          ratingWidget: RatingWidget(
+                            full: Image.asset(
+                              "assets/images/full_star.png",
+                              height: 32,
+                              width: 32,
+                            ),
+                            half: Image.asset(
+                              "assets/images/half_star.png",
+                              height: 32,
+                              width: 32,
+                            ),
+                            empty: Image.asset(
+                              "assets/images/empty_star.png",
+                              height: 32,
+                              width: 32,
+                            ),
+                          ),
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          onRatingUpdate: (double value) {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              if (complaintsReceivedDetails?.rating != "null" &&
+                  complaintsReceivedDetails?.rating != null &&
+                  complaintsReceivedDetails!.rating
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+              if (complaintsReceivedDetails?.canRate
+                      .toString()
+                      .trim()
+                      .toLowerCase() ==
+                  "y")
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(
+                      left: 16, top: 16, right: 16, bottom: 40),
+                  child: CommonButton(
+                    onCommonButtonTap: () {
+                      showRatingModal();
+                    },
+                    buttonColor: CustomColors.buttonBackgroundColor,
+                    buttonName: tr("rateUs"),
+                    isIconVisible: false,
                   ),
                 ),
             ],
@@ -439,5 +533,80 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
     } else {
       return CustomColors.textColorBlack2;
     }
+  }
+
+  void showRatingModal() {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return RatingModal(
+            heading: tr('rateUs'),
+            description: tr('rateUsDescription'),
+            firstButtonName: tr('cancel'),
+            secondButtonName: tr('rateUsSubmit'),
+            onFirstBtnTap: () {
+              Navigator.pop(context);
+            },
+            onSecondBtnTap: (complaintRating) {
+              debugPrint("complaintRating :: $complaintRating");
+              if (complaintRating != 0.0) {
+                networkCheckForSaveComplaintRating(complaintRating);
+              }
+            },
+          );
+        });
+  }
+
+  void networkCheckForSaveComplaintRating(complaintRating) async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callSaveComplaintRatingApi(complaintRating);
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callSaveComplaintRatingApi(complaintRating) {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "complaint_id": widget.inquiryId.toString().trim(),
+      "rating": complaintRating.toString().trim()
+    };
+
+    debugPrint("SaveComplaintRating input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.saveComplaintRatingUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for SaveComplaintRating ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          Navigator.pop(context);
+          loadComplaintsReceivedDetails();
+          showCustomToast(
+              fToast, context, responseJson['message'].toString(), "");
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }
