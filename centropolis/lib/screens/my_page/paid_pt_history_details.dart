@@ -195,7 +195,7 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            tr("reservationDate"),
+                            tr("prefferedDateTime"),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -268,8 +268,10 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                             height: 8,
                           ),
                           Text(
-                            paidPtHistoryDetailModel?.usageCount.toString() ??
-                                "",
+                            formatNumberStringWithComma(paidPtHistoryDetailModel
+                                    ?.usageCount
+                                    .toString() ??
+                                ""),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
