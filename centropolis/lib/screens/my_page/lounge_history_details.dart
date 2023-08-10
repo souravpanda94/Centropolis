@@ -269,39 +269,39 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: loungeHistoryDetailModel?.canCancel
-                    .toString()
-                    .toLowerCase()
-                    .trim() ==
-                "y"
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    left: 16, top: 16, right: 16, bottom: 40),
-                child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {
-                      if (loungeHistoryDetailModel?.canCancelButtonEnabled
-                              .toString()
-                              .toLowerCase()
-                              .trim() ==
-                          "y") {
-                        networkCheckForCancelReservation();
-                      }
-                    },
-                    buttonBorderColor: CustomColors.dividerGreyColor,
-                    buttonColor: CustomColors.whiteColor,
-                    buttonName: tr("cancelReservation"),
-                    buttonTextColor: loungeHistoryDetailModel
-                                ?.canCancelButtonEnabled
-                                .toString()
-                                .toLowerCase()
-                                .trim() ==
-                            "n"
-                        ? CustomColors.textColor5.withOpacity(0.3)
-                        : CustomColors.textColor5),
-              )
-            : null,
+        // bottomSheet: loungeHistoryDetailModel?.canCancel
+        //             .toString()
+        //             .toLowerCase()
+        //             .trim() ==
+        //         "y"
+        //     ? Container(
+        //         width: MediaQuery.of(context).size.width,
+        //         color: CustomColors.whiteColor,
+        //         padding: const EdgeInsets.only(
+        //             left: 16, top: 16, right: 16, bottom: 40),
+        //         child: CommonButtonWithBorder(
+        //             onCommonButtonTap: () {
+        //               if (loungeHistoryDetailModel?.canCancelButtonEnabled
+        //                       .toString()
+        //                       .toLowerCase()
+        //                       .trim() ==
+        //                   "y") {
+        //                 networkCheckForCancelReservation();
+        //               }
+        //             },
+        //             buttonBorderColor: CustomColors.dividerGreyColor,
+        //             buttonColor: CustomColors.whiteColor,
+        //             buttonName: tr("cancelReservation"),
+        //             buttonTextColor: loungeHistoryDetailModel
+        //                         ?.canCancelButtonEnabled
+        //                         .toString()
+        //                         .toLowerCase()
+        //                         .trim() ==
+        //                     "n"
+        //                 ? CustomColors.textColor5.withOpacity(0.3)
+        //                 : CustomColors.textColor5),
+        //       )
+        //     : null,
       ),
     );
   }

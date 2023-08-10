@@ -186,15 +186,15 @@ class _LoungeScreenState extends State<LoungeScreen> {
                     onCommonButtonTap: () {
                       if (accountType == "tenant_manager" ||
                           accountType == "tenant_lounge_employee") {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const LoungeReservation(),
+                          ),
+                        );
                       } else {
                         showErrorModal(tr("accessDenied"));
                       }
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoungeReservation(),
-                        ),
-                      );
                     },
                     buttonColor: CustomColors.buttonBackgroundColor,
                     buttonName: tr("makeALoungeReservation"),

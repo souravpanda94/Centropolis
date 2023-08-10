@@ -315,6 +315,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                     Container(
                       color: CustomColors.whiteColor,
                       padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.only(bottom: 100),
                       width: MediaQuery.of(context).size.width,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -358,39 +359,39 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
-        bottomSheet: conferenceHistoryDetails?.canCancel
-                    .toString()
-                    .toLowerCase()
-                    .trim() ==
-                "y"
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    left: 16, top: 16, right: 16, bottom: 40),
-                child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {
-                      if (conferenceHistoryDetails?.canCancelButtonEnabled
-                              .toString()
-                              .toLowerCase()
-                              .trim() ==
-                          "y") {
-                        networkCheckForCancelReservation();
-                      }
-                    },
-                    buttonBorderColor: CustomColors.dividerGreyColor,
-                    buttonColor: CustomColors.whiteColor,
-                    buttonName: tr("cancelReservation"),
-                    buttonTextColor: conferenceHistoryDetails
-                                ?.canCancelButtonEnabled
-                                .toString()
-                                .toLowerCase()
-                                .trim() ==
-                            "n"
-                        ? CustomColors.textColor5.withOpacity(0.3)
-                        : CustomColors.textColor5),
-              )
-            : null,
+        // bottomSheet: conferenceHistoryDetails?.canCancel
+        //             .toString()
+        //             .toLowerCase()
+        //             .trim() ==
+        //         "y"
+        //     ? Container(
+        //         width: MediaQuery.of(context).size.width,
+        //         color: CustomColors.whiteColor,
+        //         padding: const EdgeInsets.only(
+        //             left: 16, top: 16, right: 16, bottom: 40),
+        //         child: CommonButtonWithBorder(
+        //             onCommonButtonTap: () {
+        //               if (conferenceHistoryDetails?.canCancelButtonEnabled
+        //                       .toString()
+        //                       .toLowerCase()
+        //                       .trim() ==
+        //                   "y") {
+        //                 networkCheckForCancelReservation();
+        //               }
+        //             },
+        //             buttonBorderColor: CustomColors.dividerGreyColor,
+        //             buttonColor: CustomColors.whiteColor,
+        //             buttonName: tr("cancelReservation"),
+        //             buttonTextColor: conferenceHistoryDetails
+        //                         ?.canCancelButtonEnabled
+        //                         .toString()
+        //                         .toLowerCase()
+        //                         .trim() ==
+        //                     "n"
+        //                 ? CustomColors.textColor5.withOpacity(0.3)
+        //                 : CustomColors.textColor5),
+        //       )
+        //     : null,
       ),
     );
   }
