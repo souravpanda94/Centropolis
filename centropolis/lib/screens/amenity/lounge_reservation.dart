@@ -809,7 +809,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
         setState(() {
           focusedDate = focusedDay;
           selectedDate = selectedDay;
+          usageTimeSelectedValue = null;
+          startTimeSelectedValue = null;
+          endTimeSelectedValue = null;
         });
+        loadUsageTimeList();
       },
       onFormatChanged: (format) {
         if (selectedCalendarFormat != format) {
