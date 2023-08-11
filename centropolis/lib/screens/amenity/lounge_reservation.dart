@@ -365,6 +365,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
         items: usageTimeList
             .map(
               (item) => DropdownMenuItem<String>(
+                enabled: item["available"] ? true : false,
                 value: item["value"],
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -374,8 +375,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       padding: const EdgeInsets.only(left: 12, bottom: 9),
                       child: Text(
                         item["text"],
-                        style: const TextStyle(
-                          color: CustomColors.blackColor,
+                        style: TextStyle(
+                          color: item["available"]
+                              ? CustomColors.blackColor
+                              : CustomColors.textColor3,
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
@@ -833,10 +836,27 @@ class _LoungeReservationState extends State<LoungeReservation> {
   }
 
   void callLoadUsageTimeListApi() {
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
+    }
+    debugPrint("Selected Date ====> $selectedDate");
     setState(() {
+      reservationDate = selectedDate;
       isLoading = true;
     });
-    Map<String, String> body = {};
+
+    Map<String, String> body = {"reservation_date": reservationDate.trim()};
 
     debugPrint("Usage Time List input===> $body");
 
