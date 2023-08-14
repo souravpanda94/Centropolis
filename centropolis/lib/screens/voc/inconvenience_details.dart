@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +7,6 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
-
 import '../../models/complaints_received_detail_model.dart';
 import '../../providers/complaints_received_detail_provider.dart';
 import '../../providers/user_provider.dart';
@@ -21,6 +19,8 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/rating_modal.dart';
 import 'complaints_received.dart';
+
+
 
 class InconvenienceDetails extends StatefulWidget {
   final String inquiryId;
@@ -35,6 +35,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
   late FToast fToast;
   bool isLoading = false;
   ComplaintsReceivedDetailsModel? complaintsReceivedDetails;
+  double ratingValue = 0.0;
 
   @override
   void initState() {
@@ -49,9 +50,16 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
 
   @override
   Widget build(BuildContext context) {
-    complaintsReceivedDetails =
-        Provider.of<ComplaintsReceivedDetailsProvider>(context)
-            .getComplaintsReceivedDetailModel;
+    complaintsReceivedDetails = Provider.of<ComplaintsReceivedDetailsProvider>(context).getComplaintsReceivedDetailModel;
+    if (complaintsReceivedDetails?.rating != "null" &&
+        complaintsReceivedDetails?.rating != null &&
+        complaintsReceivedDetails!.rating.toString().trim().isNotEmpty) {
+      ratingValue = double.parse(complaintsReceivedDetails!.rating!);
+    }
+    else{
+      ratingValue = 0.0;
+    }
+
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -370,12 +378,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     ],
                   ),
                 ),
-              if (complaintsReceivedDetails?.rating != "null" &&
-                  complaintsReceivedDetails?.rating != null &&
-                  complaintsReceivedDetails!.rating
-                      .toString()
-                      .trim()
-                      .isNotEmpty)
+
+
                 Container(
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.all(16),
@@ -399,10 +403,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                         child: RatingBar(
                           itemSize: 32,
                           wrapAlignment: WrapAlignment.center,
-                          initialRating: complaintsReceivedDetails?.rating !=
-                                  null
-                              ? double.parse(complaintsReceivedDetails!.rating!)
-                              : 0.0,
+                          initialRating: ratingValue,
                           direction: Axis.horizontal,
                           allowHalfRating: false,
                           itemCount: 5,
@@ -431,6 +432,9 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     ],
                   ),
                 ),
+
+
+
               if (complaintsReceivedDetails?.rating != "null" &&
                   complaintsReceivedDetails?.rating != null &&
                   complaintsReceivedDetails!.rating
