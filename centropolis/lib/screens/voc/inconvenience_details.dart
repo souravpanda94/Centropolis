@@ -20,8 +20,6 @@ import '../../widgets/common_button.dart';
 import '../../widgets/rating_modal.dart';
 import 'complaints_received.dart';
 
-
-
 class InconvenienceDetails extends StatefulWidget {
   final String inquiryId;
   const InconvenienceDetails({super.key, required this.inquiryId});
@@ -50,16 +48,16 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
 
   @override
   Widget build(BuildContext context) {
-    complaintsReceivedDetails = Provider.of<ComplaintsReceivedDetailsProvider>(context).getComplaintsReceivedDetailModel;
+    complaintsReceivedDetails =
+        Provider.of<ComplaintsReceivedDetailsProvider>(context)
+            .getComplaintsReceivedDetailModel;
     if (complaintsReceivedDetails?.rating != "null" &&
         complaintsReceivedDetails?.rating != null &&
         complaintsReceivedDetails!.rating.toString().trim().isNotEmpty) {
       ratingValue = double.parse(complaintsReceivedDetails!.rating!);
-    }
-    else{
+    } else {
       ratingValue = 0.0;
     }
-
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -378,74 +376,63 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     ],
                   ),
                 ),
-
-
-                Container(
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.all(16),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        tr("inquiryRating"),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 16,
-                            color: CustomColors.textColor8),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      IgnorePointer(
-                        child: RatingBar(
-                          itemSize: 32,
-                          wrapAlignment: WrapAlignment.center,
-                          initialRating: ratingValue,
-                          direction: Axis.horizontal,
-                          allowHalfRating: false,
-                          itemCount: 5,
-                          ratingWidget: RatingWidget(
-                            full: Image.asset(
-                              "assets/images/full_star.png",
-                              height: 32,
-                              width: 32,
-                            ),
-                            half: Image.asset(
-                              "assets/images/half_star.png",
-                              height: 32,
-                              width: 32,
-                            ),
-                            empty: Image.asset(
-                              "assets/images/empty_star.png",
-                              height: 32,
-                              width: 32,
-                            ),
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("inquiryRating"),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    IgnorePointer(
+                      child: RatingBar(
+                        itemSize: 32,
+                        wrapAlignment: WrapAlignment.center,
+                        initialRating: ratingValue,
+                        direction: Axis.horizontal,
+                        allowHalfRating: false,
+                        itemCount: 5,
+                        ratingWidget: RatingWidget(
+                          full: Image.asset(
+                            "assets/images/full_star.png",
+                            height: 32,
+                            width: 32,
                           ),
-                          itemPadding:
-                              const EdgeInsets.symmetric(horizontal: 4.0),
-                          onRatingUpdate: (double value) {},
+                          half: Image.asset(
+                            "assets/images/half_star.png",
+                            height: 32,
+                            width: 32,
+                          ),
+                          empty: Image.asset(
+                            "assets/images/empty_star.png",
+                            height: 32,
+                            width: 32,
+                          ),
                         ),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
+                        onRatingUpdate: (double value) {},
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
-
-
-
-              if (complaintsReceivedDetails?.rating != "null" &&
-                  complaintsReceivedDetails?.rating != null &&
-                  complaintsReceivedDetails!.rating
-                      .toString()
-                      .trim()
-                      .isNotEmpty)
-                Container(
-                  color: CustomColors.backgroundColor,
-                  width: MediaQuery.of(context).size.width,
-                  height: 8,
-                ),
+              ),
+              Container(
+                color: CustomColors.backgroundColor,
+                width: MediaQuery.of(context).size.width,
+                height: 8,
+              ),
               if (complaintsReceivedDetails?.canRate
                       .toString()
                       .trim()
