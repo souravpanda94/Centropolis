@@ -7,7 +7,7 @@
   "facilities" : "편의시설",
   "inconvenience" : "불편사항 접수",
   "lightOut" : "소등 연장 신청",
-  "airConditioning" : "냉 & 난방 신청",
+  "airConditioning" : "냉&난방 연장 신청",
   "loungeReservationComplete" : "라운지 예약 완료",
   "check" : "확인",
   "visitRequest" : "방문예약",
@@ -64,7 +64,7 @@
   "paidLockersReservationHome": "개인 사물함 예약",
   "customerComplaints" : "불편사항 접수",
   "requestForLightsOut" : "소등 신청",
-  "requestForHeatingAndCooling" : "냉 & 난방 신청",
+  "requestForHeatingAndCooling" : "냉&난방 연장 신청",
   "pleaseEnterPassword" : "계정을 확인하고 다시 시도해 주세요.",
   "pleaseCheckYourAccountAndTryAgain" : "계정을 확인하고 다시 시도해 주세요.",
   "thisIsAnUnapprovedAccount" : "승인되지 않은 계정입니다.",
@@ -182,7 +182,7 @@
   "capacityByType" : "타입별 수용인원",
   "makeConferenceRoomReservation" : "회의실 예약하기",
   "conferenceRoomReservation" : "회의실 예약",
-  "enterRentalInformation" : "대여 정보 입력",
+  "enterRentalInformation" : "상세 요청 사항",
   "conferenceReservationConsent" : "회의실 예약 규정에 동의합니다.",
   "rentalInformationHint" : "인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
   "conferenceReservationComplete" : "회의실 예약 문의가 접수되었습니다",
@@ -197,7 +197,7 @@
   "fitnessReservation" : "피트니스 예약",
   "gx" : "GX",
   "paidPT" : "유료 PT",
-  "paidLockers" : "유료 라커",
+  "paidLockers" : "개인 사물함",
   "programsAvailableForReservation" : "예약 가능한 프로그램",
   "gXReservation" : "GX 예약",
   "programInformation" : "프로그램 정보",
@@ -451,6 +451,8 @@
   "inquiryRating": "답변 만족도",
   "rateUsSubmit": "제출",
   "accessDenied": "접근 거부",
+  "airConditioningButtonName":"냉&난방 연장 신청",
+
 
 
 

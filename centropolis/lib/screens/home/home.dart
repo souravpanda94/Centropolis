@@ -380,7 +380,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onCommonButtonTap: () {
                                   goToLightOutRequestScreen();
                                 },
-                                buttonName: tr("requestForLightsOut"),
+                                buttonName: tr("lightOutDetail"),
                                 buttonColor:
                                     CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
