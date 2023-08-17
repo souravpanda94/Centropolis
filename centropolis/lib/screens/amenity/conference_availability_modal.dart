@@ -10,7 +10,8 @@ import '../../utils/custom_colors.dart';
 import '../../utils/utils.dart';
 
 class ConferenceAvailabilityModal extends StatefulWidget {
-  const ConferenceAvailabilityModal({super.key});
+  final Map<dynamic, dynamic> scheduleList;
+  const ConferenceAvailabilityModal({super.key, required this.scheduleList});
 
   @override
   State<ConferenceAvailabilityModal> createState() =>
@@ -30,6 +31,7 @@ class _ConferenceAvailabilityModalState
   @override
   void initState() {
     language = tr("lang");
+    debugPrint("scheduleList ::::   ${widget.scheduleList}");
     super.initState();
   }
 
@@ -48,7 +50,7 @@ class _ConferenceAvailabilityModalState
 
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+        padding: const EdgeInsets.only(left: 12, right: 12, bottom: 16),
         child: TableCalendar(
           shouldFillViewport: true,
           availableGestures: AvailableGestures.horizontalSwipe,
@@ -142,6 +144,9 @@ class _ConferenceAvailabilityModalState
           },
           calendarBuilders: CalendarBuilders(
             markerBuilder: (context, day, focusedDay) {
+              var stringDate =
+                  "${day.year}-${day.month.toString().length == 1 ? "0" : ""}${day.month}-${day.day.toString().length == 1 ? "0" : ""}${day.day}";
+              List<dynamic> eventList = widget.scheduleList[stringDate] ?? [];
               return Container(
                   width: 150,
                   height: 140,
@@ -173,29 +178,31 @@ class _ConferenceAvailabilityModalState
                       const SizedBox(
                         height: 8,
                       ),
-                      Expanded(
-                        child: ListView.separated(
-                            shrinkWrap: true,
-                            scrollDirection: Axis.vertical,
-                            itemBuilder: (context, index) {
-                              return const SizedBox(
-                                width: double.infinity,
-                                child: Text("10am Elapse Hotel",
-                                    textAlign: TextAlign.start,
-                                    style: TextStyle(
-                                      color: CustomColors.textColorBlack2,
-                                      fontFamily: 'Regular',
-                                      fontSize: 12,
-                                    )),
-                              );
-                            },
-                            separatorBuilder: (context, index) {
-                              return const SizedBox(
-                                height: 8,
-                              );
-                            },
-                            itemCount: 4),
-                      )
+                      if (eventList.isNotEmpty)
+                        Expanded(
+                          child: ListView.separated(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.vertical,
+                              itemBuilder: (context, index) {
+                                return SizedBox(
+                                  width: double.infinity,
+                                  child: Text(
+                                      "${DateFormat('hh:mm a').format(DateTime.parse("$stringDate ${eventList[index]["start_time"]}"))}  ${eventList[index]["conference_hall"]}",
+                                      textAlign: TextAlign.start,
+                                      style: const TextStyle(
+                                        color: CustomColors.textColorBlack2,
+                                        fontFamily: 'Regular',
+                                        fontSize: 12,
+                                      )),
+                                );
+                              },
+                              separatorBuilder: (context, index) {
+                                return const SizedBox(
+                                  height: 8,
+                                );
+                              },
+                              itemCount: eventList.length),
+                        )
                     ],
                   ));
             },
