@@ -20,7 +20,8 @@ class ConferenceAvailabilityModal extends StatefulWidget {
 class _ConferenceAvailabilityModalState
     extends State<ConferenceAvailabilityModal> {
   late String language;
-  DateTime kFirstDay = DateTime.now();
+  DateTime kFirstDay = DateTime(DateTime.now().year, DateTime.now().month,
+      Utils.firstDayOfMonth(DateTime.now()).day);
   DateTime kLastDay = DateTime(DateTime.now().year, DateTime.now().month,
       Utils.lastDayOfMonth(DateTime.now()).day);
   DateTime focusedDate = DateTime.now();
@@ -39,10 +40,10 @@ class _ConferenceAvailabilityModalState
         borderRadius: BorderRadius.circular(4),
       ),
       insetPadding: const EdgeInsets.only(
-        left: 18.0,
-        right: 18.0,
-        top: 50,
-        bottom: 50.0,
+        left: 10.0,
+        right: 10.0,
+        top: 30,
+        bottom: 30.0,
       ),
 
       child: Container(
@@ -110,25 +111,27 @@ class _ConferenceAvailabilityModalState
                 fontSize: 14,
               )),
           selectedDayPredicate: (day) {
-            if (isSameDay(day, focusedDate)) {
-              return true;
-            } else {
-              return false;
-            }
+            // if (isSameDay(day, focusedDate)) {
+            //   return true;
+            // } else {
+            //   return false;
+            // }
+            return false;
           },
           enabledDayPredicate: (day) {
-            if (day.weekday == DateTime.saturday ||
-                day.weekday == DateTime.sunday) {
-              return false;
-            } else if (day.day == kFirstDay.day &&
-                day.month == kFirstDay.month &&
-                day.year == kFirstDay.year) {
-              return true;
-            } else if (day.compareTo(kFirstDay) > 0) {
-              return true;
-            } else {
-              return false;
-            }
+            // if (day.weekday == DateTime.saturday ||
+            //     day.weekday == DateTime.sunday) {
+            //   return false;
+            // } else if (day.day == kFirstDay.day &&
+            //     day.month == kFirstDay.month &&
+            //     day.year == kFirstDay.year) {
+            //   return true;
+            // } else if (day.compareTo(kFirstDay) > 0) {
+            //   return true;
+            // } else {
+            //   return false;
+            // }
+            return true;
           },
           onFormatChanged: (format) {
             if (selectedCalendarFormat != format) {
@@ -138,37 +141,13 @@ class _ConferenceAvailabilityModalState
             }
           },
           calendarBuilders: CalendarBuilders(
-            todayBuilder: (context, day, focusedDay) {
-              debugPrint("day :: $day ::: focusedDay ::: $focusedDay");
-              return Container(
-                  width: 100,
-                  height: 140,
-                  padding: const EdgeInsets.all(10),
-                  decoration: BoxDecoration(
-                    color: CustomColors.backgroundColor3,
-                    border: Border.all(
-                      width: 0.5,
-                      color: CustomColors.borderColor,
-                    ),
-                  ),
-                  child: Text(
-                    getOrdinalDay(
-                        int.parse(DateFormat.d().format(day)), language),
-                    textAlign: TextAlign.end,
-                    style: const TextStyle(
-                      color: CustomColors.textColorBlack2,
-                      fontFamily: 'Regular',
-                      fontSize: 12,
-                    ),
-                  ));
-            },
             markerBuilder: (context, day, focusedDay) {
               return Container(
-                  width: 100,
+                  width: 150,
                   height: 140,
-                  padding: const EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(5),
                   decoration: BoxDecoration(
-                    color: day.day.compareTo(kFirstDay.day) == 0
+                    color: day.day.compareTo(DateTime.now().day) == 0
                         ? CustomColors.backgroundColor3
                         : CustomColors.whiteColor,
                     border: Border.all(
@@ -176,22 +155,55 @@ class _ConferenceAvailabilityModalState
                       color: CustomColors.borderColor,
                     ),
                   ),
-                  child: Text(
-                    getOrdinalDay(
-                        int.parse(DateFormat.d().format(day)), language),
-                    textAlign: TextAlign.end,
-                    style: const TextStyle(
-                      color: CustomColors.textColorBlack2,
-                      fontFamily: 'Regular',
-                      fontSize: 12,
-                    ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        child: Text(
+                            getOrdinalDay(int.parse(DateFormat.d().format(day)),
+                                language),
+                            textAlign: TextAlign.end,
+                            style: const TextStyle(
+                              color: CustomColors.textColorBlack2,
+                              fontFamily: 'Regular',
+                              fontSize: 12,
+                            )),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Expanded(
+                        child: ListView.separated(
+                            shrinkWrap: true,
+                            scrollDirection: Axis.vertical,
+                            itemBuilder: (context, index) {
+                              return const SizedBox(
+                                width: double.infinity,
+                                child: Text("10am Elapse Hotel",
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      color: CustomColors.textColorBlack2,
+                                      fontFamily: 'Regular',
+                                      fontSize: 12,
+                                    )),
+                              );
+                            },
+                            separatorBuilder: (context, index) {
+                              return const SizedBox(
+                                height: 8,
+                              );
+                            },
+                            itemCount: 4),
+                      )
+                    ],
                   ));
             },
             disabledBuilder: (context, day, focusedDay) {
               return Container(
-                width: 100,
+                width: 150,
                 height: 140,
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.all(5),
                 decoration: BoxDecoration(
                   color: CustomColors.whiteColor,
                   border: Border.all(
@@ -199,43 +211,17 @@ class _ConferenceAvailabilityModalState
                     color: CustomColors.borderColor,
                   ),
                 ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Text(
-                          getOrdinalDay(
-                              int.parse(DateFormat.d().format(day)), language),
-                          textAlign: TextAlign.end,
-                          style: const TextStyle(
-                            color: CustomColors.textColorBlack2,
-                            fontFamily: 'Regular',
-                            fontSize: 12,
-                          )),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      ListView.separated(
-                          physics: const NeverScrollableScrollPhysics(),
-                          shrinkWrap: true,
-                          scrollDirection: Axis.vertical,
-                          itemBuilder: (context, index) {
-                            return const Text("10am Elapse Hotel",
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                  color: CustomColors.textColorBlack2,
-                                  fontFamily: 'Regular',
-                                  fontSize: 12,
-                                ));
-                          },
-                          separatorBuilder: (context, index) {
-                            return const SizedBox(
-                              height: 8,
-                            );
-                          },
-                          itemCount: 4)
-                    ],
-                  ),
+                child: SizedBox(
+                  width: double.infinity,
+                  child: Text(
+                      getOrdinalDay(
+                          int.parse(DateFormat.d().format(day)), language),
+                      textAlign: TextAlign.end,
+                      style: const TextStyle(
+                        color: CustomColors.textColorBlack2,
+                        fontFamily: 'Regular',
+                        fontSize: 12,
+                      )),
                 ),
               );
             },

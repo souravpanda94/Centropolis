@@ -1342,6 +1342,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   viewConferenceReservationAvailibility() {
     showDialog(
         context: context,
+        useSafeArea: true,
         barrierColor: Colors.black12.withOpacity(0.6),
         barrierDismissible: true,
         barrierLabel: 'Dialog',
