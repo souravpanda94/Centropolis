@@ -21,6 +21,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
+import 'conference_availability_modal.dart';
 
 class ConferenceReservation extends StatefulWidget {
   const ConferenceReservation({super.key});
@@ -203,12 +204,29 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          tr("timeSelection"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              tr("timeSelection"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                viewConferenceReservationAvailibility();
+                              },
+                              child: Text(
+                                tr("viewCalendar"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor9),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 20,
@@ -1319,5 +1337,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         isLoading = false;
       });
     });
+  }
+
+  viewConferenceReservationAvailibility() {
+    showDialog(
+        context: context,
+        barrierColor: Colors.black12.withOpacity(0.6),
+        barrierDismissible: true,
+        barrierLabel: 'Dialog',
+        builder: (BuildContext context) {
+          return const ConferenceAvailabilityModal();
+        });
   }
 }

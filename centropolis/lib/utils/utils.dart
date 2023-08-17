@@ -250,3 +250,22 @@ int getExtendedVersionNumber(String version) {
   versionCells = versionCells.map((i) => int.parse(i)).toList();
   return versionCells[0] * 100000 + versionCells[1] * 1000 + versionCells[2];
 }
+
+String getOrdinalDay(int day, String language) {
+  if (language == 'ko') {
+    return '$day';
+  }
+  if (day == 11 || day == 12 || day == 13) {
+    return '${day}th';
+  }
+  if (day % 10 == 1) {
+    return '${day}st';
+  }
+  if (day % 10 == 2) {
+    return '${day}nd';
+  }
+  if (day % 10 == 3) {
+    return '${day}rd';
+  }
+  return '${day}th';
+}
