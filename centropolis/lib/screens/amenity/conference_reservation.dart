@@ -21,6 +21,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
+import 'conference_availability_modal.dart';
 
 class ConferenceReservation extends StatefulWidget {
   const ConferenceReservation({super.key});
@@ -51,6 +52,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   List<dynamic> timeList = [];
   List<dynamic> meetingPackageList = [];
   List<dynamic> conferenceRoomList = [];
+  Map<dynamic, dynamic> conferenceRoomScheduleList = {};
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
 
@@ -70,6 +72,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     loadTimeList();
     loadMeetingPackageList();
     loadConferenceRoomList();
+    loadConferenceSchedule();
   }
 
   @override
@@ -203,12 +206,29 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          tr("timeSelection"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              tr("timeSelection"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            InkWell(
+                              onTap: () {
+                                viewConferenceReservationAvailibility();
+                              },
+                              child: Text(
+                                tr("viewCalendar"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor9),
+                              ),
+                            ),
+                          ],
                         ),
                         const SizedBox(
                           height: 20,
@@ -1139,6 +1159,56 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     });
   }
 
+  void loadConferenceSchedule() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadloadConferenceScheduleApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadloadConferenceScheduleApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getConferenceRoomScheduleUrl,
+        body,
+        language.toString(),
+        apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint(
+          "ConferenceRoom Schedule responseJson ================> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['inquiry_data'] != null) {
+            setState(() {
+              conferenceRoomScheduleList = responseJson['inquiry_data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   void reservationValidationCheck() {
     String selectedDate = "";
     String day = focusedDate.day.toString();
@@ -1319,5 +1389,20 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         isLoading = false;
       });
     });
+  }
+
+  viewConferenceReservationAvailibility() {
+    hideKeyboard();
+    showDialog(
+        context: context,
+        useSafeArea: true,
+        barrierColor: Colors.black12.withOpacity(0.6),
+        barrierDismissible: true,
+        barrierLabel: 'Dialog',
+        builder: (BuildContext context) {
+          return ConferenceAvailabilityModal(
+            scheduleList: conferenceRoomScheduleList,
+          );
+        });
   }
 }

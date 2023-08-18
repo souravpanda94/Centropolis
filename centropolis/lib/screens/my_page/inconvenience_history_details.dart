@@ -38,6 +38,7 @@ class _InconvenienceHistoryDetailsState
   bool isLoading = false;
   ComplaintsReceivedDetailsModel? complaintsReceivedDetails;
   bool isLoadingRequired = false;
+  double ratingValue = 0.0;
 
   @override
   void initState() {
@@ -55,6 +56,14 @@ class _InconvenienceHistoryDetailsState
     complaintsReceivedDetails =
         Provider.of<ComplaintsReceivedDetailsProvider>(context)
             .getComplaintsReceivedDetailModel;
+
+    if (complaintsReceivedDetails?.rating != "null" &&
+        complaintsReceivedDetails?.rating != null &&
+        complaintsReceivedDetails!.rating.toString().trim().isNotEmpty) {
+      ratingValue = double.parse(complaintsReceivedDetails!.rating!);
+    } else {
+      ratingValue = 0.0;
+    }
     return Scaffold(
       backgroundColor: CustomColors.whiteColor,
       appBar: PreferredSize(
@@ -369,71 +378,62 @@ class _InconvenienceHistoryDetailsState
                 width: MediaQuery.of(context).size.width,
                 height: 8,
               ),
-            if (complaintsReceivedDetails?.rating.toString() != "null" &&
-                complaintsReceivedDetails?.rating.toString() != null &&
-                complaintsReceivedDetails!.rating.toString().isNotEmpty)
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("inquiryRating"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    IgnorePointer(
-                      child: RatingBar(
-                        itemSize: 32,
-                        wrapAlignment: WrapAlignment.center,
-                        initialRating: complaintsReceivedDetails?.rating != null
-                            ? double.parse(complaintsReceivedDetails!.rating!)
-                            : 0.0,
-                        direction: Axis.horizontal,
-                        allowHalfRating: false,
-                        itemCount: 5,
-                        ratingWidget: RatingWidget(
-                          full: Image.asset(
-                            "assets/images/full_star.png",
-                            height: 32,
-                            width: 32,
-                          ),
-                          half: Image.asset(
-                            "assets/images/half_star.png",
-                            height: 32,
-                            width: 32,
-                          ),
-                          empty: Image.asset(
-                            "assets/images/empty_star.png",
-                            height: 32,
-                            width: 32,
-                          ),
+            Container(
+              color: CustomColors.whiteColor,
+              padding: const EdgeInsets.all(16),
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    tr("inquiryRating"),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColor8),
+                  ),
+                  const SizedBox(
+                    height: 8,
+                  ),
+                  IgnorePointer(
+                    child: RatingBar(
+                      itemSize: 32,
+                      wrapAlignment: WrapAlignment.center,
+                      initialRating: ratingValue,
+                      direction: Axis.horizontal,
+                      allowHalfRating: false,
+                      itemCount: 5,
+                      ratingWidget: RatingWidget(
+                        full: Image.asset(
+                          "assets/images/full_star.png",
+                          height: 32,
+                          width: 32,
                         ),
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
-                        onRatingUpdate: (double value) {},
+                        half: Image.asset(
+                          "assets/images/half_star.png",
+                          height: 32,
+                          width: 32,
+                        ),
+                        empty: Image.asset(
+                          "assets/images/empty_star.png",
+                          height: 32,
+                          width: 32,
+                        ),
                       ),
+                      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                      onRatingUpdate: (double value) {},
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            if (complaintsReceivedDetails?.rating.toString() != "null" &&
-                complaintsReceivedDetails?.rating.toString() != null &&
-                complaintsReceivedDetails!.rating.toString().isNotEmpty)
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
+            ),
+            Container(
+              color: CustomColors.backgroundColor,
+              width: MediaQuery.of(context).size.width,
+              height: 8,
+            ),
             Container(
               width: MediaQuery.of(context).size.width,
               color: CustomColors.whiteColor,
