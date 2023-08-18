@@ -71,7 +71,7 @@ class _ConferenceAvailabilityModalState
                 scrollDirection: Axis.vertical,
                 controller: controller,
                 child: SizedBox(
-                  width: 600,
+                  width: 690,
                   height: 800,
                   child: TableCalendar(
                     shouldFillViewport: true,
