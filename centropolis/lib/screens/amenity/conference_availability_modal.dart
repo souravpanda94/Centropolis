@@ -45,7 +45,7 @@ class _ConferenceAvailabilityModalState
         left: 16.0,
         right: 16.0,
         top: 20,
-        bottom: 30.0,
+        bottom: 20.0,
       ),
       child: Container(
         width: double.infinity,
@@ -55,7 +55,7 @@ class _ConferenceAvailabilityModalState
           scrollDirection: Axis.horizontal,
           children: [
             SizedBox(
-              width: 1000,
+              width: 600,
               child: TableCalendar(
                 shouldFillViewport: true,
                 //availableGestures: AvailableGestures.horizontalSwipe,
