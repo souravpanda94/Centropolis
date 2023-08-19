@@ -87,6 +87,121 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Container(
+                      margin: const EdgeInsets.only(bottom: 8),
+                      width: MediaQuery.of(context).size.width,
+                      child: Text(
+                        tr("serviceRequiresForPaidPt"),
+                        textAlign: TextAlign.end,
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 12,
+                            color: CustomColors.textColor3),
+                      ),
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          borderRadius: BorderRadius.circular(4)),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            tr("paidPtInformation"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 16,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: Icon(
+                                    Icons.circle,
+                                    size: 5,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    tr("paidPtInformationDescription1"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor5),
+                                  ),
+                                )
+                              ]),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: Icon(
+                                    Icons.circle,
+                                    size: 5,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    tr("paidPtInformationDescription2"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor5),
+                                  ),
+                                )
+                              ]),
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Padding(
+                                  padding: EdgeInsets.only(top: 7),
+                                  child: Icon(
+                                    Icons.circle,
+                                    size: 5,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Expanded(
+                                  child: Text(
+                                    tr("paidPtInformationDescription3"),
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor5),
+                                  ),
+                                )
+                              ]),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 24,
+                    ),
+
+
+
+
+
+
+
                     Text(
                       tr("reservationInformation"),
                       style: const TextStyle(

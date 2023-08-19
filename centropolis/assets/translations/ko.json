@@ -462,7 +462,11 @@
   "totalAvailableBasket":"피트니스 사물함 바구니 수량",
   "totalAvailableBasketMale":"남: 사물함 14 | 바구니 7",
   "totalAvailableBasketFemale":"여: 사물함 13 | 바구니 6",
-
+  "serviceRequiresForPaidPt" : "서비스 이용문의: 02-6370-5154",
+  "paidPtInformation" : "PT 프로그램 안내",
+  "paidPtInformationDescription1" : "개인 코칭을 통한 유료 프로그램(50분 수업)",
+  "paidPtInformationDescription2" : "기초 웨이트 프로그램 진행가능",
+  "paidPtInformationDescription3" : "10회 600,000 (부가세 별도) / 단기권, 시간별 할인 수업 가능",
 
 
 
