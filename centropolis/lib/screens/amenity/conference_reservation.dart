@@ -1392,6 +1392,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   }
 
   viewConferenceReservationAvailibility() {
+    hideKeyboard();
     showDialog(
         context: context,
         useSafeArea: true,
