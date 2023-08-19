@@ -342,9 +342,12 @@
   "facilityUsageText2" : "Shower Room & Nursing Room : Visit the\n information desk",
   "facilityInquiry" : "02-6370-5151 / 5152",
   "serviceRequires" : "Service inquiries: 02-6370-5154",
-  "gXprogramInformation" : "GX & EVENT Program Information",
-  "gXprogramInformationDescription1" : "Mon, Wed, Fri – Yoga (120,000 won per month, excluding VAT)",
-  "gXprogramInformationDescription2" : "Tue, Thu – Free GX Program",
+  "serviceRequiresForGx" : "Service inquiries: 02-6370-5154",
+  "gXprogramInformation" : "GX Program Information",
+  "gXprogramInformationDescription1" : "Mon, Wed, Fri – Yoga (120,000 won per month, VAT excluded)",
+  "gXprogramInformationDescription2" : "Tue, Thu - Yoga (96,000 won per month, VAT excluded)",
+  "gXprogramInformationDescription3" : "Receive admission and payment from the first business day of the month to the second week’s Friday",
+  "gXprogramInformationDescription4" : "Internet reception and on-site reception are conducted simultaneously (first-come, first-served closing)",
   "cooling" : "Air conditioning",
   "applicationDateValidation": "Please Select a Date",
   "startTimeValidation": "Please Select a start time",
@@ -467,13 +470,12 @@
   "paidLockerReservationProgramDesc":"First come, first served (waiting list available) / Deposit KRW 10,000 (cash only)",
 
 
+  "serviceRequiresForPaidPt" : "Service inquiries: 02-6370-5154",
+  "paidPtInformation" : "PT Program Information",
+  "paidPtInformationDescription1" : "Paid program with personal coaching (50 minute)",
+  "paidPtInformationDescription2" : "Basic weight program available",
+  "paidPtInformationDescription3" : "10 times - 600,000 (tax excluded) / Short-term tickets, hourly discount classes available",
 
-
-
-
-
-
-  
 
 
 

@@ -340,10 +340,12 @@
   "facilityUsageText1" : "수면실 : 예약 후 안내데스크 방문 ",
   "facilityUsageText2" : "샤워실 & 수유실 : 안내데스크 방문",
   "facilityInquiry" : "02-6370-5151 / 5152",
-  "serviceRequires" : "서비스 이용문의 : 02-6370-5151, 5154",
-  "gXprogramInformation" : "GX & EVENT 프로그램 안내",
-  "gXprogramInformationDescription1" : "월, 수, 금 – 요가 (월 12만원, 부가세 별도)",
-  "gXprogramInformationDescription2" : "화, 목 – 무료 GX 프로그램",
+  "serviceRequiresForGx" : "서비스 이용문의: 02-6370-5154",
+  "gXprogramInformation" : "GX 프로그램 안내",
+  "gXprogramInformationDescription1" : "월, 수, 금 – 요가(월 12만원, 부가세 별도)",
+  "gXprogramInformationDescription2" : "화, 목 -요가(월 9민 6천원, 부가세 별도)",
+  "gXprogramInformationDescription3" : "매달 1 영업일부터 두 번째 주 금요일까지 접수 및 결제",
+  "gXprogramInformationDescription4" : "인터넷접수와 현장 접수 동시 진행(선착순 마감)",
   "cooling" : "냉방",
   "applicationDateValidation": "날짜를 선택해 주세요",
   "startTimeValidation": "시작 시간을 선택해 주세요",
@@ -467,6 +469,11 @@
 
 
 
+  "serviceRequiresForPaidPt" : "서비스 이용문의: 02-6370-5154",
+  "paidPtInformation" : "PT 프로그램 안내",
+  "paidPtInformationDescription1" : "개인 코칭을 통한 유료 프로그램(50분 수업)",
+  "paidPtInformationDescription2" : "기초 웨이트 프로그램 진행가능",
+  "paidPtInformationDescription3" : "10회 600,000 (부가세 별도) / 단기권, 시간별 할인 수업 가능",
 
 
 
