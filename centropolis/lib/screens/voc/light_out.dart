@@ -89,7 +89,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
           padding:
               const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
           child: CommonButtonWithIcon(
-            buttonName: tr("lightOutDetail"),
+            buttonName: tr("applyForLightOutExtension"),
             buttonColor: CustomColors.buttonBackgroundColor,
             onCommonButtonTap: () {
               Navigator.push(

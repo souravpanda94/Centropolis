@@ -457,7 +457,7 @@
   "rateUsSubmit": "제출",
   "accessDenied": "접근 거부",
   "airConditioningButtonName":"냉&난방 연장 신청",
-  "viewCalendar":"View Calendar",
+  "viewCalendar":"예약 캘린더 보기",
   "reservationInquiry":"예약 및 문의",
   "totalAvailableBasket":"피트니스 사물함 바구니 수량",
   "totalAvailableBasketMale":"남: 사물함 14 | 바구니 7",
@@ -466,6 +466,9 @@
   "fitnessReservationProgramDesc":"피트니스 이용 예약(최대수용가능 이용인원 30명)",
   "paidLockerReservationProgram":"개인 사물함 예약 안내",
   "paidLockerReservationProgramDesc":"선착순 배정(대기예약 가능) / 보증금 10,000원(현금만 가능)",
+  "applyForInconvenience" : "불편사항접수",
+  "applyForLightOutExtension" : "소등 연장 신청",
+
 
 
 

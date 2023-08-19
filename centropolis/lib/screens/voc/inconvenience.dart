@@ -89,7 +89,7 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
             padding:
                 const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 32),
             child: CommonButtonWithIcon(
-              buttonName: tr("complaintsReceivedTitle"),
+              buttonName: tr("applyForInconvenience"),
               buttonColor: CustomColors.buttonBackgroundColor,
               onCommonButtonTap: () {
                 Navigator.push(

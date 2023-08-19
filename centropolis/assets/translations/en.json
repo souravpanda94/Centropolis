@@ -207,7 +207,7 @@
   "confusion" : "Very Busy",
   "commonly" : "Normal",
   "spare" : "Not Busy",
-  "makeFitnessAppointment" : "Make a Fitness Appointment",
+  "makeFitnessAppointment" : "Make a Fitness Reservation",
   "fitnessReservation" : "Fitness Reservation",
   "gx" : "GX",
   "paidPT" : "PT",
@@ -458,7 +458,7 @@
   "inquiryRating": "Inquiry Rating",
   "rateUsSubmit": "Submit",
   "accessDenied": "Access Denied",
-  "airConditioningButtonName":"Air conditioning & Heating application",
+  "airConditioningButtonName":"Apply for Airconditioning Extension",
   "viewCalendar":"View Calendar",
   "reservationInquiry":"Reservation and inquiry",
   "totalAvailableBasket":"Total Available Locker / Basket",
@@ -468,6 +468,9 @@
   "fitnessReservationProgramDesc":"Reservation for use of fitness facility (maximum 30 people)",
   "paidLockerReservationProgram":"Paid Locker Reservation Information",
   "paidLockerReservationProgramDesc":"First come, first served (waiting list available) / Deposit KRW 10,000 (cash only)",
+  "applyForInconvenience" : "Apply for Inconvenience",
+  "applyForLightOutExtension" : "Apply for Light Out Extension",
+
 
 
   "serviceRequiresForPaidPt" : "Service inquiries: 02-6370-5154",
