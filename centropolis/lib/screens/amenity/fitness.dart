@@ -128,15 +128,30 @@ class _FitnessScreenState extends State<FitnessScreen> {
                         fitnessRow(tr("fitnessFacilityInfoText2")),
                         fitnessRow(tr("fitnessFacilityInfoText3")),
                         const SizedBox(
-                          height: 4,
+                          height: 16,
                         ),
                         Text(
-                          tr("fitnessFacilityInfo"),
+                          tr("totalAvailableBasket"),
                           style: const TextStyle(
-                              fontFamily: 'Regular',
+                              fontFamily: 'SemiBold',
                               fontSize: 14,
-                              color: CustomColors.headingColor),
+                              color: CustomColors.textColor8),
                         ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        fitnessRow(tr("totalAvailableBasketMale")),
+                        fitnessRow(tr("totalAvailableBasketFemale")),
+                        // const SizedBox(
+                        //   height: 4,
+                        // ),
+                        // Text(
+                        //   tr("fitnessFacilityInfo"),
+                        //   style: const TextStyle(
+                        //       fontFamily: 'Regular',
+                        //       fontSize: 14,
+                        //       color: CustomColors.headingColor),
+                        // ),
                         const SizedBox(
                           height: 16,
                         ),
@@ -152,13 +167,13 @@ class _FitnessScreenState extends State<FitnessScreen> {
                         ),
                         fitnessRow(tr("fitnessTenantBenefitsText1")),
                         fitnessRow(tr("fitnessTenantBenefitsText2")),
-                        fitnessRow(tr("fitnessTenantBenefitsText3")),
-                        fitnessRow(tr("fitnessTenantBenefitsText4")),
+                        // fitnessRow(tr("fitnessTenantBenefitsText3")),
+                        // fitnessRow(tr("fitnessTenantBenefitsText4")),
                         const SizedBox(
                           height: 16,
                         ),
                         Text(
-                          tr("inquiry"),
+                          tr("reservationInquiry"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,

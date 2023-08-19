@@ -130,7 +130,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                           height: 16,
                         ),
                         Text(
-                          tr("inquiry"),
+                          tr("reservationInquiry"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,

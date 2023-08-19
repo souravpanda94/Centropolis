@@ -1,9 +1,9 @@
 class ApiEndPoint {
   // static String baseUrl = ""; // Live server
-  static String baseUrl =
-      "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
   // static String baseUrl =
-  //     "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
+  //     "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
+  static String baseUrl =
+      "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
@@ -168,10 +168,10 @@ class ApiEndPoint {
 
 class WebViewLinks {
   // static String baseUrl = ""; // Live server
-  static String baseUrlForWebLinks =
-      "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
   // static String baseUrlForWebLinks =
-  //     "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
+  //     "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
+  static String baseUrlForWebLinks =
+      "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
 
   static String privacyPolicyUrlEng = "${baseUrlForWebLinks}privacypolicy/en";
   static String privacyPolicyUrlKo = "${baseUrlForWebLinks}privacypolicy/kr";
@@ -184,8 +184,8 @@ class WebViewLinks {
 }
 
 class ImageLinks {
-  static String baseUrlForImage =
-      "https://centropolis-api-dev.dvconsulting.org/"; // Development server
   // static String baseUrlForImage =
-  //     "https://centropolis-api-qa.dvconsulting.org/"; // QA server
+  //     "https://centropolis-api-dev.dvconsulting.org/"; // Development server
+  static String baseUrlForImage =
+      "https://centropolis-api-qa.dvconsulting.org/"; // QA server
 }
