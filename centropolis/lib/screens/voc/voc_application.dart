@@ -15,8 +15,8 @@ class VocApplicationScreen extends StatefulWidget {
 class _VocApplicationScreenState extends State<VocApplicationScreen> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: tr("inconvenience")),
-    Tab(text: tr("lightOut")),
-    Tab(text: tr("airConditioning")),
+    Tab(text: tr("airConditioningExtension")),
+    Tab(text: tr("lightOutExtension")),
   ];
 
   @override
@@ -73,8 +73,8 @@ class _VocApplicationScreenState extends State<VocApplicationScreen> {
           // physics: const NeverScrollableScrollPhysics(),
           children: [
             InconvenienceScreen(),
-            LightOutScreen(),
             AirConditioningScreen(),
+            LightOutScreen(),
           ],
         ),
       ),

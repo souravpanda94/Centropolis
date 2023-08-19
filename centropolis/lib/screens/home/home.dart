@@ -49,26 +49,45 @@ class _HomeScreenState extends State<HomeScreen> {
   CarouselController controller = CarouselController();
   int pageIndex = 0;
   int unreadNotificationCount = 0;
+  // List<dynamic> dataList = [
+  //   {
+  //     "id": 0,
+  //     "type": "visitorReservation",
+  //     "image": 'assets/images/ic_slider_1.png'
+  //   },
+  //   {
+  //     "id": 1,
+  //     "type": "centropolisExecutive",
+  //     "image": 'assets/images/ic_slider_2.png'
+  //   },
+  //   {"id": 2, "type": "conference", "image": 'assets/images/ic_slider_3.png'},
+  //   {"id": 3, "type": "fitness", "image": 'assets/images/ic_slider_4.png'},
+  //   {"id": 4, "type": "refresh", "image": 'assets/images/ic_slider_5.png'},
+  //   {"id": 5, "type": "voc", "image": 'assets/images/ic_slider_6.png'},
+  // ];
   List<dynamic> dataList = [
     {
       "id": 0,
       "type": "visitorReservation",
       "image": 'assets/images/ic_slider_1.png'
     },
+    {"id": 1, "type": "fitness", "image": 'assets/images/ic_slider_4.png'},
+    {"id": 2, "type": "refresh", "image": 'assets/images/ic_slider_5.png'},
+    {"id": 3, "type": "conference", "image": 'assets/images/ic_slider_3.png'},
     {
-      "id": 1,
+      "id": 4,
       "type": "centropolisExecutive",
       "image": 'assets/images/ic_slider_2.png'
     },
-    {"id": 2, "type": "conference", "image": 'assets/images/ic_slider_3.png'},
-    {"id": 3, "type": "fitness", "image": 'assets/images/ic_slider_4.png'},
-    {"id": 4, "type": "refresh", "image": 'assets/images/ic_slider_5.png'},
     {"id": 5, "type": "voc", "image": 'assets/images/ic_slider_6.png'},
   ];
   String deviceType = '';
   String deviceId = '';
   String fcmToken = '';
   String appVersion = "";
+
+
+
 
   @override
   void initState() {
