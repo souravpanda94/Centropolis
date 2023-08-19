@@ -77,7 +77,7 @@ class _GXReservationState extends State<GXReservation> {
               margin: const EdgeInsets.only(top: 24, bottom: 8),
               width: MediaQuery.of(context).size.width,
               child: Text(
-                tr("serviceRequires"),
+                tr("serviceRequiresForGx"),
                 textAlign: TextAlign.end,
                 style: const TextStyle(
                     fontFamily: 'Regular',
@@ -144,6 +144,54 @@ class _GXReservationState extends State<GXReservation> {
                         Expanded(
                           child: Text(
                             tr("gXprogramInformationDescription2"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]),
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            tr("gXprogramInformationDescription3"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]),
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            tr("gXprogramInformationDescription4"),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
