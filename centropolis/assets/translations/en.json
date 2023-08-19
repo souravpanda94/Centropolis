@@ -210,8 +210,8 @@
   "makeFitnessAppointment" : "Make a Fitness Appointment",
   "fitnessReservation" : "Fitness Reservation",
   "gx" : "GX",
-  "paidPT" : "Paid PT",
-  "paidLockers" : "Paid Lockers",
+  "paidPT" : "PT",
+  "paidLockers" : "Paid Locker",
   "programsAvailableForReservation" : "Programs available for reservation",
   "gXReservation" : "GX reservation",
   "programInformation" : "Program Information",
@@ -341,7 +341,7 @@
   "facilityUsageText1" : "Sleeping room: visit the information desk after \nmaking a reservation",
   "facilityUsageText2" : "Shower Room & Nursing Room : Visit the\n information desk",
   "facilityInquiry" : "02-6370-5151 / 5152",
-  "serviceRequires" : "Service inquiries: 02-6370-5151, 5154",
+  "serviceRequires" : "Service inquiries: 02-6370-5154",
   "gXprogramInformation" : "GX & EVENT Program Information",
   "gXprogramInformationDescription1" : "Mon, Wed, Fri – Yoga (120,000 won per month, excluding VAT)",
   "gXprogramInformationDescription2" : "Tue, Thu – Free GX Program",
@@ -461,6 +461,12 @@
   "totalAvailableBasket":"Total Available Locker / Basket",
   "totalAvailableBasketMale":"Male: Locker: 14 | Basket: 7",
   "totalAvailableBasketFemale":"Female: Locker: 13 | Basket: 6",
+  "fitnessReservationProgram":"Fitness Reservation Information",
+  "fitnessReservationProgramDesc":"Reservation for use of fitness facility (maximum 30 people)",
+  "paidLockerReservationProgram":"Paid Locker Reservation Information",
+  "paidLockerReservationProgramDesc":"First come, first served (waiting list available) / Deposit KRW 10,000 (cash only)",
+
+
 
 
 

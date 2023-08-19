@@ -199,7 +199,7 @@
   "makeFitnessAppointment" : "피트니스 예약하기",
   "fitnessReservation" : "피트니스 예약",
   "gx" : "GX",
-  "paidPT" : "유료 PT",
+  "paidPT" : "PT",
   "paidLockers" : "개인 사물함",
   "programsAvailableForReservation" : "예약 가능한 프로그램",
   "gXReservation" : "GX 예약",
@@ -460,6 +460,12 @@
   "totalAvailableBasket":"피트니스 사물함 바구니 수량",
   "totalAvailableBasketMale":"남: 사물함 14 | 바구니 7",
   "totalAvailableBasketFemale":"여: 사물함 13 | 바구니 6",
+  "fitnessReservationProgram":"피트니스 이용 예약 안내",
+  "fitnessReservationProgramDesc":"피트니스 이용 예약(최대수용가능 이용인원 30명)",
+  "paidLockerReservationProgram":"개인 사물함 예약 안내",
+  "paidLockerReservationProgramDesc":"선착순 배정(대기예약 가능) / 보증금 10,000원(현금만 가능)",
+
+
 
 
 

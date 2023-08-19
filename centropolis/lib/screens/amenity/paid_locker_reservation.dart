@@ -76,7 +76,67 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           primary: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
+            
             children: [
+              Container(
+              margin: const EdgeInsets.only(top: 10, bottom: 8,left: 16,right: 16),
+              width: MediaQuery.of(context).size.width,
+              child: Text(
+                tr("serviceRequires"),
+                textAlign: TextAlign.end,
+                style: const TextStyle(
+                    fontFamily: 'Regular',
+                    fontSize: 12,
+                    color: CustomColors.textColor3),
+              ),
+            ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 8),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                    tr("paidLockerReservationProgram"),
+                    style: const TextStyle(
+                        fontFamily: 'SemiBold',
+                        fontSize: 16,
+                        color: CustomColors.textColorBlack2),
+                  ),
+                  const SizedBox(
+                    height: 16,
+                  ),
+                  Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            tr("paidLockerReservationProgramDesc"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]),
+                        ],
+                      ),
+
+                ),
+                
               Container(
                 color: CustomColors.whiteColor,
                 width: MediaQuery.of(context).size.width,
