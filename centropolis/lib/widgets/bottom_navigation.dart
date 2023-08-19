@@ -244,7 +244,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
                   width: 22,
                   height: 22,
                 ),
-                label: tr("myPage"),
+                label: tr("myPageHeading"),
                 backgroundColor: CustomColors.whiteColor),
           ],
           type: BottomNavigationBarType.fixed,
