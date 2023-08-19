@@ -15,7 +15,7 @@ class VocApplicationScreen extends StatefulWidget {
 class _VocApplicationScreenState extends State<VocApplicationScreen> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: tr("inconvenience")),
-    Tab(text: tr("airConditioning")),
+    Tab(text: tr("airConditioningExtension")),
     Tab(text: tr("lightOutExtension")),
   ];
 
