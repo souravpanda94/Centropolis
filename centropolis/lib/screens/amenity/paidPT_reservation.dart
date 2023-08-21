@@ -137,6 +137,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                                     style: const TextStyle(
                                         fontFamily: 'Regular',
                                         fontSize: 14,
+                                        height: 1.5,
                                         color: CustomColors.textColor5),
                                   ),
                                 )
@@ -161,6 +162,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                                     style: const TextStyle(
                                         fontFamily: 'Regular',
                                         fontSize: 14,
+                                        height: 1.5,
                                         color: CustomColors.textColor5),
                                   ),
                                 )
@@ -185,6 +187,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                                     style: const TextStyle(
                                         fontFamily: 'Regular',
                                         fontSize: 14,
+                                        height: 1.5,
                                         color: CustomColors.textColor5),
                                   ),
                                 )

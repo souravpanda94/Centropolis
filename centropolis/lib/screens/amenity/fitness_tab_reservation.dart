@@ -105,8 +105,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
+                  margin: const EdgeInsets.only(
+                      left: 16, right: 16),
                   padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 16, bottom: 8),
+                      left: 16, right: 16, top: 16, bottom: 16),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -140,6 +142,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
+                                height: 1.5,
                                 color: CustomColors.textColor5),
                           ),
                         )

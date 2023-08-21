@@ -459,7 +459,7 @@
   "airConditioningButtonName":"냉&난방 연장 신청",
   "viewCalendar":"예약 캘린더 보기",
   "reservationInquiry":"예약 및 문의",
-  "totalAvailableBasket":"피트니스 사물함 바구니 수량",
+  "totalAvailableBasket":"피트니스 사물함 / 바구니 수량 ",
   "totalAvailableBasketMale":"남: 사물함 14 | 바구니 7",
   "totalAvailableBasketFemale":"여: 사물함 13 | 바구니 6",
   "fitnessReservationProgram":"피트니스 이용 예약 안내",
@@ -468,6 +468,8 @@
   "paidLockerReservationProgramDesc":"선착순 배정(대기예약 가능) / 보증금 10,000원(현금만 가능)",
   "applyForInconvenience" : "불편사항접수",
   "applyForLightOutExtension" : "소등 연장 신청",
+  "serviceRequires" : "서비스 이용문의: 02-6370-5154",
+
 
 
 

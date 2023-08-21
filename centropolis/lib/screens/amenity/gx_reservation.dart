@@ -86,6 +86,7 @@ class _GXReservationState extends State<GXReservation> {
               ),
             ),
             Container(
+              //height: 150,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                   color: CustomColors.whiteColor,
@@ -123,6 +124,7 @@ class _GXReservationState extends State<GXReservation> {
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
+                                height: 1.5,
                                 color: CustomColors.textColor5),
                           ),
                         )
@@ -147,6 +149,7 @@ class _GXReservationState extends State<GXReservation> {
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
+                                height: 1.5,
                                 color: CustomColors.textColor5),
                           ),
                         )
@@ -171,6 +174,7 @@ class _GXReservationState extends State<GXReservation> {
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
+                                height: 1.5,
                                 color: CustomColors.textColor5),
                           ),
                         )
@@ -195,6 +199,7 @@ class _GXReservationState extends State<GXReservation> {
                             style: const TextStyle(
                                 fontFamily: 'Regular',
                                 fontSize: 14,
+                                height: 1.5,
                                 color: CustomColors.textColor5),
                           ),
                         )
