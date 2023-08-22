@@ -337,9 +337,9 @@
   "facilityInfoText1" : "Sleeping room: up to 5 females and 15 males concurrently",
   "facilityInfoText2" : "Shower room: up to 4 females and 8 males concurrently\n (available until 8:30pm for fitness users)",
   "facilityInfoText3" : "Nursing room: This is a female-only facility and\n can be used by up to 2 people at the same time",
-  "facilityUsage" : "Receive/return the access card at the information\n desk (free)",
-  "facilityUsageText1" : "Sleeping room: visit the information desk after \nmaking a reservation",
-  "facilityUsageText2" : "Shower Room & Nursing Room : Visit the\n information desk",
+  "facilityUsage" : "Receive/return the access card at the concierge(free)",
+  "facilityUsageText1" : "Sleeping room: Please visit the concierge after making a reservation",
+  "facilityUsageText2" : "Shower Room & Nursing Room : Please visit the concierge",
   "facilityInquiry" : "02-6370-5151 / 5152",
   "serviceRequires" : "Service inquiries: 02-6370-5154",
   "serviceRequiresForGx" : "Service inquiries: 02-6370-5154",
@@ -470,6 +470,34 @@
   "paidLockerReservationProgramDesc":"First come, first served (waiting list available) / Deposit KRW 10,000 (cash only)",
   "applyForInconvenience" : "Apply for Inconvenience",
   "applyForLightOutExtension" : "Apply for Light Out Extension",
+  "loungeInfoText1" : "Monday to Friday 09:00-22:00",
+  "loungeInfoText2" : "Basic 4 hours: KRW 1,000,000 / Additional 1 hour: KRW 500,000",
+  "loungeInfoText3" : "Structural layout such as tables and chairs cannot be changed, and if additional catering is required, the amount will be charged according to the menu after consultation (alcohol can be sold if requested)",
+  "loungeInfoText4" : "Food or alcohol cannot be brought in without catering, unless consultations and contracts are conducted under the supervision of Haevichi",
+  "loungeInfoText5" : "Reservation availability: 2 months to 2 weeks in advance on the day",
+  "loungeInfoText6" : "Cancellable time: 2 months to 2 weeks before the day. Penalty may be incurred",
+  "loungeInfoText7" : "Additional charges will be incurred for additional use outside of the contracted rental hours",
+  "loungeInfoText8" : "Advance payment of down payment and preparation of contract needed",
+  "loungeInfoText9" : "1 hour of preparation before usage time / 1 hour of organization time after usage time, and the relevant time will be charged separately from usage time",
+
+  "conferenceInfoText1" : "Monday to Friday 09:00 to 18:00",
+  "conferenceInfoText2" : "50% off for tenants",
+  "conferenceInfoText3" : "Free of charge for tenants: 2 hours per room (all tenants on 1 floor / 1 hour and month for split tenants)",
+  "conferenceInfoText4" : "Meeting Package 1: 10,000 won per person for coffee and cake, including VAT",
+  "conferenceInfoText5" : "Meeting Package 2: 30,000 won per coffee and sandwich set, including VAT / At least 20 people / Menu can vary depending on the situation",
+  "conferenceInfoText6" : "Packages are available for pre-booking up to one week before the event day",
+  "conferenceInfoText7" : "Reservation availability: 2 months to 1 day prior to the day",
+  "conferenceInfoText8" : "Cancellable time: 2 months to 3 days prior to the day. Penalty may be incurred",
+  "conferenceInfoText9" : "Advance payment of down payment and preparation of contract needed",
+
+
+  "refreshInfoText1" : "Monday to Friday 09:00 to 18:00",
+  "refreshInfoText2" : "Available for up to 5 women and 15 men at the same time",
+  "refreshInfoText3" : "After QR authentication at the concierge desk, receive the card key and use.",
+  "refreshInfoText4" : "Knee blanket provided, received at concierge desk",
+
+
+
 
 
 

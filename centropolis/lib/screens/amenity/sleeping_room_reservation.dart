@@ -46,6 +46,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
+  DateTime currentDate = DateTime.now();
+
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
   bool isChecked = false;
@@ -220,6 +222,28 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                 //   height: 10,
                 // ),
                 //
+
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(left: 16,right: 16),
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        infoTextWidget(tr("refreshInfoText1")),
+                        infoTextWidget(tr("refreshInfoText2")),
+                        infoTextWidget(tr("refreshInfoText3")),
+                        infoTextWidget(tr("refreshInfoText4")),
+                        
+               
+                      ],
+                    ),
+                  ),
+
+                  
+                ),
 
                 Container(
                   color: CustomColors.whiteColor,
@@ -502,6 +526,34 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
+
+  infoTextWidget(String text){
+    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            text,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                height: 1.5,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]);
+  }
   Widget usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -818,7 +870,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           "assets/images/ic_back.svg",
           width: 0,
           height: 18,
-          color: kFirstDay.month == focusedDate.month
+          color: kFirstDay.month == currentDate.month
               ? CustomColors.dividerGreyColor
               : CustomColors.greyColor,
         ),
@@ -890,17 +942,17 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           return false;
         }
       },
-      onDaySelected: (selectedDay, focusedDay) {
-        setState(() {
-          focusedDate = focusedDay;
-          selectedDate = selectedDay;
-          usageTimeSelectedValue = null;
-          totalTimeSelectedValue = null;
-          selectedSeatsValue = null;
-        });
-        loadSelectedSeatList();
-        loadViewSeatSelectionList();
-      },
+      // onDaySelected: (selectedDay, focusedDay) {
+      //   setState(() {
+      //     focusedDate = focusedDay;
+      //     selectedDate = selectedDay;
+      //     usageTimeSelectedValue = null;
+      //     totalTimeSelectedValue = null;
+      //     selectedSeatsValue = null;
+      //   });
+      //   loadSelectedSeatList();
+      //   loadViewSeatSelectionList();
+      // },
       onFormatChanged: (format) {
         if (selectedCalendarFormat != format) {
           setState(() {
@@ -910,7 +962,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       },
       onPageChanged: (focusedDay) {
         setState(() {
-          focusedDate = focusedDay;
+          currentDate = focusedDay;
         });
       },
     );

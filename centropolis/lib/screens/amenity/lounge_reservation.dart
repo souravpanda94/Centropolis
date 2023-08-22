@@ -94,6 +94,33 @@ class _LoungeReservationState extends State<LoungeReservation> {
               children: [
                 Container(
                   width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(left: 16,right: 16),
+                  height: 200,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        infoTextWidget(tr("loungeInfoText1")),
+                        infoTextWidget(tr("loungeInfoText2")),
+                        infoTextWidget(tr("loungeInfoText3")),
+                        infoTextWidget(tr("loungeInfoText4")),
+                        infoTextWidget(tr("loungeInfoText5")),
+                        infoTextWidget(tr("loungeInfoText6")),
+                        infoTextWidget(tr("loungeInfoText7")),
+                        infoTextWidget(tr("loungeInfoText8")),
+                        infoTextWidget(tr("loungeInfoText9")),
+               
+                      ],
+                    ),
+                  ),
+
+                  
+                ),
+                
+                Container(
+                  width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -329,6 +356,35 @@ class _LoungeReservationState extends State<LoungeReservation> {
       ),
     );
   }
+  
+  infoTextWidget(String text){
+    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            text,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                height: 1.5,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]);
+  }
+
 
   void showReservationModal(String heading, String message) {
     showDialog(
