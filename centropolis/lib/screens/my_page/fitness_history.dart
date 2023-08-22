@@ -21,7 +21,7 @@ class _FitnessHistoryState extends State<FitnessHistory> {
   List<String> fitnessTabList = [
     tr("gxReservationHistory"),
     tr("ptReservationHistory"),
-    tr("fitnessReservationHistory"),
+    //tr("fitnessReservationHistory"),
     tr("paidLockerReservationHistory")
   ];
   int showIndex = 0;
@@ -38,7 +38,7 @@ class _FitnessHistoryState extends State<FitnessHistory> {
             height: 65,
             padding: const EdgeInsets.all(16),
             alignment: Alignment.center,
-            child: ListView.builder(
+            child: ListView.separated(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
                 itemCount: fitnessTabList.length,
@@ -76,15 +76,17 @@ class _FitnessHistoryState extends State<FitnessHistory> {
                       ),
                     ),
                   );
-                }))),
+                }), separatorBuilder: (BuildContext context, int index) { 
+                  return const SizedBox(width: 40,);
+                 },)),
         Expanded(
           child: showIndex == 0
               ? const GXReservationHistory()
               : showIndex == 1
                   ? const PaidPTReservationHistory()
-                  : showIndex == 2
-                      ? const FitnessTabReservationHistory()
-                      : showIndex == 3
+                  // : showIndex == 2
+                  //     ? const FitnessTabReservationHistory()
+                      : showIndex == 2
                           ? const PaidLockerReservationHistory()
                           : Container(),
         )

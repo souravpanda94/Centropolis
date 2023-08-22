@@ -46,7 +46,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
-  DateTime currentDate = DateTime.now();
 
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
@@ -69,6 +68,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<ViewSeatSelectionModel> viewSeatSelectionListWithSeats = [];
   List<dynamic> timeSlotList = [];
   String? totalUsageTimeSelectedText;
+  String todayDate = "";
+  TextEditingController reservationDateController = TextEditingController();
+
 
   @override
   void initState() {
@@ -82,6 +84,24 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      todayDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      todayDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      todayDate = '$year-0$month-$day';
+    } else {
+      todayDate = '$year-$month-$day';
+    }
+    setState(() {
+      reservationDate = todayDate;
+      reservationDateController.text=reservationDate;
+      
+    });
     debugPrint("Api key ===> $apiKey");
     loadPersonalInformation();
     loadTimeList();
@@ -324,7 +344,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        tr("selectReservationDate"),
+                        tr("reservationDate"),
                         style: const TextStyle(
                             fontFamily: 'SemiBold',
                             fontSize: 16,
@@ -333,7 +353,47 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       const SizedBox(
                         height: 16,
                       ),
-                      tableCalendarWidget(),
+                      SizedBox(
+                        height: 46,
+                        child: TextField(
+                          controller: reservationDateController,
+                          readOnly: true,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            hintText: tr('reservationDate'),
+                            hintStyle: const TextStyle(
+                              height: 1.5,
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          style: const TextStyle(
+                            height: 1.5,
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      //tableCalendarWidget(),
                     ],
                   ),
                 ),
@@ -870,7 +930,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           "assets/images/ic_back.svg",
           width: 0,
           height: 18,
-          color: kFirstDay.month == currentDate.month
+          color: kFirstDay.month == focusedDate.month
               ? CustomColors.dividerGreyColor
               : CustomColors.greyColor,
         ),
@@ -942,17 +1002,17 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           return false;
         }
       },
-      // onDaySelected: (selectedDay, focusedDay) {
-      //   setState(() {
-      //     focusedDate = focusedDay;
-      //     selectedDate = selectedDay;
-      //     usageTimeSelectedValue = null;
-      //     totalTimeSelectedValue = null;
-      //     selectedSeatsValue = null;
-      //   });
-      //   loadSelectedSeatList();
-      //   loadViewSeatSelectionList();
-      // },
+      onDaySelected: (selectedDay, focusedDay) {
+        setState(() {
+          focusedDate = focusedDay;
+          selectedDate = selectedDay;
+          usageTimeSelectedValue = null;
+          totalTimeSelectedValue = null;
+          selectedSeatsValue = null;
+        });
+        loadSelectedSeatList();
+        loadViewSeatSelectionList();
+      },
       onFormatChanged: (format) {
         if (selectedCalendarFormat != format) {
           setState(() {
@@ -962,7 +1022,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       },
       onPageChanged: (focusedDay) {
         setState(() {
-          currentDate = focusedDay;
+          focusedDate = focusedDay;
         });
       },
     );
@@ -1193,23 +1253,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void reservationValidationCheck() {
-    String selectedDate = "";
-    String day = focusedDate.day.toString();
-    String month = focusedDate.month.toString();
-    String year = focusedDate.year.toString();
-
-    if (int.parse(day) < 10 && int.parse(month) < 10) {
-      selectedDate = '$year-0$month-0$day';
-    } else if (int.parse(day) < 10) {
-      selectedDate = '$year-$month-0$day';
-    } else if (int.parse(month) < 10) {
-      selectedDate = '$year-0$month-$day';
-    } else {
-      selectedDate = '$year-$month-$day';
-    }
-    setState(() {
-      reservationDate = selectedDate;
-    });
+    
+    
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
