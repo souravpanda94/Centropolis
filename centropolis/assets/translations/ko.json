@@ -512,6 +512,18 @@
   "gxReservationRules":"",
   "paidLockerReservationRules":"",
 
+  "paidLockerReservationRestrictionPopup":"대기 인원 소진 시 까지 추가 예약 접수가 불가 합니다. ",
+
+
+  "eventPurpose":"이용 목적",
+  "numberOfParticipants":"참여 인원",
+  "paymentMethod":"결제 방법",
+  "paymentMethodTooltip":"세금계산서 필요 시 사업자등록증 및 통장사본 필",
+
+
+
+
+
 
 
 

@@ -86,125 +86,130 @@ class _GXReservationState extends State<GXReservation> {
               ),
             ),
             Container(
-              //height: 150,
+              height: 150,
               padding: const EdgeInsets.all(16),
               decoration: BoxDecoration(
                   color: CustomColors.whiteColor,
                   borderRadius: BorderRadius.circular(4)),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("gXprogramInformation"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColorBlack2),
+              child: Scrollbar(
+                thumbVisibility: true,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("gXprogramInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColorBlack2),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("gXprogramInformationDescription1"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: CustomColors.textColor5),
+                              ),
+                            )
+                          ]),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("gXprogramInformationDescription2"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: CustomColors.textColor5),
+                              ),
+                            )
+                          ]),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("gXprogramInformationDescription3"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: CustomColors.textColor5),
+                              ),
+                            )
+                          ]),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("gXprogramInformationDescription4"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: CustomColors.textColor5),
+                              ),
+                            )
+                          ]),
+                    ],
                   ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("gXprogramInformationDescription1"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("gXprogramInformationDescription2"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("gXprogramInformationDescription3"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("gXprogramInformationDescription4"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
-                ],
+                ),
               ),
             ),
             const SizedBox(

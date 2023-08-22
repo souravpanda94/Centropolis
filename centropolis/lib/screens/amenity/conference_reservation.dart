@@ -111,21 +111,24 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                   padding: const EdgeInsets.all(16),
                   margin: const EdgeInsets.only(left: 16,right: 16),
                   height: 200,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        infoTextWidget(tr("conferenceInfoText1")),
-                        infoTextWidget(tr("conferenceInfoText2")),
-                        infoTextWidget(tr("conferenceInfoText3")),
-                        infoTextWidget(tr("conferenceInfoText4")),
-                        infoTextWidget(tr("conferenceInfoText5")),
-                        infoTextWidget(tr("conferenceInfoText6")),
-                        infoTextWidget(tr("conferenceInfoText7")),
-                        infoTextWidget(tr("conferenceInfoText8")),
-                        infoTextWidget(tr("conferenceInfoText9")),
-               
-                      ],
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          infoTextWidget(tr("conferenceInfoText1")),
+                          infoTextWidget(tr("conferenceInfoText2")),
+                          infoTextWidget(tr("conferenceInfoText3")),
+                          infoTextWidget(tr("conferenceInfoText4")),
+                          infoTextWidget(tr("conferenceInfoText5")),
+                          infoTextWidget(tr("conferenceInfoText6")),
+                          infoTextWidget(tr("conferenceInfoText7")),
+                          infoTextWidget(tr("conferenceInfoText8")),
+                          infoTextWidget(tr("conferenceInfoText9")),
+                                 
+                        ],
+                      ),
                     ),
                   ),
 

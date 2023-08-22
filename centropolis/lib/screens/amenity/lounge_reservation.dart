@@ -48,6 +48,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String reservationDate = "";
   List<dynamic> usageTimeList = [];
   List<dynamic> timeList = [];
+  TextEditingController eventPurposeController = TextEditingController();
 
   @override
   void initState() {
@@ -99,21 +100,24 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   padding: const EdgeInsets.all(16),
                   margin: const EdgeInsets.only(left: 16,right: 16),
                   height: 200,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        infoTextWidget(tr("loungeInfoText1")),
-                        infoTextWidget(tr("loungeInfoText2")),
-                        infoTextWidget(tr("loungeInfoText3")),
-                        infoTextWidget(tr("loungeInfoText4")),
-                        infoTextWidget(tr("loungeInfoText5")),
-                        infoTextWidget(tr("loungeInfoText6")),
-                        infoTextWidget(tr("loungeInfoText7")),
-                        infoTextWidget(tr("loungeInfoText8")),
-                        infoTextWidget(tr("loungeInfoText9")),
-               
-                      ],
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          infoTextWidget(tr("loungeInfoText1")),
+                          infoTextWidget(tr("loungeInfoText2")),
+                          infoTextWidget(tr("loungeInfoText3")),
+                          infoTextWidget(tr("loungeInfoText4")),
+                          infoTextWidget(tr("loungeInfoText5")),
+                          infoTextWidget(tr("loungeInfoText6")),
+                          infoTextWidget(tr("loungeInfoText7")),
+                          infoTextWidget(tr("loungeInfoText8")),
+                          infoTextWidget(tr("loungeInfoText9")),
+                                 
+                        ],
+                      ),
                     ),
                   ),
 
@@ -277,6 +281,103 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   ),
                 ),
                 Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("eventPurpose"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      SizedBox(
+                        height: 46,
+                        child: TextField(
+                          controller: eventPurposeController,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.number,
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            hintText: tr('eventPurpose'),
+                            hintStyle: const TextStyle(
+                              height: 1.5,
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          style: const TextStyle(
+                            height: 1.5,
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                       const SizedBox(
+                        height: 16,
+                      ),
+
+                      Text(
+                        tr("numberOfParticipants"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      startTimeDropDownWidget(),
+                      const SizedBox(
+                        height: 16,
+                      ),
+
+                      Text(
+                        tr("paymentMethod"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      startTimeDropDownWidget(),
+
+                    ]
+                    
+                    ,
+                  ),
+
+                ),
+                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
                   height: 10,

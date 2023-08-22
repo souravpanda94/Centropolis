@@ -515,6 +515,19 @@
   "gxReservationRules":"",
   "paidLockerReservationRules":"",
 
+  "paidLockerReservationRestrictionPopup":"Additional reservations are not available as waiting list is full. ",
+
+
+
+  "eventPurpose":"Event Purpose",
+  "numberOfParticipants":"Number of Participants",
+  "paymentMethod":"Payment Method",
+  "paymentMethodTooltip":"In case of issuing tax invoice, please prepare business registration certificate and copy of bankbook",
+
+
+
+
+
 
 
 

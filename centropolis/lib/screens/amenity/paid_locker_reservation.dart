@@ -136,6 +136,31 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                           ),
                         )
                       ]),
+                      Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            tr("paidLockerReservationRestrictionPopup"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                height: 1.5,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]),
                         ],
                       ),
 
@@ -359,7 +384,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                       padding: const EdgeInsets.only(top: 24, bottom: 32),
                       child: CommonButton(
                         onCommonButtonTap: () {
-                          reservationValidationCheck();
+                          //reservationValidationCheck();
+                          showErrorModal(tr("paidLockerReservationRestrictionPopup"));
                         },
                         buttonColor: CustomColors.buttonBackgroundColor,
                         buttonName: tr("makeReservation"),
