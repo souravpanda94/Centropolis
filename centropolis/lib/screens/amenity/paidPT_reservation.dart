@@ -20,7 +20,6 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
-import '../../widgets/rules_modal.dart';
 import '../my_page/web_view_ui.dart';
 
 class PaidPTReservation extends StatefulWidget {
@@ -458,23 +457,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     );
   }
 
-   void showRulesModal( String message) {
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          return RulesModal(
-            heading: "",
-            description: message,
-            buttonName: tr("check"),
-            
-            onConfirmBtnTap: () {
-              Navigator.pop(context);
-            },
-            
-          );
-        });
-  }
+   
 
   timeSelectionDropdownWidget() {
     return DropdownButtonHideUnderline(

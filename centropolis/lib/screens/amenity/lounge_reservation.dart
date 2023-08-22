@@ -19,7 +19,6 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
-import '../../widgets/rules_modal.dart';
 import '../my_page/web_view_ui.dart';
 
 class LoungeReservation extends StatefulWidget {
@@ -578,23 +577,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       ]);
   }
 
-  void showRulesModal( String message) {
-    showDialog(
-        barrierDismissible: true,
-        context: context,
-        builder: (BuildContext context) {
-          return RulesModal(
-            heading: "",
-            description: message,
-            buttonName: tr("check"),
-            
-            onConfirmBtnTap: () {
-              Navigator.pop(context);
-            },
-            
-          );
-        });
-  }
+  
 
 
   void showReservationModal(String heading, String message) {
