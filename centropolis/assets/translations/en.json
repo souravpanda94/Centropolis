@@ -499,11 +499,6 @@
   "refreshInfoText3" : "After QR authentication at the concierge desk, receive the card key and use.",
   "refreshInfoText4" : "Knee blanket provided, received at concierge desk",
 
-
-
-
-
-
   "serviceRequiresForPaidPt" : "Service inquiries: 02-6370-5154",
   "paidPtInformation" : "PT Program Information",
   "paidPtInformationDescription1" : "Paid program with personal coaching (50 minute)",
@@ -516,9 +511,9 @@
   "paidLockerReservationRules":"",
 
   "paidLockerReservationRestrictionPopup":"Additional reservations are not available as waiting list is full. ",
-
-
-
+  "eventPurposeHint":"Please enter an Event Purpose",
+  "numberOfparticipantsHint":"Please select number of Participants ",
+  "paymentMethodHint":"Please select payment method ",
   "eventPurpose":"Event Purpose",
   "numberOfParticipants":"Number of Participants",
   "paymentMethod":"Payment Method",

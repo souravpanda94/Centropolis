@@ -45,9 +45,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? usageTimeSelectedValue;
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
+  String? numberOfParticipantsSelectedValue;
+    String? paymentMethodSelectedValue;
+    bool tooltip = false;
+
+
   String reservationDate = "";
   List<dynamic> usageTimeList = [];
   List<dynamic> timeList = [];
+  List<dynamic> numberOfParticipantsList = [];
+    List<dynamic> paymentMethodList = [];
+
   TextEditingController eventPurposeController = TextEditingController();
 
   @override
@@ -65,6 +73,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
     loadPersonalInformation();
     loadUsageTimeList();
     loadTimeList();
+    loadNumberOfParticipantsList();
+    loadPaymentMethodList();
+
+
   }
 
   @override
@@ -324,7 +336,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                   color: CustomColors.dividerGreyColor,
                                   width: 1.0),
                             ),
-                            hintText: tr('eventPurpose'),
+                            hintText: tr('eventPurposeHint'),
                             hintStyle: const TextStyle(
                               height: 1.5,
                               color: CustomColors.textColor3,
@@ -354,7 +366,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       const SizedBox(
                         height: 8,
                       ),
-                      startTimeDropDownWidget(),
+                      numberOfParticipantsWidget(),
                       const SizedBox(
                         height: 16,
                       ),
@@ -369,7 +381,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       const SizedBox(
                         height: 8,
                       ),
-                      startTimeDropDownWidget(),
+                      paymentMethodWidget(),
+                      if (tooltip)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              tr("paymentMethodTooltip"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.blackColor),
+                            ),
+                          ),
 
                     ]
                     
@@ -567,6 +590,207 @@ class _LoungeReservationState extends State<LoungeReservation> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  Widget paymentMethodWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          "${tr('paymentMethodHint')}.",
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: paymentMethodList
+            .map(
+              (item) => DropdownMenuItem<String>(
+                value: item["value"],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12, bottom: 9),
+                      child: Text(
+                        item["text"],
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    if (item != paymentMethodList.last)
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: CustomColors.dividerGreyColor,
+                      )
+                  ],
+                ),
+               
+              ),
+            )
+            .toList(),
+        value: paymentMethodSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            paymentMethodSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+         
+          isOverButton: false,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        onMenuStateChange: (isOpen) {
+          setState(() {
+            tooltip=true;
+          });
+        },
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: paymentMethodSelectedValue != null ? 12 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 46,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 10,
+                right: 12,
+                left: paymentMethodSelectedValue != null ? 0 : 13,
+                bottom: paymentMethodSelectedValue != null ? 0 : 11),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 14),
+          height: 46,
+        ),
+      ),
+    );
+  }
+
+  Widget numberOfParticipantsWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          "${tr('numberOfparticipantsHint')}.",
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: numberOfParticipantsList
+            .map(
+              (item) => DropdownMenuItem<String>(
+                value: item["value"],
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.only(left: 12, bottom: 9),
+                      child: Text(
+                        item["text"],
+                        style: const TextStyle(
+                          color: CustomColors.blackColor,
+                          fontSize: 14,
+                          fontFamily: 'Regular',
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 3,
+                    ),
+                    if (item != numberOfParticipantsList.last)
+                      const Divider(
+                        thickness: 1,
+                        height: 1,
+                        color: CustomColors.dividerGreyColor,
+                      )
+                  ],
+                ),
+               
+              ),
+            )
+            .toList(),
+        value: numberOfParticipantsSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            numberOfParticipantsSelectedValue = value as String;
+          });
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
+          elevation: 0,
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+          padding:
+              EdgeInsets.only(bottom: numberOfParticipantsSelectedValue != null ? 12 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
+        buttonStyleData: ButtonStyleData(
+            height: 46,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 10,
+                right: 12,
+                left: numberOfParticipantsSelectedValue != null ? 0 : 13,
+                bottom: numberOfParticipantsSelectedValue != null ? 0 : 11),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          overlayColor:
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 14),
+          height: 46,
+        ),
+      ),
+    );
   }
 
   Widget usageTimeWidget() {
@@ -1030,6 +1254,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
           usageTimeSelectedValue = null;
           startTimeSelectedValue = null;
           endTimeSelectedValue = null;
+          paymentMethodSelectedValue=null;
+          numberOfParticipantsSelectedValue=null;
+          eventPurposeController.clear();
+          tooltip=false;
         });
         loadUsageTimeList();
       },
@@ -1163,6 +1391,103 @@ class _LoungeReservationState extends State<LoungeReservation> {
     });
   }
 
+  void loadNumberOfParticipantsList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadNumberOfParticipantsListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadNumberOfParticipantsListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("NumberOfParticipants List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.numberOfParticipantsListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for NumberOfParticipants List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              numberOfParticipantsList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+  void loadPaymentMethodList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPaymentMethodListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadPaymentMethodListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("PaymentMethod List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.paymentMethodListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for PaymentMethod List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            setState(() {
+              paymentMethodList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   void reservationValidationCheck() {
     String selectedDate = "";
     String day = focusedDate.day.toString();
@@ -1194,7 +1519,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
-    } else if (!isChecked) {
+    } 
+    else if (eventPurposeController.text.trim().isEmpty) {
+      showErrorModal(tr("eventPurposeHint"));
+    }
+    else if (numberOfParticipantsSelectedValue == null) {
+      showErrorModal(tr("numberOfparticipantsHint"));
+    }
+    else if (paymentMethodSelectedValue == null ) {
+      showErrorModal(tr("paymentMethodHint"));
+    }
+    else if (!isChecked) {
       showErrorModal(tr("tnc"));
     } else {
       networkCheckForReservation();
@@ -1222,6 +1557,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "end_time": endTimeSelectedValue.toString().trim(), //required
       "type": usageTimeSelectedValue.toString().trim(), //required
+      "purpose":eventPurposeController.text.toString().trim(),//required
+  "no_of_participants":numberOfParticipantsSelectedValue.toString().trim(),//required
+  "payment_method":paymentMethodSelectedValue.toString().trim(),//required
     };
 
     debugPrint("lounge reservation input===> $body");

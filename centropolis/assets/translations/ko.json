@@ -513,8 +513,9 @@
   "paidLockerReservationRules":"",
 
   "paidLockerReservationRestrictionPopup":"대기 인원 소진 시 까지 추가 예약 접수가 불가 합니다. ",
-
-
+  "eventPurposeHint":"이용 목적을 입력해 주세요",
+  "numberOfparticipantsHint":"참여 인원을 선택해 주세요",
+  "paymentMethodHint":"결제 방법을 선택해 주세요",
   "eventPurpose":"이용 목적",
   "numberOfParticipants":"참여 인원",
   "paymentMethod":"결제 방법",
