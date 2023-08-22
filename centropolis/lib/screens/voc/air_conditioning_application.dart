@@ -121,6 +121,34 @@ class _AirConditioningApplicationState
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
+                        Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  padding: const EdgeInsets.all(16),
+                  margin: const EdgeInsets.only(bottom: 16),
+                  height: 200,
+                  child: Scrollbar(
+                    thumbVisibility: true,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          infoTextWidget(tr("vocInfoText1")),
+                          infoTextWidget(tr("vocInfoText2")),
+                          infoTextWidget(tr("vocInfoText3")),
+                          infoTextWidget(tr("vocInfoText4")),
+                          infoTextWidget(tr("vocInfoText5")),
+                          
+                                 
+                        ],
+                      ),
+                    ),
+                  ),
+
+                  
+                ),
+
+
                         Text(tr("tenantCompanyInformation"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
@@ -590,6 +618,35 @@ class _AirConditioningApplicationState
       ),
     );
   }
+  
+  infoTextWidget(String text){
+    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Padding(
+                          padding: EdgeInsets.only(top: 7),
+                          child: Icon(
+                            Icons.circle,
+                            size: 5,
+                          ),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        Expanded(
+                          child: Text(
+                            text,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                height: 1.5,
+                                color: CustomColors.textColor5),
+                          ),
+                        )
+                      ]);
+  }
+
 
   void showReservationModal(String heading, String message) {
     showDialog(
