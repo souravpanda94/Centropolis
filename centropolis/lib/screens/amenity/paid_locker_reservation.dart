@@ -21,6 +21,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/rules_modal.dart';
+import '../my_page/web_view_ui.dart';
 
 class PaidLockerReservation extends StatefulWidget {
   const PaidLockerReservation({super.key});
@@ -47,6 +48,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   List<dynamic> timeList = [];
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
+    String reservationRulesLink = "";
+
 
   @override
   void initState() {
@@ -60,6 +63,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     // mobile = user.userData['mobile'].toString();
     // name = user.userData['name'].toString();
     // companyName = user.userData['company_name'].toString();
+     setWebViewLink();
     loadPersonalInformation();
     loadTimeList();
   }
@@ -330,7 +334,18 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                           ),
                           language =="en" ? InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("paidLockerReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("fitnessReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -340,7 +355,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                                         color: CustomColors.textColorBlack2),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: tr("fitnessReservationConsent"),
+                                          text: tr("paidLockerReservationRules"),
                                           style: const TextStyle(
                                             fontFamily: 'Regular',
                                         fontSize: 14,
@@ -353,11 +368,22 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                                 ),
                                 ) : InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("paidLockerReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("fitnessReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
-                                    text: tr("fitnessReservationConsent"),
+                                    text: tr("paidLockerReservationRules"),
                                     style: const TextStyle(fontFamily: 'Regular',
                                         fontSize: 14,
                                                                                     decoration: TextDecoration.underline,
@@ -853,5 +879,18 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         isLoading = false;
       });
     });
+  }
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+      });
+    } else {
+      setState(() {
+       
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+      });
+    }
   }
 }

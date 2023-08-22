@@ -22,6 +22,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/rules_modal.dart';
+import '../my_page/web_view_ui.dart';
 import 'conference_availability_modal.dart';
 
 class ConferenceReservation extends StatefulWidget {
@@ -56,6 +57,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   Map<dynamic, dynamic> conferenceRoomScheduleList = {};
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
+    String reservationRulesLink = "";
+
 
   @override
   void initState() {
@@ -69,6 +72,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+    setWebViewLink();
     loadPersonalInformation();
     loadTimeList();
     loadMeetingPackageList();
@@ -492,7 +496,18 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                                 padding: const EdgeInsets.only(top: 3),
                                 child:language == "en" ? InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("loungeConferenceReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("conferenceRoomReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -515,7 +530,18 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                                 ),
                                 ) : InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("loungeConferenceReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("conferenceRoomReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -1522,5 +1548,19 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             scheduleList: conferenceRoomScheduleList,
           );
         });
+  }
+
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+      });
+    } else {
+      setState(() {
+       
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+      });
+    }
   }
 }

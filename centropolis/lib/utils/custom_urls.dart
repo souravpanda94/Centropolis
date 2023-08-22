@@ -183,6 +183,23 @@ class WebViewLinks {
   static String termsOfUseUrlEng = "${baseUrlForWebLinks}termsofuse/en";
   static String termsOfUseUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
 
+    static String loungeConferenceUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+    static String loungeConferenceUrlEng = "${baseUrlForWebLinks}termsofuse/kr";
+
+    static String ptUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+    static String ptUrlEng = "${baseUrlForWebLinks}termsofuse/kr";
+
+    static String paidLockerUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+    static String paidLockerUrlEng = "${baseUrlForWebLinks}termsofuse/kr";
+
+    static String gxUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+    static String gxUrlEng = "${baseUrlForWebLinks}termsofuse/kr";
+
+    static String refreshUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+    static String refreshUrlEng = "${baseUrlForWebLinks}termsofuse/kr";
+
+
+
   static String freeParkingVehicleRegistrationUrl =
       "http://centropolis.co.kr/About/parking.asp";
 }

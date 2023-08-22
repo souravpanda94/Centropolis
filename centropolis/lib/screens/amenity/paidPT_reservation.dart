@@ -21,6 +21,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/rules_modal.dart';
+import '../my_page/web_view_ui.dart';
 
 class PaidPTReservation extends StatefulWidget {
   const PaidPTReservation({super.key});
@@ -48,6 +49,8 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   String? endTimeSelectedValue;
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
+    String reservationRulesLink = "";
+
 
   List<dynamic> timeList = [];
 
@@ -63,6 +66,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+    setWebViewLink();
     loadPersonalInformation();
     loadTimeList();
   }
@@ -363,7 +367,18 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                           ),
                           language =="en" ? InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("ptReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("fitnessReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -373,7 +388,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                                         color: CustomColors.textColorBlack2),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: tr("fitnessReservationConsent"),
+                                          text: tr("ptReservationRules"),
                                           style: const TextStyle(
                                             fontFamily: 'Regular',
                                         fontSize: 14,
@@ -386,11 +401,22 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                                 ),
                                 ) : InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("ptReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("fitnessReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
-                                    text: tr("fitnessReservationConsent"),
+                                    text: tr("ptReservationRules"),
                                     style: const TextStyle(fontFamily: 'Regular',
                                         fontSize: 14,
                                                                                     decoration: TextDecoration.underline,
@@ -887,5 +913,18 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         isLoading = false;
       });
     });
+  }
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+      });
+    } else {
+      setState(() {
+       
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+      });
+    }
   }
 }

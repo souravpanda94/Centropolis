@@ -20,6 +20,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/rules_modal.dart';
+import '../my_page/web_view_ui.dart';
 
 class LoungeReservation extends StatefulWidget {
   const LoungeReservation({super.key});
@@ -54,7 +55,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
   List<dynamic> usageTimeList = [];
   List<dynamic> timeList = [];
   List<dynamic> numberOfParticipantsList = [];
-    List<dynamic> paymentMethodList = [];
+  List<dynamic> paymentMethodList = [];
+  String reservationRulesLink = "";
+
 
   TextEditingController eventPurposeController = TextEditingController();
 
@@ -70,6 +73,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+    setWebViewLink();
     loadPersonalInformation();
     loadUsageTimeList();
     loadTimeList();
@@ -451,7 +455,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                 padding: const EdgeInsets.only(top: 4),
                                 child: language =="en" ? InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("loungeConferenceReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("loungeReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -474,7 +489,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                 ),
                                 ) : InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("loungeConferenceReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("loungeReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -1669,5 +1695,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
         isLoading = false;
       });
     });
+  }
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+      });
+    } else {
+      setState(() {
+       
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+      });
+    }
   }
 }

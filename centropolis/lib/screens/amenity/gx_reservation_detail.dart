@@ -20,6 +20,7 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/rules_modal.dart';
+import '../my_page/web_view_ui.dart';
 
 class GXReservationDetail extends StatefulWidget {
   final GxFitnessReservationModel gxReservationItem;
@@ -38,6 +39,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
   String name = "";
   String email = "";
   String mobile = "";
+    String reservationRulesLink = "";
+
 
   @override
   void initState() {
@@ -51,6 +54,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['user_name'].toString();
     //companyName = user.userData['company_name'].toString();
+    setWebViewLink();
     loadPersonalInformation();
   }
 
@@ -390,7 +394,18 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                             ),
                             language =="en" ? InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("gxReservationRules"));
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("gXReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -400,7 +415,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                                         color: CustomColors.textColorBlack2),
                                     children: <TextSpan>[
                                       TextSpan(
-                                          text: tr("fitnessReservationConsent"),
+                                          text: tr("gxReservationRules"),
                                           style: const TextStyle(
                                             fontFamily: 'Regular',
                                         fontSize: 14,
@@ -413,11 +428,23 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                                 ),
                                 ) : InkWell(
                                   onTap: () {
-                                    showRulesModal(tr("gxReservationRules"));
+                                    
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("gXReservation"), reservationRulesLink);
+                            });
                                   },
                                   child: Text.rich(
                                   TextSpan(
-                                    text: tr("fitnessReservationConsent"),
+                                    text: tr("gxReservationRules"),
                                     style: const TextStyle(fontFamily: 'Regular',
                                         fontSize: 14,
                                                                                     decoration: TextDecoration.underline,
@@ -637,5 +664,18 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
         isLoading = false;
       });
     });
+  }
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+      });
+    } else {
+      setState(() {
+       
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+      });
+    }
   }
 }

@@ -26,6 +26,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
+import '../my_page/web_view_ui.dart';
 
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
@@ -46,6 +47,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
+    String reservationRulesLink = "";
+
 
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
@@ -84,6 +87,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+     setWebViewLink();
     String day = focusedDate.day.toString();
     String month = focusedDate.month.toString();
     String year = focusedDate.year.toString();
@@ -552,13 +556,77 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                   const SizedBox(
                                     width: 9,
                                   ),
-                                  Text(
-                                    tr("sleepingRoomReservationConsent"),
-                                    style: const TextStyle(
-                                        fontFamily: 'Regular',
+                                  language =="en" ? InkWell(
+                                  onTap: () {
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("sleepingRoomReservation"), reservationRulesLink);
+                            });
+                                  },
+                                  child: Text.rich(
+                                  TextSpan(
+                                    text: tr("agree"),
+                                    style: const TextStyle(fontFamily: 'Regular',
                                         fontSize: 14,
                                         color: CustomColors.textColorBlack2),
-                                  )
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: tr("sleepingRoomReservationRules"),
+                                          style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.buttonBackgroundColor,
+                                            decoration: TextDecoration.underline,
+                                          )),
+                                     
+                                    ],
+                                  ),
+                                ),
+                                ) : InkWell(
+                                  onTap: () {
+                                    showGeneralDialog(
+                            context: context,
+                            barrierColor: Colors.black12.withOpacity(0.6),
+                            // Background color
+                            barrierDismissible: false,
+                            barrierLabel: 'Dialog',
+                            transitionDuration:
+                                const Duration(milliseconds: 400),
+                            pageBuilder: (_, __, ___) {
+                              return WebViewUiScreen(
+                                  tr("sleepingRoomReservation"), reservationRulesLink);
+                            });
+                                  },
+                                  child: Text.rich(
+                                  TextSpan(
+                                    text: tr("sleepingRoomReservationRules"),
+                                    style: const TextStyle(fontFamily: 'Regular',
+                                        fontSize: 14,
+                                                                                    decoration: TextDecoration.underline,
+
+                                        color: CustomColors.buttonBackgroundColor),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: tr("agree"),
+                                          style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2,
+                                            decoration: TextDecoration.none,
+                                          )),
+                                     
+                                    ],
+                                  ),
+                                ),
+                                ),
                                 ],
                               ),
                             ),
@@ -1545,5 +1613,18 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         isLoading = false;
       });
     });
+  }
+
+  void setWebViewLink() {
+    if (language == "en") {
+      setState(() {
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+      });
+    } else {
+      setState(() {
+       
+        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+      });
+    }
   }
 }

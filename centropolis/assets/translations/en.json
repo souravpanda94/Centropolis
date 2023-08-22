@@ -505,10 +505,10 @@
   "paidPtInformationDescription2" : "Basic weight program available",
   "paidPtInformationDescription3" : "10 times - 600,000 (tax excluded) / Short-term tickets, hourly discount classes available",
 
-  "loungeConferenceReservationRules" : "",
-  "ptReservationRules":"",
-  "gxReservationRules":"",
-  "paidLockerReservationRules":"",
+  "sleepingRoomReservationRules" : "fitness reservation rules.",
+  "ptReservationRules":"fitness reservation rules.",
+  "gxReservationRules":"fitness reservation rules.",
+  "paidLockerReservationRules":"fitness reservation rules.",
 
   "paidLockerReservationRestrictionPopup":"Additional reservations are not available as waiting list is full. ",
   "eventPurposeHint":"Please enter an Event Purpose",

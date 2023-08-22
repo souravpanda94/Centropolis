@@ -507,10 +507,10 @@
   "paidPtInformationDescription2" : "기초 웨이트 프로그램 진행가능",
   "paidPtInformationDescription3" : "10회 600,000 (부가세 별도) / 단기권, 시간별 할인 수업 가능",
 
-  "loungeConferenceReservationRules" : "",
-  "ptReservationRules":"",
-  "gxReservationRules":"",
-  "paidLockerReservationRules":"",
+  "sleepingRoomReservationRules" : "수면실 예약 규정에 ",
+  "ptReservationRules":"PT 예약 규정에 ",
+  "gxReservationRules":"GX 예약 규정에 ",
+  "paidLockerReservationRules":"개인 사물함 예약 규정에 ",
 
   "paidLockerReservationRestrictionPopup":"대기 인원 소진 시 까지 추가 예약 접수가 불가 합니다. ",
   "eventPurposeHint":"이용 목적을 입력해 주세요",
