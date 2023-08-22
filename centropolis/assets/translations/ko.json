@@ -173,7 +173,8 @@
   "selectUsageTime" : "사용 시간을 선택해 주세요.",
   "selectStartTime" : "시작 시간을 선택해 주세요.",
   "selectEndTime" : "종료 시간을 선택해 주세요.",
-  "loungeReservationConsent" : "이그제큐티브 라운지 예약 규정에 동의합니다.",
+  "loungeReservationConsent" : "이그제큐티브 라운지 예약 규정에 ",
+  "agree":"동의합니다.",
   "makeReservation" : "예약하기",
   "nameLounge" : "사용자명",
   "tenantCompanyLounge" : "입주사",
@@ -186,7 +187,7 @@
   "makeConferenceRoomReservation" : "회의실 예약하기",
   "conferenceRoomReservation" : "회의실 예약",
   "enterRentalInformation" : "상세 요청 사항",
-  "conferenceReservationConsent" : "회의실 예약 규정에 동의합니다.",
+  "conferenceReservationConsent" : "회의실 예약 규정에 ",
   "rentalInformationHint" : "인원, 목적, 부가서비스 등 대여정보를 입력해 주세요.",
   "conferenceReservationComplete" : "회의실 예약 문의가 접수되었습니다",
   "facilityInformation" : "시설안내",
@@ -212,6 +213,7 @@
   "applicationPeriod" : "신청 기간",
   "application/NumberOfPeople" : "신청 / 인원",
   "gxReservationConsent" : "피트니스 예약 규정에 동의합니다.",
+  "fitnessReservationConsent" : "피트니스 예약 규정에 ",
   "selectPeriod" : "기간 선택",
   "howToUse" : "이용방법",
   "makeSleepingRoomReservation" : "수면실 예약하기",
@@ -504,6 +506,14 @@
   "paidPtInformationDescription1" : "개인 코칭을 통한 유료 프로그램(50분 수업)",
   "paidPtInformationDescription2" : "기초 웨이트 프로그램 진행가능",
   "paidPtInformationDescription3" : "10회 600,000 (부가세 별도) / 단기권, 시간별 할인 수업 가능",
+
+  "loungeConferenceReservationRules" : "",
+  "ptReservationRules":"",
+  "gxReservationRules":"",
+  "paidLockerReservationRules":"",
+
+
+
 
 
 

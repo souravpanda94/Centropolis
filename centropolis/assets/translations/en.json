@@ -184,7 +184,8 @@
   "selectUsageTime" : "Please select a usage time",
   "selectStartTime" : "Please select a start time",
   "selectEndTime" : "Please select an end time",
-  "loungeReservationConsent" : "I agree to the Executive Lounge Reservation Rules.",
+  "loungeReservationConsent" : "Executive Lounge Reservation Rules.",
+  "agree":"I agree to the ",
   "makeReservation" : "Make a Reservation",
   "nameLounge" : "Name",
   "tenantCompanyLounge" : "Tenant Company",
@@ -197,7 +198,7 @@
   "makeConferenceRoomReservation" : "Make a Conference Room Reservation",
   "conferenceRoomReservation" : "Conference Room Reservation",
   "enterRentalInformation" : "Enter Rental Information",
-  "conferenceReservationConsent" : "I agree to the conference room reservation rules",
+  "conferenceReservationConsent" : "conference room reservation rules",
   "rentalInformationHint" : "Please enter rental information such as the number of people, purpose, and additional services.",
   "conferenceReservationComplete" : "Conference Room Reservation Inquiry Received",
   "facilityInformation" : "Facility Information",
@@ -223,6 +224,8 @@
   "applicationPeriod" : "Application Period",
   "application/NumberOfPeople" : "Application / number of people",
   "gxReservationConsent" : "I agree to the fitness reservation rules.",
+  "fitnessReservationConsent" : "fitness reservation rules.",
+
   "selectPeriod" : "Select Period",
   "howToUse" : "How to use",
   "makeSleepingRoomReservation" : "Make a Sleeping Room Reservation",
@@ -507,6 +510,10 @@
   "paidPtInformationDescription2" : "Basic weight program available",
   "paidPtInformationDescription3" : "10 times - 600,000 (tax excluded) / Short-term tickets, hourly discount classes available",
 
+  "loungeConferenceReservationRules" : "",
+  "ptReservationRules":"",
+  "gxReservationRules":"",
+  "paidLockerReservationRules":"",
 
 
 

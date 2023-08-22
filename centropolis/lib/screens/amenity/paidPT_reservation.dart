@@ -20,6 +20,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
+import '../../widgets/rules_modal.dart';
 
 class PaidPTReservation extends StatefulWidget {
   const PaidPTReservation({super.key});
@@ -360,13 +361,55 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                           const SizedBox(
                             width: 9,
                           ),
-                          Text(
-                            tr("gxReservationConsent"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          )
+                          language =="en" ? InkWell(
+                                  onTap: () {
+                                    showRulesModal(tr("ptReservationRules"));
+                                  },
+                                  child: Text.rich(
+                                  TextSpan(
+                                    text: tr("agree"),
+                                    style: const TextStyle(fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: tr("fitnessReservationConsent"),
+                                          style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.buttonBackgroundColor,
+                                            decoration: TextDecoration.underline,
+                                          )),
+                                     
+                                    ],
+                                  ),
+                                ),
+                                ) : InkWell(
+                                  onTap: () {
+                                    showRulesModal(tr("ptReservationRules"));
+                                  },
+                                  child: Text.rich(
+                                  TextSpan(
+                                    text: tr("fitnessReservationConsent"),
+                                    style: const TextStyle(fontFamily: 'Regular',
+                                        fontSize: 14,
+                                                                                    decoration: TextDecoration.underline,
+
+                                        color: CustomColors.buttonBackgroundColor),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: tr("agree"),
+                                          style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2,
+                                            decoration: TextDecoration.none,
+                                          )),
+                                     
+                                    ],
+                                  ),
+                                ),
+                                ),
                         ],
                       ),
                     ),
@@ -387,6 +430,24 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
             ],
           )),
     );
+  }
+
+   void showRulesModal( String message) {
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          return RulesModal(
+            heading: "",
+            description: message,
+            buttonName: tr("check"),
+            
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            
+          );
+        });
   }
 
   timeSelectionDropdownWidget() {

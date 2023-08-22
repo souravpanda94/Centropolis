@@ -19,6 +19,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
+import '../../widgets/rules_modal.dart';
 
 class LoungeReservation extends StatefulWidget {
   const LoungeReservation({super.key});
@@ -324,12 +325,54 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             Flexible(
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 4),
-                                child: Text(
-                                  tr("loungeReservationConsent"),
-                                  style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 14,
-                                      color: CustomColors.textColorBlack2),
+                                child: language =="en" ? InkWell(
+                                  onTap: () {
+                                    showRulesModal(tr("loungeConferenceReservationRules"));
+                                  },
+                                  child: Text.rich(
+                                  TextSpan(
+                                    text: tr("agree"),
+                                    style: const TextStyle(fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: tr("loungeReservationConsent"),
+                                          style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.buttonBackgroundColor,
+                                            decoration: TextDecoration.underline,
+                                          )),
+                                     
+                                    ],
+                                  ),
+                                ),
+                                ) : InkWell(
+                                  onTap: () {
+                                    showRulesModal(tr("loungeConferenceReservationRules"));
+                                  },
+                                  child: Text.rich(
+                                  TextSpan(
+                                    text: tr("loungeReservationConsent"),
+                                    style: const TextStyle(fontFamily: 'Regular',
+                                        fontSize: 14,
+                                                                                    decoration: TextDecoration.underline,
+
+                                        color: CustomColors.buttonBackgroundColor),
+                                    children: <TextSpan>[
+                                      TextSpan(
+                                          text: tr("agree"),
+                                          style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColorBlack2,
+                                            decoration: TextDecoration.none,
+                                          )),
+                                     
+                                    ],
+                                  ),
+                                ),
                                 ),
                               ),
                             )
@@ -383,6 +426,24 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           ),
                         )
                       ]);
+  }
+
+  void showRulesModal( String message) {
+    showDialog(
+        barrierDismissible: true,
+        context: context,
+        builder: (BuildContext context) {
+          return RulesModal(
+            heading: "",
+            description: message,
+            buttonName: tr("check"),
+            
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            
+          );
+        });
   }
 
 
