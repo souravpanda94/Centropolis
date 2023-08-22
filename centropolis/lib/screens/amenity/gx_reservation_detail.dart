@@ -652,12 +652,12 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+        reservationRulesLink = WebViewLinks.gxUrlEng;
       });
     } else {
       setState(() {
        
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+        reservationRulesLink = WebViewLinks.gxUrlKo;
       });
     }
   }

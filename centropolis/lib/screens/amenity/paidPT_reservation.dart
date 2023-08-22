@@ -901,12 +901,12 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+        reservationRulesLink = WebViewLinks.ptUrlEng;
       });
     } else {
       setState(() {
        
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+        reservationRulesLink = WebViewLinks.ptUrlKo;
       });
     }
   }

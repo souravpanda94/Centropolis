@@ -558,18 +558,18 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                   ),
                                   language =="en" ? InkWell(
                                   onTap: () {
-                                    showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("sleepingRoomReservation"), reservationRulesLink);
-                            });
+                            //         showGeneralDialog(
+                            // context: context,
+                            // barrierColor: Colors.black12.withOpacity(0.6),
+                            // // Background color
+                            // barrierDismissible: false,
+                            // barrierLabel: 'Dialog',
+                            // transitionDuration:
+                            //     const Duration(milliseconds: 400),
+                            // pageBuilder: (_, __, ___) {
+                            //   return WebViewUiScreen(
+                            //       tr("sleepingRoomReservation"), reservationRulesLink);
+                            // });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -592,18 +592,18 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                 ),
                                 ) : InkWell(
                                   onTap: () {
-                                    showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("sleepingRoomReservation"), reservationRulesLink);
-                            });
+                            //         showGeneralDialog(
+                            // context: context,
+                            // barrierColor: Colors.black12.withOpacity(0.6),
+                            // // Background color
+                            // barrierDismissible: false,
+                            // barrierLabel: 'Dialog',
+                            // transitionDuration:
+                            //     const Duration(milliseconds: 400),
+                            // pageBuilder: (_, __, ___) {
+                            //   return WebViewUiScreen(
+                            //       tr("sleepingRoomReservation"), reservationRulesLink);
+                            // });
                                   },
                                   child: Text.rich(
                                   TextSpan(
@@ -1618,12 +1618,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+        reservationRulesLink = WebViewLinks.refreshUrlEng;
       });
     } else {
       setState(() {
        
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+        reservationRulesLink = WebViewLinks.refreshUrlKo;
       });
     }
   }

@@ -867,12 +867,12 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+        reservationRulesLink = WebViewLinks.paidLockerUrlEng;
       });
     } else {
       setState(() {
        
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+        reservationRulesLink = WebViewLinks.paidLockerUrlKo;
       });
     }
   }
