@@ -1065,7 +1065,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
           ),
           items: timeList
               .map((item) => DropdownMenuItem<String>(
-                    value: item,
+                    enabled: item["available"] ? true : false,
+                    value: item["value"].toString().trim(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1073,9 +1074,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         Padding(
                           padding: const EdgeInsets.only(left: 12, bottom: 9),
                           child: Text(
-                            item,
-                            style: const TextStyle(
-                              color: CustomColors.blackColor,
+                            item["value"],
+                            style:  TextStyle(
+                               color: item["available"]
+                              ? CustomColors.blackColor
+                              : CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
@@ -1192,7 +1195,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
           ),
           items: timeList
               .map((item) => DropdownMenuItem<String>(
-                    value: item,
+                    enabled: item["available"] ? true : false,
+                    value: item["value"].toString().trim(),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -1200,9 +1204,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         Padding(
                           padding: const EdgeInsets.only(left: 12, bottom: 9),
                           child: Text(
-                            item,
-                            style: const TextStyle(
-                              color: CustomColors.blackColor,
+                            item["value"].toString().trim(),
+                            style:  TextStyle(
+                               color: item["available"]
+                              ? CustomColors.blackColor
+                              : CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
@@ -1502,10 +1508,26 @@ class _LoungeReservationState extends State<LoungeReservation> {
   }
 
   void callLoadTimeListApi() {
+    String selectedDate = "";
+    String day = focusedDate.day.toString();
+    String month = focusedDate.month.toString();
+    String year = focusedDate.year.toString();
+
+    if (int.parse(day) < 10 && int.parse(month) < 10) {
+      selectedDate = '$year-0$month-0$day';
+    } else if (int.parse(day) < 10) {
+      selectedDate = '$year-$month-0$day';
+    } else if (int.parse(month) < 10) {
+      selectedDate = '$year-0$month-$day';
+    } else {
+      selectedDate = '$year-$month-$day';
+    }
     setState(() {
+      reservationDate = selectedDate;
       isLoading = true;
     });
-    Map<String, String> body = {};
+
+    Map<String, String> body = {"reservation_date": reservationDate.trim()};
 
     debugPrint("Time List input===> $body");
 
@@ -1518,9 +1540,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
+          if (responseJson['list'] != null) {
             setState(() {
-              timeList = responseJson['data'];
+              timeList = responseJson['list'];
             });
           }
         } else {
