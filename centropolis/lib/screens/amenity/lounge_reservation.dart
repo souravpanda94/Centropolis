@@ -442,8 +442,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                             padding: const EdgeInsets.only(
                                                 left: 15,
                                                 right: 15,
-                                                top: 10,
-                                                bottom: 10),
+                                                top: 12,
+                                                bottom: 12),
                                             child: Text(
                                                 tr('equipmentsHint')))
                                         : Container(
@@ -453,12 +453,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                               scrollDirection: Axis.horizontal,
                                               child: Wrap(
                                                 runSpacing: 1.5,
+                                                spacing:0 ,
                                                 direction: Axis.vertical,
                                                 children: _selectedEquipments
                                                     .map((e) => Chip(
                                                           visualDensity:
                                                               VisualDensity
-                                                                  .standard,
+                                                                  .compact,
                                                           backgroundColor:
                                                               CustomColors
                                                                   .selectedColor,

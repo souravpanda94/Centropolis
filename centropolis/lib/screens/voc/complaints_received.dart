@@ -520,7 +520,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           debugPrint("----------------Image size in KB   $kb---------------");
           debugPrint("----------------Image size in MB   $mb---------------");
 
-          if (mb > 1.0) {
+          if (mb > 15.0) {
             showCustomToast(fToast, context, tr("imageSizeValidation"), "");
           } else if (imageWidth > 670 && imageHeight > 670) {
             showCustomToast(

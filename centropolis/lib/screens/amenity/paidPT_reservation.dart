@@ -463,7 +463,8 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          timeList.isNotEmpty ? timeList.first["value"] : "00:00 ~ 00:00",
+          tr("usageTimeValidation"),
+          //timeList.isNotEmpty ? timeList.first["value"] : "00:00 ~ 00:00",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -695,9 +696,9 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           if (responseJson['data'] != null) {
             setState(() {
               timeList = responseJson['data'];
-              rangeTimeSelectedValue = timeList.first["value"];
-              startTimeSelectedValue = timeList.first["start_time"];
-              endTimeSelectedValue = timeList.first["end_time"];
+              // rangeTimeSelectedValue = timeList.first["value"];
+              // startTimeSelectedValue = timeList.first["start_time"];
+              // endTimeSelectedValue = timeList.first["end_time"];
             });
           }
         } else {

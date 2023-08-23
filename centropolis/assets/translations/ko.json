@@ -313,7 +313,7 @@
   "attachment" : "첨부 파일",
   "photo" : "사진 등록",
   "complaintsReceivedCompleted" : "불편사항이 접수되었습니다.",
-  "photoNote" : "사진 등록 시 이미지 사이즈는 670X670 픽셀 이하, 파일 용량은 1Mbyte 이하로 등록해주세요.",
+  "photoNote" : "사진 등록 시 이미지 사이즈는 670X670 픽셀 이하, 파일 용량은 15 Mbyte 이하로 등록해주세요.",
   "todayFilter" : "하루",
   "apply" : "신청하기",
   "loungeOperatingTime" : "오전 7시30분 ~ 오후6시 (L.O 17:30)",
@@ -414,7 +414,7 @@
   "savebutton" : "저장하기",
   "version" : "최신 버전",
   "ptReservationHistoryDetails": "유료 PT 예약",
-  "imageSizeValidation": "1MB이하의 이미지 파일을 선택해 주세요",
+  "imageSizeValidation": "15MB이하의 이미지 파일을 선택해 주세요",
   "imageDimensionValidation": "670x670 픽셀 이하의 이미지 파일을 선택해 주세요",
   "verifyAddMemberPasswordHint" : "비밀번호를 한번 더 입력해 주세요.",
   "applyVOC" : "확인",
@@ -527,7 +527,9 @@
   "vocInfoText4":"주 중 냉방/난방 신청은 당일 오후 3시까지 신청이 가능하오나, 당일 신청건은 신청서 제출 후 필히 아래 시설팀으로 확인 전화주시기 바랍니다.",
   "vocInfoText5":"신청시간 내 취소 시 신청시간에 대해 모두 부과가 됩니다. \nEX) 9시부터 11시까지 신청중 9시 30분에 취소 시 11시까지 부과",
   "equipments":"서비스 및 추가 장비",
-  "equipmentsHint":"Please select equipment",
+  "equipmentsHint":"서비스 및 추가 장비 선택해 주세요",
+  "periodOfUseValidation":"사용 기간을 선택해 주세요",
+
 
 
 

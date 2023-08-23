@@ -315,7 +315,7 @@
   "attachment" : "Attachment",
   "photo" : "Photo",
   "complaintsReceivedCompleted" : "Complaints have been received.",
-  "photoNote" : "When registering a photo, please register the image size under 670X670 pixels and the file size under 1Mbyte.",
+  "photoNote" : "When registering a photo, please register the image size under 670X670 pixels and the file size under 15 Mbyte.",
   "todayFilter" : "Today",
   "apply" : "Apply",
   "loungeOperatingTime" : "07:30 ~ 18:00 (L.O 17:30) ",
@@ -417,7 +417,7 @@
   "savebutton" : "Save",
   "version" : "Version",
   "ptReservationHistoryDetails": "Paid PT Reservation",
-  "imageSizeValidation": "Please select an image file smaller than 1 MB",
+  "imageSizeValidation": "Please select an image file smaller than 15 MB",
   "imageDimensionValidation": "Please select image file with size under 670 X 670 pixels",
   "verifyAddMemberPasswordHint" : "Please enter the employee password once more.",
   "applyVOC" : "Apply",
@@ -523,9 +523,11 @@
   "vocInfoText2":"Air conditioning and light out extension service provided outside of the prescribed business hours will be charged to the tenant as an additional management fee by applying the fee specified in the management regulations. Therefore, please check the cost with the tenant's general affairs and HR department before applying and apply.",
   "vocInfoText3":"Please apply for air conditioning/heating and light out extension on weekends and holidays by 3 p.m. on Friday.",
   "vocInfoText4":"Applications for air conditioning/heating and light out extension during the weekdays can be applied by 3 p.m. In case of applications submitted for the service on the same day, please call the facility team after submitting the application.",
-  "vocInfoText5":"5. If you cancel the application after start time, fee for all applied time will be charged.\n(EX) Application from 9:00 to 11:00 If canceled at 9:30 p.m., will be charged by 11:00 p.m",
+  "vocInfoText5":"If you cancel the application after start time, fee for all applied time will be charged.\n(EX) Application from 9:00 to 11:00 If canceled at 9:30 p.m., will be charged by 11:00 p.m",
   "equipments":"Services and Additional Equipment",
-  "equipmentsHint":"Please select equipment",
+  "equipmentsHint":"Please select services and equipment",
+  "periodOfUseValidation":"Please Select Period Of Use",
+
 
 
 

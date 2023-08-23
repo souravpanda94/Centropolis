@@ -431,7 +431,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          timeList.isNotEmpty ? timeList.first["text"] : "1 Month",
+          tr("periodOfUseValidation"),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -703,7 +703,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     } else if (focusedDate.compareTo(DateTime.now()) <= 0) {
       showErrorModal(tr("paidLockerValidation"));
     } else if (selectedTime == null && timeList.isEmpty) {
-      showErrorModal(tr("usageTimeValidation"));
+      showErrorModal(tr("periodOfUseValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
     } else {
