@@ -19,8 +19,9 @@ class VOCReservationHistory extends StatefulWidget {
 class _VOCReservationHistoryState extends State<VOCReservationHistory> {
   final List<Tab> myTabs = <Tab>[
     Tab(text: tr("inconvenience")),
-    Tab(text: tr("lightOut")),
-    Tab(text: tr("airConditioning")),
+    Tab(text: tr("airConditioningExtension")),
+    Tab(text: tr("lightOutExtension")),
+    
   ];
 
   @override
@@ -99,8 +100,8 @@ class _VOCReservationHistoryState extends State<VOCReservationHistory> {
           body: const TabBarView(
             children: [
               InconvenienceHistory(),
-              LightsOutHistory(),
               AirConditioningHistory(),
+              LightsOutHistory(),
             ],
           ),
         ));
