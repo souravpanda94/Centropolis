@@ -12,10 +12,10 @@ class LoungeHistoryDetailModel {
   String? canCancel;
   String? canCancelButtonEnabled;
   String? usageHours;
-    String? purpose;
+  String? purpose;
   String? displayNumberOfParticipants;
   String? displayPaymentMethod;
-
+  String? equipments;
   bool? success;
 
   LoungeHistoryDetailModel(
@@ -35,6 +35,7 @@ class LoungeHistoryDetailModel {
             this.purpose,
       this.displayNumberOfParticipants,
       this.displayPaymentMethod,
+      this.equipments,
 
       this.success});
 
@@ -56,6 +57,7 @@ class LoungeHistoryDetailModel {
         purpose = json['purpose'];
     displayNumberOfParticipants = json['display_no_of_participants'];
     displayPaymentMethod = json['display_payment_method'];
+    equipments=json['equipments'];
 
   }
 
@@ -75,12 +77,10 @@ class LoungeHistoryDetailModel {
     data['usage_hours'] = usageHours;
     data['success'] = success;
     data['can_cancel_button_enabled'] = canCancelButtonEnabled;
-        data['purpose'] = purpose;
-
+    data['purpose'] = purpose;
     data['display_no_of_participants'] = displayNumberOfParticipants;
-        data['display_payment_method'] = displayPaymentMethod;
-
-
+    data['display_payment_method'] = displayPaymentMethod;
+    data['equipments'] = equipments;
     return data;
   }
 }

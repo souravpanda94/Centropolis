@@ -166,8 +166,10 @@ class ApiEndPoint {
   static String appUpdateUrl = "${baseUrl}v1/mypage/app-details";
   static String numberOfParticipantsListUrl =
       "${baseUrl}v1/common/lounge-nop";
-      static String paymentMethodListUrl =
+  static String paymentMethodListUrl =
       "${baseUrl}v1/common/lounge-payment-method-list";
+  static String equipmentListUrl =
+      "${baseUrl}v1/common/lounge-equipments-list";
 }
 
 class WebViewLinks {

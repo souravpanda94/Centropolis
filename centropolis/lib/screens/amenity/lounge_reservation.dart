@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:centropolis/widgets/common_button.dart';
+import 'package:centropolis/widgets/multi_select_item_lounge.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -46,8 +47,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? startTimeSelectedValue;
   String? endTimeSelectedValue;
   String? numberOfParticipantsSelectedValue;
-    String? paymentMethodSelectedValue;
-    bool tooltip = false;
+  String? paymentMethodSelectedValue;
+  bool tooltip = false;
 
 
   String reservationDate = "";
@@ -56,6 +57,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
   List<dynamic> numberOfParticipantsList = [];
   List<dynamic> paymentMethodList = [];
   String reservationRulesLink = "";
+
+
+  List<dynamic> _selectedEquipments = [];
+    List<dynamic> _selectedEquipmentsValue = [];
+
+  List<dynamic> equipmentsList = [];
+  String? equipmentSelectedValue;
 
 
   TextEditingController eventPurposeController = TextEditingController();
@@ -78,6 +86,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
     loadTimeList();
     loadNumberOfParticipantsList();
     loadPaymentMethodList();
+    loadEquipmentList();
+
 
 
   }
@@ -396,6 +406,110 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                   color: CustomColors.blackColor),
                             ),
                           ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+
+                      Text(
+                        tr("equipments"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      InkWell(
+                          onTap: () {
+                            _showMultiSelect();
+                          },
+                          child: Container(
+                            height: 46,
+                            padding: const EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1.0,
+                                  color: CustomColors.dividerGreyColor),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(5.0)),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: _selectedEquipments.isEmpty
+                                        ? Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                top: 10,
+                                                bottom: 10),
+                                            child: Text(
+                                                tr('equipmentsHint')))
+                                        : Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 15),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Wrap(
+                                                runSpacing: 1.5,
+                                                direction: Axis.vertical,
+                                                children: _selectedEquipments
+                                                    .map((e) => Chip(
+                                                          visualDensity:
+                                                              VisualDensity
+                                                                  .standard,
+                                                          backgroundColor:
+                                                              CustomColors
+                                                                  .selectedColor,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal: 5),
+                                                          shape: const RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .all(Radius
+                                                                          .circular(
+                                                                              5))),
+                                                          label: SizedBox(
+                                                            //width: 20,
+                                                            child: Text(
+                                                                e["text"]
+                                                                    .toString()
+                                                                    ,
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: const TextStyle(
+                                                                    fontFamily:
+                                                                        'SemiBold',
+                                                                    fontSize: 12,
+                                                                    color: CustomColors
+                                                                        .whiteColor)),
+                                                          ),
+                                                        ))
+                                                    .toList(),
+                                              ),
+                                            ),
+                                          )),
+                                Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.only(
+                                    left: 10,
+                                      bottom:
+                                          equipmentSelectedValue != null ? 16 : 0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/ic_drop_down_arrow.svg",
+                                    width: 8,
+                                    height: 8,
+                                    color: CustomColors.textColorBlack2,
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        ),
 
                     ]
                     
@@ -577,8 +691,33 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       ]);
   }
 
-  
+  void _showMultiSelect() async {
+    final List<dynamic>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelectLoungeEquipments(
+          items: equipmentsList,
+          alreadySelectedItems: _selectedEquipments,
+         
 
+        );
+      },
+    );
+
+
+    // Update UI
+    if (results != null) {
+      _selectedEquipmentsValue.clear();
+       
+       for(var i =0;i<results.length;i++){
+            _selectedEquipmentsValue.add(results[i]["value"]);
+         }
+
+      setState(() {
+        _selectedEquipments = results;
+      });
+    }
+  }
 
   void showReservationModal(String heading, String message) {
     showDialog(
@@ -1267,6 +1406,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
           numberOfParticipantsSelectedValue=null;
           eventPurposeController.clear();
           tooltip=false;
+          _selectedEquipments.clear();
+          _selectedEquipmentsValue.clear();
         });
         loadUsageTimeList();
       },
@@ -1497,6 +1638,57 @@ class _LoungeReservationState extends State<LoungeReservation> {
     });
   }
 
+  void loadEquipmentList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadEquipmentListApi();
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
+  }
+
+  void callLoadEquipmentListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Equipment List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.equipmentListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Equipment List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            var equipmentNames;
+            setState(() {
+              equipmentsList = responseJson['data'];
+              
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            showCustomToast(
+                fToast, context, responseJson['message'].toString(), "");
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
   void reservationValidationCheck() {
     String selectedDate = "";
     String day = focusedDate.day.toString();
@@ -1537,6 +1729,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
     }
     else if (paymentMethodSelectedValue == null ) {
       showErrorModal(tr("paymentMethodHint"));
+    }else if (_selectedEquipments.isEmpty) {
+      showErrorModal(tr("equipmentsHint"));
     }
     else if (!isChecked) {
       showErrorModal(tr("tnc"));
@@ -1559,7 +1753,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
       "reservation_date": reservationDate.trim(), //required
@@ -1567,8 +1761,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
       "end_time": endTimeSelectedValue.toString().trim(), //required
       "type": usageTimeSelectedValue.toString().trim(), //required
       "purpose":eventPurposeController.text.toString().trim(),//required
-  "no_of_participants":numberOfParticipantsSelectedValue.toString().trim(),//required
-  "payment_method":paymentMethodSelectedValue.toString().trim(),//required
+      "no_of_participants":numberOfParticipantsSelectedValue.toString().trim(),//required
+      "payment_method":paymentMethodSelectedValue.toString().trim(),//required
+      "equipments": _selectedEquipmentsValue //required
     };
 
     debugPrint("lounge reservation input===> $body");
