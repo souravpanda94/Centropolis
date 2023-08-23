@@ -35,6 +35,10 @@ class _GXReservationState extends State<GXReservation> {
   List<GxFitnessReservationModel>? gxReservationListItem;
   //List<String> days = ["Mon", "Wed", "Fri,Sun"];
 
+  ScrollController controller1= ScrollController();
+    ScrollController controller2= ScrollController();
+
+
   @override
   void initState() {
     super.initState();
@@ -92,8 +96,10 @@ class _GXReservationState extends State<GXReservation> {
                   color: CustomColors.whiteColor,
                   borderRadius: BorderRadius.circular(4)),
               child: Scrollbar(
+                controller: controller1,
                 thumbVisibility: true,
                 child: SingleChildScrollView(
+                  controller: controller2,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -217,6 +223,7 @@ class _GXReservationState extends State<GXReservation> {
             ),
             Expanded(
               child: ListView.builder(
+                controller: controller1,
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
