@@ -512,8 +512,8 @@
 
   "paidLockerReservationRestrictionPopup":"Additional reservations are not available as waiting list is full. ",
   "eventPurposeHint":"Please enter an Event Purpose",
-  "numberOfparticipantsHint":"Please select number of Participants ",
-  "paymentMethodHint":"Please select payment method ",
+  "numberOfparticipantsHint":"Please select Number of Participants ",
+  "paymentMethodHint":"Please select Payment Method ",
   "eventPurpose":"Event Purpose",
   "numberOfParticipants":"Number of Participants",
   "paymentMethod":"Payment Method",
@@ -525,7 +525,7 @@
   "vocInfoText4":"Applications for air conditioning/heating and light out extension during the weekdays can be applied by 3 p.m. In case of applications submitted for the service on the same day, please call the facility team after submitting the application.",
   "vocInfoText5":"If you cancel the application after start time, fee for all applied time will be charged.\n(EX) Application from 9:00 to 11:00 If canceled at 9:30 p.m., will be charged by 11:00 p.m",
   "equipments":"Services and Additional Equipment",
-  "equipmentsHint":"Please select services and equipment",
+  "equipmentsHint":"Please select Services and Equipment",
   "periodOfUseValidation":"Please Select Period Of Use",
 
 
