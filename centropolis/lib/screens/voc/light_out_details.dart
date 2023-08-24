@@ -402,7 +402,7 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                                       "waiting_for_approval");
                                 }
                               },
-                              buttonName: tr("approved"),
+                              buttonName: tr("approve"),
                               buttonColor: lightOutDetails
                                           ?.canChangeButtonEnabled
                                           .toString()

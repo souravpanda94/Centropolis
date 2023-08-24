@@ -499,7 +499,7 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                                     "waiting_for_approval");
                               }
                             },
-                            buttonName: tr("approved"),
+                            buttonName: tr("approve"),
                             buttonColor: airConditioningDetailModel
                                         ?.canChangeButtonEnabled
                                         .toString()
