@@ -14,7 +14,6 @@ import 'package:http/http.dart' as http;
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
-import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_icon.dart';
 import 'fitness_reservation.dart';
 
@@ -74,9 +73,9 @@ class _FitnessScreenState extends State<FitnessScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Fitness",
-                          style: TextStyle(
+                         Text(
+                          tr("fitnessMainHeading"),
+                          style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.buttonBackgroundColor),

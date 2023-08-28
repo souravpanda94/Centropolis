@@ -69,7 +69,7 @@ class _AirConditioningScreenState extends State<AirConditioningScreen> {
         backgroundColor: Colors.white,
         body: VocCommonHome(
           image: 'assets/images/air_conditioning.png',
-          title: "Air Conditioning Extension Inquiry",
+          title: tr("airConditioningMainHeading"),
           subTitle: tr("CoolingHeatingSubtitle"),
           emptyTxt: tr("airConditioningEmptyText"),
           airConditioningList: airConditioningListItem,

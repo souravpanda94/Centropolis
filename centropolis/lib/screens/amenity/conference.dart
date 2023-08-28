@@ -74,9 +74,9 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Conference",
-                          style: TextStyle(
+                         Text(
+                          tr("conferenceMainHeading"),
+                          style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.buttonBackgroundColor),

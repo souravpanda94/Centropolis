@@ -74,9 +74,9 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Refresh",
-                          style: TextStyle(
+                         Text(
+                          tr("refreshMainHeading"),
+                          style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.buttonBackgroundColor),

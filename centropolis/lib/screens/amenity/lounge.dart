@@ -75,9 +75,9 @@ class _LoungeScreenState extends State<LoungeScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const Text(
-                          "Centropolis Executive Lounge By HAEVICHI",
-                          style: TextStyle(
+                         Text(
+                          tr("loungeMainHeading"),
+                          style: const TextStyle(
                               fontFamily: 'SemiBold',
                               fontSize: 14,
                               color: CustomColors.textColor9),
