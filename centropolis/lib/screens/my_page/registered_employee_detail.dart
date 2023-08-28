@@ -494,7 +494,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           });
         },
         dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
+          maxHeight: 150,
           isOverButton: false,
           elevation: 0,
           padding: const EdgeInsets.only(top: 0, bottom: 0),
@@ -702,6 +702,7 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
         ApiEndPoint.accountTypeListUrl, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
+
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
