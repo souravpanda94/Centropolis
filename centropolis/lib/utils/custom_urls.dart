@@ -136,13 +136,12 @@ class ApiEndPoint {
   static String logoutUrl = "${baseUrl}v1/logout";
   static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
   static String getNotificationListUrl = "${baseUrl}v1/mypage/notification-list";
-
-
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
-  static String serReadNotification =
-      "${baseUrl}v1/mypage/notification-read-all";
-  static String setDeviceInformationUrl = "${baseUrl}v1/add-device";
+  static String serReadNotification = "${baseUrl}v1/mypage/notification-read-all";
   static String appUpdateUrl = "${baseUrl}v1/mypage/app-details";
+  static String setDeviceInformationUrl = "${baseUrl}v1/add-device";
+
+
   static String numberOfParticipantsListUrl =
       "${baseUrl}v1/common/lounge-nop";
   static String paymentMethodListUrl =
