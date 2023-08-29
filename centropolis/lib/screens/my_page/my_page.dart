@@ -617,7 +617,12 @@ class _MyPageScreenState extends State<MyPageScreen> {
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
