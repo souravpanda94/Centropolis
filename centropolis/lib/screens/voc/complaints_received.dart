@@ -398,8 +398,12 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                       onTap: () {
                         if (imageFileList != null &&
                             imageFileList!.length == 1) {
-                          showCustomToast(fToast, context,
-                              "Only 1 image can be uploaded", "");
+                          // showCustomToast(fToast, context,
+                          //     "Only 1 image can be uploaded", "");
+                          showErrorCommonModal(context: context,
+                  heading :"Only 1 image can be uploaded",
+                  description: "",
+                  buttonName: tr("check"));
                         } else {
                           // selectImages();
                           openImagePicker(ImageSource.gallery);
@@ -523,16 +527,32 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           debugPrint("----------------Image size in MB   $mb---------------");
 
           if (mb > 15.0) {
-            showCustomToast(fToast, context, tr("imageSizeValidation"), "");
+            // showCustomToast(fToast, context, tr("imageSizeValidation"), "");
+             showErrorCommonModal(context: context,
+                  heading :tr("imageSizeValidation"),
+                  description: "",
+                  buttonName: tr("check"));
           } else if (imageWidth > 670 && imageHeight > 670) {
-            showCustomToast(
-                fToast, context, tr("imageDimensionValidation"), "");
+            // showCustomToast(
+            //     fToast, context, tr("imageDimensionValidation"), "");
+             showErrorCommonModal(context: context,
+                  heading :tr("imageDimensionValidation"),
+                  description: "",
+                  buttonName: tr("check"));
           } else if (imageWidth > 670) {
-            showCustomToast(
-                fToast, context, tr("imageDimensionValidation"), "");
+            // showCustomToast(
+            //     fToast, context, tr("imageDimensionValidation"), "");
+             showErrorCommonModal(context: context,
+                  heading :tr("imageDimensionValidation"),
+                  description: "",
+                  buttonName: tr("check"));
           } else if (imageHeight > 670) {
-            showCustomToast(
-                fToast, context, tr("imageDimensionValidation"), "");
+            // showCustomToast(
+            //     fToast, context, tr("imageDimensionValidation"), "");
+             showErrorCommonModal(context: context,
+                  heading :tr("imageDimensionValidation"),
+                  description: "",
+                  buttonName: tr("check"));
           } else {
             setState(() {
               fileImage = tempImage;
@@ -542,7 +562,11 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             });
           }
         } else {
-          showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
+          //showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
+           showErrorCommonModal(context: context,
+                  heading :"Only 1 image can be uploaded",
+                  description: "",
+                  buttonName: tr("check"));
         }
       }
     } on PlatformException catch (e) {
