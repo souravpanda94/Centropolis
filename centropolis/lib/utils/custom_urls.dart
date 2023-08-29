@@ -93,20 +93,21 @@ class ApiEndPoint {
 
 
 
-// =================================================================================================================================
 
 
+  
+
+
+// ====================================MONDIRA=============================================================================================
 
   static String lightOutDetailUrl = "${baseUrl}v1/mypage/light-out-inquiry-details";
+  static String visitReservationDetailUrl = "${baseUrl}v1/amenity/visitor-reservation-view";
+  static String visitReservationStatusChangeUrl = "${baseUrl}v1/amenity/change-visitor-reservation-status";
+  static String airConditioningDetailUrl = "${baseUrl}v1/mypage/ac-inquiry-details";
+  static String airConditioningChangeStatusUrl = "${baseUrl}v1/mypage/ac-inquiry-approve";
 
 
 
-  static String visitReservationDetailUrl =
-      "${baseUrl}v1/amenity/visitor-reservation-view";
-  static String visitReservationStatusChangeUrl =
-      "${baseUrl}v1/amenity/change-visitor-reservation-status";
-  static String airConditioningDetailUrl =
-      "${baseUrl}v1/mypage/ac-inquiry-details";
   static String paidPtHistoryListUrl =
       "${baseUrl}v1/mypage/pt-reservation-list";
   static String fitnessHistoryListUrl =
@@ -145,8 +146,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/reservation-status-list";
   static String fittnessSleepingRoomHistoryStatusUrl =
       "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
-  static String airConditioningChangeStatusUrl =
-      "${baseUrl}v1/mypage/ac-inquiry-approve";
+
   static String lightOutChangeStatusUrl =
       "${baseUrl}v1/mypage/light-out-approve";
 
