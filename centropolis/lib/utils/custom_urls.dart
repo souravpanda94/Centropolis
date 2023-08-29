@@ -126,15 +126,12 @@ class ApiEndPoint {
   static String lightOutCoolingHeatingStatusUrl = "${baseUrl}v1/common/ac-lights-status";
   static String lightOutChangeStatusUrl = "${baseUrl}v1/mypage/light-out-approve";
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-
-
-
-
-
-
   static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";
 
-  static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
+
+
+
+
   static String visitReservationApplicationUrl =
       "${baseUrl}v1/amenity/app-visitor-reservation";
   static String visitTimeListUrl = "${baseUrl}v1/common/visit-time";
@@ -160,6 +157,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/lounge-payment-method-list";
   static String equipmentListUrl =
       "${baseUrl}v1/common/lounge-equipments-list";
+  static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
 // static String coolingHeatingTypeListUrl = "${baseUrl}v1/common/ac-inquiry-type-list";
 }
 
