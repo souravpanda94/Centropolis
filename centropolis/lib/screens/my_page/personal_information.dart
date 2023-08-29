@@ -275,7 +275,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     if (await internetChecking.isInternet()) {
       callWithdrawalApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -304,8 +309,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           showWithdrawalSuccessModal();
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -315,6 +324,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -414,7 +427,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
     if (await internetChecking.isInternet()) {
       doLogout();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -439,14 +457,22 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
           removeLoginCredential(context);
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -456,6 +482,10 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
