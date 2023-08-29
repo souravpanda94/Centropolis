@@ -63,9 +63,12 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     // name = user.userData['name'].toString();
     // companyName = user.userData['company_name'].toString();
      setWebViewLink();
-    loadPersonalInformation();
-    loadTimeList();
+     internetCheckingForMethods();
+
+    
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -632,14 +635,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     );
   }
 
-  void loadTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadTimeListApi() {
     setState(() {
@@ -663,8 +659,13 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -673,6 +674,10 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -737,7 +742,12 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     if (await internetChecking.isInternet()) {
       callReservationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -773,8 +783,13 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
               responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -783,6 +798,10 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -810,14 +829,6 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -848,8 +859,13 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+             debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -858,6 +874,10 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -874,6 +894,22 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
        
         reservationRulesLink = WebViewLinks.paidLockerUrlKo;
       });
+    }
+  }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+     callLoadPersonalInformationApi();
+    callLoadTimeListApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 }
