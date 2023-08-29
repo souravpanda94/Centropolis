@@ -65,10 +65,12 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     companyId = user.userData['company_id'].toString();
     //companyName = user.userData['company_name'].toString();
     //name = user.userData['name'].toString();
-    loadPersonalInformation();
-    loadComplaintTypeList();
-    loadFloorList();
+    
+    internetCheckingForMethods();
+
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -655,19 +657,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     );
   }
 
-  void loadFloorList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadFloorListApi();
-    } else {
-      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-      showErrorCommonModal(
-          context: context,
-          heading: tr("noInternet"),
-          description: tr("connectionFailedDescription"),
-          buttonName: tr("check"));
-    }
-  }
+  
 
   void callLoadFloorListApi() {
     setState(() {
@@ -818,14 +808,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     );
   }
 
-  void loadComplaintTypeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadComplaintTypeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadComplaintTypeListApi() {
     setState(() {
@@ -846,8 +829,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -856,6 +844,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -903,7 +895,12 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     if (await internetChecking.isInternet()) {
       callReservationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -978,8 +975,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           detailController.clear();
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -988,20 +990,17 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1033,8 +1032,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -1043,9 +1047,30 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
+  }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    callLoadComplaintTypeListApi();
+    callLoadFloorListApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
   }
 }
