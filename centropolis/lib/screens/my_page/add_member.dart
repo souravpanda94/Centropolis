@@ -874,7 +874,12 @@ class _AddMemberState extends State<AddMember> {
     if (await internetChecking.isInternet()) {
       callLoadCompanyListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -902,8 +907,13 @@ class _AddMemberState extends State<AddMember> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+             showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -912,6 +922,10 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -923,7 +937,12 @@ class _AddMemberState extends State<AddMember> {
     if (await internetChecking.isInternet()) {
       callLoadFloorListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -954,8 +973,13 @@ class _AddMemberState extends State<AddMember> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -964,6 +988,10 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -981,7 +1009,12 @@ class _AddMemberState extends State<AddMember> {
       if (await internetChecking.isInternet()) {
         callVerifyUserIdApi();
       } else {
-        showCustomToast(fToast, context, tr("noInternetConnection"), "");
+        //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+         showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
       }
     }
   }
@@ -1007,13 +1040,20 @@ class _AddMemberState extends State<AddMember> {
             isUserIdVerified = true;
           });
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+             debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1022,6 +1062,10 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });

@@ -253,7 +253,11 @@ class _FindPasswordState extends State<FindPassword> {
       callFindIdApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorModal(tr("noInternet"),tr("connectionFailedDescription"));
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -289,7 +293,10 @@ class _FindPasswordState extends State<FindPassword> {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorModal(responseJson['message'].toString(),"");
+             showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -300,7 +307,10 @@ class _FindPasswordState extends State<FindPassword> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorModal(tr("errorDescription"),"");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -335,23 +345,5 @@ class _FindPasswordState extends State<FindPassword> {
     emailIDController.clear();
   }
 
-  void showErrorModal(String heading,String description) {
-    showDialog(
-        barrierDismissible: false,
-        context: context,
-        builder: (BuildContext context) {
-          return CommonModal(
-            heading: heading,
-            description: description,
-            buttonName: tr("check"),
-            firstButtonName: "",
-            secondButtonName: "",
-            onConfirmBtnTap: () {
-              Navigator.pop(context);
-            },
-            onFirstBtnTap: () {},
-            onSecondBtnTap: () {},
-          );
-        });
-  }
+
 }
