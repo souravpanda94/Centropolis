@@ -387,7 +387,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
     if (await internetChecking.isInternet()) {
       callPushNotificationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -408,15 +413,23 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
           var user = Provider.of<UserProvider>(context, listen: false);
           user.userData['push_notification'] = isPushAllow.toString();
           user.doAddUser(user.userData);
         } else {
-          showCustomToast(
-              fToast, context, responseJson['message'].toString(), "");
+          // showCustomToast(
+          //     fToast, context, responseJson['message'].toString(), "");
+          showErrorCommonModal(context: context,
+              heading :responseJson['message'].toString(),
+              description: "",
+              buttonName: tr("check"));
         }
       }
 
@@ -425,6 +438,10 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
