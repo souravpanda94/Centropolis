@@ -114,14 +114,15 @@ class ApiEndPoint {
   static String fitnessHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-center-details";
   static String fitnessHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/fitness-reservation-cancel";
   static String paidPtHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-pt-details";
-
-
-
   static String gxHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-gx-details";
-  static String loungeHistoryDetailUrl =
-      "${baseUrl}v1/mypage/executive-lounge-details";
-  static String loungeHistoryDetailCancelReservationUrl =
-      "${baseUrl}v1/mypage/executive-lounge-cancel";
+  static String loungeHistoryDetailUrl = "${baseUrl}v1/mypage/executive-lounge-details";
+  static String loungeHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/executive-lounge-cancel";
+
+
+
+
+
+
   static String requestLightOutStartTimeListUrl =
       "${baseUrl}v1/common/ac-lights-time";
   static String requestLightOutUsageTimeListUrl =

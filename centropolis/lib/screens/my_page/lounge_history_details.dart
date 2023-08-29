@@ -456,7 +456,12 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
     if (await internetChecking.isInternet()) {
       callLoungeHistoryDetailsApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -488,8 +493,11 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
               .setItem(loungeHistoryDetailModel);
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -498,6 +506,10 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -509,7 +521,12 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
     if (await internetChecking.isInternet()) {
       callCancelReservationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -543,8 +560,11 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
           showConfirmationModal(responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -553,6 +573,10 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
