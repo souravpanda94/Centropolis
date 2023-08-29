@@ -79,11 +79,28 @@ class _AirConditioningApplicationState
     companyId = user.userData['company_id'].toString();
     //companyName = user.userData['company_name'].toString();
     //name = user.userData['name'].toString();
-    loadPersonalInformation();
-    loadStartTimeList();
     //loadUsageTimeList();
-    loadFloorList();
+    internetCheckingForMethods();
   }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+      callLoadStartTimeListApi();
+      callLoadFloorListApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -1154,19 +1171,19 @@ class _AirConditioningApplicationState
         });
   }
 
-  void loadFloorList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadFloorListApi();
-    } else {
-      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
-          context: context,
-          heading: tr("noInternet"),
-          description: tr("connectionFailedDescription"),
-          buttonName: tr("check"));
-    }
-  }
+  // void loadFloorList() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callLoadFloorListApi();
+  //   } else {
+  //     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //      showErrorCommonModal(
+  //         context: context,
+  //         heading: tr("noInternet"),
+  //         description: tr("connectionFailedDescription"),
+  //         buttonName: tr("check"));
+  //   }
+  // }
 
   void callLoadFloorListApi() {
     setState(() {
@@ -1227,14 +1244,14 @@ class _AirConditioningApplicationState
     });
   }
 
-  void loadStartTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadStartTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  // void loadStartTimeList() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callLoadStartTimeListApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
 
   void callLoadStartTimeListApi() {
     setState(() {
@@ -1264,8 +1281,11 @@ class _AirConditioningApplicationState
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1274,6 +1294,10 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1285,7 +1309,12 @@ class _AirConditioningApplicationState
     if (await internetChecking.isInternet()) {
       callLoadUsageTimeListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1317,8 +1346,11 @@ class _AirConditioningApplicationState
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1327,6 +1359,10 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1339,7 +1375,12 @@ class _AirConditioningApplicationState
     if (await internetChecking.isInternet()) {
       callCoolingHeatingApplyApplyApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1380,20 +1421,28 @@ class _AirConditioningApplicationState
                 responseJson['title'], responseJson['message']);
           } else {
             if (responseJson['message'] != null) {
-              showCustomToast(
-                  fToast, context, responseJson['message'].toString(), "");
+              // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
             }
           }
           otherRequestController.clear();
-        } else {
+        }
+
+        else {
           if (responseJson['message'] != null &&
               responseJson['title'] != null) {
             showReservationModal(
                 responseJson['title'], responseJson['message']);
           } else {
             if (responseJson['message'] != null) {
-              showCustomToast(
-                  fToast, context, responseJson['message'].toString(), "");
+              // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
             }
           }
         }
@@ -1403,20 +1452,24 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  // void loadPersonalInformation() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callLoadPersonalInformationApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1448,8 +1501,12 @@ class _AirConditioningApplicationState
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1458,6 +1515,10 @@ class _AirConditioningApplicationState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
