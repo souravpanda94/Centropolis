@@ -54,8 +54,7 @@ class _VisitReservationDetailsScreenState
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
     userType = user.userData['user_type'].toString();
-    loadPersonalInformation();
-    loadVisitReservationDetails();
+    internetCheckingForMethods();
   }
 
   StatusEnum? _statusType = StatusEnum.approval;
@@ -744,14 +743,30 @@ class _VisitReservationDetailsScreenState
     );
   }
 
-  void loadVisitReservationDetails() async {
+  void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
       callVisitReservationDetailsApi();
+
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
+
+  // void loadVisitReservationDetails() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callVisitReservationDetailsApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
 
   void callVisitReservationDetailsApi() {
     setState(() {
@@ -780,10 +795,15 @@ class _VisitReservationDetailsScreenState
 
           Provider.of<VisitReservationDetailsProvider>(context, listen: false)
               .setItem(visitReservationDetailModel);
-        } else {
+        }
+        else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -792,6 +812,10 @@ class _VisitReservationDetailsScreenState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -803,7 +827,12 @@ class _VisitReservationDetailsScreenState
     if (await internetChecking.isInternet()) {
       callVisitReservationStatusChangeApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -837,8 +866,12 @@ class _VisitReservationDetailsScreenState
           showConfirmationModal(responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -847,6 +880,10 @@ class _VisitReservationDetailsScreenState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -892,14 +929,14 @@ class _VisitReservationDetailsScreenState
     }
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  // void loadPersonalInformation() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callLoadPersonalInformationApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -927,8 +964,12 @@ class _VisitReservationDetailsScreenState
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -937,6 +978,10 @@ class _VisitReservationDetailsScreenState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
