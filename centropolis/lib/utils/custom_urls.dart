@@ -143,12 +143,10 @@ class ApiEndPoint {
   static String numberOfParticipantsListUrl = "${baseUrl}v1/common/lounge-nop";
   static String paymentMethodListUrl = "${baseUrl}v1/common/lounge-payment-method-list";
   static String equipmentListUrl = "${baseUrl}v1/common/lounge-equipments-list";
-
-
-
-
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
 // static String coolingHeatingTypeListUrl = "${baseUrl}v1/common/ac-inquiry-type-list";
+
+
 }
 
 class WebViewLinks {
