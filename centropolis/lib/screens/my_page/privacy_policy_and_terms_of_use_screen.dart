@@ -88,7 +88,12 @@ class _PrivacyPolicyAndTermsOfUseScreenState extends State<PrivacyPolicyAndTerms
     if (await internetChecking.isInternet()) {
       callLoadDataContentApi(type);
     } else {
-    showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -135,8 +140,12 @@ class _PrivacyPolicyAndTermsOfUseScreenState extends State<PrivacyPolicyAndTerms
 
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -145,6 +154,10 @@ class _PrivacyPolicyAndTermsOfUseScreenState extends State<PrivacyPolicyAndTerms
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
