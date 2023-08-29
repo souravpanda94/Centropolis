@@ -118,20 +118,18 @@ class ApiEndPoint {
   static String loungeHistoryDetailUrl = "${baseUrl}v1/mypage/executive-lounge-details";
   static String loungeHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/executive-lounge-cancel";
   static String requestLightOutStartTimeListUrl = "${baseUrl}v1/common/ac-lights-time";
-
-
-
-
-
   static String requestLightOutUsageTimeListUrl = "${baseUrl}v1/common/period-list";
   static String requestLightOutApplyUrl = "${baseUrl}v1/amenity/light-out-inquiry";
-
-
-  // static String coolingHeatingTypeListUrl =
-  //     "${baseUrl}v1/common/ac-inquiry-type-list";
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
-  static String sleepingRoomHistoryDetailCancelReservationUrl =
-      "${baseUrl}v1/mypage/sleeping-reservation-cancel";
+
+
+
+
+
+
+
+
+  static String sleepingRoomHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/sleeping-reservation-cancel";
   static String inconvenienceStatusUrl =
       "${baseUrl}v1/common/complaint-status-list";
   static String lightOutCoolingHeatingStatusUrl =
@@ -167,6 +165,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/lounge-payment-method-list";
   static String equipmentListUrl =
       "${baseUrl}v1/common/lounge-equipments-list";
+// static String coolingHeatingTypeListUrl = "${baseUrl}v1/common/ac-inquiry-type-list";
 }
 
 class WebViewLinks {
