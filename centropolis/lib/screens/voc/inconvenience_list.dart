@@ -369,13 +369,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
             showErrorCommonModal(context: context,
                 heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
-        }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
+                description: "",);
+
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");

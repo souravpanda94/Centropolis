@@ -381,14 +381,8 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
             //     fToast, context, responseJson['message'].toString(), "");
             showErrorCommonModal(context: context,
                 heading :responseJson['message'].toString(),
-                description: "",
                 buttonName: tr("check"));
           }
-        }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
-      }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       showErrorCommonModal(context: context,
