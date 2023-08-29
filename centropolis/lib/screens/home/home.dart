@@ -895,7 +895,12 @@ class _HomeScreenState extends State<HomeScreen> {
     if (await internetChecking.isInternet()) {
       callSetDeviceInformationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
