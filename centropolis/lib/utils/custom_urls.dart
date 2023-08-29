@@ -110,14 +110,12 @@ class ApiEndPoint {
   static String fitnessHistoryListUrl = "${baseUrl}v1/mypage/fitness-center-reservation-list";
   static String fittnessSleepingRoomHistoryStatusUrl = "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
   static String paidLockerHistoryListUrl = "${baseUrl}v1/mypage/fitness-locker-reservation-list";
+  static String paidLockerHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-locker-details";
+  static String fitnessHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-center-details";
+  static String fitnessHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/fitness-reservation-cancel";
 
 
 
-
-  static String paidLockerHistoryDetailUrl =
-      "${baseUrl}v1/mypage/fitness-locker-details";
-  static String fitnessHistoryDetailUrl =
-      "${baseUrl}v1/mypage/fitness-center-details";
   static String paidPtHistoryDetailUrl =
       "${baseUrl}v1/mypage/fitness-pt-details";
   static String gxHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-gx-details";
@@ -134,8 +132,6 @@ class ApiEndPoint {
   static String coolingHeatingTypeListUrl =
       "${baseUrl}v1/common/ac-inquiry-type-list";
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
-  static String fitnessHistoryDetailCancelReservationUrl =
-      "${baseUrl}v1/mypage/fitness-reservation-cancel";
   static String sleepingRoomHistoryDetailCancelReservationUrl =
       "${baseUrl}v1/mypage/sleeping-reservation-cancel";
   static String inconvenienceStatusUrl =
