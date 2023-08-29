@@ -107,14 +107,14 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       
     });
     debugPrint("Api key ===> $apiKey");
-    loadPersonalInformation();
-    loadTimeList();
-    loadTotalUsageTimeList();
-    loadViewSeatSelectionList();
+    internetCheckingForMethods();
+    
 
     // setListData();
     // setFemaleListData();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -1096,14 +1096,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
-  void loadTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+ 
 
   void callLoadTimeListApi() {
     setState(() {
@@ -1138,8 +1131,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           debugPrint("Time list length ====> ${usageTimeList.length}");
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1148,20 +1146,17 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadTotalUsageTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadTotalUsageTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadTotalUsageTimeListApi() {
     setState(() {
@@ -1186,8 +1181,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1196,6 +1196,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1207,7 +1211,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     if (await internetChecking.isInternet()) {
       callLoadSelectedSeatListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1249,7 +1258,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
             if (kDebugMode) {
               print("Error =====> ${responseJson['message']}");
             }
@@ -1261,6 +1276,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1272,7 +1291,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     if (await internetChecking.isInternet()) {
       callViewSeatSelectionListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1304,8 +1328,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               .setItem(reservationListList);
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1314,6 +1343,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1365,7 +1398,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     if (await internetChecking.isInternet()) {
       callReservationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1409,8 +1447,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1419,6 +1462,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1561,14 +1608,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1599,8 +1639,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -1609,6 +1654,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1625,6 +1674,24 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
        
         reservationRulesLink = WebViewLinks.refreshUrlKo;
       });
+    }
+  }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+     callLoadPersonalInformationApi();
+    callLoadTimeListApi();
+    callLoadTotalUsageTimeListApi();
+    callViewSeatSelectionListApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 }
