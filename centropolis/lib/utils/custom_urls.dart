@@ -123,8 +123,8 @@ class ApiEndPoint {
 
 
 
-  static String requestLightOutStartTimeListUrl =
-      "${baseUrl}v1/common/ac-lights-time";
+  static String requestLightOutStartTimeListUrl = "${baseUrl}v1/common/ac-lights-time";
+
   static String requestLightOutUsageTimeListUrl =
       "${baseUrl}v1/common/period-list";
   static String requestLightOutApplyUrl =
