@@ -252,7 +252,8 @@ class _FindPasswordState extends State<FindPassword> {
     if (await internetChecking.isInternet()) {
       callFindIdApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorModal(tr("noInternet"),tr("connectionFailedDescription"));
     }
   }
 
@@ -286,8 +287,9 @@ class _FindPasswordState extends State<FindPassword> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorModal(responseJson['message'].toString(),"");
           }
         }
       }
@@ -298,6 +300,7 @@ class _FindPasswordState extends State<FindPassword> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorModal(tr("errorDescription"),"");
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -330,5 +333,25 @@ class _FindPasswordState extends State<FindPassword> {
   void clearDataField() {
     idController.clear();
     emailIDController.clear();
+  }
+
+  void showErrorModal(String heading,String description) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: description,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

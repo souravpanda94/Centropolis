@@ -536,9 +536,9 @@
   "lightOutMainHeading":"Light Out Extension Inquiry",
   "airConditioningMainHeading":"Air Conditioning Extension Inquiry",
 
-  "errorDescription":"Something went wrong, Please try later",
-  "noInternet":"No internet",
-  "connectionFailedDescription":"Please check your internet connection and try again",
+  "errorDescription":"Something went wrong, Please try later.",
+  "noInternet":"No Internet",
+  "connectionFailedDescription":"Please check your internet connection and try again.",
 
 
 
