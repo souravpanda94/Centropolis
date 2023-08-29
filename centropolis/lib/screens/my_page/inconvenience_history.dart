@@ -380,13 +380,12 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
             showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+                heading: responseJson['message'].toString(),
+                description: "",
                 buttonName: tr("check"));
           }
         }
-      }
-        
-    }).catchError((onError) {
+        }}).catchError((onError) {
       debugPrint("catchError ================> $onError");
       showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
