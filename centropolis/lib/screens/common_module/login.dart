@@ -427,6 +427,7 @@ class _LoginScreenState extends State<LoginScreen> {
       callLoginApi();
     } else {
       showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showErrorModal(tr("noInternetConnection"));
     }
   }
 
@@ -551,4 +552,26 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
+
+  
+  // void showErrorModal(String headingMessage) {
+  //   showDialog(
+  //       barrierDismissible: false,
+  //       context: context,
+  //       builder: (BuildContext context) {
+  //         return CommonModal(
+  //           heading: headingMessage,
+  //           description: "",
+  //           buttonName: tr("retry"),
+  //           firstButtonName: "",
+  //           secondButtonName: "",
+  //           onConfirmBtnTap: () {
+  //             Navigator.pop(context);
+  //             doLogin();
+  //           },
+  //           onFirstBtnTap: () {},
+  //           onSecondBtnTap: () {},
+  //         );
+  //       });
+  // }
 }
