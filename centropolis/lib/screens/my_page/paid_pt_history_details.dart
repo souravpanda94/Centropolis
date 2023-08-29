@@ -308,7 +308,12 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
     if (await internetChecking.isInternet()) {
       callPaidPtHistoryDetailsApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -341,8 +346,11 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
               .setItem(paidPtHistoryDetailModel);
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -351,6 +359,10 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });

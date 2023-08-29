@@ -113,11 +113,10 @@ class ApiEndPoint {
   static String paidLockerHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-locker-details";
   static String fitnessHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-center-details";
   static String fitnessHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/fitness-reservation-cancel";
+  static String paidPtHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-pt-details";
 
 
 
-  static String paidPtHistoryDetailUrl =
-      "${baseUrl}v1/mypage/fitness-pt-details";
   static String gxHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-gx-details";
   static String loungeHistoryDetailUrl =
       "${baseUrl}v1/mypage/executive-lounge-details";
@@ -138,12 +137,8 @@ class ApiEndPoint {
       "${baseUrl}v1/common/complaint-status-list";
   static String lightOutCoolingHeatingStatusUrl =
       "${baseUrl}v1/common/ac-lights-status";
-
-
-
   static String lightOutChangeStatusUrl =
       "${baseUrl}v1/mypage/light-out-approve";
-
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
   static String getVisitRequestListUrl =
       "${baseUrl}v1/amenity/visitor-reservation-list";
