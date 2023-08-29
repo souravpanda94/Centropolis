@@ -117,20 +117,18 @@ class ApiEndPoint {
   static String gxHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-gx-details";
   static String loungeHistoryDetailUrl = "${baseUrl}v1/mypage/executive-lounge-details";
   static String loungeHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/executive-lounge-cancel";
-
-
-
-
-
-
   static String requestLightOutStartTimeListUrl = "${baseUrl}v1/common/ac-lights-time";
 
-  static String requestLightOutUsageTimeListUrl =
-      "${baseUrl}v1/common/period-list";
-  static String requestLightOutApplyUrl =
-      "${baseUrl}v1/amenity/light-out-inquiry";
-  static String coolingHeatingTypeListUrl =
-      "${baseUrl}v1/common/ac-inquiry-type-list";
+
+
+
+
+  static String requestLightOutUsageTimeListUrl = "${baseUrl}v1/common/period-list";
+  static String requestLightOutApplyUrl = "${baseUrl}v1/amenity/light-out-inquiry";
+
+
+  // static String coolingHeatingTypeListUrl =
+  //     "${baseUrl}v1/common/ac-inquiry-type-list";
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
   static String sleepingRoomHistoryDetailCancelReservationUrl =
       "${baseUrl}v1/mypage/sleeping-reservation-cancel";

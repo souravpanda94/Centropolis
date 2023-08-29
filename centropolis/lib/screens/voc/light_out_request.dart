@@ -1117,7 +1117,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
     if (await internetChecking.isInternet()) {
       callLoadStartTimeListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1149,8 +1154,11 @@ class _LightOutRequestState extends State<LightOutRequest> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1159,6 +1167,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1170,7 +1182,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
     if (await internetChecking.isInternet()) {
       callLoadUsageTimeListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1202,8 +1219,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1212,6 +1233,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1224,7 +1249,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
     if (await internetChecking.isInternet()) {
       callLightOutApplyApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1261,8 +1291,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 responseJson['title'], responseJson['message']);
           } else {
             if (responseJson['message'] != null) {
-              showCustomToast(
-                  fToast, context, responseJson['message'].toString(), "");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
             }
           }
 
@@ -1274,8 +1308,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
                 responseJson['title'], responseJson['message']);
           } else {
             if (responseJson['message'] != null) {
-              showCustomToast(
-                  fToast, context, responseJson['message'].toString(), "");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
             }
           }
         }
@@ -1285,6 +1323,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1296,7 +1338,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1330,8 +1377,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1340,6 +1391,10 @@ class _LightOutRequestState extends State<LightOutRequest> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
