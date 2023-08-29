@@ -372,7 +372,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                 description: "",);
 
       }
-    }).catchError((onError) {
+    }}}).catchError((onError) {
       debugPrint("catchError ================> $onError");
       showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
