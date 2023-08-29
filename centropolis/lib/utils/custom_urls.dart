@@ -123,20 +123,17 @@ class ApiEndPoint {
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
   static String sleepingRoomHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/sleeping-reservation-cancel";
   static String inconvenienceStatusUrl = "${baseUrl}v1/common/complaint-status-list";
-
-
-
-
-
   static String lightOutCoolingHeatingStatusUrl = "${baseUrl}v1/common/ac-lights-status";
-
-
-
-  static String lightOutChangeStatusUrl =
-      "${baseUrl}v1/mypage/light-out-approve";
+  static String lightOutChangeStatusUrl = "${baseUrl}v1/mypage/light-out-approve";
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-  static String getVisitRequestListUrl =
-      "${baseUrl}v1/amenity/visitor-reservation-list";
+
+
+
+
+
+
+  static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";
+
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
   static String visitReservationApplicationUrl =
       "${baseUrl}v1/amenity/app-visitor-reservation";
