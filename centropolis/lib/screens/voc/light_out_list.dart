@@ -48,9 +48,26 @@ class _LightsOutListState extends State<LightsOutList> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    loadStatusList();
-    firstTimeLoadLightsOutList();
+    internetCheckingForMethods();
   }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusListApi();
+      firstTimeLoadLightsOutList();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -456,14 +473,14 @@ class _LightsOutListState extends State<LightsOutList> {
     );
   }
 
-  void loadStatusList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callStatusListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  // void loadStatusList() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callStatusListApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
 
   void callStatusListApi() {
     setState(() {
@@ -489,8 +506,12 @@ class _LightsOutListState extends State<LightsOutList> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -499,6 +520,10 @@ class _LightsOutListState extends State<LightsOutList> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });
