@@ -381,7 +381,12 @@ class _FitnessTabReservationHistoryState
     if (await internetChecking.isInternet()) {
       callFitnessHistoryListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -424,8 +429,11 @@ class _FitnessTabReservationHistoryState
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -434,6 +442,10 @@ class _FitnessTabReservationHistoryState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       if (mounted) {
         setState(() {
           isFirstLoadRunning = false;
@@ -456,7 +468,12 @@ class _FitnessTabReservationHistoryState
     if (await internetChecking.isInternet()) {
       callStatusListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -484,8 +501,11 @@ class _FitnessTabReservationHistoryState
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -494,6 +514,10 @@ class _FitnessTabReservationHistoryState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });
