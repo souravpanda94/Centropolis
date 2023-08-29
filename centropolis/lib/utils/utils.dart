@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:provider/provider.dart';
 import '../providers/user_provider.dart';
+import '../widgets/common_modal.dart';
 import '../widgets/custom_toast.dart';
 import 'constants.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -20,8 +21,7 @@ showToastMessage(String text) {
       fontSize: 14.0);
 }
 
-void showCustomToast(
-    FToast fToast, BuildContext context, String message, String icon) {
+void showCustomToast(FToast fToast, BuildContext context, String message, String icon) {
   fToast = FToast();
   fToast.init(context);
   fToast.showToast(
@@ -33,6 +33,26 @@ void showCustomToast(
           right: 0.0,
           bottom: 100.0,
           child: child,
+        );
+      });
+}
+
+void showErrorCommonModal({ context,  heading,  description, buttonName}) {
+  showDialog(
+      barrierDismissible: false,
+      context: context,
+      builder: (BuildContext context) {
+        return CommonModal(
+          heading: heading,
+          description: description,
+          buttonName: buttonName,
+          firstButtonName: "",
+          secondButtonName: "",
+          onConfirmBtnTap: () {
+            Navigator.pop(context);
+          },
+          onFirstBtnTap: () {},
+          onSecondBtnTap: () {},
         );
       });
 }

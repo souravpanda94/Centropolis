@@ -97,8 +97,10 @@ class ApiEndPoint {
 
 
 
-  static String lightOutDetailUrl =
-      "${baseUrl}v1/mypage/light-out-inquiry-details";
+  static String lightOutDetailUrl = "${baseUrl}v1/mypage/light-out-inquiry-details";
+
+
+
   static String visitReservationDetailUrl =
       "${baseUrl}v1/amenity/visitor-reservation-view";
   static String visitReservationStatusChangeUrl =
