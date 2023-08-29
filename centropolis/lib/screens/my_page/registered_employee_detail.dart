@@ -54,10 +54,11 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     mobile = user.userData['mobile'].toString();
     name = user.userData['user_name'].toString();
     companyName = user.userData['company_name'].toString();
-    loadAccountStatusList();
-    loadAccountTypeList();
-    loadEmployeeDetails();
+    internetCheckingForMethods();
+    
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -545,7 +546,12 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     if (await internetChecking.isInternet()) {
       callDeleteEmployeeApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+         showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -574,8 +580,13 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           showModal(tr("deleteSuccessful"), tr("deleted"), tr("check"));
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+           debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -584,20 +595,17 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadEmployeeDetails() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callEmployeeDetailsApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+
 
   void callEmployeeDetailsApi() {
     setState(() {
@@ -624,8 +632,13 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
               .setItem(employeeDetailModel);
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -634,20 +647,17 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadAccountStatusList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callAccountStatusListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+ 
 
   void callAccountStatusListApi() {
     setState(() {
@@ -668,8 +678,13 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -678,20 +693,17 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadAccountTypeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callAccountTypeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callAccountTypeListApi() {
     setState(() {
@@ -713,8 +725,13 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -723,6 +740,10 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -745,7 +766,12 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     if (await internetChecking.isInternet()) {
       callUpdateEmployeeApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -776,8 +802,13 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
           showModal(responseJson['message'].toString(), "", tr("check"));
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -786,9 +817,30 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
+  }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callAccountStatusListApi();
+    callAccountTypeListApi();
+    callEmployeeDetailsApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
   }
 }
