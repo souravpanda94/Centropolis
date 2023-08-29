@@ -57,7 +57,11 @@ class _MultiSelectLoungeEquipmentsState extends State<MultiSelectLoungeEquipment
     if (_selectedItems!.isNotEmpty) {
       Navigator.pop(context, _selectedItems);
     } else {
-      showCustomToast(fToast, context, tr("equipmentsHint"), "");
+      //showCustomToast(fToast, context, tr("equipmentsHint"), "");
+      showErrorCommonModal(context: context,
+                  heading :tr("equipmentsHint"),
+                  description: "",
+                  buttonName: tr("check"));
     }
   }
 

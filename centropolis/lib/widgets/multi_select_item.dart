@@ -54,7 +54,11 @@ class _MultiSelectState extends State<MultiSelect> {
     if (_selectedItems!.isNotEmpty) {
       Navigator.pop(context, _selectedItems);
     } else {
-      showCustomToast(fToast, context, tr("applicationFloorHint"), "");
+      //showCustomToast(fToast, context, tr("applicationFloorHint"), "");
+      showErrorCommonModal(context: context,
+                  heading :tr("applicationFloorHint"),
+                  description: "",
+                  buttonName: tr("check"));
     }
   }
 

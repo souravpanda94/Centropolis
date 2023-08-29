@@ -551,7 +551,7 @@ class _MyPageScreenState extends State<MyPageScreen> {
       callEmployeeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -585,13 +585,14 @@ class _MyPageScreenState extends State<MyPageScreen> {
           totalRecords = responseJson['total_records'];
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -600,10 +601,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       if (mounted) {
         setState(() {
           isFirstLoadRunning = false;
@@ -654,8 +656,14 @@ class _MyPageScreenState extends State<MyPageScreen> {
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -664,6 +672,11 @@ class _MyPageScreenState extends State<MyPageScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("errorDescription"),
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });
