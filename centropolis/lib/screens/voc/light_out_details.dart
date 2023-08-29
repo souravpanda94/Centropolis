@@ -476,9 +476,12 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
               .setItem(lightOutDetailModel);
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
-            // showErrorModal(responseJson['message'].toString(),"");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
