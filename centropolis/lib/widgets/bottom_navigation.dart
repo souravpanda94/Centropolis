@@ -294,7 +294,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -323,8 +328,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -333,6 +342,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -726,7 +739,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
     });
     if (_connectionStatus.toString() == "ConnectivityResult.none") {
       if (Platform.isAndroid) {
-        showCustomToast(fToast, context, tr("noInternetConnection"), "");
+        // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+        showErrorCommonModal(
+            context: context,
+            heading: tr("noInternet"),
+            description: tr("connectionFailedDescription"),
+            buttonName: tr("check"));
       }
     }
   }
@@ -776,7 +794,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
     if (await internetChecking.isInternet()) {
       doLogout();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -801,8 +824,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
           Navigator.push(
             context,
@@ -812,8 +839,12 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
           );
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -823,6 +854,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });

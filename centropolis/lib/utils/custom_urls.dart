@@ -138,6 +138,7 @@ class ApiEndPoint {
 
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
+
   static String setPushNotificationUrl =
       "${baseUrl}v1/mypage/push-notification-update";
   static String getNotificationListUrl =
