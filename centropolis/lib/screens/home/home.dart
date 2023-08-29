@@ -25,6 +25,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_button_with_border.dart';
+import '../../widgets/common_modal.dart';
 import '../amenity/conference_reservation.dart';
 import '../amenity/fitness_reservation.dart';
 import '../amenity/lounge_reservation.dart';
@@ -85,6 +86,8 @@ class _HomeScreenState extends State<HomeScreen> {
   String deviceId = '';
   String fcmToken = '';
   String appVersion = "";
+  String accountType = "";
+
 
 
 
@@ -101,10 +104,10 @@ class _HomeScreenState extends State<HomeScreen> {
     debugPrint("apiKey :: $apiKey");
     // setFirebase();
     getAppVersion();
-
-    loadPersonalInformation();
-    loadFetchAppUpdateDetails();
+    internetCheckingForMethods();
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -585,21 +588,34 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   void goToConferenceReservationScreen() {
-    Navigator.push(
+    if (accountType == "tenant_manager" || accountType == "tenant_conference_employee") {
+                            Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const ConferenceReservation(),
       ),
     );
+
+      }else {
+           showErrorModal(tr("accessDenied"));
+        }
+
+    
   }
 
   void goToLoungeReservationScreen() {
-    Navigator.push(
+
+    if (accountType == "tenant_manager" || accountType == "tenant_lounge_employee") {
+                            Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => const LoungeReservation(),
       ),
     );
+       }else {
+           showErrorModal(tr("accessDenied"));
+        }
+    
   }
 
   void goToSleepingRoomReservationScreen() {
@@ -701,14 +717,7 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -732,11 +741,18 @@ class _HomeScreenState extends State<HomeScreen> {
               .setItem(userInfoModel);
           setState(() {
             unreadNotificationCount = userInfoModel.unreadNotificationCount!;
+            accountType = userInfoModel.accountType.toString();
+
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -746,20 +762,17 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadFetchAppUpdateDetails() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadFetchAppUpdateDetailsApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadFetchAppUpdateDetailsApi() {
     setState(() {
@@ -815,8 +828,13 @@ class _HomeScreenState extends State<HomeScreen> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -825,6 +843,10 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -905,5 +927,41 @@ class _HomeScreenState extends State<HomeScreen> {
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
     });
+  }
+
+  void showErrorModal(String message) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: message,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    callLoadFetchAppUpdateDetailsApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
   }
 }
