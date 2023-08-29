@@ -95,7 +95,7 @@ class ApiEndPoint {
 
 
 
-  
+
 
 
 // ====================================MONDIRA=============================================================================================
@@ -105,11 +105,12 @@ class ApiEndPoint {
   static String visitReservationStatusChangeUrl = "${baseUrl}v1/amenity/change-visitor-reservation-status";
   static String airConditioningDetailUrl = "${baseUrl}v1/mypage/ac-inquiry-details";
   static String airConditioningChangeStatusUrl = "${baseUrl}v1/mypage/ac-inquiry-approve";
+  static String paidPtHistoryListUrl = "${baseUrl}v1/mypage/pt-reservation-list";
+  static String amenityHistoryStatusUrl = "${baseUrl}v1/common/reservation-status-list";  // ***********
 
 
 
-  static String paidPtHistoryListUrl =
-      "${baseUrl}v1/mypage/pt-reservation-list";
+
   static String fitnessHistoryListUrl =
       "${baseUrl}v1/mypage/fitness-center-reservation-list";
   static String paidLockerHistoryListUrl =
@@ -142,8 +143,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/complaint-status-list";
   static String lightOutCoolingHeatingStatusUrl =
       "${baseUrl}v1/common/ac-lights-status";
-  static String amenityHistoryStatusUrl =
-      "${baseUrl}v1/common/reservation-status-list";
+
   static String fittnessSleepingRoomHistoryStatusUrl =
       "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
 
