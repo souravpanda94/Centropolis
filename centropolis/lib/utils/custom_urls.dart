@@ -126,25 +126,19 @@ class ApiEndPoint {
   static String lightOutCoolingHeatingStatusUrl = "${baseUrl}v1/common/ac-lights-status";
   static String lightOutChangeStatusUrl = "${baseUrl}v1/mypage/light-out-approve";
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-
-
-
-
-
-
   static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";
-
-  static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
-  static String visitReservationApplicationUrl =
-      "${baseUrl}v1/amenity/app-visitor-reservation";
+  static String visitReservationApplicationUrl = "${baseUrl}v1/amenity/app-visitor-reservation";
   static String visitTimeListUrl = "${baseUrl}v1/common/visit-time";
   static String visitPurposeListUrl = "${baseUrl}v1/common/visit-purpose";
-  static String getViewSeatSelectionListUrl =
-      "${baseUrl}v1/amenity/sleeping-seat";
-  static String getSelectedSeatListUrl =
-      "${baseUrl}v1/amenity/available-sleeping-seat";
+  static String getViewSeatSelectionListUrl = "${baseUrl}v1/amenity/sleeping-seat";
+  static String getSelectedSeatListUrl = "${baseUrl}v1/amenity/available-sleeping-seat";
+
+
+
+
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
+
   static String setPushNotificationUrl =
       "${baseUrl}v1/mypage/push-notification-update";
   static String getNotificationListUrl =
@@ -160,6 +154,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/lounge-payment-method-list";
   static String equipmentListUrl =
       "${baseUrl}v1/common/lounge-equipments-list";
+  static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
 // static String coolingHeatingTypeListUrl = "${baseUrl}v1/common/ac-inquiry-type-list";
 }
 
