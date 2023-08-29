@@ -83,11 +83,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
     setWebViewLink();
     internetCheckingForMethods();
 
-
-
-
-
-
   }
 
   @override
@@ -1436,7 +1431,12 @@ class _LoungeReservationState extends State<LoungeReservation> {
     if (await internetChecking.isInternet()) {
       callLoadUsageTimeListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1481,8 +1481,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1491,20 +1496,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadTimeListApi() {
     String selectedDate = "";
@@ -1546,8 +1548,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+           debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1556,20 +1563,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadNumberOfParticipantsList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadNumberOfParticipantsListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
 
   void callLoadNumberOfParticipantsListApi() {
     setState(() {
@@ -1610,14 +1613,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       });
     });
   }
-  void loadPaymentMethodList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPaymentMethodListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadPaymentMethodListApi() {
     setState(() {
@@ -1659,14 +1655,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     });
   }
 
-  void loadEquipmentList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadEquipmentListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadEquipmentListApi() {
     setState(() {
@@ -1766,7 +1755,12 @@ class _LoungeReservationState extends State<LoungeReservation> {
     if (await internetChecking.isInternet()) {
       callReservationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1806,8 +1800,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1816,6 +1815,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1845,26 +1848,24 @@ class _LoungeReservationState extends State<LoungeReservation> {
   void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-      loadPersonalInformation();
-      loadUsageTimeList();
-      loadTimeList();
-      loadNumberOfParticipantsList();
-      loadPaymentMethodList();
-      loadEquipmentList();
-
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
-
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
+      callLoadUsageTimeListApi();
+      callLoadTimeListApi();
+      callLoadNumberOfParticipantsListApi();
+      callLoadPaymentMethodListApi();
+      callLoadEquipmentListApi();
+
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
+
+
 
   void callLoadPersonalInformationApi() {
     setState(() {
