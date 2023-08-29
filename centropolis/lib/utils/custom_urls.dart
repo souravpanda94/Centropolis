@@ -135,11 +135,9 @@ class ApiEndPoint {
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
   static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
+  static String getNotificationListUrl = "${baseUrl}v1/mypage/notification-list";
 
 
-
-  static String getNotificationListUrl =
-      "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
   static String serReadNotification =
       "${baseUrl}v1/mypage/notification-read-all";
