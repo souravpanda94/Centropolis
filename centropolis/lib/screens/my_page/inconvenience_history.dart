@@ -383,6 +383,9 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                 heading :responseJson['message'].toString(),
                 buttonName: tr("check"));
           }
+        }
+      }
+        
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
       showErrorCommonModal(context: context,
