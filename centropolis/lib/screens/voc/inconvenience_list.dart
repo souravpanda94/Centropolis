@@ -48,9 +48,26 @@ class _InconvenienceListState extends State<InconvenienceList> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    loadStatusList();
-    firstTimeLoadInconvenienceList();
+    internetCheckingForMethods();
   }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callStatusListApi();
+      firstTimeLoadInconvenienceList();
+
+    } else {
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -302,8 +319,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
     if (await internetChecking.isInternet()) {
       callInconvenienceListApi();
     } else {
-     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -349,22 +366,15 @@ class _InconvenienceListState extends State<InconvenienceList> {
           }
         } else {
           if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
-          }
-        }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",);
+
       }
-    }).catchError((onError) {
+    }}}).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
@@ -454,14 +464,14 @@ class _InconvenienceListState extends State<InconvenienceList> {
     );
   }
 
-  void loadStatusList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callStatusListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  // void loadStatusList() async {
+  //   final InternetChecking internetChecking = InternetChecking();
+  //   if (await internetChecking.isInternet()) {
+  //     callStatusListApi();
+  //   } else {
+  //     showCustomToast(fToast, context, tr("noInternetConnection"), "");
+  //   }
+  // }
 
   void callStatusListApi() {
     setState(() {
@@ -484,8 +494,11 @@ class _InconvenienceListState extends State<InconvenienceList> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -494,6 +507,10 @@ class _InconvenienceListState extends State<InconvenienceList> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });
