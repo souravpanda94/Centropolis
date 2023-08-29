@@ -426,8 +426,8 @@ class _LoginScreenState extends State<LoginScreen> {
     if (await internetChecking.isInternet()) {
       callLoginApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-      //showErrorModal(tr("noInternetConnection"));
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorModal(tr("error"),tr("noInternetConnection"));
     }
   }
 
@@ -554,24 +554,23 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   
-  // void showErrorModal(String headingMessage) {
-  //   showDialog(
-  //       barrierDismissible: false,
-  //       context: context,
-  //       builder: (BuildContext context) {
-  //         return CommonModal(
-  //           heading: headingMessage,
-  //           description: "",
-  //           buttonName: tr("retry"),
-  //           firstButtonName: "",
-  //           secondButtonName: "",
-  //           onConfirmBtnTap: () {
-  //             Navigator.pop(context);
-  //             doLogin();
-  //           },
-  //           onFirstBtnTap: () {},
-  //           onSecondBtnTap: () {},
-  //         );
-  //       });
-  // }
+  void showErrorModal(String heading,String description) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: description,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
 }
