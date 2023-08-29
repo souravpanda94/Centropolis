@@ -109,13 +109,11 @@ class ApiEndPoint {
   static String amenityHistoryStatusUrl = "${baseUrl}v1/common/reservation-status-list";  // ***********
   static String fitnessHistoryListUrl = "${baseUrl}v1/mypage/fitness-center-reservation-list";
   static String fittnessSleepingRoomHistoryStatusUrl = "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
+  static String paidLockerHistoryListUrl = "${baseUrl}v1/mypage/fitness-locker-reservation-list";
 
 
 
 
-
-  static String paidLockerHistoryListUrl =
-      "${baseUrl}v1/mypage/fitness-locker-reservation-list";
   static String paidLockerHistoryDetailUrl =
       "${baseUrl}v1/mypage/fitness-locker-details";
   static String fitnessHistoryDetailUrl =
