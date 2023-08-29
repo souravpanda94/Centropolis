@@ -410,7 +410,12 @@ class _GXReservationState extends State<GXReservation> {
     if (await internetChecking.isInternet()) {
       callGxFitnessReservationListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -452,8 +457,13 @@ class _GXReservationState extends State<GXReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -462,6 +472,10 @@ class _GXReservationState extends State<GXReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+        showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });
