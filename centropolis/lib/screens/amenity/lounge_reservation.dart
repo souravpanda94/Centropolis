@@ -50,7 +50,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? paymentMethodSelectedValue;
   bool tooltip = false;
 
-
   String reservationDate = "";
   List<dynamic> usageTimeList = [];
   List<dynamic> timeList = [];
@@ -58,13 +57,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
   List<dynamic> paymentMethodList = [];
   String reservationRulesLink = "";
 
-
   List<dynamic> _selectedEquipments = [];
-    List<dynamic> _selectedEquipmentsValue = [];
+  List<dynamic> _selectedEquipmentsValue = [];
 
   List<dynamic> equipmentsList = [];
   String? equipmentSelectedValue;
-
 
   TextEditingController eventPurposeController = TextEditingController();
 
@@ -82,7 +79,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
     //companyName = user.userData['company_name'].toString();
     setWebViewLink();
     internetCheckingForMethods();
-
   }
 
   @override
@@ -116,7 +112,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
                   padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(left: 16,right: 16),
+                  margin: const EdgeInsets.only(left: 16, right: 16),
                   height: 200,
                   child: Scrollbar(
                     thumbVisibility: true,
@@ -133,15 +129,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           infoTextWidget(tr("loungeInfoText7")),
                           infoTextWidget(tr("loungeInfoText8")),
                           infoTextWidget(tr("loungeInfoText9")),
-                                 
                         ],
                       ),
                     ),
                   ),
-
-                  
                 ),
-                
                 Container(
                   width: MediaQuery.of(context).size.width,
                   padding: const EdgeInsets.all(16),
@@ -305,7 +297,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 ),
                 Container(
                   width: MediaQuery.of(context).size.width,
-                  padding: const EdgeInsets.symmetric(horizontal: 16,vertical: 16),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -358,10 +351,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           ),
                         ),
                       ),
-                       const SizedBox(
+                      const SizedBox(
                         height: 16,
                       ),
-
                       Text(
                         tr("numberOfParticipants"),
                         style: const TextStyle(
@@ -376,7 +368,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       const SizedBox(
                         height: 16,
                       ),
-
                       Text(
                         tr("paymentMethod"),
                         style: const TextStyle(
@@ -389,20 +380,19 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       ),
                       paymentMethodWidget(),
                       if (tooltip)
-                          Padding(
-                            padding: const EdgeInsets.only(top: 5),
-                            child: Text(
-                              tr("paymentMethodTooltip"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 12,
-                                  color: CustomColors.blackColor),
-                            ),
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            tr("paymentMethodTooltip"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 12,
+                                color: CustomColors.blackColor),
                           ),
+                        ),
                       const SizedBox(
                         height: 16,
                       ),
-
                       Text(
                         tr("equipments"),
                         style: const TextStyle(
@@ -414,104 +404,99 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         height: 8,
                       ),
                       InkWell(
-                          onTap: () {
-                            _showMultiSelect();
-                          },
-                          child: Container(
-                            height: 46,
-                            padding: const EdgeInsets.all(0),
-                            decoration: BoxDecoration(
-                              border: Border.all(
-                                  width: 1.0,
-                                  color: CustomColors.dividerGreyColor),
-                              borderRadius:
-                                  const BorderRadius.all(Radius.circular(5.0)),
-                            ),
-                            child: Row(
-                              children: [
-                                Expanded(
-                                    child: _selectedEquipments.isEmpty
-                                        ? Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 15,
-                                                right: 15,
-                                                top: 12,
-                                                bottom: 12),
-                                            child: Text(
-                                                tr('equipmentsHint')))
-                                        : Container(
-                                            margin:
-                                                const EdgeInsets.only(left: 15),
-                                            child: SingleChildScrollView(
-                                              scrollDirection: Axis.horizontal,
-                                              child: Wrap(
-                                                runSpacing: 1.5,
-                                                spacing:0 ,
-                                                direction: Axis.vertical,
-                                                children: _selectedEquipments
-                                                    .map((e) => Chip(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .compact,
-                                                          backgroundColor:
-                                                              CustomColors
-                                                                  .selectedColor,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal: 5),
-                                                          shape: const RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .all(Radius
-                                                                          .circular(
-                                                                              5))),
-                                                          label: SizedBox(
-                                                            //width: 20,
-                                                            child: Text(
-                                                                e["text"]
-                                                                    .toString()
-                                                                    ,
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'SemiBold',
-                                                                    fontSize: 12,
-                                                                    color: CustomColors
-                                                                        .whiteColor)),
-                                                          ),
-                                                        ))
-                                                    .toList(),
-                                              ),
+                        onTap: () {
+                          _showMultiSelect();
+                        },
+                        child: Container(
+                          height: 46,
+                          padding: const EdgeInsets.all(0),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1.0,
+                                color: CustomColors.dividerGreyColor),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: _selectedEquipments.isEmpty
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 15,
+                                              right: 15,
+                                              top: 12,
+                                              bottom: 12),
+                                          child: Text(tr('equipmentsHint')))
+                                      : Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 15),
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Wrap(
+                                              runSpacing: 1.5,
+                                              spacing: 0,
+                                              direction: Axis.vertical,
+                                              children: _selectedEquipments
+                                                  .map((e) => Chip(
+                                                        visualDensity:
+                                                            VisualDensity
+                                                                .compact,
+                                                        backgroundColor:
+                                                            CustomColors
+                                                                .selectedColor,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 5),
+                                                        shape: const RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            5))),
+                                                        label: SizedBox(
+                                                          //width: 20,
+                                                          child: Text(
+                                                              e["text"]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: const TextStyle(
+                                                                  fontFamily:
+                                                                      'SemiBold',
+                                                                  fontSize: 12,
+                                                                  color: CustomColors
+                                                                      .whiteColor)),
+                                                        ),
+                                                      ))
+                                                  .toList(),
                                             ),
-                                          )),
-                                Container(
-                                  margin: const EdgeInsets.only(right: 10),
-                                  padding: EdgeInsets.only(
+                                          ),
+                                        )),
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                padding: EdgeInsets.only(
                                     left: 10,
-                                      bottom:
-                                          equipmentSelectedValue != null ? 16 : 0),
-                                  child: SvgPicture.asset(
-                                    "assets/images/ic_drop_down_arrow.svg",
-                                    width: 8,
-                                    height: 8,
-                                    color: CustomColors.textColorBlack2,
-                                  ),
-                                )
-                              ],
-                            ),
+                                    bottom: equipmentSelectedValue != null
+                                        ? 16
+                                        : 0),
+                                child: SvgPicture.asset(
+                                  "assets/images/ic_drop_down_arrow.svg",
+                                  width: 8,
+                                  height: 8,
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              )
+                            ],
                           ),
                         ),
-
-                    ]
-                    
-                    ,
+                      ),
+                    ],
                   ),
-
                 ),
-                 Container(
+                Container(
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
                   height: 10,
@@ -560,77 +545,93 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             Flexible(
                               child: Padding(
                                 padding: const EdgeInsets.only(top: 4),
-                                child: language =="en" ? InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("loungeReservation"), reservationRulesLink);
-                            });
-                                  },
-                                  child: Text.rich(
-                                  TextSpan(
-                                    text: tr("agree"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("loungeReservationConsent"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.buttonBackgroundColor,
-                                            decoration: TextDecoration.underline,
-                                          )),
-                                     
-                                    ],
-                                  ),
-                                ),
-                                ) : InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("loungeReservation"), reservationRulesLink);
-                            });
-                                  },
-                                  child: Text.rich(
-                                  TextSpan(
-                                    text: tr("loungeReservationConsent"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                                                                    decoration: TextDecoration.underline,
-
-                                        color: CustomColors.buttonBackgroundColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("agree"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                     
-                                    ],
-                                  ),
-                                ),
-                                ),
+                                child: language == "en"
+                                    ? InkWell(
+                                        onTap: () {
+                                          showGeneralDialog(
+                                              context: context,
+                                              barrierColor: Colors.black12
+                                                  .withOpacity(0.6),
+                                              // Background color
+                                              barrierDismissible: false,
+                                              barrierLabel: 'Dialog',
+                                              transitionDuration:
+                                                  const Duration(
+                                                      milliseconds: 400),
+                                              pageBuilder: (_, __, ___) {
+                                                return WebViewUiScreen(
+                                                    tr("loungeReservation"),
+                                                    reservationRulesLink);
+                                              });
+                                        },
+                                        child: Text.rich(
+                                          TextSpan(
+                                            text: tr("agree"),
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .textColorBlack2),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: tr(
+                                                      "loungeReservationConsent"),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Regular',
+                                                    fontSize: 14,
+                                                    color: CustomColors
+                                                        .buttonBackgroundColor,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : InkWell(
+                                        onTap: () {
+                                          showGeneralDialog(
+                                              context: context,
+                                              barrierColor: Colors.black12
+                                                  .withOpacity(0.6),
+                                              // Background color
+                                              barrierDismissible: false,
+                                              barrierLabel: 'Dialog',
+                                              transitionDuration:
+                                                  const Duration(
+                                                      milliseconds: 400),
+                                              pageBuilder: (_, __, ___) {
+                                                return WebViewUiScreen(
+                                                    tr("loungeReservation"),
+                                                    reservationRulesLink);
+                                              });
+                                        },
+                                        child: Text.rich(
+                                          TextSpan(
+                                            text:
+                                                tr("loungeReservationConsent"),
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                color: CustomColors
+                                                    .buttonBackgroundColor),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: tr("agree"),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Regular',
+                                                    fontSize: 14,
+                                                    color: CustomColors
+                                                        .textColorBlack2,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                               ),
                             )
                           ],
@@ -656,33 +657,33 @@ class _LoungeReservationState extends State<LoungeReservation> {
       ),
     );
   }
-  
-  infoTextWidget(String text){
+
+  infoTextWidget(String text) {
     return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]);
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  height: 1.5,
+                  color: CustomColors.textColor5),
+            ),
+          )
+        ]);
   }
 
   void _showMultiSelect() async {
@@ -692,20 +693,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
         return MultiSelectLoungeEquipments(
           items: equipmentsList,
           alreadySelectedItems: _selectedEquipments,
-         
-
         );
       },
     );
 
-
     // Update UI
     if (results != null) {
       _selectedEquipmentsValue.clear();
-       
-       for(var i =0;i<results.length;i++){
-            _selectedEquipmentsValue.add(results[i]["value"]);
-         }
+
+      for (var i = 0; i < results.length; i++) {
+        _selectedEquipmentsValue.add(results[i]["value"]);
+      }
 
       setState(() {
         _selectedEquipments = results;
@@ -775,7 +773,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       )
                   ],
                 ),
-               
               ),
             )
             .toList(),
@@ -786,7 +783,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
           });
         },
         dropdownStyleData: DropdownStyleData(
-         
           isOverButton: false,
           padding: const EdgeInsets.only(top: 0, bottom: 0),
           elevation: 0,
@@ -799,13 +795,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
         ),
         onMenuStateChange: (isOpen) {
           setState(() {
-            tooltip=true;
+            tooltip = true;
           });
         },
         iconStyleData: IconStyleData(
             icon: Padding(
-          padding:
-              EdgeInsets.only(bottom: paymentMethodSelectedValue != null ? 12 : 0),
+          padding: EdgeInsets.only(
+              bottom: paymentMethodSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -878,7 +874,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       )
                   ],
                 ),
-               
               ),
             )
             .toList(),
@@ -902,8 +897,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
-          padding:
-              EdgeInsets.only(bottom: numberOfParticipantsSelectedValue != null ? 12 : 0),
+          padding: EdgeInsets.only(
+              bottom: numberOfParticipantsSelectedValue != null ? 12 : 0),
           child: SvgPicture.asset(
             "assets/images/ic_drop_down_arrow.svg",
             width: 8,
@@ -1069,10 +1064,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           padding: const EdgeInsets.only(left: 12, bottom: 9),
                           child: Text(
                             item["value"],
-                            style:  TextStyle(
-                               color: item["available"]
-                              ? CustomColors.blackColor
-                              : CustomColors.textColor3,
+                            style: TextStyle(
+                              color: item["available"]
+                                  ? CustomColors.blackColor
+                                  : CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
@@ -1199,10 +1194,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           padding: const EdgeInsets.only(left: 12, bottom: 9),
                           child: Text(
                             item["value"].toString().trim(),
-                            style:  TextStyle(
-                               color: item["available"]
-                              ? CustomColors.blackColor
-                              : CustomColors.textColor3,
+                            style: TextStyle(
+                              color: item["available"]
+                                  ? CustomColors.blackColor
+                                  : CustomColors.textColor3,
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
@@ -1402,10 +1397,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
           usageTimeSelectedValue = null;
           startTimeSelectedValue = null;
           endTimeSelectedValue = null;
-          paymentMethodSelectedValue=null;
-          numberOfParticipantsSelectedValue=null;
+          paymentMethodSelectedValue = null;
+          numberOfParticipantsSelectedValue = null;
           eventPurposeController.clear();
-          tooltip=false;
+          tooltip = false;
           _selectedEquipments.clear();
           _selectedEquipmentsValue.clear();
         });
@@ -1432,7 +1427,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       callLoadUsageTimeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1482,12 +1477,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1496,17 +1492,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-  
 
   void callLoadTimeListApi() {
     String selectedDate = "";
@@ -1548,13 +1543,14 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1563,16 +1559,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
 
   void callLoadNumberOfParticipantsListApi() {
     setState(() {
@@ -1583,11 +1579,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
     debugPrint("NumberOfParticipants List input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.numberOfParticipantsListUrl, body, language.toString(), apiKey);
+        ApiEndPoint.numberOfParticipantsListUrl,
+        body,
+        language.toString(),
+        apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
-      debugPrint("server response for NumberOfParticipants List ===> $responseJson");
+      debugPrint(
+          "server response for NumberOfParticipants List ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
@@ -1598,13 +1598,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1613,16 +1613,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-  
 
   void callLoadPaymentMethodListApi() {
     setState(() {
@@ -1648,13 +1648,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1663,17 +1663,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-  
 
   void callLoadEquipmentListApi() {
     setState(() {
@@ -1696,18 +1695,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
             var equipmentNames;
             setState(() {
               equipmentsList = responseJson['data'];
-              
             });
           }
         } else {
           if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1716,10 +1714,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1757,19 +1756,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
     } else if ((startTimeSelectedValue!.compareTo(endTimeSelectedValue!)) >=
         0) {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
-    } 
-    else if (eventPurposeController.text.trim().isEmpty) {
+    } else if (eventPurposeController.text.trim().isEmpty) {
       showErrorModal(tr("eventPurposeHint"));
-    }
-    else if (numberOfParticipantsSelectedValue == null) {
+    } else if (numberOfParticipantsSelectedValue == null) {
       showErrorModal(tr("numberOfparticipantsHint"));
-    }
-    else if (paymentMethodSelectedValue == null ) {
+    } else if (paymentMethodSelectedValue == null) {
       showErrorModal(tr("paymentMethodHint"));
-    }else if (_selectedEquipments.isEmpty) {
+    } else if (_selectedEquipments.isEmpty) {
       showErrorModal(tr("equipmentsHint"));
-    }
-    else if (!isChecked) {
+    } else if (!isChecked) {
       showErrorModal(tr("tnc"));
     } else {
       networkCheckForReservation();
@@ -1783,7 +1778,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       callReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1802,9 +1797,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
       "start_time": startTimeSelectedValue.toString().trim(), //required
       "end_time": endTimeSelectedValue.toString().trim(), //required
       "type": usageTimeSelectedValue.toString().trim(), //required
-      "purpose":eventPurposeController.text.toString().trim(),//required
-      "no_of_participants":numberOfParticipantsSelectedValue.toString().trim(),//required
-      "payment_method":paymentMethodSelectedValue.toString().trim(),//required
+      "purpose": eventPurposeController.text.toString().trim(), //required
+      "no_of_participants":
+          numberOfParticipantsSelectedValue.toString().trim(), //required
+      "payment_method": paymentMethodSelectedValue.toString().trim(), //required
       "equipments": _selectedEquipmentsValue //required
     };
 
@@ -1828,12 +1824,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1842,10 +1839,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1881,18 +1879,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
       callLoadNumberOfParticipantsListApi();
       callLoadPaymentMethodListApi();
       callLoadEquipmentListApi();
-
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
     }
   }
-
-
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1923,13 +1918,13 @@ class _LoungeReservationState extends State<LoungeReservation> {
           });
         } else {
           if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1938,10 +1933,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1955,7 +1951,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
       });
     } else {
       setState(() {
-       
         reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
       });
     }
