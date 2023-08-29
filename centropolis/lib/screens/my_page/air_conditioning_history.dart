@@ -396,11 +396,13 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
           }
         } else {
           if (responseJson['message'] != null) {
-            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
