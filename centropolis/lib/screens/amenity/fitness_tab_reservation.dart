@@ -69,10 +69,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
-    loadPersonalInformation();
-    loadTimeList();
-    loadTotalUsageTimeList();
+    internetCheckingForMethods();
   }
+
+ 
 
   @override
   Widget build(BuildContext context) {
@@ -1118,14 +1118,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     });
   }
 
-  void loadTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadTimeListApi() {
     setState(() {
@@ -1146,8 +1139,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1156,20 +1154,17 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
-  void loadTotalUsageTimeList() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadTotalUsageTimeListApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadTotalUsageTimeListApi() {
     setState(() {
@@ -1194,8 +1189,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+           debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
           setState(() {
             isLoading = false;
@@ -1204,6 +1204,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1270,7 +1274,12 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     if (await internetChecking.isInternet()) {
       callReservationApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -1308,8 +1317,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
               responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+             debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1318,6 +1332,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1345,14 +1363,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         });
   }
 
-  void loadPersonalInformation() async {
-    final InternetChecking internetChecking = InternetChecking();
-    if (await internetChecking.isInternet()) {
-      callLoadPersonalInformationApi();
-    } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
-    }
-  }
+  
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1383,8 +1394,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           });
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
           }
         }
       }
@@ -1392,10 +1408,31 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         isLoading = false;
       });
     }).catchError((onError) {
+       showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       debugPrint("catchError ================> $onError");
       setState(() {
         isLoading = false;
       });
     });
+  }
+
+   void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+    callLoadPersonalInformationApi();
+    callLoadTimeListApi();
+    callLoadTotalUsageTimeListApi();
+
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
   }
 }
