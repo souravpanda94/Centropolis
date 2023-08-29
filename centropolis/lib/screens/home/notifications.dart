@@ -210,7 +210,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
     if (await internetChecking.isInternet()) {
       callNotificationListApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -254,8 +259,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
           }
         } else {
           if (responseJson['message'] != null) {
-            showCustomToast(
-                fToast, context, responseJson['message'].toString(), "");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -264,6 +273,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -419,7 +432,12 @@ class _NotificationScreenState extends State<NotificationScreen> {
     if (await internetChecking.isInternet()) {
       callNotificationAllReadApi();
     } else {
-      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
     }
   }
 
@@ -449,6 +467,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
             debugPrint(
                 "Notification Read false ===> ${responseJson['message']}");
+            showErrorCommonModal(context: context,
+                heading :responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -457,6 +479,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });

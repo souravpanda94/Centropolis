@@ -132,15 +132,12 @@ class ApiEndPoint {
   static String visitPurposeListUrl = "${baseUrl}v1/common/visit-purpose";
   static String getViewSeatSelectionListUrl = "${baseUrl}v1/amenity/sleeping-seat";
   static String getSelectedSeatListUrl = "${baseUrl}v1/amenity/available-sleeping-seat";
-
-
-
-
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
+  static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
 
-  static String setPushNotificationUrl =
-      "${baseUrl}v1/mypage/push-notification-update";
+
+
   static String getNotificationListUrl =
       "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
