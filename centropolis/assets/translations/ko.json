@@ -541,7 +541,6 @@
   "airConditioningMainHeading":"Air Conditioning Extension Inquiry",
 
 
-  "errorHeading":"에러",
   "errorDescription":"서버로부터 응답이 없습니다. 나중에 다시 시도해 주세요. ",
   "connectionFailed":"연결 실패",
   "connectionFailedDescription":"인터넷 연결을 확인하신 후 나중에 다시 시도해 주세요",

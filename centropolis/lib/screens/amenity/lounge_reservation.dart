@@ -81,12 +81,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
     setWebViewLink();
-    loadPersonalInformation();
-    loadUsageTimeList();
-    loadTimeList();
-    loadNumberOfParticipantsList();
-    loadPaymentMethodList();
-    loadEquipmentList();
+    internetCheckingForMethods();
+
+
+
 
 
 
@@ -1842,6 +1840,21 @@ class _LoungeReservationState extends State<LoungeReservation> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void internetCheckingForMethods() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      loadPersonalInformation();
+      loadUsageTimeList();
+      loadTimeList();
+      loadNumberOfParticipantsList();
+      loadPaymentMethodList();
+      loadEquipmentList();
+
+    } else {
+      showCustomToast(fToast, context, tr("noInternetConnection"), "");
+    }
   }
 
   void loadPersonalInformation() async {

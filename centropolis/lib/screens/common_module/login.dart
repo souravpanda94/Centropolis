@@ -427,7 +427,7 @@ class _LoginScreenState extends State<LoginScreen> {
       callLoginApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-      showErrorModal(tr("error"),tr("noInternetConnection"));
+      showErrorModal(tr("noInternet"),tr("connectionFailedDescription"));
     }
   }
 
@@ -523,7 +523,8 @@ class _LoginScreenState extends State<LoginScreen> {
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);
           goToHomeScreen();
-        } else {
+        }
+        else {
           if (responseJson['status_code'] == 7001) {
             showUnapprovedErrorModal(
                 responseJson['title'], responseJson['message']);
@@ -532,8 +533,9 @@ class _LoginScreenState extends State<LoginScreen> {
           } else {
             if (responseJson['message'] != null) {
               debugPrint("Server error response ${responseJson['message']}");
-              showCustomToast(
-                  fToast, context, responseJson['message'].toString(), "");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorModal(responseJson['message'].toString(),"");
             }
           }
         }
@@ -545,6 +547,7 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
+      showErrorModal(tr("errorDescription"),"");
       if (mounted) {
         setState(() {
           isLoading = false;

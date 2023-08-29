@@ -535,10 +535,10 @@
   "inconvenienceMainHeading":"Inconvenience",
   "lightOutMainHeading":"Light Out Extension Inquiry",
   "airConditioningMainHeading":"Air Conditioning Extension Inquiry",
-  "errorHeading":"Error",
+
   "errorDescription":"Something went wrong, Please try later",
-  "connectionFailed":"Connection Failed",
-  "connectionFailedDescription":"Please check your internet connection or try again later.",
+  "noInternet":"No internet",
+  "connectionFailedDescription":"Please check your internet connection and try again",
 
 
 
