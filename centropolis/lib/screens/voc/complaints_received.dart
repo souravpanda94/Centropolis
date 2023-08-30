@@ -401,7 +401,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           // showCustomToast(fToast, context,
                           //     "Only 1 image can be uploaded", "");
                           showErrorCommonModal(context: context,
-                  heading :"Only 1 image can be uploaded",
+                  heading :tr("imageCountValidation"),
                   description: "",
                   buttonName: tr("check"));
                         } else {
@@ -564,7 +564,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         } else {
           //showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
            showErrorCommonModal(context: context,
-                  heading :"Only 1 image can be uploaded",
+                  heading :tr("imageCountValidation"),
                   description: "",
                   buttonName: tr("check"));
         }

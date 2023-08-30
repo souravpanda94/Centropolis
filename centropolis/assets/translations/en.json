@@ -539,6 +539,7 @@
   "errorDescription":"Something went wrong, Please try later.",
   "noInternet":"No Internet",
   "connectionFailedDescription":"Please check your internet connection and try again.",
+  "imageCountValidation":"Only 1 Image can be uploaded",
 
 
 
