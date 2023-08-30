@@ -459,12 +459,9 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
+            showLogoutSuccesModal(responseJson['message'].toString(),);
           }
-          removeLoginCredential(context);
+          
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
@@ -490,5 +487,25 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
         isLoading = false;
       });
     });
+  }
+
+  void showLogoutSuccesModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              removeLoginCredential(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
   }
 }

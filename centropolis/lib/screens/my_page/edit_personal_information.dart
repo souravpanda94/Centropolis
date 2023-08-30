@@ -468,6 +468,27 @@ class _EditPersonalInformationScreenState
           );
         });
   }
+  void showSuccesModal(String heading) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: heading,
+            description: "",
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
+              Navigator.pop(context);
+              Navigator.pop(context);
+
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
 
   void checkNetworkConnectionForEditPersonalInfo() async {
     final InternetChecking internetChecking = InternetChecking();
@@ -506,12 +527,9 @@ class _EditPersonalInformationScreenState
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-            showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+           showSuccesModal(responseJson['message'].toString());
           }
-          Navigator.pop(context);
+          //Navigator.pop(context);
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
@@ -613,4 +631,6 @@ class _EditPersonalInformationScreenState
     contactNumberController = TextEditingController(
         text: formatNumberStringWithDash(userInfoModel.mobile.toString()));
   }
+
+  
 }
