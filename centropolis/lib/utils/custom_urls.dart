@@ -185,7 +185,7 @@ class WebViewLinks {
 
 class ImageLinks {
   static String baseUrlForImage =
-      "https://api.centropolis.co.kr/api/v1/"; // Live server
+      "https://api.centropolis.co.kr/"; // Live server
   // static String baseUrlForImage =
   //     "https://centropolis-api-dev.dvconsulting.org/"; // Development server
   // static String baseUrlForImage =
