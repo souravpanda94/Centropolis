@@ -179,8 +179,10 @@ class WebViewLinks {
 
 
 
+  // static String freeParkingVehicleRegistrationUrl =
+  //     "http://centropolis.co.kr/About/parking.asp";
   static String freeParkingVehicleRegistrationUrl =
-      "http://centropolis.co.kr/About/parking.asp";
+      "https://mretailweb.tmapparking.co.kr/login";
 }
 
 class ImageLinks {
