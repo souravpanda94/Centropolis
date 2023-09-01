@@ -362,6 +362,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
                                     numberOfParticipantsTooltip = false;
                                   });
                                 }
+                                 if(tooltip){
+                            setState(() {
+                              tooltip=false;
+                            });
+                          }
+                           if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+                                
                           },
                         ),
                         
@@ -424,6 +435,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             setState(() {
                               numberOfParticipantsTooltip=true;
                             });
+                             if(tooltip){
+                            setState(() {
+                              tooltip=false;
+                            });
+                          }
+                           if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
                           },
                           onTapOutside: (event) {
                             setState(() {
@@ -486,6 +507,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       InkWell(
                       
                         onTap: () {
+                          if(tooltip){
+                            setState(() {
+                              tooltip=false;
+                            });
+                          }
                           setState(() {
                             servicesEquipmentTooltip=true;
                           });
@@ -919,6 +945,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
           setState(() {
             tooltip = true;
           });
+           if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
         },
         iconStyleData: IconStyleData(
             icon: Padding(
@@ -1116,6 +1147,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
             usageTimeSelectedValue = value as String;
           });
         },
+        onMenuStateChange: (isOpen) {
+          if(tooltip){
+             setState(() {
+            tooltip = false;
+          });
+          }
+          if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+        },
         dropdownStyleData: DropdownStyleData(
           isOverButton: false,
           padding: const EdgeInsets.only(top: 0, bottom: 0),
@@ -1214,6 +1257,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
               startTimeSelectedValue = value as String;
             });
           },
+          onMenuStateChange: (isOpen) {
+          if(tooltip){
+             setState(() {
+            tooltip = false;
+          });
+          }
+          if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+        },
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200,
             isOverButton: false,
@@ -1344,6 +1399,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
               endTimeSelectedValue = value as String;
             });
           },
+          onMenuStateChange: (isOpen) {
+          if(tooltip){
+             setState(() {
+            tooltip = false;
+          });
+          }
+           if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+        },
           dropdownStyleData: DropdownStyleData(
             maxHeight: 150,
             isOverButton: false,
