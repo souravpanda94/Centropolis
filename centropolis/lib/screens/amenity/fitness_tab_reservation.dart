@@ -56,6 +56,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   int selectedSeat = 0;
   bool firstTimeSeatAvailabilityLoading = true;
   TextEditingController seatController = TextEditingController();
+  ScrollController scrollController=ScrollController();
 
   @override
   void initState() {
@@ -1186,13 +1187,15 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+       if(mounted){
+        showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
+       }
     });
   }
 
@@ -1440,7 +1443,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         isLoading = false;
       });
     }).catchError((onError) {
-       showErrorCommonModal(context: context,
+      if(mounted){
+         showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
@@ -1448,6 +1452,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       setState(() {
         isLoading = false;
       });
+      }
     });
   }
 
@@ -1591,8 +1596,10 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
 
   fitnessCustomTableView(){
     return Scrollbar(
+      controller: scrollController,
       thumbVisibility: true,
       child: SingleChildScrollView(
+        controller:scrollController ,
         scrollDirection: Axis.horizontal,
         child: Container(
           width: 700,

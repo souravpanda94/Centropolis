@@ -421,11 +421,12 @@ class _PaidLockerReservationHistoryState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      
+      if (mounted) {
+        showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
-      if (mounted) {
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -490,13 +491,15 @@ class _PaidLockerReservationHistoryState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      if(mounted){
+        showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });
+      }
     });
   }
 

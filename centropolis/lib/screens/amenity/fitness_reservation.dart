@@ -22,7 +22,7 @@ class _FitnessReservationState extends State<FitnessReservation> {
   List<String> fitnessTabList = [
     tr("gx"),
     tr("paidPT"),
-    tr("fitness"),
+    tr("fitnessReservationTitle"),
     tr("paidLockers")
   ];
   int showIndex = 0;
@@ -42,7 +42,7 @@ class _FitnessReservationState extends State<FitnessReservation> {
         child: SafeArea(
           child: Container(
             color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("fitnessReservation"), false, () {
+            child: CommonAppBar(tr("fitnessReservationTitle"), false, () {
               onBackButtonPress(context);
             }, () {}),
           ),
