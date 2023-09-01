@@ -1726,12 +1726,12 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+        reservationRulesLink = WebViewLinks.conferenceUrlEng;
       });
     } else {
       setState(() {
        
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+        reservationRulesLink = WebViewLinks.conferenceUrlKo;
       });
     }
   }

@@ -2139,11 +2139,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlEng;
+        reservationRulesLink = WebViewLinks.loungeUrlEng;
       });
     } else {
       setState(() {
-        reservationRulesLink = WebViewLinks.loungeConferenceUrlKo;
+        reservationRulesLink = WebViewLinks.loungeUrlKo;
       });
     }
   }

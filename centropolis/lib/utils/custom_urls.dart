@@ -164,8 +164,11 @@ class WebViewLinks {
   static String termsOfUseUrlEng = "${baseUrlForWebLinks}termsofuse/en";
   static String termsOfUseUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
 
-    static String loungeConferenceUrlKo = "${baseUrlForWebLinks}termsofuseExecutive_Conference/kr";
-    static String loungeConferenceUrlEng = "${baseUrlForWebLinks}termsofuseExecutive_Conference/en";
+    static String loungeUrlKo = "${baseUrlForWebLinks}termsofuseExecutive_Conference/kr";
+    static String loungeUrlEng = "${baseUrlForWebLinks}termsofuseExecutive_Conference/en";
+
+    static String conferenceUrlKo = "${baseUrlForWebLinks}termsofuseExecutive_Conference/kr";
+    static String conferenceUrlEng = "${baseUrlForWebLinks}termsofuseExecutive_Conference/en";
 
     static String ptUrlKo = "${baseUrlForWebLinks}termsofusePT/kr";
     static String ptUrlEng = "${baseUrlForWebLinks}termsofusePT/en";
