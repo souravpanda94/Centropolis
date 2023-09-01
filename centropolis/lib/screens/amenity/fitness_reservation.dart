@@ -22,7 +22,7 @@ class _FitnessReservationState extends State<FitnessReservation> {
   List<String> fitnessTabList = [
     tr("gx"),
     tr("paidPT"),
-    tr("fitnessReservationTitle"),
+    tr("fitnessReservationTab"),
     tr("paidLockers")
   ];
   int showIndex = 0;
