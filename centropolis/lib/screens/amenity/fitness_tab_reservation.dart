@@ -4,6 +4,7 @@ import 'dart:math';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -120,36 +121,51 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                         color: CustomColors.textColorBlack2),
                   ),
                   const SizedBox(
+                    height: 8,
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width,
+                    child: Text(
+                      tr("vat"),
+                      textAlign: TextAlign.end,
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 12,
+                          color: CustomColors.greyColor1),
+                    ),
+                  ),
+                  const SizedBox(
                     height: 16,
                   ),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("fitnessReservationProgramDesc"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
+                  fitnessCustomTableView()
+                  
+                  // Row(
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     children: [
+                  //       const Padding(
+                  //         padding: EdgeInsets.only(top: 7),
+                  //         child: Icon(
+                  //           Icons.circle,
+                  //           size: 5,
+                  //         ),
+                  //       ),
+                  //       const SizedBox(
+                  //         width: 10,
+                  //       ),
+                  //       Expanded(
+                  //         child: Text(
+                  //           tr("fitnessReservationProgramDesc"),
+                  //           style: const TextStyle(
+                  //               fontFamily: 'Regular',
+                  //               fontSize: 14,
+                  //               height: 1.5,
+                  //               color: CustomColors.textColor5),
+                  //         ),
+                  //       )
+                  //     ]),
                         ],
                       ),
-
                 ),
                 
                 
@@ -599,6 +615,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           )),
     );
   }
+
+  
 
   usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
@@ -1448,5 +1466,315 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
     }
+  }
+
+
+  fitnessTableView(){
+    return StaggeredGrid.count(
+  crossAxisCount: 6,
+  mainAxisSpacing: 4,
+  crossAxisSpacing: 4,
+  children:  [
+    StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(tr("sportwear")),
+      ),
+    ),
+    StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("oneTimeRental")),
+    ),
+    StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("2,000")),
+    ),
+    const StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1,
+      child: Text(""),
+    ),
+   StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("monthlyRental")),
+    ),
+     StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("30,000")),
+    ),
+    const StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1,
+      child: Text(""),
+    ),
+    const StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 2,
+      child: Text(""),
+    ),
+    StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("monthlyRental")),
+    ),
+     StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("10,000")),
+    ),
+    const StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1,
+      child: Text(""),
+    ),
+   StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("threeMonthRental")),
+    ),
+     StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("27,000")),
+    ),
+    const StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1,
+      child: Text(""),
+    ),
+     StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 2,
+      child: Text(tr("personalLocker")),
+    ),
+    StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("oneYearRental")),
+    ),
+    StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("10,000")),
+    ),
+    const StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1,
+      child: Text(""),
+    ),
+    
+   StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("deposit")),
+    ),
+     StaggeredGridTile.count(
+      crossAxisCellCount: 1,
+      mainAxisCellCount: 1,
+      child: Text(tr("88,000")),
+    ),
+    StaggeredGridTile.count(
+      crossAxisCellCount: 2,
+      mainAxisCellCount: 1,
+      child: Text(tr("refund")),
+    ),
+     
+  ],
+);
+  }
+
+  fitnessCustomTableView(){
+    return Scrollbar(
+      thumbVisibility: true,
+      child: SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Container(
+          width: 700,
+          height: 400,
+          color: CustomColors.backgroundColor,
+          child: Column(children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                 Expanded(
+                  flex: 1,
+                   child: Padding(
+                     padding: const EdgeInsets.only(top: 40),
+                     child: Text(tr("sportwear"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'Regular',
+                        color: CustomColors.blackColor,
+                        height: 1.5,
+                        fontSize: 14
+                      ),),
+                   ),
+                 ),
+                Container(
+                  width: 200,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Text(tr("oneTimeRental"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Regular',
+                    color: CustomColors.blackColor,
+                    height: 1.5,
+                    fontSize: 14
+                  ),)),
+                Container(
+                   width: 200,
+                   padding: const EdgeInsets.all(10),
+                   margin: const EdgeInsets.all(10),
+                  child: Text(tr("2,000"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Regular',
+                    color: CustomColors.blackColor,
+                    height: 1.5,
+                    fontSize: 14
+                  ),)),
+                  const Spacer(),
+              ],
+            ),
+            fitnessInfoTableRow(tr("monthlyRental"),tr("30,000")),
+            const Divider(
+              height: 1,
+              thickness: 1,
+              color: CustomColors.dividerGreyColor,
+            ),
+            fitnessInfoTableRow(tr("monthlyRental"),tr("10,000")),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                 Expanded(
+                  flex: 1,
+                   child: Padding(
+                     padding: const EdgeInsets.only(top: 40),
+                     child: Text(tr("personalLocker"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontFamily: 'Regular',
+                        color: CustomColors.blackColor,
+                        height: 1.5,
+                        fontSize: 14
+                      ),),
+                   ),
+                 ),
+                Container(
+                  width: 200,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Text(tr("threeMonthRental"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Regular',
+                    color: CustomColors.blackColor,
+                    height: 1.5,
+                    fontSize: 14
+                  ),)),
+                Container(
+                   width: 200,
+                   padding: const EdgeInsets.all(10),
+                   margin: const EdgeInsets.all(10),
+                  child: Text(tr("27,000"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Regular',
+                    color: CustomColors.blackColor,
+                    height: 1.5,
+                    fontSize: 14
+                  ),)),
+                  const Spacer(),
+              ],
+            ),
+            fitnessInfoTableRow(tr("oneYearRental"),tr("88,000")),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                const Spacer(),
+                Container(
+                  width: 200,
+                  padding: const EdgeInsets.all(10),
+                  margin: const EdgeInsets.all(10),
+                  child: Text(tr("deposit"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Regular',
+                    color: CustomColors.blackColor,
+                    height: 1.5,
+                    fontSize: 14
+                  ),)),
+                Container(
+                   width: 200,
+                   padding: const EdgeInsets.all(10),
+                   margin: const EdgeInsets.all(10),
+                  child: Text(tr("10,000"),
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    fontFamily: 'Regular',
+                    color: CustomColors.blackColor,
+                    height: 1.5,
+                    fontSize: 14
+                  ),)),
+                   Expanded(
+                  flex: 1,
+                   child: Text(tr("refund"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                      fontFamily: 'Regular',
+                      color: CustomColors.blackColor,
+                      height: 1.5,
+                      fontSize: 14
+                    ),),
+                 ),
+              ],
+            ),  
+          ]),
+      
+      
+        ),
+      ),
+    );
+  }
+
+  fitnessInfoTableRow(String text1,text2){
+    return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              const Spacer(),
+              Container(
+                width: 200,
+                padding: const EdgeInsets.all(10),
+                margin: const EdgeInsets.all(10),
+                child: Text(text1,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: 'Regular',
+                  color: CustomColors.blackColor,
+                  height: 1.5,
+                  fontSize: 14
+                ),)),
+              Container(
+                 width: 200,
+                 padding: const EdgeInsets.all(10),
+                 margin: const EdgeInsets.all(10),
+                child: Text(text2,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontFamily: 'Regular',
+                  color: CustomColors.blackColor,
+                  height: 1.5,
+                  fontSize: 14
+                ),)),
+                const Spacer(),
+            ],
+          );
   }
 }

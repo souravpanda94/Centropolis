@@ -551,6 +551,22 @@
   "servicesEquipmentTooltip2":"외부케이터링 진행 시 쓰레기 처리, 시설 및 전체 회수 및  원상 복구",
   "conferenceServiceEquipmentTooltip":"현수막 진행시 타공진행 후 이용 가능",
 
+  "sportwear":"운동복",
+  "oneTimeRental":"1회 대여료",
+  "monthlyRental":"월 대여료",
+  "threeMonthRental":"3개월 대여료",
+  "oneYearRental":"1년 대여료",
+  "deposit":"보증금",
+  "personalLocker":"개인 사물함",
+  "refund":"키 반납 시 환불",
+  "2,000":"2,000",
+  "30,000":"30,000",
+  "10,000":"10,000",
+  "27,000":"27,000",
+  "88,000":"88,000",
+  "vat":"부가세 별도 / (원 단위)",
+
+
 
 
 
