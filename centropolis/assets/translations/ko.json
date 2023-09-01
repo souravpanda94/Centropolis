@@ -482,12 +482,12 @@
   "loungeInfoText8" : "계약금 선 납부 및 계약서 작성",
   "loungeInfoText9" : "이용시간 전후 준비시간 1시간 / 정리시간 1시간 필요하며, 해당 시간은 이용시간과 별도로 비용 발생됨",
 
-  "conferenceInfoText1" : "월요일  금요일 09 :00  18:00",
+  "conferenceInfoText1" : "월요일 ~ 금요일 09 :00 ~ 18:00",
   "conferenceInfoText2" : "입주사 50% 할인 제공",
   "conferenceInfoText3" : "입주사 무료 제공 : 1 개실 2 시간 월(1개층 전체 사용 입주사 / 분할 입주사 경우 1 시간 월)",
   "conferenceInfoText4" : "미팅 패키지 1: 커피 , 케익 제공 인당 1 만원 부가세 포함",
   "conferenceInfoText5" : "미팅 패키지 2: 커피, 샌드위치 세트 인당 3 만원 부가세 포함 / 최소 20 명 / 메뉴는 상황에 따라 변동 가능",
-  "conferenceInfoText6" : "패키지는 행사 당일 1 주일 전 까지 사전 예약 시 이용 가능",
+  "conferenceInfoText6" : "패키지는 행사 당일 2 주일 전 까지 사전 예약 시 이용 가능",
   "conferenceInfoText7" : "예약가능 시점: 당일 2 개월 전부터 하루 전까지",
   "conferenceInfoText8" : "취소가능 시점: 당일 2 개월 전부터 3 일 전까지 위약금 발생 가능",
   "conferenceInfoText9" : "계약금 선 납부 및 계약서 작성",
@@ -505,7 +505,7 @@
   "paidPtInformation" : "PT 프로그램 안내",
   "paidPtInformationDescription1" : "개인 코칭을 통한 유료 프로그램(50분 수업)",
   "paidPtInformationDescription2" : "기초 웨이트 프로그램 진행가능",
-  "paidPtInformationDescription3" : "10회 600,000 (부가세 별도) / 단기권, 시간별 할인 수업 가능",
+  "paidPtInformationDescription3" : "10회 600,000 (부가세 별도) ",
 
   "sleepingRoomReservationRules" : "수면실 예약 규정에 ",
   "ptReservationRules":"PT 예약 규정에 ",
