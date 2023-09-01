@@ -544,7 +544,7 @@
   "errorDescription":"서버로부터 응답이 없습니다. 나중에 다시 시도해 주세요.",
   "noInternet":"인터넷 연결이 없습니다",
   "connectionFailedDescription":"인터넷 연결을 확인하신 후 나중에 다시 시도해 주세요",
-  "imageCountValidation":"Only 1 Image can be uploaded",
+  "imageCountValidation":"한번에 하나의 이미지만 업로드 가능합니다",
 
 
 

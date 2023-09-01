@@ -52,6 +52,8 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
     loadVisitRequestList();
   }
 
+  
+
   void getCurrentDate() {
     var date = DateTime.now().toString();
     var dateParse = DateTime.parse(date);
@@ -417,13 +419,18 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      
+          if (mounted) {
+            showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
-      setState(() {
+            setState(() {
         isFirstLoadRunning = false;
       });
+
+          }
+      
     });
   }
 
@@ -444,4 +451,6 @@ class _VisitRequestScreenState extends State<VisitRequestScreen> {
       return CustomColors.textColorBlack2;
     }
   }
+
+  
 }

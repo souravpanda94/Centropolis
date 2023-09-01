@@ -601,12 +601,13 @@ class _MyPageScreenState extends State<MyPageScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
+     
+      if (mounted) {
+         showErrorCommonModal(
           context: context,
           heading: tr("errorDescription"),
           description: "",
           buttonName: tr("check"));
-      if (mounted) {
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -672,7 +673,8 @@ class _MyPageScreenState extends State<MyPageScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
+      if(mounted){
+        showErrorCommonModal(
           context: context,
           heading: tr("errorDescription"),
           description: "",
@@ -680,6 +682,9 @@ class _MyPageScreenState extends State<MyPageScreen> {
       setState(() {
         isFirstLoadRunning = false;
       });
+
+      }
+      
     });
   }
 }
