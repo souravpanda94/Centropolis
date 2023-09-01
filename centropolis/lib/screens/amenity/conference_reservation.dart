@@ -21,6 +21,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
+import '../../widgets/multi_select_item_lounge.dart';
 import '../my_page/web_view_ui.dart';
 import 'conference_availability_modal.dart';
 
@@ -56,9 +57,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   Map<dynamic, dynamic> conferenceRoomScheduleList = {};
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
-    String reservationRulesLink = "";
+  String reservationRulesLink = "";
 
+  bool servicesEquipmentTooltip = false;
+  List<dynamic> _selectedEquipments = [];
+  List<dynamic> _selectedEquipmentsValue = [];
+  List<dynamic> equipmentsList = [];
+  String? equipmentSelectedValue;
 
+  
   @override
   void initState() {
     super.initState();
@@ -386,6 +393,125 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           height: 6,
                         ),
                         meetingPackageDropdownWidget(),
+                         const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        tr("equipments"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      InkWell(
+                      
+                        onTap: () {
+                          
+                          setState(() {
+                            servicesEquipmentTooltip=true;
+                          });
+                          _showMultiSelect();
+                        },
+                        child: Container(
+                          height: 46,
+                          padding: const EdgeInsets.all(0),
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 1.0,
+                                color: CustomColors.dividerGreyColor),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(5.0)),
+                          ),
+                          child: Row(
+                            children: [
+                              Expanded(
+                                  child: _selectedEquipments.isEmpty
+                                      ? Container(
+                                          padding: const EdgeInsets.only(
+                                              left: 15,
+                                              right: 15,
+                                              top: 12,
+                                              bottom: 12),
+                                          child: Text(tr('equipmentsHint')))
+                                      : Container(
+                                          margin:
+                                              const EdgeInsets.only(left: 15),
+                                          child: SingleChildScrollView(
+                                            scrollDirection: Axis.horizontal,
+                                            child: Wrap(
+                                              runSpacing: 1.5,
+                                              spacing: 0,
+                                              direction: Axis.vertical,
+                                              children: _selectedEquipments
+                                                  .map((e) => Chip(
+                                                        visualDensity:
+                                                            VisualDensity
+                                                                .compact,
+                                                        backgroundColor:
+                                                            CustomColors
+                                                                .selectedColor,
+                                                        padding:
+                                                            const EdgeInsets
+                                                                    .symmetric(
+                                                                horizontal: 5),
+                                                        shape: const RoundedRectangleBorder(
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            5))),
+                                                        label: SizedBox(
+                                                          //width: 20,
+                                                          child: Text(
+                                                              e["text"]
+                                                                  .toString(),
+                                                              textAlign:
+                                                                  TextAlign
+                                                                      .center,
+                                                              style: const TextStyle(
+                                                                  fontFamily:
+                                                                      'SemiBold',
+                                                                  fontSize: 12,
+                                                                  color: CustomColors
+                                                                      .whiteColor)),
+                                                        ),
+                                                      ))
+                                                  .toList(),
+                                            ),
+                                          ),
+                                        )),
+                              Container(
+                                margin: const EdgeInsets.only(right: 10),
+                                padding: EdgeInsets.only(
+                                    left: 10,
+                                    bottom: equipmentSelectedValue != null
+                                        ? 16
+                                        : 0),
+                                child: SvgPicture.asset(
+                                  "assets/images/ic_drop_down_arrow.svg",
+                                  width: 8,
+                                  height: 8,
+                                  color: CustomColors.textColorBlack2,
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ),
+                      if (servicesEquipmentTooltip)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            tr("conferenceServiceEquipmentTooltip"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 12,
+                                color: CustomColors.blackColor),
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -440,6 +566,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
+                            onTap: () {
+                              if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+                            },
                           ),
                         ),
                       ],
@@ -690,6 +823,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             startTimeSelectedValue = value as String;
           });
         },
+        onMenuStateChange: (isOpen) {
+          if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+        },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
           isOverButton: false,
@@ -784,6 +924,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           setState(() {
             endTimeSelectedValue = value as String;
           });
+        },
+        onMenuStateChange: (isOpen) {
+          if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -883,6 +1030,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             meetingPackageSelectedValue = value.toString();
           });
         },
+        onMenuStateChange: (isOpen) {
+          if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
+        },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
           isOverButton: false,
@@ -977,6 +1131,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           setState(() {
             conferenceRoomSelectedValue = value.toString();
           });
+        },
+        onMenuStateChange: (isOpen) {
+          if(servicesEquipmentTooltip){
+             setState(() {
+            servicesEquipmentTooltip = false;
+          });
+          }
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -1379,7 +1540,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     } else if (meetingPackageSelectedValue == null ||
         meetingPackageSelectedValue == "") {
       showErrorModal(tr("meetingPackageHint"));
-    } else if (rentalInfoController.text.isEmpty) {
+    }else if (_selectedEquipments.isEmpty) {
+      showErrorModal(tr("equipmentsHint"));
+    }  else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
@@ -1428,7 +1591,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       isLoading = true;
     });
     debugPrint("meetingPackageSelectedValue :: $meetingPackageSelectedValue");
-    Map<String, String> body = {
+    Map<String, dynamic> body = {
       "email": email.trim(), //required
       "mobile": mobile.trim(), //required
       "reservation_date": reservationDate.toString().trim(), //required
@@ -1441,6 +1604,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       "package_id": meetingPackageSelectedValue != null
           ? meetingPackageSelectedValue.toString().trim()
           : "0", //no package
+          "equipments":_selectedEquipmentsValue//required
     };
 
     debugPrint("conferencce reservation input===> $body");
@@ -1580,6 +1744,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     callLoadMeetingPackageListApi();
     callLoadConferenceRoomListApi();
     callLoadloadConferenceScheduleApi();
+    callLoadEquipmentListApi();
 
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
@@ -1589,5 +1754,81 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
     }
+  }
+
+  void _showMultiSelect() async {
+    final List<dynamic>? results = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return MultiSelectLoungeEquipments(
+          items: equipmentsList,
+          alreadySelectedItems: _selectedEquipments,
+        );
+      },
+    );
+
+    // Update UI
+    if (results != null) {
+      _selectedEquipmentsValue.clear();
+
+      for (var i = 0; i < results.length; i++) {
+        _selectedEquipmentsValue.add(results[i]["value"]);
+      }
+
+      setState(() {
+        _selectedEquipments = results;
+      });
+    }
+  }
+
+   void callLoadEquipmentListApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("conference equipment List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.conferenceEquipmentListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for conference Equipment List ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          if (responseJson['data'] != null) {
+            var equipmentNames;
+            setState(() {
+              equipmentsList = responseJson['data'];
+            });
+          }
+        } else {
+          if (responseJson['message'] != null) {
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("errorDescription"),
+          description: "",
+          buttonName: tr("check"));
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }

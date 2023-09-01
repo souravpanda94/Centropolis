@@ -144,6 +144,8 @@ class ApiEndPoint {
   static String paymentMethodListUrl = "${baseUrl}v1/common/lounge-payment-method-list";
   static String equipmentListUrl = "${baseUrl}v1/common/lounge-equipments-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
+  static String conferenceEquipmentListUrl = "${baseUrl}v1/common/conference-equipments-list";
+
 // static String coolingHeatingTypeListUrl = "${baseUrl}v1/common/ac-inquiry-type-list";
 
 
