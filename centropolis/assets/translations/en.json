@@ -512,7 +512,7 @@
 
   "paidLockerReservationRestrictionPopup":"Additional reservations are not available as waiting list is full. ",
   "eventPurposeHint":"Please enter an Event Purpose",
-  "numberOfparticipantsHint":"Please select Number of Participants ",
+  "numberOfparticipantsHint":"Please enter Number of Participants ",
   "paymentMethodHint":"Please select Payment Method ",
   "eventPurpose":"Event Purpose",
   "numberOfParticipants":"Number of Participants",
@@ -541,6 +541,9 @@
   "connectionFailedDescription":"Please check your internet connection and try again.",
   "imageCountValidation":"Only 1 Image can be uploaded",
 
+  "numberOfParticipantsTooltip":"Allowing up to 90 people. In case of standing event, allowing up to 150 people.",
+  "servicesEquipmentTooltip1":"Entire property and facility out-time during external catering is considered as part of hours of use",
+  "servicesEquipmentTooltip2":"In case of using external catering service, disposal of garbage and restoring the facility to its original state are required.",
 
 
 

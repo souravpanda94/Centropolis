@@ -49,6 +49,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? numberOfParticipantsSelectedValue;
   String? paymentMethodSelectedValue;
   bool tooltip = false;
+  bool numberOfParticipantsTooltip = false;
+  bool servicesEquipmentTooltip = false;
+
+
 
   String reservationDate = "";
   List<dynamic> usageTimeList = [];
@@ -64,6 +68,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? equipmentSelectedValue;
 
   TextEditingController eventPurposeController = TextEditingController();
+  TextEditingController numberOfParticipantsController = TextEditingController();
+
 
   @override
   void initState() {
@@ -315,9 +321,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          readOnly: false,
                           controller: eventPurposeController,
                           cursorColor: CustomColors.textColorBlack2,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
@@ -349,7 +356,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
+                          onTap: () {
+                            if (numberOfParticipantsTooltip) {
+                                  setState(() {
+                                    numberOfParticipantsTooltip = false;
+                                  });
+                                }
+                          },
                         ),
+                        
                       ),
                       const SizedBox(
                         height: 16,
@@ -364,7 +379,72 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       const SizedBox(
                         height: 8,
                       ),
-                      numberOfParticipantsWidget(),
+                      //numberOfParticipantsWidget(),
+                      SizedBox(
+                        height: 46,
+                        child: TextField(
+                          readOnly: false,
+                          controller: numberOfParticipantsController,
+                          cursorColor: CustomColors.textColorBlack2,
+                          keyboardType: TextInputType.number,
+                          maxLength: 3,
+                          decoration: InputDecoration(
+                            counterText: "",
+                            border: InputBorder.none,
+                            fillColor: CustomColors.whiteColor,
+                            filled: true,
+                            contentPadding: const EdgeInsets.all(16),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(4),
+                              borderSide: const BorderSide(
+                                  color: CustomColors.dividerGreyColor,
+                                  width: 1.0),
+                            ),
+                            hintText: tr('numberOfparticipantsHint'),
+                            hintStyle: const TextStyle(
+                              height: 1.5,
+                              color: CustomColors.textColor3,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
+                          ),
+                          style: const TextStyle(
+                            height: 1.5,
+                            color: CustomColors.textColorBlack2,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                          onTap: () {
+                            setState(() {
+                              numberOfParticipantsTooltip=true;
+                            });
+                          },
+                          onTapOutside: (event) {
+                            setState(() {
+                              numberOfParticipantsTooltip=false;
+                            });
+                            
+                          },
+                        ),
+                      ),
+                      if (numberOfParticipantsTooltip)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Text(
+                            tr("numberOfParticipantsTooltip"),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 12,
+                                color: CustomColors.blackColor),
+                          ),
+                        ),
+
                       const SizedBox(
                         height: 16,
                       ),
@@ -404,7 +484,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         height: 8,
                       ),
                       InkWell(
+                      
                         onTap: () {
+                          setState(() {
+                            servicesEquipmentTooltip=true;
+                          });
                           _showMultiSelect();
                         },
                         child: Container(
@@ -493,6 +577,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           ),
                         ),
                       ),
+                      if (servicesEquipmentTooltip)
+                        Padding(
+                          padding: const EdgeInsets.only(top: 5),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              tooltipTextWidget(tr("servicesEquipmentTooltip1")),
+                              tooltipTextWidget(tr("servicesEquipmentTooltip2")),
+                        
+                            ],
+                          ),
+                        ),
                     ],
                   ),
                 ),
@@ -681,6 +777,32 @@ class _LoungeReservationState extends State<LoungeReservation> {
                   fontSize: 14,
                   height: 1.5,
                   color: CustomColors.textColor5),
+            ),
+          )
+        ]);
+  }
+  tooltipTextWidget(String text) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 5),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 12,
+                  color: CustomColors.blackColor),
             ),
           )
         ]);
@@ -1398,9 +1520,12 @@ class _LoungeReservationState extends State<LoungeReservation> {
           startTimeSelectedValue = null;
           endTimeSelectedValue = null;
           paymentMethodSelectedValue = null;
-          numberOfParticipantsSelectedValue = null;
+          //numberOfParticipantsSelectedValue = null;
           eventPurposeController.clear();
+          numberOfParticipantsController.clear();
           tooltip = false;
+          numberOfParticipantsTooltip=false;
+          servicesEquipmentTooltip=false;
           _selectedEquipments.clear();
           _selectedEquipmentsValue.clear();
         });
@@ -1758,7 +1883,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       showErrorModal(tr("endTimeMustBeGreaterThanStartTime"));
     } else if (eventPurposeController.text.trim().isEmpty) {
       showErrorModal(tr("eventPurposeHint"));
-    } else if (numberOfParticipantsSelectedValue == null) {
+    } else if (numberOfParticipantsController.text.trim().isEmpty) {
       showErrorModal(tr("numberOfparticipantsHint"));
     } else if (paymentMethodSelectedValue == null) {
       showErrorModal(tr("paymentMethodHint"));
@@ -1799,7 +1924,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       "type": usageTimeSelectedValue.toString().trim(), //required
       "purpose": eventPurposeController.text.toString().trim(), //required
       "no_of_participants":
-          numberOfParticipantsSelectedValue.toString().trim(), //required
+          numberOfParticipantsController.text.toString().trim(), //required
       "payment_method": paymentMethodSelectedValue.toString().trim(), //required
       "equipments": _selectedEquipmentsValue //required
     };
@@ -1876,7 +2001,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       callLoadPersonalInformationApi();
       callLoadUsageTimeListApi();
       callLoadTimeListApi();
-      callLoadNumberOfParticipantsListApi();
+      //callLoadNumberOfParticipantsListApi();
       callLoadPaymentMethodListApi();
       callLoadEquipmentListApi();
     } else {
