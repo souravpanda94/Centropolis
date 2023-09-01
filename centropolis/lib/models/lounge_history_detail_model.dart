@@ -55,7 +55,7 @@ class LoungeHistoryDetailModel {
     success = json['success'];
     canCancelButtonEnabled = json['can_cancel_button_enabled'];
         purpose = json['purpose'];
-    displayNumberOfParticipants = json['display_no_of_participants'];
+    displayNumberOfParticipants = json['no_of_participants'];
     displayPaymentMethod = json['display_payment_method'];
     equipments=json['equipments'];
 
@@ -78,7 +78,7 @@ class LoungeHistoryDetailModel {
     data['success'] = success;
     data['can_cancel_button_enabled'] = canCancelButtonEnabled;
     data['purpose'] = purpose;
-    data['display_no_of_participants'] = displayNumberOfParticipants;
+    data['no_of_participants'] = displayNumberOfParticipants;
     data['display_payment_method'] = displayPaymentMethod;
     data['equipments'] = equipments;
     return data;
