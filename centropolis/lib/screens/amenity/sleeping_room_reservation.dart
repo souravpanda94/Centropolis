@@ -730,7 +730,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             usageTimeSelectedValue = value as String;
             selectedSeatsValue = null;
           });
+          if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
           loadSelectedSeatList();
+        }
           loadViewSeatSelectionList();
         },
         dropdownStyleData: DropdownStyleData(
@@ -835,7 +837,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             totalTimeSelectedValue = value.toString();
             selectedSeatsValue = null;
           });
+          if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
           loadSelectedSeatList();
+        }
           loadViewSeatSelectionList();
         },
         dropdownStyleData: DropdownStyleData(
@@ -1078,7 +1082,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           totalTimeSelectedValue = null;
           selectedSeatsValue = null;
         });
-        loadSelectedSeatList();
+        if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
+          loadSelectedSeatList();
+        }
         loadViewSeatSelectionList();
       },
       onFormatChanged: (format) {
@@ -1117,7 +1123,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             setState(() {
               usageTimeList = responseJson['schedule'];
             });
-            loadSelectedSeatList();
+            if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
+          loadSelectedSeatList();
+        }
 
             for (int i = 0; i < usageTimeList.length; i++) {
               if (usageTimeList.length - 1 != i) {
@@ -1177,7 +1185,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             setState(() {
               totalUsageTimeList = responseJson['data'];
             });
-            loadSelectedSeatList();
+            if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
+          loadSelectedSeatList();
+        }
           }
         } else {
           if (responseJson['message'] != null) {
