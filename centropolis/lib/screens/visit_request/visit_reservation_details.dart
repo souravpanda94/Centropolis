@@ -240,7 +240,7 @@ class _VisitReservationDetailsScreenState
                         child: Align(
                           alignment: Alignment.centerLeft,
                           child: Text(
-                            visitReservationDetailModel?.building ?? "",
+                            visitReservationDetailModel?.displayBuilding ?? "",
                             style: const TextStyle(
                               fontSize: 14,
                               fontFamily: "Regular",
