@@ -13,6 +13,7 @@ class UserInfoModel {
   String? displayUserType;
   bool? success;
   int? unreadNotificationCount;
+  String? buildingKey;
 
   UserInfoModel(
       {this.userId,
@@ -29,6 +30,7 @@ class UserInfoModel {
       this.displayUserType,
       this.success,
       this.unreadNotificationCount,
+      this.buildingKey
       });
 
   UserInfoModel.fromJson(Map<String, dynamic> json) {
@@ -46,6 +48,7 @@ class UserInfoModel {
     displayUserType = json['display_user_type'];
     success = json['success'];
     unreadNotificationCount = json['unread_notification_count'];
+    buildingKey=json['building_key'];
   }
 
   Map<String, dynamic> toJson() {
@@ -64,6 +67,7 @@ class UserInfoModel {
     data['display_user_type'] = displayUserType;
     data['success'] = success;
     data['unread_notification_count'] = unreadNotificationCount;
+    data['building_key']=buildingKey;
     return data;
   }
 }

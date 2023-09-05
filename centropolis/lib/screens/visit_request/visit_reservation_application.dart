@@ -59,6 +59,7 @@ class _VisitReservationApplicationState
   String visitedPersonName = "";
   String visitedPersonCompanyName = "";
   String visitedPersonBuilding = "";
+  String visitedPersonBuildingKey="";
   String visitedPersonId = "";
   String visitedPersonCompanyId = "";
   bool isLoadingRequired = false;
@@ -1585,7 +1586,7 @@ class _VisitReservationApplicationState
   }
 
   void callLoadVisitReservationApplicationApi() {
-    debugPrint("visitedPersonBuilding :: $visitedPersonBuilding");
+    debugPrint("visitedPersonBuildingKey :: $visitedPersonBuildingKey");
     setState(() {
       isLoading = true;
     });
@@ -1596,7 +1597,7 @@ class _VisitReservationApplicationState
           visitedPersonCompanyId.toString().trim(), //required
       "visited_person_user_id": visitedPersonId.toString().trim(), //required
       "visited_person_name": visitedPersonName.toString().trim(), //required
-      "building": visitedPersonBuilding.toString().trim(), //required
+      "building": visitedPersonBuildingKey.toString().trim(), //required
       "floor": currentSelectedFloor ?? "", //required
       "visitor_name": visitorNameController.text.trim(), //required
       "visitor_company_name": companyNameController.text.trim(), //required
@@ -1813,6 +1814,7 @@ class _VisitReservationApplicationState
     visitedPersonName = userInfoModel.name.toString();
     visitedPersonCompanyName = userInfoModel.companyName.toString();
     visitedPersonBuilding = userInfoModel.building.toString();
+    visitedPersonBuildingKey = userInfoModel.buildingKey.toString();
     visitedPersonId = userInfoModel.userId.toString();
     visitedPersonCompanyId = userInfoModel.companyId.toString();
   }
