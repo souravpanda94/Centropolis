@@ -360,6 +360,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
       var responseJson = json.decode(response.body);
 
       debugPrint("server response for Inconvenience List ===> $responseJson");
+       
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
@@ -385,6 +386,9 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                 buttonName: tr("check"));
           }
         }
+        setState(() {
+          isFirstLoadRunning = false;
+        });
         }}).catchError((onError) {
       debugPrint("catchError ================> $onError");
       
