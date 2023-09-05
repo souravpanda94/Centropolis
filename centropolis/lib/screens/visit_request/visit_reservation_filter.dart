@@ -611,7 +611,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
     }
     if (showIndex == 0) {
       selectedStartDate = DateTime.now();
-      selectedEndDate = DateTime.now().add(const Duration(days: 1));
+      selectedEndDate = DateTime.now();
+      //selectedEndDate = DateTime.now().add(const Duration(days: 1));
     } else if (showIndex == 1) {
       selectedStartDate = DateTime.now();
       selectedEndDate = DateTime.now().add(const Duration(days: 7));

@@ -483,16 +483,35 @@ class _ViewVisitReservationScreenState
     setState(() {
       isFirstLoadRunning = true;
     });
-    Map<String, String> body = {
+    Map<String, String> body;
+    if(endDate == startDate){
+       body = {
+      "page": page.toString(),
+      "limit": limit.toString(),
+      "pagination": "true",
+      "status": currentSelectedSortingFilter ?? "",
+      "start_date": startDate.toString(),
+      //"end_date": endDate.toString()
+
+      // "start_date": widget.selectedStartDate.toString() ?? "",
+      // "end_date": widget.selectedEndDate.toString() ?? ""
+    };
+
+    }else{
+       body = {
       "page": page.toString(),
       "limit": limit.toString(),
       "pagination": "true",
       "status": currentSelectedSortingFilter ?? "",
       "start_date": startDate.toString(),
       "end_date": endDate.toString()
+
       // "start_date": widget.selectedStartDate.toString() ?? "",
       // "end_date": widget.selectedEndDate.toString() ?? ""
     };
+
+    }
+   
 
     debugPrint("View Visit Request List input===> $body");
 
