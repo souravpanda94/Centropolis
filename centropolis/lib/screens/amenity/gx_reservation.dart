@@ -240,7 +240,11 @@ class _GXReservationState extends State<GXReservation> {
                                   gxReservationItem:
                                       gxReservationListItem![index]),
                             ),
-                          );
+                          ).then((value) {
+                if (value) {
+                  firstTimeLoadGxFitnessReservationList();
+                }
+              });
                         }
                       },
                       child: Container(
@@ -401,6 +405,7 @@ class _GXReservationState extends State<GXReservation> {
   void firstTimeLoadGxFitnessReservationList() {
     setState(() {
       isFirstLoadRunning = true;
+      page=1;
     });
     loadGxFitnessReservationList();
   }

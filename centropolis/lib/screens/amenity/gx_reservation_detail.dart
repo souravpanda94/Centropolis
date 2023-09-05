@@ -38,7 +38,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
   String name = "";
   String email = "";
   String mobile = "";
-    String reservationRulesLink = "";
+  String reservationRulesLink = "";
+  bool isLoadingRequired = false;
 
 
   @override
@@ -73,7 +74,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("gXReservation"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -554,6 +556,9 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           if (responseJson['title'] != null) {
             showReservationModal(
                 responseJson['title'].toString().replaceAll(".", ""),
@@ -601,7 +606,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
