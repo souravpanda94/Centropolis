@@ -113,7 +113,7 @@
   "contents" : "Contents",
   "lightOutExtension" : "Light out",
   "airConditioningExtension" : "A/C extension",
-  "imageFormatNotSupported" : "Image format not supported",
+  "imageFormatNotSupported" : "Only Image file can be uploaded",
 
 
 
