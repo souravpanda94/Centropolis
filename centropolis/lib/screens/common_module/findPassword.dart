@@ -142,7 +142,7 @@ class _FindPasswordState extends State<FindPassword> {
                   child: TextField(
                     controller: emailIDController,
                     cursorColor: CustomColors.textColorBlack2,
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
                       border: InputBorder.none,
                       fillColor: CustomColors.whiteColor,
