@@ -33,11 +33,11 @@ class _GXReservationState extends State<GXReservation> {
   int totalPages = 0;
   bool isFirstLoadRunning = true;
   List<GxFitnessReservationModel>? gxReservationListItem;
+
   //List<String> days = ["Mon", "Wed", "Fri,Sun"];
 
-  ScrollController controller1= ScrollController();
-    ScrollController controller2= ScrollController();
-
+  ScrollController controller1 = ScrollController();
+  ScrollController controller2 = ScrollController();
 
   @override
   void initState() {
@@ -222,8 +222,10 @@ class _GXReservationState extends State<GXReservation> {
               height: 24,
             ),
             Expanded(
-              child: ListView.builder(
-                controller: controller1,
+              child:
+              gxReservationListItem!.length > 1 ?
+              ListView.builder(
+                  controller: controller1,
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
@@ -241,10 +243,10 @@ class _GXReservationState extends State<GXReservation> {
                                       gxReservationListItem![index]),
                             ),
                           ).then((value) {
-                if (value) {
-                  firstTimeLoadGxFitnessReservationList();
-                }
-              });
+                            if (value) {
+                              firstTimeLoadGxFitnessReservationList();
+                            }
+                          });
                         }
                       },
                       child: Container(
@@ -388,7 +390,8 @@ class _GXReservationState extends State<GXReservation> {
                         ),
                       ),
                     );
-                  })),
+                  }))
+                  : Container(),
             ),
             if (page < totalPages)
               ViewMoreWidget(
@@ -405,7 +408,7 @@ class _GXReservationState extends State<GXReservation> {
   void firstTimeLoadGxFitnessReservationList() {
     setState(() {
       isFirstLoadRunning = true;
-      page=1;
+      page = 1;
     });
     loadGxFitnessReservationList();
   }
@@ -415,8 +418,8 @@ class _GXReservationState extends State<GXReservation> {
     if (await internetChecking.isInternet()) {
       callGxFitnessReservationListApi();
     } else {
-     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -463,12 +466,13 @@ class _GXReservationState extends State<GXReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -477,15 +481,16 @@ class _GXReservationState extends State<GXReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       if(mounted){
-         showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
-       }
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
     });
   }
 
