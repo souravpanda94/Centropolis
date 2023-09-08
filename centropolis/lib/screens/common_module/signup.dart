@@ -406,15 +406,20 @@ class _SignupScreenState extends State<SignupScreen> {
                           const SizedBox(
                             width: 8,
                           ),
-                          CommonButtonWithBorder(
-                            onCommonButtonTap: () {
-                              callVerifyUserId();
-                            },
-                            buttonName: tr("verify"),
-                            buttonBorderColor:
-                                CustomColors.buttonBackgroundColor,
-                            buttonTextColor: CustomColors.buttonBackgroundColor,
+
+                          SizedBox(
+                            height: 46,
+                            child: CommonButtonWithBorder(
+                              onCommonButtonTap: () {
+                                callVerifyUserId();
+                              },
+                              buttonName: tr("verify"),
+                              buttonBorderColor:
+                              CustomColors.buttonBackgroundColor,
+                              buttonTextColor: CustomColors.buttonBackgroundColor,
+                            ),
                           )
+
                         ],
                       ),
                       Container(
