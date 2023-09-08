@@ -319,10 +319,10 @@ class _ViewSeatSelectionModalScreenState
   }
 
   String setTextValue(int index) {
-    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" &&
-        widget.viewSeatSelectionListItem![index].seat == 0) {
+    if (widget.viewSeatSelectionListItem?[index].slotRange.toString() != "" && widget.viewSeatSelectionListItem![index].seat == 0) {
       return '${widget.viewSeatSelectionListItem?[index].slotRange.toString()}';
-    } else {
+    }
+    else {
       if (widget.viewSeatSelectionListItem![index].seat! > 0 &&
           widget.viewSeatSelectionListItem?[index].slotRange.toString() == "") {
         return '${widget.viewSeatSelectionListItem?[index].seat.toString()}';
@@ -369,9 +369,14 @@ class _ViewSeatSelectionModalScreenState
     String latestTimeRange = setTime(newHr, newMin);
     debugPrint("latestTimeRange ===> $latestTimeRange");
 
-    List<String>? ust = widget.usageTimeList;
+    // List<String>? ust = widget.usageTimeList;
+    List<String>? ust = getLatestUsageTime();
     var firstIndex = ust?.indexOf(widget.usageTimeSelectedValue.toString());
+    debugPrint("firstIndex =============> $firstIndex");
+
     var secondIndex = ust?.indexOf(latestTimeRange.toString());
+    debugPrint("secondIndex =============> $secondIndex");
+
     var getRange = ust?.getRange(firstIndex!, secondIndex! + 1).join(",");
     List<String> rangeList = getRange!.split(",");
     debugPrint("rangeList =============> $rangeList");
@@ -420,4 +425,116 @@ class _ViewSeatSelectionModalScreenState
       }
     }
   }
+
+  List<String>? getLatestUsageTime() {
+    String firstItem = widget.usageTimeList!.first.toString();
+    String lastItem = widget.usageTimeList!.last.toString();
+    debugPrint("firstItem ===> $firstItem");
+    debugPrint("lastItem ===> $lastItem");
+    String? selectedUsageTime = widget.totalTimeSelectedValue;
+    debugPrint("selectedUsageTime ===> $selectedUsageTime");
+
+
+    String firstHr = firstItem.substring(0, 2);
+    debugPrint("hr ===> $firstHr");
+    String firstMin = firstItem.substring(3, 5);
+    debugPrint("min ===> $firstMin");
+
+
+    String lasthr = lastItem.substring(0, 2);
+    debugPrint("hr ===> $lasthr");
+    String lastmin = lastItem.substring(3, 5);
+    debugPrint("min ===> $lastmin");
+
+    String? timeValue = widget.totalTimeSelectedValue!.replaceAll(RegExp('[^0-9]'), '');
+    String selectedUsageHr = "";
+    String selectedUsageMin = "";
+    // debugPrint("timeValue ===> $timeValue");
+    if(timeValue == "30"){
+      selectedUsageMin = timeValue.substring(0, 2);
+      debugPrint("selectedUsageMin ===> $selectedUsageMin");
+    }
+    else{
+      selectedUsageHr = timeValue.substring(0, 2);
+      debugPrint("selectedUsageHr ===> $selectedUsageHr");
+      selectedUsageMin = timeValue.substring(2, 4);
+      debugPrint("selectedUsageMin ===> $selectedUsageMin");
+    }
+
+
+    int newHr = int.parse(selectedUsageHr) + int.parse(lasthr);
+    int newMin = int.parse(selectedUsageMin) + int.parse(lastmin);
+    if (newMin == 60) {
+      newHr = newHr + 1;
+      newMin = 0;
+    }
+    String finalLatestTimeRange = setTime(newHr, newMin);
+    debugPrint("Final latestTimeRange ===> $finalLatestTimeRange");
+
+    String finalLatestTimeHr = finalLatestTimeRange.substring(0, 2);
+    debugPrint("finalLatestTimeHr ===> $firstHr");
+    String finalLatestTimeMin = finalLatestTimeRange.substring(3, 5);
+    debugPrint("finalLatestTimeMin ===> $firstMin");
+
+
+
+
+    var startTime =  TimeOfDay(hour: int.parse(firstHr) , minute: int.parse(firstMin) );
+    var endTime =  TimeOfDay(hour: int.parse(finalLatestTimeHr), minute: int.parse(finalLatestTimeMin) );
+    // var interval = const Duration(minutes: 30);
+    var interval = 30;
+
+    // List<TimeOfDay> timeIntervals = [];
+    List<String> timeIntervals = [];
+
+    // for (var time = startTime; time < endTime; time = _addDuration(time, interval)) {
+    //   timeIntervals.add(time);
+    // }
+    //
+    // // Printing the list of time intervals
+    // for (var time in timeIntervals) {
+    //   print('${time.hour}:${time.minute.toString().padLeft(2, '0')}');
+    // }
+
+
+    // Initialize the current time to the start time
+    var currentTime = startTime;
+
+    // Loop through the time intervals and add them to the list as formatted strings
+    while (currentTime.hour < endTime.hour ||
+        (currentTime.hour == endTime.hour && currentTime.minute <= endTime.minute)) {
+      timeIntervals.add(formatTime(currentTime));
+
+      // Add the interval to the current time
+      currentTime = currentTime.replacing(
+        hour: currentTime.hour + (currentTime.minute + interval) ~/ 60,
+        minute: (currentTime.minute + interval) % 60,
+      );
+    }
+
+    debugPrint("timeIntervals length  =========================> ${timeIntervals.length}");
+    debugPrint("timeIntervals first ==========================> ${timeIntervals.first}");
+    debugPrint("timeIntervals last ===========================> ${timeIntervals.last}");
+    debugPrint("timeIntervals List ===========================> $timeIntervals");
+
+    return timeIntervals;
+
+  }
+
+  String formatTime(TimeOfDay time) {
+    final hour = time.hour.toString().padLeft(2, '0');
+    final minute = time.minute.toString().padLeft(2, '0');
+    return '$hour:$minute';
+  }
+
+  TimeOfDay _addDuration(TimeOfDay time, Duration duration) {
+    final minutes = time.hour * 60 + time.minute;
+    final newMinutes = minutes + duration.inMinutes;
+    final newHour = newMinutes ~/ 60;
+    final newMinute = newMinutes % 60;
+    return TimeOfDay(hour: newHour, minute: newMinute);
+  }
+
+
 }
+
