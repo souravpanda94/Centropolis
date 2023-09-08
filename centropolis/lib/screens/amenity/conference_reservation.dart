@@ -573,6 +573,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
           }
                             },
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
                           ),
                         ),
                       ],
