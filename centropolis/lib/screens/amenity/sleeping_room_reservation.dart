@@ -1,5 +1,6 @@
 import 'dart:convert';
-import 'dart:math';
+// import 'dart:math';
+import 'dart:developer';
 import 'package:centropolis/screens/amenity/view_seat_selection.dart';
 import 'package:centropolis/screens/amenity/view_seat_selection_modal.dart';
 import 'package:centropolis/screens/amenity/view_seat_selection_modal_latest.dart';
@@ -1333,7 +1334,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     response.then((response) {
       var responseJson = json.decode(response.body);
 
-      debugPrint("server response for View Seat Selection ===> $responseJson");
+      log("server response for View Seat Selection ===> $responseJson");
+
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {

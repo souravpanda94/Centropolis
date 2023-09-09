@@ -274,6 +274,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           fontFamily: 'Regular',
                         ),
                         onTap: () {},
+                        onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
                       ),
                     ),
                     const SizedBox(
@@ -320,6 +323,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           fontSize: 14,
                           fontFamily: 'Regular',
                         ),
+                        onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
                       ),
                     ),
                     const SizedBox(
