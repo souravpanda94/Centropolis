@@ -547,28 +547,29 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                   heading :tr("imageSizeValidation"),
                   description: "",
                   buttonName: tr("check"));
-            } else if (imageWidth > 670 && imageHeight > 670) {
-              // showCustomToast(
-              //     fToast, context, tr("imageDimensionValidation"), "");
-              showErrorCommonModal(context: context,
-                  heading :tr("imageDimensionValidation"),
-                  description: "",
-                  buttonName: tr("check"));
-            } else if (imageWidth > 670) {
-              // showCustomToast(
-              //     fToast, context, tr("imageDimensionValidation"), "");
-              showErrorCommonModal(context: context,
-                  heading :tr("imageDimensionValidation"),
-                  description: "",
-                  buttonName: tr("check"));
-            } else if (imageHeight > 670) {
-              // showCustomToast(
-              //     fToast, context, tr("imageDimensionValidation"), "");
-              showErrorCommonModal(context: context,
-                  heading :tr("imageDimensionValidation"),
-                  description: "",
-                  buttonName: tr("check"));
-            } else {
+            }
+            // else if (imageWidth > 670 && imageHeight > 670) {
+            //   showErrorCommonModal(context: context,
+            //       heading :tr("imageDimensionValidation"),
+            //       description: "",
+            //       buttonName: tr("check"));
+            // }
+            // else if (imageWidth > 670) {
+            //   // showCustomToast(
+            //   //     fToast, context, tr("imageDimensionValidation"), "");
+            //   showErrorCommonModal(context: context,
+            //       heading :tr("imageDimensionValidation"),
+            //       description: "",
+            //       buttonName: tr("check"));
+            // } else if (imageHeight > 670) {
+            //   // showCustomToast(
+            //   //     fToast, context, tr("imageDimensionValidation"), "");
+            //   showErrorCommonModal(context: context,
+            //       heading :tr("imageDimensionValidation"),
+            //       description: "",
+            //       buttonName: tr("check"));
+            // }
+            else {
               setState(() {
                 fileImage = tempImage;
                 fileName =
