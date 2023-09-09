@@ -470,6 +470,9 @@ class _LightOutRequestState extends State<LightOutRequest> {
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
                           ),
                         ),
                       ],

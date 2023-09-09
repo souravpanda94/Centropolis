@@ -572,6 +572,9 @@ class _VisitReservationApplicationState
                                 });
                               }
                             },
+                             onTapOutside: (event) {
+                            hideKeyboard();
+                          },
                           ),
                         ),
                         const SizedBox(
@@ -641,7 +644,9 @@ class _VisitReservationApplicationState
                                     tooltip = false;
                                   });
                                 }
-                              }),
+                              }, onTapOutside: (event) {
+                            hideKeyboard();
+                          },),
                         ),
                         const SizedBox(
                           height: 14,
@@ -710,7 +715,9 @@ class _VisitReservationApplicationState
                                     tooltip = false;
                                   });
                                 }
-                              }),
+                              }, onTapOutside: (event) {
+                            hideKeyboard();
+                          },),
                         ),
                         const SizedBox(
                           height: 14,
@@ -781,6 +788,7 @@ class _VisitReservationApplicationState
                               });
                             },
                             onTapOutside: (event) {
+                              hideKeyboard();
                               setState(() {
                                 tooltip = false;
                               });
@@ -873,6 +881,9 @@ class _VisitReservationApplicationState
                               hideKeyboard();
                               openDatePickerWidget();
                             },
+                             onTapOutside: (event) {
+                            hideKeyboard();
+                          },
                           ),
                         ),
                         const SizedBox(
@@ -1123,6 +1134,7 @@ class _VisitReservationApplicationState
             purposeSelectedValue = value as String;
           });
         },
+       
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
           isOverButton: false,
