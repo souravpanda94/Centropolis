@@ -158,7 +158,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
                           MaterialPageRoute(
                             builder: (context) => const NotificationScreen(),
                           ),
-                        );
+                        ).then((value){
+                          loadPersonalInformation();
+                        });
                       }),
                 ),
               ),
