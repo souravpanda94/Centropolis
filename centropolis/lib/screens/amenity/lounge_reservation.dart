@@ -447,6 +447,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
                           },
                           onTapOutside: (event) {
+                            hideKeyboard();
                             setState(() {
                               numberOfParticipantsTooltip=false;
                             });
