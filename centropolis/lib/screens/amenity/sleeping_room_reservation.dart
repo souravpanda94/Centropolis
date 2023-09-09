@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 // import 'dart:math';
 import 'dart:developer';
 import 'package:centropolis/screens/amenity/view_seat_selection.dart';
@@ -29,8 +30,6 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import '../my_page/web_view_ui.dart';
 
-
-
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
 
@@ -50,8 +49,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   DateTime kFirstDay = DateTime.now();
   DateTime kLastDay = DateTime.utc(2030, 3, 14);
   DateTime focusedDate = DateTime.now();
-    String reservationRulesLink = "";
-
+  String reservationRulesLink = "";
 
   CalendarFormat selectedCalendarFormat = CalendarFormat.month;
   DateTime? selectedDate;
@@ -72,11 +70,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
   List<ViewSeatSelectionModel> viewSeatSelectionListWithTimeSlot = [];
   List<ViewSeatSelectionModel> viewSeatSelectionListWithSeats = [];
+  List<ViewSeatSelectionModel> viewSeatSelectionListWithSeatsFinal = [];
   List<dynamic> timeSlotList = [];
   String? totalUsageTimeSelectedText;
   String todayDate = "";
   TextEditingController reservationDateController = TextEditingController();
-
 
   @override
   void initState() {
@@ -90,7 +88,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
-     setWebViewLink();
+    setWebViewLink();
     String day = focusedDate.day.toString();
     String month = focusedDate.month.toString();
     String year = focusedDate.year.toString();
@@ -106,18 +104,14 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
     setState(() {
       reservationDate = todayDate;
-      reservationDateController.text=reservationDate;
-      
+      reservationDateController.text = reservationDate;
     });
     debugPrint("Api key ===> $apiKey");
     internetCheckingForMethods();
-    
 
     // setListData();
     // setFemaleListData();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -254,7 +248,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
                   padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(left: 16,right: 16),
+                  margin: const EdgeInsets.only(left: 16, right: 16),
                   child: SingleChildScrollView(
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -263,13 +257,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                         infoTextWidget(tr("refreshInfoText2")),
                         infoTextWidget(tr("refreshInfoText3")),
                         infoTextWidget(tr("refreshInfoText4")),
-                        
-               
                       ],
                     ),
                   ),
-
-                  
                 ),
 
                 Container(
@@ -559,77 +549,87 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                   const SizedBox(
                                     width: 9,
                                   ),
-                                  language =="en" ? InkWell(
-                                  onTap: () {
-                            //         showGeneralDialog(
-                            // context: context,
-                            // barrierColor: Colors.black12.withOpacity(0.6),
-                            // // Background color
-                            // barrierDismissible: false,
-                            // barrierLabel: 'Dialog',
-                            // transitionDuration:
-                            //     const Duration(milliseconds: 400),
-                            // pageBuilder: (_, __, ___) {
-                            //   return WebViewUiScreen(
-                            //       tr("sleepingRoomReservation"), reservationRulesLink);
-                            // });
-                                  },
-                                  child: Text.rich(
-                                  TextSpan(
-                                    text: tr("agree"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("sleepingRoomReservationRules"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.buttonBackgroundColor,
-                                            decoration: TextDecoration.underline,
-                                          )),
-                                     
-                                    ],
-                                  ),
-                                ),
-                                ) : InkWell(
-                                  onTap: () {
-                            //         showGeneralDialog(
-                            // context: context,
-                            // barrierColor: Colors.black12.withOpacity(0.6),
-                            // // Background color
-                            // barrierDismissible: false,
-                            // barrierLabel: 'Dialog',
-                            // transitionDuration:
-                            //     const Duration(milliseconds: 400),
-                            // pageBuilder: (_, __, ___) {
-                            //   return WebViewUiScreen(
-                            //       tr("sleepingRoomReservation"), reservationRulesLink);
-                            // });
-                                  },
-                                  child: Text.rich(
-                                  TextSpan(
-                                    text: tr("sleepingRoomReservationRules"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                                                                    decoration: TextDecoration.underline,
-
-                                        color: CustomColors.buttonBackgroundColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("agree"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                     
-                                    ],
-                                  ),
-                                ),
-                                ),
+                                  language == "en"
+                                      ? InkWell(
+                                          onTap: () {
+                                            //         showGeneralDialog(
+                                            // context: context,
+                                            // barrierColor: Colors.black12.withOpacity(0.6),
+                                            // // Background color
+                                            // barrierDismissible: false,
+                                            // barrierLabel: 'Dialog',
+                                            // transitionDuration:
+                                            //     const Duration(milliseconds: 400),
+                                            // pageBuilder: (_, __, ___) {
+                                            //   return WebViewUiScreen(
+                                            //       tr("sleepingRoomReservation"), reservationRulesLink);
+                                            // });
+                                          },
+                                          child: Text.rich(
+                                            TextSpan(
+                                              text: tr("agree"),
+                                              style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 14,
+                                                  color: CustomColors
+                                                      .textColorBlack2),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: tr(
+                                                        "sleepingRoomReservationRules"),
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Regular',
+                                                      fontSize: 14,
+                                                      color: CustomColors
+                                                          .buttonBackgroundColor,
+                                                      decoration: TextDecoration
+                                                          .underline,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                      : InkWell(
+                                          onTap: () {
+                                            //         showGeneralDialog(
+                                            // context: context,
+                                            // barrierColor: Colors.black12.withOpacity(0.6),
+                                            // // Background color
+                                            // barrierDismissible: false,
+                                            // barrierLabel: 'Dialog',
+                                            // transitionDuration:
+                                            //     const Duration(milliseconds: 400),
+                                            // pageBuilder: (_, __, ___) {
+                                            //   return WebViewUiScreen(
+                                            //       tr("sleepingRoomReservation"), reservationRulesLink);
+                                            // });
+                                          },
+                                          child: Text.rich(
+                                            TextSpan(
+                                              text: tr(
+                                                  "sleepingRoomReservationRules"),
+                                              style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 14,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                  color: CustomColors
+                                                      .buttonBackgroundColor),
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                    text: tr("agree"),
+                                                    style: const TextStyle(
+                                                      fontFamily: 'Regular',
+                                                      fontSize: 14,
+                                                      color: CustomColors
+                                                          .textColorBlack2,
+                                                      decoration:
+                                                          TextDecoration.none,
+                                                    )),
+                                              ],
+                                            ),
+                                          ),
+                                        ),
                                 ],
                               ),
                             ),
@@ -657,33 +657,32 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     );
   }
 
-
-  infoTextWidget(String text){
+  infoTextWidget(String text) {
     return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]);
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  height: 1.5,
+                  color: CustomColors.textColor5),
+            ),
+          )
+        ]);
   }
 
   Widget usageTimeDropdownWidget() {
@@ -734,9 +733,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             usageTimeSelectedValue = value as String;
             selectedSeatsValue = null;
           });
-          if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
-          loadSelectedSeatList();
-        }
+          if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
+            loadSelectedSeatList();
+          }
           loadViewSeatSelectionList();
         },
         dropdownStyleData: DropdownStyleData(
@@ -841,9 +840,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             totalTimeSelectedValue = value.toString();
             selectedSeatsValue = null;
           });
-          if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
-          loadSelectedSeatList();
-        }
+          if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
+            loadSelectedSeatList();
+          }
           loadViewSeatSelectionList();
         },
         dropdownStyleData: DropdownStyleData(
@@ -897,7 +896,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          selectedSeatList.isNotEmpty ? selectedSeatList[0]['seat'].toString() : tr("pleaseSelectSeat"),
+          selectedSeatList.isNotEmpty
+              ? selectedSeatList[0]['seat'].toString()
+              : tr("pleaseSelectSeat"),
           // tr("pleaseSelectSeat"),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
@@ -1086,7 +1087,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           totalTimeSelectedValue = null;
           selectedSeatsValue = null;
         });
-        if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
+        if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
           loadSelectedSeatList();
         }
         loadViewSeatSelectionList();
@@ -1105,8 +1106,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       },
     );
   }
-
- 
 
   void callLoadTimeListApi() {
     setState(() {
@@ -1127,9 +1126,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             setState(() {
               usageTimeList = responseJson['schedule'];
             });
-            if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
-          loadSelectedSeatList();
-        }
+            if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
+              loadSelectedSeatList();
+            }
 
             for (int i = 0; i < usageTimeList.length; i++) {
               if (usageTimeList.length - 1 != i) {
@@ -1144,12 +1143,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1158,17 +1158,16 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-  
 
   void callLoadTotalUsageTimeListApi() {
     setState(() {
@@ -1189,19 +1188,20 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             setState(() {
               totalUsageTimeList = responseJson['data'];
             });
-            if(usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty){
-          loadSelectedSeatList();
-        }
+            if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
+              loadSelectedSeatList();
+            }
           }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1210,17 +1210,16 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
-       
     });
   }
 
@@ -1230,7 +1229,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       callLoadSelectedSeatListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1277,12 +1276,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
             if (kDebugMode) {
               print("Error =====> ${responseJson['message']}");
             }
@@ -1294,14 +1294,15 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
@@ -1312,7 +1313,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       callViewSeatSelectionListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1339,7 +1340,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
 
       log("server response for View Seat Selection ===> $responseJson");
 
-
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           List<ViewSeatSelectionModel> reservationListList =
@@ -1350,12 +1350,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1364,10 +1365,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1375,9 +1377,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void reservationValidationCheck() {
-    
-    
-
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
     } else if (usageTimeSelectedValue == null && usageTimeList.isEmpty) {
@@ -1420,7 +1419,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       callReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1469,12 +1468,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1483,10 +1483,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1531,6 +1532,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   void goToViewSeatSelectionScreen() {
     viewSeatSelectionListWithTimeSlot.clear();
     viewSeatSelectionListWithSeats.clear();
+    viewSeatSelectionListWithSeatsFinal.clear();
 
     if (usageTimeSelectedValue == null) {
       if (usageTimeList.isNotEmpty) {
@@ -1579,36 +1581,61 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
 
     for (int i = 0; i < viewSeatSelectionListWithTimeSlot.length; i++) {
-      // debugPrint("i ===> $i");
-      // debugPrint("viewSeatSelectionListItem length ===> ${viewSeatSelectionListWithTimeSlot.length}");
+      // if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
+      //   if (viewSeatSelectionListWithTimeSlot[i].seat != viewSeatSelectionListWithTimeSlot[i + 1].seat) {
+      //     int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+      //     ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
+      //     viewSeatSelectionListWithSeats.insert(i, model);
+      //   } else {
 
-      if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
-        if (viewSeatSelectionListWithTimeSlot[i].seat !=
-            viewSeatSelectionListWithTimeSlot[i + 1].seat) {
-          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-          ViewSeatSelectionModel model = ViewSeatSelectionModel(
-              seat: seatValue, available: true, slot: "", slotRange: "");
-          viewSeatSelectionListWithSeats.insert(i, model);
-        } else {
-          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-          bool? available = viewSeatSelectionListWithTimeSlot[i].available;
-          String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
-          String? slotRange = viewSeatSelectionListWithTimeSlot[i].slotRange;
+      int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+      bool? available = viewSeatSelectionListWithTimeSlot[i].available;
+      String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
+      String? slotRange = viewSeatSelectionListWithTimeSlot[i].slotRange;
 
-          ViewSeatSelectionModel model = ViewSeatSelectionModel(
-              seat: seatValue,
-              available: available,
-              slot: slot,
-              slotRange: slotRange);
-          viewSeatSelectionListWithSeats.insert(i, model);
-        }
-      } else {
-        int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-        ViewSeatSelectionModel model = ViewSeatSelectionModel(
-            seat: seatValue, available: true, slot: "", slotRange: "");
-        viewSeatSelectionListWithSeats.add(model);
-      }
+      ViewSeatSelectionModel model = ViewSeatSelectionModel(
+          seat: seatValue,
+          available: available,
+          slot: slot,
+          slotRange: slotRange);
+      viewSeatSelectionListWithSeats.insert(i, model);
+
+      //   }
+      // } else {
+      //   int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+      //   ViewSeatSelectionModel model = ViewSeatSelectionModel(
+      //       seat: seatValue, available: true, slot: "", slotRange: "");
+      //   viewSeatSelectionListWithSeats.add(model);
+      // }
     }
+
+
+
+
+
+    // debugPrint("===== viewSeatSelectionListWithSeats length === ${viewSeatSelectionListWithSeats.length}===");
+    // for (int i = 0; i < viewSeatSelectionListWithSeats.length; i++) {
+    //   if (i < viewSeatSelectionListWithSeats.length - 1) {
+    //     if (viewSeatSelectionListWithSeats[i].seat != viewSeatSelectionListWithSeats[i + 1].seat) {
+    //       int? seatValue = viewSeatSelectionListWithSeats[i].seat;
+    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
+    //       debugPrint("===== i=== $i===");
+    //       if(i < viewSeatSelectionListWithSeats.length - 1 ){
+    //         viewSeatSelectionListWithSeatsFinal.insert(i, model);
+    //       }else{
+    //         viewSeatSelectionListWithSeatsFinal.add(model);
+    //       }
+    //     }
+    //   } else {
+    //     int? seatValue = viewSeatSelectionListWithSeats[i].seat;
+    //     ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
+    //     viewSeatSelectionListWithSeatsFinal.add(model);
+    //   }
+    // }
+
+
+
+
 
     showGeneralDialog(
         context: context,
@@ -1620,6 +1647,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           // return ViewSeatSelectionModalScreen(
           return ViewSeatSelectionModalScreenLatest(
               viewSeatSelectionListWithSeats,
+              // viewSeatSelectionListWithSeatsFinal,
+
+
+
               timeSlotList,
               selectedSeatList,
               usageTimeSelectedValue,
@@ -1628,8 +1659,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               usageTimeList.cast<String>());
         });
   }
-
-  
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1661,12 +1690,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1675,10 +1705,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1692,7 +1723,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       });
     } else {
       setState(() {
-       
         reservationRulesLink = WebViewLinks.refreshUrlKo;
       });
     }
@@ -1701,14 +1731,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-     callLoadPersonalInformationApi();
-    callLoadTimeListApi();
-    callLoadTotalUsageTimeListApi();
-    callViewSeatSelectionListApi();
-
+      callLoadPersonalInformationApi();
+      callLoadTimeListApi();
+      callLoadTotalUsageTimeListApi();
+      callViewSeatSelectionListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),

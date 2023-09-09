@@ -1,9 +1,9 @@
 class ApiEndPoint {
-   static String baseUrl = "https://api.centropolis.co.kr/api/"; // Live server
+   // static String baseUrl = "https://api.centropolis.co.kr/api/"; // Live server
   // static String baseUrl =
   //     "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
-  // static String baseUrl =
-  //     "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
+  static String baseUrl =
+      "https://centropolis-api-qa.dvconsulting.org/api/"; // QA server
 
   static String loginUrl = "${baseUrl}v1/login";
   static String findIdUrl = "${baseUrl}v1/find-username";
@@ -91,13 +91,6 @@ class ApiEndPoint {
   static String gxHistoryListUrl =
       "${baseUrl}v1/mypage/gx-program-reservation-list";
 
-
-
-
-
-
-
-
 // ====================================MONDIRA=============================================================================================
 
   static String lightOutDetailUrl = "${baseUrl}v1/mypage/light-out-inquiry-details";
@@ -145,18 +138,14 @@ class ApiEndPoint {
   static String equipmentListUrl = "${baseUrl}v1/common/lounge-equipments-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
   static String conferenceEquipmentListUrl = "${baseUrl}v1/common/conference-equipments-list";
-
-// static String coolingHeatingTypeListUrl = "${baseUrl}v1/common/ac-inquiry-type-list";
-
-
 }
 
 class WebViewLinks {
-   static String baseUrlForWebLinks = "https://centropolis.co.kr/"; // Live server
+   // static String baseUrlForWebLinks = "https://centropolis.co.kr/"; // Live server
   // static String baseUrlForWebLinks =
   //     "https://centropolis-frnt-dev.dvconsulting.org/"; // Development server
-  // static String baseUrlForWebLinks =
-  //     "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
+  static String baseUrlForWebLinks =
+      "https://centropolis-frnt-qa.dvconsulting.org/"; // QA server
 
   static String privacyPolicyUrlEng = "${baseUrlForWebLinks}privacypolicy/en";
   static String privacyPolicyUrlKo = "${baseUrlForWebLinks}privacypolicy/kr";
@@ -191,10 +180,10 @@ class WebViewLinks {
 }
 
 class ImageLinks {
-  static String baseUrlForImage =
-      "https://api.centropolis.co.kr/"; // Live server
+  // static String baseUrlForImage =
+  //     "https://api.centropolis.co.kr/"; // Live server
   // static String baseUrlForImage =
   //     "https://centropolis-api-dev.dvconsulting.org/"; // Development server
-  // static String baseUrlForImage =
-  //     "https://centropolis-api-qa.dvconsulting.org/"; // QA server
+  static String baseUrlForImage =
+      "https://centropolis-api-qa.dvconsulting.org/"; // QA server
 }
