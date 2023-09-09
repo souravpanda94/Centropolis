@@ -686,7 +686,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   Widget usageTimeDropdownWidget() {
-    usageTimeList.removeLast();
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -1138,6 +1137,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               // else{
               //   timeSlotList.add(usageTimeList[i]);
               // }
+            }
+            if (usageTimeList.isNotEmpty) {
+              usageTimeList.removeLast();
             }
           }
           debugPrint("Time list length ====> ${usageTimeList.length}");
