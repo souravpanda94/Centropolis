@@ -686,6 +686,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   Widget usageTimeDropdownWidget() {
+    usageTimeList.removeLast();
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -1609,10 +1610,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       // }
     }
 
-
-
-
-
     // debugPrint("===== viewSeatSelectionListWithSeats length === ${viewSeatSelectionListWithSeats.length}===");
     // for (int i = 0; i < viewSeatSelectionListWithSeats.length; i++) {
     //   if (i < viewSeatSelectionListWithSeats.length - 1) {
@@ -1633,10 +1630,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     //   }
     // }
 
-
-
-
-
     showGeneralDialog(
         context: context,
         barrierColor: Colors.black12.withOpacity(0.6),
@@ -1648,8 +1641,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           return ViewSeatSelectionModalScreenLatest(
               viewSeatSelectionListWithSeats,
               // viewSeatSelectionListWithSeatsFinal,
-
-
 
               timeSlotList,
               selectedSeatList,
