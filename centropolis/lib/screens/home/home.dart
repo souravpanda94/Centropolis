@@ -548,7 +548,10 @@ class _HomeScreenState extends State<HomeScreen> {
         // builder: (context) => const BarCodeScannerScreen(),
         // builder: (context) => const QrScannerScreen(),
       ),
-    );
+    ).then((value) {
+      callLoadPersonalInformationApi();
+
+    });
   }
 
   void goToGXReservationScreen() {
