@@ -374,6 +374,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
                                 
                           },
+                          onTapOutside: (event) {
+                            hideKeyboard();
+                          },
                         ),
                         
                       ),
@@ -447,6 +450,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
                           },
                           onTapOutside: (event) {
+                            hideKeyboard();
                             setState(() {
                               numberOfParticipantsTooltip=false;
                             });
@@ -931,6 +935,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           });
         },
         dropdownStyleData: DropdownStyleData(
+          useSafeArea: false,
           isOverButton: false,
           padding: const EdgeInsets.only(top: 0, bottom: 0),
           elevation: 0,

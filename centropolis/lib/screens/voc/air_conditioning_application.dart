@@ -604,6 +604,9 @@ class _AirConditioningApplicationState
                               fontSize: 14,
                               fontFamily: 'Regular',
                             ),
+                            onTapOutside: (event) {
+                              FocusScope.of(context).unfocus();
+                            },
                           ),
                         ),
                       ],
