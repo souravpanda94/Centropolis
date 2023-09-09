@@ -20,9 +20,9 @@ class FitnessReservation extends StatefulWidget {
 
 class _FitnessReservationState extends State<FitnessReservation> {
   List<String> fitnessTabList = [
+    tr("fitnessReservationTab"),
     tr("gx"),
     tr("paidPT"),
-    tr("fitnessReservationTab"),
     tr("paidLockers")
   ];
   int showIndex = 0;
@@ -100,11 +100,11 @@ class _FitnessReservationState extends State<FitnessReservation> {
                   }))),
           Expanded(
             child: showIndex == 0
-                ? const GXReservation()
+                ? const FitnessTabReservation()
                 : showIndex == 1
-                    ? const PaidPTReservation()
+                    ? const GXReservation()
                     : showIndex == 2
-                        ? const FitnessTabReservation()
+                        ? const PaidPTReservation()
                         : showIndex == 3
                             ? const PaidLockerReservation()
                             : Container(),
