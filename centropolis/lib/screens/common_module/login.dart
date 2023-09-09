@@ -74,11 +74,11 @@ class _LoginScreenState extends State<LoginScreen> {
               textAlign: TextAlign.center,
             ),
           ),
-          body: Container(
-            color: CustomColors.whiteColor,
-            width: MediaQuery.of(context).size.width,
-            padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
-            child: SingleChildScrollView(
+          body: SingleChildScrollView(
+            child: Container(
+              color: CustomColors.whiteColor,
+              width: MediaQuery.of(context).size.width,
+              padding: const EdgeInsets.only(top: 60, left: 16, right: 16),
               child: Column(
                 children: [
                   Image.asset(
@@ -527,8 +527,7 @@ class _LoginScreenState extends State<LoginScreen> {
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);
           goToHomeScreen();
-        }
-        else {
+        } else {
           if (responseJson['status_code'] == 7001) {
             showUnapprovedErrorModal(
                 responseJson['title'], responseJson['message']);
@@ -539,8 +538,9 @@ class _LoginScreenState extends State<LoginScreen> {
               debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
             }
@@ -554,10 +554,11 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -565,5 +566,4 @@ class _LoginScreenState extends State<LoginScreen> {
       }
     });
   }
-
 }
