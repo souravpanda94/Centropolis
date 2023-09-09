@@ -685,6 +685,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   Widget usageTimeDropdownWidget() {
+    usageTimeList.removeLast();
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
@@ -1609,7 +1610,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
 
 
-
     showGeneralDialog(
         context: context,
         barrierColor: Colors.black12.withOpacity(0.6),
@@ -1638,11 +1638,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     debugPrint("Get personal info input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
-    response.then((response) {
-      var responseJson = json.decode(response.body);
-
-      debugPrint("server response for Get personal info ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
