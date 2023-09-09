@@ -29,6 +29,8 @@ import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 import '../my_page/web_view_ui.dart';
 
+
+
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
 
@@ -683,6 +685,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                         )
                       ]);
   }
+
   Widget usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -894,8 +897,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          // usageTimeList.isNotEmpty ? usageTimeList.first : tr("pleaseSelectSeat"),
-          tr("pleaseSelectSeat"),
+          selectedSeatList.isNotEmpty ? selectedSeatList[0]['seat'].toString() : tr("pleaseSelectSeat"),
+          // tr("pleaseSelectSeat"),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
