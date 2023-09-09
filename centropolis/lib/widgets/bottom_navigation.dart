@@ -270,6 +270,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
   }
 
   void _onItemTapped(int index) {
+    loadPersonalInformation();
     setState(() {
       selectedPage = index;
     });
