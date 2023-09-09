@@ -315,7 +315,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                 onCommonButtonTap: () {
                                   goToFitnessReservationScreen();
                                 },
-                                buttonName: tr("fitnessReservation"),
+                                buttonName: tr("fitnessReservationInfo"),
                                 buttonColor:
                                     CustomColors.whiteColor.withOpacity(0.2),
                                 buttonBorderColor: CustomColors.whiteColor,
@@ -558,7 +558,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 0),
+        builder: (context) => const FitnessReservation(position: 1),
       ),
     );
   }
@@ -567,7 +567,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 1),
+        builder: (context) => const FitnessReservation(position: 2),
       ),
     );
   }
@@ -576,7 +576,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 2),
+        builder: (context) => const FitnessReservation(position: 0),
       ),
     );
   }
