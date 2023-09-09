@@ -500,6 +500,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         });
   }
 
+  String getFileExtension(String fileName) {
+    return fileName.split('.').last;
+  }
+
   Future openImagePicker(ImageSource source) async {
     try {
       // final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
@@ -509,59 +513,73 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         if (selectedImages.length == 1) {
           final tempImage = File(selectedImages[0].path);
 
-          var decodedImage =
-              await decodeImageFromList(tempImage.readAsBytesSync());
-          int imageWidth = decodedImage.width;
-          int imageHeight = decodedImage.height;
-          debugPrint(
-              '----------------Image resolution ${decodedImage.width} X ${decodedImage.height}----------------');
 
-          debugPrint(getFileSizeString(bytes: tempImage.lengthSync()));
-          // final bytes = (await tempImage.readAsBytes()).lengthInBytes;
-          final bytes = tempImage.readAsBytesSync().lengthInBytes;
-          final kb = bytes / 1024;
-          final mb = kb / 1024;
-          debugPrint(
-              "----------------Image size in bytes   $bytes---------------");
-          debugPrint("----------------Image size in KB   $kb---------------");
-          debugPrint("----------------Image size in MB   $mb---------------");
+          String imageType = getFileExtension(selectedImages[0].path);
+          debugPrint("image types ====> $imageType");
 
-          if (mb > 15.0) {
-            // showCustomToast(fToast, context, tr("imageSizeValidation"), "");
-             showErrorCommonModal(context: context,
+          if (imageType == "jpg" || imageType == "jpeg" || imageType == "png") {
+            var decodedImage =
+            await decodeImageFromList(tempImage.readAsBytesSync());
+            int imageWidth = decodedImage.width;
+            int imageHeight = decodedImage.height;
+            debugPrint(
+                '----------------Image resolution ${decodedImage.width} X ${decodedImage.height}----------------');
+
+            debugPrint(getFileSizeString(bytes: tempImage.lengthSync()));
+            // final bytes = (await tempImage.readAsBytes()).lengthInBytes;
+            final bytes = tempImage.readAsBytesSync().lengthInBytes;
+            final kb = bytes / 1024;
+            final mb = kb / 1024;
+            debugPrint(
+                "----------------Image size in bytes   $bytes---------------");
+            debugPrint("----------------Image size in KB   $kb---------------");
+            debugPrint("----------------Image size in MB   $mb---------------");
+
+            if (mb > 15.0) {
+              // showCustomToast(fToast, context, tr("imageSizeValidation"), "");
+              showErrorCommonModal(context: context,
                   heading :tr("imageSizeValidation"),
                   description: "",
                   buttonName: tr("check"));
-          } else if (imageWidth > 670 && imageHeight > 670) {
-            // showCustomToast(
-            //     fToast, context, tr("imageDimensionValidation"), "");
-             showErrorCommonModal(context: context,
+            } else if (imageWidth > 670 && imageHeight > 670) {
+              // showCustomToast(
+              //     fToast, context, tr("imageDimensionValidation"), "");
+              showErrorCommonModal(context: context,
                   heading :tr("imageDimensionValidation"),
                   description: "",
                   buttonName: tr("check"));
-          } else if (imageWidth > 670) {
-            // showCustomToast(
-            //     fToast, context, tr("imageDimensionValidation"), "");
-             showErrorCommonModal(context: context,
+            } else if (imageWidth > 670) {
+              // showCustomToast(
+              //     fToast, context, tr("imageDimensionValidation"), "");
+              showErrorCommonModal(context: context,
                   heading :tr("imageDimensionValidation"),
                   description: "",
                   buttonName: tr("check"));
-          } else if (imageHeight > 670) {
-            // showCustomToast(
-            //     fToast, context, tr("imageDimensionValidation"), "");
-             showErrorCommonModal(context: context,
+            } else if (imageHeight > 670) {
+              // showCustomToast(
+              //     fToast, context, tr("imageDimensionValidation"), "");
+              showErrorCommonModal(context: context,
                   heading :tr("imageDimensionValidation"),
                   description: "",
                   buttonName: tr("check"));
-          } else {
-            setState(() {
-              fileImage = tempImage;
-              fileName =
-                  fileImage!.path.split('/').last.replaceAll("image_", "");
-              imageFileList!.addAll(selectedImages);
-            });
+            } else {
+              setState(() {
+                fileImage = tempImage;
+                fileName =
+                    fileImage!.path.split('/').last.replaceAll("image_", "");
+                imageFileList!.addAll(selectedImages);
+              });
+            }
+
+          }else{
+            showErrorCommonModal(context: context,
+                heading : tr("imageFormatNotSupported"),
+                description: "",
+                buttonName: tr("check"));
           }
-        } else {
+
+        }
+        else {
           //showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
            showErrorCommonModal(context: context,
                   heading :tr("imageCountValidation"),
@@ -1097,4 +1115,5 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           buttonName: tr("check"));
     }
   }
+
 }

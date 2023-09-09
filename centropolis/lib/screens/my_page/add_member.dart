@@ -302,6 +302,7 @@ class _AddMemberState extends State<AddMember> {
                       ),
                       SizedBox(
                         width: 109,
+                        height: 46,
                         child: CommonButtonWithBorder(
                           onCommonButtonTap: () {
                             callVerifyUserId();
