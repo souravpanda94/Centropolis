@@ -249,6 +249,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
               style: const TextStyle(
                   fontFamily: 'Regular',
                   fontSize: 14,
+                  height: 1.5,
                   color: CustomColors.textColorBlack2),
             ),
           )

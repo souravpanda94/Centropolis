@@ -76,7 +76,8 @@ class _NotificationScreenState extends State<NotificationScreen> {
               child: Container(
                 color: CustomColors.whiteColor,
                 child: AppBarForDialog(tr("notificationHistory"), () {
-                  onBackButtonPress(context);
+                  //onBackButtonPress(context);
+                  Navigator.pop(context,true);
                 }),
               ),
             ),

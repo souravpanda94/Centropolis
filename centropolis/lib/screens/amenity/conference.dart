@@ -144,6 +144,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
+                              height: 1.5,
                               color: CustomColors.textColorBlack2),
                         ),
                       ],
@@ -198,6 +199,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
               style: const TextStyle(
                   fontFamily: 'Regular',
                   fontSize: 14,
+                  height: 1.5,
                   color: CustomColors.textColorBlack2),
             ),
           )

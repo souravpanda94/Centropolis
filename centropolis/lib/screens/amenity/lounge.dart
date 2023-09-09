@@ -130,6 +130,7 @@ class _LoungeScreenState extends State<LoungeScreen> {
                           style: const TextStyle(
                               fontFamily: 'Regular',
                               fontSize: 14,
+                              height: 1.5,
                               color: CustomColors.textColorBlack2),
                         ),
                         const SizedBox(
