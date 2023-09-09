@@ -70,7 +70,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
   List<ViewSeatSelectionModel> viewSeatSelectionListWithTimeSlot = [];
   List<ViewSeatSelectionModel> viewSeatSelectionListWithSeats = [];
-  List<ViewSeatSelectionModel> viewSeatSelectionListWithSeatsFinal = [];
   List<dynamic> timeSlotList = [];
   String? totalUsageTimeSelectedText;
   String todayDate = "";
@@ -1584,12 +1583,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
 
     for (int i = 0; i < viewSeatSelectionListWithTimeSlot.length; i++) {
-      // if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
-      //   if (viewSeatSelectionListWithTimeSlot[i].seat != viewSeatSelectionListWithTimeSlot[i + 1].seat) {
-      //     int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      //     ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
-      //     viewSeatSelectionListWithSeats.insert(i, model);
-      //   } else {
+      if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
+        if (viewSeatSelectionListWithTimeSlot[i].seat != viewSeatSelectionListWithTimeSlot[i + 1].seat) {
+          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
+          viewSeatSelectionListWithSeats.insert(i, model);
+        } else {
 
       int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
       bool? available = viewSeatSelectionListWithTimeSlot[i].available;
@@ -1603,34 +1602,15 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           slotRange: slotRange);
       viewSeatSelectionListWithSeats.insert(i, model);
 
-      //   }
-      // } else {
-      //   int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      //   ViewSeatSelectionModel model = ViewSeatSelectionModel(
-      //       seat: seatValue, available: true, slot: "", slotRange: "");
-      //   viewSeatSelectionListWithSeats.add(model);
-      // }
+        }
+      } else {
+        int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+        ViewSeatSelectionModel model = ViewSeatSelectionModel(
+            seat: seatValue, available: true, slot: "", slotRange: "");
+        viewSeatSelectionListWithSeats.add(model);
+      }
     }
 
-    // debugPrint("===== viewSeatSelectionListWithSeats length === ${viewSeatSelectionListWithSeats.length}===");
-    // for (int i = 0; i < viewSeatSelectionListWithSeats.length; i++) {
-    //   if (i < viewSeatSelectionListWithSeats.length - 1) {
-    //     if (viewSeatSelectionListWithSeats[i].seat != viewSeatSelectionListWithSeats[i + 1].seat) {
-    //       int? seatValue = viewSeatSelectionListWithSeats[i].seat;
-    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
-    //       debugPrint("===== i=== $i===");
-    //       if(i < viewSeatSelectionListWithSeats.length - 1 ){
-    //         viewSeatSelectionListWithSeatsFinal.insert(i, model);
-    //       }else{
-    //         viewSeatSelectionListWithSeatsFinal.add(model);
-    //       }
-    //     }
-    //   } else {
-    //     int? seatValue = viewSeatSelectionListWithSeats[i].seat;
-    //     ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
-    //     viewSeatSelectionListWithSeatsFinal.add(model);
-    //   }
-    // }
 
     showGeneralDialog(
         context: context,
@@ -1642,8 +1622,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           // return ViewSeatSelectionModalScreen(
           return ViewSeatSelectionModalScreenLatest(
               viewSeatSelectionListWithSeats,
-              // viewSeatSelectionListWithSeatsFinal,
-
               timeSlotList,
               selectedSeatList,
               usageTimeSelectedValue,
@@ -1662,11 +1640,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     debugPrint("Get personal info input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
-    response.then((response) {
-      var responseJson = json.decode(response.body);
-
-      debugPrint("server response for Get personal info ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
