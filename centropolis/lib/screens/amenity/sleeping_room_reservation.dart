@@ -1138,6 +1138,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               //   timeSlotList.add(usageTimeList[i]);
               // }
             }
+            if (usageTimeList.isNotEmpty) {
+              usageTimeList.removeLast();
+            }
           }
           debugPrint("Time list length ====> ${usageTimeList.length}");
         } else {
@@ -1581,37 +1584,33 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     }
 
     for (int i = 0; i < viewSeatSelectionListWithTimeSlot.length; i++) {
-      // if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
-      //   if (viewSeatSelectionListWithTimeSlot[i].seat != viewSeatSelectionListWithTimeSlot[i + 1].seat) {
-      //     int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      //     ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
-      //     viewSeatSelectionListWithSeats.insert(i, model);
-      //   } else {
+      if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
+        if (viewSeatSelectionListWithTimeSlot[i].seat !=
+            viewSeatSelectionListWithTimeSlot[i + 1].seat) {
+          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(
+              seat: seatValue, available: true, slot: "", slotRange: "");
+          viewSeatSelectionListWithSeats.insert(i, model);
+        } else {
+          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+          bool? available = viewSeatSelectionListWithTimeSlot[i].available;
+          String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
+          String? slotRange = viewSeatSelectionListWithTimeSlot[i].slotRange;
 
-      int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      bool? available = viewSeatSelectionListWithTimeSlot[i].available;
-      String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
-      String? slotRange = viewSeatSelectionListWithTimeSlot[i].slotRange;
-
-      ViewSeatSelectionModel model = ViewSeatSelectionModel(
-          seat: seatValue,
-          available: available,
-          slot: slot,
-          slotRange: slotRange);
-      viewSeatSelectionListWithSeats.insert(i, model);
-
-      //   }
-      // } else {
-      //   int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      //   ViewSeatSelectionModel model = ViewSeatSelectionModel(
-      //       seat: seatValue, available: true, slot: "", slotRange: "");
-      //   viewSeatSelectionListWithSeats.add(model);
-      // }
+          ViewSeatSelectionModel model = ViewSeatSelectionModel(
+              seat: seatValue,
+              available: available,
+              slot: slot,
+              slotRange: slotRange);
+          viewSeatSelectionListWithSeats.insert(i, model);
+        }
+      } else {
+        int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+        ViewSeatSelectionModel model = ViewSeatSelectionModel(
+            seat: seatValue, available: true, slot: "", slotRange: "");
+        viewSeatSelectionListWithSeats.add(model);
+      }
     }
-
-
-
-
 
     // debugPrint("===== viewSeatSelectionListWithSeats length === ${viewSeatSelectionListWithSeats.length}===");
     // for (int i = 0; i < viewSeatSelectionListWithSeats.length; i++) {
@@ -1633,10 +1632,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     //   }
     // }
 
-
-
-
-
     showGeneralDialog(
         context: context,
         barrierColor: Colors.black12.withOpacity(0.6),
@@ -1648,8 +1643,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           return ViewSeatSelectionModalScreenLatest(
               viewSeatSelectionListWithSeats,
               // viewSeatSelectionListWithSeatsFinal,
-
-
 
               timeSlotList,
               selectedSeatList,
