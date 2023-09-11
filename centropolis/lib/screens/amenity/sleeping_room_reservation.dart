@@ -28,7 +28,8 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
-import '../my_page/web_view_ui.dart';
+
+
 
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
@@ -1176,7 +1177,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {};
+    Map<String, String> body = {
+      "usage_time" : usageTimeSelectedValue ?? ""
+    };
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getSleepingRoomTotalUsageTimeListUrl,
         body,
