@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'dart:developer';
 import 'package:centropolis/screens/amenity/view_seat_selection.dart';
 import 'package:centropolis/screens/amenity/view_seat_selection_modal.dart';
+import 'package:centropolis/screens/amenity/view_seat_selection_modal_New.dart';
 import 'package:centropolis/screens/amenity/view_seat_selection_modal_latest.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -15,6 +16,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
+import '../../models/selected_seat_model.dart';
 import '../../models/user_info_model.dart';
 import '../../models/view_seat_selection_model.dart';
 import '../../providers/user_info_provider.dart';
@@ -67,6 +69,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   List<dynamic> usageTimeList = [];
   List<dynamic> totalUsageTimeList = [];
   List<dynamic> selectedSeatList = [];
+  List<SelectedSeatModel> selectedSeatListForView = [];
   String reservationDate = "";
   List<ViewSeatSelectionModel>? viewSeatSelectionListItem;
   List<ViewSeatSelectionModel> viewSeatSelectionListWithTimeSlot = [];
@@ -1596,15 +1599,30 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       viewSeatSelectionListWithTimeSlot.add(model);
     }
 
+    SelectedSeatModel model = SelectedSeatModel(seat: -1, available: true);
+    selectedSeatListForView.add(model);
+    for (int i = 0; i < selectedSeatList.length; i++) {
+      int? seatValue = selectedSeatList[i]['seat'];
+      bool? available = selectedSeatList[i]['available'];
+
+      SelectedSeatModel model = SelectedSeatModel(seat: seatValue, available: available);
+      selectedSeatListForView.add(model);
+    }
+
+
+
     for (int i = 0; i < viewSeatSelectionListWithTimeSlot.length; i++) {
-      if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
-        if (viewSeatSelectionListWithTimeSlot[i].seat !=
-            viewSeatSelectionListWithTimeSlot[i + 1].seat) {
-          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-          ViewSeatSelectionModel model = ViewSeatSelectionModel(
-              seat: seatValue, available: true, slot: "", slotRange: "");
-          viewSeatSelectionListWithSeats.insert(i, model);
-        } else {
+      // if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
+      //   if (viewSeatSelectionListWithTimeSlot[i].seat !=
+      //       viewSeatSelectionListWithTimeSlot[i + 1].seat) {
+      //     int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+      //     ViewSeatSelectionModel model = ViewSeatSelectionModel(
+      //         seat: seatValue, available: true, slot: "", slotRange: "");
+      //     viewSeatSelectionListWithSeats.insert(i, model);
+      //   } else {
+
+
+
           int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
           bool? available = viewSeatSelectionListWithTimeSlot[i].available;
           String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
@@ -1616,34 +1634,19 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               slot: slot,
               slotRange: slotRange);
           viewSeatSelectionListWithSeats.insert(i, model);
-        }
-      } else {
-        int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-        ViewSeatSelectionModel model = ViewSeatSelectionModel(
-            seat: seatValue, available: true, slot: "", slotRange: "");
-        viewSeatSelectionListWithSeats.add(model);
-      }
+
+
+
+
+      //   }
+      // } else {
+      //   int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+      //   ViewSeatSelectionModel model = ViewSeatSelectionModel(
+      //       seat: seatValue, available: true, slot: "", slotRange: "");
+      //   viewSeatSelectionListWithSeats.add(model);
+      // }
     }
 
-    // debugPrint("===== viewSeatSelectionListWithSeats length === ${viewSeatSelectionListWithSeats.length}===");
-    // for (int i = 0; i < viewSeatSelectionListWithSeats.length; i++) {
-    //   if (i < viewSeatSelectionListWithSeats.length - 1) {
-    //     if (viewSeatSelectionListWithSeats[i].seat != viewSeatSelectionListWithSeats[i + 1].seat) {
-    //       int? seatValue = viewSeatSelectionListWithSeats[i].seat;
-    //       ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
-    //       debugPrint("===== i=== $i===");
-    //       if(i < viewSeatSelectionListWithSeats.length - 1 ){
-    //         viewSeatSelectionListWithSeatsFinal.insert(i, model);
-    //       }else{
-    //         viewSeatSelectionListWithSeatsFinal.add(model);
-    //       }
-    //     }
-    //   } else {
-    //     int? seatValue = viewSeatSelectionListWithSeats[i].seat;
-    //     ViewSeatSelectionModel model = ViewSeatSelectionModel(seat: seatValue, available: true, slot: "", slotRange: "");
-    //     viewSeatSelectionListWithSeatsFinal.add(model);
-    //   }
-    // }
 
     showGeneralDialog(
         context: context,
@@ -1653,16 +1656,17 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         transitionDuration: const Duration(milliseconds: 400),
         pageBuilder: (_, __, ___) {
           // return ViewSeatSelectionModalScreen(
-          return ViewSeatSelectionModalScreenLatest(
+          // return ViewSeatSelectionModalScreenLatest(
+          return ViewSeatSelectionModalScreenNew(
               viewSeatSelectionListWithSeats,
-              // viewSeatSelectionListWithSeatsFinal,
-
               timeSlotList,
               selectedSeatList,
               usageTimeSelectedValue,
               selectedSeatsValue,
               totalUsageTimeSelectedText,
-              usageTimeList.cast<String>());
+              usageTimeList.cast<String>(),
+              selectedSeatListForView
+          );
         });
   }
 
