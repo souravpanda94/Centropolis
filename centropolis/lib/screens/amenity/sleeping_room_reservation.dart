@@ -734,6 +734,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             usageTimeSelectedValue = value as String;
             selectedSeatsValue = null;
           });
+          callLoadTotalUsageTimeListApi();
           if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
             loadSelectedSeatList();
           }
@@ -1178,19 +1179,27 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       isLoading = true;
     });
     Map<String, String> body = {
-      "usage_time" : usageTimeSelectedValue ?? ""
+      "start_time" : usageTimeSelectedValue ?? ""
     };
+     debugPrint("TotalUsageTime input ::: $body");
+
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getSleepingRoomTotalUsageTimeListUrl,
         body,
         language.toString(),
         apiKey);
+
+  
     response.then((response) {
       var responseJson = json.decode(response.body);
 
       if (responseJson != null) {
+
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['data'] != null) {
+
+           debugPrint("TotalUsageTime reseponse ::: $responseJson");
+
             setState(() {
               totalUsageTimeList = responseJson['data'];
             });
