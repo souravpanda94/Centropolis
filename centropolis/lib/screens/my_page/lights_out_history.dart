@@ -429,6 +429,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
           firstTimeLoadLightsOutList();
         },
         dropdownStyleData: DropdownStyleData(
+          offset: const Offset(100, 0),
           width: 160,
           //maxHeight: 200,
           isOverButton: false,
@@ -454,7 +455,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 16),
+          padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
         ),
       ),
     );
