@@ -1552,6 +1552,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     viewSeatSelectionListWithTimeSlot.clear();
     viewSeatSelectionListWithSeats.clear();
     viewSeatSelectionListWithSeatsFinal.clear();
+    selectedSeatListForView.clear();
 
     if (usageTimeSelectedValue == null) {
       if (usageTimeList.isNotEmpty) {
