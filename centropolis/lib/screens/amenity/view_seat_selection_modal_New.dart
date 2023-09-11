@@ -193,121 +193,122 @@ class _ViewSeatSelectionModalScreenState
                           ),
                         ),
                       ),
-                      Container(
-                        width: double.infinity,
-                        height: height,
-                        margin: const EdgeInsets.only(
-                            top: 20, left: 10),
-                        child: AlignedGridView.count(
-                          crossAxisCount: widget.timeSlotList.length,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.viewSeatSelectionListItem!.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              width: setItemWidth(index),
-                              height: 34,
-                              margin: const EdgeInsets.all(6),
-                              decoration: BoxDecoration(
-                                color: setBackgroundColor(
-                                    widget.viewSeatSelectionListItem?[index]
-                                        .available,
-                                    widget
-                                        .viewSeatSelectionListItem?[index].slot
-                                        .toString(),
-                                    widget.viewSeatSelectionListItem?[index]
-                                        .slotRange
-                                        .toString(),
-                                    widget
-                                        .viewSeatSelectionListItem?[index].seat
-                                        .toString()),
-                                border: Border.all(
-                                    color: setBorderColor(
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .available,
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .slot
-                                            .toString(),
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .slotRange
-                                            .toString(),
-                                        widget.viewSeatSelectionListItem?[index]
-                                            .seat
-                                            .toString()),
-                                    width: 1.0),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  setTextValue(index),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2,
-                                    fontFamily: 'Regular',
-                                  ),
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      ),
 
-                      Container(
-                        width: double.infinity,
-                        height: 35,
-                        margin: const EdgeInsets.only(top: 5,bottom: 10, left: 10),
-                        child: AlignedGridView.count(
-                          crossAxisCount: 1,
-                          scrollDirection: Axis.horizontal,
-                          itemCount: widget.selectedSeatList.length,
-                          itemBuilder: (context, index) {
-                            return Container(
-                              width: setItemWidth(index),
-                              height: 34,
-                              margin: const EdgeInsets.all(6),
-                              // decoration: BoxDecoration(
-                              //   color: setBackgroundColor(
-                              //       widget.viewSeatSelectionListItem?[index]
-                              //           .available,
-                              //       widget
-                              //           .viewSeatSelectionListItem?[index].slot
-                              //           .toString(),
-                              //       widget.viewSeatSelectionListItem?[index]
-                              //           .slotRange
-                              //           .toString(),
-                              //       widget
-                              //           .viewSeatSelectionListItem?[index].seat
-                              //           .toString()),
-                              //   border: Border.all(
-                              //       color: setBorderColor(
-                              //           widget.viewSeatSelectionListItem?[index]
-                              //               .available,
-                              //           widget.viewSeatSelectionListItem?[index]
-                              //               .slot
-                              //               .toString(),
-                              //           widget.viewSeatSelectionListItem?[index]
-                              //               .slotRange
-                              //               .toString(),
-                              //           widget.viewSeatSelectionListItem?[index]
-                              //               .seat
-                              //               .toString()),
-                              //       width: 1.0),
-                              // ),
-                              child: Center(
-                                child: Text(
-                                  // setTextValue(index),
-                                  // widget.selectedSeatList[index]['seat'].toString(),
-                                  // widget.selectedSeatListForView[index].seat.toString(),
-                                  setTextValueForSeatView(index),
-                                  style: const TextStyle(
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2,
-                                    fontFamily: 'Regular',
-                                  ),
-                                ),
+
+
+
+
+
+                      SingleChildScrollView(
+                        child: Column(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Container(
+                              width: double.infinity,
+                              height: height,
+                              margin: const EdgeInsets.only(top: 20, left: 10),
+                              child: AlignedGridView.count(
+                                crossAxisCount: widget.timeSlotList.length,
+                                scrollDirection: Axis.horizontal,
+                                itemCount:
+                                    widget.viewSeatSelectionListItem!.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    width: setItemWidth(index),
+                                    height: 34,
+                                    margin: const EdgeInsets.all(6),
+                                    decoration: BoxDecoration(
+                                      color: setBackgroundColor(
+                                          widget
+                                              .viewSeatSelectionListItem?[index]
+                                              .available,
+                                          widget
+                                              .viewSeatSelectionListItem?[index]
+                                              .slot
+                                              .toString(),
+                                          widget
+                                              .viewSeatSelectionListItem?[index]
+                                              .slotRange
+                                              .toString(),
+                                          widget
+                                              .viewSeatSelectionListItem?[index]
+                                              .seat
+                                              .toString()),
+                                      border: Border.all(
+                                          color: setBorderColor(
+                                              widget
+                                                  .viewSeatSelectionListItem?[
+                                                      index]
+                                                  .available,
+                                              widget
+                                                  .viewSeatSelectionListItem?[
+                                                      index]
+                                                  .slot
+                                                  .toString(),
+                                              widget
+                                                  .viewSeatSelectionListItem?[
+                                                      index]
+                                                  .slotRange
+                                                  .toString(),
+                                              widget
+                                                  .viewSeatSelectionListItem?[
+                                                      index]
+                                                  .seat
+                                                  .toString()),
+                                          width: 1.0),
+                                    ),
+                                    child: Center(
+                                      child: Text(
+                                        setTextValue(index),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2,
+                                          fontFamily: 'Regular',
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
                               ),
-                            );
-                          },
+                            ),
+                            Container(
+                              width: double.infinity,
+                              height: 35,
+                              margin: const EdgeInsets.only(
+                                  top: 5, bottom: 10, left: 10),
+                              child: AlignedGridView.count(
+                                // physics: const NeverScrollableScrollPhysics(),
+                                // shrinkWrap: true,
+                                crossAxisCount: 1,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: widget.selectedSeatListForView.length,
+                                itemBuilder: (context, index) {
+                                  return Container(
+                                    width: setItemWidthForSeatView(index),
+                                    height: 34,
+                                    margin: const EdgeInsets.all(6),
+                                    child: Center(
+                                      child: Text(
+                                        setTextValueForSeatView(index),
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2,
+                                          fontFamily: 'Regular',
+                                        ),
+                                      ),
+                                    ),
+                                  );
+                                },
+                              ),
+                            )
+                          ],
                         ),
                       )
+
+
+
+
+
 
 
                     ],
@@ -490,20 +491,21 @@ class _ViewSeatSelectionModalScreenState
     }
   }
 
-
-
-
   String setTextValueForSeatView(int index) {
     if (widget.selectedSeatListForView[index].seat == -1) {
       return "Seat ";
-    }
-    else {
+    } else {
       return widget.selectedSeatListForView[index].seat.toString();
     }
   }
 
-
-
+  setItemWidthForSeatView(int index) {
+    if (widget.selectedSeatListForView[index].seat == -1) {
+      return 90.0;
+    } else {
+      return 40.0;
+    }
+  }
 
 // List<String>? getLatestUsageTime() {
 //   String firstItem = widget.usageTimeList!.first.toString();
