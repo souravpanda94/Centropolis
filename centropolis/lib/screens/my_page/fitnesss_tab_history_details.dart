@@ -52,172 +52,136 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
         Provider.of<FitnessHistoryDetailsProvider>(context)
             .getFitnessHistoryDetailModel;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.whiteColor,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("fitnessReservation"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
+    return WillPopScope(
+       onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("fitnessReservation"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: fitnessHistoryDetailModel != null
-            ? SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("reservationInformation"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 16,
-                                    color: CustomColors.textColor8),
-                              ),
-                              if (fitnessHistoryDetailModel != null &&
-                                  fitnessHistoryDetailModel!.status
-                                      .toString()
-                                      .isNotEmpty)
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: setStatusBackgroundColor(
-                                        fitnessHistoryDetailModel!.status
-                                            .toString()),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0,
-                                      bottom: 5.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  child: Text(
-                                    fitnessHistoryDetailModel?.displayStatus
-                                            .toString() ??
-                                        "",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "SemiBold",
-                                      color: setStatusTextColor(
-                                          fitnessHistoryDetailModel!.status
-                                              .toString()),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("nameLounge"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                              Text(
-                                fitnessHistoryDetailModel?.name.toString() ??
-                                    "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Divider(
-                              color: CustomColors.backgroundColor2,
-                              thickness: 1,
-                              height: 1,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("tenantCompanyLounge"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                              Text(
-                                fitnessHistoryDetailModel?.companyName
-                                        .toString() ??
-                                    "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("reservationDate"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          IntrinsicHeight(
-                            child: Row(
+          body: fitnessHistoryDetailModel != null
+              ? SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  fitnessHistoryDetailModel?.reservationDate
+                                  tr("reservationInformation"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 16,
+                                      color: CustomColors.textColor8),
+                                ),
+                                if (fitnessHistoryDetailModel != null &&
+                                    fitnessHistoryDetailModel!.status
+                                        .toString()
+                                        .isNotEmpty)
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: setStatusBackgroundColor(
+                                          fitnessHistoryDetailModel!.status
+                                              .toString()),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0,
+                                        bottom: 5.0,
+                                        left: 10.0,
+                                        right: 10.0),
+                                    child: Text(
+                                      fitnessHistoryDetailModel?.displayStatus
+                                              .toString() ??
+                                          "",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: "SemiBold",
+                                        color: setStatusTextColor(
+                                            fitnessHistoryDetailModel!.status
+                                                .toString()),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("nameLounge"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                                Text(
+                                  fitnessHistoryDetailModel?.name.toString() ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              ],
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Divider(
+                                color: CustomColors.backgroundColor2,
+                                thickness: 1,
+                                height: 1,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("tenantCompanyLounge"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                                Text(
+                                  fitnessHistoryDetailModel?.companyName
                                           .toString() ??
                                       "",
                                   maxLines: 1,
@@ -225,113 +189,155 @@ class _FitnessTabHistoryDetailsState extends State<FitnessTabHistoryDetails> {
                                   style: const TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 14,
-                                      color: CustomColors.textColor8),
-                                ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 4),
-                                  child: VerticalDivider(
-                                    color: CustomColors.textColor3,
-                                    thickness: 1,
-                                  ),
-                                ),
-                                Text(
-                                  "${fitnessHistoryDetailModel?.startTime.toString() ?? ""} ~ ${fitnessHistoryDetailModel?.endTime.toString() ?? ""}",
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 14,
-                                      color: CustomColors.textColor8),
+                                      color: CustomColors.textColorBlack2),
                                 ),
                               ],
                             ),
-                          )
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("lockerNumber"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            fitnessHistoryDetailModel?.seat.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                        ],
+                      const SizedBox(
+                        height: 8,
                       ),
-                    )
-                  ],
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("reservationDate"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    fitnessHistoryDetailModel?.reservationDate
+                                            .toString() ??
+                                        "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor8),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 3, vertical: 4),
+                                    child: VerticalDivider(
+                                      color: CustomColors.textColor3,
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                  Text(
+                                    "${fitnessHistoryDetailModel?.startTime.toString() ?? ""} ~ ${fitnessHistoryDetailModel?.endTime.toString() ?? ""}",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor8),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("lockerNumber"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              fitnessHistoryDetailModel?.seat.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    tr("noReservationHistory"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor5),
+                  ),
                 ),
-              )
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  tr("noReservationHistory"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                      color: CustomColors.textColor5),
-                ),
-              ),
-        bottomSheet: fitnessHistoryDetailModel?.canCancel
-                    .toString()
-                    .trim()
-                    .toLowerCase() ==
-                "y"
-            ? Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    left: 16, top: 16, right: 16, bottom: 40),
-                child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {
-                      if (fitnessHistoryDetailModel?.canCancelButtonEnabled
-                              .toString()
-                              .trim()
-                              .toLowerCase() ==
-                          "y") {
-                        networkCheckForCancelReservation();
-                      }
-                    },
-                    buttonBorderColor: CustomColors.dividerGreyColor,
-                    buttonColor: CustomColors.whiteColor,
-                    buttonName: tr("cancelReservation"),
-                    buttonTextColor: fitnessHistoryDetailModel
-                                ?.canCancelButtonEnabled
+          bottomSheet: fitnessHistoryDetailModel?.canCancel
+                      .toString()
+                      .trim()
+                      .toLowerCase() ==
+                  "y"
+              ? Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(
+                      left: 16, top: 16, right: 16, bottom: 40),
+                  child: CommonButtonWithBorder(
+                      onCommonButtonTap: () {
+                        if (fitnessHistoryDetailModel?.canCancelButtonEnabled
                                 .toString()
                                 .trim()
                                 .toLowerCase() ==
-                            "n"
-                        ? CustomColors.textColor5.withOpacity(0.3)
-                        : CustomColors.textColor5),
-              )
-            : null,
+                            "y") {
+                          networkCheckForCancelReservation();
+                        }
+                      },
+                      buttonBorderColor: CustomColors.dividerGreyColor,
+                      buttonColor: CustomColors.whiteColor,
+                      buttonName: tr("cancelReservation"),
+                      buttonTextColor: fitnessHistoryDetailModel
+                                  ?.canCancelButtonEnabled
+                                  .toString()
+                                  .trim()
+                                  .toLowerCase() ==
+                              "n"
+                          ? CustomColors.textColor5.withOpacity(0.3)
+                          : CustomColors.textColor5),
+                )
+              : null,
+        ),
       ),
     );
   }

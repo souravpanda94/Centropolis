@@ -51,483 +51,489 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
     airConditioningDetailModel =
         Provider.of<AirConditioningDetailsProvider>(context)
             .getAirConditioningDetailModel;
-    return Scaffold(
-      backgroundColor: CustomColors.whiteColor,
-      appBar: PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: CommonAppBar(tr("CoolingHeatingSubtitle"), false, () {
-              //onBackButtonPress(context);
-              Navigator.pop(context, isLoadingRequired);
-            }, () {}),
+    return WillPopScope(
+       onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: Scaffold(
+        backgroundColor: CustomColors.whiteColor,
+        appBar: PreferredSize(
+          preferredSize: AppBar().preferredSize,
+          child: SafeArea(
+            child: Container(
+              color: CustomColors.whiteColor,
+              child: CommonAppBar(tr("CoolingHeatingSubtitle"), false, () {
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
+              }, () {}),
+            ),
           ),
         ),
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            // if (widget.fromPage == "VOC")
-            //   Container(
-            //     height: 8,
-            //     color: CustomColors.backgroundColor,
-            //   ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.all(16),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(tr("tenantCompanyInformation"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8)),
-                      ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      if (airConditioningDetailModel != null &&
-                          airConditioningDetailModel!.status
-                              .toString()
-                              .isNotEmpty)
-                        Container(
-                          decoration: BoxDecoration(
-                            color: setStatusBackgroundColor(
-                                airConditioningDetailModel?.status
-                                        .toString()
-                                        .toLowerCase() ??
-                                    ""),
-                            borderRadius: BorderRadius.circular(4),
-                          ),
-                          padding: const EdgeInsets.only(
-                              top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-                          child: Text(
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            airConditioningDetailModel?.displayStatus
-                                    .toString() ??
-                                "",
-                            style: TextStyle(
-                              fontSize: 12,
-                              fontFamily: "SemiBold",
-                              color: setStatusTextColor(
+        body: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // if (widget.fromPage == "VOC")
+              //   Container(
+              //     height: 8,
+              //     color: CustomColors.backgroundColor,
+              //   ),
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(tr("tenantCompanyInformation"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8)),
+                        ),
+                        const SizedBox(
+                          width: 20,
+                        ),
+                        if (airConditioningDetailModel != null &&
+                            airConditioningDetailModel!.status
+                                .toString()
+                                .isNotEmpty)
+                          Container(
+                            decoration: BoxDecoration(
+                              color: setStatusBackgroundColor(
                                   airConditioningDetailModel?.status
                                           .toString()
                                           .toLowerCase() ??
                                       ""),
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            padding: const EdgeInsets.only(
+                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                            child: Text(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              airConditioningDetailModel?.displayStatus
+                                      .toString() ??
+                                  "",
+                              style: TextStyle(
+                                fontSize: 12,
+                                fontFamily: "SemiBold",
+                                color: setStatusTextColor(
+                                    airConditioningDetailModel?.status
+                                            .toString()
+                                            .toLowerCase() ??
+                                        ""),
+                              ),
                             ),
                           ),
-                        ),
-                    ],
-                  ),
-                  Container(
-                    margin: const EdgeInsets.only(top: 16),
-                    padding: const EdgeInsets.all(16),
-                    width: MediaQuery.of(context).size.width,
-                    decoration: const BoxDecoration(
-                        color: CustomColors.backgroundColor,
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(tr("CoolingHeatingName"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          airConditioningDetailModel?.name.toString() ?? "",
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(tr("lightOutDetailCompany"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          airConditioningDetailModel?.companyName.toString() ??
-                              "",
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(tr("email"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          airConditioningDetailModel?.email.toString() ?? "",
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        const SizedBox(
-                          height: 16,
-                        ),
-                        Text(tr("contactNo"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8)),
-                        const SizedBox(
-                          height: 8,
-                        ),
-                        Text(
-                          formatNumberStringWithDash(
-                              airConditioningDetailModel?.contact.toString() ??
-                                  ""),
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: CustomColors.backgroundColor,
-              width: MediaQuery.of(context).size.width,
-              height: 8,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("applicationFloor"),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    airConditioningDetailModel?.requestedFloor
-                            .toString()
-                            .toUpperCase() ??
-                        "",
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: CustomColors.backgroundColor,
-              width: MediaQuery.of(context).size.width,
-              height: 8,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("airConditioning/Heading"),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    airConditioningDetailModel?.type.toString().capitalize() ??
-                        "",
-                    style: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              color: CustomColors.backgroundColor,
-              width: MediaQuery.of(context).size.width,
-              height: 8,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("dateOfApplication"),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    "${airConditioningDetailModel?.requestDate.toString() ?? ""}  |  ${airConditioningDetailModel?.startTime.toString() ?? ""}  |  ${airConditioningDetailModel?.endTime.toString() ?? ""}",
-                    style: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        color: CustomColors.textColor8),
-                  )
-                  // IntrinsicHeight(
-                  //   child: Row(
-                  //     children: [
-                  //       Expanded(
-                  //         child: Text(
-                  //           airConditioningDetailModel?.requestDate
-                  //                   .toString() ??
-                  //               "",
-                  //           style: const TextStyle(
-                  //               fontFamily: 'Regular',
-                  //               fontSize: 14,
-                  //               color: CustomColors.textColor8),
-                  //         ),
-                  //       ),
-                  //       const Expanded(
-                  //         child: Padding(
-                  //           padding: EdgeInsets.symmetric(
-                  //               horizontal: 6, vertical: 4),
-                  //           child: VerticalDivider(
-                  //             thickness: 1,
-                  //             color: CustomColors.textColor3,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Expanded(
-                  //         child: Text(
-                  //           airConditioningDetailModel?.startTime.toString() ??
-                  //               "",
-                  //           style: const TextStyle(
-                  //               fontFamily: 'Regular',
-                  //               fontSize: 14,
-                  //               color: CustomColors.textColor8),
-                  //         ),
-                  //       ),
-                  //       const Expanded(
-                  //         child: Padding(
-                  //           padding: EdgeInsets.symmetric(
-                  //               horizontal: 6, vertical: 4),
-                  //           child: VerticalDivider(
-                  //             thickness: 1,
-                  //             color: CustomColors.textColor3,
-                  //           ),
-                  //         ),
-                  //       ),
-                  //       Expanded(
-                  //         child: Text(
-                  //           "${airConditioningDetailModel?.usageHours.toString() ?? ""} hours (--KRW)",
-                  //           style: const TextStyle(
-                  //               fontFamily: 'Regular',
-                  //               fontSize: 14,
-                  //               color: CustomColors.textColor8),
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
-                ],
-              ),
-            ),
-            Container(
-              color: CustomColors.backgroundColor,
-              width: MediaQuery.of(context).size.width,
-              height: 8,
-            ),
-            Container(
-              color: CustomColors.whiteColor,
-              padding: const EdgeInsets.all(16),
-              width: MediaQuery.of(context).size.width,
-              margin:
-                  EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    tr("otherRequests"),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColor8),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  Text(
-                    airConditioningDetailModel?.detail.toString() ?? "",
-                    style: const TextStyle(
-                        fontFamily: 'Regular',
-                        fontSize: 14,
-                        height: 1.5,
-                        color: CustomColors.textColor8),
-                  ),
-                ],
-              ),
-            ),
-            if (widget.fromPage == "MyPage")
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    height: 8,
-                    color: CustomColors.backgroundColor,
-                  ),
-                  Container(
-                    color: CustomColors.whiteColor,
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(bottom: 40),
-                    width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CommonButtonWithBorder(
-                          onCommonButtonTap: () {
-                            Navigator.pop(context, isLoadingRequired);
-                          },
-                          buttonName: tr("toList"),
-                          buttonBorderColor: CustomColors.buttonBackgroundColor,
-                          buttonTextColor: CustomColors.buttonBackgroundColor,
-                        ),
-                        if (airConditioningDetailModel?.canChange
-                                .toString()
-                                .toLowerCase() ==
-                            "y")
+                    Container(
+                      margin: const EdgeInsets.only(top: 16),
+                      padding: const EdgeInsets.all(16),
+                      width: MediaQuery.of(context).size.width,
+                      decoration: const BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          borderRadius: BorderRadius.all(Radius.circular(4))),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(tr("CoolingHeatingName"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            airConditioningDetailModel?.name.toString() ?? "",
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
                           const SizedBox(
                             height: 16,
                           ),
-                        if (airConditioningDetailModel?.canChange
-                                .toString()
-                                .toLowerCase() ==
-                            "y")
-                          CommonButtonWithBorder(
-                            onCommonButtonTap: () {
-                              if (airConditioningDetailModel
-                                      ?.canChangeButtonEnabled
-                                      .toString()
-                                      .toLowerCase() ==
-                                  "y") {
-                                networkCheckForStatusChange("rejected");
-                              }
-                            },
-                            buttonName: tr("reject"),
-                            buttonBorderColor: airConditioningDetailModel
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.buttonBackgroundColor
-                                : CustomColors.dividerGreyColor,
-                            buttonTextColor: airConditioningDetailModel
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.buttonBackgroundColor
-                                : CustomColors.dividerGreyColor,
+                          Text(tr("lightOutDetailCompany"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
                           ),
-                        if (airConditioningDetailModel?.canChange
-                                .toString()
-                                .toLowerCase() ==
-                            "y")
+                          Text(
+                            airConditioningDetailModel?.companyName.toString() ??
+                                "",
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
                           const SizedBox(
                             height: 16,
                           ),
-                        if (airConditioningDetailModel?.canChange
-                                .toString()
-                                .toLowerCase() ==
-                            "y")
+                          Text(tr("email"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            airConditioningDetailModel?.email.toString() ?? "",
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          const SizedBox(
+                            height: 16,
+                          ),
+                          Text(tr("contactNo"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8)),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Text(
+                            formatNumberStringWithDash(
+                                airConditioningDetailModel?.contact.toString() ??
+                                    ""),
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: CustomColors.backgroundColor,
+                width: MediaQuery.of(context).size.width,
+                height: 8,
+              ),
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("applicationFloor"),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      airConditioningDetailModel?.requestedFloor
+                              .toString()
+                              .toUpperCase() ??
+                          "",
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: CustomColors.backgroundColor,
+                width: MediaQuery.of(context).size.width,
+                height: 8,
+              ),
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("airConditioning/Heading"),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      airConditioningDetailModel?.type.toString().capitalize() ??
+                          "",
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                color: CustomColors.backgroundColor,
+                width: MediaQuery.of(context).size.width,
+                height: 8,
+              ),
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("dateOfApplication"),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      "${airConditioningDetailModel?.requestDate.toString() ?? ""}  |  ${airConditioningDetailModel?.startTime.toString() ?? ""}  |  ${airConditioningDetailModel?.endTime.toString() ?? ""}",
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          color: CustomColors.textColor8),
+                    )
+                    // IntrinsicHeight(
+                    //   child: Row(
+                    //     children: [
+                    //       Expanded(
+                    //         child: Text(
+                    //           airConditioningDetailModel?.requestDate
+                    //                   .toString() ??
+                    //               "",
+                    //           style: const TextStyle(
+                    //               fontFamily: 'Regular',
+                    //               fontSize: 14,
+                    //               color: CustomColors.textColor8),
+                    //         ),
+                    //       ),
+                    //       const Expanded(
+                    //         child: Padding(
+                    //           padding: EdgeInsets.symmetric(
+                    //               horizontal: 6, vertical: 4),
+                    //           child: VerticalDivider(
+                    //             thickness: 1,
+                    //             color: CustomColors.textColor3,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       Expanded(
+                    //         child: Text(
+                    //           airConditioningDetailModel?.startTime.toString() ??
+                    //               "",
+                    //           style: const TextStyle(
+                    //               fontFamily: 'Regular',
+                    //               fontSize: 14,
+                    //               color: CustomColors.textColor8),
+                    //         ),
+                    //       ),
+                    //       const Expanded(
+                    //         child: Padding(
+                    //           padding: EdgeInsets.symmetric(
+                    //               horizontal: 6, vertical: 4),
+                    //           child: VerticalDivider(
+                    //             thickness: 1,
+                    //             color: CustomColors.textColor3,
+                    //           ),
+                    //         ),
+                    //       ),
+                    //       Expanded(
+                    //         child: Text(
+                    //           "${airConditioningDetailModel?.usageHours.toString() ?? ""} hours (--KRW)",
+                    //           style: const TextStyle(
+                    //               fontFamily: 'Regular',
+                    //               fontSize: 14,
+                    //               color: CustomColors.textColor8),
+                    //         ),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
+                  ],
+                ),
+              ),
+              Container(
+                color: CustomColors.backgroundColor,
+                width: MediaQuery.of(context).size.width,
+                height: 8,
+              ),
+              Container(
+                color: CustomColors.whiteColor,
+                padding: const EdgeInsets.all(16),
+                width: MediaQuery.of(context).size.width,
+                margin:
+                    EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("otherRequests"),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColor8),
+                    ),
+                    const SizedBox(
+                      height: 8,
+                    ),
+                    Text(
+                      airConditioningDetailModel?.detail.toString() ?? "",
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          fontSize: 14,
+                          height: 1.5,
+                          color: CustomColors.textColor8),
+                    ),
+                  ],
+                ),
+              ),
+              if (widget.fromPage == "MyPage")
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Container(
+                      height: 8,
+                      color: CustomColors.backgroundColor,
+                    ),
+                    Container(
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.all(16),
+                      margin: const EdgeInsets.only(bottom: 40),
+                      width: MediaQuery.of(context).size.width,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
                           CommonButtonWithBorder(
                             onCommonButtonTap: () {
-                              if (airConditioningDetailModel
-                                      ?.canChangeButtonEnabled
-                                      .toString()
-                                      .toLowerCase() ==
-                                  "y") {
-                                networkCheckForStatusChange(
-                                    "waiting_for_approval");
-                              }
+                              Navigator.pop(context, isLoadingRequired);
                             },
-                            buttonName: tr("approve"),
-                            buttonColor: airConditioningDetailModel
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.buttonBackgroundColor
-                                : CustomColors.whiteColor,
-                            buttonBorderColor: airConditioningDetailModel
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.buttonBackgroundColor
-                                : CustomColors.dividerGreyColor,
-                            buttonTextColor: airConditioningDetailModel
-                                        ?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y"
-                                ? CustomColors.whiteColor
-                                : CustomColors.dividerGreyColor,
+                            buttonName: tr("toList"),
+                            buttonBorderColor: CustomColors.buttonBackgroundColor,
+                            buttonTextColor: CustomColors.buttonBackgroundColor,
                           ),
-                      ],
+                          if (airConditioningDetailModel?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            const SizedBox(
+                              height: 16,
+                            ),
+                          if (airConditioningDetailModel?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            CommonButtonWithBorder(
+                              onCommonButtonTap: () {
+                                if (airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y") {
+                                  networkCheckForStatusChange("rejected");
+                                }
+                              },
+                              buttonName: tr("reject"),
+                              buttonBorderColor: airConditioningDetailModel
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.dividerGreyColor,
+                              buttonTextColor: airConditioningDetailModel
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.dividerGreyColor,
+                            ),
+                          if (airConditioningDetailModel?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            const SizedBox(
+                              height: 16,
+                            ),
+                          if (airConditioningDetailModel?.canChange
+                                  .toString()
+                                  .toLowerCase() ==
+                              "y")
+                            CommonButtonWithBorder(
+                              onCommonButtonTap: () {
+                                if (airConditioningDetailModel
+                                        ?.canChangeButtonEnabled
+                                        .toString()
+                                        .toLowerCase() ==
+                                    "y") {
+                                  networkCheckForStatusChange(
+                                      "waiting_for_approval");
+                                }
+                              },
+                              buttonName: tr("approve"),
+                              buttonColor: airConditioningDetailModel
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.whiteColor,
+                              buttonBorderColor: airConditioningDetailModel
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.buttonBackgroundColor
+                                  : CustomColors.dividerGreyColor,
+                              buttonTextColor: airConditioningDetailModel
+                                          ?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y"
+                                  ? CustomColors.whiteColor
+                                  : CustomColors.dividerGreyColor,
+                            ),
+                        ],
+                      ),
                     ),
-                  ),
-                ],
-              )
-          ],
+                  ],
+                )
+            ],
+          ),
         ),
       ),
     );

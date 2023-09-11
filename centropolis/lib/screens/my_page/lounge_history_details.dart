@@ -54,399 +54,405 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
     loungeHistoryDetailModel =
         Provider.of<LoungeHistoryDetailsProvider>(context)
             .getLoungeHistoryDetailModel;
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.whiteColor,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("loungeReservation"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
+    return WillPopScope(
+       onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("loungeReservation"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: loungeHistoryDetailModel != null
-            ? SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("reservationInformation"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 16,
-                                    color: CustomColors.textColor8),
-                              ),
-                              if (loungeHistoryDetailModel != null &&
-                                  loungeHistoryDetailModel?.status.toString() !=
-                                      "")
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: setStatusBackgroundColor(
-                                        loungeHistoryDetailModel?.status
-                                            .toString()),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0,
-                                      bottom: 5.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  child: Text(
-                                    loungeHistoryDetailModel?.displayStatus
-                                            .toString() ??
-                                        "",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "SemiBold",
-                                      color: setStatusTextColor(
-                                          loungeHistoryDetailModel?.status
-                                              .toString()),
-                                    ),
-                                  ),
-                                ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("nameLounge"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                              Text(
-                                loungeHistoryDetailModel?.name.toString() ?? "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Divider(
-                              color: CustomColors.backgroundColor2,
-                              thickness: 1,
-                              height: 1,
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("tenantCompanyLounge"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                              Text(
-                                loungeHistoryDetailModel?.companyName
-                                        .toString() ??
-                                    "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("reservationDate"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          IntrinsicHeight(
-                            child: Row(
+          body: loungeHistoryDetailModel != null
+              ? SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Text(
-                                  loungeHistoryDetailModel?.reservationDate
-                                          .toString() ??
-                                      "",
+                                  tr("reservationInformation"),
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
-                                      fontFamily: 'Regular',
-                                      fontSize: 14,
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 16,
                                       color: CustomColors.textColor8),
                                 ),
-                                const Padding(
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 3, vertical: 4),
-                                  child: VerticalDivider(
-                                    color: CustomColors.textColor3,
-                                    thickness: 1,
+                                if (loungeHistoryDetailModel != null &&
+                                    loungeHistoryDetailModel?.status.toString() !=
+                                        "")
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: setStatusBackgroundColor(
+                                          loungeHistoryDetailModel?.status
+                                              .toString()),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0,
+                                        bottom: 5.0,
+                                        left: 10.0,
+                                        right: 10.0),
+                                    child: Text(
+                                      loungeHistoryDetailModel?.displayStatus
+                                              .toString() ??
+                                          "",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: "SemiBold",
+                                        color: setStatusTextColor(
+                                            loungeHistoryDetailModel?.status
+                                                .toString()),
+                                      ),
+                                    ),
                                   ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("nameLounge"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
                                 ),
                                 Text(
-                                  loungeHistoryDetailModel?.usageHours
-                                          .toString() ??
-                                      "",
+                                  loungeHistoryDetailModel?.name.toString() ?? "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
                                       fontFamily: 'Regular',
                                       fontSize: 14,
-                                      color: CustomColors.textColor8),
+                                      color: CustomColors.textColorBlack2),
                                 ),
                               ],
                             ),
-                          )
-                        ],
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Divider(
+                                color: CustomColors.backgroundColor2,
+                                thickness: 1,
+                                height: 1,
+                              ),
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("tenantCompanyLounge"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                                Text(
+                                  loungeHistoryDetailModel?.companyName
+                                          .toString() ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("eventPurpose"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            loungeHistoryDetailModel?.purpose
-                                    .toString() ??
-                                "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          )
-                        ],
+                      const SizedBox(
+                        height: 8,
                       ),
-                    )
-                    ,
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("numberOfParticipants"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            loungeHistoryDetailModel?.displayNumberOfParticipants
-                                    .toString() ??
-                                "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          )
-                        ],
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("reservationDate"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            IntrinsicHeight(
+                              child: Row(
+                                children: [
+                                  Text(
+                                    loungeHistoryDetailModel?.reservationDate
+                                            .toString() ??
+                                        "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor8),
+                                  ),
+                                  const Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 3, vertical: 4),
+                                    child: VerticalDivider(
+                                      color: CustomColors.textColor3,
+                                      thickness: 1,
+                                    ),
+                                  ),
+                                  Text(
+                                    loungeHistoryDetailModel?.usageHours
+                                            .toString() ??
+                                        "",
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
+                                    style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor8),
+                                  ),
+                                ],
+                              ),
+                            )
+                          ],
+                        ),
                       ),
-                    ) ,
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("paymentMethod"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            loungeHistoryDetailModel?.displayPaymentMethod
-                                    .toString() ??
-                                "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          )
-                        ],
+                      const SizedBox(
+                        height: 8,
                       ),
-                    ),
-                     const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("equipments"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            loungeHistoryDetailModel?.equipments
-                                    .toString() ??
-                                "",
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          )
-                        ],
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("eventPurpose"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              loungeHistoryDetailModel?.purpose
+                                      .toString() ??
+                                  "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            )
+                          ],
+                        ),
+                      )
+                      ,
+                      const SizedBox(
+                        height: 8,
                       ),
-                    )
-                  ],
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("numberOfParticipants"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              loungeHistoryDetailModel?.displayNumberOfParticipants
+                                      .toString() ??
+                                  "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            )
+                          ],
+                        ),
+                      ) ,
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("paymentMethod"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              loungeHistoryDetailModel?.displayPaymentMethod
+                                      .toString() ??
+                                  "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            )
+                          ],
+                        ),
+                      ),
+                       const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("equipments"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              loungeHistoryDetailModel?.equipments
+                                      .toString() ??
+                                  "",
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            )
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    tr("noReservationHistory"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor5),
+                  ),
                 ),
-              )
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  tr("noReservationHistory"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                      color: CustomColors.textColor5),
-                ),
-              ),
-        // bottomSheet: loungeHistoryDetailModel?.canCancel
-        //             .toString()
-        //             .toLowerCase()
-        //             .trim() ==
-        //         "y"
-        //     ? Container(
-        //         width: MediaQuery.of(context).size.width,
-        //         color: CustomColors.whiteColor,
-        //         padding: const EdgeInsets.only(
-        //             left: 16, top: 16, right: 16, bottom: 40),
-        //         child: CommonButtonWithBorder(
-        //             onCommonButtonTap: () {
-        //               if (loungeHistoryDetailModel?.canCancelButtonEnabled
-        //                       .toString()
-        //                       .toLowerCase()
-        //                       .trim() ==
-        //                   "y") {
-        //                 networkCheckForCancelReservation();
-        //               }
-        //             },
-        //             buttonBorderColor: CustomColors.dividerGreyColor,
-        //             buttonColor: CustomColors.whiteColor,
-        //             buttonName: tr("cancelReservation"),
-        //             buttonTextColor: loungeHistoryDetailModel
-        //                         ?.canCancelButtonEnabled
-        //                         .toString()
-        //                         .toLowerCase()
-        //                         .trim() ==
-        //                     "n"
-        //                 ? CustomColors.textColor5.withOpacity(0.3)
-        //                 : CustomColors.textColor5),
-        //       )
-        //     : null,
+          // bottomSheet: loungeHistoryDetailModel?.canCancel
+          //             .toString()
+          //             .toLowerCase()
+          //             .trim() ==
+          //         "y"
+          //     ? Container(
+          //         width: MediaQuery.of(context).size.width,
+          //         color: CustomColors.whiteColor,
+          //         padding: const EdgeInsets.only(
+          //             left: 16, top: 16, right: 16, bottom: 40),
+          //         child: CommonButtonWithBorder(
+          //             onCommonButtonTap: () {
+          //               if (loungeHistoryDetailModel?.canCancelButtonEnabled
+          //                       .toString()
+          //                       .toLowerCase()
+          //                       .trim() ==
+          //                   "y") {
+          //                 networkCheckForCancelReservation();
+          //               }
+          //             },
+          //             buttonBorderColor: CustomColors.dividerGreyColor,
+          //             buttonColor: CustomColors.whiteColor,
+          //             buttonName: tr("cancelReservation"),
+          //             buttonTextColor: loungeHistoryDetailModel
+          //                         ?.canCancelButtonEnabled
+          //                         .toString()
+          //                         .toLowerCase()
+          //                         .trim() ==
+          //                     "n"
+          //                 ? CustomColors.textColor5.withOpacity(0.3)
+          //                 : CustomColors.textColor5),
+          //       )
+          //     : null,
+        ),
       ),
     );
   }
