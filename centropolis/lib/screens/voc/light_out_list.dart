@@ -74,233 +74,239 @@ class _LightsOutListState extends State<LightsOutList> {
     lightoutListItem =
         Provider.of<LightoutListProvider>(context).getLightoutModelList;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.whiteColor,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isFirstLoadRunning,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightOutListTitle"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, true);
-              }, () {}),
+    return WillPopScope(
+      onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isFirstLoadRunning,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("lightOutListTitle"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, true);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: Container(
-          color: CustomColors.backgroundColor,
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        tr("total"),
-                        style: const TextStyle(
-                            fontFamily: 'Medium',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        child: Text(
-                          totalRecords.toString(),
+          body: Container(
+            color: CustomColors.backgroundColor,
+            padding: const EdgeInsets.only(left: 16, right: 16, top: 20),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Row(
+                      children: [
+                        Text(
+                          tr("total"),
                           style: const TextStyle(
                               fontFamily: 'Medium',
                               fontSize: 14,
-                              color: CustomColors.textColor9),
+                              color: CustomColors.textColorBlack2),
                         ),
-                      ),
-                      Text(
-                        tr("items"),
-                        style: const TextStyle(
-                            fontFamily: 'Medium',
-                            fontSize: 14,
-                            color: CustomColors.textColorBlack2),
-                      ),
-                    ],
-                  ),
-                  sortingDropdownWidget(),
-                ],
-              ),
-              lightoutListItem == null || lightoutListItem!.isEmpty
-                  ? Expanded(
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        margin: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 20),
-                        padding: const EdgeInsets.all(24),
-                        child: Text(
-                          tr("lightOutEmptyText"),
-                          textAlign: TextAlign.center,
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 2),
+                          child: Text(
+                            totalRecords.toString(),
+                            style: const TextStyle(
+                                fontFamily: 'Medium',
+                                fontSize: 14,
+                                color: CustomColors.textColor9),
+                          ),
+                        ),
+                        Text(
+                          tr("items"),
                           style: const TextStyle(
-                              fontFamily: 'Regular',
+                              fontFamily: 'Medium',
                               fontSize: 14,
-                              color: CustomColors.textColor5),
+                              color: CustomColors.textColorBlack2),
                         ),
-                      ),
-                    )
-                  : Expanded(
-                      child: ListView.builder(
-                          itemCount: lightoutListItem?.length,
-                          itemBuilder: ((context, index) {
-                            return InkWell(
-                              onTap: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => LightsOutDetails(
-                                        id: lightoutListItem?[index]
-                                                .inquiryId
-                                                .toString() ??
-                                            "",
-                                        fromPage: "VOC"),
-                                  ),
-                                );
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    color: CustomColors.whiteColor,
-                                    border: Border.all(
-                                      color: CustomColors.borderColor,
+                      ],
+                    ),
+                    sortingDropdownWidget(),
+                  ],
+                ),
+                lightoutListItem == null || lightoutListItem!.isEmpty
+                    ? Expanded(
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          margin: const EdgeInsets.symmetric(
+                              horizontal: 16, vertical: 20),
+                          padding: const EdgeInsets.all(24),
+                          child: Text(
+                            tr("lightOutEmptyText"),
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColor5),
+                          ),
+                        ),
+                      )
+                    : Expanded(
+                        child: ListView.builder(
+                            itemCount: lightoutListItem?.length,
+                            itemBuilder: ((context, index) {
+                              return InkWell(
+                                onTap: () {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => LightsOutDetails(
+                                          id: lightoutListItem?[index]
+                                                  .inquiryId
+                                                  .toString() ??
+                                              "",
+                                          fromPage: "VOC"),
                                     ),
-                                    borderRadius: const BorderRadius.all(
-                                        Radius.circular(4))),
-                                padding: const EdgeInsets.all(16),
-                                margin: const EdgeInsets.only(bottom: 16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        Flexible(
-                                          child: Text(
-                                            lightoutListItem?[index]
-                                                    .description ??
-                                                "",
-                                            //"Centropolis",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'SemiBold',
-                                                fontSize: 14,
-                                                color: CustomColors.textColor8),
-                                          ),
-                                        ),
-                                        const SizedBox(
-                                          width: 10,
-                                        ),
-                                        if (lightoutListItem != null &&
-                                            lightoutListItem![index]
-                                                .status
-                                                .toString()
-                                                .isNotEmpty)
-                                          Container(
-                                            decoration: BoxDecoration(
-                                              color: setStatusBackgroundColor(
-                                                  lightoutListItem?[index]
-                                                      .status
-                                                      .toString()
-                                                      .toLowerCase()),
-                                              borderRadius:
-                                                  BorderRadius.circular(4),
-                                            ),
-                                            padding: const EdgeInsets.only(
-                                                top: 5.0,
-                                                bottom: 5.0,
-                                                left: 10.0,
-                                                right: 10.0),
+                                  );
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      color: CustomColors.whiteColor,
+                                      border: Border.all(
+                                        color: CustomColors.borderColor,
+                                      ),
+                                      borderRadius: const BorderRadius.all(
+                                          Radius.circular(4))),
+                                  padding: const EdgeInsets.all(16),
+                                  margin: const EdgeInsets.only(bottom: 16),
+                                  child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.center,
+                                        children: [
+                                          Flexible(
                                             child: Text(
                                               lightoutListItem?[index]
-                                                      .displayStatus ??
+                                                      .description ??
                                                   "",
-                                              style: TextStyle(
-                                                fontSize: 12,
-                                                fontFamily: "SemiBold",
-                                                color: setStatusTextColor(
+                                              //"Centropolis",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontFamily: 'SemiBold',
+                                                  fontSize: 14,
+                                                  color: CustomColors.textColor8),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 10,
+                                          ),
+                                          if (lightoutListItem != null &&
+                                              lightoutListItem![index]
+                                                  .status
+                                                  .toString()
+                                                  .isNotEmpty)
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: setStatusBackgroundColor(
                                                     lightoutListItem?[index]
                                                         .status
                                                         .toString()
                                                         .toLowerCase()),
+                                                borderRadius:
+                                                    BorderRadius.circular(4),
+                                              ),
+                                              padding: const EdgeInsets.only(
+                                                  top: 5.0,
+                                                  bottom: 5.0,
+                                                  left: 10.0,
+                                                  right: 10.0),
+                                              child: Text(
+                                                lightoutListItem?[index]
+                                                        .displayStatus ??
+                                                    "",
+                                                style: TextStyle(
+                                                  fontSize: 12,
+                                                  fontFamily: "SemiBold",
+                                                  color: setStatusTextColor(
+                                                      lightoutListItem?[index]
+                                                          .status
+                                                          .toString()
+                                                          .toLowerCase()),
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                      ],
-                                    ),
-                                    const SizedBox(
-                                      height: 14,
-                                    ),
-                                    IntrinsicHeight(
-                                      child: Row(
-                                        children: [
-                                          Text(
-                                            lightoutListItem?[index]
-                                                    .requestedFloors
-                                                    .toString()
-                                                    .toUpperCase() ??
-                                                "",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          const Padding(
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: 2),
-                                            child: VerticalDivider(
-                                              thickness: 1,
-                                              color: CustomColors.borderColor,
-                                            ),
-                                          ),
-                                          const SizedBox(
-                                            width: 8,
-                                          ),
-                                          Text(
-                                            "${lightoutListItem?[index].registeredDate ?? ""} ${lightoutListItem?[index].startTime ?? ""}",
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                                fontFamily: 'Regular',
-                                                fontSize: 12,
-                                                color: CustomColors.textColor3),
-                                          ),
                                         ],
                                       ),
-                                    )
-                                  ],
+                                      const SizedBox(
+                                        height: 14,
+                                      ),
+                                      IntrinsicHeight(
+                                        child: Row(
+                                          children: [
+                                            Text(
+                                              lightoutListItem?[index]
+                                                      .requestedFloors
+                                                      .toString()
+                                                      .toUpperCase() ??
+                                                  "",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 12,
+                                                  color: CustomColors.textColor3),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            const Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: 2),
+                                              child: VerticalDivider(
+                                                thickness: 1,
+                                                color: CustomColors.borderColor,
+                                              ),
+                                            ),
+                                            const SizedBox(
+                                              width: 8,
+                                            ),
+                                            Text(
+                                              "${lightoutListItem?[index].registeredDate ?? ""} ${lightoutListItem?[index].startTime ?? ""}",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 12,
+                                                  color: CustomColors.textColor3),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            );
-                          })),
-                    ),
-              if (page < totalPages)
-                ViewMoreWidget(
-                  onViewMoreTap: () {
-                    loadMore();
-                  },
-                )
-            ],
+                              );
+                            })),
+                      ),
+                if (page < totalPages)
+                  ViewMoreWidget(
+                    onViewMoreTap: () {
+                      loadMore();
+                    },
+                  )
+              ],
+            ),
           ),
         ),
       ),

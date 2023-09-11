@@ -50,387 +50,393 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
     lightOutDetails =
         Provider.of<LightOutDetailsProvider>(context).getLightOutDetailModel;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("lightOutSubtitle"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
+    return WillPopScope(
+       onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("lightOutSubtitle"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(tr("tenantCompanyInformation"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 16,
-                                  color: CustomColors.textColor8)),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        if (lightOutDetails != null &&
-                            lightOutDetails!.status.toString().isNotEmpty)
-                          Container(
-                            decoration: BoxDecoration(
-                              color: setStatusBackgroundColor(lightOutDetails
-                                      ?.status
-                                      .toString()
-                                      .toLowerCase() ??
-                                  ""),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-                            child: Text(
-                              lightOutDetails?.displayStatus.toString() ?? "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "SemiBold",
-                                color: setStatusTextColor(lightOutDetails
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(tr("tenantCompanyInformation"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 16,
+                                    color: CustomColors.textColor8)),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          if (lightOutDetails != null &&
+                              lightOutDetails!.status.toString().isNotEmpty)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: setStatusBackgroundColor(lightOutDetails
                                         ?.status
                                         .toString()
                                         .toLowerCase() ??
                                     ""),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.only(
+                                  top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                              child: Text(
+                                lightOutDetails?.displayStatus.toString() ?? "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: setStatusTextColor(lightOutDetails
+                                          ?.status
+                                          .toString()
+                                          .toLowerCase() ??
+                                      ""),
+                                ),
                               ),
                             ),
-                          ),
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tr("CoolingHeatingName"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            lightOutDetails?.name.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("lightOutDetailCompany"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            lightOutDetails?.companyName.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("email"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            lightOutDetails?.email.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("contactNo"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            formatNumberStringWithDash(
-                                lightOutDetails?.contact.toString() ?? ""),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("applicationFloor"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      lightOutDetails?.requestedFloors
-                              .toString()
-                              .toUpperCase() ??
-                          "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("lightsOutDate"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      "${lightOutDetails?.applicationDate.toString() ?? ""}   |   ${lightOutDetails?.startTime.toString() ?? ""} ~ ${lightOutDetails?.endTime.toString() ?? ""}",
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                margin:
-                    EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("otherRequests"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      lightOutDetails?.detail.toString() ?? "",
-                      style: const TextStyle(
-                          height: 1.5,
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                  ],
-                ),
-              ),
-              if (widget.fromPage == "MyPage")
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      height: 8,
-                      color: CustomColors.backgroundColor,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      margin: const EdgeInsets.only(bottom: 40),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          CommonButtonWithBorder(
-                            onCommonButtonTap: () {
-                              Navigator.pop(context, isLoadingRequired);
-                            },
-                            buttonName: tr("toList"),
-                            buttonBorderColor:
-                                CustomColors.buttonBackgroundColor,
-                            buttonTextColor: CustomColors.buttonBackgroundColor,
-                          ),
-                          if (lightOutDetails?.canChange
-                                  .toString()
-                                  .toLowerCase() ==
-                              "y")
+                      Container(
+                        margin: const EdgeInsets.only(top: 16),
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                            color: CustomColors.backgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(tr("CoolingHeatingName"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              lightOutDetails?.name.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
                             const SizedBox(
                               height: 16,
                             ),
-                          if (lightOutDetails?.canChange
-                                  .toString()
-                                  .toLowerCase() ==
-                              "y")
-                            CommonButtonWithBorder(
-                              onCommonButtonTap: () {
-                                if (lightOutDetails?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y") {
-                                  networkCheckForStatusChange("rejected");
-                                }
-                              },
-                              buttonName: tr("reject"),
-                              buttonBorderColor: lightOutDetails
-                                          ?.canChangeButtonEnabled
-                                          .toString()
-                                          .toLowerCase() ==
-                                      "y"
-                                  ? CustomColors.buttonBackgroundColor
-                                  : CustomColors.dividerGreyColor,
-                              buttonTextColor: lightOutDetails
-                                          ?.canChangeButtonEnabled
-                                          .toString()
-                                          .toLowerCase() ==
-                                      "y"
-                                  ? CustomColors.buttonBackgroundColor
-                                  : CustomColors.dividerGreyColor,
+                            Text(tr("lightOutDetailCompany"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
                             ),
-                          if (lightOutDetails?.canChange
-                                  .toString()
-                                  .toLowerCase() ==
-                              "y")
+                            Text(
+                              lightOutDetails?.companyName.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
                             const SizedBox(
                               height: 16,
                             ),
-                          if (lightOutDetails?.canChange
-                                  .toString()
-                                  .toLowerCase() ==
-                              "y")
+                            Text(tr("email"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              lightOutDetails?.email.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(tr("contactNo"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              formatNumberStringWithDash(
+                                  lightOutDetails?.contact.toString() ?? ""),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("applicationFloor"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        lightOutDetails?.requestedFloors
+                                .toString()
+                                .toUpperCase() ??
+                            "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("lightsOutDate"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        "${lightOutDetails?.applicationDate.toString() ?? ""}   |   ${lightOutDetails?.startTime.toString() ?? ""} ~ ${lightOutDetails?.endTime.toString() ?? ""}",
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  margin:
+                      EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("otherRequests"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        lightOutDetails?.detail.toString() ?? "",
+                        style: const TextStyle(
+                            height: 1.5,
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                    ],
+                  ),
+                ),
+                if (widget.fromPage == "MyPage")
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        height: 8,
+                        color: CustomColors.backgroundColor,
+                      ),
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        margin: const EdgeInsets.only(bottom: 40),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
                             CommonButtonWithBorder(
                               onCommonButtonTap: () {
-                                if (lightOutDetails?.canChangeButtonEnabled
-                                        .toString()
-                                        .toLowerCase() ==
-                                    "y") {
-                                  networkCheckForStatusChange(
-                                      "waiting_for_approval");
-                                }
+                                Navigator.pop(context, isLoadingRequired);
                               },
-                              buttonName: tr("approve"),
-                              buttonColor: lightOutDetails
-                                          ?.canChangeButtonEnabled
-                                          .toString()
-                                          .toLowerCase() ==
-                                      "y"
-                                  ? CustomColors.buttonBackgroundColor
-                                  : CustomColors.whiteColor,
-                              buttonBorderColor: lightOutDetails
-                                          ?.canChangeButtonEnabled
-                                          .toString()
-                                          .toLowerCase() ==
-                                      "y"
-                                  ? CustomColors.buttonBackgroundColor
-                                  : CustomColors.dividerGreyColor,
-                              buttonTextColor: lightOutDetails
-                                          ?.canChangeButtonEnabled
-                                          .toString()
-                                          .toLowerCase() ==
-                                      "y"
-                                  ? CustomColors.whiteColor
-                                  : CustomColors.dividerGreyColor,
+                              buttonName: tr("toList"),
+                              buttonBorderColor:
+                                  CustomColors.buttonBackgroundColor,
+                              buttonTextColor: CustomColors.buttonBackgroundColor,
                             ),
-                        ],
+                            if (lightOutDetails?.canChange
+                                    .toString()
+                                    .toLowerCase() ==
+                                "y")
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            if (lightOutDetails?.canChange
+                                    .toString()
+                                    .toLowerCase() ==
+                                "y")
+                              CommonButtonWithBorder(
+                                onCommonButtonTap: () {
+                                  if (lightOutDetails?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y") {
+                                    networkCheckForStatusChange("rejected");
+                                  }
+                                },
+                                buttonName: tr("reject"),
+                                buttonBorderColor: lightOutDetails
+                                            ?.canChangeButtonEnabled
+                                            .toString()
+                                            .toLowerCase() ==
+                                        "y"
+                                    ? CustomColors.buttonBackgroundColor
+                                    : CustomColors.dividerGreyColor,
+                                buttonTextColor: lightOutDetails
+                                            ?.canChangeButtonEnabled
+                                            .toString()
+                                            .toLowerCase() ==
+                                        "y"
+                                    ? CustomColors.buttonBackgroundColor
+                                    : CustomColors.dividerGreyColor,
+                              ),
+                            if (lightOutDetails?.canChange
+                                    .toString()
+                                    .toLowerCase() ==
+                                "y")
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            if (lightOutDetails?.canChange
+                                    .toString()
+                                    .toLowerCase() ==
+                                "y")
+                              CommonButtonWithBorder(
+                                onCommonButtonTap: () {
+                                  if (lightOutDetails?.canChangeButtonEnabled
+                                          .toString()
+                                          .toLowerCase() ==
+                                      "y") {
+                                    networkCheckForStatusChange(
+                                        "waiting_for_approval");
+                                  }
+                                },
+                                buttonName: tr("approve"),
+                                buttonColor: lightOutDetails
+                                            ?.canChangeButtonEnabled
+                                            .toString()
+                                            .toLowerCase() ==
+                                        "y"
+                                    ? CustomColors.buttonBackgroundColor
+                                    : CustomColors.whiteColor,
+                                buttonBorderColor: lightOutDetails
+                                            ?.canChangeButtonEnabled
+                                            .toString()
+                                            .toLowerCase() ==
+                                        "y"
+                                    ? CustomColors.buttonBackgroundColor
+                                    : CustomColors.dividerGreyColor,
+                                buttonTextColor: lightOutDetails
+                                            ?.canChangeButtonEnabled
+                                            .toString()
+                                            .toLowerCase() ==
+                                        "y"
+                                    ? CustomColors.whiteColor
+                                    : CustomColors.dividerGreyColor,
+                              ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                )
-            ],
+                    ],
+                  )
+              ],
+            ),
           ),
         ),
       ),

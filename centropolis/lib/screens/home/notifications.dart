@@ -61,141 +61,147 @@ class _NotificationScreenState extends State<NotificationScreen> {
     notificationListItem =
         Provider.of<NotificationProvider>(context).getNotificationList;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-          backgroundColor: CustomColors.backgroundColor,
-          appBar: PreferredSize(
-            preferredSize: AppBar().preferredSize,
-            child: SafeArea(
-              child: Container(
-                color: CustomColors.whiteColor,
-                child: AppBarForDialog(tr("notificationHistory"), () {
-                  //onBackButtonPress(context);
-                  Navigator.pop(context,true);
-                }),
+    return WillPopScope(
+       onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+            backgroundColor: CustomColors.backgroundColor,
+            appBar: PreferredSize(
+              preferredSize: AppBar().preferredSize,
+              child: SafeArea(
+                child: Container(
+                  color: CustomColors.whiteColor,
+                  child: AppBarForDialog(tr("notificationHistory"), () {
+                    //onBackButtonPress(context);
+                    Navigator.pop(context,true);
+                  }),
+                ),
               ),
             ),
-          ),
-          body: Container(
-              margin: const EdgeInsets.only(top: 32, left: 16, right: 16),
-              child: Column(
-                children: [
-                  Expanded(
-                    child: ListView.builder(
-                        itemCount: notificationListItem?.length,
-                        itemBuilder: ((context, index) {
-                          // debugPrint(
-                          //     "Notification Id -> ${notificationListItem?[index].id.toString()}");
-                          // debugPrint(
-                          //     "title -> ${notificationListItem?[index].title.toString()}");
-                          // debugPrint(
-                          //     "type -> ${notificationListItem?[index].notificationType.toString()}");
-
-                          return InkWell(
-                            onTap: () {
-                              goToDetailsScreen(
-                                  notificationListItem?[index]
-                                      .notificationType
-                                      .toString(),
-                                  notificationListItem?[index].relId);
-                            },
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: CustomColors.whiteColor,
-                                  border: Border.all(
-                                    color: CustomColors.borderColor,
-                                  ),
-                                  borderRadius: const BorderRadius.all(
-                                      Radius.circular(4))),
-                              padding: const EdgeInsets.all(16),
-                              margin: const EdgeInsets.only(bottom: 16),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Text(
-                                    // notificationList[index]["title"],
+            body: Container(
+                margin: const EdgeInsets.only(top: 32, left: 16, right: 16),
+                child: Column(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(
+                          itemCount: notificationListItem?.length,
+                          itemBuilder: ((context, index) {
+                            // debugPrint(
+                            //     "Notification Id -> ${notificationListItem?[index].id.toString()}");
+                            // debugPrint(
+                            //     "title -> ${notificationListItem?[index].title.toString()}");
+                            // debugPrint(
+                            //     "type -> ${notificationListItem?[index].notificationType.toString()}");
+    
+                            return InkWell(
+                              onTap: () {
+                                goToDetailsScreen(
                                     notificationListItem?[index]
-                                            .title
-                                            .toString() ??
-                                        "",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 15,
-                                        color: CustomColors.textColor8),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.symmetric(
-                                        vertical: 16),
-                                    child: Row(
-                                      children: [
-                                        Expanded(
-                                          flex: 3,
-                                          child: Text(
-                                            // notificationList[index]["subtitle"],
-                                            notificationListItem?[index]
-                                                    .content
-                                                    .toString() ??
-                                                "",
+                                        .notificationType
+                                        .toString(),
+                                    notificationListItem?[index].relId);
+                              },
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: CustomColors.whiteColor,
+                                    border: Border.all(
+                                      color: CustomColors.borderColor,
+                                    ),
+                                    borderRadius: const BorderRadius.all(
+                                        Radius.circular(4))),
+                                padding: const EdgeInsets.all(16),
+                                margin: const EdgeInsets.only(bottom: 16),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      // notificationList[index]["title"],
+                                      notificationListItem?[index]
+                                              .title
+                                              .toString() ??
+                                          "",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontFamily: 'SemiBold',
+                                          fontSize: 15,
+                                          color: CustomColors.textColor8),
+                                    ),
+                                    Container(
+                                      margin: const EdgeInsets.symmetric(
+                                          vertical: 16),
+                                      child: Row(
+                                        children: [
+                                          Expanded(
+                                            flex: 3,
+                                            child: Text(
+                                              // notificationList[index]["subtitle"],
+                                              notificationListItem?[index]
+                                                      .content
+                                                      .toString() ??
+                                                  "",
+                                              maxLines: 1,
+                                              overflow: TextOverflow.ellipsis,
+                                              style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 14,
+                                                  color: CustomColors
+                                                      .textColorBlack2),
+                                            ),
+                                          ),
+                                          const SizedBox(
+                                            width: 8,
+                                          ),
+                                          Text(
+                                            tr("contents"),
                                             maxLines: 1,
                                             overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
                                                 fontFamily: 'Regular',
                                                 fontSize: 14,
-                                                color: CustomColors
-                                                    .textColorBlack2),
+                                                color:
+                                                    CustomColors.textColorBlack2),
                                           ),
-                                        ),
-                                        const SizedBox(
-                                          width: 8,
-                                        ),
-                                        Text(
-                                          tr("contents"),
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 14,
-                                              color:
-                                                  CustomColors.textColorBlack2),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
-                                  ),
-                                  Text(
-                                    // notificationList[index]["datetime"],
-                                    notificationListItem?[index]
-                                            .createdDate
-                                            .toString() ??
-                                        "",
-                                    maxLines: 1,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: const TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 12,
-                                        color: CustomColors.textColor3),
-                                  ),
-                                ],
+                                    Text(
+                                      // notificationList[index]["datetime"],
+                                      notificationListItem?[index]
+                                              .createdDate
+                                              .toString() ??
+                                          "",
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 12,
+                                          color: CustomColors.textColor3),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        })),
-                  ),
-                  if (page < totalPages)
-                    ViewMoreWidget(
-                      onViewMoreTap: () {
-                        loadMore();
-                      },
-                    )
-                ],
-              ))),
+                            );
+                          })),
+                    ),
+                    if (page < totalPages)
+                      ViewMoreWidget(
+                        onViewMoreTap: () {
+                          loadMore();
+                        },
+                      )
+                  ],
+                ))),
+      ),
     );
   }
 

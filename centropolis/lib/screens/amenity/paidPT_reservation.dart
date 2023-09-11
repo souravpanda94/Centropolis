@@ -675,9 +675,11 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   }
 
   void callLoadTimeListApi() {
-    setState(() {
+    if(mounted){
+      setState(() {
       isLoading = true;
     });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPtTimeListUrl, body, language.toString(), apiKey);
@@ -865,9 +867,11 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
 
   void callLoadPersonalInformationApi() {
-    setState(() {
+   if(mounted){
+     setState(() {
       isLoading = true;
     });
+   }
     Map<String, String> body = {};
 
     debugPrint("Get personal info input===> $body");

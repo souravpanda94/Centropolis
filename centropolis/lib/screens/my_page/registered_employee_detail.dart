@@ -65,261 +65,267 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
     employeeDetails =
         Provider.of<EmployeeDetailProvider>(context).getEmplloyeeDetailModel;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.whiteColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("registeredEmployeeList"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
+    return WillPopScope(
+       onWillPop: () async {
+           Navigator.pop(context, true);
+          return true;
+        },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.whiteColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("registeredEmployeeList"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: SizedBox(
-          width: MediaQuery.of(context).size.width,
-          child: SingleChildScrollView(
-              child: Column(
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
+          body: SizedBox(
+            width: MediaQuery.of(context).size.width,
+            child: SingleChildScrollView(
                 child: Column(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("employeeDetails"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 16,
-                              color: CustomColors.textColor8),
-                        ),
-                        InkWell(
-                          onTap: () {
-                            showModal(tr("deleteTitle"), tr("deleteDesc"), "");
-                          },
-                          child: Text(
-                            tr("delete"),
-                            style: const TextStyle(
-                                decoration: TextDecoration.underline,
-                                fontFamily: 'Regular',
-                                fontSize: 12,
-                                color: CustomColors.textColor3),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16, bottom: 0),
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            tr("name"),
+                            tr("employeeDetails"),
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
-                                fontSize: 14,
+                                fontSize: 16,
                                 color: CustomColors.textColor8),
                           ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            employeeDetails?.name.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("IDHeading"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            employeeDetails?.username.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("email"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            employeeDetails?.email.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("contactNo").replaceAll(".", ""),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            formatNumberStringWithDash(
-                                employeeDetails?.mobile.toString() ?? ""),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("tenantCompanyLounge"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            employeeDetails?.companyName.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(
-                            tr("registrationDate"),
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 14,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            employeeDetails?.registrationDate.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
+                          InkWell(
+                            onTap: () {
+                              showModal(tr("deleteTitle"), tr("deleteDesc"), "");
+                            },
+                            child: Text(
+                              tr("delete"),
+                              style: const TextStyle(
+                                  decoration: TextDecoration.underline,
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.textColor3),
+                            ),
                           ),
                         ],
                       ),
-                    ),
-                  ],
+                      Container(
+                        margin: const EdgeInsets.only(top: 16, bottom: 0),
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        decoration: const BoxDecoration(
+                            color: CustomColors.backgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("name"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              employeeDetails?.name.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("IDHeading"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              employeeDetails?.username.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("email"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              employeeDetails?.email.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("contactNo").replaceAll(".", ""),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              formatNumberStringWithDash(
+                                  employeeDetails?.mobile.toString() ?? ""),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("tenantCompanyLounge"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              employeeDetails?.companyName.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(
+                              tr("registrationDate"),
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 14,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              employeeDetails?.registrationDate.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                height: 10,
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-              ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("accountStatus"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    accountStatusDropdownWidget(
-                        employeeDetails?.displayStatus.toString() ?? ""),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      tr("accountType"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    accountTypeDropdownWidget(
-                        employeeDetails?.displayAccountType.toString() ?? ""),
-                    Container(
-                      width: MediaQuery.of(context).size.width,
-                      margin: const EdgeInsets.only(top: 32, bottom: 16),
-                      child: CommonButton(
-                          onCommonButtonTap: () {
-                            updateValidationCheck(
-                                employeeDetails?.status.toString() ?? "",
-                                employeeDetails?.accountType.toString() ?? "");
-                          },
-                          buttonColor: CustomColors.buttonBackgroundColor,
-                          buttonName: tr("savebutton"),
-                          isIconVisible: false),
-                    ),
-                    CommonButtonWithBorder(
-                      onCommonButtonTap: () {
-                        Navigator.pop(context);
-                      },
-                      buttonBorderColor: CustomColors.dividerGreyColor,
-                      buttonName: tr("before"),
-                      buttonTextColor: CustomColors.textColor5,
-                    )
-                  ],
+                Container(
+                  height: 10,
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
                 ),
-              )
-            ],
-          )),
+                Container(
+                  padding: const EdgeInsets.all(16),
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("accountStatus"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      accountStatusDropdownWidget(
+                          employeeDetails?.displayStatus.toString() ?? ""),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        tr("accountType"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      accountTypeDropdownWidget(
+                          employeeDetails?.displayAccountType.toString() ?? ""),
+                      Container(
+                        width: MediaQuery.of(context).size.width,
+                        margin: const EdgeInsets.only(top: 32, bottom: 16),
+                        child: CommonButton(
+                            onCommonButtonTap: () {
+                              updateValidationCheck(
+                                  employeeDetails?.status.toString() ?? "",
+                                  employeeDetails?.accountType.toString() ?? "");
+                            },
+                            buttonColor: CustomColors.buttonBackgroundColor,
+                            buttonName: tr("savebutton"),
+                            isIconVisible: false),
+                      ),
+                      CommonButtonWithBorder(
+                        onCommonButtonTap: () {
+                          Navigator.pop(context);
+                        },
+                        buttonBorderColor: CustomColors.dividerGreyColor,
+                        buttonName: tr("before"),
+                        buttonTextColor: CustomColors.textColor5,
+                      )
+                    ],
+                  ),
+                )
+              ],
+            )),
+          ),
         ),
       ),
     );
