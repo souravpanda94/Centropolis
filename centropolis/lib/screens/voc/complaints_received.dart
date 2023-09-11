@@ -529,7 +529,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           String imageType = getFileExtension(selectedImages[0].path);
           debugPrint("image types ====> $imageType");
 
-          if (imageType == "jpg" || imageType == "jpeg" || imageType == "png") {
+          if (imageType == "jpg" || imageType == "jpeg" || imageType == "png" || imageType == "gif" || imageType == "bmp") {
             var decodedImage =
             await decodeImageFromList(tempImage.readAsBytesSync());
             int imageWidth = decodedImage.width;
@@ -1035,6 +1035,14 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
               //     fToast, context, responseJson['message'].toString(), "");
               showErrorCommonModal(context: context,
                   heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+          }else if (responseJson['error'] != null) {
+            debugPrint("Server error response ${responseJson['error']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['error'].toString(),
                   description: "",
                   buttonName: tr("check"));
           }
