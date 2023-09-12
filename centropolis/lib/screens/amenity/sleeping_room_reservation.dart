@@ -83,10 +83,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    // email = user.userData['email_key'].toString();
-    // mobile = user.userData['mobile'].toString();
-    //name = user.userData['name'].toString();
-    //companyName = user.userData['company_name'].toString();
     setWebViewLink();
     String day = focusedDate.day.toString();
     String month = focusedDate.month.toString();
@@ -107,9 +103,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     });
     debugPrint("Api key ===> $apiKey");
     internetCheckingForMethods();
-
-    // setListData();
-    // setFemaleListData();
   }
 
   @override
@@ -142,107 +135,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                // Container(
-                //   color: CustomColors.whiteColor,
-                //   padding: const EdgeInsets.only(
-                //       left: 16, right: 16, top: 16, bottom: 8),
-                //   child: Row(
-                //     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //     children: [
-                //       Text(
-                //         tr("seatSelection"),
-                //         style: const TextStyle(
-                //           fontSize: 16,
-                //           color: CustomColors.textColor8,
-                //           fontFamily: 'SemiBold',
-                //         ),
-                //       ),
-                //       Row(
-                //         children: [
-                //           Row(
-                //             children: [
-                //               const Icon(
-                //                 Icons.square,
-                //                 size: 15,
-                //                 color: CustomColors.textColor9,
-                //               ),
-                //               const SizedBox(
-                //                 width: 4,
-                //               ),
-                //               Text(
-                //                 tr("select"),
-                //                 style: const TextStyle(
-                //                   fontSize: 12,
-                //                   color: CustomColors.greyColor1,
-                //                   fontFamily: 'Regular',
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //           const SizedBox(
-                //             width: 8,
-                //           ),
-                //           Row(
-                //             children: [
-                //               const Icon(
-                //                 Icons.square_outlined,
-                //                 size: 15,
-                //                 color: CustomColors.textColor9,
-                //               ),
-                //               const SizedBox(
-                //                 width: 4,
-                //               ),
-                //               Text(
-                //                 tr("selectable"),
-                //                 style: const TextStyle(
-                //                   fontSize: 12,
-                //                   color: CustomColors.greyColor1,
-                //                   fontFamily: 'Regular',
-                //                 ),
-                //               )
-                //             ],
-                //           ),
-                //           const SizedBox(
-                //             width: 8,
-                //           ),
-                //           Row(
-                //             children: [
-                //               const Icon(
-                //                 Icons.square,
-                //                 size: 15,
-                //                 color: CustomColors.borderColor,
-                //               ),
-                //               const SizedBox(
-                //                 width: 4,
-                //               ),
-                //               Text(
-                //                 tr("closed"),
-                //                 style: const TextStyle(
-                //                   fontSize: 12,
-                //                   color: CustomColors.greyColor1,
-                //                   fontFamily: 'Regular',
-                //                 ),
-                //               )
-                //             ],
-                //           )
-                //         ],
-                //       )
-                //     ],
-                //   ),
-                // ),
-                // seatSelectionWidget(),
-                // Container(
-                //   width: MediaQuery.of(context).size.width,
-                //   color: CustomColors.whiteColor,
-                //   height: 10,
-                // ),
-                // Container(
-                //   width: MediaQuery.of(context).size.width,
-                //   color: CustomColors.backgroundColor,
-                //   height: 10,
-                // ),
-                //
-
                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
@@ -1179,10 +1071,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       isLoading = true;
     });
     Map<String, String> body = {
-      "start_time" : usageTimeSelectedValue ?? "",
-      "reservation_date":reservationDate, 
+      "start_time": usageTimeSelectedValue ?? "",
+      "reservation_date": reservationDate,
     };
-     debugPrint("TotalUsageTime input ::: $body");
+    debugPrint("TotalUsageTime input ::: $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getSleepingRoomTotalUsageTimeListUrl,
@@ -1190,16 +1082,13 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         language.toString(),
         apiKey);
 
-  
     response.then((response) {
       var responseJson = json.decode(response.body);
 
       if (responseJson != null) {
-
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['data'] != null) {
-
-           debugPrint("TotalUsageTime reseponse ::: $responseJson");
+            debugPrint("TotalUsageTime reseponse ::: $responseJson");
 
             setState(() {
               totalUsageTimeList = responseJson['data'];
@@ -1552,8 +1441,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     viewSeatSelectionListWithSeatsFinal.clear();
     selectedSeatListForView.clear();
 
-
-
     if (usageTimeSelectedValue == null) {
       if (usageTimeList.isNotEmpty) {
         setState(() {
@@ -1607,48 +1494,24 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       int? seatValue = selectedSeatList[i]['seat'];
       bool? available = selectedSeatList[i]['available'];
 
-      SelectedSeatModel model = SelectedSeatModel(seat: seatValue, available: available);
+      SelectedSeatModel model =
+          SelectedSeatModel(seat: seatValue, available: available);
       selectedSeatListForView.add(model);
     }
 
-
-
     for (int i = 0; i < viewSeatSelectionListWithTimeSlot.length; i++) {
-      // if (i < viewSeatSelectionListWithTimeSlot.length - 1) {
-      //   if (viewSeatSelectionListWithTimeSlot[i].seat !=
-      //       viewSeatSelectionListWithTimeSlot[i + 1].seat) {
-      //     int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      //     ViewSeatSelectionModel model = ViewSeatSelectionModel(
-      //         seat: seatValue, available: true, slot: "", slotRange: "");
-      //     viewSeatSelectionListWithSeats.insert(i, model);
-      //   } else {
+      int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
+      bool? available = viewSeatSelectionListWithTimeSlot[i].available;
+      String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
+      String? slotRange = viewSeatSelectionListWithTimeSlot[i].slotRange;
 
-
-
-          int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-          bool? available = viewSeatSelectionListWithTimeSlot[i].available;
-          String? slot = viewSeatSelectionListWithTimeSlot[i].slot;
-          String? slotRange = viewSeatSelectionListWithTimeSlot[i].slotRange;
-
-          ViewSeatSelectionModel model = ViewSeatSelectionModel(
-              seat: seatValue,
-              available: available,
-              slot: slot,
-              slotRange: slotRange);
-          viewSeatSelectionListWithSeats.insert(i, model);
-
-
-
-
-      //   }
-      // } else {
-      //   int? seatValue = viewSeatSelectionListWithTimeSlot[i].seat;
-      //   ViewSeatSelectionModel model = ViewSeatSelectionModel(
-      //       seat: seatValue, available: true, slot: "", slotRange: "");
-      //   viewSeatSelectionListWithSeats.add(model);
-      // }
+      ViewSeatSelectionModel model = ViewSeatSelectionModel(
+          seat: seatValue,
+          available: available,
+          slot: slot,
+          slotRange: slotRange);
+      viewSeatSelectionListWithSeats.insert(i, model);
     }
-
 
     showGeneralDialog(
         context: context,
@@ -1667,8 +1530,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               selectedSeatsValue,
               totalUsageTimeSelectedText,
               usageTimeList.cast<String>(),
-              selectedSeatListForView
-          );
+              selectedSeatListForView);
         });
   }
 
