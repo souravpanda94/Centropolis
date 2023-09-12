@@ -4,12 +4,14 @@ import 'dart:math';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user_info_model.dart';
@@ -25,6 +27,7 @@ import '../../widgets/common_modal.dart';
 
 class ComplaintsReceived extends StatefulWidget {
   final String parentInquirId;
+
   const ComplaintsReceived({super.key, required this.parentInquirId});
 
   @override
@@ -40,7 +43,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   late FToast fToast;
   bool isLoading = false;
   final ImagePicker imagePicker = ImagePicker();
-  List<XFile>? imageFileList = [];
+
+  // List<XFile>? imageFileList = [];
+  List<File>? imageFileList = [];
   String? complaintTypeTimeSelectedValue;
   List<dynamic> floorList = [];
   List<dynamic> complaintTypeList = [];
@@ -60,25 +65,17 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    // email = user.userData['email_key'].toString();
-    // mobile = user.userData['mobile'].toString();
     companyId = user.userData['company_id'].toString();
-    //companyName = user.userData['company_name'].toString();
-    //name = user.userData['name'].toString();
-    
     internetCheckingForMethods();
-
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: GestureDetector(
         onTap: () => hideKeyboard(),
         child: LoadingOverlay(
@@ -280,8 +277,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           ),
                           onTap: () {},
                           onTapOutside: (event) {
-                                FocusScope.of(context).unfocus();
-                              },
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -329,8 +326,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             fontFamily: 'Regular',
                           ),
                           onTapOutside: (event) {
-                                FocusScope.of(context).unfocus();
-                              },
+                            FocusScope.of(context).unfocus();
+                          },
                         ),
                       ),
                       const SizedBox(
@@ -351,8 +348,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             itemCount: imageFileList!.length,
                             itemBuilder: (context, index) {
                               return Container(
-                                height: 107,
-                                width: 107,
+                                height: 108,
+                                width: 108,
                                 margin: const EdgeInsets.only(right: 10),
                                 padding: EdgeInsets.zero,
                                 decoration: BoxDecoration(
@@ -365,12 +362,18 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                                   children: [
                                     ClipRRect(
                                       borderRadius: BorderRadius.circular(3.0),
-                                      child: Image.file(
-                                        File(imageFileList![index].path),
-                                        fit: BoxFit.fill,
-                                        width: 108,
-                                        height: 108,
-                                      ),
+                                      // child: Image.file(
+                                      //   File(imageFileList![index].path),
+                                      //   fit: BoxFit.fill,
+                                      //   width: 108,
+                                      //   height: 108,
+                                      // ),
+                                      child: Image(
+                                          height: 108,
+                                          width: 108,
+                                          image: FileImage(
+                                              File(imageFileList![index].path)),
+                                          fit: BoxFit.cover),
                                     ),
                                     Align(
                                         alignment: Alignment.topRight,
@@ -409,15 +412,14 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         onTap: () {
                           if (imageFileList != null &&
                               imageFileList!.length == 1) {
-                            // showCustomToast(fToast, context,
-                            //     "Only 1 image can be uploaded", "");
-                            showErrorCommonModal(context: context,
-                    heading :tr("imageCountValidation"),
-                    description: "",
-                    buttonName: tr("check"));
+                            showErrorCommonModal(
+                                context: context,
+                                heading: tr("imageCountValidation"),
+                                description: "",
+                                buttonName: tr("check"));
                           } else {
-                            // selectImages();
-                            openImagePicker(ImageSource.gallery);
+                            // openImagePicker(ImageSource.gallery);
+                            openFilePicker();
                           }
                         },
                         child: Container(
@@ -437,7 +439,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                                   style: const TextStyle(
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
-                                      color: CustomColors.buttonBackgroundColor)),
+                                      color:
+                                          CustomColors.buttonBackgroundColor)),
                               const SizedBox(
                                 width: 10,
                               ),
@@ -516,22 +519,31 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     return fileName.split('.').last;
   }
 
-  Future openImagePicker(ImageSource source) async {
+  openFilePicker() async {
     try {
-      // final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
-      final List<XFile> selectedImages =
-          await ImagePicker().pickMultiImage(imageQuality: 70);
-      if (selectedImages.isNotEmpty) {
+      FilePickerResult? result = await FilePicker.platform.pickFiles(
+        allowMultiple: false,
+        type: FileType.custom,
+        allowedExtensions: ['gif', 'jpg', 'jpeg', 'png', 'bmp'],
+      );
+
+      if (result != null) {
+        List<File>? selectedImages =
+            result.paths.map((path) => File(path!)).toList();
+
         if (selectedImages.length == 1) {
           final tempImage = File(selectedImages[0].path);
-
 
           String imageType = getFileExtension(selectedImages[0].path);
           debugPrint("image types ====> $imageType");
 
-          if (imageType == "jpg" || imageType == "jpeg" || imageType == "png" || imageType == "gif" || imageType == "bmp") {
+          if (imageType == "jpg" ||
+              imageType == "jpeg" ||
+              imageType == "png" ||
+              imageType == "gif" ||
+              imageType == "bmp") {
             var decodedImage =
-            await decodeImageFromList(tempImage.readAsBytesSync());
+                await decodeImageFromList(tempImage.readAsBytesSync());
             int imageWidth = decodedImage.width;
             int imageHeight = decodedImage.height;
             debugPrint(
@@ -549,8 +561,9 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
             if (mb > 15.0) {
               // showCustomToast(fToast, context, tr("imageSizeValidation"), "");
-              showErrorCommonModal(context: context,
-                  heading :tr("imageSizeValidation"),
+              showErrorCommonModal(
+                  context: context,
+                  heading: tr("imageSizeValidation"),
                   description: "",
                   buttonName: tr("check"));
             }
@@ -583,29 +596,121 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                 imageFileList!.addAll(selectedImages);
               });
             }
-
-          }else{
-            showErrorCommonModal(context: context,
-                heading : tr("imageFormatNotSupported"),
+          } else {
+            showErrorCommonModal(
+                context: context,
+                heading: tr("imageFormatNotSupported"),
                 description: "",
                 buttonName: tr("check"));
           }
-
-        }
-        else {
-          //showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
-           showErrorCommonModal(context: context,
-                  heading :tr("imageCountValidation"),
-                  description: "",
-                  buttonName: tr("check"));
+        } else {
+          showErrorCommonModal(
+              context: context,
+              heading: tr("imageCountValidation"),
+              description: "",
+              buttonName: tr("check"));
         }
       }
+
     } on PlatformException catch (e) {
       debugPrint("image pick null");
     }
   }
 
-  // Format File Size
+
+
+  // Future openImagePicker(ImageSource source) async {
+  //   try {
+  //     // final List<XFile> selectedImages = await ImagePicker().pickMultiImage(imageQuality: 70, maxHeight: 670, maxWidth: 670);
+  //     final List<XFile> selectedImages =
+  //         await ImagePicker().pickMultiImage(imageQuality: 70);
+  //     if (selectedImages.isNotEmpty) {
+  //       if (selectedImages.length == 1) {
+  //         final tempImage = File(selectedImages[0].path);
+  //
+  //
+  //         String imageType = getFileExtension(selectedImages[0].path);
+  //         debugPrint("image types ====> $imageType");
+  //
+  //         if (imageType == "jpg" || imageType == "jpeg" || imageType == "png" || imageType == "gif" || imageType == "bmp") {
+  //           var decodedImage =
+  //           await decodeImageFromList(tempImage.readAsBytesSync());
+  //           int imageWidth = decodedImage.width;
+  //           int imageHeight = decodedImage.height;
+  //           debugPrint(
+  //               '----------------Image resolution ${decodedImage.width} X ${decodedImage.height}----------------');
+  //
+  //           debugPrint(getFileSizeString(bytes: tempImage.lengthSync()));
+  //           // final bytes = (await tempImage.readAsBytes()).lengthInBytes;
+  //           final bytes = tempImage.readAsBytesSync().lengthInBytes;
+  //           final kb = bytes / 1024;
+  //           final mb = kb / 1024;
+  //           debugPrint(
+  //               "----------------Image size in bytes   $bytes---------------");
+  //           debugPrint("----------------Image size in KB   $kb---------------");
+  //           debugPrint("----------------Image size in MB   $mb---------------");
+  //
+  //           if (mb > 15.0) {
+  //             // showCustomToast(fToast, context, tr("imageSizeValidation"), "");
+  //             showErrorCommonModal(context: context,
+  //                 heading :tr("imageSizeValidation"),
+  //                 description: "",
+  //                 buttonName: tr("check"));
+  //           }
+  //           // else if (imageWidth > 670 && imageHeight > 670) {
+  //           //   showErrorCommonModal(context: context,
+  //           //       heading :tr("imageDimensionValidation"),
+  //           //       description: "",
+  //           //       buttonName: tr("check"));
+  //           // }
+  //           // else if (imageWidth > 670) {
+  //           //   // showCustomToast(
+  //           //   //     fToast, context, tr("imageDimensionValidation"), "");
+  //           //   showErrorCommonModal(context: context,
+  //           //       heading :tr("imageDimensionValidation"),
+  //           //       description: "",
+  //           //       buttonName: tr("check"));
+  //           // } else if (imageHeight > 670) {
+  //           //   // showCustomToast(
+  //           //   //     fToast, context, tr("imageDimensionValidation"), "");
+  //           //   showErrorCommonModal(context: context,
+  //           //       heading :tr("imageDimensionValidation"),
+  //           //       description: "",
+  //           //       buttonName: tr("check"));
+  //           // }
+  //           else {
+  //             setState(() {
+  //               fileImage = tempImage;
+  //               fileName = fileImage!.path.split('/').last.replaceAll("image_", "");
+  //               imageFileList!.addAll(selectedImages);
+  //             });
+  //           }
+  //
+  //         }else{
+  //           showErrorCommonModal(context: context,
+  //               heading : tr("imageFormatNotSupported"),
+  //               description: "",
+  //               buttonName: tr("check"));
+  //         }
+  //
+  //       }
+  //       else {
+  //         //showCustomToast(fToast, context, "Only 1 image can be uploaded", "");
+  //          showErrorCommonModal(context: context,
+  //                 heading :tr("imageCountValidation"),
+  //                 description: "",
+  //                 buttonName: tr("check"));
+  //       }
+  //     }
+  //   } on PlatformException catch (e) {
+  //     debugPrint("image pick null");
+  //   }
+  // }
+
+
+
+
+
   String getFileSizeString({required int bytes, int decimals = 0}) {
     if (bytes <= 0) return "0 Bytes";
     const suffixes = [" Bytes", "KB", "MB", "GB", "TB"];
@@ -712,8 +817,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     );
   }
 
-  
-
   void callLoadFloorListApi() {
     setState(() {
       isLoading = true;
@@ -741,13 +844,14 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
           }
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -756,10 +860,11 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -863,8 +968,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     );
   }
 
-  
-
   void callLoadComplaintTypeListApi() {
     setState(() {
       isLoading = true;
@@ -885,12 +988,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -899,10 +1003,11 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -950,8 +1055,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     if (await internetChecking.isInternet()) {
       callReservationApi();
     } else {
-     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1031,20 +1136,22 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
-          }else if (responseJson['error'] != null) {
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
+          } else if (responseJson['error'] != null) {
             debugPrint("Server error response ${responseJson['error']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['error'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['error'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1053,17 +1160,16 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-  
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1096,12 +1202,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1110,10 +1217,11 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1124,17 +1232,15 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
-    callLoadComplaintTypeListApi();
-    callLoadFloorListApi();
-
+      callLoadComplaintTypeListApi();
+      callLoadFloorListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
     }
   }
-
 }
