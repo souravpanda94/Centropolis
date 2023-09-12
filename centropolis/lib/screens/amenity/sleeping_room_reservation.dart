@@ -1,11 +1,6 @@
 import 'dart:convert';
-
-// import 'dart:math';
 import 'dart:developer';
-import 'package:centropolis/screens/amenity/view_seat_selection.dart';
-import 'package:centropolis/screens/amenity/view_seat_selection_modal.dart';
 import 'package:centropolis/screens/amenity/view_seat_selection_modal_New.dart';
-import 'package:centropolis/screens/amenity/view_seat_selection_modal_latest.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/foundation.dart';
@@ -736,6 +731,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           setState(() {
             usageTimeSelectedValue = value as String;
             selectedSeatsValue = null;
+            totalTimeSelectedValue = null;
           });
           callLoadTotalUsageTimeListApi();
           if (usageTimeList.isNotEmpty && totalUsageTimeList.isNotEmpty) {
@@ -1178,6 +1174,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void callLoadTotalUsageTimeListApi() {
+    totalUsageTimeList.clear();
     setState(() {
       isLoading = true;
     });
@@ -1257,6 +1254,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
   }
 
   void callLoadSelectedSeatListApi() {
+    selectedSeatList.clear();
     // setState(() {
     //   isLoading = true;
     // });
@@ -1554,6 +1552,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     viewSeatSelectionListWithSeatsFinal.clear();
     selectedSeatListForView.clear();
 
+
+
     if (usageTimeSelectedValue == null) {
       if (usageTimeList.isNotEmpty) {
         setState(() {
@@ -1568,7 +1568,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         });
       }
     }
-    if (totalUsageTimeSelectedText == null) {
+
+    if (totalTimeSelectedValue == null) {
       if (totalUsageTimeList.isNotEmpty) {
         setState(() {
           totalUsageTimeSelectedText =
