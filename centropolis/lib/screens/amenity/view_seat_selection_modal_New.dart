@@ -200,14 +200,17 @@ class _ViewSeatSelectionModalScreenState
 
 
                       SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                              width: double.infinity,
+                              width:  400,
                               height: height,
                               margin: const EdgeInsets.only(top: 20, left: 10),
                               child: AlignedGridView.count(
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
                                 crossAxisCount: widget.timeSlotList.length,
                                 scrollDirection: Axis.horizontal,
                                 itemCount:
@@ -272,13 +275,13 @@ class _ViewSeatSelectionModalScreenState
                               ),
                             ),
                             Container(
-                              width: double.infinity,
+                              width: 400,
                               height: 35,
                               margin: const EdgeInsets.only(
                                   top: 5, bottom: 10, left: 10),
                               child: AlignedGridView.count(
-                                // physics: const NeverScrollableScrollPhysics(),
-                                // shrinkWrap: true,
+                                physics: const NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
                                 crossAxisCount: 1,
                                 scrollDirection: Axis.horizontal,
                                 itemCount: widget.selectedSeatListForView.length,
