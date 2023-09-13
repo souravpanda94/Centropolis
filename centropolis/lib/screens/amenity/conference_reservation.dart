@@ -21,6 +21,7 @@ import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
+import '../../widgets/multi_select_amenity_item.dart';
 import '../../widgets/multi_select_item_lounge.dart';
 import '../my_page/web_view_ui.dart';
 import 'conference_availability_modal.dart';
@@ -1763,7 +1764,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     final List<dynamic>? results = await showDialog(
       context: context,
       builder: (BuildContext context) {
-        return MultiSelectLoungeEquipments(
+        return MultiSelectAmenityEquipments(
           items: equipmentsList,
           alreadySelectedItems: _selectedEquipments,
         );
@@ -1775,7 +1776,10 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       _selectedEquipmentsValue.clear();
 
       for (var i = 0; i < results.length; i++) {
-        _selectedEquipmentsValue.add(results[i]["value"]);
+        if(results[i]["value"]!=null && results[i]["value"].toString().isNotEmpty){
+           _selectedEquipmentsValue.add(results[i]["value"]);
+        }
+
       }
 
       setState(() {

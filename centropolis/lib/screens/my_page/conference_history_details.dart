@@ -54,10 +54,10 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
             .getConferenceHistoryDetailModel;
 
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.textColor4,
@@ -103,7 +103,8 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                                       fontSize: 16,
                                       color: CustomColors.textColor8),
                                 ),
-                                if (conferenceHistoryDetails?.status.toString() !=
+                                if (conferenceHistoryDetails?.status
+                                        .toString() !=
                                     "")
                                   Container(
                                     decoration: BoxDecoration(
@@ -337,8 +338,14 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                               height: 8,
                             ),
                             Text(
-                              conferenceHistoryDetails?.equipments ??
-                                  "",
+                              conferenceHistoryDetails!.equipments
+                                      .toString()
+                                      .trim()
+                                      .isNotEmpty
+                                  ? conferenceHistoryDetails!.equipments
+                                      .toString()
+                                      .trim()
+                                  : tr("noRequest"),
                               style: const TextStyle(
                                   fontFamily: 'Regular',
                                   fontSize: 14,
@@ -441,7 +448,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
       callConferenceHistoryDetailsApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -480,13 +487,14 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
               .setItem(conferenceHistoryDetailModel);
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -495,10 +503,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -511,7 +520,7 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
       callCancelReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -549,12 +558,13 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -563,10 +573,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
