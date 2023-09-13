@@ -32,18 +32,15 @@ class _MultiSelectAmenityEquipmentsState
     fToast = FToast();
     fToast.init(context);
     _previouslySelectedItems = widget.alreadySelectedItems;
-     _previouslySelectedItems?.forEach((element) {
-      if(element["value"] != ""){
+    _previouslySelectedItems?.forEach((element) {
+      if (element["value"] != "") {
         _selectedItems?.add(element);
-      }else{
+      } else {
         setState(() {
           services = Services.noRequest;
         });
       }
-      
     });
-  
-   
   }
 
 // This function is triggered when a checkbox is checked or unchecked
@@ -66,11 +63,10 @@ class _MultiSelectAmenityEquipmentsState
   void _submit() {
     if (_selectedItems!.isNotEmpty) {
       Navigator.pop(context, _selectedItems);
-    }
-    else if(services == Services.noRequest){
-      
-      Navigator.pop(context, [{"value": "", "text": tr("noRequest")}]);
-
+    } else if (services == Services.noRequest) {
+      Navigator.pop(context, [
+        {"value": "", "text": tr("noRequest")}
+      ]);
     } else {
       //showCustomToast(fToast, context, tr("equipmentsHint"), "");
       showErrorCommonModal(
@@ -87,10 +83,15 @@ class _MultiSelectAmenityEquipmentsState
     });
   }
 
+  void changeRadioSelection(Services value) {
+    setState(() {
+      services = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
-
 
     return AlertDialog(
       // actionsPadding: const EdgeInsets.only(left: 16, bottom: 16),
@@ -115,36 +116,40 @@ class _MultiSelectAmenityEquipmentsState
         child: SingleChildScrollView(
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Radio<Services>(
-                        activeColor: CustomColors.buttonBackgroundColor,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        value: Services.request,
-                        groupValue: services,
-                        onChanged: (Services? value) {
-                          setState(() {
-                            services = value;
-                          });
-                        },
+              InkWell(
+                onTap: () {
+                  changeRadioSelection(Services.request);
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Radio<Services>(
+                          activeColor: CustomColors.buttonBackgroundColor,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          value: Services.request,
+                          groupValue: services,
+                          onChanged: (Services? value) {
+                            changeRadioSelection(value!);
+                          },
+                        ),
                       ),
-                    ),
-                     Padding(
-                      padding:const  EdgeInsets.only(left: 10),
-                      child: Text(
-                        tr("request"),
-                        style:const TextStyle(
-                            fontFamily: 'Regular',
-                            color: CustomColors.textColorBlack2,
-                            fontSize: 14),
-                      ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          tr("request"),
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              color: CustomColors.textColorBlack2,
+                              fontSize: 14),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
               ListBody(
@@ -182,39 +187,45 @@ class _MultiSelectAmenityEquipmentsState
                         ))
                     .toList(),
               ),
-              Padding(
-                padding: const EdgeInsets.only(top: 10, bottom: 10),
-                child: Row(
-                  children: [
-                    SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: Radio<Services>(
-                        activeColor: CustomColors.buttonBackgroundColor,
-                        materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                        value: Services.noRequest,
-                        groupValue: services,
-                        onChanged: (Services? value) {
-                          setState(() {
-                            services = value;
-                            if (_selectedItems != null) {
-                              _selectedItems!.clear();
-                            }
-                          });
-                        },
+              InkWell(
+                onTap: () {
+                  changeRadioSelection(Services.noRequest);
+                  setState(() {
+                    if (_selectedItems != null) {
+                      _selectedItems!.clear();
+                    }
+                  });
+                },
+                child: Padding(
+                  padding: const EdgeInsets.only(top: 10, bottom: 10),
+                  child: Row(
+                    children: [
+                      SizedBox(
+                        height: 20,
+                        width: 20,
+                        child: Radio<Services>(
+                          activeColor: CustomColors.buttonBackgroundColor,
+                          materialTapTargetSize:
+                              MaterialTapTargetSize.shrinkWrap,
+                          value: Services.noRequest,
+                          groupValue: services,
+                          onChanged: (Services? value) {
+                            changeRadioSelection(value!);
+                          },
+                        ),
                       ),
-                    ),
-                     Padding(
-                      padding: const EdgeInsets.only(left: 10),
-                      child: Text(
-                        tr("noRequest"),
-                        style: const TextStyle(
-                            fontFamily: 'Regular',
-                            color: CustomColors.textColorBlack2,
-                            fontSize: 14),
-                      ),
-                    )
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.only(left: 10),
+                        child: Text(
+                          tr("noRequest"),
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              color: CustomColors.textColorBlack2,
+                              fontSize: 14),
+                        ),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
