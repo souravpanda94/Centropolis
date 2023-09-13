@@ -55,10 +55,10 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
         Provider.of<LoungeHistoryDetailsProvider>(context)
             .getLoungeHistoryDetailModel;
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.whiteColor,
@@ -105,7 +105,8 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                                       color: CustomColors.textColor8),
                                 ),
                                 if (loungeHistoryDetailModel != null &&
-                                    loungeHistoryDetailModel?.status.toString() !=
+                                    loungeHistoryDetailModel?.status
+                                            .toString() !=
                                         "")
                                   Container(
                                     decoration: BoxDecoration(
@@ -150,7 +151,8 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                                       color: CustomColors.textColorBlack2),
                                 ),
                                 Text(
-                                  loungeHistoryDetailModel?.name.toString() ?? "",
+                                  loungeHistoryDetailModel?.name.toString() ??
+                                      "",
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   style: const TextStyle(
@@ -280,8 +282,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                               height: 8,
                             ),
                             Text(
-                              loungeHistoryDetailModel?.purpose
-                                      .toString() ??
+                              loungeHistoryDetailModel?.purpose.toString() ??
                                   "",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
@@ -292,8 +293,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                             )
                           ],
                         ),
-                      )
-                      ,
+                      ),
                       const SizedBox(
                         height: 8,
                       ),
@@ -317,7 +317,8 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                               height: 8,
                             ),
                             Text(
-                              loungeHistoryDetailModel?.displayNumberOfParticipants
+                              loungeHistoryDetailModel
+                                      ?.displayNumberOfParticipants
                                       .toString() ??
                                   "",
                               maxLines: 1,
@@ -329,7 +330,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                             )
                           ],
                         ),
-                      ) ,
+                      ),
                       const SizedBox(
                         height: 8,
                       ),
@@ -366,7 +367,7 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                           ],
                         ),
                       ),
-                       const SizedBox(
+                      const SizedBox(
                         height: 8,
                       ),
                       Container(
@@ -389,9 +390,13 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                               height: 8,
                             ),
                             Text(
-                              loungeHistoryDetailModel?.equipments
-                                      .toString() ??
-                                  "",
+                              loungeHistoryDetailModel!.equipments
+                                      .toString()
+                                      .trim()
+                                      .isNotEmpty
+                                  ? loungeHistoryDetailModel!.equipments
+                                      .toString()
+                                  : tr("noRequest"),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -500,8 +505,9 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -512,10 +518,11 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -567,8 +574,9 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -579,10 +587,11 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
