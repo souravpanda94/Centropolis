@@ -198,7 +198,6 @@ class _ViewSeatSelectionModalScreenState
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Container(
-                              width: 400,
                               height: height,
                               margin: const EdgeInsets.only(top: 20, left: 10),
                               child: AlignedGridView.count(
@@ -268,7 +267,6 @@ class _ViewSeatSelectionModalScreenState
                               ),
                             ),
                             Container(
-                              width: 400,
                               height: 35,
                               margin: const EdgeInsets.only(
                                   top: 5, bottom: 10, left: 10),
