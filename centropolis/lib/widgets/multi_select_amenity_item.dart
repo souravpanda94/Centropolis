@@ -86,6 +86,9 @@ class _MultiSelectAmenityEquipmentsState
   void changeRadioSelection(Services value) {
     setState(() {
       services = value;
+      if (_selectedItems != null && value == Services.noRequest) {
+        _selectedItems!.clear();
+      }
     });
   }
 
@@ -190,11 +193,6 @@ class _MultiSelectAmenityEquipmentsState
               InkWell(
                 onTap: () {
                   changeRadioSelection(Services.noRequest);
-                  setState(() {
-                    if (_selectedItems != null) {
-                      _selectedItems!.clear();
-                    }
-                  });
                 },
                 child: Padding(
                   padding: const EdgeInsets.only(top: 10, bottom: 10),

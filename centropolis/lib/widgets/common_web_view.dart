@@ -28,9 +28,13 @@ class _CommonWebviewState extends State<CommonWebview> {
           initialUrl: widget.webUrl,
           javascriptMode: JavascriptMode.unrestricted,
           onPageFinished: (finish) {
-            setState(() {
+            if(mounted){
+               setState(() {
               isLoading = false;
             });
+
+            }
+           
           },
         ),
         isLoading ? const Center( child: CircularProgressIndicator(color: CustomColors.blackColor,),)
