@@ -1141,13 +1141,17 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      if(mounted){
+        showErrorCommonModal(context: context,
           heading: tr("errorDescription"),
           description:"",
           buttonName : tr("check"));
       setState(() {
         isLoading = false;
       });
+
+      }
+       
     });
   }
 

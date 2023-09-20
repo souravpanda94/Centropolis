@@ -99,7 +99,7 @@ class _GXReservationState extends State<GXReservation> {
                 controller: controller1,
                 thumbVisibility: true,
                 child: SingleChildScrollView(
-                  controller: controller2,
+                  controller: controller1,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -223,9 +223,9 @@ class _GXReservationState extends State<GXReservation> {
             ),
             Expanded(
               child:
-              gxReservationListItem!.length > 1 ?
+              gxReservationListItem!.isNotEmpty ?
               ListView.builder(
-                  controller: controller1,
+                  controller: controller2,
                   physics: const AlwaysScrollableScrollPhysics(),
                   scrollDirection: Axis.vertical,
                   shrinkWrap: true,
