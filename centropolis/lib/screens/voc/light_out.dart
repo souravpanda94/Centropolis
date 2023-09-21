@@ -109,11 +109,13 @@ class _LightOutScreenState extends State<LightOutScreen> {
   }
 
   void firstTimeLoadLightsOutList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    loadLightsOutList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      loadLightsOutList();
+    }
   }
 
   void loadLightsOutList() async {
@@ -122,7 +124,7 @@ class _LightOutScreenState extends State<LightOutScreen> {
       callLightsOutListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -141,43 +143,47 @@ class _LightOutScreenState extends State<LightOutScreen> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getLightsOutListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for LightsOut List ===> $responseJson");
+        debugPrint("server response for LightsOut List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<LightOutListModel> lightoutList = List<LightOutListModel>.from(
-              responseJson['inquiry_data']
-                  .map((x) => LightOutListModel.fromJson(x)));
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<LightOutListModel> lightoutList = List<LightOutListModel>.from(
+                responseJson['inquiry_data']
+                    .map((x) => LightOutListModel.fromJson(x)));
 
-          Provider.of<LightoutListProvider>(context, listen: false)
-              .setItem(lightoutList);
-        } else {
-          if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
+            Provider.of<LightoutListProvider>(context, listen: false)
+                .setItem(lightoutList);
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-     
+
       if (mounted) {
-         showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });

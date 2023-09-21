@@ -53,13 +53,11 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
     internetCheckingForMethods();
   }
 
-
   void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callStatusListApi();
       firstTimeLoadInconvenienceList();
-
     } else {
       // showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -69,7 +67,6 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
           buttonName: tr("check"));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -316,13 +313,15 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
   }
 
   void firstTimeLoadInconvenienceList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    Provider.of<InconvenienceListProvider>(context, listen: false)
-        .setEmptyList();
-    loadInconvenienceList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      Provider.of<InconvenienceListProvider>(context, listen: false)
+          .setEmptyList();
+      loadInconvenienceList();
+    }
   }
 
   void loadInconvenienceList() async {
@@ -340,9 +339,11 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
   }
 
   void callInconvenienceListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -357,46 +358,50 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getInconvenienceListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
-
-      debugPrint("server response for Inconvenience List ===> $responseJson");
-       
-
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<IncovenienceListModel> incovenienceList =
-              List<IncovenienceListModel>.from(responseJson['inquiry_data']
-                  .map((x) => IncovenienceListModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<InconvenienceListProvider>(context, listen: false)
-                .setItem(incovenienceList);
-          } else {
-            Provider.of<InconvenienceListProvider>(context, listen: false)
-                .addItem(incovenienceList);
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading: responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
-        }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
-        }}).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-      
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        var responseJson = json.decode(response.body);
+
+        debugPrint("server response for Inconvenience List ===> $responseJson");
+
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<IncovenienceListModel> incovenienceList =
+                List<IncovenienceListModel>.from(responseJson['inquiry_data']
+                    .map((x) => IncovenienceListModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<InconvenienceListProvider>(context, listen: false)
+                  .setItem(incovenienceList);
+            } else {
+              Provider.of<InconvenienceListProvider>(context, listen: false)
+                  .addItem(incovenienceList);
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
+          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
+        }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -482,7 +487,6 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
     );
   }
 
-
   // void loadStatusList() async {
   //   final InternetChecking internetChecking = InternetChecking();
   //   if (await internetChecking.isInternet()) {
@@ -498,47 +502,53 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
   // }
 
   void callStatusListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.inconvenienceStatusUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              statusList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              statusList?.insert(0, allMap);
-            });
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                statusList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                statusList?.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
       }
     });
   }

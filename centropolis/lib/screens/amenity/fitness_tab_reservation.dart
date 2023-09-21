@@ -1158,14 +1158,17 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   
 
   void callLoadTimeListApi() {
-    setState(() {
+   if(mounted){
+     setState(() {
       isLoading = true;
     });
+   }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessTimeListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if(mounted){
+        var responseJson = json.decode(response.body);
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
@@ -1189,6 +1192,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
           isLoading = false;
         });
       }
+      }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
        if(mounted){
@@ -1206,9 +1210,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   
 
   void callLoadTotalUsageTimeListApi() {
-    setState(() {
+    if(mounted){
+      setState(() {
       isLoading = true;
     });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessTotalUsageTimeListUrl,
@@ -1216,7 +1222,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if(mounted){
+        var responseJson = json.decode(response.body);
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
@@ -1240,6 +1247,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
             isLoading = false;
           });
         }
+      }
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
@@ -1407,9 +1415,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   
 
   void callLoadPersonalInformationApi() {
-    setState(() {
+    if(mounted){
+      setState(() {
       isLoading = true;
     });
+    }
     Map<String, String> body = {};
 
     debugPrint("Get personal info input===> $body");
@@ -1417,7 +1427,8 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if(mounted){
+        var responseJson = json.decode(response.body);
 
       debugPrint("server response for Get personal info ===> $responseJson");
 
@@ -1448,6 +1459,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       setState(() {
         isLoading = false;
       });
+      }
     }).catchError((onError) {
       if(mounted){
          showErrorCommonModal(context: context,

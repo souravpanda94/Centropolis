@@ -26,8 +26,6 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 
-
-
 class SleepingRoomReservation extends StatefulWidget {
   const SleepingRoomReservation({super.key});
 
@@ -152,7 +150,6 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                     ),
                   ),
                 ),
-
                 Container(
                   color: CustomColors.whiteColor,
                   width: MediaQuery.of(context).size.width,
@@ -1289,7 +1286,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
       showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
       showErrorModal(tr("usageTimeValidation"));
-    } else if (selectedSeatsValue == null) {
+    } else if (selectedSeatsValue == null && selectedSeatList.isEmpty) {
       showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
@@ -1349,7 +1346,10 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               totalTimeSelectedValue.toString().isNotEmpty
           ? totalTimeSelectedValue.toString().trim()
           : totalUsageTimeList.first["value"].toString().trim(), //required
-      "seat": selectedSeatsValue!.toString().trim(), //required
+      "seat":
+          selectedSeatsValue != null && selectedSeatsValue.toString().isNotEmpty
+              ? selectedSeatsValue!.toString().trim()
+              : selectedSeatList.first['seat'].toString(), //required
       // "usage_hours": 0.5,
       // "seat": 16
     };

@@ -222,175 +222,176 @@ class _GXReservationState extends State<GXReservation> {
               height: 24,
             ),
             Expanded(
-              child:
-              gxReservationListItem!.isNotEmpty ?
-              ListView.builder(
-                  controller: controller2,
-                  physics: const AlwaysScrollableScrollPhysics(),
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: gxReservationListItem?.length,
-                  itemBuilder: ((context, index) {
-                    return InkWell(
-                      onTap: () {
-                        if (gxReservationListItem?[index].status ==
-                            "receiving") {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => GXReservationDetail(
-                                  gxReservationItem:
-                                      gxReservationListItem![index]),
-                            ),
-                          ).then((value) {
-                            if (value) {
-                              firstTimeLoadGxFitnessReservationList();
-                            }
-                          });
-                        }
-                      },
-                      child: Container(
-                        width: MediaQuery.of(context).size.width,
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 18, horizontal: 16),
-                        margin: EdgeInsets.only(
-                            bottom: Platform.isAndroid ? 13 : 9),
-                        decoration: BoxDecoration(
-                            color: CustomColors.whiteColor,
-                            border: Border.all(
-                              color:
-                                  // gxList[index]["status"] == "Active"
-                                  gxReservationListItem?[index].status ==
-                                          "receiving"
-                                      ? CustomColors.borderColor
-                                      : CustomColors.backgroundColor2,
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(4))),
-                        child: Column(
-                          children: [
-                            Row(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Expanded(
-                                  child: Text(
-                                    // gxList[index]["title"],
-                                    gxReservationListItem?[index]
-                                            .title
-                                            .toString()
-                                            .toUpperCase() ??
-                                        "",
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 14,
-                                        color:
-                                            // gxList[index]["status"] == "Active"
-                                            gxReservationListItem?[index]
-                                                        .status ==
-                                                    "receiving"
-                                                ? CustomColors.textColor8
-                                                : CustomColors
-                                                    .dividerGreyColor),
-                                  ),
+              child: gxReservationListItem!.isNotEmpty
+                  ? ListView.builder(
+                      controller: controller2,
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      shrinkWrap: true,
+                      itemCount: gxReservationListItem?.length,
+                      itemBuilder: ((context, index) {
+                        return InkWell(
+                          onTap: () {
+                            if (gxReservationListItem?[index].status ==
+                                "receiving") {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => GXReservationDetail(
+                                      gxReservationItem:
+                                          gxReservationListItem![index]),
                                 ),
-                                Container(
-                                  padding: EdgeInsets.symmetric(
-                                      vertical: Platform.isAndroid ? 5 : 2,
-                                      horizontal: 12),
-                                  margin: const EdgeInsets.only(left: 20),
-                                  decoration: BoxDecoration(
-                                      color: CustomColors.whiteColor,
-                                      border: Border.all(
-                                        color:
-                                            // gxList[index]["status"] == "Active"
-                                            gxReservationListItem?[index]
-                                                        .status ==
-                                                    "receiving"
-                                                ? CustomColors.textColor9
-                                                : CustomColors.dividerGreyColor,
+                              ).then((value) {
+                                if (value) {
+                                  firstTimeLoadGxFitnessReservationList();
+                                }
+                              });
+                            }
+                          },
+                          child: Container(
+                            width: MediaQuery.of(context).size.width,
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 18, horizontal: 16),
+                            margin: EdgeInsets.only(
+                                bottom: Platform.isAndroid ? 13 : 9),
+                            decoration: BoxDecoration(
+                                color: CustomColors.whiteColor,
+                                border: Border.all(
+                                  color:
+                                      // gxList[index]["status"] == "Active"
+                                      gxReservationListItem?[index].status ==
+                                              "receiving"
+                                          ? CustomColors.borderColor
+                                          : CustomColors.backgroundColor2,
+                                ),
+                                borderRadius:
+                                    const BorderRadius.all(Radius.circular(4))),
+                            child: Column(
+                              children: [
+                                Row(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Expanded(
+                                      child: Text(
+                                        // gxList[index]["title"],
+                                        gxReservationListItem?[index]
+                                                .title
+                                                .toString()
+                                                .toUpperCase() ??
+                                            "",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontFamily: 'SemiBold',
+                                            fontSize: 14,
+                                            color:
+                                                // gxList[index]["status"] == "Active"
+                                                gxReservationListItem?[index]
+                                                            .status ==
+                                                        "receiving"
+                                                    ? CustomColors.textColor8
+                                                    : CustomColors
+                                                        .dividerGreyColor),
                                       ),
-                                      borderRadius: const BorderRadius.all(
-                                          Radius.circular(50))),
-                                  child: Text(
-                                    // gxList[index]["status"] == "Active"
-                                    gxReservationListItem?[index].status ==
-                                            "receiving"
-                                        ? tr("apply")
-                                        : tr("deadline"),
-                                    style: TextStyle(
-                                        fontFamily: 'SemiBold',
-                                        fontSize: 12,
-                                        color:
-                                            // gxList[index]["status"] == "Active"
-                                            gxReservationListItem?[index]
-                                                        .status ==
-                                                    "receiving"
-                                                ? CustomColors.textColor9
-                                                : CustomColors
-                                                    .dividerGreyColor),
+                                    ),
+                                    Container(
+                                      padding: EdgeInsets.symmetric(
+                                          vertical: Platform.isAndroid ? 5 : 2,
+                                          horizontal: 12),
+                                      margin: const EdgeInsets.only(left: 20),
+                                      decoration: BoxDecoration(
+                                          color: CustomColors.whiteColor,
+                                          border: Border.all(
+                                            color:
+                                                // gxList[index]["status"] == "Active"
+                                                gxReservationListItem?[index]
+                                                            .status ==
+                                                        "receiving"
+                                                    ? CustomColors.textColor9
+                                                    : CustomColors
+                                                        .dividerGreyColor,
+                                          ),
+                                          borderRadius: const BorderRadius.all(
+                                              Radius.circular(50))),
+                                      child: Text(
+                                        // gxList[index]["status"] == "Active"
+                                        gxReservationListItem?[index].status ==
+                                                "receiving"
+                                            ? tr("apply")
+                                            : tr("deadline"),
+                                        style: TextStyle(
+                                            fontFamily: 'SemiBold',
+                                            fontSize: 12,
+                                            color:
+                                                // gxList[index]["status"] == "Active"
+                                                gxReservationListItem?[index]
+                                                            .status ==
+                                                        "receiving"
+                                                    ? CustomColors.textColor9
+                                                    : CustomColors
+                                                        .dividerGreyColor),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                                const SizedBox(
+                                  height: 10,
+                                ),
+                                IntrinsicHeight(
+                                  child: Row(
+                                    children: [
+                                      Text(
+                                        // gxList[index]["datetime"],
+                                        "${gxReservationListItem?[index].applicationStartDate} ~ ${gxReservationListItem?[index].applicationEndDate}",
+                                        style: TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 12,
+                                            color:
+                                                // gxList[index]["status"] == "Active"
+                                                gxReservationListItem?[index]
+                                                            .status ==
+                                                        "receiving"
+                                                    ? CustomColors.textColor3
+                                                    : CustomColors
+                                                        .dividerGreyColor),
+                                      ),
+                                      Container(
+                                        margin: const EdgeInsets.only(
+                                            left: 4, right: 4),
+                                        child: const VerticalDivider(
+                                          color: CustomColors.borderColor,
+                                        ),
+                                      ),
+                                      Flexible(
+                                        child: Text(
+                                          gxReservationListItem?[index]
+                                                  .programDaysData
+                                                  .toString()
+                                                  .trim() ??
+                                              "",
+                                          style: TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 12,
+                                              color:
+                                                  // gxList[index]["status"] == "Active"
+                                                  gxReservationListItem?[index]
+                                                              .status ==
+                                                          "receiving"
+                                                      ? CustomColors.textColor3
+                                                      : CustomColors
+                                                          .dividerGreyColor),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 )
                               ],
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            IntrinsicHeight(
-                              child: Row(
-                                children: [
-                                  Text(
-                                    // gxList[index]["datetime"],
-                                    "${gxReservationListItem?[index].applicationStartDate} ~ ${gxReservationListItem?[index].applicationEndDate}",
-                                    style: TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 12,
-                                        color:
-                                            // gxList[index]["status"] == "Active"
-                                            gxReservationListItem?[index]
-                                                        .status ==
-                                                    "receiving"
-                                                ? CustomColors.textColor3
-                                                : CustomColors
-                                                    .dividerGreyColor),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(
-                                        left: 4, right: 4),
-                                    child: const VerticalDivider(
-                                      color: CustomColors.borderColor,
-                                    ),
-                                  ),
-                                  Flexible(
-                                    child: Text(
-                                      gxReservationListItem?[index]
-                                              .programDaysData
-                                              .toString()
-                                              .trim() ??
-                                          "",
-                                      style: TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 12,
-                                          color:
-                                              // gxList[index]["status"] == "Active"
-                                              gxReservationListItem?[index]
-                                                          .status ==
-                                                      "receiving"
-                                                  ? CustomColors.textColor3
-                                                  : CustomColors
-                                                      .dividerGreyColor),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  }))
+                          ),
+                        );
+                      }))
                   : Container(),
             ),
             if (page < totalPages)
@@ -406,11 +407,13 @@ class _GXReservationState extends State<GXReservation> {
   }
 
   void firstTimeLoadGxFitnessReservationList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    loadGxFitnessReservationList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      loadGxFitnessReservationList();
+    }
   }
 
   void loadGxFitnessReservationList() async {
@@ -428,9 +431,11 @@ class _GXReservationState extends State<GXReservation> {
   }
 
   void callGxFitnessReservationListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(), //required
       "limit": limit.toString()
@@ -444,40 +449,42 @@ class _GXReservationState extends State<GXReservation> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint(
-          "server response for Gx Fitness Reservation List ===> $responseJson");
+        debugPrint(
+            "server response for Gx Fitness Reservation List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          List<GxFitnessReservationModel> reservationListList =
-              List<GxFitnessReservationModel>.from(
-                  responseJson['reservegx_data']
-                      .map((x) => GxFitnessReservationModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<GxFitnessReservationProvider>(context, listen: false)
-                .setItem(reservationListList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            List<GxFitnessReservationModel> reservationListList =
+                List<GxFitnessReservationModel>.from(
+                    responseJson['reservegx_data']
+                        .map((x) => GxFitnessReservationModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<GxFitnessReservationProvider>(context, listen: false)
+                  .setItem(reservationListList);
+            } else {
+              Provider.of<GxFitnessReservationProvider>(context, listen: false)
+                  .addItem(reservationListList);
+            }
           } else {
-            Provider.of<GxFitnessReservationProvider>(context, listen: false)
-                .addItem(reservationListList);
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(
-                context: context,
-                heading: responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");

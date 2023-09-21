@@ -110,11 +110,13 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
   }
 
   void firstTimeLoadInconvenienceList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    loadInconvenienceList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      loadInconvenienceList();
+    }
   }
 
   void loadInconvenienceList() async {
@@ -123,7 +125,7 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
       callInconvenienceListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -142,43 +144,47 @@ class _InconvenienceScreenState extends State<InconvenienceScreen> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getInconvenienceListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Inconvenience List ===> $responseJson");
+        debugPrint("server response for Inconvenience List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<IncovenienceListModel> incovenienceList =
-              List<IncovenienceListModel>.from(responseJson['inquiry_data']
-                  .map((x) => IncovenienceListModel.fromJson(x)));
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<IncovenienceListModel> incovenienceList =
+                List<IncovenienceListModel>.from(responseJson['inquiry_data']
+                    .map((x) => IncovenienceListModel.fromJson(x)));
 
-          Provider.of<InconvenienceListProvider>(context, listen: false)
-              .setItem(incovenienceList);
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+            Provider.of<InconvenienceListProvider>(context, listen: false)
+                .setItem(incovenienceList);
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });

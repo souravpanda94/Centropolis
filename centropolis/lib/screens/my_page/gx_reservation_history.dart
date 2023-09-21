@@ -337,12 +337,14 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
   }
 
   void firstTimeLoadGXHistoryList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    Provider.of<GxListHistoryProvider>(context, listen: false).setEmptyList();
-    loadGXHistoryList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      Provider.of<GxListHistoryProvider>(context, listen: false).setEmptyList();
+      loadGXHistoryList();
+    }
   }
 
   void loadGXHistoryList() async {
@@ -351,7 +353,7 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
       callGXHistoryListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -360,9 +362,11 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
   }
 
   void callGXHistoryListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -377,47 +381,51 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.gxHistoryListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for gx History List ===> $responseJson");
+        debugPrint("server response for gx History List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<GXListHistoryModel> gxHistoryList =
-              List<GXListHistoryModel>.from(responseJson['inquiry_data']
-                  .map((x) => GXListHistoryModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<GxListHistoryProvider>(context, listen: false)
-                .setItem(gxHistoryList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<GXListHistoryModel> gxHistoryList =
+                List<GXListHistoryModel>.from(responseJson['inquiry_data']
+                    .map((x) => GXListHistoryModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<GxListHistoryProvider>(context, listen: false)
+                  .setItem(gxHistoryList);
+            } else {
+              Provider.of<GxListHistoryProvider>(context, listen: false)
+                  .addItem(gxHistoryList);
+            }
           } else {
-            Provider.of<GxListHistoryProvider>(context, listen: false)
-                .addItem(gxHistoryList);
-          }
-        } else {
-          if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -445,7 +453,7 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
       callStatusListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -454,49 +462,55 @@ class _GXReservationHistoryState extends State<GXReservationHistory> {
   }
 
   void callStatusListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.amenityHistoryStatusUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              statusList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              statusList?.insert(0, allMap);
-            });
-          }
-        } else {
-          if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                statusList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                statusList?.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
       }
     });
   }

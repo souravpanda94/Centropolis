@@ -272,13 +272,15 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   }
 
   void firstTimeLoadLoungeHistoryList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    Provider.of<ExecutiveLoungeHistoryProvider>(context, listen: false)
-        .setEmptyList();
-    loadLoungeHistoryList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      Provider.of<ExecutiveLoungeHistoryProvider>(context, listen: false)
+          .setEmptyList();
+      loadLoungeHistoryList();
+    }
   }
 
   void loadLoungeHistoryList() async {
@@ -286,8 +288,8 @@ class _LoungeHistoryState extends State<LoungeHistory> {
     if (await internetChecking.isInternet()) {
       callLoungeHistoryListApi();
     } else {
-     //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -296,9 +298,11 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   }
 
   void callLoungeHistoryListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -313,48 +317,55 @@ class _LoungeHistoryState extends State<LoungeHistory> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getLoungeHistoryListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Lounge History List ===> $responseJson");
+        debugPrint(
+            "server response for Lounge History List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<AmenityHistoryModel> executiveLoungeHistoryList =
-              List<AmenityHistoryModel>.from(
-                  responseJson['executive_lounge_data']
-                      .map((x) => AmenityHistoryModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<ExecutiveLoungeHistoryProvider>(context, listen: false)
-                .setItem(executiveLoungeHistoryList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<AmenityHistoryModel> executiveLoungeHistoryList =
+                List<AmenityHistoryModel>.from(
+                    responseJson['executive_lounge_data']
+                        .map((x) => AmenityHistoryModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<ExecutiveLoungeHistoryProvider>(context,
+                      listen: false)
+                  .setItem(executiveLoungeHistoryList);
+            } else {
+              Provider.of<ExecutiveLoungeHistoryProvider>(context,
+                      listen: false)
+                  .addItem(executiveLoungeHistoryList);
+            }
           } else {
-            Provider.of<ExecutiveLoungeHistoryProvider>(context, listen: false)
-                .addItem(executiveLoungeHistoryList);
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -450,7 +461,7 @@ class _LoungeHistoryState extends State<LoungeHistory> {
       callStatusListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -459,49 +470,55 @@ class _LoungeHistoryState extends State<LoungeHistory> {
   }
 
   void callStatusListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.amenityHistoryStatusUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              statusList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              statusList?.insert(0, allMap);
-            });
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                statusList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                statusList?.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
       }
     });
   }

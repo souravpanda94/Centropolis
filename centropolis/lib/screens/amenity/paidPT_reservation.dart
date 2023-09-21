@@ -48,8 +48,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   String? endTimeSelectedValue;
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
-    String reservationRulesLink = "";
-
+  String reservationRulesLink = "";
 
   List<dynamic> timeList = [];
 
@@ -67,10 +66,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     //companyName = user.userData['company_name'].toString();
     setWebViewLink();
     internetCheckingForMethods();
-
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -204,13 +200,6 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                     const SizedBox(
                       height: 24,
                     ),
-
-
-
-
-
-
-
                     Text(
                       tr("reservationInformation"),
                       style: const TextStyle(
@@ -366,76 +355,85 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                           const SizedBox(
                             width: 9,
                           ),
-                          language =="en" ? InkWell(
+                          language == "en"
+                              ? InkWell(
                                   onTap: () {
                                     showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("fitnessReservation"), reservationRulesLink);
-                            });
+                                        context: context,
+                                        barrierColor:
+                                            Colors.black12.withOpacity(0.6),
+                                        // Background color
+                                        barrierDismissible: false,
+                                        barrierLabel: 'Dialog',
+                                        transitionDuration:
+                                            const Duration(milliseconds: 400),
+                                        pageBuilder: (_, __, ___) {
+                                          return WebViewUiScreen(
+                                              tr("fitnessReservation"),
+                                              reservationRulesLink);
+                                        });
                                   },
                                   child: Text.rich(
-                                  TextSpan(
-                                    text: tr("agree"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("ptReservationRules"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.buttonBackgroundColor,
-                                            decoration: TextDecoration.underline,
-                                          )),
-                                     
-                                    ],
+                                    TextSpan(
+                                      text: tr("agree"),
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: tr("ptReservationRules"),
+                                            style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 14,
+                                              color: CustomColors
+                                                  .buttonBackgroundColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            )),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                ) : InkWell(
+                                )
+                              : InkWell(
                                   onTap: () {
                                     showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("fitnessReservation"), reservationRulesLink);
-                            });
+                                        context: context,
+                                        barrierColor:
+                                            Colors.black12.withOpacity(0.6),
+                                        // Background color
+                                        barrierDismissible: false,
+                                        barrierLabel: 'Dialog',
+                                        transitionDuration:
+                                            const Duration(milliseconds: 400),
+                                        pageBuilder: (_, __, ___) {
+                                          return WebViewUiScreen(
+                                              tr("fitnessReservation"),
+                                              reservationRulesLink);
+                                        });
                                   },
                                   child: Text.rich(
-                                  TextSpan(
-                                    text: tr("ptReservationRules"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                                                                    decoration: TextDecoration.underline,
-
-                                        color: CustomColors.buttonBackgroundColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("agree"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                     
-                                    ],
+                                    TextSpan(
+                                      text: tr("ptReservationRules"),
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          decoration: TextDecoration.underline,
+                                          color: CustomColors
+                                              .buttonBackgroundColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: tr("agree"),
+                                            style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 14,
+                                              color:
+                                                  CustomColors.textColorBlack2,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                      ],
+                                    ),
                                   ),
-                                ),
                                 ),
                         ],
                       ),
@@ -458,8 +456,6 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           )),
     );
   }
-
-   
 
   timeSelectionDropdownWidget() {
     return DropdownButtonHideUnderline(
@@ -675,53 +671,57 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   }
 
   void callLoadTimeListApi() {
-    if(mounted){
+    if (mounted) {
       setState(() {
-      isLoading = true;
-    });
+        isLoading = true;
+      });
     }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPtTimeListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              timeList = responseJson['data'];
-              // rangeTimeSelectedValue = timeList.first["value"];
-              // startTimeSelectedValue = timeList.first["start_time"];
-              // endTimeSelectedValue = timeList.first["end_time"];
-            });
-          }
-        } else {
-          if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                timeList = responseJson['data'];
+                // rangeTimeSelectedValue = timeList.first["value"];
+                // startTimeSelectedValue = timeList.first["start_time"];
+                // endTimeSelectedValue = timeList.first["end_time"];
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isLoading = false;
+          });
         }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isLoading = false;
         });
       }
-    }).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-       if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-       }
     });
   }
 
@@ -819,13 +819,14 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
               responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -834,10 +835,11 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -865,13 +867,12 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         });
   }
 
-
   void callLoadPersonalInformationApi() {
-   if(mounted){
-     setState(() {
-      isLoading = true;
-    });
-   }
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     Map<String, String> body = {};
 
     debugPrint("Get personal info input===> $body");
@@ -879,48 +880,52 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Get personal info ===> $responseJson");
+        debugPrint("server response for Get personal info ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false)
-              .setItem(userInfoModel);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+            Provider.of<UserInfoProvider>(context, listen: false)
+                .setItem(userInfoModel);
 
-          setState(() {
-            companyName = userInfoModel.companyName.toString();
-            name = userInfoModel.name.toString();
-            email = userInfoModel.email.toString();
-            mobile = userInfoModel.mobile.toString();
-          });
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+            setState(() {
+              companyName = userInfoModel.companyName.toString();
+              name = userInfoModel.name.toString();
+              email = userInfoModel.email.toString();
+              mobile = userInfoModel.mobile.toString();
+            });
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
         }
+        setState(() {
+          isLoading = false;
+        });
       }
-      setState(() {
-        isLoading = false;
-      });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-       }
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -931,21 +936,19 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
       });
     } else {
       setState(() {
-       
         reservationRulesLink = WebViewLinks.ptUrlKo;
       });
     }
   }
 
-   void internetCheckingForMethods() async {
+  void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-     callLoadPersonalInformationApi();
-    callLoadTimeListApi();
-
+      callLoadPersonalInformationApi();
+      callLoadTimeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),

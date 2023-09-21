@@ -47,8 +47,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   List<dynamic> timeList = [];
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
-    String reservationRulesLink = "";
-
+  String reservationRulesLink = "";
 
   @override
   void initState() {
@@ -62,13 +61,9 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     // mobile = user.userData['mobile'].toString();
     // name = user.userData['name'].toString();
     // companyName = user.userData['company_name'].toString();
-     setWebViewLink();
-     internetCheckingForMethods();
-
-    
+    setWebViewLink();
+    internetCheckingForMethods();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -83,95 +78,92 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           primary: false,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
-            
             children: [
               Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 8,left: 16,right: 16),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                tr("serviceRequires"),
-                textAlign: TextAlign.end,
-                style: const TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: 12,
-                    color: CustomColors.textColor3),
-              ),
-            ),
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.backgroundColor,
-                  margin: const EdgeInsets.only(
-                      left: 16, right: 16),
-                  padding: const EdgeInsets.only(
-                      left: 16, right: 16, top: 16, bottom: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                    tr("paidLockerReservationProgram"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("paidLockerReservationProgramDesc"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
-                      Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            tr("paidLockerReservationRestrictionPopup"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]),
-                        ],
-                      ),
-
+                margin: const EdgeInsets.only(
+                    top: 10, bottom: 8, left: 16, right: 16),
+                width: MediaQuery.of(context).size.width,
+                child: Text(
+                  tr("serviceRequires"),
+                  textAlign: TextAlign.end,
+                  style: const TextStyle(
+                      fontFamily: 'Regular',
+                      fontSize: 12,
+                      color: CustomColors.textColor3),
                 ),
-                
+              ),
+              Container(
+                width: MediaQuery.of(context).size.width,
+                color: CustomColors.backgroundColor,
+                margin: const EdgeInsets.only(left: 16, right: 16),
+                padding: const EdgeInsets.only(
+                    left: 16, right: 16, top: 16, bottom: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      tr("paidLockerReservationProgram"),
+                      style: const TextStyle(
+                          fontFamily: 'SemiBold',
+                          fontSize: 16,
+                          color: CustomColors.textColorBlack2),
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 7),
+                            child: Icon(
+                              Icons.circle,
+                              size: 5,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              tr("paidLockerReservationProgramDesc"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  height: 1.5,
+                                  color: CustomColors.textColor5),
+                            ),
+                          )
+                        ]),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          const Padding(
+                            padding: EdgeInsets.only(top: 7),
+                            child: Icon(
+                              Icons.circle,
+                              size: 5,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 10,
+                          ),
+                          Expanded(
+                            child: Text(
+                              tr("paidLockerReservationRestrictionPopup"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  height: 1.5,
+                                  color: CustomColors.textColor5),
+                            ),
+                          )
+                        ]),
+                  ],
+                ),
+              ),
               Container(
                 color: CustomColors.whiteColor,
                 width: MediaQuery.of(context).size.width,
@@ -334,76 +326,86 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                           const SizedBox(
                             width: 9,
                           ),
-                          language =="en" ? InkWell(
+                          language == "en"
+                              ? InkWell(
                                   onTap: () {
                                     showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("fitnessReservation"), reservationRulesLink);
-                            });
+                                        context: context,
+                                        barrierColor:
+                                            Colors.black12.withOpacity(0.6),
+                                        // Background color
+                                        barrierDismissible: false,
+                                        barrierLabel: 'Dialog',
+                                        transitionDuration:
+                                            const Duration(milliseconds: 400),
+                                        pageBuilder: (_, __, ___) {
+                                          return WebViewUiScreen(
+                                              tr("fitnessReservation"),
+                                              reservationRulesLink);
+                                        });
                                   },
                                   child: Text.rich(
-                                  TextSpan(
-                                    text: tr("agree"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("paidLockerReservationRules"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.buttonBackgroundColor,
-                                            decoration: TextDecoration.underline,
-                                          )),
-                                     
-                                    ],
+                                    TextSpan(
+                                      text: tr("agree"),
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.textColorBlack2),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: tr(
+                                                "paidLockerReservationRules"),
+                                            style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 14,
+                                              color: CustomColors
+                                                  .buttonBackgroundColor,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                            )),
+                                      ],
+                                    ),
                                   ),
-                                ),
-                                ) : InkWell(
+                                )
+                              : InkWell(
                                   onTap: () {
                                     showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("fitnessReservation"), reservationRulesLink);
-                            });
+                                        context: context,
+                                        barrierColor:
+                                            Colors.black12.withOpacity(0.6),
+                                        // Background color
+                                        barrierDismissible: false,
+                                        barrierLabel: 'Dialog',
+                                        transitionDuration:
+                                            const Duration(milliseconds: 400),
+                                        pageBuilder: (_, __, ___) {
+                                          return WebViewUiScreen(
+                                              tr("fitnessReservation"),
+                                              reservationRulesLink);
+                                        });
                                   },
                                   child: Text.rich(
-                                  TextSpan(
-                                    text: tr("paidLockerReservationRules"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                                                                    decoration: TextDecoration.underline,
-
-                                        color: CustomColors.buttonBackgroundColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("agree"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2,
-                                            decoration: TextDecoration.none,
-                                          )),
-                                     
-                                    ],
+                                    TextSpan(
+                                      text: tr("paidLockerReservationRules"),
+                                      style: const TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          decoration: TextDecoration.underline,
+                                          color: CustomColors
+                                              .buttonBackgroundColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: tr("agree"),
+                                            style: const TextStyle(
+                                              fontFamily: 'Regular',
+                                              fontSize: 14,
+                                              color:
+                                                  CustomColors.textColorBlack2,
+                                              decoration: TextDecoration.none,
+                                            )),
+                                      ],
+                                    ),
                                   ),
-                                ),
                                 ),
                         ],
                       ),
@@ -413,7 +415,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                       child: CommonButton(
                         onCommonButtonTap: () {
                           //reservationValidationCheck();
-                          showErrorModal(tr("paidLockerReservationRestrictionPopup"));
+                          showErrorModal(
+                              tr("paidLockerReservationRestrictionPopup"));
                         },
                         buttonColor: CustomColors.buttonBackgroundColor,
                         buttonName: tr("makeReservation"),
@@ -427,8 +430,6 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           )),
     );
   }
-
- 
 
   usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
@@ -635,12 +636,12 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     );
   }
 
-  
-
   void callLoadTimeListApi() {
-    setState(() {
-      isLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPaidLockerTimePeriodListUrl,
@@ -648,40 +649,44 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              timeList = responseJson['data'];
-            });
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                timeList = responseJson['data'];
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isLoading = false;
+          });
         }
-        setState(() {
-          isLoading = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
@@ -745,7 +750,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       callReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -786,12 +791,13 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -800,10 +806,11 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -831,11 +838,12 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         });
   }
 
-
   void callLoadPersonalInformationApi() {
-    setState(() {
-      isLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     Map<String, String> body = {};
 
     debugPrint("Get personal info input===> $body");
@@ -843,47 +851,51 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Get personal info ===> $responseJson");
+        debugPrint("server response for Get personal info ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false)
-              .setItem(userInfoModel);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+            Provider.of<UserInfoProvider>(context, listen: false)
+                .setItem(userInfoModel);
 
-          setState(() {
-            companyName = userInfoModel.companyName.toString();
-            name = userInfoModel.name.toString();
-            mobile = userInfoModel.mobile.toString();
-            email = userInfoModel.email.toString();
-          });
-        } else {
-          if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
+            setState(() {
+              companyName = userInfoModel.companyName.toString();
+              name = userInfoModel.name.toString();
+              mobile = userInfoModel.mobile.toString();
+              email = userInfoModel.email.toString();
+            });
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
         }
+        setState(() {
+          isLoading = false;
+        });
       }
-      setState(() {
-        isLoading = false;
-      });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
@@ -895,7 +907,6 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       });
     } else {
       setState(() {
-       
         reservationRulesLink = WebViewLinks.paidLockerUrlKo;
       });
     }
@@ -904,12 +915,11 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-     callLoadPersonalInformationApi();
-    callLoadTimeListApi();
-
+      callLoadPersonalInformationApi();
+      callLoadTimeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),

@@ -342,13 +342,15 @@ class _PaidLockerReservationHistoryState
   }
 
   void firstTimeLoadPaidLockerHistoryList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    Provider.of<PaidLockerHistoryListProvider>(context, listen: false)
-        .setEmptyList();
-    loadPaidLockerHistoryList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      Provider.of<PaidLockerHistoryListProvider>(context, listen: false)
+          .setEmptyList();
+      loadPaidLockerHistoryList();
+    }
   }
 
   void loadPaidLockerHistoryList() async {
@@ -366,9 +368,11 @@ class _PaidLockerReservationHistoryState
   }
 
   void callPaidLockerHistoryListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -386,47 +390,52 @@ class _PaidLockerReservationHistoryState
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint(
-          "server response for PaidLocker History List ===> $responseJson");
+        debugPrint(
+            "server response for PaidLocker History List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          displayCategory = responseJson['display_category'];
-          List<PaidLockerHistoryListModel> paidLockerHistoryList =
-              List<PaidLockerHistoryListModel>.from(responseJson['inquiry_data']
-                  .map((x) => PaidLockerHistoryListModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<PaidLockerHistoryListProvider>(context, listen: false)
-                .setItem(paidLockerHistoryList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            displayCategory = responseJson['display_category'];
+            List<PaidLockerHistoryListModel> paidLockerHistoryList =
+                List<PaidLockerHistoryListModel>.from(
+                    responseJson['inquiry_data']
+                        .map((x) => PaidLockerHistoryListModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<PaidLockerHistoryListProvider>(context, listen: false)
+                  .setItem(paidLockerHistoryList);
+            } else {
+              Provider.of<PaidLockerHistoryListProvider>(context, listen: false)
+                  .addItem(paidLockerHistoryList);
+            }
           } else {
-            Provider.of<PaidLockerHistoryListProvider>(context, listen: false)
-                .addItem(paidLockerHistoryList);
+            if (responseJson['message'] != null) {
+              // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -458,47 +467,53 @@ class _PaidLockerReservationHistoryState
   }
 
   void callStatusListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.amenityHistoryStatusUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              statusList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              statusList?.insert(0, allMap);
-            });
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                statusList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                statusList?.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
       }
     });
   }

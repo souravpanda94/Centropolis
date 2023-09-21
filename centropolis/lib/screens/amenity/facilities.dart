@@ -74,7 +74,7 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         Text(
+                        Text(
                           tr("refreshMainHeading"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
@@ -241,8 +241,8 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
     if (await internetChecking.isInternet()) {
       callSleepingRoomCongestionApi();
     } else {
-       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -251,9 +251,11 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
   }
 
   void callSleepingRoomCongestionApi() {
-    setState(() {
-      isLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
 
     Map<String, String> body = {};
 
@@ -262,49 +264,54 @@ class _FacilitiesScreenState extends State<FacilitiesScreen> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.sleepingRoomUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint(
-          "server response for SleepingRoom Congestion ===> $responseJson");
+        debugPrint(
+            "server response for SleepingRoom Congestion ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          setState(() {
-            if (responseJson['congestion_type'].toString() == "low") {
-              congestionType = "spare";
-            } else if (responseJson['congestion_type'].toString() == "medium") {
-              congestionType = "commonly";
-            } else if (responseJson['congestion_type'].toString() == "high") {
-              congestionType = "confusion";
-            } else {
-              congestionType = "full";
-            }
-          });
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            setState(() {
+              if (responseJson['congestion_type'].toString() == "low") {
+                congestionType = "spare";
+              } else if (responseJson['congestion_type'].toString() ==
+                  "medium") {
+                congestionType = "commonly";
+              } else if (responseJson['congestion_type'].toString() == "high") {
+                congestionType = "confusion";
+              } else {
+                congestionType = "full";
+              }
+            });
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isLoading = false;
+          });
         }
-        setState(() {
-          isLoading = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-         showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }

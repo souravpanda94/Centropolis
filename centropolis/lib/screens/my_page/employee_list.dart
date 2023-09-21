@@ -329,26 +329,27 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   void firstTimeLoadEmployeeList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      if (widget.status == "active") {
+        Provider.of<EmployeeListApproveProvider>(context, listen: false)
+            .setEmptyList();
+      } else if (widget.status == "inactive") {
+        Provider.of<EmployeeListBeforeApproveProvider>(context, listen: false)
+            .setEmptyList();
+      } else if (widget.status == "suspended") {
+        Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
+            .setEmptyList();
+      } else {
+        Provider.of<EmployeeListApproveProvider>(context, listen: false)
+            .setEmptyList();
+      }
 
-    if (widget.status == "active") {
-      Provider.of<EmployeeListApproveProvider>(context, listen: false)
-          .setEmptyList();
-    } else if (widget.status == "inactive") {
-      Provider.of<EmployeeListBeforeApproveProvider>(context, listen: false)
-          .setEmptyList();
-    } else if (widget.status == "suspended") {
-      Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
-          .setEmptyList();
-    } else {
-      Provider.of<EmployeeListApproveProvider>(context, listen: false)
-          .setEmptyList();
+      loadEmployeeList();
     }
-
-    loadEmployeeList();
   }
 
   void loadEmployeeList() async {
@@ -366,9 +367,11 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   void callEmployeeListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body;
     if (currentSelectedSortingFilter != null) {
       body = {
@@ -394,63 +397,67 @@ class _EmployeeListState extends State<EmployeeList> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Employee List ===> $responseJson");
+        debugPrint("server response for Employee List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<EmployeeListModel> employeeList = List<EmployeeListModel>.from(
-              responseJson['user_data']
-                  .map((x) => EmployeeListModel.fromJson(x)));
-          if (page == 1) {
-            if (widget.status == "active") {
-              Provider.of<EmployeeListApproveProvider>(context, listen: false)
-                  .setItem(employeeList);
-            } else if (widget.status == "inactive") {
-              Provider.of<EmployeeListBeforeApproveProvider>(context,
-                      listen: false)
-                  .setItem(employeeList);
-            } else if (widget.status == "suspended") {
-              Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
-                  .setItem(employeeList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<EmployeeListModel> employeeList = List<EmployeeListModel>.from(
+                responseJson['user_data']
+                    .map((x) => EmployeeListModel.fromJson(x)));
+            if (page == 1) {
+              if (widget.status == "active") {
+                Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                    .setItem(employeeList);
+              } else if (widget.status == "inactive") {
+                Provider.of<EmployeeListBeforeApproveProvider>(context,
+                        listen: false)
+                    .setItem(employeeList);
+              } else if (widget.status == "suspended") {
+                Provider.of<EmployeeListSuspendedProvider>(context,
+                        listen: false)
+                    .setItem(employeeList);
+              } else {
+                Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                    .setItem(employeeList);
+              }
             } else {
-              Provider.of<EmployeeListApproveProvider>(context, listen: false)
-                  .setItem(employeeList);
+              if (widget.status == "active") {
+                Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                    .addItem(employeeList);
+              } else if (widget.status == "inactive") {
+                Provider.of<EmployeeListBeforeApproveProvider>(context,
+                        listen: false)
+                    .addItem(employeeList);
+              } else if (widget.status == "suspended") {
+                Provider.of<EmployeeListSuspendedProvider>(context,
+                        listen: false)
+                    .addItem(employeeList);
+              } else {
+                Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                    .addItem(employeeList);
+              }
             }
           } else {
-            if (widget.status == "active") {
-              Provider.of<EmployeeListApproveProvider>(context, listen: false)
-                  .addItem(employeeList);
-            } else if (widget.status == "inactive") {
-              Provider.of<EmployeeListBeforeApproveProvider>(context,
-                      listen: false)
-                  .addItem(employeeList);
-            } else if (widget.status == "suspended") {
-              Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
-                  .addItem(employeeList);
-            } else {
-              Provider.of<EmployeeListApproveProvider>(context, listen: false)
-                  .addItem(employeeList);
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
             }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(
-                context: context,
-                heading: responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
@@ -565,39 +572,43 @@ class _EmployeeListState extends State<EmployeeList> {
   }
 
   void callAccountTypeListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.accountTypeListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              accountTypeList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              accountTypeList.insert(0, allMap);
-            });
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                accountTypeList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                accountTypeList.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(
-                context: context,
-                heading: responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");

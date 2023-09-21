@@ -74,7 +74,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                         Text(
+                        Text(
                           tr("conferenceMainHeading"),
                           style: const TextStyle(
                               fontFamily: 'SemiBold',
@@ -212,7 +212,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
       callLoadPersonalInformationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -221,9 +221,11 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
   }
 
   void callLoadPersonalInformationApi() {
-    setState(() {
-      isLoading = true;
-    });
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     Map<String, String> body = {};
 
     debugPrint("Get personal info input===> $body");
@@ -231,43 +233,47 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Get personal info ===> $responseJson");
+        debugPrint("server response for Get personal info ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false)
-              .setItem(userInfoModel);
-          setState(() {
-            accountType = userInfoModel.accountType.toString();
-          });
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+            Provider.of<UserInfoProvider>(context, listen: false)
+                .setItem(userInfoModel);
+            setState(() {
+              accountType = userInfoModel.accountType.toString();
+            });
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
         }
+        setState(() {
+          isLoading = false;
+        });
       }
-      setState(() {
-        isLoading = false;
-      });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }

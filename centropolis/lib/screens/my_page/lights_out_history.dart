@@ -55,7 +55,6 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
     if (await internetChecking.isInternet()) {
       callStatusListApi();
       firstTimeLoadLightsOutList();
-
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -65,7 +64,6 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
           buttonName: tr("check"));
     }
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -294,12 +292,14 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
   }
 
   void firstTimeLoadLightsOutList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    Provider.of<LightoutListProvider>(context, listen: false).setEmptyList();
-    loadLightsOutList();
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      Provider.of<LightoutListProvider>(context, listen: false).setEmptyList();
+      loadLightsOutList();
+    }
   }
 
   void loadLightsOutList() async {
@@ -308,7 +308,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
       callLightsOutListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -317,9 +317,11 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
   }
 
   void callLightsOutListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -334,47 +336,51 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getLightsOutListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for LightsOut List ===> $responseJson");
+        debugPrint("server response for LightsOut List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<LightOutListModel> lightoutList = List<LightOutListModel>.from(
-              responseJson['inquiry_data']
-                  .map((x) => LightOutListModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<LightoutListProvider>(context, listen: false)
-                .setItem(lightoutList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<LightOutListModel> lightoutList = List<LightOutListModel>.from(
+                responseJson['inquiry_data']
+                    .map((x) => LightOutListModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<LightoutListProvider>(context, listen: false)
+                  .setItem(lightoutList);
+            } else {
+              Provider.of<LightoutListProvider>(context, listen: false)
+                  .addItem(lightoutList);
+            }
           } else {
-            Provider.of<LightoutListProvider>(context, listen: false)
-                .addItem(lightoutList);
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -471,9 +477,11 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
   // }
 
   void callStatusListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.lightOutCoolingHeatingStatusUrl,
@@ -481,40 +489,46 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              statusList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              statusList?.insert(0, allMap);
-            });
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                statusList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                statusList?.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
       }
-    }).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
     });
   }
 

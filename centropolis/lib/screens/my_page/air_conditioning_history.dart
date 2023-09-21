@@ -50,13 +50,11 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
     internetCheckingForMethods();
   }
 
-
   void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callStatusListApi();
       firstTimeLoadAirConditioningList();
-
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -66,8 +64,6 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
           buttonName: tr("check"));
     }
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -332,13 +328,16 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   }
 
   void firstTimeLoadAirConditioningList() {
-    setState(() {
-      isFirstLoadRunning = true;
-      page = 1;
-    });
-    Provider.of<AirConditioningListProvider>(context, listen: false)
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      Provider.of<AirConditioningListProvider>(context, listen: false)
         .setEmptyList();
     loadAirConditioningList();
+    }
+    
   }
 
   void loadAirConditioningList() async {
@@ -356,9 +355,11 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   }
 
   void callAirConditioningListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {
       "page": page.toString(),
       "limit": limit.toString(),
@@ -376,47 +377,52 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      debugPrint("server response for AirConditioning List ===> $responseJson");
+        debugPrint(
+            "server response for AirConditioning List ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          totalPages = responseJson['total_pages'];
-          totalRecords = responseJson['total_records'];
-          List<AirConditioningListModel> airConditioningList =
-              List<AirConditioningListModel>.from(responseJson['inquiry_data']
-                  .map((x) => AirConditioningListModel.fromJson(x)));
-          if (page == 1) {
-            Provider.of<AirConditioningListProvider>(context, listen: false)
-                .setItem(airConditioningList);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<AirConditioningListModel> airConditioningList =
+                List<AirConditioningListModel>.from(responseJson['inquiry_data']
+                    .map((x) => AirConditioningListModel.fromJson(x)));
+            if (page == 1) {
+              Provider.of<AirConditioningListProvider>(context, listen: false)
+                  .setItem(airConditioningList);
+            } else {
+              Provider.of<AirConditioningListProvider>(context, listen: false)
+                  .addItem(airConditioningList);
+            }
           } else {
-            Provider.of<AirConditioningListProvider>(context, listen: false)
-                .addItem(airConditioningList);
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
-        setState(() {
-          isFirstLoadRunning = false;
-        });
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -513,9 +519,11 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
   // }
 
   void callStatusListApi() {
-    setState(() {
-      isFirstLoadRunning = true;
-    });
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.lightOutCoolingHeatingStatusUrl,
@@ -523,39 +531,45 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
         language.toString(),
         apiKey);
     response.then((response) {
-      var responseJson = json.decode(response.body);
+      if (mounted) {
+        var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              statusList = responseJson['data'];
-              Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
-              statusList?.insert(0, allMap);
-            });
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                statusList = responseJson['data'];
+                Map<dynamic, dynamic> allMap = {"text": tr("all"), "value": ""};
+                statusList?.insert(0, allMap);
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              // showCustomToast(fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
           }
-        } else {
-          if (responseJson['message'] != null) {
-            // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
-          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
         }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
       }
-    }).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
     });
   }
 
