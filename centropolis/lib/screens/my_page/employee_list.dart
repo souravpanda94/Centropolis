@@ -10,7 +10,9 @@ import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
 
 import '../../models/employee_list_model.dart';
-import '../../providers/employee_list_provider.dart';
+import '../../providers/employee_list_approve_provider.dart';
+import '../../providers/employee_list_before_approve_provider.dart';
+import '../../providers/employee_list_suspended_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -56,8 +58,19 @@ class _EmployeeListState extends State<EmployeeList> {
 
   @override
   Widget build(BuildContext context) {
-    employeeListItem =
-        Provider.of<EmployeeListProvider>(context).getEmployeeModelList;
+    if (widget.status == "active") {
+      employeeListItem = Provider.of<EmployeeListApproveProvider>(context)
+          .getEmployeeModelList;
+    } else if (widget.status == "inactive") {
+      employeeListItem = Provider.of<EmployeeListBeforeApproveProvider>(context)
+          .getEmployeeModelList;
+    } else if (widget.status == "suspended") {
+      employeeListItem = Provider.of<EmployeeListSuspendedProvider>(context)
+          .getEmployeeModelList;
+    } else {
+      employeeListItem = Provider.of<EmployeeListApproveProvider>(context)
+          .getEmployeeModelList;
+    }
 
     return LoadingOverlay(
       opacity: 0.5,
@@ -321,7 +334,20 @@ class _EmployeeListState extends State<EmployeeList> {
       page = 1;
     });
 
-    Provider.of<EmployeeListProvider>(context, listen: false).setEmptyList();
+    if (widget.status == "active") {
+      Provider.of<EmployeeListApproveProvider>(context, listen: false)
+          .setEmptyList();
+    } else if (widget.status == "inactive") {
+      Provider.of<EmployeeListBeforeApproveProvider>(context, listen: false)
+          .setEmptyList();
+    } else if (widget.status == "suspended") {
+      Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
+          .setEmptyList();
+    } else {
+      Provider.of<EmployeeListApproveProvider>(context, listen: false)
+          .setEmptyList();
+    }
+
     loadEmployeeList();
   }
 
@@ -331,7 +357,7 @@ class _EmployeeListState extends State<EmployeeList> {
       callEmployeeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -380,21 +406,46 @@ class _EmployeeListState extends State<EmployeeList> {
               responseJson['user_data']
                   .map((x) => EmployeeListModel.fromJson(x)));
           if (page == 1) {
-            Provider.of<EmployeeListProvider>(context, listen: false)
-                .setItem(employeeList);
+            if (widget.status == "active") {
+              Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                  .setItem(employeeList);
+            } else if (widget.status == "inactive") {
+              Provider.of<EmployeeListBeforeApproveProvider>(context,
+                      listen: false)
+                  .setItem(employeeList);
+            } else if (widget.status == "suspended") {
+              Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
+                  .setItem(employeeList);
+            } else {
+              Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                  .setItem(employeeList);
+            }
           } else {
-            Provider.of<EmployeeListProvider>(context, listen: false)
-                .addItem(employeeList);
+            if (widget.status == "active") {
+              Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                  .addItem(employeeList);
+            } else if (widget.status == "inactive") {
+              Provider.of<EmployeeListBeforeApproveProvider>(context,
+                      listen: false)
+                  .addItem(employeeList);
+            } else if (widget.status == "suspended") {
+              Provider.of<EmployeeListSuspendedProvider>(context, listen: false)
+                  .addItem(employeeList);
+            } else {
+              Provider.of<EmployeeListApproveProvider>(context, listen: false)
+                  .addItem(employeeList);
+            }
           }
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -403,12 +454,13 @@ class _EmployeeListState extends State<EmployeeList> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      
+
       if (mounted) {
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isFirstLoadRunning = false;
         });
@@ -504,7 +556,7 @@ class _EmployeeListState extends State<EmployeeList> {
       callAccountTypeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -534,12 +586,13 @@ class _EmployeeListState extends State<EmployeeList> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -548,14 +601,15 @@ class _EmployeeListState extends State<EmployeeList> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isFirstLoadRunning = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
       }
     });
   }

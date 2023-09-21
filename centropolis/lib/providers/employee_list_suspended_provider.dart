@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import '../models/employee_list_model.dart';
 
-class EmployeeListProvider extends ChangeNotifier {
+class EmployeeListSuspendedProvider extends ChangeNotifier {
   List<EmployeeListModel> employeeModelList = [];
 
   List<EmployeeListModel>? get getEmployeeModelList {

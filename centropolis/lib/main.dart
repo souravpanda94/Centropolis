@@ -24,7 +24,9 @@ import 'providers/air_conditioning_list_provider.dart';
 import 'providers/complaints_received_detail_provider.dart';
 import 'providers/conference_history_details_provider.dart';
 import 'providers/employee_detail_provider.dart';
-import 'providers/employee_list_provider.dart';
+import 'providers/employee_list_approve_provider.dart';
+import 'providers/employee_list_before_approve_provider.dart';
+import 'providers/employee_list_suspended_provider.dart';
 import 'providers/fitness_history_detail_provider.dart';
 import 'providers/fitness_history_list_provider.dart';
 import 'providers/gx_history_detail_provider.dart';
@@ -105,7 +107,9 @@ void main() async {
           ChangeNotifierProvider(create: (_) => VisitReservationListProvider()),
           ChangeNotifierProvider(
               create: (_) => ComplaintsReceivedDetailsProvider()),
-          ChangeNotifierProvider(create: (_) => EmployeeListProvider()),
+          ChangeNotifierProvider(create: (_) => EmployeeListApproveProvider()),
+          ChangeNotifierProvider(create: (_) => EmployeeListBeforeApproveProvider()),
+          ChangeNotifierProvider(create: (_) => EmployeeListSuspendedProvider()),
           ChangeNotifierProvider(create: (_) => UserInfoProvider()),
           ChangeNotifierProvider(create: (_) => EmployeeDetailProvider()),
           ChangeNotifierProvider(
