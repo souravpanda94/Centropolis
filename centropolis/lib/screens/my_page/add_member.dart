@@ -10,6 +10,8 @@ import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 
+import '../../models/user_info_model.dart';
+import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
@@ -47,6 +49,8 @@ class _AddMemberState extends State<AddMember> {
   List<dynamic> companyList = [];
   List<dynamic> floorList = [];
   bool isLoadingRequired = false;
+  String tenantCompanyName="";
+  String tenantCompanyId="";
 
   TextEditingController consentController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -70,7 +74,9 @@ class _AddMemberState extends State<AddMember> {
     // companyName = user.userData['company_name'].toString();
 
     setPlatform();
-    loadCompanyList();
+    loadPersonalInformation();
+
+    //loadCompanyList();
   }
 
   @override
@@ -160,7 +166,31 @@ class _AddMemberState extends State<AddMember> {
                         maxLines: 1,
                       ),
                     ),
-                    tenantCompanyDropdownWidget(),
+                    Container(
+                      height: 46,
+                      width: MediaQuery.of(context).size.width,
+                      padding: const EdgeInsets.only(left: 15, right: 15),
+                      decoration: BoxDecoration(
+                          color: CustomColors.backgroundColor,
+                          border: Border.all(
+                            color: CustomColors.dividerGreyColor,
+                          ),
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(4))),
+                      child: Center(
+                          child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          tenantCompanyName,
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ))),
+                    //tenantCompanyDropdownWidget(),
+
                     Container(
                       margin: const EdgeInsets.only(top: 16, bottom: 8),
                       width: MediaQuery.of(context).size.width,
@@ -959,7 +989,7 @@ class _AddMemberState extends State<AddMember> {
     });
 
     Map<String, String> body = {
-      "company_id": companySelectedValue.toString().trim(),
+      "company_id": tenantCompanyId.toString().trim(),
     };
 
     debugPrint("Floor List input===> $body");
@@ -1093,7 +1123,7 @@ class _AddMemberState extends State<AddMember> {
 
   void addMemberValidation() {
     hideKeyboard();
-    if (companySelectedValue == null || companySelectedValue == "") {
+    if (tenantCompanyName == "") {
       showErrorModal(tr("pleaseSelectCompany"));
     } else if (floorSelectedValue == null || floorSelectedValue == "") {
       showErrorModal(tr("pleaseSelectFloor"));
@@ -1253,5 +1283,74 @@ class _AddMemberState extends State<AddMember> {
             onSecondBtnTap: () {},
           );
         });
+  }
+
+  void loadPersonalInformation() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callLoadPersonalInformationApi();
+    } else {
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+       showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
+  }
+
+  void callLoadPersonalInformationApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {};
+
+    debugPrint("Get personal info input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for Get personal info ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
+              setState(() {
+                tenantCompanyName = userInfoModel.companyName.toString();
+                tenantCompanyId = userInfoModel.companyId.toString();
+
+
+              });
+              loadFloorList();
+
+        } else {
+          if (responseJson['message'] != null) {
+             debugPrint("Server error response ${responseJson['message']}");
+              // showCustomToast(
+              //     fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(context: context,
+                  heading :responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+          }
+        }
+      }
+      setState(() {
+        isLoading = false;
+      });
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      showErrorCommonModal(context: context,
+          heading: tr("errorDescription"),
+          description:"",
+          buttonName : tr("check"));
+      setState(() {
+        isLoading = false;
+      });
+    });
   }
 }
