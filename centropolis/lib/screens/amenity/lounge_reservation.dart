@@ -1575,14 +1575,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       enabledDayPredicate: (day) {
+        var priorDate = DateTime(kFirstDay.year, kFirstDay.month , kFirstDay.day + 14);
+
         if (day.weekday == DateTime.saturday ||
             day.weekday == DateTime.sunday) {
           return false;
         } else if (day.day == kFirstDay.day &&
             day.month == kFirstDay.month &&
             day.year == kFirstDay.year) {
-          return true;
-        } else if (day.compareTo(kFirstDay) > 0) {
+          return false;
+        } else if (day.compareTo(priorDate) >= 0) {
           return true;
         } else {
           return false;
@@ -1615,6 +1617,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       onPageChanged: (focusedDay) {
+        debugPrint("focusedDay :: $focusedDay");
         setState(() {
           focusedDate = focusedDay;
         });
