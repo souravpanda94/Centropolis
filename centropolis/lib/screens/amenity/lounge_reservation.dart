@@ -1617,10 +1617,18 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       onPageChanged: (focusedDay) {
-        debugPrint("focusedDay :: $focusedDay");
-        setState(() {
-          focusedDate = focusedDay;
-        });
+        var priorDate =
+            DateTime(kFirstDay.year, kFirstDay.month, kFirstDay.day + 14);
+
+        if (focusedDay.compareTo(priorDate) < 0) {
+          setState(() {
+            focusedDate = priorDate;
+          });
+        } else {
+          setState(() {
+            focusedDate = focusedDay;
+          });
+        }
       },
     );
   }
