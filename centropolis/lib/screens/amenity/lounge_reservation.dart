@@ -52,6 +52,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
   bool tooltip = false;
   bool numberOfParticipantsTooltip = false;
   bool servicesEquipmentTooltip = false;
+  DateTime priorDate = DateTime.now();
 
 
 
@@ -84,6 +85,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+    priorDate =
+            DateTime(kFirstDay.year, kFirstDay.month, kFirstDay.day + 14);
     setWebViewLink();
     internetCheckingForMethods();
   }
@@ -1575,7 +1578,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       enabledDayPredicate: (day) {
-        var priorDate = DateTime(kFirstDay.year, kFirstDay.month , kFirstDay.day + 14);
 
         if (day.weekday == DateTime.saturday ||
             day.weekday == DateTime.sunday) {
@@ -1617,8 +1619,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       onPageChanged: (focusedDay) {
-        var priorDate =
-            DateTime(kFirstDay.year, kFirstDay.month, kFirstDay.day + 14);
 
         if (focusedDay.compareTo(priorDate) < 0) {
           setState(() {
