@@ -3,6 +3,7 @@ import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -59,7 +60,7 @@ class _VisitReservationApplicationState
   String visitedPersonName = "";
   String visitedPersonCompanyName = "";
   String visitedPersonBuilding = "";
-  String visitedPersonBuildingKey="";
+  String visitedPersonBuildingKey = "";
   String visitedPersonId = "";
   String visitedPersonCompanyId = "";
   bool isLoadingRequired = false;
@@ -84,7 +85,6 @@ class _VisitReservationApplicationState
       callLoadFloorListApi();
       callLoadVisitTimeListApi();
       callLoadVisitPurposeListApi();
-
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -95,14 +95,13 @@ class _VisitReservationApplicationState
     }
   }
 
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: GestureDetector(
         onTap: () => hideKeyboard(),
         child: LoadingOverlay(
@@ -119,8 +118,8 @@ class _VisitReservationApplicationState
               child: SafeArea(
                 child: Container(
                   color: CustomColors.whiteColor,
-                  child:
-                      CommonAppBar(tr("visitReservationApplication"), false, () {
+                  child: CommonAppBar(tr("visitReservationApplication"), false,
+                      () {
                     //onBackButtonPress(context);
                     Navigator.pop(context, isLoadingRequired);
                   }, () {}),
@@ -173,7 +172,8 @@ class _VisitReservationApplicationState
                                             height: 1.5,
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            color: CustomColors.textColorBlack2),
+                                            color:
+                                                CustomColors.textColorBlack2),
                                       ),
                                     ),
                                   ],
@@ -202,7 +202,8 @@ class _VisitReservationApplicationState
                                             height: 1.5,
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            color: CustomColors.textColorBlack2),
+                                            color:
+                                                CustomColors.textColorBlack2),
                                       ),
                                     ),
                                   ],
@@ -231,7 +232,8 @@ class _VisitReservationApplicationState
                                             height: 1.5,
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            color: CustomColors.textColorBlack2),
+                                            color:
+                                                CustomColors.textColorBlack2),
                                       ),
                                     ),
                                   ],
@@ -260,7 +262,8 @@ class _VisitReservationApplicationState
                                             height: 1.5,
                                             fontFamily: 'Regular',
                                             fontSize: 14,
-                                            color: CustomColors.textColorBlack2),
+                                            color:
+                                                CustomColors.textColorBlack2),
                                       ),
                                     ),
                                   ],
@@ -409,7 +412,8 @@ class _VisitReservationApplicationState
                                           style: TextStyle(
                                               fontFamily: 'Regular',
                                               fontSize: 14,
-                                              color: CustomColors.headingColor)),
+                                              color:
+                                                  CustomColors.headingColor)),
                                     ),
                                   ],
                                 ),
@@ -440,7 +444,8 @@ class _VisitReservationApplicationState
                                           style: TextStyle(
                                               fontFamily: 'Regular',
                                               fontSize: 14,
-                                              color: CustomColors.headingColor)),
+                                              color:
+                                                  CustomColors.headingColor)),
                                     ),
                                   ],
                                 ),
@@ -471,7 +476,8 @@ class _VisitReservationApplicationState
                                           style: TextStyle(
                                               fontFamily: 'Regular',
                                               fontSize: 14,
-                                              color: CustomColors.headingColor)),
+                                              color:
+                                                  CustomColors.headingColor)),
                                     ),
                                   ],
                                 ),
@@ -537,6 +543,10 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [
+                                FilteringTextInputFormatter.allow(
+                                    RegExp("[a-zA-Z]"))
+                              ],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
@@ -578,9 +588,9 @@ class _VisitReservationApplicationState
                                   });
                                 }
                               },
-                               onTapOutside: (event) {
-                              hideKeyboard();
-                            },
+                              onTapOutside: (event) {
+                                hideKeyboard();
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -610,49 +620,51 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
-                                controller: companyNameController,
-                                cursorColor: CustomColors.textColorBlack2,
-                                keyboardType: TextInputType.text,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  fillColor: CustomColors.whiteColor,
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.all(16),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: CustomColors.dividerGreyColor,
-                                        width: 1.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: CustomColors.dividerGreyColor,
-                                        width: 1.0),
-                                  ),
-                                  hintText: tr('companyNameHint'),
-                                  hintStyle: const TextStyle(
-                                    height: 1.5,
-                                    color: CustomColors.textColor3,
-                                    fontSize: 14,
-                                    fontFamily: 'Regular',
-                                  ),
+                              controller: companyNameController,
+                              cursorColor: CustomColors.textColorBlack2,
+                              keyboardType: TextInputType.text,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                fillColor: CustomColors.whiteColor,
+                                filled: true,
+                                contentPadding: const EdgeInsets.all(16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
                                 ),
-                                style: const TextStyle(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
+                                ),
+                                hintText: tr('companyNameHint'),
+                                hintStyle: const TextStyle(
                                   height: 1.5,
-                                  color: CustomColors.blackColor,
+                                  color: CustomColors.textColor3,
                                   fontSize: 14,
                                   fontFamily: 'Regular',
                                 ),
-                                onTap: () {
-                                  if (tooltip) {
-                                    setState(() {
-                                      tooltip = false;
-                                    });
-                                  }
-                                }, onTapOutside: (event) {
-                              hideKeyboard();
-                            },),
+                              ),
+                              style: const TextStyle(
+                                height: 1.5,
+                                color: CustomColors.blackColor,
+                                fontSize: 14,
+                                fontFamily: 'Regular',
+                              ),
+                              onTap: () {
+                                if (tooltip) {
+                                  setState(() {
+                                    tooltip = false;
+                                  });
+                                }
+                              },
+                              onTapOutside: (event) {
+                                hideKeyboard();
+                              },
+                            ),
                           ),
                           const SizedBox(
                             height: 14,
@@ -681,49 +693,51 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
-                                controller: emailController,
-                                cursorColor: CustomColors.textColorBlack2,
-                                keyboardType: TextInputType.emailAddress,
-                                decoration: InputDecoration(
-                                  border: InputBorder.none,
-                                  fillColor: CustomColors.whiteColor,
-                                  filled: true,
-                                  contentPadding: const EdgeInsets.all(16),
-                                  enabledBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: CustomColors.dividerGreyColor,
-                                        width: 1.0),
-                                  ),
-                                  focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(4),
-                                    borderSide: const BorderSide(
-                                        color: CustomColors.dividerGreyColor,
-                                        width: 1.0),
-                                  ),
-                                  hintText: tr('emailDemoHint'),
-                                  hintStyle: const TextStyle(
-                                    height: 1.5,
-                                    color: CustomColors.textColor3,
-                                    fontSize: 14,
-                                    fontFamily: 'Regular',
-                                  ),
+                              controller: emailController,
+                              cursorColor: CustomColors.textColorBlack2,
+                              keyboardType: TextInputType.emailAddress,
+                              decoration: InputDecoration(
+                                border: InputBorder.none,
+                                fillColor: CustomColors.whiteColor,
+                                filled: true,
+                                contentPadding: const EdgeInsets.all(16),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
                                 ),
-                                style: const TextStyle(
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: CustomColors.dividerGreyColor,
+                                      width: 1.0),
+                                ),
+                                hintText: tr('emailDemoHint'),
+                                hintStyle: const TextStyle(
                                   height: 1.5,
-                                  color: CustomColors.blackColor,
+                                  color: CustomColors.textColor3,
                                   fontSize: 14,
                                   fontFamily: 'Regular',
                                 ),
-                                onTap: () {
-                                  if (tooltip) {
-                                    setState(() {
-                                      tooltip = false;
-                                    });
-                                  }
-                                }, onTapOutside: (event) {
-                              hideKeyboard();
-                            },),
+                              ),
+                              style: const TextStyle(
+                                height: 1.5,
+                                color: CustomColors.blackColor,
+                                fontSize: 14,
+                                fontFamily: 'Regular',
+                              ),
+                              onTap: () {
+                                if (tooltip) {
+                                  setState(() {
+                                    tooltip = false;
+                                  });
+                                }
+                              },
+                              onTapOutside: (event) {
+                                hideKeyboard();
+                              },
+                            ),
                           ),
                           const SizedBox(
                             height: 14,
@@ -887,9 +901,9 @@ class _VisitReservationApplicationState
                                 hideKeyboard();
                                 openDatePickerWidget();
                               },
-                               onTapOutside: (event) {
-                              hideKeyboard();
-                            },
+                              onTapOutside: (event) {
+                                hideKeyboard();
+                              },
                             ),
                           ),
                           const SizedBox(
@@ -1141,7 +1155,6 @@ class _VisitReservationApplicationState
             purposeSelectedValue = value as String;
           });
         },
-       
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
           isOverButton: false,
@@ -1663,8 +1676,9 @@ class _VisitReservationApplicationState
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1675,10 +1689,11 @@ class _VisitReservationApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1747,13 +1762,14 @@ class _VisitReservationApplicationState
           }
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1762,10 +1778,11 @@ class _VisitReservationApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1807,8 +1824,9 @@ class _VisitReservationApplicationState
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1819,10 +1837,11 @@ class _VisitReservationApplicationState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1875,8 +1894,9 @@ class _VisitReservationApplicationState
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1887,10 +1907,11 @@ class _VisitReservationApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1933,8 +1954,9 @@ class _VisitReservationApplicationState
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1945,10 +1967,11 @@ class _VisitReservationApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });

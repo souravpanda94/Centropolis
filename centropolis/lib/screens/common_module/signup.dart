@@ -5,6 +5,7 @@ import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -301,6 +302,10 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp("[a-zA-Z]"))
+                          ],
                           controller: nameController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
@@ -406,7 +411,6 @@ class _SignupScreenState extends State<SignupScreen> {
                           const SizedBox(
                             width: 8,
                           ),
-
                           SizedBox(
                             height: 46,
                             child: CommonButtonWithBorder(
@@ -415,11 +419,11 @@ class _SignupScreenState extends State<SignupScreen> {
                               },
                               buttonName: tr("verify"),
                               buttonBorderColor:
-                              CustomColors.buttonBackgroundColor,
-                              buttonTextColor: CustomColors.buttonBackgroundColor,
+                                  CustomColors.buttonBackgroundColor,
+                              buttonTextColor:
+                                  CustomColors.buttonBackgroundColor,
                             ),
                           )
-
                         ],
                       ),
                       Container(
@@ -908,10 +912,11 @@ class _SignupScreenState extends State<SignupScreen> {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-             showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -920,10 +925,11 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -971,13 +977,14 @@ class _SignupScreenState extends State<SignupScreen> {
           }
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -986,10 +993,11 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1008,11 +1016,11 @@ class _SignupScreenState extends State<SignupScreen> {
         callVerifyUserIdApi();
       } else {
         //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
-          context: context,
-          heading: tr("noInternet"),
-          description: tr("connectionFailedDescription"),
-          buttonName: tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("noInternet"),
+            description: tr("connectionFailedDescription"),
+            buttonName: tr("check"));
       }
     }
   }
@@ -1038,20 +1046,22 @@ class _SignupScreenState extends State<SignupScreen> {
             isUserIdVerified = true;
           });
           if (responseJson['message'] != null) {
-             showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1060,10 +1070,11 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1460,10 +1471,11 @@ class _SignupScreenState extends State<SignupScreen> {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-             showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1474,10 +1486,11 @@ class _SignupScreenState extends State<SignupScreen> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       if (mounted) {
         setState(() {
           isLoading = false;

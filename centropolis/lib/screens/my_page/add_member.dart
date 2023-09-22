@@ -4,6 +4,7 @@ import 'dart:io';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -235,6 +236,10 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                            FilteringTextInputFormatter.allow(
+                                RegExp("[a-zA-Z]"))
+                          ],
                         controller: nameController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,

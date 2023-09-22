@@ -4,6 +4,7 @@ import 'package:centropolis/widgets/multi_select_item_lounge.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
@@ -54,8 +55,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
   bool servicesEquipmentTooltip = false;
   DateTime priorDate = DateTime.now();
 
-
-
   String reservationDate = "";
   List<dynamic> usageTimeList = [];
   List<dynamic> timeList = [];
@@ -70,8 +69,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
   String? equipmentSelectedValue;
 
   TextEditingController eventPurposeController = TextEditingController();
-  TextEditingController numberOfParticipantsController = TextEditingController();
-
+  TextEditingController numberOfParticipantsController =
+      TextEditingController();
 
   @override
   void initState() {
@@ -85,8 +84,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
-    priorDate =
-            DateTime(kFirstDay.year, kFirstDay.month, kFirstDay.day + 14);
+    priorDate = DateTime(kFirstDay.year, kFirstDay.month, kFirstDay.day + 14);
     setWebViewLink();
     internetCheckingForMethods();
   }
@@ -362,27 +360,25 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           ),
                           onTap: () {
                             if (numberOfParticipantsTooltip) {
-                                  setState(() {
-                                    numberOfParticipantsTooltip = false;
-                                  });
-                                }
-                                 if(tooltip){
-                            setState(() {
-                              tooltip=false;
-                            });
-                          }
-                           if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
-          }
-                                
+                              setState(() {
+                                numberOfParticipantsTooltip = false;
+                              });
+                            }
+                            if (tooltip) {
+                              setState(() {
+                                tooltip = false;
+                              });
+                            }
+                            if (servicesEquipmentTooltip) {
+                              setState(() {
+                                servicesEquipmentTooltip = false;
+                              });
+                            }
                           },
                           onTapOutside: (event) {
                             hideKeyboard();
                           },
                         ),
-                        
                       ),
                       const SizedBox(
                         height: 16,
@@ -402,6 +398,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         height: 46,
                         child: TextField(
                           readOnly: false,
+                          inputFormatters: [
+                            FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                          ],
                           controller: numberOfParticipantsController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.number,
@@ -440,25 +439,24 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           ),
                           onTap: () {
                             setState(() {
-                              numberOfParticipantsTooltip=true;
+                              numberOfParticipantsTooltip = true;
                             });
-                             if(tooltip){
-                            setState(() {
-                              tooltip=false;
-                            });
-                          }
-                           if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
-          }
+                            if (tooltip) {
+                              setState(() {
+                                tooltip = false;
+                              });
+                            }
+                            if (servicesEquipmentTooltip) {
+                              setState(() {
+                                servicesEquipmentTooltip = false;
+                              });
+                            }
                           },
                           onTapOutside: (event) {
                             hideKeyboard();
                             setState(() {
-                              numberOfParticipantsTooltip=false;
+                              numberOfParticipantsTooltip = false;
                             });
-                            
                           },
                         ),
                       ),
@@ -513,15 +511,14 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         height: 8,
                       ),
                       InkWell(
-                      
                         onTap: () {
-                          if(tooltip){
+                          if (tooltip) {
                             setState(() {
-                              tooltip=false;
+                              tooltip = false;
                             });
                           }
                           setState(() {
-                            servicesEquipmentTooltip=true;
+                            servicesEquipmentTooltip = true;
                           });
                           _showMultiSelect();
                         },
@@ -617,9 +614,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              tooltipTextWidget(tr("servicesEquipmentTooltip1")),
-                              tooltipTextWidget(tr("servicesEquipmentTooltip2")),
-                        
+                              tooltipTextWidget(
+                                  tr("servicesEquipmentTooltip1")),
+                              tooltipTextWidget(
+                                  tr("servicesEquipmentTooltip2")),
                             ],
                           ),
                         ),
@@ -815,6 +813,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           )
         ]);
   }
+
   tooltipTextWidget(String text) {
     return Row(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -858,10 +857,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
       _selectedEquipmentsValue.clear();
 
       for (var i = 0; i < results.length; i++) {
-        if(results[i]["value"]!=null && results[i]["value"].toString().isNotEmpty){
+        if (results[i]["value"] != null &&
+            results[i]["value"].toString().isNotEmpty) {
           _selectedEquipmentsValue.add(results[i]["value"]);
         }
-        
       }
 
       setState(() {
@@ -957,10 +956,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
           setState(() {
             tooltip = true;
           });
-           if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
+          if (servicesEquipmentTooltip) {
+            setState(() {
+              servicesEquipmentTooltip = false;
+            });
           }
         },
         iconStyleData: IconStyleData(
@@ -1160,15 +1159,15 @@ class _LoungeReservationState extends State<LoungeReservation> {
           });
         },
         onMenuStateChange: (isOpen) {
-          if(tooltip){
-             setState(() {
-            tooltip = false;
-          });
+          if (tooltip) {
+            setState(() {
+              tooltip = false;
+            });
           }
-          if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
+          if (servicesEquipmentTooltip) {
+            setState(() {
+              servicesEquipmentTooltip = false;
+            });
           }
         },
         dropdownStyleData: DropdownStyleData(
@@ -1270,17 +1269,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
             });
           },
           onMenuStateChange: (isOpen) {
-          if(tooltip){
-             setState(() {
-            tooltip = false;
-          });
-          }
-          if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
-          }
-        },
+            if (tooltip) {
+              setState(() {
+                tooltip = false;
+              });
+            }
+            if (servicesEquipmentTooltip) {
+              setState(() {
+                servicesEquipmentTooltip = false;
+              });
+            }
+          },
           dropdownStyleData: DropdownStyleData(
             maxHeight: 200,
             isOverButton: false,
@@ -1412,17 +1411,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
             });
           },
           onMenuStateChange: (isOpen) {
-          if(tooltip){
-             setState(() {
-            tooltip = false;
-          });
-          }
-           if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
-          }
-        },
+            if (tooltip) {
+              setState(() {
+                tooltip = false;
+              });
+            }
+            if (servicesEquipmentTooltip) {
+              setState(() {
+                servicesEquipmentTooltip = false;
+              });
+            }
+          },
           dropdownStyleData: DropdownStyleData(
             maxHeight: 150,
             isOverButton: false,
@@ -1578,7 +1577,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       enabledDayPredicate: (day) {
-
         if (day.weekday == DateTime.saturday ||
             day.weekday == DateTime.sunday) {
           return false;
@@ -1604,8 +1602,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
           eventPurposeController.clear();
           numberOfParticipantsController.clear();
           tooltip = false;
-          numberOfParticipantsTooltip=false;
-          servicesEquipmentTooltip=false;
+          numberOfParticipantsTooltip = false;
+          servicesEquipmentTooltip = false;
           _selectedEquipments.clear();
           _selectedEquipmentsValue.clear();
         });
@@ -1619,16 +1617,33 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       onPageChanged: (focusedDay) {
-
-        if (focusedDay.compareTo(priorDate) < 0) {
-          setState(() {
-            focusedDate = priorDate;
-          });
-        } else {
-          setState(() {
-            focusedDate = focusedDay;
-          });
-        }
+        setState(() {
+          focusedDate=focusedDay;
+        });
+        // if (focusedDay.compareTo(priorDate) < 0) {
+        //   setState(() {
+        //     focusedDate = priorDate;
+        //   });
+        // } else {
+        //   setState(() {
+        //     focusedDate = focusedDay;
+        //   });
+        // }
+        setState(() {
+          usageTimeSelectedValue = null;
+          startTimeSelectedValue = null;
+          endTimeSelectedValue = null;
+          paymentMethodSelectedValue = null;
+          eventPurposeController.clear();
+          numberOfParticipantsController.clear();
+          tooltip = false;
+          numberOfParticipantsTooltip = false;
+          servicesEquipmentTooltip = false;
+          _selectedEquipments.clear();
+          _selectedEquipmentsValue.clear();
+          
+        });
+        loadUsageTimeList();
       },
     );
   }
@@ -1953,9 +1968,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       selectedDate = '$year-$month-$day';
     }
     debugPrint("Selected Date ====> $selectedDate");
-    setState(() {
-      reservationDate = selectedDate;
-    });
+
+    if (focusedDate.compareTo(DateTime.now()) <= 0 || focusedDate.compareTo(priorDate)<0) {
+      setState(() {
+        reservationDate = "";
+      });
+    } else {
+      setState(() {
+        reservationDate = selectedDate;
+      });
+    }
 
     if (reservationDate == "") {
       showErrorModal(tr("applicationDateValidation"));
