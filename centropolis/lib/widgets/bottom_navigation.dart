@@ -62,7 +62,8 @@ class BottomNavigationScreen extends StatefulWidget {
   }
 }
 
-class _BottomNavigationScreenState extends State<BottomNavigationScreen> with WidgetsBindingObserver {
+class _BottomNavigationScreenState extends State<BottomNavigationScreen>
+    with WidgetsBindingObserver {
   late String apiKey, language;
   late FToast fToast;
   bool isLoading = false;
@@ -74,7 +75,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
   String deviceId = '';
   String deviceType = '';
   String checkedSignedIn = "";
-
 
   @override
   void initState() {
@@ -130,148 +130,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
 
   @override
   Widget build(BuildContext context) {
-    return
-      SafeArea(child:
-    Scaffold(
-      backgroundColor: CustomColors.whiteColor,
-      appBar: selectedPage == 0
-          ? null
-          : PreferredSize(
-        preferredSize: AppBar().preferredSize,
-        child: SafeArea(
-          child: Container(
-            color: CustomColors.whiteColor,
-            child: HomePageAppBar(
-                title: setTitle(selectedPage),
-                selectedPage: selectedPage,
-                unreadNotificationCount: unreadNotificationCount,
-                onSettingBtnTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const AppSettingsScreen(),
-                    ),
-                  );
-                },
-                onNotificationBtnTap: () {
-                  debugPrint("notification tap");
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const NotificationScreen(),
-                    ),
-                  ).then((value){
-                    loadPersonalInformation();
-                  });
-                }),
-          ),
-        ),
-      ),
-      body: Container(
-        color: CustomColors.backgroundColor,
-        child: <Widget>[
-          const HomeScreen(),
-          TenantServiceScreen(widget.amenityTabIndex),
-          const VisitRequestScreen(),
-          const VocApplicationScreen(),
-          const MyPageScreen()
-        ].elementAt(selectedPage),
-      ),
-      bottomNavigationBar: SizedBox(
-        height: 70,
-        child: BottomNavigationBar(
-          backgroundColor: CustomColors.whiteColor,
-          showSelectedLabels: true,
-          showUnselectedLabels: true,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 2, top: 2),
-                  child: SvgPicture.asset(
-                    selectedPage == 0
-                        ? "assets/images/ic_home_red.svg"
-                        : "assets/images/ic_home.svg",
-                    width: 18,
-                    height: 18,
-                  ),
-                ),
-                label: tr("home"),
-                backgroundColor: CustomColors.whiteColor),
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 2, top: 2),
-                  child: SvgPicture.asset(
-                    selectedPage == 1
-                        ? "assets/images/ic_tenant_service_red.svg"
-                        : "assets/images/ic_tenant_service.svg",
-                    semanticsLabel: 'Back',
-                    width: 18,
-                    height: 18,
-                  ),
-                ),
-                label: tr("amenity"),
-                backgroundColor: CustomColors.whiteColor),
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 1, top: 1),
-                  child: SvgPicture.asset(
-                    selectedPage == 2
-                        ? "assets/images/ic_visit_reservation_red.svg"
-                        : "assets/images/ic_visit_reservation.svg",
-                    semanticsLabel: 'Back',
-                    width: 21,
-                    height: 21,
-                  ),
-                ),
-                label: tr("visitRequest"),
-                backgroundColor: CustomColors.whiteColor),
-            BottomNavigationBarItem(
-                icon: Padding(
-                  padding: const EdgeInsets.only(bottom: 2, top: 2),
-                  child: SvgPicture.asset(
-                    selectedPage == 3
-                        ? "assets/images/ic_voc_red.svg"
-                        : "assets/images/ic_voc.svg",
-                    semanticsLabel: 'Back',
-                    width: 19,
-                    height: 19,
-                  ),
-                ),
-                label: tr("voc"),
-                backgroundColor: CustomColors.whiteColor),
-            BottomNavigationBarItem(
-                icon: SvgPicture.asset(
-                  selectedPage == 4
-                      ? "assets/images/ic_my_page_red.svg"
-                      : "assets/images/ic_my_page.svg",
-                  semanticsLabel: 'Back',
-                  width: 22,
-                  height: 22,
-                ),
-                label: tr("myPageHeading"),
-                backgroundColor: CustomColors.whiteColor),
-          ],
-          type: BottomNavigationBarType.fixed,
-          currentIndex: selectedPage,
-          selectedItemColor: CustomColors.textColor9,
-          selectedLabelStyle: const TextStyle(
-            height: 2,
-            fontSize: 12.0,
-            fontFamily: 'Regular',
-            color: CustomColors.textColor9,
-          ),
-          unselectedItemColor: CustomColors.textColor3,
-          unselectedLabelStyle: const TextStyle(
-              fontSize: 12.0,
-              height: 2,
-              fontFamily: 'Regular',
-              color: CustomColors.textColor3),
-          onTap: _onItemTapped,
-          elevation: 5,
-        ),
-      ),
-    )
-      );
+    return Platform.isAndroid ? mainWidget() : SafeArea(child: mainWidget());
   }
 
   void _onItemTapped(int index) {
@@ -336,8 +195,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -348,10 +208,11 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -438,8 +299,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
           type == "cancel_lounge_reservation" ||
-          type == "payment_pending_lounge_reservation"
-      ) {
+          type == "payment_pending_lounge_reservation") {
         //lounge details
 
         Navigator.push(
@@ -622,8 +482,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       } else if (type == "add_lounge_reservation" ||
           type == "reject_lounge_reservation" ||
           type == "cancel_lounge_reservation" ||
-          type == "payment_pending_lounge_reservation"
-      ) {
+          type == "payment_pending_lounge_reservation") {
         //lounge details
 
         Navigator.push(
@@ -755,8 +614,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
     }
   }
 
-
-
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     switch (state) {
@@ -768,7 +625,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
         break;
       case AppLifecycleState.paused:
         debugPrint("app in paused -- For background");
-        if(checkedSignedIn == "false") {
+        if (checkedSignedIn == "false") {
           getDeviceIdAndDeviceType();
           callLogout();
         }
@@ -814,11 +671,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "device_id" : deviceId.trim()
-    };
+    Map<String, String> body = {"device_id": deviceId.trim()};
     debugPrint("input for logout ===> $body");
-
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.logoutUrl, body, language, apiKey.trim());
@@ -832,8 +686,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -847,8 +702,9 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -860,14 +716,156 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
 
+  mainWidget() {
+    return Scaffold(
+      backgroundColor: CustomColors.whiteColor,
+      appBar: selectedPage == 0
+          ? null
+          : PreferredSize(
+              preferredSize: AppBar().preferredSize,
+              child: SafeArea(
+                child: Container(
+                  color: CustomColors.whiteColor,
+                  child: HomePageAppBar(
+                      title: setTitle(selectedPage),
+                      selectedPage: selectedPage,
+                      unreadNotificationCount: unreadNotificationCount,
+                      onSettingBtnTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const AppSettingsScreen(),
+                          ),
+                        );
+                      },
+                      onNotificationBtnTap: () {
+                        debugPrint("notification tap");
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const NotificationScreen(),
+                          ),
+                        ).then((value) {
+                          loadPersonalInformation();
+                        });
+                      }),
+                ),
+              ),
+            ),
+      body: Container(
+        color: CustomColors.backgroundColor,
+        child: <Widget>[
+          const HomeScreen(),
+          TenantServiceScreen(widget.amenityTabIndex),
+          const VisitRequestScreen(),
+          const VocApplicationScreen(),
+          const MyPageScreen()
+        ].elementAt(selectedPage),
+      ),
+      bottomNavigationBar: SizedBox(
+        height: 70,
+        child: BottomNavigationBar(
+          backgroundColor: CustomColors.whiteColor,
+          showSelectedLabels: true,
+          showUnselectedLabels: true,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 0
+                        ? "assets/images/ic_home_red.svg"
+                        : "assets/images/ic_home.svg",
+                    width: 18,
+                    height: 18,
+                  ),
+                ),
+                label: tr("home"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 1
+                        ? "assets/images/ic_tenant_service_red.svg"
+                        : "assets/images/ic_tenant_service.svg",
+                    semanticsLabel: 'Back',
+                    width: 18,
+                    height: 18,
+                  ),
+                ),
+                label: tr("amenity"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 1, top: 1),
+                  child: SvgPicture.asset(
+                    selectedPage == 2
+                        ? "assets/images/ic_visit_reservation_red.svg"
+                        : "assets/images/ic_visit_reservation.svg",
+                    semanticsLabel: 'Back',
+                    width: 21,
+                    height: 21,
+                  ),
+                ),
+                label: tr("visitRequest"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: Padding(
+                  padding: const EdgeInsets.only(bottom: 2, top: 2),
+                  child: SvgPicture.asset(
+                    selectedPage == 3
+                        ? "assets/images/ic_voc_red.svg"
+                        : "assets/images/ic_voc.svg",
+                    semanticsLabel: 'Back',
+                    width: 19,
+                    height: 19,
+                  ),
+                ),
+                label: tr("voc"),
+                backgroundColor: CustomColors.whiteColor),
+            BottomNavigationBarItem(
+                icon: SvgPicture.asset(
+                  selectedPage == 4
+                      ? "assets/images/ic_my_page_red.svg"
+                      : "assets/images/ic_my_page.svg",
+                  semanticsLabel: 'Back',
+                  width: 22,
+                  height: 22,
+                ),
+                label: tr("myPageHeading"),
+                backgroundColor: CustomColors.whiteColor),
+          ],
+          type: BottomNavigationBarType.fixed,
+          currentIndex: selectedPage,
+          selectedItemColor: CustomColors.textColor9,
+          selectedLabelStyle: const TextStyle(
+            height: 2,
+            fontSize: 12.0,
+            fontFamily: 'Regular',
+            color: CustomColors.textColor9,
+          ),
+          unselectedItemColor: CustomColors.textColor3,
+          unselectedLabelStyle: const TextStyle(
+              fontSize: 12.0,
+              height: 2,
+              fontFamily: 'Regular',
+              color: CustomColors.textColor3),
+          onTap: _onItemTapped,
+          elevation: 5,
+        ),
+      ),
+    );
+  }
 }
