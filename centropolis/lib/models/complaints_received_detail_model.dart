@@ -17,6 +17,7 @@ class ComplaintsReceivedDetailsModel {
   String? displayStatus;
   String? canRate;
   String? rating;
+  String? repliedFilePath;
   bool? success;
 
   ComplaintsReceivedDetailsModel(
@@ -38,6 +39,7 @@ class ComplaintsReceivedDetailsModel {
       this.displayStatus,
       this.canRate,
       this.rating,
+      this.repliedFilePath,
       this.success});
 
   ComplaintsReceivedDetailsModel.fromJson(Map<String, dynamic> json) {
@@ -60,6 +62,7 @@ class ComplaintsReceivedDetailsModel {
     displayStatus = json['display_status'];
     canRate = json['can_rate'];
     rating = json['rating'].toString();
+    repliedFilePath = json['replied_file_path'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +86,8 @@ class ComplaintsReceivedDetailsModel {
     data['display_status'] = displayStatus;
     data['can_rate'] = canRate;
     data['rating'] = rating;
+    data['replied_file_path'] = repliedFilePath;
+
     return data;
   }
 }

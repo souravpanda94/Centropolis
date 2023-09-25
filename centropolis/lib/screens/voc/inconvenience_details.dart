@@ -428,6 +428,49 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                   ],
                 ),
               ),
+              if (complaintsReceivedDetails?.repliedFilePath != null &&
+                  complaintsReceivedDetails!.repliedFilePath
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+              if (complaintsReceivedDetails?.repliedFilePath != null &&
+                  complaintsReceivedDetails!.repliedFilePath
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                       Text(
+                        tr("inconvenienceRepliedImage"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.network(
+                          "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
+                          fit: BoxFit.fill,
+                          height: 194,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               Container(
                 color: CustomColors.backgroundColor,
                 width: MediaQuery.of(context).size.width,
@@ -509,7 +552,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
       callComplaintsReceivedDetailsApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -548,13 +591,14 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
               .setItem(complaintsReceivedDetailModel);
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -563,10 +607,11 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -614,7 +659,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
     if (await internetChecking.isInternet()) {
       callSaveComplaintRatingApi(complaintRating);
     } else {
-       // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
@@ -645,19 +690,21 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
         if (response.statusCode == 200 && responseJson['success']) {
           Navigator.pop(context);
           loadComplaintsReceivedDetails();
-          showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+          showErrorCommonModal(
+              context: context,
+              heading: responseJson['message'].toString(),
+              description: "",
+              buttonName: tr("check"));
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -666,10 +713,11 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });

@@ -65,10 +65,10 @@ class _InconvenienceHistoryDetailsState
       ratingValue = 0.0;
     }
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
@@ -251,7 +251,9 @@ class _InconvenienceHistoryDetailsState
                       height: 8,
                     ),
                     Text(
-                      complaintsReceivedDetails?.floor.toString().toUpperCase() ??
+                      complaintsReceivedDetails?.floor
+                              .toString()
+                              .toUpperCase() ??
                           "",
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -427,13 +429,57 @@ class _InconvenienceHistoryDetailsState
                             width: 32,
                           ),
                         ),
-                        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                        itemPadding:
+                            const EdgeInsets.symmetric(horizontal: 4.0),
                         onRatingUpdate: (double value) {},
                       ),
                     ),
                   ],
                 ),
               ),
+              if (complaintsReceivedDetails?.repliedFilePath != null &&
+                  complaintsReceivedDetails!.repliedFilePath
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+              if (complaintsReceivedDetails?.repliedFilePath != null &&
+                  complaintsReceivedDetails!.repliedFilePath
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                       Text(
+                        tr("inconvenienceRepliedImage"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style:const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.network(
+                          "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
+                          fit: BoxFit.fill,
+                          height: 194,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
               Container(
                 color: CustomColors.backgroundColor,
                 width: MediaQuery.of(context).size.width,
@@ -481,7 +527,8 @@ class _InconvenienceHistoryDetailsState
                                 MaterialPageRoute(
                                     builder: (context) => ComplaintsReceived(
                                           parentInquirId:
-                                              complaintsReceivedDetails?.inquiryId
+                                              complaintsReceivedDetails
+                                                      ?.inquiryId
                                                       .toString() ??
                                                   "",
                                         )),
@@ -494,10 +541,12 @@ class _InconvenienceHistoryDetailsState
                                 }
                               });
                             },
-                            buttonBorderColor: CustomColors.buttonBackgroundColor,
+                            buttonBorderColor:
+                                CustomColors.buttonBackgroundColor,
                             buttonColor: CustomColors.whiteColor,
                             buttonName: tr("addInquiry"),
-                            buttonTextColor: CustomColors.buttonBackgroundColor),
+                            buttonTextColor:
+                                CustomColors.buttonBackgroundColor),
                       ),
                     Container(
                       width: MediaQuery.of(context).size.width,
@@ -529,7 +578,7 @@ class _InconvenienceHistoryDetailsState
       callComplaintsReceivedDetailsApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -568,13 +617,14 @@ class _InconvenienceHistoryDetailsState
               .setItem(complaintsReceivedDetailModel);
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -583,10 +633,11 @@ class _InconvenienceHistoryDetailsState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -665,19 +716,21 @@ class _InconvenienceHistoryDetailsState
         if (response.statusCode == 200 && responseJson['success']) {
           Navigator.pop(context);
           loadComplaintsReceivedDetails();
-          showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+          showErrorCommonModal(
+              context: context,
+              heading: responseJson['message'].toString(),
+              description: "",
+              buttonName: tr("check"));
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -686,10 +739,11 @@ class _InconvenienceHistoryDetailsState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
