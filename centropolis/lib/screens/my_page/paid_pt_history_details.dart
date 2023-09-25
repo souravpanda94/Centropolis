@@ -16,6 +16,10 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_button.dart';
+import '../../widgets/common_button_with_border.dart';
+import '../amenity/fitness_reservation.dart';
+import '../amenity/paidPT_reservation.dart';
 
 class PaidPTHistoryDetails extends StatefulWidget {
   final String reservationId;
@@ -299,6 +303,30 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                       color: CustomColors.textColor5),
                 ),
               ),
+        bottomSheet:
+            paidPtHistoryDetailModel?.canEdit.toString().toLowerCase() == 'y'
+                ? Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.whiteColor,
+                    padding: const EdgeInsets.only(
+                        left: 16, top: 16, right: 16, bottom: 50),
+                    child: CommonButton(
+                      onCommonButtonTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const FitnessReservation(
+                              position: 2,
+                            ),
+                          ),
+                        );
+                      },
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      buttonName: tr("edit"),
+                      isIconVisible: false,
+                    ),
+                  )
+                : const SizedBox(),
       ),
     );
   }
@@ -347,8 +375,9 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -359,10 +388,11 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
