@@ -130,41 +130,43 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return
+      SafeArea(child:
+    Scaffold(
       backgroundColor: CustomColors.whiteColor,
       appBar: selectedPage == 0
           ? null
           : PreferredSize(
-              preferredSize: AppBar().preferredSize,
-              child: SafeArea(
-                child: Container(
-                  color: CustomColors.whiteColor,
-                  child: HomePageAppBar(
-                      title: setTitle(selectedPage),
-                      selectedPage: selectedPage,
-                      unreadNotificationCount: unreadNotificationCount,
-                      onSettingBtnTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const AppSettingsScreen(),
-                          ),
-                        );
-                      },
-                      onNotificationBtnTap: () {
-                        debugPrint("notification tap");
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const NotificationScreen(),
-                          ),
-                        ).then((value){
-                          loadPersonalInformation();
-                        });
-                      }),
-                ),
-              ),
-            ),
+        preferredSize: AppBar().preferredSize,
+        child: SafeArea(
+          child: Container(
+            color: CustomColors.whiteColor,
+            child: HomePageAppBar(
+                title: setTitle(selectedPage),
+                selectedPage: selectedPage,
+                unreadNotificationCount: unreadNotificationCount,
+                onSettingBtnTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const AppSettingsScreen(),
+                    ),
+                  );
+                },
+                onNotificationBtnTap: () {
+                  debugPrint("notification tap");
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const NotificationScreen(),
+                    ),
+                  ).then((value){
+                    loadPersonalInformation();
+                  });
+                }),
+          ),
+        ),
+      ),
       body: Container(
         color: CustomColors.backgroundColor,
         child: <Widget>[
@@ -268,7 +270,8 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen> with Wi
           elevation: 5,
         ),
       ),
-    );
+    )
+      );
   }
 
   void _onItemTapped(int index) {
