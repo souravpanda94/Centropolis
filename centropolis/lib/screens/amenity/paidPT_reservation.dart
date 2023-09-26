@@ -1015,7 +1015,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
   void setDataForEdit() {
     setState(() {
-      // rangeTimeSelectedValue = widget.paidPtHistoryDetailModel?.usageTime.toString();
+      rangeTimeSelectedValue = widget.paidPtHistoryDetailModel?.usageTime.toString().replaceAll(' ', '');
       focusedDate = DateTime.parse(widget.paidPtHistoryDetailModel!.reservationStartDate.toString());
     });
     debugPrint("--------${widget.paidPtHistoryDetailModel?.usageTime.toString()}------");
