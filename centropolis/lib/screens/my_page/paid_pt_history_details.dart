@@ -316,13 +316,16 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) =>  FitnessReservation(
+                            builder: (context) => FitnessReservation(
                                 position: 2,
                                 operationName: "edit",
                                 reservationId: widget.reservationId,
-                                paidPtHistoryDetailModel: paidPtHistoryDetailModel),
+                                paidPtHistoryDetailModel:
+                                    paidPtHistoryDetailModel),
                           ),
-                        );
+                        ).then((value) {
+                          loadPaidPtHistoryDetails();
+                        });
                       },
                       buttonColor: CustomColors.buttonBackgroundColor,
                       buttonName: tr("edit"),

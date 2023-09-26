@@ -55,6 +55,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   String reservationDate = "";
   String reservationRulesLink = "";
   List<dynamic> timeList = [];
+  bool isLoadingRequired = false;
 
 
 
@@ -848,6 +849,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         "start_time": startTimeSelectedValue.toString().trim(), //required
         "end_time": endTimeSelectedValue.toString().trim(), //required
       };
+      debugPrint("Edit pt reservation input===> $body");
     }
     else{
       apiName = ApiEndPoint.makePtReservation;
@@ -858,10 +860,11 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         "start_time": startTimeSelectedValue.toString().trim(), //required
         "end_time": endTimeSelectedValue.toString().trim(), //required
       };
+      debugPrint("pt reservation input===> $body");
     }
 
 
-    debugPrint("pt reservation input===> $body");
+
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         apiName, body, language.toString(), apiKey);
@@ -872,6 +875,9 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
         } else {
@@ -916,7 +922,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context,isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
