@@ -434,9 +434,9 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                         padding: const EdgeInsets.only(top: 24, bottom: 32),
                         child: CommonButton(
                           onCommonButtonTap: () {
-                            reservationValidationCheck();
-                            // showErrorModal(
-                            //     tr("paidLockerReservationRestrictionPopup"));
+                            //reservationValidationCheck();
+                            showErrorModal(
+                                tr("paidLockerReservationRestrictionPopup"));
                           },
                           buttonColor: CustomColors.buttonBackgroundColor,
                           buttonName: tr("makeReservation"),
