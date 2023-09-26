@@ -25,8 +25,12 @@ import '../my_page/web_view_ui.dart';
 
 class PaidLockerReservation extends StatefulWidget {
   final PaidLockerHistoryDetailModel? paidLockerHistoryDetailModel;
+  final String operationName;
 
-  const PaidLockerReservation({super.key, this.paidLockerHistoryDetailModel});
+  const PaidLockerReservation(
+      {super.key,
+      this.paidLockerHistoryDetailModel,
+      required this.operationName});
 
   @override
   State<PaidLockerReservation> createState() => _PaidLockerReservationState();
@@ -68,15 +72,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     // companyName = user.userData['company_name'].toString();
     setWebViewLink();
     internetCheckingForMethods();
-    if (widget.paidLockerHistoryDetailModel != null) {
-      DateFormat format = DateFormat("yyyy-MM-dd");
-      alreadySelectedDate =
-          format.parse(widget.paidLockerHistoryDetailModel!.startDate!);
-      setState(() {
-        focusedDate = alreadySelectedDate;
-        selectedTime =
-            widget.paidLockerHistoryDetailModel?.usedMonths.toString();
-      });
+    if (widget.operationName == "edit") {
+      setDataForEdit();
     }
   }
 
@@ -788,7 +785,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     });
     Map<String, String> body;
 
-    if (widget.paidLockerHistoryDetailModel != null) {
+    if (widget.operationName == "edit") {
       body = {
         "reservation_id": widget.paidLockerHistoryDetailModel!.id.toString(),
         "email": email.trim(), //required
@@ -814,7 +811,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     debugPrint("paid locker reservation input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        widget.paidLockerHistoryDetailModel != null
+        widget.operationName == "edit"
             ? ApiEndPoint.editPaidLockerReservation
             : ApiEndPoint.makePaidLockerReservation,
         body,
@@ -969,6 +966,19 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
+    }
+  }
+
+  void setDataForEdit() {
+    if (widget.paidLockerHistoryDetailModel != null) {
+      DateFormat format = DateFormat("yyyy-MM-dd");
+      alreadySelectedDate =
+          format.parse(widget.paidLockerHistoryDetailModel!.startDate!);
+      setState(() {
+        focusedDate = alreadySelectedDate;
+        selectedTime =
+            widget.paidLockerHistoryDetailModel?.usedMonths.toString();
+      });
     }
   }
 }
