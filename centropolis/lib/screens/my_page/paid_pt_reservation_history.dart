@@ -138,7 +138,9 @@ class _PaidPTReservationHistoryState extends State<PaidPTReservationHistory> {
                                                   .toString() ??
                                               ""),
                                 ),
-                              );
+                              ).then((value) {
+                                firstTimeLoadPaidPtHistoryList();
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(
