@@ -26,6 +26,13 @@ class FitnessReservation extends StatefulWidget {
       this.paidLockerHistoryDetailModel,
       this.paidPtHistoryDetailModel, this.reservationId,
       });
+  const FitnessReservation({
+    super.key,
+    required this.position,
+    required this.operationName,
+    this.paidLockerHistoryDetailModel,
+    this.paidPtHistoryDetailModel,
+  });
 
   @override
   State<FitnessReservation> createState() => _FitnessReservationState();
@@ -122,8 +129,13 @@ class _FitnessReservationState extends State<FitnessReservation> {
                         ?  PaidPTReservation(operationName : widget.operationName,
                 paidPtHistoryDetailModel : widget.paidPtHistoryDetailModel,
                 reservationId: widget.reservationId )
+                        ? PaidPTReservation(
+                            operationName: widget.operationName,
+                            paidPtHistoryDetailModel:
+                                widget.paidPtHistoryDetailModel)
                         : showIndex == 3
                             ? PaidLockerReservation(
+                                operationName: widget.operationName,
                                 paidLockerHistoryDetailModel:
                                     widget.paidLockerHistoryDetailModel,
                               )
