@@ -474,10 +474,10 @@ class _NotificationScreenState extends State<NotificationScreen> {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
             debugPrint(
                 "Notification Read false ===> ${responseJson['message']}");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",
-                buttonName: tr("check"));
+            // showErrorCommonModal(context: context,
+            //     heading :responseJson['message'].toString(),
+            //     description: "",
+            //     buttonName: tr("check"));
           }
         }
         setState(() {
