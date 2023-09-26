@@ -385,6 +385,49 @@ class _InconvenienceHistoryDetailsState
                   width: MediaQuery.of(context).size.width,
                   height: 8,
                 ),
+              if (complaintsReceivedDetails?.repliedFilePath != null &&
+                  complaintsReceivedDetails!.repliedFilePath
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("inconvenienceRepliedImage"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      Container(
+                        margin: const EdgeInsets.only(top: 8),
+                        width: MediaQuery.of(context).size.width,
+                        child: Image.network(
+                          "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
+                          fit: BoxFit.fill,
+                          height: 194,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              if (complaintsReceivedDetails?.repliedFilePath != null &&
+                  complaintsReceivedDetails!.repliedFilePath
+                      .toString()
+                      .trim()
+                      .isNotEmpty)
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
               Container(
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.all(16),
@@ -437,49 +480,6 @@ class _InconvenienceHistoryDetailsState
                   ],
                 ),
               ),
-              if (complaintsReceivedDetails?.repliedFilePath != null &&
-                  complaintsReceivedDetails!.repliedFilePath
-                      .toString()
-                      .trim()
-                      .isNotEmpty)
-                Container(
-                  color: CustomColors.backgroundColor,
-                  width: MediaQuery.of(context).size.width,
-                  height: 8,
-                ),
-              if (complaintsReceivedDetails?.repliedFilePath != null &&
-                  complaintsReceivedDetails!.repliedFilePath
-                      .toString()
-                      .trim()
-                      .isNotEmpty)
-                Container(
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.all(16),
-                  width: MediaQuery.of(context).size.width,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                       Text(
-                        tr("inconvenienceRepliedImage"),
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style:const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 16,
-                            color: CustomColors.textColor8),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 8),
-                        width: MediaQuery.of(context).size.width,
-                        child: Image.network(
-                          "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
-                          fit: BoxFit.fill,
-                          height: 194,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
               Container(
                 color: CustomColors.backgroundColor,
                 width: MediaQuery.of(context).size.width,

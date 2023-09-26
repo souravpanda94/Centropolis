@@ -34,6 +34,7 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
   late FToast fToast;
   bool isLoading = false;
   PaidLockerHistoryDetailModel? paidLockerHistoryDetailModel;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -52,230 +53,244 @@ class _PaidLockerHistoryDetailsState extends State<PaidLockerHistoryDetails> {
         Provider.of<PaidLockerHistoryDetailsProvider>(context)
             .getPaidLockerHistoryDetailModel;
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.whiteColor,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("paidLockersReservation"), false, () {
-                onBackButtonPress(context);
-              }, () {}),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.whiteColor,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("paidLockersReservation"), false, () {
+                  //onBackButtonPress(context);
+                  Navigator.pop(context, isLoadingRequired);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: paidLockerHistoryDetailModel != null
-            ? SingleChildScrollView(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("reservationInformation"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 16,
-                                    color: CustomColors.textColor8),
-                              ),
-                              if (paidLockerHistoryDetailModel != null &&
-                                  paidLockerHistoryDetailModel!.status
-                                      .toString()
-                                      .isNotEmpty)
-                                Container(
-                                  decoration: BoxDecoration(
-                                    color: setStatusBackgroundColor(
-                                        paidLockerHistoryDetailModel!.status
-                                            .toString()),
-                                    borderRadius: BorderRadius.circular(4),
-                                  ),
-                                  padding: const EdgeInsets.only(
-                                      top: 5.0,
-                                      bottom: 5.0,
-                                      left: 10.0,
-                                      right: 10.0),
-                                  child: Text(
-                                    paidLockerHistoryDetailModel?.displayStatus
-                                            .toString() ??
-                                        "",
-                                    style: TextStyle(
-                                      fontSize: 12,
-                                      fontFamily: "SemiBold",
-                                      color: setStatusTextColor(
+          body: paidLockerHistoryDetailModel != null
+              ? SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("reservationInformation"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 16,
+                                      color: CustomColors.textColor8),
+                                ),
+                                if (paidLockerHistoryDetailModel != null &&
+                                    paidLockerHistoryDetailModel!.status
+                                        .toString()
+                                        .isNotEmpty)
+                                  Container(
+                                    decoration: BoxDecoration(
+                                      color: setStatusBackgroundColor(
                                           paidLockerHistoryDetailModel!.status
                                               .toString()),
+                                      borderRadius: BorderRadius.circular(4),
+                                    ),
+                                    padding: const EdgeInsets.only(
+                                        top: 5.0,
+                                        bottom: 5.0,
+                                        left: 10.0,
+                                        right: 10.0),
+                                    child: Text(
+                                      paidLockerHistoryDetailModel
+                                              ?.displayStatus
+                                              .toString() ??
+                                          "",
+                                      style: TextStyle(
+                                        fontSize: 12,
+                                        fontFamily: "SemiBold",
+                                        color: setStatusTextColor(
+                                            paidLockerHistoryDetailModel!.status
+                                                .toString()),
+                                      ),
                                     ),
                                   ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 24,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("nameLounge"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
                                 ),
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 24,
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("nameLounge"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                              Text(
-                                paidLockerHistoryDetailModel?.name.toString() ??
-                                    "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            ],
-                          ),
-                          const Padding(
-                            padding: EdgeInsets.symmetric(vertical: 16),
-                            child: Divider(
-                              color: CustomColors.backgroundColor2,
-                              thickness: 1,
-                              height: 1,
+                                Text(
+                                  paidLockerHistoryDetailModel?.name
+                                          .toString() ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              ],
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                tr("tenantCompanyLounge"),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'SemiBold',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
+                            const Padding(
+                              padding: EdgeInsets.symmetric(vertical: 16),
+                              child: Divider(
+                                color: CustomColors.backgroundColor2,
+                                thickness: 1,
+                                height: 1,
                               ),
-                              Text(
-                                paidLockerHistoryDetailModel?.companyName
-                                        .toString() ??
-                                    "",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColorBlack2),
-                              ),
-                            ],
-                          ),
-                        ],
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  tr("tenantCompanyLounge"),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'SemiBold',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                                Text(
+                                  paidLockerHistoryDetailModel?.companyName
+                                          .toString() ??
+                                      "",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColorBlack2),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Container(
-                      color: CustomColors.whiteColor,
-                      padding: const EdgeInsets.all(16),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Container(
+                        color: CustomColors.whiteColor,
+                        padding: const EdgeInsets.all(16),
+                        width: MediaQuery.of(context).size.width,
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              tr("periodOfUsePaidLocker"),
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                  fontFamily: 'SemiBold',
+                                  fontSize: 16,
+                                  color: CustomColors.textColor8),
+                            ),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Row(
+                              children: [
+                                Text(
+                                  "${paidLockerHistoryDetailModel?.startDate.toString() ?? ""} ~ ${paidLockerHistoryDetailModel?.endDate.toString() ?? ""}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: const TextStyle(
+                                      fontFamily: 'Regular',
+                                      fontSize: 14,
+                                      color: CustomColors.textColor8),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                    ],
+                  ),
+                )
+              : Container(
+                  width: MediaQuery.of(context).size.width,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
+                  padding: const EdgeInsets.all(24),
+                  child: Text(
+                    tr("noReservationHistory"),
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 14,
+                        color: CustomColors.textColor5),
+                  ),
+                ),
+          bottomSheet:
+              paidLockerHistoryDetailModel?.canEdit.toString().toLowerCase() ==
+                      'y'
+                  ? Container(
                       width: MediaQuery.of(context).size.width,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            tr("periodOfUsePaidLocker"),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
-                            style: const TextStyle(
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                color: CustomColors.textColor8),
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            children: [
-                              Text(
-                                "${paidLockerHistoryDetailModel?.startDate.toString() ?? ""} ~ ${paidLockerHistoryDetailModel?.endDate.toString() ?? ""}",
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontFamily: 'Regular',
-                                    fontSize: 14,
-                                    color: CustomColors.textColor8),
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.only(
+                          left: 16, top: 16, right: 16, bottom: 50),
+                      child: CommonButton(
+                        onCommonButtonTap: () {
+                          setState(() {
+                            isLoadingRequired = true;
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => FitnessReservation(
+                                position: 3,
+                                operationName: "edit",
+                                paidLockerHistoryDetailModel:
+                                    paidLockerHistoryDetailModel,
                               ),
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                  ],
-                ),
-              )
-            : Container(
-                width: MediaQuery.of(context).size.width,
-                margin:
-                    const EdgeInsets.symmetric(horizontal: 16, vertical: 20),
-                padding: const EdgeInsets.all(24),
-                child: Text(
-                  tr("noReservationHistory"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 14,
-                      color: CustomColors.textColor5),
-                ),
-              ),
-        bottomSheet:
-            paidLockerHistoryDetailModel?.canEdit.toString().toLowerCase() ==
-                    'y'
-                ? Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.whiteColor,
-                    padding: const EdgeInsets.only(
-                        left: 16, top: 16, right: 16, bottom: 50),
-                    child: CommonButton(
-                      onCommonButtonTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => FitnessReservation(
-                              position: 3,
-                              operationName: "edit",
-                              paidLockerHistoryDetailModel:
-                                  paidLockerHistoryDetailModel,
                             ),
-                          ),
-                        );
-                      },
-                      buttonColor: CustomColors.buttonBackgroundColor,
-                      buttonName: tr("edit"),
-                      isIconVisible: false,
-                    ),
-                  )
-                : const SizedBox(),
+                          ).then((value) {
+                            loadPaidLockerHistoryDetails();
+                          });
+                        },
+                        buttonColor: CustomColors.buttonBackgroundColor,
+                        buttonName: tr("edit"),
+                        isIconVisible: false,
+                      ),
+                    )
+                  : const SizedBox(),
+        ),
       ),
     );
   }

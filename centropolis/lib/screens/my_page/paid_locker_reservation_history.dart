@@ -141,7 +141,9 @@ class _PaidLockerReservationHistoryState
                                                       .toString() ??
                                                   ""),
                                 ),
-                              );
+                              ).then((value) {
+                                firstTimeLoadPaidLockerHistoryList();
+                              });
                             },
                             child: Container(
                               decoration: BoxDecoration(

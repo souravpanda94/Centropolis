@@ -1,5 +1,5 @@
 class ApiEndPoint {
-   //static String baseUrl = "https://api.centropolis.co.kr/api/"; // Live server
+  //static String baseUrl = "https://api.centropolis.co.kr/api/"; // Live server
   static String baseUrl =
       "https://centropolis-api-dev.dvconsulting.org/api/"; // Development server
   // static String baseUrl =
@@ -93,51 +93,85 @@ class ApiEndPoint {
 
 // ====================================MONDIRA=============================================================================================
 
-  static String lightOutDetailUrl = "${baseUrl}v1/mypage/light-out-inquiry-details";
-  static String visitReservationDetailUrl = "${baseUrl}v1/amenity/visitor-reservation-view";
-  static String visitReservationStatusChangeUrl = "${baseUrl}v1/amenity/change-visitor-reservation-status";
-  static String airConditioningDetailUrl = "${baseUrl}v1/mypage/ac-inquiry-details";
-  static String airConditioningChangeStatusUrl = "${baseUrl}v1/mypage/ac-inquiry-approve";
-  static String paidPtHistoryListUrl = "${baseUrl}v1/mypage/pt-reservation-list";
-  static String amenityHistoryStatusUrl = "${baseUrl}v1/common/reservation-status-list";  // ***********
-  static String fitnessHistoryListUrl = "${baseUrl}v1/mypage/fitness-center-reservation-list";
-  static String fittnessSleepingRoomHistoryStatusUrl = "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
-  static String paidLockerHistoryListUrl = "${baseUrl}v1/mypage/fitness-locker-reservation-list";
-  static String paidLockerHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-locker-details";
-  static String fitnessHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-center-details";
-  static String fitnessHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/fitness-reservation-cancel";
-  static String paidPtHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-pt-details";
+  static String lightOutDetailUrl =
+      "${baseUrl}v1/mypage/light-out-inquiry-details";
+  static String visitReservationDetailUrl =
+      "${baseUrl}v1/amenity/visitor-reservation-view";
+  static String visitReservationStatusChangeUrl =
+      "${baseUrl}v1/amenity/change-visitor-reservation-status";
+  static String airConditioningDetailUrl =
+      "${baseUrl}v1/mypage/ac-inquiry-details";
+  static String airConditioningChangeStatusUrl =
+      "${baseUrl}v1/mypage/ac-inquiry-approve";
+  static String paidPtHistoryListUrl =
+      "${baseUrl}v1/mypage/pt-reservation-list";
+  static String amenityHistoryStatusUrl =
+      "${baseUrl}v1/common/reservation-status-list"; // ***********
+  static String fitnessHistoryListUrl =
+      "${baseUrl}v1/mypage/fitness-center-reservation-list";
+  static String fittnessSleepingRoomHistoryStatusUrl =
+      "${baseUrl}v1/common/fitness-sleeping-reservation-status-list";
+  static String paidLockerHistoryListUrl =
+      "${baseUrl}v1/mypage/fitness-locker-reservation-list";
+  static String paidLockerHistoryDetailUrl =
+      "${baseUrl}v1/mypage/fitness-locker-details";
+  static String fitnessHistoryDetailUrl =
+      "${baseUrl}v1/mypage/fitness-center-details";
+  static String fitnessHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/fitness-reservation-cancel";
+  static String paidPtHistoryDetailUrl =
+      "${baseUrl}v1/mypage/fitness-pt-details";
   static String gxHistoryDetailUrl = "${baseUrl}v1/mypage/fitness-gx-details";
-  static String loungeHistoryDetailUrl = "${baseUrl}v1/mypage/executive-lounge-details";
-  static String loungeHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/executive-lounge-cancel";
-  static String requestLightOutStartTimeListUrl = "${baseUrl}v1/common/ac-lights-time";
-  static String requestLightOutUsageTimeListUrl = "${baseUrl}v1/common/period-list";
-  static String requestLightOutApplyUrl = "${baseUrl}v1/amenity/light-out-inquiry";
+  static String loungeHistoryDetailUrl =
+      "${baseUrl}v1/mypage/executive-lounge-details";
+  static String loungeHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/executive-lounge-cancel";
+  static String requestLightOutStartTimeListUrl =
+      "${baseUrl}v1/common/ac-lights-time";
+  static String requestLightOutUsageTimeListUrl =
+      "${baseUrl}v1/common/period-list";
+  static String requestLightOutApplyUrl =
+      "${baseUrl}v1/amenity/light-out-inquiry";
   static String coolingHeatingSaveUrl = "${baseUrl}v1/amenity/ac-inquiry";
-  static String sleepingRoomHistoryDetailCancelReservationUrl = "${baseUrl}v1/mypage/sleeping-reservation-cancel";
-  static String inconvenienceStatusUrl = "${baseUrl}v1/common/complaint-status-list";
-  static String lightOutCoolingHeatingStatusUrl = "${baseUrl}v1/common/ac-lights-status";
-  static String lightOutChangeStatusUrl = "${baseUrl}v1/mypage/light-out-approve";
+  static String sleepingRoomHistoryDetailCancelReservationUrl =
+      "${baseUrl}v1/mypage/sleeping-reservation-cancel";
+  static String inconvenienceStatusUrl =
+      "${baseUrl}v1/common/complaint-status-list";
+  static String lightOutCoolingHeatingStatusUrl =
+      "${baseUrl}v1/common/ac-lights-status";
+  static String lightOutChangeStatusUrl =
+      "${baseUrl}v1/mypage/light-out-approve";
   static String privacyPolicyAndTermsOfUseUrl = "${baseUrl}v1/cms/terms-list";
-  static String getVisitRequestListUrl = "${baseUrl}v1/amenity/visitor-reservation-list";
-  static String visitReservationApplicationUrl = "${baseUrl}v1/amenity/app-visitor-reservation";
+  static String getVisitRequestListUrl =
+      "${baseUrl}v1/amenity/visitor-reservation-list";
+  static String visitReservationApplicationUrl =
+      "${baseUrl}v1/amenity/app-visitor-reservation";
   static String visitTimeListUrl = "${baseUrl}v1/common/visit-time";
   static String visitPurposeListUrl = "${baseUrl}v1/common/visit-purpose";
-  static String getViewSeatSelectionListUrl = "${baseUrl}v1/amenity/sleeping-seat";
-  static String getSelectedSeatListUrl = "${baseUrl}v1/amenity/available-sleeping-seat";
+  static String getViewSeatSelectionListUrl =
+      "${baseUrl}v1/amenity/sleeping-seat";
+  static String getSelectedSeatListUrl =
+      "${baseUrl}v1/amenity/available-sleeping-seat";
   static String withdrawalUrl = "${baseUrl}v1/mypage/withdraw-account";
   static String logoutUrl = "${baseUrl}v1/logout";
-  static String setPushNotificationUrl = "${baseUrl}v1/mypage/push-notification-update";
-  static String getNotificationListUrl = "${baseUrl}v1/mypage/notification-list";
+  static String setPushNotificationUrl =
+      "${baseUrl}v1/mypage/push-notification-update";
+  static String getNotificationListUrl =
+      "${baseUrl}v1/mypage/notification-list";
   static String getQrCodeUrl = "${baseUrl}v1/mypage/qr-code-generate";
-  static String serReadNotification = "${baseUrl}v1/mypage/notification-read-all";
+  static String serReadNotification =
+      "${baseUrl}v1/mypage/notification-read-all";
   static String appUpdateUrl = "${baseUrl}v1/mypage/app-details";
   static String setDeviceInformationUrl = "${baseUrl}v1/add-device";
   static String numberOfParticipantsListUrl = "${baseUrl}v1/common/lounge-nop";
-  static String paymentMethodListUrl = "${baseUrl}v1/common/lounge-payment-method-list";
+  static String paymentMethodListUrl =
+      "${baseUrl}v1/common/lounge-payment-method-list";
   static String equipmentListUrl = "${baseUrl}v1/common/lounge-equipments-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
-  static String conferenceEquipmentListUrl = "${baseUrl}v1/common/conference-equipments-list";
+  static String conferenceEquipmentListUrl =
+      "${baseUrl}v1/common/conference-equipments-list";
+  static String editPaidLockerReservation =
+      "${baseUrl}v1/amenity/fitness-locker-reservation-update";
 }
 
 class WebViewLinks {
@@ -153,25 +187,25 @@ class WebViewLinks {
   static String termsOfUseUrlEng = "${baseUrlForWebLinks}termsofuse/en";
   static String termsOfUseUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
 
-    static String loungeUrlKo = "${baseUrlForWebLinks}termsofuseExecutive/kr";
-    static String loungeUrlEng = "${baseUrlForWebLinks}termsofuseExecutive/en";
+  static String loungeUrlKo = "${baseUrlForWebLinks}termsofuseExecutive/kr";
+  static String loungeUrlEng = "${baseUrlForWebLinks}termsofuseExecutive/en";
 
-    static String conferenceUrlKo = "${baseUrlForWebLinks}termsofuseConference/kr";
-    static String conferenceUrlEng = "${baseUrlForWebLinks}termsofuseConference/en";
+  static String conferenceUrlKo =
+      "${baseUrlForWebLinks}termsofuseConference/kr";
+  static String conferenceUrlEng =
+      "${baseUrlForWebLinks}termsofuseConference/en";
 
-    static String ptUrlKo = "${baseUrlForWebLinks}termsofusePT/kr";
-    static String ptUrlEng = "${baseUrlForWebLinks}termsofusePT/en";
+  static String ptUrlKo = "${baseUrlForWebLinks}termsofusePT/kr";
+  static String ptUrlEng = "${baseUrlForWebLinks}termsofusePT/en";
 
-    static String paidLockerUrlKo = "${baseUrlForWebLinks}termsofPaidLocker/kr";
-    static String paidLockerUrlEng = "${baseUrlForWebLinks}termsofPaidLocker/en";
+  static String paidLockerUrlKo = "${baseUrlForWebLinks}termsofPaidLocker/kr";
+  static String paidLockerUrlEng = "${baseUrlForWebLinks}termsofPaidLocker/en";
 
-    static String gxUrlKo = "${baseUrlForWebLinks}termsofuseGX/kr";
-    static String gxUrlEng = "${baseUrlForWebLinks}termsofuseGX/en";
+  static String gxUrlKo = "${baseUrlForWebLinks}termsofuseGX/kr";
+  static String gxUrlEng = "${baseUrlForWebLinks}termsofuseGX/en";
 
-    static String refreshUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
-    static String refreshUrlEng = "${baseUrlForWebLinks}termsofuse/en";
-
-
+  static String refreshUrlKo = "${baseUrlForWebLinks}termsofuse/kr";
+  static String refreshUrlEng = "${baseUrlForWebLinks}termsofuse/en";
 
   // static String freeParkingVehicleRegistrationUrl =
   //     "http://centropolis.co.kr/About/parking.asp";

@@ -24,9 +24,9 @@ import '../../widgets/common_modal.dart';
 import '../my_page/web_view_ui.dart';
 
 class PaidLockerReservation extends StatefulWidget {
-    final PaidLockerHistoryDetailModel? paidLockerHistoryDetailModel;
+  final PaidLockerHistoryDetailModel? paidLockerHistoryDetailModel;
 
-  const PaidLockerReservation({super.key,this.paidLockerHistoryDetailModel});
+  const PaidLockerReservation({super.key, this.paidLockerHistoryDetailModel});
 
   @override
   State<PaidLockerReservation> createState() => _PaidLockerReservationState();
@@ -51,6 +51,8 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
   String reservationRulesLink = "";
+  DateTime alreadySelectedDate = DateTime.now();
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -66,371 +68,390 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     // companyName = user.userData['company_name'].toString();
     setWebViewLink();
     internetCheckingForMethods();
+    if (widget.paidLockerHistoryDetailModel != null) {
+      DateFormat format = DateFormat("yyyy-MM-dd");
+      alreadySelectedDate =
+          format.parse(widget.paidLockerHistoryDetailModel!.startDate!);
+      setState(() {
+        focusedDate = alreadySelectedDate;
+        selectedTime =
+            widget.paidLockerHistoryDetailModel?.usedMonths.toString();
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: SingleChildScrollView(
-          primary: false,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                margin: const EdgeInsets.only(
-                    top: 10, bottom: 8, left: 16, right: 16),
-                width: MediaQuery.of(context).size.width,
-                child: Text(
-                  tr("serviceRequires"),
-                  textAlign: TextAlign.end,
-                  style: const TextStyle(
-                      fontFamily: 'Regular',
-                      fontSize: 12,
-                      color: CustomColors.textColor3),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: SingleChildScrollView(
+            primary: false,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(
+                      top: 10, bottom: 8, left: 16, right: 16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    tr("serviceRequires"),
+                    textAlign: TextAlign.end,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 12,
+                        color: CustomColors.textColor3),
+                  ),
                 ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                margin: const EdgeInsets.only(left: 16, right: 16),
-                padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 16, bottom: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("paidLockerReservationProgram"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColorBlack2),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 7),
-                            child: Icon(
-                              Icons.circle,
-                              size: 5,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Text(
-                              tr("paidLockerReservationProgramDesc"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  height: 1.5,
-                                  color: CustomColors.textColor5),
-                            ),
-                          )
-                        ]),
-                    Row(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          const Padding(
-                            padding: EdgeInsets.only(top: 7),
-                            child: Icon(
-                              Icons.circle,
-                              size: 5,
-                            ),
-                          ),
-                          const SizedBox(
-                            width: 10,
-                          ),
-                          Expanded(
-                            child: Text(
-                              tr("paidLockerReservationRestrictionPopup"),
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 14,
-                                  height: 1.5,
-                                  color: CustomColors.textColor5),
-                            ),
-                          )
-                        ]),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("reservationInformation"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("nameLounge"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        Text(
-                          name,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        )
-                      ],
-                    ),
-                    const Padding(
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      child: Divider(
-                        thickness: 1,
-                        height: 1,
-                        color: CustomColors.backgroundColor2,
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  margin: const EdgeInsets.only(left: 16, right: 16),
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("paidLockerReservationProgram"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColorBlack2),
                       ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          tr("tenantCompanyLounge"),
-                          style: const TextStyle(
-                              fontFamily: 'SemiBold',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        ),
-                        Text(
-                          companyName,
-                          style: const TextStyle(
-                              fontFamily: 'Regular',
-                              fontSize: 14,
-                              color: CustomColors.textColorBlack2),
-                        )
-                      ],
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("selectReservationDate"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    tableCalendarWidget(),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 16, bottom: 16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("selectPeriod"),
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    usageTimeDropdownWidget(),
-                  ],
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.backgroundColor,
-                height: 10,
-              ),
-              Container(
-                alignment: FractionalOffset.bottomCenter,
-                color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.only(top: 16),
-                      child: Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                            height: 15,
-                            width: 15,
-                            child: Transform.scale(
-                              scale: 0.8,
-                              child: Checkbox(
-                                checkColor: CustomColors.whiteColor,
-                                activeColor: CustomColors.buttonBackgroundColor,
-                                side: const BorderSide(
-                                    color: CustomColors.greyColor, width: 1),
-                                value: isChecked,
-                                onChanged: (value) {
-                                  setState(() {
-                                    isChecked = value!;
-                                    if (isChecked) {
-                                    } else {}
-                                  });
-                                },
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
                               ),
                             ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("paidLockerReservationProgramDesc"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: CustomColors.textColor5),
+                              ),
+                            )
+                          ]),
+                      Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            const Padding(
+                              padding: EdgeInsets.only(top: 7),
+                              child: Icon(
+                                Icons.circle,
+                                size: 5,
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Text(
+                                tr("paidLockerReservationRestrictionPopup"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    height: 1.5,
+                                    color: CustomColors.textColor5),
+                              ),
+                            )
+                          ]),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("reservationInformation"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("nameLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
                           ),
-                          const SizedBox(
-                            width: 9,
-                          ),
-                          language == "en"
-                              ? InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                                        context: context,
-                                        barrierColor:
-                                            Colors.black12.withOpacity(0.6),
-                                        // Background color
-                                        barrierDismissible: false,
-                                        barrierLabel: 'Dialog',
-                                        transitionDuration:
-                                            const Duration(milliseconds: 400),
-                                        pageBuilder: (_, __, ___) {
-                                          return WebViewUiScreen(
-                                              tr("fitnessReservation"),
-                                              reservationRulesLink);
-                                        });
-                                  },
-                                  child: Text.rich(
-                                    TextSpan(
-                                      text: tr("agree"),
-                                      style: const TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: tr(
-                                                "paidLockerReservationRules"),
-                                            style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 14,
-                                              color: CustomColors
-                                                  .buttonBackgroundColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                                        context: context,
-                                        barrierColor:
-                                            Colors.black12.withOpacity(0.6),
-                                        // Background color
-                                        barrierDismissible: false,
-                                        barrierLabel: 'Dialog',
-                                        transitionDuration:
-                                            const Duration(milliseconds: 400),
-                                        pageBuilder: (_, __, ___) {
-                                          return WebViewUiScreen(
-                                              tr("fitnessReservation"),
-                                              reservationRulesLink);
-                                        });
-                                  },
-                                  child: Text.rich(
-                                    TextSpan(
-                                      text: tr("paidLockerReservationRules"),
-                                      style: const TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          decoration: TextDecoration.underline,
-                                          color: CustomColors
-                                              .buttonBackgroundColor),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: tr("agree"),
-                                            style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 14,
-                                              color:
-                                                  CustomColors.textColorBlack2,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                          Text(
+                            name,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
                         ],
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(top: 24, bottom: 32),
-                      child: CommonButton(
-                        onCommonButtonTap: () {
-                          reservationValidationCheck();
-                          // showErrorModal(
-                          //     tr("paidLockerReservationRestrictionPopup"));
-                        },
-                        buttonColor: CustomColors.buttonBackgroundColor,
-                        buttonName: tr("makeReservation"),
-                        isIconVisible: false,
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        child: Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.backgroundColor2,
+                        ),
                       ),
-                    )
-                  ],
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            tr("tenantCompanyLounge"),
+                            style: const TextStyle(
+                                fontFamily: 'SemiBold',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          ),
+                          Text(
+                            companyName,
+                            style: const TextStyle(
+                                fontFamily: 'Regular',
+                                fontSize: 14,
+                                color: CustomColors.textColorBlack2),
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
-          )),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("selectReservationDate"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      tableCalendarWidget(),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, top: 16, bottom: 16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("selectPeriod"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      usageTimeDropdownWidget(),
+                    ],
+                  ),
+                ),
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.backgroundColor,
+                  height: 10,
+                ),
+                Container(
+                  alignment: FractionalOffset.bottomCenter,
+                  color: CustomColors.whiteColor,
+                  width: MediaQuery.of(context).size.width,
+                  padding: const EdgeInsets.symmetric(horizontal: 16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(top: 16),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                              height: 15,
+                              width: 15,
+                              child: Transform.scale(
+                                scale: 0.8,
+                                child: Checkbox(
+                                  checkColor: CustomColors.whiteColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
+                                  side: const BorderSide(
+                                      color: CustomColors.greyColor, width: 1),
+                                  value: isChecked,
+                                  onChanged: (value) {
+                                    setState(() {
+                                      isChecked = value!;
+                                      if (isChecked) {
+                                      } else {}
+                                    });
+                                  },
+                                ),
+                              ),
+                            ),
+                            const SizedBox(
+                              width: 9,
+                            ),
+                            language == "en"
+                                ? InkWell(
+                                    onTap: () {
+                                      showGeneralDialog(
+                                          context: context,
+                                          barrierColor:
+                                              Colors.black12.withOpacity(0.6),
+                                          // Background color
+                                          barrierDismissible: false,
+                                          barrierLabel: 'Dialog',
+                                          transitionDuration:
+                                              const Duration(milliseconds: 400),
+                                          pageBuilder: (_, __, ___) {
+                                            return WebViewUiScreen(
+                                                tr("fitnessReservation"),
+                                                reservationRulesLink);
+                                          });
+                                    },
+                                    child: Text.rich(
+                                      TextSpan(
+                                        text: tr("agree"),
+                                        style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 14,
+                                            color:
+                                                CustomColors.textColorBlack2),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: tr(
+                                                  "paidLockerReservationRules"),
+                                              style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .buttonBackgroundColor,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  )
+                                : InkWell(
+                                    onTap: () {
+                                      showGeneralDialog(
+                                          context: context,
+                                          barrierColor:
+                                              Colors.black12.withOpacity(0.6),
+                                          // Background color
+                                          barrierDismissible: false,
+                                          barrierLabel: 'Dialog',
+                                          transitionDuration:
+                                              const Duration(milliseconds: 400),
+                                          pageBuilder: (_, __, ___) {
+                                            return WebViewUiScreen(
+                                                tr("fitnessReservation"),
+                                                reservationRulesLink);
+                                          });
+                                    },
+                                    child: Text.rich(
+                                      TextSpan(
+                                        text: tr("paidLockerReservationRules"),
+                                        style: const TextStyle(
+                                            fontFamily: 'Regular',
+                                            fontSize: 14,
+                                            decoration:
+                                                TextDecoration.underline,
+                                            color: CustomColors
+                                                .buttonBackgroundColor),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                              text: tr("agree"),
+                                              style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .textColorBlack2,
+                                                decoration: TextDecoration.none,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                          ],
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(top: 24, bottom: 32),
+                        child: CommonButton(
+                          onCommonButtonTap: () {
+                            reservationValidationCheck();
+                            // showErrorModal(
+                            //     tr("paidLockerReservationRestrictionPopup"));
+                          },
+                          buttonColor: CustomColors.buttonBackgroundColor,
+                          buttonName: tr("makeReservation"),
+                          isIconVisible: false,
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              ],
+            )),
+      ),
     );
   }
 
@@ -717,7 +738,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
       showErrorModal(tr("applicationDateValidation"));
     } else if (focusedDate.compareTo(DateTime.now()) <= 0) {
       showErrorModal(tr("paidLockerValidation"));
-    } else if (selectedTime == null && timeList.isEmpty) {
+    } else if (selectedTime == null) {
       showErrorModal(tr("periodOfUseValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("pleaseConsentToCollect"));
@@ -765,23 +786,44 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "email": email.trim(), //required
-      "mobile": mobile.trim(), //required
-      "start_date": reservationDate.toString().trim(), //required
-      "used_months": selectedTime != null && selectedTime.toString().isNotEmpty
-          ? selectedTime.toString().trim()
-          : timeList.first["value"].toString().trim(), //required
-    };
+    Map<String, String> body;
+
+    if (widget.paidLockerHistoryDetailModel != null) {
+      body = {
+        "reservation_id": widget.paidLockerHistoryDetailModel!.id.toString(),
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "start_date": reservationDate.toString().trim(), //required
+        "used_months":
+            selectedTime != null && selectedTime.toString().isNotEmpty
+                ? selectedTime.toString().trim()
+                : timeList.first["value"].toString().trim(), //required
+      };
+    } else {
+      body = {
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "start_date": reservationDate.toString().trim(), //required
+        "used_months":
+            selectedTime != null && selectedTime.toString().isNotEmpty
+                ? selectedTime.toString().trim()
+                : timeList.first["value"].toString().trim(), //required
+      };
+    }
 
     debugPrint("paid locker reservation input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.makePaidLockerReservation,
+        widget.paidLockerHistoryDetailModel != null
+            ? ApiEndPoint.editPaidLockerReservation
+            : ApiEndPoint.makePaidLockerReservation,
         body,
         language.toString(),
         apiKey);
     response.then((response) {
+      setState(() {
+        isLoadingRequired = true;
+      });
       var responseJson = json.decode(response.body);
 
       debugPrint(
@@ -833,7 +875,7 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
