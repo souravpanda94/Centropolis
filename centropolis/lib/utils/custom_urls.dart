@@ -138,6 +138,7 @@ class ApiEndPoint {
   static String equipmentListUrl = "${baseUrl}v1/common/lounge-equipments-list";
   static String getPersonalInfoUrl = "${baseUrl}v1/mypage/profile";
   static String conferenceEquipmentListUrl = "${baseUrl}v1/common/conference-equipments-list";
+  static String editPtReservation = "${baseUrl}v1/amenity/personal-training-reservation-update";
 }
 
 class WebViewLinks {

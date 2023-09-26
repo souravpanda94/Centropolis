@@ -23,6 +23,7 @@ import '../amenity/paidPT_reservation.dart';
 
 class PaidPTHistoryDetails extends StatefulWidget {
   final String reservationId;
+
   const PaidPTHistoryDetails({super.key, required this.reservationId});
 
   @override
@@ -315,10 +316,10 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const FitnessReservation(
-                              position: 2,
-                              operationName: "edit"
-                            ),
+                            builder: (context) =>  FitnessReservation(
+                                position: 2,
+                                operationName: "edit",
+                                paidPtHistoryDetailModel: paidPtHistoryDetailModel),
                           ),
                         );
                       },

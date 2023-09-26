@@ -10,6 +10,7 @@ import 'package:provider/provider.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 
+import '../../models/paid_pt_history_detail_model.dart';
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
@@ -23,7 +24,10 @@ import '../../widgets/common_modal.dart';
 import '../my_page/web_view_ui.dart';
 
 class PaidPTReservation extends StatefulWidget {
-  const PaidPTReservation({super.key});
+  final String operationName;
+  final PaidPtHistoryDetailModel? paidPtHistoryDetailModel;
+
+  const PaidPTReservation({super.key, this.paidPtHistoryDetailModel, required this.operationName,});
 
   @override
   State<PaidPTReservation> createState() => _PaidPTReservationState();
@@ -49,8 +53,8 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
   String reservationRulesLink = "";
-
   List<dynamic> timeList = [];
+  var selectedPreferredTime;
 
   @override
   void initState() {
@@ -64,6 +68,9 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
     // mobile = user.userData['mobile'].toString();
     //name = user.userData['name'].toString();
     //companyName = user.userData['company_name'].toString();
+    if(widget.operationName == "edit") {
+      setDataForEdit();
+    }
     setWebViewLink();
     internetCheckingForMethods();
   }
@@ -84,14 +91,20 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
             children: [
               Container(
                 color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Container(
                       margin: const EdgeInsets.only(bottom: 8),
-                      width: MediaQuery.of(context).size.width,
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width,
                       child: Text(
                         tr("serviceRequiresForPaidPt"),
                         textAlign: TextAlign.end,
@@ -260,13 +273,19 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 color: CustomColors.backgroundColor,
                 height: 10,
               ),
               Container(
                 color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 padding: const EdgeInsets.all(16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -286,7 +305,10 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 color: CustomColors.backgroundColor,
                 height: 10,
               ),
@@ -294,7 +316,10 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 color: CustomColors.whiteColor,
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 16, bottom: 16),
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -313,14 +338,20 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                 ),
               ),
               Container(
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 color: CustomColors.backgroundColor,
                 height: 10,
               ),
               Container(
                 alignment: FractionalOffset.bottomCenter,
                 color: CustomColors.whiteColor,
-                width: MediaQuery.of(context).size.width,
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width,
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
@@ -345,8 +376,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                                 onChanged: (value) {
                                   setState(() {
                                     isChecked = value!;
-                                    if (isChecked) {
-                                    } else {}
+                                    if (isChecked) {} else {}
                                   });
                                 },
                               ),
@@ -357,84 +387,84 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
                           ),
                           language == "en"
                               ? InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                                        context: context,
-                                        barrierColor:
-                                            Colors.black12.withOpacity(0.6),
-                                        // Background color
-                                        barrierDismissible: false,
-                                        barrierLabel: 'Dialog',
-                                        transitionDuration:
-                                            const Duration(milliseconds: 400),
-                                        pageBuilder: (_, __, ___) {
-                                          return WebViewUiScreen(
-                                              tr("fitnessReservation"),
-                                              reservationRulesLink);
-                                        });
-                                  },
-                                  child: Text.rich(
-                                    TextSpan(
-                                      text: tr("agree"),
-                                      style: const TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: tr("ptReservationRules"),
-                                            style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 14,
-                                              color: CustomColors
-                                                  .buttonBackgroundColor,
-                                              decoration:
-                                                  TextDecoration.underline,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                )
-                              : InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                                        context: context,
-                                        barrierColor:
-                                            Colors.black12.withOpacity(0.6),
-                                        // Background color
-                                        barrierDismissible: false,
-                                        barrierLabel: 'Dialog',
-                                        transitionDuration:
-                                            const Duration(milliseconds: 400),
-                                        pageBuilder: (_, __, ___) {
-                                          return WebViewUiScreen(
-                                              tr("fitnessReservation"),
-                                              reservationRulesLink);
-                                        });
-                                  },
-                                  child: Text.rich(
-                                    TextSpan(
+                            onTap: () {
+                              showGeneralDialog(
+                                  context: context,
+                                  barrierColor:
+                                  Colors.black12.withOpacity(0.6),
+                                  // Background color
+                                  barrierDismissible: false,
+                                  barrierLabel: 'Dialog',
+                                  transitionDuration:
+                                  const Duration(milliseconds: 400),
+                                  pageBuilder: (_, __, ___) {
+                                    return WebViewUiScreen(
+                                        tr("fitnessReservation"),
+                                        reservationRulesLink);
+                                  });
+                            },
+                            child: Text.rich(
+                              TextSpan(
+                                text: tr("agree"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    color: CustomColors.textColorBlack2),
+                                children: <TextSpan>[
+                                  TextSpan(
                                       text: tr("ptReservationRules"),
                                       style: const TextStyle(
-                                          fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          decoration: TextDecoration.underline,
-                                          color: CustomColors
-                                              .buttonBackgroundColor),
-                                      children: <TextSpan>[
-                                        TextSpan(
-                                            text: tr("agree"),
-                                            style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 14,
-                                              color:
-                                                  CustomColors.textColorBlack2,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                      ],
-                                    ),
-                                  ),
-                                ),
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color: CustomColors
+                                            .buttonBackgroundColor,
+                                        decoration:
+                                        TextDecoration.underline,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          )
+                              : InkWell(
+                            onTap: () {
+                              showGeneralDialog(
+                                  context: context,
+                                  barrierColor:
+                                  Colors.black12.withOpacity(0.6),
+                                  // Background color
+                                  barrierDismissible: false,
+                                  barrierLabel: 'Dialog',
+                                  transitionDuration:
+                                  const Duration(milliseconds: 400),
+                                  pageBuilder: (_, __, ___) {
+                                    return WebViewUiScreen(
+                                        tr("fitnessReservation"),
+                                        reservationRulesLink);
+                                  });
+                            },
+                            child: Text.rich(
+                              TextSpan(
+                                text: tr("ptReservationRules"),
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 14,
+                                    decoration: TextDecoration.underline,
+                                    color: CustomColors
+                                        .buttonBackgroundColor),
+                                children: <TextSpan>[
+                                  TextSpan(
+                                      text: tr("agree"),
+                                      style: const TextStyle(
+                                        fontFamily: 'Regular',
+                                        fontSize: 14,
+                                        color:
+                                        CustomColors.textColorBlack2,
+                                        decoration: TextDecoration.none,
+                                      )),
+                                ],
+                              ),
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -470,41 +500,44 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           ),
         ),
         items: timeList
-            .map((item) => DropdownMenuItem<String>(
-                  value: item["value"],
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 9),
-                        child: Text(
-                          item["value"],
-                          style: const TextStyle(
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
-                          ),
-                        ),
+            .map((item) =>
+            DropdownMenuItem<String>(
+              value: item["value"],
+              // value: selectedPreferredTime,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Padding(
+                    padding: const EdgeInsets.only(left: 12, bottom: 9),
+                    child: Text(
+                      item["value"],
+                      style: const TextStyle(
+                        color: CustomColors.blackColor,
+                        fontSize: 14,
+                        fontFamily: 'Regular',
                       ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      if (item != timeList.last)
-                        const Divider(
-                          thickness: 1,
-                          height: 1,
-                          color: CustomColors.dividerGreyColor,
-                        )
-                    ],
+                    ),
                   ),
-                  onTap: () {
-                    setState(() {
-                      startTimeSelectedValue = item["start_time"];
-                      endTimeSelectedValue = item["end_time"];
-                    });
-                  },
-                ))
+                  const SizedBox(
+                    height: 3,
+                  ),
+                  if (item != timeList.last)
+                    const Divider(
+                      thickness: 1,
+                      height: 1,
+                      color: CustomColors.dividerGreyColor,
+                    )
+                ],
+              ),
+              onTap: () {
+                setState(() {
+                  selectedPreferredTime = item["value"];
+                  startTimeSelectedValue = item["start_time"];
+                  endTimeSelectedValue = item["end_time"];
+                });
+              },
+            ))
             .toList(),
         value: rangeTimeSelectedValue,
         onChanged: (value) {
@@ -526,18 +559,21 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
-          padding:
+              padding:
               EdgeInsets.only(bottom: rangeTimeSelectedValue != null ? 12 : 0),
-          child: SvgPicture.asset(
-            "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
-            color: CustomColors.textColorBlack2,
-          ),
-        )),
+              child: SvgPicture.asset(
+                "assets/images/ic_drop_down_arrow.svg",
+                width: 8,
+                height: 8,
+                color: CustomColors.textColorBlack2,
+              ),
+            )),
         buttonStyleData: ButtonStyleData(
             height: 46,
-            width: MediaQuery.of(context).size.width,
+            width: MediaQuery
+                .of(context)
+                .size
+                .width,
             decoration: BoxDecoration(
                 border: Border.all(
                   color: CustomColors.dividerGreyColor,
@@ -551,7 +587,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
-              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
           padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
@@ -562,7 +598,9 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   tableCalendarWidget() {
     return TableCalendar(
       availableGestures: AvailableGestures.horizontalSwipe,
-      locale: Localizations.localeOf(context).languageCode,
+      locale: Localizations
+          .localeOf(context)
+          .languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
       weekendDays: const [DateTime.sunday, DateTime.saturday],
       daysOfWeekHeight: 50,
@@ -615,7 +653,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           weekendTextStyle: const TextStyle(color: Color(0xffCC6047)),
           disabledTextStyle: const TextStyle(color: Colors.grey),
           disabledDecoration:
-              const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+          const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
           todayDecoration: BoxDecoration(
               color: focusedDate.compareTo(kFirstDay) != 0
                   ? Colors.white
@@ -793,6 +831,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   }
 
   void callReservationApi() {
+    String apiName = "";
     setState(() {
       isLoading = true;
     });
@@ -804,10 +843,18 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
       "end_time": endTimeSelectedValue.toString().trim(), //required
     };
 
+    if(widget.operationName == "edit"){
+      apiName = ApiEndPoint.editPtReservation;
+    }
+    else{
+      apiName = ApiEndPoint.makePtReservation;
+    }
+
+
     debugPrint("pt reservation input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.makePtReservation, body, language.toString(), apiKey);
+        apiName, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -954,5 +1001,13 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
     }
+  }
+
+  void setDataForEdit() {
+    setState(() {
+      selectedPreferredTime = widget.paidPtHistoryDetailModel?.usageTime.toString();
+      focusedDate = DateTime.parse(widget.paidPtHistoryDetailModel!.reservationStartDate.toString());
+    });
+    debugPrint("--------${widget.paidPtHistoryDetailModel?.usageTime.toString()}------");
   }
 }
