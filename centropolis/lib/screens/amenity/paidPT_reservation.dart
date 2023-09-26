@@ -26,8 +26,9 @@ import '../my_page/web_view_ui.dart';
 class PaidPTReservation extends StatefulWidget {
   final String operationName;
   final PaidPtHistoryDetailModel? paidPtHistoryDetailModel;
+  final String? reservationId;
 
-  const PaidPTReservation({super.key, this.paidPtHistoryDetailModel, required this.operationName,});
+  const PaidPTReservation({super.key, this.paidPtHistoryDetailModel, required this.operationName, this.reservationId,});
 
   @override
   State<PaidPTReservation> createState() => _PaidPTReservationState();
@@ -54,7 +55,8 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
   String reservationDate = "";
   String reservationRulesLink = "";
   List<dynamic> timeList = [];
-  var selectedPreferredTime;
+
+
 
   @override
   void initState() {
@@ -502,8 +504,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         items: timeList
             .map((item) =>
             DropdownMenuItem<String>(
-              value: item["value"],
-              // value: selectedPreferredTime,
+              value: item["value"].toString(),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -532,7 +533,6 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
               ),
               onTap: () {
                 setState(() {
-                  selectedPreferredTime = item["value"];
                   startTimeSelectedValue = item["start_time"];
                   endTimeSelectedValue = item["end_time"];
                 });
@@ -542,7 +542,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
         value: rangeTimeSelectedValue,
         onChanged: (value) {
           setState(() {
-            rangeTimeSelectedValue = value as String;
+            rangeTimeSelectedValue = value.toString();
           });
         },
         dropdownStyleData: DropdownStyleData(
@@ -832,22 +832,32 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
   void callReservationApi() {
     String apiName = "";
+    Map<String, String> body;
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {
-      "email": email.trim(), //required
-      "mobile": mobile.trim(), //required
-      "reservation_date": reservationDate.toString().trim(), //required
-      "start_time": startTimeSelectedValue.toString().trim(), //required
-      "end_time": endTimeSelectedValue.toString().trim(), //required
-    };
+
 
     if(widget.operationName == "edit"){
       apiName = ApiEndPoint.editPtReservation;
+      body = {
+        "reservation_id" : widget.reservationId.toString(),
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "reservation_date": reservationDate.toString().trim(), //required
+        "start_time": startTimeSelectedValue.toString().trim(), //required
+        "end_time": endTimeSelectedValue.toString().trim(), //required
+      };
     }
     else{
       apiName = ApiEndPoint.makePtReservation;
+      body = {
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "reservation_date": reservationDate.toString().trim(), //required
+        "start_time": startTimeSelectedValue.toString().trim(), //required
+        "end_time": endTimeSelectedValue.toString().trim(), //required
+      };
     }
 
 
@@ -1005,7 +1015,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
 
   void setDataForEdit() {
     setState(() {
-      selectedPreferredTime = widget.paidPtHistoryDetailModel?.usageTime.toString();
+      // rangeTimeSelectedValue = widget.paidPtHistoryDetailModel?.usageTime.toString();
       focusedDate = DateTime.parse(widget.paidPtHistoryDetailModel!.reservationStartDate.toString());
     });
     debugPrint("--------${widget.paidPtHistoryDetailModel?.usageTime.toString()}------");

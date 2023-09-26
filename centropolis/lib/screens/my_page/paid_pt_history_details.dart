@@ -319,6 +319,7 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                             builder: (context) =>  FitnessReservation(
                                 position: 2,
                                 operationName: "edit",
+                                reservationId: widget.reservationId,
                                 paidPtHistoryDetailModel: paidPtHistoryDetailModel),
                           ),
                         );
