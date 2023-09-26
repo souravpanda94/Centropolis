@@ -1,4 +1,5 @@
 import 'package:centropolis/models/paid_locker_history_detail_model.dart';
+import 'package:centropolis/models/paid_pt_history_detail_model.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -15,11 +16,15 @@ class FitnessReservation extends StatefulWidget {
   final int position;
   final String operationName;
   final PaidLockerHistoryDetailModel? paidLockerHistoryDetailModel;
+  final PaidPtHistoryDetailModel? paidPtHistoryDetailModel;
+
   const FitnessReservation(
       {super.key,
       required this.position,
       required this.operationName,
-      this.paidLockerHistoryDetailModel});
+      this.paidLockerHistoryDetailModel,
+      this.paidPtHistoryDetailModel,
+      });
 
   @override
   State<FitnessReservation> createState() => _FitnessReservationState();
@@ -113,7 +118,7 @@ class _FitnessReservationState extends State<FitnessReservation> {
                 : showIndex == 1
                     ? const GXReservation()
                     : showIndex == 2
-                        ? const PaidPTReservation()
+                        ?  PaidPTReservation(operationName : widget.operationName,paidPtHistoryDetailModel : widget.paidPtHistoryDetailModel )
                         : showIndex == 3
                             ? PaidLockerReservation(
                                 paidLockerHistoryDetailModel:

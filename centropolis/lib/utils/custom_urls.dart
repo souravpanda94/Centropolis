@@ -172,6 +172,7 @@ class ApiEndPoint {
       "${baseUrl}v1/common/conference-equipments-list";
   static String editPaidLockerReservation =
       "${baseUrl}v1/amenity/fitness-locker-reservation-update";
+  static String editPtReservation = "${baseUrl}v1/amenity/personal-training-reservation-update";
 }
 
 class WebViewLinks {
