@@ -558,7 +558,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 1),
+        builder: (context) => const FitnessReservation(position: 1,operationName: "add"),
       ),
     );
   }
@@ -567,7 +567,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 2),
+        builder: (context) => const FitnessReservation(position: 2,operationName: "add"),
       ),
     );
   }
@@ -576,7 +576,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 0),
+        builder: (context) => const FitnessReservation(position: 0,operationName: "add"),
       ),
     );
   }
@@ -585,7 +585,7 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 3),
+        builder: (context) => const FitnessReservation(position: 3,operationName: "add"),
       ),
     );
   }

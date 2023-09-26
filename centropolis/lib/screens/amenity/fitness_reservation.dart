@@ -12,7 +12,8 @@ import 'paid_locker_reservation.dart';
 
 class FitnessReservation extends StatefulWidget {
   final int position;
-  const FitnessReservation({super.key, required this.position});
+  final String operationName;
+  const FitnessReservation({super.key, required this.position, required this.operationName});
 
   @override
   State<FitnessReservation> createState() => _FitnessReservationState();
@@ -63,9 +64,11 @@ class _FitnessReservationState extends State<FitnessReservation> {
                   itemBuilder: ((context, index) {
                     return InkWell(
                       onTap: () {
-                        setState(() {
-                          showIndex = index;
-                        });
+                        if(widget.operationName != "edit") {
+                          setState(() {
+                            showIndex = index;
+                          });
+                        }
                       },
                       child: Container(
                         height: 38,

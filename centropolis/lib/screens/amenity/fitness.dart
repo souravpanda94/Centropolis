@@ -217,7 +217,7 @@ class _FitnessScreenState extends State<FitnessScreen> {
                         context,
                         MaterialPageRoute(
                           builder: (context) =>
-                              const FitnessReservation(position: 0),
+                              const FitnessReservation(position: 0,operationName: "add"),
                         ),
                       );
                     },

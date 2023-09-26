@@ -317,6 +317,7 @@ class _PaidPTHistoryDetailsState extends State<PaidPTHistoryDetails> {
                           MaterialPageRoute(
                             builder: (context) => const FitnessReservation(
                               position: 2,
+                              operationName: "edit"
                             ),
                           ),
                         );
