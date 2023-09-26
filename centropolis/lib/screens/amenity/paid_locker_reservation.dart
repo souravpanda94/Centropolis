@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
 
+import '../../models/paid_locker_history_detail_model.dart';
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
@@ -23,7 +24,9 @@ import '../../widgets/common_modal.dart';
 import '../my_page/web_view_ui.dart';
 
 class PaidLockerReservation extends StatefulWidget {
-  const PaidLockerReservation({super.key});
+    final PaidLockerHistoryDetailModel? paidLockerHistoryDetailModel;
+
+  const PaidLockerReservation({super.key,this.paidLockerHistoryDetailModel});
 
   @override
   State<PaidLockerReservation> createState() => _PaidLockerReservationState();
@@ -414,9 +417,9 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
                       padding: const EdgeInsets.only(top: 24, bottom: 32),
                       child: CommonButton(
                         onCommonButtonTap: () {
-                          //reservationValidationCheck();
-                          showErrorModal(
-                              tr("paidLockerReservationRestrictionPopup"));
+                          reservationValidationCheck();
+                          // showErrorModal(
+                          //     tr("paidLockerReservationRestrictionPopup"));
                         },
                         buttonColor: CustomColors.buttonBackgroundColor,
                         buttonName: tr("makeReservation"),

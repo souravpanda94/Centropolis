@@ -11,6 +11,8 @@ class PaidLockerHistoryDetailModel {
   String? companyName;
   String? status;
   String? displayStatus;
+  String? canEdit;
+
   bool? success;
 
   PaidLockerHistoryDetailModel(
@@ -26,6 +28,7 @@ class PaidLockerHistoryDetailModel {
       this.companyName,
       this.status,
       this.displayStatus,
+      this.canEdit,
       this.success});
 
   PaidLockerHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -42,6 +45,7 @@ class PaidLockerHistoryDetailModel {
     status = json['status'];
     success = json['success'];
     displayStatus = json['display_status'];
+    canEdit = json['can_edit'].toString();
   }
 
   Map<String, dynamic> toJson() {
@@ -59,6 +63,8 @@ class PaidLockerHistoryDetailModel {
     data['status'] = status;
     data['success'] = success;
     data['display_status'] = displayStatus;
+    data['can_edit'] = canEdit;
+
     return data;
   }
 }
