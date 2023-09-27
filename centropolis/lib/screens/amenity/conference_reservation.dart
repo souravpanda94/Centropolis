@@ -75,8 +75,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   String? equipmentSelectedValue;
   bool isLoadingRequired = false;
 
-
-
   @override
   void initState() {
     super.initState();
@@ -793,7 +791,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         });
   }
 
-
   startTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -1011,34 +1008,34 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         ),
         items: conferenceRoomList
             .map((item) => DropdownMenuItem<String>(
-          value: item["value"].toString(),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(left: 12, bottom: 9),
-                child: Text(
-                  item["text"].toString(),
-                  style: const TextStyle(
-                    color: CustomColors.blackColor,
-                    fontSize: 14,
-                    fontFamily: 'Regular',
+                  value: item["value"].toString(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(left: 12, bottom: 9),
+                        child: Text(
+                          item["text"].toString(),
+                          style: const TextStyle(
+                            color: CustomColors.blackColor,
+                            fontSize: 14,
+                            fontFamily: 'Regular',
+                          ),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      if (item != conferenceRoomList.last)
+                        const Divider(
+                          thickness: 1,
+                          height: 1,
+                          color: CustomColors.dividerGreyColor,
+                        )
+                    ],
                   ),
-                ),
-              ),
-              const SizedBox(
-                height: 3,
-              ),
-              if (item != conferenceRoomList.last)
-                const Divider(
-                  thickness: 1,
-                  height: 1,
-                  color: CustomColors.dividerGreyColor,
-                )
-            ],
-          ),
-        ))
+                ))
             .toList(),
         value: conferenceRoomSelectedValue,
         onChanged: (value) {
@@ -1067,15 +1064,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         ),
         iconStyleData: IconStyleData(
             icon: Padding(
-              padding: EdgeInsets.only(
-                  bottom: conferenceRoomSelectedValue != null ? 12 : 0),
-              child: SvgPicture.asset(
-                "assets/images/ic_drop_down_arrow.svg",
-                width: 8,
-                height: 8,
-                color: CustomColors.textColorBlack2,
-              ),
-            )),
+          padding: EdgeInsets.only(
+              bottom: conferenceRoomSelectedValue != null ? 12 : 0),
+          child: SvgPicture.asset(
+            "assets/images/ic_drop_down_arrow.svg",
+            width: 8,
+            height: 8,
+            color: CustomColors.textColorBlack2,
+          ),
+        )),
         buttonStyleData: ButtonStyleData(
             height: 46,
             width: MediaQuery.of(context).size.width,
@@ -1092,7 +1089,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             elevation: 0),
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
-          MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
           padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
@@ -1204,8 +1201,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       ),
     );
   }
-
-
 
   tableCalendarWidget() {
     return TableCalendar(
@@ -1887,21 +1882,65 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   }
 
   void setDataForEdit() {
-    debugPrint("-----------------${widget.conferenceHistoryDetails!.reservationDate.toString()}----------------");
-    debugPrint("-----------------${widget.conferenceHistoryDetails!.usageTime.toString()}----------------");
-    debugPrint("-----------------${widget.conferenceHistoryDetails!.conferenceRoom.toString()}----------------");
-    debugPrint("-----------------${widget.conferenceHistoryDetails!.packageName.toString()}----------------");
+    debugPrint(
+        "-----------------${widget.conferenceHistoryDetails!.reservationDate.toString()}----------------");
+    debugPrint(
+        "-----------------${widget.conferenceHistoryDetails!.usageTime.toString()}----------------");
+    debugPrint(
+        "-----------------${widget.conferenceHistoryDetails!.conferenceRoom.toString()}----------------");
+    debugPrint(
+        "-----------------${widget.conferenceHistoryDetails!.packageName.toString()}----------------");
 
     String usageTime = "";
     setState(() {
-      usageTime = widget.conferenceHistoryDetails!.usageTime.toString().replaceAll(' ', '');
-      focusedDate = DateTime.parse(widget.conferenceHistoryDetails!.reservationDate.toString());
-      startTimeSelectedValue = usageTime.substring(0, usageTime.indexOf('~')).toString();
-      endTimeSelectedValue = usageTime.substring(usageTime.indexOf('~') + 1, usageTime.length).toString();
+      usageTime = widget.conferenceHistoryDetails!.usageTime
+          .toString()
+          .replaceAll(' ', '');
+      focusedDate = DateTime.parse(
+          widget.conferenceHistoryDetails!.reservationDate.toString());
+      startTimeSelectedValue =
+          usageTime.substring(0, usageTime.indexOf('~')).toString();
+      endTimeSelectedValue = usageTime
+          .substring(usageTime.indexOf('~') + 1, usageTime.length)
+          .toString();
 
-      // conferenceRoomSelectedValue = widget.conferenceHistoryDetails!.conferenceRoom.toString().trim();
-      // meetingPackageSelectedValue = widget.conferenceHistoryDetails?.packageName.toString().trim() ?? tr("noPackage");
-      rentalInfoController = TextEditingController(text: widget.conferenceHistoryDetails?.description.toString() ?? "");
+      conferenceRoomSelectedValue =
+          widget.conferenceHistoryDetails!.conferenceRoomId.toString().trim();
+      meetingPackageSelectedValue =
+          widget.conferenceHistoryDetails?.packageId.toString().trim() ??
+              tr("noPackage");
+      rentalInfoController = TextEditingController(
+          text: widget.conferenceHistoryDetails?.description.toString() ?? "");
+
+      if (widget.conferenceHistoryDetails!.equipments.toString().isEmpty) {
+        _selectedEquipments = [
+          {"value": "", "text": tr("noRequest")}
+        ];
+        _selectedEquipmentsValue = [];
+      } else {
+        if (widget.conferenceHistoryDetails!.equipmentsValue != null &&
+            widget.conferenceHistoryDetails!.equipmentsValue!.isNotEmpty) {
+          _selectedEquipments =
+              widget.conferenceHistoryDetails!.equipmentsValue!;
+          for (var i = 0;
+              i < widget.conferenceHistoryDetails!.equipmentsValue!.length;
+              i++) {
+            if (widget.conferenceHistoryDetails!.equipmentsValue![i]["value"] !=
+                    null &&
+                widget.conferenceHistoryDetails!.equipmentsValue![i]["value"]
+                    .toString()
+                    .isNotEmpty) {
+              _selectedEquipmentsValue.add(widget
+                  .conferenceHistoryDetails!.equipmentsValue![i]["value"]);
+            }
+          }
+        } else {
+          _selectedEquipments = [
+            {"value": "", "text": tr("noRequest")}
+          ];
+          _selectedEquipmentsValue = [];
+        }
+      }
     });
   }
 }
