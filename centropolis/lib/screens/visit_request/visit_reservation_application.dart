@@ -544,8 +544,9 @@ class _VisitReservationApplicationState
                             height: 46,
                             child: TextField(
                               inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[a-zA-Z]"))
+                                 FilteringTextInputFormatter.allow(
+                                    RegExp("[a-zA-Z_\\s-]")),
+                                
                               ],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,

@@ -190,7 +190,8 @@ class _LoungeScreenState extends State<LoungeScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LoungeReservation(),
+                            builder: (context) =>
+                                const LoungeReservation(operationName: "add"),
                           ),
                         );
                       } else {

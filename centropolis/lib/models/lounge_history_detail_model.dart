@@ -14,9 +14,11 @@ class LoungeHistoryDetailModel {
   String? usageHours;
   String? purpose;
   String? displayNumberOfParticipants;
+  String? paymentMethod;
   String? displayPaymentMethod;
   String? equipments;
   String? canEdit;
+  
   bool? success;
 
   LoungeHistoryDetailModel(
@@ -38,6 +40,7 @@ class LoungeHistoryDetailModel {
       this.displayPaymentMethod,
       this.equipments,
       this.canEdit,
+      this.paymentMethod,
       this.success});
 
   LoungeHistoryDetailModel.fromJson(Map<String, dynamic> json) {
@@ -60,6 +63,7 @@ class LoungeHistoryDetailModel {
     displayPaymentMethod = json['display_payment_method'];
     equipments = json['equipments'];
     canEdit = json['can_edit'];
+    paymentMethod = json['payment_method'];
   }
 
   Map<String, dynamic> toJson() {
@@ -83,6 +87,7 @@ class LoungeHistoryDetailModel {
     data['display_payment_method'] = displayPaymentMethod;
     data['equipments'] = equipments;
     data['can_edit'] = canEdit;
+    data['payment_method'] = paymentMethod;
 
     return data;
   }

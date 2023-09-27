@@ -237,8 +237,8 @@ class _AddMemberState extends State<AddMember> {
                       height: 46,
                       child: TextField(
                         inputFormatters: [
-                            FilteringTextInputFormatter.allow(
-                                RegExp("[a-zA-Z]"))
+                             FilteringTextInputFormatter.allow(
+                                    RegExp("[a-zA-Z_\\s-]")),
                           ],
                         controller: nameController,
                         cursorColor: CustomColors.textColorBlack2,

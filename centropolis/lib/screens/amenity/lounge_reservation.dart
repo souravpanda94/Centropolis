@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/models/lounge_history_detail_model.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:centropolis/widgets/multi_select_item_lounge.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -25,7 +26,10 @@ import '../../widgets/multi_select_amenity_item.dart';
 import '../my_page/web_view_ui.dart';
 
 class LoungeReservation extends StatefulWidget {
-  const LoungeReservation({super.key});
+  final LoungeHistoryDetailModel? loungeHistoryDetailModel;
+  final String operationName;
+  const LoungeReservation(
+      {super.key, required this.operationName, this.loungeHistoryDetailModel});
 
   @override
   State<LoungeReservation> createState() => _LoungeReservationState();
@@ -54,6 +58,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
   bool numberOfParticipantsTooltip = false;
   bool servicesEquipmentTooltip = false;
   DateTime priorDate = DateTime.now();
+  DateTime alreadySelectedDate = DateTime.now();
 
   String reservationDate = "";
   List<dynamic> usageTimeList = [];
@@ -87,6 +92,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
     priorDate = DateTime(kFirstDay.year, kFirstDay.month, kFirstDay.day + 14);
     setWebViewLink();
     internetCheckingForMethods();
+    if (widget.operationName == "edit") {
+      setDataForEdit();
+    }
   }
 
   @override
@@ -1591,23 +1599,25 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       onDaySelected: (selectedDay, focusedDay) {
-        setState(() {
-          focusedDate = focusedDay;
-          selectedDate = selectedDay;
-          usageTimeSelectedValue = null;
-          startTimeSelectedValue = null;
-          endTimeSelectedValue = null;
-          paymentMethodSelectedValue = null;
-          //numberOfParticipantsSelectedValue = null;
-          eventPurposeController.clear();
-          numberOfParticipantsController.clear();
-          tooltip = false;
-          numberOfParticipantsTooltip = false;
-          servicesEquipmentTooltip = false;
-          _selectedEquipments.clear();
-          _selectedEquipmentsValue.clear();
-        });
-        loadUsageTimeList();
+        if (widget.operationName != "edit") {
+          setState(() {
+            focusedDate = focusedDay;
+            selectedDate = selectedDay;
+            usageTimeSelectedValue = null;
+            startTimeSelectedValue = null;
+            endTimeSelectedValue = null;
+            paymentMethodSelectedValue = null;
+            //numberOfParticipantsSelectedValue = null;
+            eventPurposeController.clear();
+            numberOfParticipantsController.clear();
+            tooltip = false;
+            numberOfParticipantsTooltip = false;
+            servicesEquipmentTooltip = false;
+            _selectedEquipments.clear();
+            _selectedEquipmentsValue.clear();
+          });
+          loadUsageTimeList();
+        }
       },
       onFormatChanged: (format) {
         if (selectedCalendarFormat != format) {
@@ -1617,33 +1627,34 @@ class _LoungeReservationState extends State<LoungeReservation> {
         }
       },
       onPageChanged: (focusedDay) {
-        setState(() {
-          focusedDate=focusedDay;
-        });
-        // if (focusedDay.compareTo(priorDate) < 0) {
-        //   setState(() {
-        //     focusedDate = priorDate;
-        //   });
-        // } else {
-        //   setState(() {
-        //     focusedDate = focusedDay;
-        //   });
-        // }
-        setState(() {
-          usageTimeSelectedValue = null;
-          startTimeSelectedValue = null;
-          endTimeSelectedValue = null;
-          paymentMethodSelectedValue = null;
-          eventPurposeController.clear();
-          numberOfParticipantsController.clear();
-          tooltip = false;
-          numberOfParticipantsTooltip = false;
-          servicesEquipmentTooltip = false;
-          _selectedEquipments.clear();
-          _selectedEquipmentsValue.clear();
-          
-        });
-        loadUsageTimeList();
+        if (widget.operationName != "edit") {
+          setState(() {
+            focusedDate = focusedDay;
+          });
+          // if (focusedDay.compareTo(priorDate) < 0) {
+          //   setState(() {
+          //     focusedDate = priorDate;
+          //   });
+          // } else {
+          //   setState(() {
+          //     focusedDate = focusedDay;
+          //   });
+          // }
+          setState(() {
+            usageTimeSelectedValue = null;
+            startTimeSelectedValue = null;
+            endTimeSelectedValue = null;
+            paymentMethodSelectedValue = null;
+            eventPurposeController.clear();
+            numberOfParticipantsController.clear();
+            tooltip = false;
+            numberOfParticipantsTooltip = false;
+            servicesEquipmentTooltip = false;
+            _selectedEquipments.clear();
+            _selectedEquipmentsValue.clear();
+          });
+          loadUsageTimeList();
+        }
       },
     );
   }
@@ -1683,7 +1694,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       isLoading = true;
     });
 
-    Map<String, String> body = {"reservation_date": reservationDate.trim()};
+    Map<String, String> body;
+
+    if (widget.operationName == "edit") {
+      body = {
+        "reservation_date": reservationDate.trim(),
+        "reservation_id": widget.loungeHistoryDetailModel!.id.toString().trim()
+      };
+    } else {
+      body = {"reservation_date": reservationDate.trim()};
+    }
 
     debugPrint("Usage Time List input===> $body");
 
@@ -1969,7 +1989,8 @@ class _LoungeReservationState extends State<LoungeReservation> {
     }
     debugPrint("Selected Date ====> $selectedDate");
 
-    if (focusedDate.compareTo(DateTime.now()) <= 0 || focusedDate.compareTo(priorDate)<0) {
+    if (focusedDate.compareTo(DateTime.now()) <= 0 ||
+        focusedDate.compareTo(priorDate) < 0) {
       setState(() {
         reservationDate = "";
       });
@@ -2024,24 +2045,52 @@ class _LoungeReservationState extends State<LoungeReservation> {
     setState(() {
       isLoading = true;
     });
-    Map<String, dynamic> body = {
-      "email": email.trim(), //required
-      "mobile": mobile.trim(), //required
-      "reservation_date": reservationDate.trim(), //required
-      "start_time": startTimeSelectedValue.toString().trim(), //required
-      "end_time": endTimeSelectedValue.toString().trim(), //required
-      "type": usageTimeSelectedValue.toString().trim(), //required
-      "purpose": eventPurposeController.text.toString().trim(), //required
-      "no_of_participants":
-          numberOfParticipantsController.text.toString().trim(), //required
-      "payment_method": paymentMethodSelectedValue.toString().trim(), //required
-      "equipments": _selectedEquipmentsValue //required
-    };
+
+    Map<String, dynamic> body;
+
+    if (widget.operationName == "edit") {
+      body = {
+        "reservation_id":
+            widget.loungeHistoryDetailModel!.id.toString().trim(), //required
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "reservation_date": reservationDate.trim(), //required
+        "start_time": startTimeSelectedValue.toString().trim(), //required
+        "end_time": endTimeSelectedValue.toString().trim(), //required
+        "type": usageTimeSelectedValue.toString().trim(), //required
+        "purpose": eventPurposeController.text.toString().trim(), //required
+        "no_of_participants":
+            numberOfParticipantsController.text.toString().trim(), //required
+        "payment_method":
+            paymentMethodSelectedValue.toString().trim(), //required
+        "equipments": _selectedEquipmentsValue //required
+      };
+    } else {
+      body = {
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "reservation_date": reservationDate.trim(), //required
+        "start_time": startTimeSelectedValue.toString().trim(), //required
+        "end_time": endTimeSelectedValue.toString().trim(), //required
+        "type": usageTimeSelectedValue.toString().trim(), //required
+        "purpose": eventPurposeController.text.toString().trim(), //required
+        "no_of_participants":
+            numberOfParticipantsController.text.toString().trim(), //required
+        "payment_method":
+            paymentMethodSelectedValue.toString().trim(), //required
+        "equipments": _selectedEquipmentsValue //required
+      };
+    }
 
     debugPrint("lounge reservation input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.makeLoungeReservation, body, language.toString(), apiKey);
+        widget.operationName == "edit"
+            ? ApiEndPoint.editLoungeReservation
+            : ApiEndPoint.makeLoungeReservation,
+        body,
+        language.toString(),
+        apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -2186,6 +2235,58 @@ class _LoungeReservationState extends State<LoungeReservation> {
     } else {
       setState(() {
         reservationRulesLink = WebViewLinks.loungeUrlKo;
+      });
+    }
+  }
+
+  void setDataForEdit() {
+    if (widget.loungeHistoryDetailModel != null) {
+      DateFormat format = DateFormat("yyyy-MM-dd");
+      alreadySelectedDate =
+          format.parse(widget.loungeHistoryDetailModel!.reservationDate!);
+      setState(() {
+        focusedDate = alreadySelectedDate;
+        eventPurposeController.text =
+            widget.loungeHistoryDetailModel!.purpose.toString();
+        numberOfParticipantsController.text = widget
+            .loungeHistoryDetailModel!.displayNumberOfParticipants
+            .toString();
+        paymentMethodSelectedValue =
+            widget.loungeHistoryDetailModel!.paymentMethod.toString();
+        if (widget.loungeHistoryDetailModel!.usageHours
+            .toString()
+            .contains("Morning")) {
+          usageTimeSelectedValue = "morning";
+        } else if (widget.loungeHistoryDetailModel!.usageHours
+            .toString()
+            .contains("Afternoon")) {
+          usageTimeSelectedValue = "afternoon";
+        } else if (widget.loungeHistoryDetailModel!.usageHours
+            .toString()
+            .contains("Manual")) {
+          usageTimeSelectedValue = "manual";
+        } else if (widget.loungeHistoryDetailModel!.usageHours
+            .toString()
+            .contains("All day")) {
+          usageTimeSelectedValue = "all_day";
+        } else {
+          usageTimeSelectedValue = "morning";
+        }
+        startTimeSelectedValue = widget.loungeHistoryDetailModel!.startTime
+            .toString()
+            .substring(0, 5);
+        endTimeSelectedValue =
+            widget.loungeHistoryDetailModel!.endTime.toString().substring(0, 5);
+        if (widget.loungeHistoryDetailModel!.equipments.toString().isEmpty) {
+          _selectedEquipments = [
+            {"value": "", "text": tr("noRequest")}
+          ];
+          _selectedEquipmentsValue = [];
+        } else {
+          _selectedEquipmentsValue =
+              widget.loungeHistoryDetailModel!.equipments.toString().split(',');
+          debugPrint("_selectedEquipments  ::: $_selectedEquipments");
+        }
       });
     }
   }

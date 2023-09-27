@@ -444,7 +444,11 @@ class _LoungeHistoryDetailsState extends State<LoungeHistoryDetails> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const LoungeReservation(),
+                              builder: (context) => LoungeReservation(
+                                operationName: "edit",
+                                loungeHistoryDetailModel:
+                                    loungeHistoryDetailModel,
+                              ),
                             ),
                           ).then((value) {
                             loadLoungeHistoryDetails();
