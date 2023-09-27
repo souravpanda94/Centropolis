@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:centropolis/models/conference_history_detail_model.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -27,7 +28,15 @@ import '../my_page/web_view_ui.dart';
 import 'conference_availability_modal.dart';
 
 class ConferenceReservation extends StatefulWidget {
-  const ConferenceReservation({super.key});
+  final String operationName;
+  final String? conferenceId;
+  final ConferenceHistoryDetailModel? conferenceHistoryDetails;
+
+  const ConferenceReservation(
+      {super.key,
+      required this.operationName,
+      this.conferenceId,
+      this.conferenceHistoryDetails});
 
   @override
   State<ConferenceReservation> createState() => _ConferenceReservationState();
@@ -59,14 +68,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   var dateFormat = DateFormat('yyyy-MM-dd');
   String reservationDate = "";
   String reservationRulesLink = "";
-
   bool servicesEquipmentTooltip = false;
   List<dynamic> _selectedEquipments = [];
   List<dynamic> _selectedEquipmentsValue = [];
   List<dynamic> equipmentsList = [];
   String? equipmentSelectedValue;
+  bool isLoadingRequired = false;
 
-  
+
+
   @override
   void initState() {
     super.initState();
@@ -75,18 +85,12 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     language = tr("lang");
     var user = Provider.of<UserProvider>(context, listen: false);
     apiKey = user.userData['api_key'].toString();
-    // email = user.userData['email_key'].toString();
-    // mobile = user.userData['mobile'].toString();
-    //name = user.userData['name'].toString();
-    //companyName = user.userData['company_name'].toString();
+    if (widget.operationName == "edit") {
+      setDataForEdit();
+    }
     setWebViewLink();
     internetCheckingForMethods();
-
-
-    
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -118,34 +122,31 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.backgroundColor,
-                  padding: const EdgeInsets.all(16),
-                  margin: const EdgeInsets.only(left: 16,right: 16),
-                  height: 200,
-                  child: Scrollbar(
-                    thumbVisibility: true,
-                    child: SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          infoTextWidget(tr("conferenceInfoText1")),
-                          infoTextWidget(tr("conferenceInfoText2")),
-                          infoTextWidget(tr("conferenceInfoText3")),
-                          infoTextWidget(tr("conferenceInfoText4")),
-                          infoTextWidget(tr("conferenceInfoText5")),
-                          infoTextWidget(tr("conferenceInfoText6")),
-                          infoTextWidget(tr("conferenceInfoText7")),
-                          infoTextWidget(tr("conferenceInfoText8")),
-                          infoTextWidget(tr("conferenceInfoText9")),
-                                 
-                        ],
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.backgroundColor,
+                    padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(left: 16, right: 16),
+                    height: 200,
+                    child: Scrollbar(
+                      thumbVisibility: true,
+                      child: SingleChildScrollView(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            infoTextWidget(tr("conferenceInfoText1")),
+                            infoTextWidget(tr("conferenceInfoText2")),
+                            infoTextWidget(tr("conferenceInfoText3")),
+                            infoTextWidget(tr("conferenceInfoText4")),
+                            infoTextWidget(tr("conferenceInfoText5")),
+                            infoTextWidget(tr("conferenceInfoText6")),
+                            infoTextWidget(tr("conferenceInfoText7")),
+                            infoTextWidget(tr("conferenceInfoText8")),
+                            infoTextWidget(tr("conferenceInfoText9")),
+                          ],
+                        ),
                       ),
                     ),
                   ),
-
-                  
-                ),
                   Container(
                     width: MediaQuery.of(context).size.width,
                     padding: const EdgeInsets.all(16),
@@ -394,125 +395,124 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           height: 6,
                         ),
                         meetingPackageDropdownWidget(),
-                         const SizedBox(
-                        height: 16,
-                      ),
-                      Text(
-                        tr("equipments"),
-                        style: const TextStyle(
-                            fontFamily: 'SemiBold',
-                            fontSize: 14,
-                            color: CustomColors.textColor8),
-                      ),
-                      const SizedBox(
-                        height: 8,
-                      ),
-                      InkWell(
-                      
-                        onTap: () {
-                          
-                          setState(() {
-                            servicesEquipmentTooltip=true;
-                          });
-                          _showMultiSelect();
-                        },
-                        child: Container(
-                          height: 46,
-                          padding: const EdgeInsets.all(0),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                width: 1.0,
-                                color: CustomColors.dividerGreyColor),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(5.0)),
-                          ),
-                          child: Row(
-                            children: [
-                              Expanded(
-                                  child: _selectedEquipments.isEmpty
-                                      ? Container(
-                                          padding: const EdgeInsets.only(
-                                              left: 15,
-                                              right: 15,
-                                              top: 12,
-                                              bottom: 12),
-                                          child: Text(tr('equipmentsHint')))
-                                      : Container(
-                                          margin:
-                                              const EdgeInsets.only(left: 15),
-                                          child: SingleChildScrollView(
-                                            scrollDirection: Axis.horizontal,
-                                            child: Wrap(
-                                              runSpacing: 1.5,
-                                              spacing: 0,
-                                              direction: Axis.vertical,
-                                              children: _selectedEquipments
-                                                  .map((e) => Chip(
-                                                        visualDensity:
-                                                            VisualDensity
-                                                                .compact,
-                                                        backgroundColor:
-                                                            CustomColors
-                                                                .selectedColor,
-                                                        padding:
-                                                            const EdgeInsets
-                                                                    .symmetric(
-                                                                horizontal: 5),
-                                                        shape: const RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .all(Radius
-                                                                        .circular(
-                                                                            5))),
-                                                        label: SizedBox(
-                                                          //width: 20,
-                                                          child: Text(
-                                                              e["text"]
-                                                                  .toString(),
-                                                              textAlign:
-                                                                  TextAlign
-                                                                      .center,
-                                                              style: const TextStyle(
-                                                                  fontFamily:
-                                                                      'SemiBold',
-                                                                  fontSize: 12,
-                                                                  color: CustomColors
-                                                                      .whiteColor)),
-                                                        ),
-                                                      ))
-                                                  .toList(),
+                        const SizedBox(
+                          height: 16,
+                        ),
+                        Text(
+                          tr("equipments"),
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            setState(() {
+                              servicesEquipmentTooltip = true;
+                            });
+                            _showMultiSelect();
+                          },
+                          child: Container(
+                            height: 46,
+                            padding: const EdgeInsets.all(0),
+                            decoration: BoxDecoration(
+                              border: Border.all(
+                                  width: 1.0,
+                                  color: CustomColors.dividerGreyColor),
+                              borderRadius:
+                                  const BorderRadius.all(Radius.circular(5.0)),
+                            ),
+                            child: Row(
+                              children: [
+                                Expanded(
+                                    child: _selectedEquipments.isEmpty
+                                        ? Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 15,
+                                                right: 15,
+                                                top: 12,
+                                                bottom: 12),
+                                            child: Text(tr('equipmentsHint')))
+                                        : Container(
+                                            margin:
+                                                const EdgeInsets.only(left: 15),
+                                            child: SingleChildScrollView(
+                                              scrollDirection: Axis.horizontal,
+                                              child: Wrap(
+                                                runSpacing: 1.5,
+                                                spacing: 0,
+                                                direction: Axis.vertical,
+                                                children: _selectedEquipments
+                                                    .map((e) => Chip(
+                                                          visualDensity:
+                                                              VisualDensity
+                                                                  .compact,
+                                                          backgroundColor:
+                                                              CustomColors
+                                                                  .selectedColor,
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  horizontal:
+                                                                      5),
+                                                          shape: const RoundedRectangleBorder(
+                                                              borderRadius: BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          5))),
+                                                          label: SizedBox(
+                                                            //width: 20,
+                                                            child: Text(
+                                                                e["text"]
+                                                                    .toString(),
+                                                                textAlign:
+                                                                    TextAlign
+                                                                        .center,
+                                                                style: const TextStyle(
+                                                                    fontFamily:
+                                                                        'SemiBold',
+                                                                    fontSize:
+                                                                        12,
+                                                                    color: CustomColors
+                                                                        .whiteColor)),
+                                                          ),
+                                                        ))
+                                                    .toList(),
+                                              ),
                                             ),
-                                          ),
-                                        )),
-                              Container(
-                                margin: const EdgeInsets.only(right: 10),
-                                padding: EdgeInsets.only(
-                                    left: 10,
-                                    bottom: equipmentSelectedValue != null
-                                        ? 16
-                                        : 0),
-                                child: SvgPicture.asset(
-                                  "assets/images/ic_drop_down_arrow.svg",
-                                  width: 8,
-                                  height: 8,
-                                  color: CustomColors.textColorBlack2,
-                                ),
-                              )
-                            ],
+                                          )),
+                                Container(
+                                  margin: const EdgeInsets.only(right: 10),
+                                  padding: EdgeInsets.only(
+                                      left: 10,
+                                      bottom: equipmentSelectedValue != null
+                                          ? 16
+                                          : 0),
+                                  child: SvgPicture.asset(
+                                    "assets/images/ic_drop_down_arrow.svg",
+                                    width: 8,
+                                    height: 8,
+                                    color: CustomColors.textColorBlack2,
+                                  ),
+                                )
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      if (servicesEquipmentTooltip)
-                        Padding(
-                          padding: const EdgeInsets.only(top: 5),
-                          child: Text(
-                            tr("conferenceServiceEquipmentTooltip"),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 12,
-                                color: CustomColors.blackColor),
+                        if (servicesEquipmentTooltip)
+                          Padding(
+                            padding: const EdgeInsets.only(top: 5),
+                            child: Text(
+                              tr("conferenceServiceEquipmentTooltip"),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 12,
+                                  color: CustomColors.blackColor),
+                            ),
                           ),
-                        ),
                       ],
                     ),
                   ),
@@ -568,11 +568,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                               fontFamily: 'Regular',
                             ),
                             onTap: () {
-                              if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
-          }
+                              if (servicesEquipmentTooltip) {
+                                setState(() {
+                                  servicesEquipmentTooltip = false;
+                                });
+                              }
                             },
                             onTapOutside: (event) {
                               FocusScope.of(context).unfocus();
@@ -631,77 +631,93 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                               ),
                               Padding(
                                 padding: const EdgeInsets.only(top: 3),
-                                child:language == "en" ? InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("conferenceRoomReservation"), reservationRulesLink);
-                            });
-                                  },
-                                  child: Text.rich(
-                                  TextSpan(
-                                    text: tr("agree"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("conferenceReservationConsent"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.buttonBackgroundColor,
-                                            decoration: TextDecoration.underline,
-                                          )),
-                                     
-                                    ],
-                                  ),
-                                ),
-                                ) : InkWell(
-                                  onTap: () {
-                                    showGeneralDialog(
-                            context: context,
-                            barrierColor: Colors.black12.withOpacity(0.6),
-                            // Background color
-                            barrierDismissible: false,
-                            barrierLabel: 'Dialog',
-                            transitionDuration:
-                                const Duration(milliseconds: 400),
-                            pageBuilder: (_, __, ___) {
-                              return WebViewUiScreen(
-                                  tr("conferenceRoomReservation"), reservationRulesLink);
-                            });
-                                  },
-                                  child: Text.rich(
-                                  TextSpan(
-                                    text: tr("conferenceReservationConsent"),
-                                    style: const TextStyle(fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        decoration: TextDecoration.underline,
-                                        color: CustomColors.buttonBackgroundColor),
-                                    children: <TextSpan>[
-                                      TextSpan(
-                                          text: tr("agree"),
-                                          style: const TextStyle(
-                                            fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.textColorBlack2,
-                                        decoration: TextDecoration.none,
-                                            
-                                          )),
-                                     
-                                    ],
-                                  ),
-                                ),
-                                ),
+                                child: language == "en"
+                                    ? InkWell(
+                                        onTap: () {
+                                          showGeneralDialog(
+                                              context: context,
+                                              barrierColor: Colors.black12
+                                                  .withOpacity(0.6),
+                                              // Background color
+                                              barrierDismissible: false,
+                                              barrierLabel: 'Dialog',
+                                              transitionDuration:
+                                                  const Duration(
+                                                      milliseconds: 400),
+                                              pageBuilder: (_, __, ___) {
+                                                return WebViewUiScreen(
+                                                    tr("conferenceRoomReservation"),
+                                                    reservationRulesLink);
+                                              });
+                                        },
+                                        child: Text.rich(
+                                          TextSpan(
+                                            text: tr("agree"),
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                color: CustomColors
+                                                    .textColorBlack2),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: tr(
+                                                      "conferenceReservationConsent"),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Regular',
+                                                    fontSize: 14,
+                                                    color: CustomColors
+                                                        .buttonBackgroundColor,
+                                                    decoration: TextDecoration
+                                                        .underline,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                      )
+                                    : InkWell(
+                                        onTap: () {
+                                          showGeneralDialog(
+                                              context: context,
+                                              barrierColor: Colors.black12
+                                                  .withOpacity(0.6),
+                                              // Background color
+                                              barrierDismissible: false,
+                                              barrierLabel: 'Dialog',
+                                              transitionDuration:
+                                                  const Duration(
+                                                      milliseconds: 400),
+                                              pageBuilder: (_, __, ___) {
+                                                return WebViewUiScreen(
+                                                    tr("conferenceRoomReservation"),
+                                                    reservationRulesLink);
+                                              });
+                                        },
+                                        child: Text.rich(
+                                          TextSpan(
+                                            text: tr(
+                                                "conferenceReservationConsent"),
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 14,
+                                                decoration:
+                                                    TextDecoration.underline,
+                                                color: CustomColors
+                                                    .buttonBackgroundColor),
+                                            children: <TextSpan>[
+                                              TextSpan(
+                                                  text: tr("agree"),
+                                                  style: const TextStyle(
+                                                    fontFamily: 'Regular',
+                                                    fontSize: 14,
+                                                    color: CustomColors
+                                                        .textColorBlack2,
+                                                    decoration:
+                                                        TextDecoration.none,
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
+                                      ),
                               )
                             ],
                           ),
@@ -728,34 +744,32 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     );
   }
 
-  
-
-  infoTextWidget(String text){
+  infoTextWidget(String text) {
     return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]);
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  height: 1.5,
+                  color: CustomColors.textColor5),
+            ),
+          )
+        ]);
   }
 
   void showReservationModal(String heading, String message) {
@@ -771,13 +785,14 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
-              Navigator.pop(context);
+              Navigator.pop(context, isLoadingRequired);
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
           );
         });
   }
+
 
   startTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
@@ -828,10 +843,10 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
         },
         onMenuStateChange: (isOpen) {
-          if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
+          if (servicesEquipmentTooltip) {
+            setState(() {
+              servicesEquipmentTooltip = false;
+            });
           }
         },
         dropdownStyleData: DropdownStyleData(
@@ -930,10 +945,10 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
         },
         onMenuStateChange: (isOpen) {
-          if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
+          if (servicesEquipmentTooltip) {
+            setState(() {
+              servicesEquipmentTooltip = false;
+            });
           }
         },
         dropdownStyleData: DropdownStyleData(
@@ -976,6 +991,108 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
+          padding: EdgeInsets.only(top: 14),
+          height: 46,
+        ),
+      ),
+    );
+  }
+
+  conferenceRoomDropdownWidget() {
+    return DropdownButtonHideUnderline(
+      child: DropdownButton2(
+        hint: Text(
+          tr('preferredConferenceRoomHint'),
+          style: const TextStyle(
+            color: CustomColors.textColorBlack2,
+            fontSize: 14,
+            fontFamily: 'Regular',
+          ),
+        ),
+        items: conferenceRoomList
+            .map((item) => DropdownMenuItem<String>(
+          value: item["value"].toString(),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(left: 12, bottom: 9),
+                child: Text(
+                  item["text"].toString(),
+                  style: const TextStyle(
+                    color: CustomColors.blackColor,
+                    fontSize: 14,
+                    fontFamily: 'Regular',
+                  ),
+                ),
+              ),
+              const SizedBox(
+                height: 3,
+              ),
+              if (item != conferenceRoomList.last)
+                const Divider(
+                  thickness: 1,
+                  height: 1,
+                  color: CustomColors.dividerGreyColor,
+                )
+            ],
+          ),
+        ))
+            .toList(),
+        value: conferenceRoomSelectedValue,
+        onChanged: (value) {
+          setState(() {
+            conferenceRoomSelectedValue = value.toString();
+          });
+        },
+        onMenuStateChange: (isOpen) {
+          if (servicesEquipmentTooltip) {
+            setState(() {
+              servicesEquipmentTooltip = false;
+            });
+          }
+        },
+        dropdownStyleData: DropdownStyleData(
+          maxHeight: 200,
+          isOverButton: false,
+          elevation: 0,
+          padding: const EdgeInsets.only(top: 0, bottom: 0),
+          decoration: BoxDecoration(
+              color: CustomColors.whiteColor,
+              border: Border.all(
+                color: CustomColors.dividerGreyColor,
+              ),
+              borderRadius: const BorderRadius.all(Radius.circular(4))),
+        ),
+        iconStyleData: IconStyleData(
+            icon: Padding(
+              padding: EdgeInsets.only(
+                  bottom: conferenceRoomSelectedValue != null ? 12 : 0),
+              child: SvgPicture.asset(
+                "assets/images/ic_drop_down_arrow.svg",
+                width: 8,
+                height: 8,
+                color: CustomColors.textColorBlack2,
+              ),
+            )),
+        buttonStyleData: ButtonStyleData(
+            height: 46,
+            width: MediaQuery.of(context).size.width,
+            decoration: BoxDecoration(
+                border: Border.all(
+                  color: CustomColors.dividerGreyColor,
+                ),
+                borderRadius: const BorderRadius.all(Radius.circular(4))),
+            padding: EdgeInsets.only(
+                top: 10,
+                right: 12,
+                left: conferenceRoomSelectedValue != null ? 0 : 13,
+                bottom: conferenceRoomSelectedValue != null ? 0 : 11),
+            elevation: 0),
+        menuItemStyleData: const MenuItemStyleData(
+          overlayColor:
+          MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
           padding: EdgeInsets.only(top: 14),
           height: 46,
         ),
@@ -1035,10 +1152,10 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
         },
         onMenuStateChange: (isOpen) {
-          if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
+          if (servicesEquipmentTooltip) {
+            setState(() {
+              servicesEquipmentTooltip = false;
+            });
           }
         },
         dropdownStyleData: DropdownStyleData(
@@ -1088,107 +1205,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     );
   }
 
-  conferenceRoomDropdownWidget() {
-    return DropdownButtonHideUnderline(
-      child: DropdownButton2(
-        hint: Text(
-          tr('preferredConferenceRoomHint'),
-          style: const TextStyle(
-            color: CustomColors.textColorBlack2,
-            fontSize: 14,
-            fontFamily: 'Regular',
-          ),
-        ),
-        items: conferenceRoomList
-            .map((item) => DropdownMenuItem<String>(
-                  value: item["value"].toString(),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(left: 12, bottom: 9),
-                        child: Text(
-                          item["text"].toString(),
-                          style: const TextStyle(
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
-                          ),
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 3,
-                      ),
-                      if (item != conferenceRoomList.last)
-                        const Divider(
-                          thickness: 1,
-                          height: 1,
-                          color: CustomColors.dividerGreyColor,
-                        )
-                    ],
-                  ),
-                ))
-            .toList(),
-        value: conferenceRoomSelectedValue,
-        onChanged: (value) {
-          setState(() {
-            conferenceRoomSelectedValue = value.toString();
-          });
-        },
-        onMenuStateChange: (isOpen) {
-          if(servicesEquipmentTooltip){
-             setState(() {
-            servicesEquipmentTooltip = false;
-          });
-          }
-        },
-        dropdownStyleData: DropdownStyleData(
-          maxHeight: 200,
-          isOverButton: false,
-          elevation: 0,
-          padding: const EdgeInsets.only(top: 0, bottom: 0),
-          decoration: BoxDecoration(
-              color: CustomColors.whiteColor,
-              border: Border.all(
-                color: CustomColors.dividerGreyColor,
-              ),
-              borderRadius: const BorderRadius.all(Radius.circular(4))),
-        ),
-        iconStyleData: IconStyleData(
-            icon: Padding(
-          padding: EdgeInsets.only(
-              bottom: conferenceRoomSelectedValue != null ? 12 : 0),
-          child: SvgPicture.asset(
-            "assets/images/ic_drop_down_arrow.svg",
-            width: 8,
-            height: 8,
-            color: CustomColors.textColorBlack2,
-          ),
-        )),
-        buttonStyleData: ButtonStyleData(
-            height: 46,
-            width: MediaQuery.of(context).size.width,
-            decoration: BoxDecoration(
-                border: Border.all(
-                  color: CustomColors.dividerGreyColor,
-                ),
-                borderRadius: const BorderRadius.all(Radius.circular(4))),
-            padding: EdgeInsets.only(
-                top: 10,
-                right: 12,
-                left: conferenceRoomSelectedValue != null ? 0 : 13,
-                bottom: conferenceRoomSelectedValue != null ? 0 : 11),
-            elevation: 0),
-        menuItemStyleData: const MenuItemStyleData(
-          overlayColor:
-              MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(top: 14),
-          height: 46,
-        ),
-      ),
-    );
-  }
+
 
   tableCalendarWidget() {
     return TableCalendar(
@@ -1301,8 +1318,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     );
   }
 
- 
-
   void callLoadTimeListApi() {
     setState(() {
       isLoading = true;
@@ -1326,12 +1341,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1340,17 +1356,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-
 
   void callLoadMeetingPackageListApi() {
     setState(() {
@@ -1383,12 +1398,13 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1397,17 +1413,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-
 
   void callLoadConferenceRoomListApi() {
     setState(() {
@@ -1433,13 +1448,14 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1448,17 +1464,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-  
 
   void callLoadloadConferenceScheduleApi() {
     setState(() {
@@ -1485,13 +1500,14 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           }
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1500,10 +1516,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1544,9 +1561,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     } else if (meetingPackageSelectedValue == null ||
         meetingPackageSelectedValue == "") {
       showErrorModal(tr("meetingPackageHint"));
-    }else if (_selectedEquipments.isEmpty) {
+    } else if (_selectedEquipments.isEmpty) {
       showErrorModal(tr("equipmentsHint"));
-    }  else if (rentalInfoController.text.isEmpty) {
+    } else if (rentalInfoController.text.isEmpty) {
       showErrorModal(tr("conferenceDescriptionValidation"));
     } else if (!isChecked) {
       showErrorModal(tr("tnc"));
@@ -1582,7 +1599,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       callReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1591,33 +1608,56 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   }
 
   void callReservationApi() {
+    String apiName = "";
+    Map<String, dynamic> body;
     setState(() {
       isLoading = true;
     });
     debugPrint("meetingPackageSelectedValue :: $meetingPackageSelectedValue");
-    Map<String, dynamic> body = {
-      "email": email.trim(), //required
-      "mobile": mobile.trim(), //required
-      "reservation_date": reservationDate.toString().trim(), //required
-      "start_time": startTimeSelectedValue.toString().trim(), //required
-      "end_time": endTimeSelectedValue.toString().trim(), //required
-      "description": rentalInfoController.text.toString().trim(), //required
-      "desired_conference_hall_id": conferenceRoomSelectedValue != null
-          ? conferenceRoomSelectedValue.toString().trim()
-          : "", //required
-      "package_id": meetingPackageSelectedValue != null
-          ? meetingPackageSelectedValue.toString().trim()
-          : "0", //no package
-          "equipments":_selectedEquipmentsValue//required
-    };
 
-    debugPrint("conferencce reservation input===> $body");
+    if (widget.operationName == "edit") {
+      apiName = ApiEndPoint.editConferenceReservation;
+      body = {
+        "reservation_id": widget.conferenceId.toString(),
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "reservation_date": reservationDate.toString().trim(), //required
+        "start_time": startTimeSelectedValue.toString().trim(), //required
+        "end_time": endTimeSelectedValue.toString().trim(), //required
+        "description": rentalInfoController.text.toString().trim(), //required
+        "desired_conference_hall_id": conferenceRoomSelectedValue != null
+            ? conferenceRoomSelectedValue.toString().trim()
+            : "", //required
+        "package_id": meetingPackageSelectedValue != null
+            ? meetingPackageSelectedValue.toString().trim()
+            : "0", //no package
+        "equipments": _selectedEquipmentsValue //required
+      };
 
-    Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.makeConferenceReservation,
-        body,
-        language.toString(),
-        apiKey);
+      debugPrint("Edit conference reservation input===> $body");
+    } else {
+      apiName = ApiEndPoint.makeConferenceReservation;
+      body = {
+        "email": email.trim(), //required
+        "mobile": mobile.trim(), //required
+        "reservation_date": reservationDate.toString().trim(), //required
+        "start_time": startTimeSelectedValue.toString().trim(), //required
+        "end_time": endTimeSelectedValue.toString().trim(), //required
+        "description": rentalInfoController.text.toString().trim(), //required
+        "desired_conference_hall_id": conferenceRoomSelectedValue != null
+            ? conferenceRoomSelectedValue.toString().trim()
+            : "", //required
+        "package_id": meetingPackageSelectedValue != null
+            ? meetingPackageSelectedValue.toString().trim()
+            : "0", //no package
+        "equipments": _selectedEquipmentsValue //required
+      };
+
+      debugPrint("conference reservation input===> $body");
+    }
+
+    Future<http.Response> response = WebService()
+        .callPostMethodWithRawData(apiName, body, language.toString(), apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
@@ -1626,17 +1666,22 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          setState(() {
+            isLoadingRequired = true;
+          });
+
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1645,17 +1690,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
     });
   }
-
-
 
   void callLoadPersonalInformationApi() {
     setState(() {
@@ -1686,13 +1730,14 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1701,10 +1746,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1726,7 +1772,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
         });
   }
 
-
   void setWebViewLink() {
     if (language == "en") {
       setState(() {
@@ -1734,25 +1779,23 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       });
     } else {
       setState(() {
-       
         reservationRulesLink = WebViewLinks.conferenceUrlKo;
       });
     }
   }
 
-   void internetCheckingForMethods() async {
+  void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-    callLoadPersonalInformationApi();
-    callLoadTimeListApi();
-    callLoadMeetingPackageListApi();
-    callLoadConferenceRoomListApi();
-    callLoadloadConferenceScheduleApi();
-    callLoadEquipmentListApi();
-
+      callLoadPersonalInformationApi();
+      callLoadTimeListApi();
+      callLoadMeetingPackageListApi();
+      callLoadConferenceRoomListApi();
+      callLoadloadConferenceScheduleApi();
+      callLoadEquipmentListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1776,10 +1819,10 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       _selectedEquipmentsValue.clear();
 
       for (var i = 0; i < results.length; i++) {
-        if(results[i]["value"]!=null && results[i]["value"].toString().isNotEmpty){
-           _selectedEquipmentsValue.add(results[i]["value"]);
+        if (results[i]["value"] != null &&
+            results[i]["value"].toString().isNotEmpty) {
+          _selectedEquipmentsValue.add(results[i]["value"]);
         }
-
       }
 
       setState(() {
@@ -1788,7 +1831,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     }
   }
 
-   void callLoadEquipmentListApi() {
+  void callLoadEquipmentListApi() {
     setState(() {
       isLoading = true;
     });
@@ -1797,11 +1840,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     debugPrint("conference equipment List input===> $body");
 
     Future<http.Response> response = WebService().callPostMethodWithRawData(
-        ApiEndPoint.conferenceEquipmentListUrl, body, language.toString(), apiKey);
+        ApiEndPoint.conferenceEquipmentListUrl,
+        body,
+        language.toString(),
+        apiKey);
     response.then((response) {
       var responseJson = json.decode(response.body);
 
-      debugPrint("server response for conference Equipment List ===> $responseJson");
+      debugPrint(
+          "server response for conference Equipment List ===> $responseJson");
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
@@ -1836,6 +1883,25 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       setState(() {
         isLoading = false;
       });
+    });
+  }
+
+  void setDataForEdit() {
+    debugPrint("-----------------${widget.conferenceHistoryDetails!.reservationDate.toString()}----------------");
+    debugPrint("-----------------${widget.conferenceHistoryDetails!.usageTime.toString()}----------------");
+    debugPrint("-----------------${widget.conferenceHistoryDetails!.conferenceRoom.toString()}----------------");
+    debugPrint("-----------------${widget.conferenceHistoryDetails!.packageName.toString()}----------------");
+
+    String usageTime = "";
+    setState(() {
+      usageTime = widget.conferenceHistoryDetails!.usageTime.toString().replaceAll(' ', '');
+      focusedDate = DateTime.parse(widget.conferenceHistoryDetails!.reservationDate.toString());
+      startTimeSelectedValue = usageTime.substring(0, usageTime.indexOf('~')).toString();
+      endTimeSelectedValue = usageTime.substring(usageTime.indexOf('~') + 1, usageTime.length).toString();
+
+      // conferenceRoomSelectedValue = widget.conferenceHistoryDetails!.conferenceRoom.toString().trim();
+      // meetingPackageSelectedValue = widget.conferenceHistoryDetails?.packageName.toString().trim() ?? tr("noPackage");
+      rentalInfoController = TextEditingController(text: widget.conferenceHistoryDetails?.description.toString() ?? "");
     });
   }
 }

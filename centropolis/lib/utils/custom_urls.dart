@@ -88,8 +88,7 @@ class ApiEndPoint {
       "${baseUrl}v1/amenity/fitness-center-seat";
   static String getComplaintTypeListUrl = "${baseUrl}v1/common/complaint-type";
   static String saveComplaintUrl = "${baseUrl}v1/cms/complaint";
-  static String gxHistoryListUrl =
-      "${baseUrl}v1/mypage/gx-program-reservation-list";
+  static String gxHistoryListUrl = "${baseUrl}v1/mypage/gx-program-reservation-list";
 
 // ====================================MONDIRA=============================================================================================
 
@@ -175,6 +174,7 @@ class ApiEndPoint {
   static String editPtReservation = "${baseUrl}v1/amenity/personal-training-reservation-update";
   static String editLoungeReservation =
       "${baseUrl}v1/amenity/exceutive-lounge-reservation-update";
+  static String editConferenceReservation = "${baseUrl}v1/amenity/conference-reservation-inquiry-update";
 }
 
 class WebViewLinks {

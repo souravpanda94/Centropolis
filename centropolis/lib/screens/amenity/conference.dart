@@ -164,7 +164,7 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ConferenceReservation(),
+                            builder: (context) => const ConferenceReservation(operationName: "add"),
                           ),
                         );
                       } else {
