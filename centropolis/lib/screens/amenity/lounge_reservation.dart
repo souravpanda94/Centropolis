@@ -2054,7 +2054,6 @@ class _LoungeReservationState extends State<LoungeReservation> {
             widget.loungeHistoryDetailModel!.id.toString().trim(), //required
         "email": email.trim(), //required
         "mobile": mobile.trim(), //required
-        "reservation_date": reservationDate.trim(), //required
         "start_time": startTimeSelectedValue.toString().trim(), //required
         "end_time": endTimeSelectedValue.toString().trim(), //required
         "type": usageTimeSelectedValue.toString().trim(), //required
@@ -2283,9 +2282,29 @@ class _LoungeReservationState extends State<LoungeReservation> {
           ];
           _selectedEquipmentsValue = [];
         } else {
-          _selectedEquipmentsValue =
-              widget.loungeHistoryDetailModel!.equipments.toString().split(',');
-          debugPrint("_selectedEquipments  ::: $_selectedEquipments");
+          if (widget.loungeHistoryDetailModel!.equipmentsValue != null &&
+              widget.loungeHistoryDetailModel!.equipmentsValue!.isNotEmpty) {
+            _selectedEquipments =
+                widget.loungeHistoryDetailModel!.equipmentsValue!;
+            for (var i = 0;
+                i < widget.loungeHistoryDetailModel!.equipmentsValue!.length;
+                i++) {
+              if (widget.loungeHistoryDetailModel!.equipmentsValue![i]
+                          ["value"] !=
+                      null &&
+                  widget.loungeHistoryDetailModel!.equipmentsValue![i]["value"]
+                      .toString()
+                      .isNotEmpty) {
+                _selectedEquipmentsValue.add(widget
+                    .loungeHistoryDetailModel!.equipmentsValue![i]["value"]);
+              }
+            }
+          } else {
+            _selectedEquipments = [
+              {"value": "", "text": tr("noRequest")}
+            ];
+            _selectedEquipmentsValue = [];
+          }
         }
       });
     }
