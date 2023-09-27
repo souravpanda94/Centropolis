@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/screens/amenity/conference_reservation.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -15,6 +16,7 @@ import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
+import '../../widgets/common_button.dart';
 import '../../widgets/common_modal.dart';
 
 class ConferenceHistoryDetails extends StatefulWidget {
@@ -387,6 +389,9 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                           ],
                         ),
                       ),
+                        const SizedBox(
+                        height: 100,
+                      ),
                     ],
                   ),
                 )
@@ -404,6 +409,33 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                         color: CustomColors.textColor5),
                   ),
                 ),
+                 bottomSheet:
+              conferenceHistoryDetails?.canEdit.toString().toLowerCase() == 'y'
+                  ? Container(
+                      width: MediaQuery.of(context).size.width,
+                      color: CustomColors.whiteColor,
+                      padding: const EdgeInsets.only(
+                          left: 16, top: 16, right: 16, bottom: 50),
+                      child: CommonButton(
+                        onCommonButtonTap: () {
+                          setState(() {
+                            isLoadingRequired = true;
+                          });
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const ConferenceReservation(),
+                            ),
+                          ).then((value) {
+                            loadConferenceHistoryDetails();
+                          });
+                        },
+                        buttonColor: CustomColors.buttonBackgroundColor,
+                        buttonName: tr("edit"),
+                        isIconVisible: false,
+                      ),
+                    )
+                  : const SizedBox(),
           // bottomSheet: conferenceHistoryDetails?.canCancel
           //             .toString()
           //             .toLowerCase()
