@@ -1510,6 +1510,10 @@ class _LoungeReservationState extends State<LoungeReservation> {
 
   tableCalendarWidget() {
     return TableCalendar(
+      pageAnimationDuration: widget.operationName == "edit"
+          ? const Duration(milliseconds: 1)
+          : const Duration(milliseconds: 300),
+      pageAnimationEnabled: widget.operationName == "edit" ? false : true,
       availableGestures: AvailableGestures.horizontalSwipe,
       locale: Localizations.localeOf(context).languageCode,
       availableCalendarFormats: const {CalendarFormat.month: 'Month'},
@@ -1654,6 +1658,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
             _selectedEquipmentsValue.clear();
           });
           loadUsageTimeList();
+        } else {
+          DateFormat format = DateFormat("yyyy-MM-dd");
+          var loungeReservationDate =
+              format.parse(widget.loungeHistoryDetailModel!.reservationDate!);
+          int lastday = DateTime(loungeReservationDate.year,
+                  loungeReservationDate.month + 1, 0)
+              .day;
+          setState(() {
+            kLastDay = DateTime(loungeReservationDate.year,
+                loungeReservationDate.year, lastday);
+          });
         }
       },
     );
