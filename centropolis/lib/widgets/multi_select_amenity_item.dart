@@ -1,6 +1,7 @@
 import 'package:centropolis/utils/custom_colors.dart';
 import 'package:centropolis/utils/utils.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
@@ -32,8 +33,10 @@ class _MultiSelectAmenityEquipmentsState
     fToast = FToast();
     fToast.init(context);
     _previouslySelectedItems = widget.alreadySelectedItems;
+
     _previouslySelectedItems?.forEach((element) {
       if (element["value"] != "") {
+        
         _selectedItems?.add(element);
       } else {
         setState(() {
@@ -45,11 +48,14 @@ class _MultiSelectAmenityEquipmentsState
 
 // This function is triggered when a checkbox is checked or unchecked
   void _itemChange(String itemValue, bool isSelected, dynamic item) {
+    
+
     setState(() {
       if (isSelected) {
         _selectedItems?.add(item);
       } else {
-        _selectedItems?.remove(item);
+        // _selectedItems?.remove(item);
+        _selectedItems?.removeWhere((element) => element["text"] == itemValue);
       }
     });
   }
@@ -156,39 +162,39 @@ class _MultiSelectAmenityEquipmentsState
                 ),
               ),
               ListBody(
-                children: widget.items
-                    .map((item) => Container(
-                          //height: 40,
-                          padding: const EdgeInsets.only(left: 20),
-                          child: Transform.translate(
-                            offset: const Offset(-10, -5),
-                            child: CheckboxListTile(
-                              enabled:
-                                  services == Services.request ? true : false,
-                              side: const BorderSide(
-                                  color: CustomColors.dividerGreyColor),
-                              contentPadding: EdgeInsets.zero,
-                              value: _selectedItems?.contains(item),
-                              activeColor: CustomColors.textColor9,
-                              title: Transform.translate(
-                                  offset: const Offset(-15, 0),
-                                  child: Text(
-                                    item["text"].toString(),
-                                    style: TextStyle(
-                                      fontSize: 14,
-                                      color: services == Services.request
-                                          ? CustomColors.greyColor1
-                                          : CustomColors.dividerGreyColor,
-                                      fontFamily: 'Regular',
-                                    ),
-                                  )),
-                              controlAffinity: ListTileControlAffinity.leading,
-                              onChanged: (isChecked) =>
-                                  _itemChange(item["text"], isChecked!, item),
-                            ),
-                          ),
-                        ))
-                    .toList(),
+                children: widget.items.map((item) {
+                  return Container(
+                    //height: 40,
+                    padding: const EdgeInsets.only(left: 20),
+                    child: Transform.translate(
+                      offset: const Offset(-10, -5),
+                      child: CheckboxListTile(
+                        enabled: services == Services.request ? true : false,
+                        side: const BorderSide(
+                            color: CustomColors.dividerGreyColor),
+                        contentPadding: EdgeInsets.zero,
+                        //value: _selectedItems?.contains(item),
+                        value: _selectedItems?.any((e) => mapEquals(e, item)),
+                        activeColor: CustomColors.textColor9,
+                        title: Transform.translate(
+                            offset: const Offset(-15, 0),
+                            child: Text(
+                              item["text"].toString(),
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: services == Services.request
+                                    ? CustomColors.greyColor1
+                                    : CustomColors.dividerGreyColor,
+                                fontFamily: 'Regular',
+                              ),
+                            )),
+                        controlAffinity: ListTileControlAffinity.leading,
+                        onChanged: (isChecked) =>
+                            _itemChange(item["text"], isChecked!, item),
+                      ),
+                    ),
+                  );
+                }).toList(),
               ),
               InkWell(
                 onTap: () {
