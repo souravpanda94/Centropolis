@@ -424,7 +424,11 @@ class _ConferenceHistoryDetailsState extends State<ConferenceHistoryDetails> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ConferenceReservation(),
+                              builder: (context) => ConferenceReservation(
+                                  operationName: "edit",
+                                  conferenceId: widget.conferenceId,
+                                  conferenceHistoryDetails: conferenceHistoryDetails
+                              ),
                             ),
                           ).then((value) {
                             loadConferenceHistoryDetails();
