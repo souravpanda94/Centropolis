@@ -69,6 +69,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   String reservationDate = "";
   String reservationRulesLink = "";
   bool servicesEquipmentTooltip = false;
+  bool conferenceRoomTooltip = false;
   List<dynamic> _selectedEquipments = [];
   List<dynamic> _selectedEquipmentsValue = [];
   List<dynamic> equipmentsList = [];
@@ -368,6 +369,14 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           height: 6,
                         ),
                         conferenceRoomDropdownWidget(),
+                        if (conferenceRoomTooltip)
+                          Column(
+                            children: [
+                              infoTextWidget(tr("conferenceInfoText4")),
+                              infoTextWidget(tr("conferenceInfoText5")),
+                              infoTextWidget(tr("conferenceInfoText6")),
+                            ],
+                          ),
                         const SizedBox(
                           height: 24,
                         ),
@@ -410,6 +419,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           onTap: () {
                             setState(() {
                               servicesEquipmentTooltip = true;
+                              conferenceRoomTooltip=false;
                             });
                             _showMultiSelect();
                           },
@@ -569,6 +579,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                               if (servicesEquipmentTooltip) {
                                 setState(() {
                                   servicesEquipmentTooltip = false;
+                                });
+                              }
+                              if (conferenceRoomTooltip) {
+                                setState(() {
+                                  conferenceRoomTooltip = false;
                                 });
                               }
                             },
@@ -845,6 +860,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
               servicesEquipmentTooltip = false;
             });
           }
+          if (conferenceRoomTooltip) {
+            setState(() {
+              conferenceRoomTooltip = false;
+            });
+          }
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -947,6 +967,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
               servicesEquipmentTooltip = false;
             });
           }
+          if (conferenceRoomTooltip) {
+            setState(() {
+              conferenceRoomTooltip = false;
+            });
+          }
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -1044,6 +1069,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
         },
         onMenuStateChange: (isOpen) {
+          setState(() {
+            conferenceRoomTooltip = true;
+          });
           if (servicesEquipmentTooltip) {
             setState(() {
               servicesEquipmentTooltip = false;
@@ -1152,6 +1180,11 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           if (servicesEquipmentTooltip) {
             setState(() {
               servicesEquipmentTooltip = false;
+            });
+          }
+          if (conferenceRoomTooltip) {
+            setState(() {
+              conferenceRoomTooltip = false;
             });
           }
         },
