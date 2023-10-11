@@ -1668,7 +1668,12 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
 
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
-          setFirebaseEventForConferenceReservation(conferenceId: "");
+
+          if (widget.operationName == "edit") {
+            setFirebaseEventForConferenceReservation(eventName: "cp_edit_conference_reservation",conferenceId: "");
+          } else {
+            setFirebaseEventForConferenceReservation(eventName: "cp_make_conference_reservation",conferenceId: "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

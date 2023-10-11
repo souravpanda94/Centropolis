@@ -2120,7 +2120,11 @@ class _LoungeReservationState extends State<LoungeReservation> {
             showReservationModal(responseJson['message'].toString(), "");
           }
 
-          setFirebaseEventForLoungeReservation(loungeId: "");
+          if (widget.operationName == "edit") {
+            setFirebaseEventForLoungeReservation(eventName: "cp_edit_lounge_reservation",loungeId: "");
+          }else{
+            setFirebaseEventForLoungeReservation(eventName: "cp_make_lounge_reservation",loungeId: "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

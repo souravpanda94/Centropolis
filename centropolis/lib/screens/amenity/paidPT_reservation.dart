@@ -850,7 +850,14 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           });
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
-          setFirebaseEventForPaidPtReservation(paidPtId: "");
+
+          if (widget.operationName == "edit") {
+            setFirebaseEventForPaidPtReservation(
+                eventName: "cp_edit_paid_pt_reservation", paidPtId: "");
+          } else {
+            setFirebaseEventForPaidPtReservation(
+                eventName: "cp_make_paid_pt_reservation", paidPtId: "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
