@@ -810,6 +810,8 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
             isLoadingRequired = true;
           });
           showModal(responseJson['message'].toString(), "", tr("check"));
+
+          setFirebaseEventForUpdateEmployee(memberId: widget.id.toString().trim(),accountStatus: statusSelectedValue.toString().trim(), accountType: typeSelectedValue.toString().trim());
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
