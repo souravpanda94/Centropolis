@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -52,10 +53,10 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
         Provider.of<AirConditioningDetailsProvider>(context)
             .getAirConditioningDetailModel;
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: Scaffold(
         backgroundColor: CustomColors.whiteColor,
         appBar: PreferredSize(
@@ -169,7 +170,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                             height: 8,
                           ),
                           Text(
-                            airConditioningDetailModel?.companyName.toString() ??
+                            airConditioningDetailModel?.companyName
+                                    .toString() ??
                                 "",
                             style: const TextStyle(
                                 fontFamily: 'Regular',
@@ -207,7 +209,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                           ),
                           Text(
                             formatNumberStringWithDash(
-                                airConditioningDetailModel?.contact.toString() ??
+                                airConditioningDetailModel?.contact
+                                        .toString() ??
                                     ""),
                             style: const TextStyle(
                                 fontFamily: 'Regular',
@@ -284,7 +287,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                       height: 8,
                     ),
                     Text(
-                      airConditioningDetailModel?.type.toString().capitalize() ??
+                      airConditioningDetailModel?.type
+                              .toString()
+                              .capitalize() ??
                           "",
                       style: const TextStyle(
                           fontFamily: 'Regular',
@@ -442,7 +447,8 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
                               Navigator.pop(context, isLoadingRequired);
                             },
                             buttonName: tr("toList"),
-                            buttonBorderColor: CustomColors.buttonBackgroundColor,
+                            buttonBorderColor:
+                                CustomColors.buttonBackgroundColor,
                             buttonTextColor: CustomColors.buttonBackgroundColor,
                           ),
                           if (airConditioningDetailModel?.canChange
@@ -586,8 +592,9 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -598,10 +605,11 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -667,12 +675,17 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
             isLoadingRequired = true;
           });
           showReservationModal(responseJson['message']);
+          setFirebaseEventForAcExtensionApproveReject(
+              acExtensionId:
+                  airConditioningDetailModel!.inquiryId.toString().trim(),
+              status: status.toString().trim());
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -683,10 +696,11 @@ class _AirConditioningDetailsState extends State<AirConditioningDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
