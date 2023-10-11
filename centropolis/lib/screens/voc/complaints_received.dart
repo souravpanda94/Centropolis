@@ -612,13 +612,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
               buttonName: tr("check"));
         }
       }
-
     } on PlatformException catch (e) {
       debugPrint("image pick null");
     }
   }
-
-
 
   // Future openImagePicker(ImageSource source) async {
   //   try {
@@ -707,10 +704,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   //     debugPrint("image pick null");
   //   }
   // }
-
-
-
-
 
   String getFileSizeString({required int bytes, int decimals = 0}) {
     if (bytes <= 0) return "0 Bytes";
@@ -1134,6 +1127,15 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
           titleController.clear();
           detailController.clear();
+
+          if (widget.parentInquirId.isNotEmpty) {
+            setFirebaseEventForInconvenienceApply(
+                eventName: "cp_voc_reservation_inconvenience_add_inquiry",
+                inconvenienceId: widget.parentInquirId.toString().trim());
+          } else {
+            setFirebaseEventForInconvenienceApply(
+                eventName: "cp_apply_for_inconvenience", inconvenienceId: "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
@@ -1200,8 +1202,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             mobile = userInfoModel.mobile.toString();
             companyId = userInfoModel.companyId.toString();
           });
-
-          setFirebaseEventForInconvenienceApply(inconvenienceId: "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

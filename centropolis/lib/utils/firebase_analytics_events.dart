@@ -508,7 +508,7 @@ void setFirebaseEventForSleepingRoomReservation({sleepingRoomId}) async {
   }
 }
 
-void setFirebaseEventForInconvenienceApply({inconvenienceId}) async {
+void setFirebaseEventForInconvenienceApply({eventName,inconvenienceId}) async {
   String userId = await getDataFromSharedPreference(ConstantsData.userId);
   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
   String platform = getDeviceIdAndDeviceType().toString();
@@ -518,7 +518,7 @@ void setFirebaseEventForInconvenienceApply({inconvenienceId}) async {
   if (ConstantsData.isFirebaseEventsFired == "true") {
     try {
       await FirebaseAnalytics.instance.logEvent(
-        name: "cp_apply_for_inconvenience",
+        name: eventName,
         parameters: {
           "user_id": userId,
           "company_id": companyId,
@@ -615,6 +615,66 @@ void setFirebaseEventForLightOutExtension({lightOutId}) async {
           "server_type": FirebaseAnalyticsServerType.serverType,
           "user_type": userType,
           "light_out_inquiry_id": lightOutId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForLightOutExtensionApproveReject({lightOutId,status}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: " cp_voc_reservation_light_out_extension_approve_reject",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "light_out_extension_id": lightOutId,
+          "status":status
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForAcExtensionApproveReject({acExtensionId,status}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: " cp_voc_reservation_ac_extension_approve_reject",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "ac_extension_id": acExtensionId,
+          "status":status
         },
       );
     } catch (error) {

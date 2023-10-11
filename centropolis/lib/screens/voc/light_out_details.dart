@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -51,10 +52,10 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
         Provider.of<LightOutDetailsProvider>(context).getLightOutDetailModel;
 
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.textColor4,
@@ -111,7 +112,10 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                                 borderRadius: BorderRadius.circular(4),
                               ),
                               padding: const EdgeInsets.only(
-                                  top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
+                                  top: 5.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
                               child: Text(
                                 lightOutDetails?.displayStatus.toString() ?? "",
                                 maxLines: 1,
@@ -296,8 +300,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                 Container(
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.all(16),
-                  margin:
-                      EdgeInsets.only(bottom: widget.fromPage == "VOC" ? 140 : 0),
+                  margin: EdgeInsets.only(
+                      bottom: widget.fromPage == "VOC" ? 140 : 0),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -348,7 +352,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
                               buttonName: tr("toList"),
                               buttonBorderColor:
                                   CustomColors.buttonBackgroundColor,
-                              buttonTextColor: CustomColors.buttonBackgroundColor,
+                              buttonTextColor:
+                                  CustomColors.buttonBackgroundColor,
                             ),
                             if (lightOutDetails?.canChange
                                     .toString()
@@ -484,8 +489,9 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -496,10 +502,11 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -528,9 +535,10 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
       callStatusChangeApi(status);
     } else {
       // showCustomToast(fToast, context, tr("noInternetConnection"), "");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("noInternet"),
-         description : tr("connectionFailedDescription"),
+          description: tr("connectionFailedDescription"),
           buttonName: tr("check"));
     }
   }
@@ -560,14 +568,17 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
             isLoadingRequired = true;
           });
           showReservationModal(responseJson['message']);
-        }
-        else {
+          setFirebaseEventForLightOutExtensionApproveReject(
+              lightOutId: lightOutDetails!.inquiryId.toString().trim(),
+              status: status.toString().trim());
+        } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
 
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -578,7 +589,8 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
           description: "",
           buttonName: tr("check"));
@@ -608,8 +620,4 @@ class _LightsOutDetailsState extends State<LightsOutDetails> {
           );
         });
   }
-
-
-
-
 }
