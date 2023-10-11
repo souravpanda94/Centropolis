@@ -11,6 +11,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/app_bar_for_dialog.dart';
@@ -469,6 +470,9 @@ class _NotificationScreenState extends State<NotificationScreen> {
             debugPrint(
                 "Notification Read ===> ${responseJson['current_page']}");
           }
+
+          setFirebaseEvents(eventName: "cp_notification_read");
+
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");

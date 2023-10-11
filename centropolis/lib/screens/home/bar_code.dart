@@ -13,6 +13,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/app_bar_for_dialog.dart';
@@ -230,6 +231,7 @@ class _BarCodeScreenState extends State<BarCodeScreen> {
               qrCodeUrl = responseJson['qr_code_path'].toString();
             });
             startTimer();
+            setFirebaseEvents(eventName: "cp_qr_scanner_created");
           }
         } else {
           if (responseJson['message'] != null) {
