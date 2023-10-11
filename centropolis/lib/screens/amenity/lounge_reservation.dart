@@ -2121,7 +2121,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
           }
 
           if (widget.operationName == "edit") {
-            setFirebaseEventForLoungeReservation(eventName: "cp_edit_lounge_reservation",loungeId: "");
+            setFirebaseEventForLoungeReservation(eventName: "cp_edit_lounge_reservation",loungeId: widget.loungeHistoryDetailModel!.id.toString().trim());
           }else{
             setFirebaseEventForLoungeReservation(eventName: "cp_make_lounge_reservation",loungeId: "");
           }
