@@ -7,8 +7,6 @@ import 'package:package_info_plus/package_info_plus.dart';
 import 'constants.dart';
 import 'custom_urls.dart';
 
-
-
 getDeviceIdAndDeviceType() async {
   String deviceType = '';
   String deviceId = '';
@@ -52,6 +50,39 @@ String getCurrentTime() {
   return dateAndTime;
 }
 
+void setFirebaseAnalyticsForBackground() async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  String appOpenTime =
+      await getDataFromSharedPreference(ConstantsData.appOpenTime);
+  debugPrint("Current open time 333333333333333 ==>  $appOpenTime");
+  String appCloseTime = getCurrentTime();
+  debugPrint("Current close time 333333333333333 ==>  $appCloseTime");
+  String appOpenTimeStamp =
+      await getDataFromSharedPreference(ConstantsData.appOpenTimeStamp);
+  String appCloseTimeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+
+  await FirebaseAnalytics.instance.logEvent(
+    name: "centropolis_app_opened",
+    parameters: {
+      // "app_open_time": appOpenTime,
+      // "app_close_time": appCloseTime,
+      // "app_open_time_stamp": appOpenTimeStamp,
+      // "app_close_time_stamp": appCloseTimeStamp,
+
+      "user_id": userId,
+      "company_id": companyId,
+      "platform": platform,
+      "app_version": appVersion,
+      "server_type": FirebaseAnalyticsServerType.serverType,
+      "user_type": userType,
+    },
+  );
+}
 
 void setFirebaseEvents({eventName}) async {
   String userId = await getDataFromSharedPreference(ConstantsData.userId);
@@ -59,7 +90,6 @@ void setFirebaseEvents({eventName}) async {
   String platform = getDeviceIdAndDeviceType().toString();
   String appVersion = getAppVersion().toString();
   String userType = await getDataFromSharedPreference(ConstantsData.userType);
-
 
   if (ConstantsData.isFirebaseEventsFired == "true") {
     try {
@@ -149,8 +179,6 @@ void setFirebaseEventForLanguageChange({eventName, language}) async {
   }
 }
 
-
-
 // void setFirebaseEventsWithPostId({eventName, postId}) async {
 //   String userId = await getDataFromSharedPreference(ConstantsData.userId);
 //   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
@@ -213,7 +241,6 @@ void setFirebaseEventForLanguageChange({eventName, language}) async {
 //   }
 // }
 //
-
 
 // void setFirebaseEventsForHoneySent({postId, senderId, amountOfHoney}) async {
 //   String userId = await getDataFromSharedPreference(ConstantsData.userId);

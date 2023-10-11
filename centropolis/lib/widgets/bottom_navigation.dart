@@ -38,8 +38,10 @@ import '../screens/voc/light_out_details.dart';
 import '../screens/voc/voc_application.dart';
 import '../services/api_service.dart';
 import '../services/notification_service.dart';
+import '../utils/constants.dart';
 import '../utils/custom_colors.dart';
 import '../utils/custom_urls.dart';
+import '../utils/firebase_analytics_events.dart';
 import '../utils/internet_checking.dart';
 import '../utils/push_data_singleton.dart';
 import '../utils/utils.dart';
@@ -117,6 +119,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
       //   }
       // }
     });
+    setAppOpenTime();
     initializeNotifications();
     setupInteractedMessage();
     loadPersonalInformation();
@@ -619,6 +622,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     switch (state) {
       case AppLifecycleState.resumed:
         debugPrint("app in resumed");
+        setAppOpenTime();
         break;
       case AppLifecycleState.inactive:
         debugPrint("app in inactive -- For background");
@@ -629,6 +633,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
           getDeviceIdAndDeviceType();
           callLogout();
         }
+        setFirebaseAnalyticsForBackground();
         break;
       case AppLifecycleState.detached:
         debugPrint("app in detached -- For background");
@@ -868,4 +873,28 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
       ),
     );
   }
+
+
+
+  void setAppOpenTime() async {
+    String currentTime = getCurrentTime();
+    setDataInSharedPreference(ConstantsData.appOpenTime, currentTime);
+    String timeStamp = DateTime.now().millisecondsSinceEpoch.toString();
+    setDataInSharedPreference(ConstantsData.appOpenTimeStamp, timeStamp);
+    debugPrint("1111111111111111111111111111111111 currentTime : $currentTime");
+    debugPrint(
+        "1111111111111111111111111111111111 currentTimeStamp : $timeStamp");
+  }
+
+  String getCurrentTime() {
+    DateTime now = DateTime.now();
+    String dateAndTime =
+        "${now.hour}:${now.minute}:${now.second}:${now.millisecond}";
+    if (kDebugMode) {
+      print('timestamp===> $dateAndTime');
+    }
+    return dateAndTime;
+  }
+
+
 }

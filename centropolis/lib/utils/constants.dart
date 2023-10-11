@@ -157,8 +157,8 @@ class ConstantsData {
   static const apiKey = 'api_key';
   static const userId = 'user_id';
   static const companyId = 'company_id';
-  // static const appOpenTime = 'app_open_time';
-  // static const appOpenTimeStamp = 'app_open_time_stamp';
+  static const appOpenTime = 'app_open_time';
+  static const appOpenTimeStamp = 'app_open_time_stamp';
   static const serverTypeLive = 'live';
   static const filterParam = 'filter_param';
   static const isFirebaseEventsFired = 'true'; // true / false
