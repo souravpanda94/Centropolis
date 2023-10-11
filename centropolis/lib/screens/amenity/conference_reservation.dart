@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:centropolis/models/conference_history_detail_model.dart';
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -1667,6 +1668,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
 
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
+          setFirebaseEventForConferenceReservation(conferenceId: "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
