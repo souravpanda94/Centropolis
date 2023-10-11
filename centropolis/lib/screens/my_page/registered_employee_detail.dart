@@ -15,6 +15,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -584,6 +585,9 @@ class _RegisteredEmployeeDetailsState extends State<RegisteredEmployeeDetails> {
             isLoadingRequired = true;
           });
           showModal(tr("deleteSuccessful"), tr("deleted"), tr("check"));
+
+          setFirebaseEventForAddDeleteEmployee(eventName: "cp_delete_employee",memberId: widget.id.toString().trim());
+
         } else {
           if (responseJson['message'] != null) {
            debugPrint("Server error response ${responseJson['message']}");

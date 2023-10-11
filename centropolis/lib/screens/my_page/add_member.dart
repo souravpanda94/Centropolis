@@ -17,6 +17,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -1242,6 +1243,8 @@ class _AddMemberState extends State<AddMember> {
           contactNoController.clear();
 
           showAddMemberSuccessModal(responseJson['message'].toString());
+          setFirebaseEventForAddDeleteEmployee(eventName: "cp_add_employee",memberId: "");
+
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
