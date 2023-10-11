@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:math';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
   int selectedSeat = 0;
   bool firstTimeSeatAvailabilityLoading = true;
   TextEditingController seatController = TextEditingController();
-  ScrollController scrollController=ScrollController();
+  ScrollController scrollController = ScrollController();
 
   @override
   void initState() {
@@ -73,8 +74,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     //companyName = user.userData['company_name'].toString();
     internetCheckingForMethods();
   }
-
- 
 
   @override
   Widget build(BuildContext context) {
@@ -93,83 +92,82 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Container(
-              margin: const EdgeInsets.only(top: 10, bottom: 8,left: 16,right: 16),
-              width: MediaQuery.of(context).size.width,
-              child: Text(
-                tr("serviceRequires"),
-                textAlign: TextAlign.end,
-                style: const TextStyle(
-                    fontFamily: 'Regular',
-                    fontSize: 12,
-                    color: CustomColors.textColor3),
-              ),
-            ),
+                  margin: const EdgeInsets.only(
+                      top: 10, bottom: 8, left: 16, right: 16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    tr("serviceRequires"),
+                    textAlign: TextAlign.end,
+                    style: const TextStyle(
+                        fontFamily: 'Regular',
+                        fontSize: 12,
+                        color: CustomColors.textColor3),
+                  ),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.backgroundColor,
-                  margin: const EdgeInsets.only(
-                      left: 16, right: 16),
+                  margin: const EdgeInsets.only(left: 16, right: 16),
                   padding: const EdgeInsets.only(
                       left: 16, right: 16, top: 16, bottom: 16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                    tr("fitnessReservationProgram"),
-                    style: const TextStyle(
-                        fontFamily: 'SemiBold',
-                        fontSize: 16,
-                        color: CustomColors.textColorBlack2),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: Text(
-                      tr("vat"),
-                      textAlign: TextAlign.end,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 12,
-                          color: CustomColors.greyColor1),
-                    ),
-                  ),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  fitnessCustomTableView()
-                  
-                  // Row(
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     children: [
-                  //       const Padding(
-                  //         padding: EdgeInsets.only(top: 7),
-                  //         child: Icon(
-                  //           Icons.circle,
-                  //           size: 5,
-                  //         ),
-                  //       ),
-                  //       const SizedBox(
-                  //         width: 10,
-                  //       ),
-                  //       Expanded(
-                  //         child: Text(
-                  //           tr("fitnessReservationProgramDesc"),
-                  //           style: const TextStyle(
-                  //               fontFamily: 'Regular',
-                  //               fontSize: 14,
-                  //               height: 1.5,
-                  //               color: CustomColors.textColor5),
-                  //         ),
-                  //       )
-                  //     ]),
-                        ],
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("fitnessReservationProgram"),
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColorBlack2),
                       ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        child: Text(
+                          tr("vat"),
+                          textAlign: TextAlign.end,
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 12,
+                              color: CustomColors.greyColor1),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 16,
+                      ),
+                      fitnessCustomTableView()
+
+                      // Row(
+                      //     crossAxisAlignment: CrossAxisAlignment.start,
+                      //     mainAxisAlignment: MainAxisAlignment.start,
+                      //     children: [
+                      //       const Padding(
+                      //         padding: EdgeInsets.only(top: 7),
+                      //         child: Icon(
+                      //           Icons.circle,
+                      //           size: 5,
+                      //         ),
+                      //       ),
+                      //       const SizedBox(
+                      //         width: 10,
+                      //       ),
+                      //       Expanded(
+                      //         child: Text(
+                      //           tr("fitnessReservationProgramDesc"),
+                      //           style: const TextStyle(
+                      //               fontFamily: 'Regular',
+                      //               fontSize: 14,
+                      //               height: 1.5,
+                      //               color: CustomColors.textColor5),
+                      //         ),
+                      //       )
+                      //     ]),
+                    ],
+                  ),
                 ),
-                
-                
+
                 // Container(
                 //   width: MediaQuery.of(context).size.width,
                 //   color: CustomColors.whiteColor,
@@ -617,8 +615,6 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     );
   }
 
-  
-
   usageTimeDropdownWidget() {
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
@@ -1053,7 +1049,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       callLoadSeatAvailabilityApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1127,12 +1123,13 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1141,79 +1138,76 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
-       
     });
   }
 
-  
-
   void callLoadTimeListApi() {
-   if(mounted){
-     setState(() {
-      isLoading = true;
-    });
-   }
+    if (mounted) {
+      setState(() {
+        isLoading = true;
+      });
+    }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getFitnessTimeListUrl, body, language.toString(), apiKey);
     response.then((response) {
-      if(mounted){
+      if (mounted) {
         var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['schedule'] != null) {
-            setState(() {
-              timeList = responseJson['schedule'];
-            });
-          }
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['schedule'] != null) {
+              setState(() {
+                timeList = responseJson['schedule'];
+              });
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
+          setState(() {
+            isLoading = false;
+          });
         }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
         setState(() {
           isLoading = false;
         });
       }
-      }
-    }).catchError((onError) {
-      debugPrint("catchError ================> $onError");
-       if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-       }
     });
   }
 
-  
-
   void callLoadTotalUsageTimeListApi() {
-    if(mounted){
+    if (mounted) {
       setState(() {
-      isLoading = true;
-    });
+        isLoading = true;
+      });
     }
     Map<String, String> body = {};
     Future<http.Response> response = WebService().callPostMethodWithRawData(
@@ -1222,43 +1216,45 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         language.toString(),
         apiKey);
     response.then((response) {
-      if(mounted){
+      if (mounted) {
         var responseJson = json.decode(response.body);
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          if (responseJson['data'] != null) {
-            setState(() {
-              totalUsageTimeList = responseJson['data'];
-            });
-            loadSeatAvailability();
-          }
-        } else {
-          if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            if (responseJson['data'] != null) {
+              setState(() {
+                totalUsageTimeList = responseJson['data'];
+              });
+              loadSeatAvailability();
+            }
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
+            setState(() {
+              isLoading = false;
+            });
           }
-          setState(() {
-            isLoading = false;
-          });
         }
-      }
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
@@ -1324,7 +1320,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       callReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1364,15 +1360,17 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         if (response.statusCode == 200 && responseJson['success']) {
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
+          setFirebaseEventForFitnessReservation(fitnessId: "");
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1381,10 +1379,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1412,13 +1411,11 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         });
   }
 
-  
-
   void callLoadPersonalInformationApi() {
-    if(mounted){
+    if (mounted) {
       setState(() {
-      isLoading = true;
-    });
+        isLoading = true;
+      });
     }
     Map<String, String> body = {};
 
@@ -1427,63 +1424,64 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     Future<http.Response> response = WebService().callPostMethodWithRawData(
         ApiEndPoint.getPersonalInfoUrl, body, language, apiKey.trim());
     response.then((response) {
-      if(mounted){
+      if (mounted) {
         var responseJson = json.decode(response.body);
 
-      debugPrint("server response for Get personal info ===> $responseJson");
+        debugPrint("server response for Get personal info ===> $responseJson");
 
-      if (responseJson != null) {
-        if (response.statusCode == 200 && responseJson['success']) {
-          UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false)
-              .setItem(userInfoModel);
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
+            Provider.of<UserInfoProvider>(context, listen: false)
+                .setItem(userInfoModel);
 
-          setState(() {
-            companyName = userInfoModel.companyName.toString();
-            name = userInfoModel.name.toString();
-            email = userInfoModel.email.toString();
-            mobile = userInfoModel.mobile.toString();
-          });
-        } else {
-          if (responseJson['message'] != null) {
-            debugPrint("Server error response ${responseJson['message']}");
+            setState(() {
+              companyName = userInfoModel.companyName.toString();
+              name = userInfoModel.name.toString();
+              email = userInfoModel.email.toString();
+              mobile = userInfoModel.mobile.toString();
+            });
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
               // showCustomToast(
               //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
+            }
           }
         }
-      }
-      setState(() {
-        isLoading = false;
-      });
+        setState(() {
+          isLoading = false;
+        });
       }
     }).catchError((onError) {
-      if(mounted){
-         showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      debugPrint("catchError ================> $onError");
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        debugPrint("catchError ================> $onError");
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
 
-   void internetCheckingForMethods() async {
+  void internetCheckingForMethods() async {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
-    callLoadPersonalInformationApi();
-    callLoadTimeListApi();
-    callLoadTotalUsageTimeListApi();
-
+      callLoadPersonalInformationApi();
+      callLoadTimeListApi();
+      callLoadTotalUsageTimeListApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1491,133 +1489,130 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
     }
   }
 
-
-  fitnessTableView(){
+  fitnessTableView() {
     return StaggeredGrid.count(
-  crossAxisCount: 6,
-  mainAxisSpacing: 4,
-  crossAxisSpacing: 4,
-  children:  [
-    StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 2,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Text(tr("sportwear")),
-      ),
-    ),
-    StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("oneTimeRental")),
-    ),
-    StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("2,000")),
-    ),
-    const StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 1,
-      child: Text(""),
-    ),
-   StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("monthlyRental")),
-    ),
-     StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("30,000")),
-    ),
-    const StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 1,
-      child: Text(""),
-    ),
-    const StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 2,
-      child: Text(""),
-    ),
-    StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("monthlyRental")),
-    ),
-     StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("10,000")),
-    ),
-    const StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 1,
-      child: Text(""),
-    ),
-   StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("threeMonthRental")),
-    ),
-     StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("27,000")),
-    ),
-    const StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 1,
-      child: Text(""),
-    ),
-     StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 2,
-      child: Text(tr("personalLocker")),
-    ),
-    StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("oneYearRental")),
-    ),
-    StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("10,000")),
-    ),
-    const StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 1,
-      child: Text(""),
-    ),
-    
-   StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("deposit")),
-    ),
-     StaggeredGridTile.count(
-      crossAxisCellCount: 1,
-      mainAxisCellCount: 1,
-      child: Text(tr("88,000")),
-    ),
-    StaggeredGridTile.count(
-      crossAxisCellCount: 2,
-      mainAxisCellCount: 1,
-      child: Text(tr("refund")),
-    ),
-     
-  ],
-);
+      crossAxisCount: 6,
+      mainAxisSpacing: 4,
+      crossAxisSpacing: 4,
+      children: [
+        StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 2,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Text(tr("sportwear")),
+          ),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("oneTimeRental")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("2,000")),
+        ),
+        const StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 1,
+          child: Text(""),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("monthlyRental")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("30,000")),
+        ),
+        const StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 1,
+          child: Text(""),
+        ),
+        const StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 2,
+          child: Text(""),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("monthlyRental")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("10,000")),
+        ),
+        const StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 1,
+          child: Text(""),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("threeMonthRental")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("27,000")),
+        ),
+        const StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 1,
+          child: Text(""),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 2,
+          child: Text(tr("personalLocker")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("oneYearRental")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("10,000")),
+        ),
+        const StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 1,
+          child: Text(""),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("deposit")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 1,
+          mainAxisCellCount: 1,
+          child: Text(tr("88,000")),
+        ),
+        StaggeredGridTile.count(
+          crossAxisCellCount: 2,
+          mainAxisCellCount: 1,
+          child: Text(tr("refund")),
+        ),
+      ],
+    );
   }
 
-  fitnessCustomTableView(){
+  fitnessCustomTableView() {
     return Scrollbar(
       controller: scrollController,
       thumbVisibility: true,
       child: SingleChildScrollView(
-        controller:scrollController ,
+        controller: scrollController,
         scrollDirection: Axis.horizontal,
         child: Container(
           width: 700,
@@ -1627,179 +1622,188 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                 Expanded(
+                Expanded(
                   flex: 1,
-                   child: Padding(
-                     padding: const EdgeInsets.only(top: 40),
-                     child: Text(tr("sportwear"),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Text(
+                      tr("sportwear"),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontFamily: 'Regular',
-                        color: CustomColors.blackColor,
-                        height: 1.5,
-                        fontSize: 14
-                      ),),
-                   ),
-                 ),
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
                 Container(
-                  width: 200,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  child: Text(tr("oneTimeRental"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'Regular',
-                    color: CustomColors.blackColor,
-                    height: 1.5,
-                    fontSize: 14
-                  ),)),
+                    width: 200,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      tr("oneTimeRental"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    )),
                 Container(
-                   width: 200,
-                   padding: const EdgeInsets.all(10),
-                   margin: const EdgeInsets.all(10),
-                  child: Text(tr("2,000"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'Regular',
-                    color: CustomColors.blackColor,
-                    height: 1.5,
-                    fontSize: 14
-                  ),)),
-                  const Spacer(),
+                    width: 200,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      tr("2,000"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    )),
+                const Spacer(),
               ],
             ),
-            fitnessInfoTableRow(tr("monthlyRental"),tr("30,000")),
+            fitnessInfoTableRow(tr("monthlyRental"), tr("30,000")),
             const Divider(
               height: 1,
               thickness: 1,
               color: CustomColors.dividerGreyColor,
             ),
-            fitnessInfoTableRow(tr("monthlyRental"),tr("10,000")),
+            fitnessInfoTableRow(tr("monthlyRental"), tr("10,000")),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                 Expanded(
+                Expanded(
                   flex: 1,
-                   child: Padding(
-                     padding: const EdgeInsets.only(top: 40),
-                     child: Text(tr("personalLocker"),
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 40),
+                    child: Text(
+                      tr("personalLocker"),
                       textAlign: TextAlign.center,
                       style: const TextStyle(
-                        fontFamily: 'Regular',
-                        color: CustomColors.blackColor,
-                        height: 1.5,
-                        fontSize: 14
-                      ),),
-                   ),
-                 ),
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    ),
+                  ),
+                ),
                 Container(
-                  width: 200,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  child: Text(tr("threeMonthRental"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'Regular',
-                    color: CustomColors.blackColor,
-                    height: 1.5,
-                    fontSize: 14
-                  ),)),
+                    width: 200,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      tr("threeMonthRental"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    )),
                 Container(
-                   width: 200,
-                   padding: const EdgeInsets.all(10),
-                   margin: const EdgeInsets.all(10),
-                  child: Text(tr("27,000"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'Regular',
-                    color: CustomColors.blackColor,
-                    height: 1.5,
-                    fontSize: 14
-                  ),)),
-                  const Spacer(),
+                    width: 200,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      tr("27,000"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    )),
+                const Spacer(),
               ],
             ),
-            fitnessInfoTableRow(tr("oneYearRental"),tr("88,000")),
+            fitnessInfoTableRow(tr("oneYearRental"), tr("88,000")),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 const Spacer(),
                 Container(
-                  width: 200,
-                  padding: const EdgeInsets.all(10),
-                  margin: const EdgeInsets.all(10),
-                  child: Text(tr("deposit"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'Regular',
-                    color: CustomColors.blackColor,
-                    height: 1.5,
-                    fontSize: 14
-                  ),)),
+                    width: 200,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      tr("deposit"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    )),
                 Container(
-                   width: 200,
-                   padding: const EdgeInsets.all(10),
-                   margin: const EdgeInsets.all(10),
-                  child: Text(tr("10,000"),
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontFamily: 'Regular',
-                    color: CustomColors.blackColor,
-                    height: 1.5,
-                    fontSize: 14
-                  ),)),
-                   Expanded(
+                    width: 200,
+                    padding: const EdgeInsets.all(10),
+                    margin: const EdgeInsets.all(10),
+                    child: Text(
+                      tr("10,000"),
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                          fontFamily: 'Regular',
+                          color: CustomColors.blackColor,
+                          height: 1.5,
+                          fontSize: 14),
+                    )),
+                Expanded(
                   flex: 1,
-                   child: Text(tr("refund"),
+                  child: Text(
+                    tr("refund"),
                     textAlign: TextAlign.center,
                     style: const TextStyle(
-                      fontFamily: 'Regular',
-                      color: CustomColors.blackColor,
-                      height: 1.5,
-                      fontSize: 14
-                    ),),
-                 ),
+                        fontFamily: 'Regular',
+                        color: CustomColors.blackColor,
+                        height: 1.5,
+                        fontSize: 14),
+                  ),
+                ),
               ],
-            ),  
+            ),
           ]),
-      
-      
         ),
       ),
     );
   }
 
-  fitnessInfoTableRow(String text1,text2){
+  fitnessInfoTableRow(String text1, text2) {
     return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              const Spacer(),
-              Container(
-                width: 200,
-                padding: const EdgeInsets.all(10),
-                margin: const EdgeInsets.all(10),
-                child: Text(text1,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        const Spacer(),
+        Container(
+            width: 200,
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            child: Text(
+              text1,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
                   fontFamily: 'Regular',
                   color: CustomColors.blackColor,
                   height: 1.5,
-                  fontSize: 14
-                ),)),
-              Container(
-                 width: 200,
-                 padding: const EdgeInsets.all(10),
-                 margin: const EdgeInsets.all(10),
-                child: Text(text2,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
+                  fontSize: 14),
+            )),
+        Container(
+            width: 200,
+            padding: const EdgeInsets.all(10),
+            margin: const EdgeInsets.all(10),
+            child: Text(
+              text2,
+              textAlign: TextAlign.center,
+              style: const TextStyle(
                   fontFamily: 'Regular',
                   color: CustomColors.blackColor,
                   height: 1.5,
-                  fontSize: 14
-                ),)),
-                const Spacer(),
-            ],
-          );
+                  fontSize: 14),
+            )),
+        const Spacer(),
+      ],
+    );
   }
 }

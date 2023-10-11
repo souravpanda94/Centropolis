@@ -266,6 +266,219 @@ void setFirebaseEventForAddDeleteEmployee({eventName,memberId}) async {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+void setFirebaseEventForLoungeReservation({loungeId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_lounge_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "lounge_id": loungeId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForConferenceReservation({conferenceId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_conference_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "conference_id": conferenceId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForGXReservation({gxId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_gx_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "gx_id": gxId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForPaidLockerReservation({paidLockerId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_paid_locker_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "paid_locker_id": paidLockerId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForPaidPtReservation({paidPtId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_paid_pt_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "paid_pt_id": paidPtId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForFitnessReservation({fitnessId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_fitness_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "fitness_id": fitnessId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForSleepingRoomReservation({sleepingRoomId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_make_sleeping_room_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "sleeping_room_id": sleepingRoomId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
 // void setFirebaseEventsWithPostId({eventName, postId}) async {
 //   String userId = await getDataFromSharedPreference(ConstantsData.userId);
 //   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);

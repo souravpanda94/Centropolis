@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -849,6 +850,7 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
           });
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
+          setFirebaseEventForPaidPtReservation(paidPtId: "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
@@ -1003,6 +1005,5 @@ class _PaidPTReservationState extends State<PaidPTReservation> {
       focusedDate = DateTime.parse(
           widget.paidPtHistoryDetailModel!.reservationStartDate.toString());
     });
-   
   }
 }
