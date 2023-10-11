@@ -224,3 +224,9 @@ class ImageLinks {
   // static String baseUrlForImage =
   //     "https://centropolis-api-qa.dvconsulting.org/"; // QA server
 }
+
+class FirebaseAnalyticsServerType {
+  static const serverType = 'dev'; // Development server
+  // static const serverType = 'live'; // Live server
+  // static const serverType = 'QA'; // QA server
+}

@@ -62,11 +62,11 @@ dependencies:
   firebase_core: ^2.14.0
   firebase_messaging: ^14.6.3
   flutter_local_notifications: ^14.1.1
-  firebase_analytics: ^10.4.3
   device_info_plus: ^9.0.2
   flutter_exit_app: ^1.1.2
   flutter_rating_bar: ^4.0.1
   file_picker: ^5.2.10
+  firebase_analytics: ^10.5.1
 
 
 dev_dependencies:

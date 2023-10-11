@@ -7,6 +7,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
+import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
@@ -506,8 +507,11 @@ class _LoginScreenState extends State<LoginScreen> {
           if (responseJson['display_user_type'] != null) {
             displayUserType = responseJson['display_user_type'].toString();
           }
-
           debugPrint("checkSigned ======> $checkSigned");
+
+          setDataInSharedPreference(ConstantsData.userId,userId);
+          setDataInSharedPreference(ConstantsData.companyId,companyId);
+          setDataInSharedPreference(ConstantsData.userType,userType);
 
           Map<String, String> loginData = {
             "user_id": userId.trim(),

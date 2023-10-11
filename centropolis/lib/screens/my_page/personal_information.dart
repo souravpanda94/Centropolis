@@ -12,6 +12,7 @@ import '../../services/api_service.dart';
 import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -307,6 +308,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
           // }
 
           showWithdrawalSuccessModal();
+          setFirebaseEvents(eventName: "cp_account_withdrawal");
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
@@ -461,7 +463,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
             //     fToast, context, responseJson['message'].toString(), "");
             showLogoutSuccesModal(responseJson['message'].toString(),);
           }
-          
+          setFirebaseEvents(eventName: "cp_logout");
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
