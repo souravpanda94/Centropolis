@@ -50,12 +50,15 @@ String getCurrentTime() {
   return dateAndTime;
 }
 
+
+
+
 void setFirebaseAnalyticsForBackground() async {
   String userId = await getDataFromSharedPreference(ConstantsData.userId);
   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
   String platform = getDeviceIdAndDeviceType().toString();
   String appVersion = getAppVersion().toString();
-  String userType = await getDataFromSharedPreference(ConstantsData.userType);
 
   String appOpenTime =
       await getDataFromSharedPreference(ConstantsData.appOpenTime);
@@ -115,7 +118,7 @@ void setFirebaseEvents({eventName}) async {
   }
 }
 
-void setFirebaseEventForPushNotificationSetup({eventName, status}) async {
+void setFirebaseEventForPushNotificationSetup({status}) async {
   String userId = await getDataFromSharedPreference(ConstantsData.userId);
   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
   String platform = getDeviceIdAndDeviceType().toString();
@@ -125,7 +128,7 @@ void setFirebaseEventForPushNotificationSetup({eventName, status}) async {
   if (ConstantsData.isFirebaseEventsFired == "true") {
     try {
       await FirebaseAnalytics.instance.logEvent(
-        name: eventName,
+        name: "cp_push_notification_on_off",
         parameters: {
           "user_id": userId,
           "company_id": companyId,
@@ -136,9 +139,6 @@ void setFirebaseEventForPushNotificationSetup({eventName, status}) async {
           "on_off_status": status
         },
       );
-      if (kDebugMode) {
-        print("FirebaseAnalytics event name ===> $eventName");
-      }
     } catch (error) {
       if (kDebugMode) {
         print("FirebaseAnalytics error ===> $error");
@@ -147,7 +147,7 @@ void setFirebaseEventForPushNotificationSetup({eventName, status}) async {
   }
 }
 
-void setFirebaseEventForLanguageChange({eventName, language}) async {
+void setFirebaseEventForLanguageChange({language}) async {
   String userId = await getDataFromSharedPreference(ConstantsData.userId);
   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
   String platform = getDeviceIdAndDeviceType().toString();
@@ -157,7 +157,7 @@ void setFirebaseEventForLanguageChange({eventName, language}) async {
   if (ConstantsData.isFirebaseEventsFired == "true") {
     try {
       await FirebaseAnalytics.instance.logEvent(
-        name: eventName,
+        name: "cp_change_language",
         parameters: {
           "user_id": userId,
           "company_id": companyId,
@@ -168,9 +168,6 @@ void setFirebaseEventForLanguageChange({eventName, language}) async {
           "language": language
         },
       );
-      if (kDebugMode) {
-        print("FirebaseAnalytics event name ===> $eventName");
-      }
     } catch (error) {
       if (kDebugMode) {
         print("FirebaseAnalytics error ===> $error");
@@ -178,6 +175,9 @@ void setFirebaseEventForLanguageChange({eventName, language}) async {
     }
   }
 }
+
+
+
 
 // void setFirebaseEventsWithPostId({eventName, postId}) async {
 //   String userId = await getDataFromSharedPreference(ConstantsData.userId);

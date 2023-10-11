@@ -172,10 +172,10 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       onTap: () {
                         if (language == "ko") {
                           context.setLocale(const Locale('en'));
-                          setFirebaseEventForLanguageChange(eventName: "cp_change_language", language: "en");
+                          setFirebaseEventForLanguageChange(language: "en");
                         } else {
                           context.setLocale(const Locale('ko'));
-                          setFirebaseEventForLanguageChange(eventName: "cp_change_language", language: "ko");
+                          setFirebaseEventForLanguageChange(language: "ko");
                         }
                         goToHomeScreen();
                       },
@@ -432,7 +432,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           }else if(isPushAllow.toString() == "n"){
             onOffStatus = "off";
           }
-          setFirebaseEventForPushNotificationSetup(eventName: "cp_push_notification_on_off",status: onOffStatus);
+          setFirebaseEventForPushNotificationSetup(status: onOffStatus);
         } else {
           // showCustomToast(
           //     fToast, context, responseJson['message'].toString(), "");

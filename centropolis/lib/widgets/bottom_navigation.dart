@@ -120,6 +120,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
       // }
     });
     setAppOpenTime();
+    setFirebaseAnalyticsForBackground();
     initializeNotifications();
     setupInteractedMessage();
     loadPersonalInformation();
@@ -623,6 +624,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
       case AppLifecycleState.resumed:
         debugPrint("app in resumed");
         setAppOpenTime();
+        setFirebaseAnalyticsForBackground();
         break;
       case AppLifecycleState.inactive:
         debugPrint("app in inactive -- For background");
@@ -633,7 +635,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
           getDeviceIdAndDeviceType();
           callLogout();
         }
-        setFirebaseAnalyticsForBackground();
+        // setFirebaseAnalyticsForBackground();
         break;
       case AppLifecycleState.detached:
         debugPrint("app in detached -- For background");
