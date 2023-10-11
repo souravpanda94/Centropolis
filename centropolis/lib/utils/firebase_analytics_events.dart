@@ -176,6 +176,65 @@ void setFirebaseEventForLanguageChange({language}) async {
   }
 }
 
+void setFirebaseEventForVisitReservation({eventName,visitReservationId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: eventName,
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "visit_reservation_id": visitReservationId
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
+void setFirebaseEventForChangeStatusForVisitReservation({visitReservationId, status}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_approve_reject_reservation",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "visit_reservation_id": visitReservationId,
+          "status" : status
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
 
 
 

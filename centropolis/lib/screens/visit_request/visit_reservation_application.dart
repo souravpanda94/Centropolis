@@ -16,6 +16,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -1673,6 +1674,9 @@ class _VisitReservationApplicationState
           if (responseJson['message'] != null) {
             showSuccessModal(responseJson['message']);
           }
+
+          setFirebaseEventForVisitReservation(eventName: "cp_make_visit_reservation" ,visitReservationId: "");
+
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
