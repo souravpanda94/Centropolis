@@ -873,13 +873,13 @@ class _VisitReservationDetailsScreenState
           showConfirmationModal(responseJson['message'].toString());
 
           if(statusTypeValue == "cancelled"){
-            setFirebaseEventForVisitReservation(eventName: "cp_cancel_reservation" ,visitReservationId: "");
+            setFirebaseEventForVisitReservation(eventName: "cp_cancel_reservation" ,visitReservationId: widget.visitId.toString().trim());
           }
           else if(statusTypeValue == "approved"){
-            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: "", status: "approved");
+            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: widget.visitId.toString().trim(), status: "approved");
           }
           else if(statusTypeValue == "rejected"){
-            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: "", status: "rejected");
+            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: widget.visitId.toString().trim(), status: "rejected");
           }
 
         } else {
