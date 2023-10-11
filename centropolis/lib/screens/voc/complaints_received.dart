@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -1199,6 +1200,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             mobile = userInfoModel.mobile.toString();
             companyId = userInfoModel.companyId.toString();
           });
+
+          setFirebaseEventForInconvenienceApply(inconvenienceId: "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:centropolis/widgets/multi_select_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -1438,6 +1439,7 @@ class _AirConditioningApplicationState
             }
           }
           otherRequestController.clear();
+          setFirebaseEventForAcExtension(acExtensionId: "");
         }
 
         else {

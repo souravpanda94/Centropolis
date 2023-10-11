@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -738,6 +739,9 @@ class _InconvenienceHistoryDetailsState
               heading: responseJson['message'].toString(),
               description: "",
               buttonName: tr("check"));
+          setFirebaseEventForInconvenienceRating(
+              inconvenienceId: widget.inquiryId.toString().trim(),
+              rating: complaintRating.toString().trim());
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
