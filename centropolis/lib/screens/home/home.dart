@@ -19,6 +19,7 @@ import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../services/notification_service.dart';
+import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
@@ -740,13 +741,17 @@ class _HomeScreenState extends State<HomeScreen> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false)
-              .setItem(userInfoModel);
+          Provider.of<UserInfoProvider>(context, listen: false).setItem(userInfoModel);
           setState(() {
             unreadNotificationCount = userInfoModel.unreadNotificationCount!;
             accountType = userInfoModel.accountType.toString();
-
           });
+
+          setDataInSharedPreference(ConstantsData.userId,userInfoModel.userId.toString());
+          setDataInSharedPreference(ConstantsData.companyId,userInfoModel.companyId.toString());
+          setDataInSharedPreference(ConstantsData.userType,userInfoModel.accountType.toString());
+
+
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
