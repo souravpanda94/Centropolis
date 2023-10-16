@@ -1617,7 +1617,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
         scrollDirection: Axis.horizontal,
         child: Container(
           width: 700,
-          height: 400,
+          height: 450,
           color: CustomColors.backgroundColor,
           child: Column(children: [
             Row(
