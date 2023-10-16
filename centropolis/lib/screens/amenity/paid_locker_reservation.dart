@@ -834,10 +834,13 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
 
           if (widget.operationName == "edit") {
             setFirebaseEventForPaidLockerReservation(
-                eventName: "cp_edit_paid_locker_reservation", paidLockerId: widget.paidLockerHistoryDetailModel!.id.toString());
+                eventName: "cp_edit_paid_locker_reservation",
+                paidLockerId:
+                    widget.paidLockerHistoryDetailModel!.id.toString());
           } else {
             setFirebaseEventForPaidLockerReservation(
-                eventName: "cp_make_paid_locker_reservation", paidLockerId: "");
+                eventName: "cp_make_paid_locker_reservation",
+                paidLockerId: responseJson['reservation_id'] ?? "");
           }
         } else {
           if (responseJson['message'] != null) {

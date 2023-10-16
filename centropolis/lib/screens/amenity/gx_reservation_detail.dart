@@ -583,7 +583,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
           } else {
             showReservationModal(responseJson['message'], "");
           }
-          setFirebaseEventForGXReservation(gxId: "");
+          setFirebaseEventForGXReservation(gxId: responseJson['reservation_id'] ?? "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

@@ -1372,7 +1372,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         if (response.statusCode == 200 && responseJson['success']) {
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
-          setFirebaseEventForSleepingRoomReservation(sleepingRoomId: "");
+          setFirebaseEventForSleepingRoomReservation(
+              sleepingRoomId: responseJson['reservation_id'] ?? "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

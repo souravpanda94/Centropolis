@@ -1134,7 +1134,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                 inconvenienceId: widget.parentInquirId.toString().trim());
           } else {
             setFirebaseEventForInconvenienceApply(
-                eventName: "cp_apply_for_inconvenience", inconvenienceId: "");
+                eventName: "cp_apply_for_inconvenience",
+                inconvenienceId: responseJson['inquiry_id'] ?? "");
           }
         } else {
           if (responseJson['message'] != null) {

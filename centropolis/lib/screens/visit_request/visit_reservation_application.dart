@@ -545,9 +545,8 @@ class _VisitReservationApplicationState
                             height: 46,
                             child: TextField(
                               inputFormatters: [
-                                 FilteringTextInputFormatter.allow(
+                                FilteringTextInputFormatter.allow(
                                     RegExp("[a-zA-Z_\\s-]")),
-                                
                               ],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -1675,8 +1674,9 @@ class _VisitReservationApplicationState
             showSuccessModal(responseJson['message']);
           }
 
-          setFirebaseEventForVisitReservation(eventName: "cp_make_visit_reservation" ,visitReservationId: "");
-
+          setFirebaseEventForVisitReservation(
+              eventName: "cp_make_visit_reservation",
+              visitReservationId: responseJson['reservation_id'] ?? "");
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
