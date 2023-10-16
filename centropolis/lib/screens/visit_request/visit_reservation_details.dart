@@ -14,6 +14,7 @@ import '../../providers/visit_reservation_detail_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -870,6 +871,17 @@ class _VisitReservationDetailsScreenState
             isLoadingRequired = true;
           });
           showConfirmationModal(responseJson['message'].toString());
+
+          if(statusTypeValue == "cancelled"){
+            setFirebaseEventForVisitReservation(eventName: "cp_cancel_reservation" ,visitReservationId: widget.visitId.toString().trim());
+          }
+          else if(statusTypeValue == "approved"){
+            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: widget.visitId.toString().trim(), status: "approved");
+          }
+          else if(statusTypeValue == "rejected"){
+            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: widget.visitId.toString().trim(), status: "rejected");
+          }
+
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(

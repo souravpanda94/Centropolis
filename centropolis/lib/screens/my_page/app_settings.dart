@@ -12,6 +12,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
@@ -171,8 +172,10 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
                       onTap: () {
                         if (language == "ko") {
                           context.setLocale(const Locale('en'));
+                          setFirebaseEventForLanguageChange(language: "en");
                         } else {
                           context.setLocale(const Locale('ko'));
+                          setFirebaseEventForLanguageChange(language: "ko");
                         }
                         goToHomeScreen();
                       },
@@ -412,6 +415,7 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
 
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
+          String onOffStatus = "";
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
@@ -423,6 +427,12 @@ class _AppSettingsScreenState extends State<AppSettingsScreen> {
           var user = Provider.of<UserProvider>(context, listen: false);
           user.userData['push_notification'] = isPushAllow.toString();
           user.doAddUser(user.userData);
+          if(isPushAllow.toString() == "y"){
+            onOffStatus = "on";
+          }else if(isPushAllow.toString() == "n"){
+            onOffStatus = "off";
+          }
+          setFirebaseEventForPushNotificationSetup(status: onOffStatus);
         } else {
           // showCustomToast(
           //     fToast, context, responseJson['message'].toString(), "");

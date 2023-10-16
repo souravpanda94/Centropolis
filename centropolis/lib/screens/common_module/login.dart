@@ -7,6 +7,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
+import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
@@ -466,7 +467,8 @@ class _LoginScreenState extends State<LoginScreen> {
               companyName,
               gender,
               pushAlarm,
-              displayUserType;
+              displayUserType,
+              accountType;
           if (responseJson['access_token'] != null) {
             apiKey = responseJson['access_token'].toString();
           }
@@ -506,8 +508,14 @@ class _LoginScreenState extends State<LoginScreen> {
           if (responseJson['display_user_type'] != null) {
             displayUserType = responseJson['display_user_type'].toString();
           }
-
+           if (responseJson['account_type'] != null) {
+            accountType = responseJson['account_type'].toString();
+          }
           debugPrint("checkSigned ======> $checkSigned");
+
+          setDataInSharedPreference(ConstantsData.userId,userId);
+          setDataInSharedPreference(ConstantsData.companyId,companyId);
+          setDataInSharedPreference(ConstantsData.userType,accountType);
 
           Map<String, String> loginData = {
             "user_id": userId.trim(),
@@ -522,7 +530,8 @@ class _LoginScreenState extends State<LoginScreen> {
             "company_name": companyName.trim(),
             "gender": gender.trim(),
             "push_notification": pushAlarm.trim(),
-            "display_user_type": displayUserType.trim()
+            "display_user_type": displayUserType.trim(),
+            "account_type": accountType.trim()
           };
           var user = Provider.of<UserProvider>(context, listen: false);
           user.doAddUser(loginData);

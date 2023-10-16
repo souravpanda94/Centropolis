@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:centropolis/models/lounge_history_detail_model.dart';
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:centropolis/widgets/multi_select_item_lounge.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -2117,6 +2118,17 @@ class _LoungeReservationState extends State<LoungeReservation> {
                 responseJson['message'].toString());
           } else {
             showReservationModal(responseJson['message'].toString(), "");
+          }
+
+          if (widget.operationName == "edit") {
+            setFirebaseEventForLoungeReservation(
+                eventName: "cp_edit_lounge_reservation",
+                loungeId:
+                    widget.loungeHistoryDetailModel!.id.toString().trim());
+          } else {
+            setFirebaseEventForLoungeReservation(
+                eventName: "cp_make_lounge_reservation",
+                loungeId: responseJson['reservation_id'] ?? "");
           }
         } else {
           if (responseJson['message'] != null) {

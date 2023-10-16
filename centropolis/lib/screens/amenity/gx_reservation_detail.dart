@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
@@ -41,7 +42,6 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
   String reservationRulesLink = "";
   bool isLoadingRequired = false;
 
-
   @override
   void initState() {
     super.initState();
@@ -61,10 +61,10 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.textColor4,
@@ -80,7 +80,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                 color: CustomColors.whiteColor,
                 child: CommonAppBar(tr("gXReservation"), false, () {
                   //onBackButtonPress(context);
-                    Navigator.pop(context, isLoadingRequired);
+                  Navigator.pop(context, isLoadingRequired);
                 }, () {}),
               ),
             ),
@@ -113,7 +113,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                           padding: const EdgeInsets.all(16),
                           decoration: const BoxDecoration(
                               color: CustomColors.backgroundColor,
-                              borderRadius: BorderRadius.all(Radius.circular(4))),
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
@@ -383,7 +384,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                                     activeColor:
                                         CustomColors.buttonBackgroundColor,
                                     side: const BorderSide(
-                                        color: CustomColors.greyColor, width: 1),
+                                        color: CustomColors.greyColor,
+                                        width: 1),
                                     value: isChecked,
                                     onChanged: (value) {
                                       setState(() {
@@ -398,78 +400,89 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
                               const SizedBox(
                                 width: 9,
                               ),
-                              language =="en" ? InkWell(
-                                    onTap: () {
-                                      showGeneralDialog(
-                              context: context,
-                              barrierColor: Colors.black12.withOpacity(0.6),
-                              // Background color
-                              barrierDismissible: false,
-                              barrierLabel: 'Dialog',
-                              transitionDuration:
-                                  const Duration(milliseconds: 400),
-                              pageBuilder: (_, __, ___) {
-                                return WebViewUiScreen(
-                                    tr("gXReservation"), reservationRulesLink);
-                              });
-                                    },
-                                    child: Text.rich(
-                                    TextSpan(
-                                      text: tr("agree"),
-                                      style: const TextStyle(fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2),
-                                      children: <TextSpan>[
+                              language == "en"
+                                  ? InkWell(
+                                      onTap: () {
+                                        showGeneralDialog(
+                                            context: context,
+                                            barrierColor:
+                                                Colors.black12.withOpacity(0.6),
+                                            // Background color
+                                            barrierDismissible: false,
+                                            barrierLabel: 'Dialog',
+                                            transitionDuration: const Duration(
+                                                milliseconds: 400),
+                                            pageBuilder: (_, __, ___) {
+                                              return WebViewUiScreen(
+                                                  tr("gXReservation"),
+                                                  reservationRulesLink);
+                                            });
+                                      },
+                                      child: Text.rich(
                                         TextSpan(
-                                            text: tr("gxReservationRules"),
-                                            style: const TextStyle(
+                                          text: tr("agree"),
+                                          style: const TextStyle(
                                               fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.buttonBackgroundColor,
-                                              decoration: TextDecoration.underline,
-                                            )),
-                                       
-                                      ],
-                                    ),
-                                  ),
-                                  ) : InkWell(
-                                    onTap: () {
-                                      
-                                      showGeneralDialog(
-                              context: context,
-                              barrierColor: Colors.black12.withOpacity(0.6),
-                              // Background color
-                              barrierDismissible: false,
-                              barrierLabel: 'Dialog',
-                              transitionDuration:
-                                  const Duration(milliseconds: 400),
-                              pageBuilder: (_, __, ___) {
-                                return WebViewUiScreen(
-                                    tr("gXReservation"), reservationRulesLink);
-                              });
-                                    },
-                                    child: Text.rich(
-                                    TextSpan(
-                                      text: tr("gxReservationRules"),
-                                      style: const TextStyle(fontFamily: 'Regular',
-                                          fontSize: 14,
-                                                                                      decoration: TextDecoration.underline,
-    
-                                          color: CustomColors.buttonBackgroundColor),
-                                      children: <TextSpan>[
+                                              fontSize: 14,
+                                              color:
+                                                  CustomColors.textColorBlack2),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: tr("gxReservationRules"),
+                                                style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 14,
+                                                  color: CustomColors
+                                                      .buttonBackgroundColor,
+                                                  decoration:
+                                                      TextDecoration.underline,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
+                                    )
+                                  : InkWell(
+                                      onTap: () {
+                                        showGeneralDialog(
+                                            context: context,
+                                            barrierColor:
+                                                Colors.black12.withOpacity(0.6),
+                                            // Background color
+                                            barrierDismissible: false,
+                                            barrierLabel: 'Dialog',
+                                            transitionDuration: const Duration(
+                                                milliseconds: 400),
+                                            pageBuilder: (_, __, ___) {
+                                              return WebViewUiScreen(
+                                                  tr("gXReservation"),
+                                                  reservationRulesLink);
+                                            });
+                                      },
+                                      child: Text.rich(
                                         TextSpan(
-                                            text: tr("agree"),
-                                            style: const TextStyle(
+                                          text: tr("gxReservationRules"),
+                                          style: const TextStyle(
                                               fontFamily: 'Regular',
-                                          fontSize: 14,
-                                          color: CustomColors.textColorBlack2,
-                                              decoration: TextDecoration.none,
-                                            )),
-                                       
-                                      ],
+                                              fontSize: 14,
+                                              decoration:
+                                                  TextDecoration.underline,
+                                              color: CustomColors
+                                                  .buttonBackgroundColor),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                                text: tr("agree"),
+                                                style: const TextStyle(
+                                                  fontFamily: 'Regular',
+                                                  fontSize: 14,
+                                                  color: CustomColors
+                                                      .textColorBlack2,
+                                                  decoration:
+                                                      TextDecoration.none,
+                                                )),
+                                          ],
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                  ),
                             ],
                           ),
                         ),
@@ -495,8 +508,6 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
       ),
     );
   }
-
-  
 
   void reservationValidationCheck() {
     if (!isChecked) {
@@ -533,7 +544,7 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
       callReservationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -572,15 +583,17 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
           } else {
             showReservationModal(responseJson['message'], "");
           }
+          setFirebaseEventForGXReservation(gxId: responseJson['reservation_id'] ?? "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -589,10 +602,11 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -625,8 +639,8 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
     } else {
-       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -664,12 +678,13 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -678,10 +693,11 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -695,7 +711,6 @@ class _GXReservationDetailState extends State<GXReservationDetail> {
       });
     } else {
       setState(() {
-       
         reservationRulesLink = WebViewLinks.gxUrlKo;
       });
     }

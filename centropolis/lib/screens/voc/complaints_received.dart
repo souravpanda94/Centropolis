@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -611,13 +612,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
               buttonName: tr("check"));
         }
       }
-
     } on PlatformException catch (e) {
       debugPrint("image pick null");
     }
   }
-
-
 
   // Future openImagePicker(ImageSource source) async {
   //   try {
@@ -706,10 +704,6 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   //     debugPrint("image pick null");
   //   }
   // }
-
-
-
-
 
   String getFileSizeString({required int bytes, int decimals = 0}) {
     if (bytes <= 0) return "0 Bytes";
@@ -1133,6 +1127,16 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
 
           titleController.clear();
           detailController.clear();
+
+          if (widget.parentInquirId.isNotEmpty) {
+            setFirebaseEventForInconvenienceApply(
+                eventName: "cp_voc_reservation_inconvenience_add_inquiry",
+                inconvenienceId: widget.parentInquirId.toString().trim());
+          } else {
+            setFirebaseEventForInconvenienceApply(
+                eventName: "cp_apply_for_inconvenience",
+                inconvenienceId: responseJson['inquiry_id'] ?? "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

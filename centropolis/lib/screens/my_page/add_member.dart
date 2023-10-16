@@ -17,6 +17,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -50,8 +51,8 @@ class _AddMemberState extends State<AddMember> {
   List<dynamic> companyList = [];
   List<dynamic> floorList = [];
   bool isLoadingRequired = false;
-  String tenantCompanyName="";
-  String tenantCompanyId="";
+  String tenantCompanyName = "";
+  String tenantCompanyId = "";
 
   TextEditingController consentController = TextEditingController();
   TextEditingController nameController = TextEditingController();
@@ -83,10 +84,10 @@ class _AddMemberState extends State<AddMember> {
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: GestureDetector(
         onTap: () => hideKeyboard(),
         child: LoadingOverlay(
@@ -112,8 +113,8 @@ class _AddMemberState extends State<AddMember> {
             ),
             body: Container(
               width: MediaQuery.of(context).size.width,
-              margin:
-                  const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 40),
+              margin: const EdgeInsets.only(
+                  left: 16, right: 16, top: 16, bottom: 40),
               child: SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -133,7 +134,8 @@ class _AddMemberState extends State<AddMember> {
                           text: TextSpan(
                               text: '* ',
                               style: const TextStyle(
-                                  color: CustomColors.headingColor, fontSize: 12),
+                                  color: CustomColors.headingColor,
+                                  fontSize: 12),
                               children: [
                                 TextSpan(
                                   text: tr("requiredInput"),
@@ -168,28 +170,28 @@ class _AddMemberState extends State<AddMember> {
                       ),
                     ),
                     Container(
-                      height: 46,
-                      width: MediaQuery.of(context).size.width,
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      decoration: BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          border: Border.all(
-                            color: CustomColors.dividerGreyColor,
+                        height: 46,
+                        width: MediaQuery.of(context).size.width,
+                        padding: const EdgeInsets.only(left: 15, right: 15),
+                        decoration: BoxDecoration(
+                            color: CustomColors.backgroundColor,
+                            border: Border.all(
+                              color: CustomColors.dividerGreyColor,
+                            ),
+                            borderRadius:
+                                const BorderRadius.all(Radius.circular(4))),
+                        child: Center(
+                            child: Align(
+                          alignment: Alignment.centerLeft,
+                          child: Text(
+                            tenantCompanyName,
+                            style: const TextStyle(
+                              color: CustomColors.blackColor,
+                              fontSize: 14,
+                              fontFamily: 'Regular',
+                            ),
                           ),
-                          borderRadius:
-                              const BorderRadius.all(Radius.circular(4))),
-                      child: Center(
-                          child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: Text(
-                          tenantCompanyName,
-                          style: const TextStyle(
-                            color: CustomColors.blackColor,
-                            fontSize: 14,
-                            fontFamily: 'Regular',
-                          ),
-                        ),
-                      ))),
+                        ))),
                     //tenantCompanyDropdownWidget(),
 
                     Container(
@@ -237,9 +239,9 @@ class _AddMemberState extends State<AddMember> {
                       height: 46,
                       child: TextField(
                         inputFormatters: [
-                             FilteringTextInputFormatter.allow(
-                                    RegExp("[a-zA-Z_\\s-]")),
-                          ],
+                          FilteringTextInputFormatter.allow(
+                              RegExp("[a-zA-Z_\\s-]")),
+                        ],
                         controller: nameController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -251,12 +253,14 @@ class _AddMemberState extends State<AddMember> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           hintText: tr('employeeNameHint'),
                           hintStyle: const TextStyle(
@@ -348,7 +352,8 @@ class _AddMemberState extends State<AddMember> {
                               callVerifyUserId();
                             },
                             buttonName: tr("verify"),
-                            buttonBorderColor: CustomColors.buttonBackgroundColor,
+                            buttonBorderColor:
+                                CustomColors.buttonBackgroundColor,
                             buttonTextColor: CustomColors.buttonBackgroundColor,
                           ),
                         )
@@ -391,12 +396,14 @@ class _AddMemberState extends State<AddMember> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           hintText: tr('passwordHint'),
                           hintStyle: const TextStyle(
@@ -451,12 +458,14 @@ class _AddMemberState extends State<AddMember> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           hintText: tr('verifyAddMemberPasswordHint'),
                           hintStyle: const TextStyle(
@@ -508,12 +517,14 @@ class _AddMemberState extends State<AddMember> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           hintText: tr('emailDemoHint'),
                           hintStyle: const TextStyle(
@@ -567,12 +578,14 @@ class _AddMemberState extends State<AddMember> {
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
-                                color: CustomColors.dividerGreyColor, width: 1.0),
+                                color: CustomColors.dividerGreyColor,
+                                width: 1.0),
                           ),
                           hintText: tr('contactNoHint'),
                           hintStyle: const TextStyle(
@@ -621,7 +634,8 @@ class _AddMemberState extends State<AddMember> {
                                 height: 20,
                                 width: 20,
                                 child: Radio<Gender>(
-                                  activeColor: CustomColors.buttonBackgroundColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
                                   materialTapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                   value: Gender.male,
@@ -659,7 +673,8 @@ class _AddMemberState extends State<AddMember> {
                                 height: 20,
                                 width: 20,
                                 child: Radio<Gender>(
-                                  activeColor: CustomColors.buttonBackgroundColor,
+                                  activeColor:
+                                      CustomColors.buttonBackgroundColor,
                                   materialTapTargetSize:
                                       MaterialTapTargetSize.shrinkWrap,
                                   value: Gender.female,
@@ -838,7 +853,7 @@ class _AddMemberState extends State<AddMember> {
                       Padding(
                         padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
-                          item["floor"],
+                          item["floor"].toString().toUpperCase(),
                           style: const TextStyle(
                             color: CustomColors.blackColor,
                             fontSize: 14,
@@ -952,10 +967,11 @@ class _AddMemberState extends State<AddMember> {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-             showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -964,10 +980,11 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1017,11 +1034,12 @@ class _AddMemberState extends State<AddMember> {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1030,10 +1048,11 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1052,11 +1071,11 @@ class _AddMemberState extends State<AddMember> {
         callVerifyUserIdApi();
       } else {
         //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-         showErrorCommonModal(
-          context: context,
-          heading: tr("noInternet"),
-          description: tr("connectionFailedDescription"),
-          buttonName: tr("check"));
+        showErrorCommonModal(
+            context: context,
+            heading: tr("noInternet"),
+            description: tr("connectionFailedDescription"),
+            buttonName: tr("check"));
       }
     }
   }
@@ -1082,20 +1101,22 @@ class _AddMemberState extends State<AddMember> {
             isUserIdVerified = true;
           });
           if (responseJson['message'] != null) {
-            showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1104,10 +1125,11 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1194,7 +1216,7 @@ class _AddMemberState extends State<AddMember> {
       callAddMemberApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1242,15 +1264,19 @@ class _AddMemberState extends State<AddMember> {
           contactNoController.clear();
 
           showAddMemberSuccessModal(responseJson['message'].toString());
+          setFirebaseEventForAddDeleteEmployee(
+              eventName: "cp_add_employee",
+              memberId: responseJson['employee_id'] ?? "");
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1259,10 +1285,11 @@ class _AddMemberState extends State<AddMember> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1296,7 +1323,7 @@ class _AddMemberState extends State<AddMember> {
       callLoadPersonalInformationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -1324,23 +1351,21 @@ class _AddMemberState extends State<AddMember> {
           UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
           Provider.of<UserInfoProvider>(context, listen: false)
               .setItem(userInfoModel);
-              setState(() {
-                tenantCompanyName = userInfoModel.companyName.toString();
-                tenantCompanyId = userInfoModel.companyId.toString();
-
-
-              });
-              loadFloorList();
-
+          setState(() {
+            tenantCompanyName = userInfoModel.companyName.toString();
+            tenantCompanyId = userInfoModel.companyId.toString();
+          });
+          loadFloorList();
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -1349,10 +1374,11 @@ class _AddMemberState extends State<AddMember> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -830,6 +831,17 @@ class _PaidLockerReservationState extends State<PaidLockerReservation> {
         if (response.statusCode == 200 && responseJson['success']) {
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
+
+          if (widget.operationName == "edit") {
+            setFirebaseEventForPaidLockerReservation(
+                eventName: "cp_edit_paid_locker_reservation",
+                paidLockerId:
+                    widget.paidLockerHistoryDetailModel!.id.toString());
+          } else {
+            setFirebaseEventForPaidLockerReservation(
+                eventName: "cp_make_paid_locker_reservation",
+                paidLockerId: responseJson['reservation_id'] ?? "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

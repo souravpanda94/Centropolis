@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:centropolis/widgets/multi_select_item.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -89,7 +90,6 @@ class _AirConditioningApplicationState
       callLoadPersonalInformationApi();
       callLoadStartTimeListApi();
       callLoadFloorListApi();
-
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -100,15 +100,13 @@ class _AirConditioningApplicationState
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: GestureDetector(
         onTap: () => hideKeyboard(),
         child: LoadingOverlay(
@@ -144,33 +142,27 @@ class _AirConditioningApplicationState
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Container(
-                    width: MediaQuery.of(context).size.width,
-                    color: CustomColors.backgroundColor,
-                    padding: const EdgeInsets.all(16),
-                    margin: const EdgeInsets.only(bottom: 16),
-                    height: 200,
-                    child: Scrollbar(
-                      thumbVisibility: true,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            infoTextWidget(tr("vocInfoText1")),
-                            infoTextWidget(tr("vocInfoText2")),
-                            infoTextWidget(tr("vocInfoText3")),
-                            infoTextWidget(tr("vocInfoText4")),
-                            infoTextWidget(tr("vocInfoText5")),
-                            
-                                   
-                          ],
-                        ),
-                      ),
-                    ),
-    
-                    
-                  ),
-    
-    
+                            width: MediaQuery.of(context).size.width,
+                            color: CustomColors.backgroundColor,
+                            padding: const EdgeInsets.all(16),
+                            margin: const EdgeInsets.only(bottom: 16),
+                            height: 200,
+                            child: Scrollbar(
+                              thumbVisibility: true,
+                              child: SingleChildScrollView(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    infoTextWidget(tr("vocInfoText1")),
+                                    infoTextWidget(tr("vocInfoText2")),
+                                    infoTextWidget(tr("vocInfoText3")),
+                                    infoTextWidget(tr("vocInfoText4")),
+                                    infoTextWidget(tr("vocInfoText5")),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
                           Text(tr("tenantCompanyInformation"),
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
@@ -294,8 +286,8 @@ class _AirConditioningApplicationState
                                 border: Border.all(
                                     width: 1.0,
                                     color: CustomColors.dividerGreyColor),
-                                borderRadius:
-                                    const BorderRadius.all(Radius.circular(5.0)),
+                                borderRadius: const BorderRadius.all(
+                                    Radius.circular(5.0)),
                               ),
                               child: Row(
                                 children: [
@@ -310,8 +302,8 @@ class _AirConditioningApplicationState
                                               child: Text(
                                                   tr('applicationFloorHint')))
                                           : Container(
-                                              margin:
-                                                  const EdgeInsets.only(left: 15),
+                                              margin: const EdgeInsets.only(
+                                                  left: 15),
                                               child: Wrap(
                                                 runSpacing: 1.5,
                                                 direction: Axis.vertical,
@@ -326,13 +318,13 @@ class _AirConditioningApplicationState
                                                           padding:
                                                               const EdgeInsets
                                                                       .symmetric(
-                                                                  horizontal: 5),
+                                                                  horizontal:
+                                                                      5),
                                                           shape: const RoundedRectangleBorder(
-                                                              borderRadius:
-                                                                  BorderRadius
-                                                                      .all(Radius
-                                                                          .circular(
-                                                                              5))),
+                                                              borderRadius: BorderRadius
+                                                                  .all(Radius
+                                                                      .circular(
+                                                                          5))),
                                                           label: SizedBox(
                                                             width: 20,
                                                             child: Text(
@@ -345,7 +337,8 @@ class _AirConditioningApplicationState
                                                                 style: const TextStyle(
                                                                     fontFamily:
                                                                         'SemiBold',
-                                                                    fontSize: 12,
+                                                                    fontSize:
+                                                                        12,
                                                                     color: CustomColors
                                                                         .whiteColor)),
                                                           ),
@@ -356,8 +349,9 @@ class _AirConditioningApplicationState
                                   Container(
                                     margin: const EdgeInsets.only(right: 10),
                                     padding: EdgeInsets.only(
-                                        bottom:
-                                            floorSelectedValue != null ? 16 : 0),
+                                        bottom: floorSelectedValue != null
+                                            ? 16
+                                            : 0),
                                     child: SvgPicture.asset(
                                       "assets/images/ic_drop_down_arrow.svg",
                                       width: 8,
@@ -644,35 +638,34 @@ class _AirConditioningApplicationState
       ),
     );
   }
-  
-  infoTextWidget(String text){
-    return Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        const Padding(
-                          padding: EdgeInsets.only(top: 7),
-                          child: Icon(
-                            Icons.circle,
-                            size: 5,
-                          ),
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Expanded(
-                          child: Text(
-                            text,
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                height: 1.5,
-                                color: CustomColors.textColor5),
-                          ),
-                        )
-                      ]);
-  }
 
+  infoTextWidget(String text) {
+    return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Padding(
+            padding: EdgeInsets.only(top: 7),
+            child: Icon(
+              Icons.circle,
+              size: 5,
+            ),
+          ),
+          const SizedBox(
+            width: 10,
+          ),
+          Expanded(
+            child: Text(
+              text,
+              style: const TextStyle(
+                  fontFamily: 'Regular',
+                  fontSize: 14,
+                  height: 1.5,
+                  color: CustomColors.textColor5),
+            ),
+          )
+        ]);
+  }
 
   void showReservationModal(String heading, String message) {
     showDialog(
@@ -1228,13 +1221,14 @@ class _AirConditioningApplicationState
           }
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
         setState(() {
@@ -1243,10 +1237,11 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1291,8 +1286,9 @@ class _AirConditioningApplicationState
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1303,10 +1299,11 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1356,8 +1353,9 @@ class _AirConditioningApplicationState
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1368,10 +1366,11 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1431,16 +1430,17 @@ class _AirConditioningApplicationState
           } else {
             if (responseJson['message'] != null) {
               // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
             }
           }
           otherRequestController.clear();
-        }
-
-        else {
+          setFirebaseEventForAcExtension(
+              acExtensionId: responseJson['inquiry_id'] ?? "");
+        } else {
           if (responseJson['message'] != null &&
               responseJson['title'] != null) {
             showReservationModal(
@@ -1448,8 +1448,9 @@ class _AirConditioningApplicationState
           } else {
             if (responseJson['message'] != null) {
               // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
                   description: "",
                   buttonName: tr("check"));
             }
@@ -1461,10 +1462,11 @@ class _AirConditioningApplicationState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -1512,8 +1514,9 @@ class _AirConditioningApplicationState
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -1524,10 +1527,11 @@ class _AirConditioningApplicationState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });

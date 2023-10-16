@@ -12,6 +12,7 @@ import '../../services/api_service.dart';
 import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -440,6 +441,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
             showSuccessModal(responseJson['message'].toString(), "");
           }
           //Navigator.pop(context);
+          setFirebaseEvents(eventName: "cp_change_password");
         } else {
           if (responseJson['message'] != null) {
            debugPrint("Server error response ${responseJson['message']}");

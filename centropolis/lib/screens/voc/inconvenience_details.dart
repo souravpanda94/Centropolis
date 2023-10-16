@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button_with_border.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -717,6 +718,10 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
               heading: responseJson['message'].toString(),
               description: "",
               buttonName: tr("check"));
+
+          setFirebaseEventForInconvenienceRating(
+              inconvenienceId: widget.inquiryId.toString().trim(),
+              rating: complaintRating.toString().trim());
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

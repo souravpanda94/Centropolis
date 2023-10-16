@@ -13,6 +13,7 @@ import '../../services/api_service.dart';
 import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -529,7 +530,8 @@ class _EditPersonalInformationScreenState
           if (responseJson['message'] != null) {
            showSuccesModal(responseJson['message'].toString());
           }
-          //Navigator.pop(context);
+          setFirebaseEvents(eventName: "cp_edit_personal_information");
+
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

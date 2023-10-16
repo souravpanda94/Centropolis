@@ -16,6 +16,7 @@ import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
+import '../../utils/firebase_analytics_events.dart';
 import '../../utils/internet_checking.dart';
 import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
@@ -544,9 +545,8 @@ class _VisitReservationApplicationState
                             height: 46,
                             child: TextField(
                               inputFormatters: [
-                                 FilteringTextInputFormatter.allow(
+                                FilteringTextInputFormatter.allow(
                                     RegExp("[a-zA-Z_\\s-]")),
-                                
                               ],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -1673,6 +1673,10 @@ class _VisitReservationApplicationState
           if (responseJson['message'] != null) {
             showSuccessModal(responseJson['message']);
           }
+
+          setFirebaseEventForVisitReservation(
+              eventName: "cp_make_visit_reservation",
+              visitReservationId: responseJson['reservation_id'] ?? "");
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(

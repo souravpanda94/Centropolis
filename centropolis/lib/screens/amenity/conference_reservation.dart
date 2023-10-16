@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:centropolis/models/conference_history_detail_model.dart';
+import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -69,7 +70,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
   String reservationDate = "";
   String reservationRulesLink = "";
   bool servicesEquipmentTooltip = false;
-  bool conferenceRoomTooltip = false;
   List<dynamic> _selectedEquipments = [];
   List<dynamic> _selectedEquipmentsValue = [];
   List<dynamic> equipmentsList = [];
@@ -369,14 +369,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           height: 6,
                         ),
                         conferenceRoomDropdownWidget(),
-                        if (conferenceRoomTooltip)
-                          Column(
-                            children: [
-                              infoTextWidget(tr("conferenceInfoText4")),
-                              infoTextWidget(tr("conferenceInfoText5")),
-                              infoTextWidget(tr("conferenceInfoText6")),
-                            ],
-                          ),
                         const SizedBox(
                           height: 24,
                         ),
@@ -419,7 +411,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           onTap: () {
                             setState(() {
                               servicesEquipmentTooltip = true;
-                              conferenceRoomTooltip=false;
                             });
                             _showMultiSelect();
                           },
@@ -579,11 +570,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                               if (servicesEquipmentTooltip) {
                                 setState(() {
                                   servicesEquipmentTooltip = false;
-                                });
-                              }
-                              if (conferenceRoomTooltip) {
-                                setState(() {
-                                  conferenceRoomTooltip = false;
                                 });
                               }
                             },
@@ -860,11 +846,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
               servicesEquipmentTooltip = false;
             });
           }
-          if (conferenceRoomTooltip) {
-            setState(() {
-              conferenceRoomTooltip = false;
-            });
-          }
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -967,11 +948,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
               servicesEquipmentTooltip = false;
             });
           }
-          if (conferenceRoomTooltip) {
-            setState(() {
-              conferenceRoomTooltip = false;
-            });
-          }
         },
         dropdownStyleData: DropdownStyleData(
           maxHeight: 200,
@@ -1069,9 +1045,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           });
         },
         onMenuStateChange: (isOpen) {
-          setState(() {
-            conferenceRoomTooltip = true;
-          });
           if (servicesEquipmentTooltip) {
             setState(() {
               servicesEquipmentTooltip = false;
@@ -1180,11 +1153,6 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
           if (servicesEquipmentTooltip) {
             setState(() {
               servicesEquipmentTooltip = false;
-            });
-          }
-          if (conferenceRoomTooltip) {
-            setState(() {
-              conferenceRoomTooltip = false;
             });
           }
         },
@@ -1700,6 +1668,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
 
           showReservationModal(responseJson['title'].toString(),
               responseJson['message'].toString());
+
+          if (widget.operationName == "edit") {
+            setFirebaseEventForConferenceReservation(
+                eventName: "cp_edit_conference_reservation",
+                conferenceId: widget.conferenceId.toString());
+          } else {
+            setFirebaseEventForConferenceReservation(
+                eventName: "cp_make_conference_reservation",
+                conferenceId: responseJson['reservation_id'] ?? "");
+          }
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
