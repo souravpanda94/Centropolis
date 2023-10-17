@@ -354,6 +354,7 @@
   "startTimeValidation": "시작 시간을 선택해 주세요",
   "endTimeValidation": "종료 시간을 선택해 주세요",
   "usageTimeValidation": "사용 시간을 선택해 주세요",
+  "totalUsageTimeValidation": "사용 시간을 선택해 주세요",
   "tnc": "이용 약관에 동의해 주세요",
   "conferenceDescriptionValidation": "상세 정보를 입력해 주세요",
   "conferenceDescriptionLengthValidation": "최소 1자에서 최대 150자 내로 입력해 주세요",
