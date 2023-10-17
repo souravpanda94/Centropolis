@@ -587,6 +587,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         ),
         items: usageTimeList
             .map((item) => DropdownMenuItem<String>(
+              //enabled: item.toString().trim() != "18:00",
                   value: item,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -596,8 +597,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                         padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item,
-                          style: const TextStyle(
+                          style:  const TextStyle(
+                            // color: item.toString().trim() != "18:00"
+                            //   ? CustomColors.blackColor
+                            //   : CustomColors.textColor3,
                             color: CustomColors.blackColor,
+                            
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
@@ -682,7 +687,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         hint: Text(
           totalUsageTimeList.isNotEmpty
               ? totalUsageTimeList.first["text"]
-              : "10 Minutes",
+              //: "10 Minutes",
+              :"",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -1029,9 +1035,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
               //   timeSlotList.add(usageTimeList[i]);
               // }
             }
-            if (usageTimeList.isNotEmpty) {
-              usageTimeList.removeLast();
-            }
+            // if (usageTimeList.isNotEmpty) {
+            //   usageTimeList.removeLast();
+            // }
           }
           debugPrint("Time list length ====> ${usageTimeList.length}");
         } else {
@@ -1286,7 +1292,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
     } else if (usageTimeSelectedValue == null && usageTimeList.isEmpty) {
       showErrorModal(tr("startTimeValidation"));
     } else if (totalTimeSelectedValue == null && totalUsageTimeList.isEmpty) {
-      showErrorModal(tr("usageTimeValidation"));
+      showErrorModal(tr("totalUsageTimeValidation"));
     } else if (selectedSeatsValue == null && selectedSeatList.isEmpty) {
       showErrorModal(tr("seatValidation"));
     } else if (!isChecked) {

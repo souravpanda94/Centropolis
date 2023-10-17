@@ -294,18 +294,20 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                       IntrinsicHeight(
                                         child: Row(
                                           children: [
-                                            Text(
-                                              airConditioningListItem?[index]
-                                                      .requestedFloors
-                                                      .toString()
-                                                      .toUpperCase() ??
-                                                  "",
-                                              maxLines: 1,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: const TextStyle(
-                                                  fontFamily: 'Regular',
-                                                  fontSize: 12,
-                                                  color: CustomColors.textColor3),
+                                            Expanded(
+                                              child: Text(
+                                                airConditioningListItem?[index]
+                                                        .requestedFloors
+                                                        .toString()
+                                                        .toUpperCase() ??
+                                                    "",
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                                style: const TextStyle(
+                                                    fontFamily: 'Regular',
+                                                    fontSize: 12,
+                                                    color: CustomColors.textColor3),
+                                              ),
                                             ),
                                             const SizedBox(
                                               width: 8,
