@@ -234,18 +234,20 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                   IntrinsicHeight(
                                     child: Row(
                                       children: [
-                                        Text(
-                                          lightoutListItem?[index]
-                                                  .requestedFloors
-                                                  .toString()
-                                                  .toUpperCase() ??
-                                              "",
-                                          maxLines: 1,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontFamily: 'Regular',
-                                              fontSize: 12,
-                                              color: CustomColors.textColor3),
+                                        Expanded(
+                                          child: Text(
+                                            lightoutListItem?[index]
+                                                    .requestedFloors
+                                                    .toString()
+                                                    .toUpperCase() ??
+                                                "",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                                fontFamily: 'Regular',
+                                                fontSize: 12,
+                                                color: CustomColors.textColor3),
+                                          ),
                                         ),
                                         const SizedBox(
                                           width: 4,

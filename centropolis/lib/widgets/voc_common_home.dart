@@ -361,17 +361,19 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Text(
-                              widget.lightoutList?[index].requestedFloors
-                                      .toString()
-                                      .toUpperCase() ??
-                                  "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 12,
-                                  color: CustomColors.textColor3),
+                            Expanded(
+                              child: Text(
+                                widget.lightoutList?[index].requestedFloors
+                                        .toString()
+                                        .toUpperCase() ??
+                                    "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 12,
+                                    color: CustomColors.textColor3),
+                              ),
                             ),
                             const SizedBox(
                               width: 8,
@@ -533,17 +535,19 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Text(
-                              widget.airConditioningList?[index].requestedFloors
-                                      .toString()
-                                      .toUpperCase() ??
-                                  "",
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: const TextStyle(
-                                  fontFamily: 'Regular',
-                                  fontSize: 12,
-                                  color: CustomColors.textColor3),
+                            Expanded(
+                              child: Text(
+                                widget.airConditioningList?[index].requestedFloors
+                                        .toString()
+                                        .toUpperCase() ??
+                                    "",
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
+                                    fontFamily: 'Regular',
+                                    fontSize: 12,
+                                    color: CustomColors.textColor3),
+                              ),
                             ),
                             const SizedBox(
                               width: 8,

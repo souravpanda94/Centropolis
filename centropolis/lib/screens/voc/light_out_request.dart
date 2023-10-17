@@ -282,47 +282,51 @@ class _LightOutRequestState extends State<LightOutRequest> {
                                                   tr('applicationFloorHint')))
                                           : Container(
                                               margin: const EdgeInsets.only(
-                                                  left: 15),
-                                              child: Wrap(
-                                                runSpacing: 1.5,
-                                                direction: Axis.vertical,
-                                                children: _selectedFloors
-                                                    .map((e) => Chip(
-                                                          visualDensity:
-                                                              VisualDensity
-                                                                  .standard,
-                                                          backgroundColor:
-                                                              CustomColors
-                                                                  .selectedColor,
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  horizontal:
-                                                                      5),
-                                                          shape: const RoundedRectangleBorder(
-                                                              borderRadius: BorderRadius
-                                                                  .all(Radius
-                                                                      .circular(
-                                                                          5))),
-                                                          label: SizedBox(
-                                                            width: 20,
-                                                            child: Text(
-                                                                e
-                                                                    .toString()
-                                                                    .toUpperCase(),
-                                                                textAlign:
-                                                                    TextAlign
-                                                                        .center,
-                                                                style: const TextStyle(
-                                                                    fontFamily:
-                                                                        'SemiBold',
-                                                                    fontSize:
-                                                                        12,
-                                                                    color: CustomColors
-                                                                        .whiteColor)),
-                                                          ),
-                                                        ))
-                                                    .toList(),
+                                                  left: 15,right: 
+                                                  15),
+                                              child: SingleChildScrollView(
+                                                scrollDirection: Axis.horizontal,
+                                                child: Wrap(
+                                                  runSpacing:3.5,
+                                                  direction: Axis.vertical,
+                                                  children: _selectedFloors
+                                                      .map((e) => Chip(
+                                                            visualDensity:
+                                                                VisualDensity
+                                                                    .standard,
+                                                            backgroundColor:
+                                                                CustomColors
+                                                                    .selectedColor,
+                                                            padding:
+                                                                const EdgeInsets
+                                                                        .symmetric(
+                                                                    horizontal:
+                                                                        5),
+                                                            shape: const RoundedRectangleBorder(
+                                                                borderRadius: BorderRadius
+                                                                    .all(Radius
+                                                                        .circular(
+                                                                            5))),
+                                                            label: SizedBox(
+                                                              width: 22,
+                                                              child: Text(
+                                                                  e
+                                                                      .toString()
+                                                                      .toUpperCase(),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                  style: const TextStyle(
+                                                                      fontFamily:
+                                                                          'SemiBold',
+                                                                      fontSize:
+                                                                          12,
+                                                                      color: CustomColors
+                                                                          .whiteColor)),
+                                                            ),
+                                                          ))
+                                                      .toList(),
+                                                ),
                                               ),
                                             )),
                                   Container(
