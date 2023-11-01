@@ -407,9 +407,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         height: 46,
                         child: TextField(
                           readOnly: false,
-                          inputFormatters: [
-                            FilteringTextInputFormatter.allow(RegExp("[0-9]"))
-                          ],
+                          // inputFormatters: [
+                          //   FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                          // ],
                           controller: numberOfParticipantsController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.number,

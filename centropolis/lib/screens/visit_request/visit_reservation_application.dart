@@ -544,10 +544,10 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
-                              inputFormatters: [
-                                FilteringTextInputFormatter.allow(
-                                    RegExp("[a-zA-Z_\\s-]")),
-                              ],
+                              // inputFormatters: [
+                              //   FilteringTextInputFormatter.allow(
+                              //       RegExp("[a-zA-Z_\\s-]")),
+                              // ],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
