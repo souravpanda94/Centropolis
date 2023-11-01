@@ -108,7 +108,7 @@ bool isValidUserId(String userId) {
     bool hasMaxLength = userId.length <= 16;
     bool hasMatch = RegExp("[a-z0-9]").hasMatch(userId);
 
-    return hasDigits && hasLowercase & hasMaxLength & hasMinLength && hasMatch;
+    return (hasDigits &&  hasLowercase & hasMaxLength & hasMinLength && hasMatch) || (hasLowercase & hasMaxLength & hasMinLength && hasMatch);
   }
 }
 
