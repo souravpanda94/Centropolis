@@ -98,7 +98,7 @@ bool isValidUserId(String userId) {
     return false;
   }
 
-  if (userId.contains(RegExp(r'[A-Z]')) ||
+  if (userId.contains(RegExp(r'[A-Z]')) || userId.contains(' ') ||
       userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))) {
     return false;
   } else {
@@ -106,8 +106,9 @@ bool isValidUserId(String userId) {
     bool hasLowercase = userId.contains(RegExp(r'[a-z]'));
     bool hasMinLength = userId.length >= 4;
     bool hasMaxLength = userId.length <= 16;
+    bool hasMatch = RegExp("[a-z0-9]").hasMatch(userId);
 
-    return hasDigits || hasLowercase & hasMaxLength & hasMinLength;
+    return hasDigits && hasLowercase & hasMaxLength & hasMinLength && hasMatch;
   }
 }
 

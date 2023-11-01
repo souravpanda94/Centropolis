@@ -304,6 +304,7 @@ class _AddMemberState extends State<AddMember> {
                           child: SizedBox(
                             height: 46,
                             child: TextField(
+                              
                               controller: idController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
@@ -338,6 +339,7 @@ class _AddMemberState extends State<AddMember> {
                                 fontSize: 14,
                                 fontFamily: 'Regular',
                               ),
+                              
                             ),
                           ),
                         ),
@@ -1084,7 +1086,9 @@ class _AddMemberState extends State<AddMember> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {"username": idController.text.trim()};
+    Map<String, String> body = {
+      "username": idController.text.trim().replaceAll(' ', '')
+    };
 
     debugPrint("verify User Name input===> $body");
 

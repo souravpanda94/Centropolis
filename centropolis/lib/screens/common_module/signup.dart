@@ -369,6 +369,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: SizedBox(
                               height: 46,
                               child: TextField(
+                               
                                 controller: idController,
                                 maxLength: 16,
                                 cursorColor: CustomColors.textColorBlack2,
@@ -1029,7 +1030,9 @@ class _SignupScreenState extends State<SignupScreen> {
     setState(() {
       isLoading = true;
     });
-    Map<String, String> body = {"username": idController.text.trim()};
+    Map<String, String> body = {
+      "username": idController.text.trim().replaceAll(' ', '')
+    };
 
     debugPrint("verify User Name input===> $body");
 

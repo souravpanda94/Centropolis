@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:http/http.dart' as http;
@@ -77,6 +78,7 @@ class _FindPasswordState extends State<FindPassword> {
                 SizedBox(
                   height: 46,
                   child: TextField(
+                
                     controller: idController,
                     maxLength: 16,
                     cursorColor: CustomColors.textColorBlack2,
@@ -253,7 +255,7 @@ class _FindPasswordState extends State<FindPassword> {
       callFindIdApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -266,7 +268,7 @@ class _FindPasswordState extends State<FindPassword> {
       isLoading = true;
     });
     Map<String, String> body = {
-      "username": idController.text.trim(),
+      "username": idController.text.trim().replaceAll(' ', ''),
       "email": emailIDController.text.trim(),
     };
     debugPrint("find password input ===> $body");
@@ -293,10 +295,11 @@ class _FindPasswordState extends State<FindPassword> {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-             showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -307,10 +310,11 @@ class _FindPasswordState extends State<FindPassword> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -344,6 +348,4 @@ class _FindPasswordState extends State<FindPassword> {
     idController.clear();
     emailIDController.clear();
   }
-
-
 }
