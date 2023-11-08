@@ -67,10 +67,10 @@ class _VisitReservationDetailsScreenState
         Provider.of<VisitReservationDetailsProvider>(context)
             .getVisitReservationHistoryDetailModel;
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.textColor4,
@@ -96,8 +96,8 @@ class _VisitReservationDetailsScreenState
               child: Column(
                 children: [
                   Container(
-                    margin:
-                        const EdgeInsets.only(top: 25.0, left: 16.0, right: 16.0),
+                    margin: const EdgeInsets.only(
+                        top: 25.0, left: 16.0, right: 16.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -140,8 +140,8 @@ class _VisitReservationDetailsScreenState
                     ),
                   ),
                   Container(
-                    margin:
-                        const EdgeInsets.only(top: 15.0, left: 16.0, right: 16.0),
+                    margin: const EdgeInsets.only(
+                        top: 15.0, left: 16.0, right: 16.0),
                     decoration: BoxDecoration(
                       color: CustomColors.backgroundColor,
                       borderRadius: BorderRadius.circular(4),
@@ -246,7 +246,8 @@ class _VisitReservationDetailsScreenState
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              visitReservationDetailModel?.displayBuilding ?? "",
+                              visitReservationDetailModel?.displayBuilding ??
+                                  "",
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Regular",
@@ -314,8 +315,8 @@ class _VisitReservationDetailsScreenState
                     ),
                   ),
                   Container(
-                    margin:
-                        const EdgeInsets.only(top: 15.0, left: 16.0, right: 16.0),
+                    margin: const EdgeInsets.only(
+                        top: 15.0, left: 16.0, right: 16.0),
                     decoration: BoxDecoration(
                       color: CustomColors.backgroundColor,
                       borderRadius: BorderRadius.circular(4),
@@ -561,7 +562,8 @@ class _VisitReservationDetailsScreenState
                           child: Align(
                             alignment: Alignment.centerLeft,
                             child: Text(
-                              visitReservationDetailModel?.displayVisitPurpose ??
+                              visitReservationDetailModel
+                                      ?.displayVisitPurpose ??
                                   "",
                               style: const TextStyle(
                                 fontSize: 14,
@@ -580,7 +582,10 @@ class _VisitReservationDetailsScreenState
                     margin: const EdgeInsets.only(top: 20, bottom: 20),
                   ),
                   if ((accountType == "tenant_manager" ||
-                          accountType == "tenant_visitor_employee") &&
+                          accountType == "tenant_visitor_employee" ||
+                          accountType == "tenant_executive_visitor_employee" ||
+                          accountType ==
+                              "tenant_conference_visitor_employee") &&
                       ((visitReservationDetailModel?.status ==
                           "request_for_approval")))
                     Container(
@@ -613,7 +618,8 @@ class _VisitReservationDetailsScreenState
                                       });
                                     },
                                     child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       crossAxisAlignment:
                                           CrossAxisAlignment.center,
                                       children: [
@@ -651,10 +657,12 @@ class _VisitReservationDetailsScreenState
                                   },
                                   child: Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: const EdgeInsets.only(right: 10),
+                                        padding:
+                                            const EdgeInsets.only(right: 10),
                                         child: SvgPicture.asset(
                                           _statusType == StatusEnum.rejection
                                               ? 'assets/images/ic_radio_check.svg'
@@ -755,7 +763,6 @@ class _VisitReservationDetailsScreenState
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
       callVisitReservationDetailsApi();
-
     } else {
       // showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -802,13 +809,13 @@ class _VisitReservationDetailsScreenState
 
           Provider.of<VisitReservationDetailsProvider>(context, listen: false)
               .setItem(visitReservationDetailModel);
-        }
-        else {
+        } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -819,10 +826,11 @@ class _VisitReservationDetailsScreenState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -872,22 +880,26 @@ class _VisitReservationDetailsScreenState
           });
           showConfirmationModal(responseJson['message'].toString());
 
-          if(statusTypeValue == "cancelled"){
-            setFirebaseEventForVisitReservation(eventName: "cp_cancel_reservation" ,visitReservationId: widget.visitId.toString().trim());
+          if (statusTypeValue == "cancelled") {
+            setFirebaseEventForVisitReservation(
+                eventName: "cp_cancel_reservation",
+                visitReservationId: widget.visitId.toString().trim());
+          } else if (statusTypeValue == "approved") {
+            setFirebaseEventForChangeStatusForVisitReservation(
+                visitReservationId: widget.visitId.toString().trim(),
+                status: "approved");
+          } else if (statusTypeValue == "rejected") {
+            setFirebaseEventForChangeStatusForVisitReservation(
+                visitReservationId: widget.visitId.toString().trim(),
+                status: "rejected");
           }
-          else if(statusTypeValue == "approved"){
-            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: widget.visitId.toString().trim(), status: "approved");
-          }
-          else if(statusTypeValue == "rejected"){
-            setFirebaseEventForChangeStatusForVisitReservation(visitReservationId: widget.visitId.toString().trim(), status: "rejected");
-          }
-
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -898,10 +910,11 @@ class _VisitReservationDetailsScreenState
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -984,8 +997,9 @@ class _VisitReservationDetailsScreenState
           if (responseJson['message'] != null) {
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -996,10 +1010,11 @@ class _VisitReservationDetailsScreenState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });

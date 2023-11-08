@@ -89,10 +89,6 @@ class _HomeScreenState extends State<HomeScreen> {
   String appVersion = "";
   String accountType = "";
 
-
-
-
-
   @override
   void initState() {
     super.initState();
@@ -107,8 +103,6 @@ class _HomeScreenState extends State<HomeScreen> {
     getAppVersion();
     internetCheckingForMethods();
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -551,7 +545,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     ).then((value) {
       callLoadPersonalInformationApi();
-
     });
   }
 
@@ -559,7 +552,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 1,operationName: "add"),
+        builder: (context) =>
+            const FitnessReservation(position: 1, operationName: "add"),
       ),
     );
   }
@@ -568,7 +562,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 2,operationName: "add"),
+        builder: (context) =>
+            const FitnessReservation(position: 2, operationName: "add"),
       ),
     );
   }
@@ -577,7 +572,8 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 0,operationName: "add"),
+        builder: (context) =>
+            const FitnessReservation(position: 0, operationName: "add"),
       ),
     );
   }
@@ -586,40 +582,45 @@ class _HomeScreenState extends State<HomeScreen> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) => const FitnessReservation(position: 3,operationName: "add"),
+        builder: (context) =>
+            const FitnessReservation(position: 3, operationName: "add"),
       ),
     );
   }
 
   void goToConferenceReservationScreen() {
-    if (accountType == "tenant_manager" || accountType == "tenant_conference_employee") {
-                            Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const ConferenceReservation(operationName: "add"),
-      ),
-    );
-
-      }else {
-           showErrorModal(tr("accessDenied"));
-        }
-
-    
+    if (accountType == "tenant_manager" ||
+        accountType == "tenant_conference_employee" ||
+        accountType == "tenant_conference_executive_employee" ||
+        accountType == "tenant_conference_excutive_visitor_employee" ||
+        accountType == "tenant_conference_visitor_employee") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) =>
+              const ConferenceReservation(operationName: "add"),
+        ),
+      );
+    } else {
+      showErrorModal(tr("accessDenied"));
+    }
   }
 
   void goToLoungeReservationScreen() {
-
-    if (accountType == "tenant_manager" || accountType == "tenant_lounge_employee") {
-                            Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => const LoungeReservation(operationName: "add"),
-      ),
-    );
-       }else {
-           showErrorModal(tr("accessDenied"));
-        }
-    
+    if (accountType == "tenant_manager" ||
+        accountType == "tenant_lounge_employee" ||
+        accountType == "tenant_conference_executive_employee" ||
+        accountType == "tenant_executive_visitor_employee" ||
+        accountType == "tenant_conference_excutive_visitor_employee") {
+      Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => const LoungeReservation(operationName: "add"),
+        ),
+      );
+    } else {
+      showErrorModal(tr("accessDenied"));
+    }
   }
 
   void goToSleepingRoomReservationScreen() {
@@ -721,8 +722,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  
-
   void callLoadPersonalInformationApi() {
     setState(() {
       isLoading = true;
@@ -741,26 +740,29 @@ class _HomeScreenState extends State<HomeScreen> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           UserInfoModel userInfoModel = UserInfoModel.fromJson(responseJson);
-          Provider.of<UserInfoProvider>(context, listen: false).setItem(userInfoModel);
+          Provider.of<UserInfoProvider>(context, listen: false)
+              .setItem(userInfoModel);
           setState(() {
             unreadNotificationCount = userInfoModel.unreadNotificationCount!;
             accountType = userInfoModel.accountType.toString();
           });
 
-          setDataInSharedPreference(ConstantsData.userId,userInfoModel.userId.toString());
-          setDataInSharedPreference(ConstantsData.companyId,userInfoModel.companyId.toString());
-          setDataInSharedPreference(ConstantsData.userType,userInfoModel.accountType.toString());
-
-
+          setDataInSharedPreference(
+              ConstantsData.userId, userInfoModel.userId.toString());
+          setDataInSharedPreference(
+              ConstantsData.companyId, userInfoModel.companyId.toString());
+          setDataInSharedPreference(
+              ConstantsData.userType, userInfoModel.accountType.toString());
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -770,21 +772,18 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
-      
     });
   }
-
-  
 
   void callLoadFetchAppUpdateDetailsApi() {
     setState(() {
@@ -841,12 +840,13 @@ class _HomeScreenState extends State<HomeScreen> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -855,17 +855,16 @@ class _HomeScreenState extends State<HomeScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
-        showErrorCommonModal(context: context,
-          heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
-      
     });
   }
 
@@ -974,11 +973,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
-    callLoadFetchAppUpdateDetailsApi();
-
+      callLoadFetchAppUpdateDetailsApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),

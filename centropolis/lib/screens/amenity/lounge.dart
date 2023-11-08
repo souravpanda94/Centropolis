@@ -186,7 +186,12 @@ class _LoungeScreenState extends State<LoungeScreen> {
                   child: CommonButtonWithIcon(
                     onCommonButtonTap: () {
                       if (accountType == "tenant_manager" ||
-                          accountType == "tenant_lounge_employee") {
+                          accountType == "tenant_lounge_employee" ||
+                          accountType ==
+                              "tenant_conference_executive_employee" ||
+                          accountType == "tenant_executive_visitor_employee" ||
+                          accountType ==
+                              "tenant_conference_excutive_visitor_employee") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(

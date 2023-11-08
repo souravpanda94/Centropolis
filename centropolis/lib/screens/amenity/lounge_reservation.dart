@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:centropolis/models/lounge_history_detail_model.dart';
 import 'package:centropolis/utils/firebase_analytics_events.dart';
 import 'package:centropolis/widgets/common_button.dart';
-import 'package:centropolis/widgets/multi_select_item_lounge.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -1755,14 +1754,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -1955,7 +1956,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['data'] != null) {
-            var equipmentNames;
+            //var equipmentNames;
             setState(() {
               equipmentsList = responseJson['data'];
             });
@@ -2242,14 +2243,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 

@@ -24,7 +24,6 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_modal.dart';
 import '../../widgets/multi_select_amenity_item.dart';
-import '../../widgets/multi_select_item_lounge.dart';
 import '../my_page/web_view_ui.dart';
 import 'conference_availability_modal.dart';
 
@@ -1460,7 +1459,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
+      if(mounted){
+        showErrorCommonModal(
           context: context,
           heading: tr("errorDescription"),
           description: "",
@@ -1468,6 +1468,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       setState(() {
         isLoading = false;
       });
+      }
     });
   }
 
@@ -1512,7 +1513,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
+     if(mounted){
+       showErrorCommonModal(
           context: context,
           heading: tr("errorDescription"),
           description: "",
@@ -1520,6 +1522,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       setState(() {
         isLoading = false;
       });
+     }
     });
   }
 
@@ -1752,7 +1755,8 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
+      if(mounted){
+        showErrorCommonModal(
           context: context,
           heading: tr("errorDescription"),
           description: "",
@@ -1760,6 +1764,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       setState(() {
         isLoading = false;
       });
+      }
     });
   }
 
@@ -1859,7 +1864,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['data'] != null) {
-            var equipmentNames;
+            //var equipmentNames;
             setState(() {
               equipmentsList = responseJson['data'];
             });

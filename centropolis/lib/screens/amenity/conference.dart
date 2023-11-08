@@ -160,11 +160,17 @@ class _ConferenceScreenState extends State<ConferenceScreen> {
                   child: CommonButtonWithIcon(
                     onCommonButtonTap: () {
                       if (accountType == "tenant_manager" ||
-                          accountType == "tenant_conference_employee") {
+                          accountType == "tenant_conference_employee" ||
+                          accountType ==
+                              "tenant_conference_executive_employee" ||
+                          accountType ==
+                              "tenant_conference_excutive_visitor_employee" ||
+                          accountType == "tenant_conference_visitor_employee") {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const ConferenceReservation(operationName: "add"),
+                            builder: (context) => const ConferenceReservation(
+                                operationName: "add"),
                           ),
                         );
                       } else {
