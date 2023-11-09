@@ -177,6 +177,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                         MainAxisAlignment.spaceBetween,
                                     children: [
                                       Flexible(
+                                        flex: 1,
                                         child: Text(
                                           employeeListItem?[index].name ?? "",
                                           maxLines: 1,
@@ -188,7 +189,7 @@ class _EmployeeListState extends State<EmployeeList> {
                                         ),
                                       ),
                                       const SizedBox(
-                                        width: 10,
+                                        width: 5,
                                       ),
                                       if (employeeListItem != null &&
                                           employeeListItem![index]
@@ -200,66 +201,53 @@ class _EmployeeListState extends State<EmployeeList> {
                                                     .toString() !=
                                                 "tenant_employee"
                                             ? Container(
-                                                decoration: BoxDecoration(
-                                                  color: CustomColors
-                                                      .backgroundColor2,
-                                                  borderRadius:
-                                                      BorderRadius.circular(50),
-                                                ),
-                                                padding: const EdgeInsets.only(
-                                                    top: 5.0,
-                                                    bottom: 5.0,
-                                                    left: 12.0,
-                                                    right: 12.0),
-                                                child: Row(
-                                                  children: [
-                                                    SvgPicture.asset(
-                                                      'assets/images/ic_logo.svg',
-                                                      semanticsLabel: 'Back',
-                                                      width: 15,
-                                                      height: 15,
-                                                      alignment:
-                                                          Alignment.center,
+                                              decoration: BoxDecoration(
+                                                color: CustomColors
+                                                    .backgroundColor2,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        50),
+                                              ),
+                                              padding:
+                                                  const EdgeInsets.only(
+                                                      top: 5.0,
+                                                      bottom: 5.0,
+                                                      left: 12.0,
+                                                      right: 12.0),
+                                              child: Row(
+                                                children: [
+                                                  SvgPicture.asset(
+                                                    'assets/images/ic_logo.svg',
+                                                    semanticsLabel: 'Back',
+                                                    width: 15,
+                                                    height: 15,
+                                                    alignment:
+                                                        Alignment.center,
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 5,
+                                                  ),
+                                                  Text(
+                                                    employeeListItem?[
+                                                                index]
+                                                            .displayAccountType
+                                                            .toString()
+                                                            .capitalizeByWord() ??
+                                                        "",
+                                                    maxLines: 1,
+                                                    overflow: TextOverflow
+                                                        .ellipsis,
+                                                    style:
+                                                        const TextStyle(
+                                                      fontSize: 12,
+                                                      fontFamily: "Bold",
+                                                      color: CustomColors
+                                                          .textColor8,
                                                     ),
-                                                    const SizedBox(
-                                                      width: 5,
-                                                    ),
-                                                    Text(
-                                                      // employeeListItem![index]
-                                                      //             .accountType
-                                                      //             .toString() ==
-                                                      //         "tenant_lounge_employee"
-                                                      //     ? tr(
-                                                      //         "executiveLounge")
-                                                      //     : employeeListItem![
-                                                      //                     index]
-                                                      //                 .accountType
-                                                      //                 .toString() ==
-                                                      //             "tenant_conference_employee"
-                                                      //         ? tr(
-                                                      //             "conferenceRoom")
-                                                      //         : employeeListItem![
-                                                      //                     index]
-                                                      //                 .displayAccountType ??
-                                                      //             "",
-                                                      employeeListItem?[index]
-                                                              .displayAccountType
-                                                              .toString()
-                                                              .capitalizeByWord() ??
-                                                          "",
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                      style: const TextStyle(
-                                                        fontSize: 12,
-                                                        fontFamily: "Bold",
-                                                        color: CustomColors
-                                                            .textColor8,
-                                                      ),
-                                                    ),
-                                                  ],
-                                                ),
-                                              )
+                                                  ),
+                                                ],
+                                              ),
+                                            )
                                             : Container(),
                                     ],
                                   ),
