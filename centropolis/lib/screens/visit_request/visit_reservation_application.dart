@@ -1842,7 +1842,8 @@ class _VisitReservationApplicationState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
+      if(mounted){
+        showErrorCommonModal(
           context: context,
           heading: tr("errorDescription"),
           description: "",
@@ -1850,6 +1851,7 @@ class _VisitReservationApplicationState
       setState(() {
         isLoading = false;
       });
+      }
     });
   }
 

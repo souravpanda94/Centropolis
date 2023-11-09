@@ -1408,14 +1408,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -1459,15 +1461,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
+      if (mounted) {
         showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
@@ -1513,16 +1515,16 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-     if(mounted){
-       showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
-     }
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -1755,15 +1757,15 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
+      if (mounted) {
         showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }
@@ -1886,18 +1888,25 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
   void setDataForEdit() {
+    if (widget.conferenceHistoryDetails?.packageId == null ||
+        widget.conferenceHistoryDetails!.packageId!.isEmpty ||
+        widget.conferenceHistoryDetails?.packageId == "null") {
+      widget.conferenceHistoryDetails?.packageId = "0";
+    }
     debugPrint(
         "-----------------${widget.conferenceHistoryDetails!.reservationDate.toString()}----------------");
     debugPrint(
@@ -1905,7 +1914,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
     debugPrint(
         "-----------------${widget.conferenceHistoryDetails!.conferenceRoom.toString()}----------------");
     debugPrint(
-        "-----------------${widget.conferenceHistoryDetails!.packageName.toString()}----------------");
+        "-----------------${widget.conferenceHistoryDetails!.packageId.toString()}----------------");
 
     String usageTime = "";
     setState(() {
@@ -1928,7 +1937,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
       rentalInfoController = TextEditingController(
           text: widget.conferenceHistoryDetails?.description.toString() ?? "");
 
-      if (widget.conferenceHistoryDetails!.equipments.toString().isEmpty) {
+      if (widget.conferenceHistoryDetails!.equipments == null ||
+          widget.conferenceHistoryDetails!.equipments.toString().isEmpty ||
+          widget.conferenceHistoryDetails!.equipments == "null") {
         _selectedEquipments = [
           {"value": "", "text": tr("noRequest")}
         ];

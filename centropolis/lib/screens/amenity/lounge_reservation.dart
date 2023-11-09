@@ -1978,14 +1978,16 @@ class _LoungeReservationState extends State<LoungeReservation> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
+      }
     });
   }
 
@@ -2306,7 +2308,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
             .substring(0, 5);
         endTimeSelectedValue =
             widget.loungeHistoryDetailModel!.endTime.toString().substring(0, 5);
-        if (widget.loungeHistoryDetailModel!.equipments.toString().isEmpty) {
+        if (widget.loungeHistoryDetailModel!.equipments == null ||
+            widget.loungeHistoryDetailModel!.equipments.toString().isEmpty ||
+            widget.loungeHistoryDetailModel!.equipments == "null") {
           _selectedEquipments = [
             {"value": "", "text": tr("noRequest")}
           ];
