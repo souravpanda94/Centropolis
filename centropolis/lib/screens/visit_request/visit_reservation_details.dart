@@ -367,14 +367,14 @@ class _VisitReservationDetailsScreenState
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
                                       color: CustomColors.textColor8)),
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 6),
-                                child: Text(" *",
-                                    style: TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.headingColor)),
-                              ),
+                              // const Padding(
+                              //   padding: EdgeInsets.only(bottom: 6),
+                              //   child: Text(" *",
+                              //       style: TextStyle(
+                              //           fontFamily: 'Regular',
+                              //           fontSize: 14,
+                              //           color: CustomColors.headingColor)),
+                              // ),
                             ],
                           ),
                         ),
@@ -384,7 +384,7 @@ class _VisitReservationDetailsScreenState
                             alignment: Alignment.centerLeft,
                             child: Text(
                               visitReservationDetailModel?.visitorCompanyName ??
-                                  "",
+                                  "NA",
                               style: const TextStyle(
                                 fontSize: 14,
                                 fontFamily: "Regular",

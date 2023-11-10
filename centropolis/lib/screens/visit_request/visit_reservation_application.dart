@@ -605,18 +605,19 @@ class _VisitReservationApplicationState
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
                                       color: CustomColors.textColor8)),
-                              const Padding(
-                                padding: EdgeInsets.only(bottom: 6),
-                                child: Text(" *",
-                                    style: TextStyle(
-                                        fontFamily: 'Regular',
-                                        fontSize: 14,
-                                        color: CustomColors.headingColor)),
-                              ),
+                             
+                              // const Padding(
+                              //   padding: EdgeInsets.only(bottom: 6),
+                              //   child: Text(" *",
+                              //       style: TextStyle(
+                              //           fontFamily: 'Regular',
+                              //           fontSize: 14,
+                              //           color: CustomColors.headingColor)),
+                              // ),
                             ],
                           ),
                           const SizedBox(
-                            height: 6,
+                            height: 8,
                           ),
                           SizedBox(
                             height: 46,
@@ -1491,9 +1492,11 @@ class _VisitReservationApplicationState
   void visitReservationValidationCheck() {
     if (visitorNameController.text.trim().isEmpty) {
       showErrorModal(tr("visitorNameValidation"));
-    } else if (companyNameController.text.trim().isEmpty) {
-      showErrorModal(tr("companyNameValidation"));
-    } else if (emailController.text.trim().isEmpty) {
+    }
+    //  else if (companyNameController.text.trim().isEmpty) {
+    //   showErrorModal(tr("companyNameValidation"));
+    // }
+    else if (emailController.text.trim().isEmpty) {
       showErrorModal(tr("emailValidation"));
     } else if (!isValidEmail(emailController.text.trim())) {
       showErrorModal(tr("onlyValidEmailIsApplicable"));
@@ -1633,7 +1636,7 @@ class _VisitReservationApplicationState
       "building": visitedPersonBuildingKey.toString().trim(), //required
       "floor": currentSelectedFloor ?? "", //required
       "visitor_name": visitorNameController.text.trim(), //required
-      "visitor_company_name": companyNameController.text.trim(), //required
+      "visitor_company_name": companyNameController.text.toString().trim(), //required
       "visitor_email": emailController.text.trim(), //required
       "visitor_mobile": contactController.text.trim(), //required
       "visit_date": visitDate, //required
@@ -1842,15 +1845,15 @@ class _VisitReservationApplicationState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      if(mounted){
+      if (mounted) {
         showErrorCommonModal(
-          context: context,
-          heading: tr("errorDescription"),
-          description: "",
-          buttonName: tr("check"));
-      setState(() {
-        isLoading = false;
-      });
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isLoading = false;
+        });
       }
     });
   }

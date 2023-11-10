@@ -278,8 +278,8 @@ class _ViewVisitReservationScreenState
                                                   visitReservationListItem?[
                                                               index]
                                                           .companyName
-                                                          .toString() ??
-                                                      "",
+                                                           ??
+                                                      "NA",
                                                   style: const TextStyle(
                                                       fontSize: 14,
                                                       fontFamily: "Regular",
