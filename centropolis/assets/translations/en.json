@@ -570,6 +570,11 @@
   "noRequest":"No Request",
   "inconvenienceRepliedImage":"Reply Image",
   "edit":"Edit",
+  "requestedQRcodeLanguage":"Requested Language for QR Code",
+  "english":"English",
+  "korean":"Korean",
+
+
 
 
 
