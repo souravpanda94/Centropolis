@@ -140,6 +140,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                             infoTextWidget(tr("conferenceInfoText7")),
                             infoTextWidget(tr("conferenceInfoText8")),
                             infoTextWidget(tr("conferenceInfoText9")),
+                            infoTextWidget(tr("conferenceInfoText10")),
                           ],
                         ),
                       ),
