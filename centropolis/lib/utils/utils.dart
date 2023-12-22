@@ -21,7 +21,8 @@ showToastMessage(String text) {
       fontSize: 14.0);
 }
 
-void showCustomToast(FToast fToast, BuildContext context, String message, String icon) {
+void showCustomToast(
+    FToast fToast, BuildContext context, String message, String icon) {
   fToast = FToast();
   fToast.init(context);
   fToast.showToast(
@@ -37,7 +38,7 @@ void showCustomToast(FToast fToast, BuildContext context, String message, String
       });
 }
 
-void showErrorCommonModal({ context,  heading,  description, buttonName}) {
+void showErrorCommonModal({context, heading, description, buttonName}) {
   showDialog(
       barrierDismissible: false,
       context: context,
@@ -98,8 +99,12 @@ bool isValidUserId(String userId) {
     return false;
   }
 
-  if (userId.contains(RegExp(r'[A-Z]')) || userId.contains(' ') ||
-      userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))) {
+  if (userId.contains(RegExp(r'[A-Z]')) ||
+      userId.contains(' ') 
+      ||
+      userId.contains(RegExp(r'[,.?":{}|<>_-]'))
+      // userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))
+      ) {
     return false;
   } else {
     bool hasDigits = userId.contains(RegExp(r'[0-9]'));
@@ -108,7 +113,10 @@ bool isValidUserId(String userId) {
     bool hasMaxLength = userId.length <= 16;
     bool hasMatch = RegExp("[a-z0-9]").hasMatch(userId);
 
-    return (hasDigits &&  hasLowercase & hasMaxLength & hasMinLength && hasMatch) || (hasLowercase & hasMaxLength & hasMinLength && hasMatch);
+    return (hasDigits &&
+            hasLowercase & hasMaxLength & hasMinLength &&
+            hasMatch) ||
+        (hasLowercase & hasMaxLength & hasMinLength && hasMatch);
   }
 }
 
