@@ -56,7 +56,6 @@ class _InconvenienceListState extends State<InconvenienceList> {
     if (await internetChecking.isInternet()) {
       callStatusListApi();
       firstTimeLoadInconvenienceList();
-
     } else {
       // showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
@@ -67,18 +66,16 @@ class _InconvenienceListState extends State<InconvenienceList> {
     }
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     incovenienceListItem = Provider.of<InconvenienceListProvider>(context)
         .getInconvenienceModelList;
 
     return WillPopScope(
-       onWillPop: () async {
-           Navigator.pop(context, true);
-          return true;
-        },
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
       child: LoadingOverlay(
         opacity: 0.5,
         color: CustomColors.whiteColor,
@@ -166,13 +163,19 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => InconvenienceDetails(
-                                          inquiryId: incovenienceListItem?[index]
-                                                  .inquiryId
-                                                  .toString() ??
-                                              ""),
+                                      builder: (context) =>
+                                          InconvenienceDetails(
+                                              inquiryId:
+                                                  incovenienceListItem?[index]
+                                                          .inquiryId
+                                                          .toString() ??
+                                                      ""),
                                     ),
-                                  );
+                                  ).then((value) {
+                                    if (value) {
+                                      firstTimeLoadInconvenienceList();
+                                    }
+                                  });
                                 },
                                 child: Container(
                                   decoration: BoxDecoration(
@@ -185,7 +188,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                   padding: const EdgeInsets.all(16),
                                   margin: const EdgeInsets.only(bottom: 16),
                                   child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     children: [
                                       Row(
                                         mainAxisAlignment:
@@ -203,7 +207,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                               style: const TextStyle(
                                                   fontFamily: 'SemiBold',
                                                   fontSize: 14,
-                                                  color: CustomColors.textColor8),
+                                                  color:
+                                                      CustomColors.textColor8),
                                             ),
                                           ),
                                           const SizedBox(
@@ -237,7 +242,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                                   fontSize: 12,
                                                   fontFamily: "SemiBold",
                                                   color: setStatusTextColor(
-                                                      incovenienceListItem?[index]
+                                                      incovenienceListItem?[
+                                                              index]
                                                           .status
                                                           .toString()
                                                           .toLowerCase()),
@@ -253,14 +259,16 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                         child: Row(
                                           children: [
                                             Text(
-                                              incovenienceListItem?[index].type ??
+                                              incovenienceListItem?[index]
+                                                      .type ??
                                                   "",
                                               maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                   fontFamily: 'Regular',
                                                   fontSize: 12,
-                                                  color: CustomColors.textColor3),
+                                                  color:
+                                                      CustomColors.textColor3),
                                             ),
                                             const SizedBox(
                                               width: 8,
@@ -285,7 +293,8 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                               style: const TextStyle(
                                                   fontFamily: 'Regular',
                                                   fontSize: 12,
-                                                  color: CustomColors.textColor3),
+                                                  color:
+                                                      CustomColors.textColor3),
                                             ),
                                           ],
                                         ),
@@ -373,22 +382,24 @@ class _InconvenienceListState extends State<InconvenienceList> {
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
-                description: "",);
-
-      }
-    }
-    setState(() {
+            showErrorCommonModal(
+              context: context,
+              heading: responseJson['message'].toString(),
+              description: "",
+            );
+          }
+        }
+        setState(() {
           isFirstLoadRunning = false;
         });
-    
-    }}).catchError((onError) {
+      }
+    }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       if (mounted) {
         setState(() {
           isFirstLoadRunning = false;
@@ -506,8 +517,9 @@ class _InconvenienceListState extends State<InconvenienceList> {
         } else {
           if (responseJson['message'] != null) {
             // showCustomToast(fToast, context, responseJson['message'].toString(), "");
-            showErrorCommonModal(context: context,
-                heading :responseJson['message'].toString(),
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
                 description: "",
                 buttonName: tr("check"));
           }
@@ -518,10 +530,11 @@ class _InconvenienceListState extends State<InconvenienceList> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isFirstLoadRunning = false;
       });

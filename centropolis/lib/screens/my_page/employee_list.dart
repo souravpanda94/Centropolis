@@ -87,34 +87,39 @@ class _EmployeeListState extends State<EmployeeList> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Row(
-                  children: [
-                    Text(
-                      tr("total"),
-                      style: const TextStyle(
-                          fontFamily: 'Medium',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 4),
-                      child: Text(
-                        totalRecords.toString(),
+                Expanded(
+                  child: Row(
+                    children: [
+                      Text(
+                        tr("total"),
                         style: const TextStyle(
                             fontFamily: 'Medium',
                             fontSize: 14,
-                            color: CustomColors.textColor9),
+                            color: CustomColors.textColorBlack2),
                       ),
-                    ),
-                    Text(
-                      tr("people"),
-                      style: const TextStyle(
-                          fontFamily: 'Medium',
-                          fontSize: 14,
-                          color: CustomColors.textColorBlack2),
-                    ),
-                  ],
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 4),
+                        child: Text(
+                          totalRecords.toString(),
+                          style: const TextStyle(
+                              fontFamily: 'Medium',
+                              fontSize: 14,
+                              color: CustomColors.textColor9),
+                        ),
+                      ),
+                      Flexible(
+                        child: Text(
+                          tr("people"),
+                          style: const TextStyle(
+                              fontFamily: 'Medium',
+                              fontSize: 14,
+                              color: CustomColors.textColorBlack2),
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
+
                 sortingDropdownWidget(),
               ],
             ),

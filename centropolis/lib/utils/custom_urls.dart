@@ -36,6 +36,7 @@ class ApiEndPoint {
   static String getConferenceRoomScheduleUrl =
       "${baseUrl}v1/amenity/conference-schedule";
   static String saveComplaintRatingUrl = "${baseUrl}v1/mypage/rate-complaint";
+  static String resolveInquiryRatingUrl = "${baseUrl}v1/mypage/complete-complaint";
 
   static String getPtTimeListUrl = "${baseUrl}v1/common/pt-time";
   static String makePtReservation =

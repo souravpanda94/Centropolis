@@ -102,7 +102,7 @@ bool isValidUserId(String userId) {
   if (userId.contains(RegExp(r'[A-Z]')) ||
       userId.contains(' ') 
       ||
-      userId.contains(RegExp(r'[,.?":{}|<>_-]'))
+      userId.contains(RegExp(r'[,?":{}|<>-]'))
       // userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))
       ) {
     return false;

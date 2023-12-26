@@ -35,6 +35,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
   bool isLoading = false;
   ComplaintsReceivedDetailsModel? complaintsReceivedDetails;
   double ratingValue = 0.0;
+  bool isLoadingRequired = false;
 
   @override
   void initState() {
@@ -75,7 +76,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
             child: Container(
               color: CustomColors.whiteColor,
               child: CommonAppBar(tr("complaintsReceivedTitle"), false, () {
-                onBackButtonPress(context);
+                //onBackButtonPress(context);
+                Navigator.pop(context, isLoadingRequired);
               }, () {}),
             ),
           ),
@@ -539,6 +541,9 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                                   )),
                         ).then((value) {
                           if (value) {
+                            setState(() {
+                              isLoadingRequired = true;
+                            });
                             loadComplaintsReceivedDetails();
                           }
                         });
@@ -548,6 +553,24 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                       buttonName: tr("addInquiry"),
                       buttonTextColor: CustomColors.buttonBackgroundColor),
                 ),
+              if (complaintsReceivedDetails?.canComplete
+                      .toString()
+                      .trim()
+                      .toLowerCase() ==
+                  "y")
+                Container(
+                  width: MediaQuery.of(context).size.width,
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
+                  child: CommonButtonWithBorder(
+                      onCommonButtonTap: () {
+                        networkCheckForResolveInquiry();
+                      },
+                      buttonBorderColor: CustomColors.buttonBackgroundColor,
+                      buttonColor: CustomColors.whiteColor,
+                      buttonName: tr("resolveInquiry"),
+                      buttonTextColor: CustomColors.buttonBackgroundColor),
+                ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 color: CustomColors.whiteColor,
@@ -555,7 +578,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     left: 16, top: 16, right: 16, bottom: 40),
                 child: CommonButtonWithBorder(
                     onCommonButtonTap: () {
-                      Navigator.pop(context);
+                      Navigator.pop(context, isLoadingRequired);
                     },
                     buttonBorderColor: CustomColors.dividerGreyColor,
                     buttonColor: CustomColors.whiteColor,
@@ -722,6 +745,82 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
           setFirebaseEventForInconvenienceRating(
               inconvenienceId: widget.inquiryId.toString().trim(),
               rating: complaintRating.toString().trim());
+        } else {
+          if (responseJson['message'] != null) {
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
+          }
+        }
+        setState(() {
+          isLoading = false;
+        });
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("errorDescription"),
+          description: "",
+          buttonName: tr("check"));
+      setState(() {
+        isLoading = false;
+      });
+    });
+  }
+
+  void networkCheckForResolveInquiry() async {
+    hideKeyboard();
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callResolveInquiryApi();
+    } else {
+      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
+  }
+
+  void callResolveInquiryApi() {
+    setState(() {
+      isLoading = true;
+    });
+    Map<String, String> body = {
+      "complaint_id": widget.inquiryId.toString().trim(),
+    };
+
+    debugPrint("ResolveInquiry input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.resolveInquiryRatingUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      var responseJson = json.decode(response.body);
+
+      debugPrint("server response for ResolveInquiry ===> $responseJson");
+
+      if (responseJson != null) {
+        if (response.statusCode == 200 && responseJson['success']) {
+          loadComplaintsReceivedDetails();
+          setState(() {
+            isLoadingRequired = true;
+          });
+          showErrorCommonModal(
+              context: context,
+              heading: responseJson['message'].toString(),
+              description: "",
+              buttonName: tr("check"));
+
+          // setFirebaseEventForInconvenienceRating(
+          //     inconvenienceId: widget.inquiryId.toString().trim(),
+          //     rating: complaintRating.toString().trim());
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
