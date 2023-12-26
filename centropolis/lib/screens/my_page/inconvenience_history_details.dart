@@ -836,9 +836,9 @@ class _InconvenienceHistoryDetailsState
               description: "",
               buttonName: tr("check"));
 
-          // setFirebaseEventForInconvenienceRating(
-          //     inconvenienceId: widget.inquiryId.toString().trim(),
-          //     rating: complaintRating.toString().trim());
+          setFirebaseEventForInconvenienceResolveInquiry(
+              inconvenienceId: widget.inquiryId.toString().trim(),
+              );
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");

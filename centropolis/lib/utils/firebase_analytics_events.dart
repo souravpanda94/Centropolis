@@ -567,6 +567,35 @@ void setFirebaseEventForInconvenienceRating({inconvenienceId,rating}) async {
   }
 }
 
+void setFirebaseEventForInconvenienceResolveInquiry({inconvenienceId}) async {
+  String userId = await getDataFromSharedPreference(ConstantsData.userId);
+  String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
+  String platform = getDeviceIdAndDeviceType().toString();
+  String appVersion = getAppVersion().toString();
+  String userType = await getDataFromSharedPreference(ConstantsData.userType);
+
+  if (ConstantsData.isFirebaseEventsFired == "true") {
+    try {
+      await FirebaseAnalytics.instance.logEvent(
+        name: "cp_inconvenience_details_resolve_inquiry",
+        parameters: {
+          "user_id": userId,
+          "company_id": companyId,
+          "platform": platform,
+          "app_version": appVersion,
+          "server_type": FirebaseAnalyticsServerType.serverType,
+          "user_type": userType,
+          "complaint_id": inconvenienceId,
+        },
+      );
+    } catch (error) {
+      if (kDebugMode) {
+        print("FirebaseAnalytics error ===> $error");
+      }
+    }
+  }
+}
+
 void setFirebaseEventForAcExtension({acExtensionId}) async {
   String userId = await getDataFromSharedPreference(ConstantsData.userId);
   String companyId = await getDataFromSharedPreference(ConstantsData.companyId);
