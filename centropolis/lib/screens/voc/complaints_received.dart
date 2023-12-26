@@ -590,12 +590,14 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             //       buttonName: tr("check"));
             // }
             else {
-              setState(() {
+              if(mounted){
+                setState(() {
                 fileImage = tempImage;
                 fileName =
                     fileImage!.path.split('/').last.replaceAll("image_", "");
                 imageFileList!.addAll(selectedImages);
               });
+              }
             }
           } else {
             showErrorCommonModal(
