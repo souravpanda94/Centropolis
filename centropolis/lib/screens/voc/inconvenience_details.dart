@@ -19,7 +19,6 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/rating_modal.dart';
-import 'complaints_received.dart';
 
 class InconvenienceDetails extends StatefulWidget {
   final String inquiryId;
@@ -519,58 +518,58 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     isIconVisible: false,
                   ),
                 ),
-              if (complaintsReceivedDetails?.canReply
-                      .toString()
-                      .trim()
-                      .toLowerCase() ==
-                  "y")
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                  child: CommonButtonWithBorder(
-                      onCommonButtonTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ComplaintsReceived(
-                                    parentInquirId: complaintsReceivedDetails
-                                            ?.inquiryId
-                                            .toString() ??
-                                        "",
-                                  )),
-                        ).then((value) {
-                          if (value) {
-                            setState(() {
-                              isLoadingRequired = true;
-                            });
-                            loadComplaintsReceivedDetails();
-                          }
-                        });
-                      },
-                      buttonBorderColor: CustomColors.buttonBackgroundColor,
-                      buttonColor: CustomColors.whiteColor,
-                      buttonName: tr("addInquiry"),
-                      buttonTextColor: CustomColors.buttonBackgroundColor),
-                ),
-              if (complaintsReceivedDetails?.canComplete
-                      .toString()
-                      .trim()
-                      .toLowerCase() ==
-                  "y")
-                Container(
-                  width: MediaQuery.of(context).size.width,
-                  color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                  child: CommonButtonWithBorder(
-                      onCommonButtonTap: () {
-                        networkCheckForResolveInquiry();
-                      },
-                      buttonBorderColor: CustomColors.buttonBackgroundColor,
-                      buttonColor: CustomColors.whiteColor,
-                      buttonName: tr("resolveInquiry"),
-                      buttonTextColor: CustomColors.buttonBackgroundColor),
-                ),
+              // if (complaintsReceivedDetails?.canReply
+              //         .toString()
+              //         .trim()
+              //         .toLowerCase() ==
+              //     "y")
+              //   Container(
+              //     width: MediaQuery.of(context).size.width,
+              //     color: CustomColors.whiteColor,
+              //     padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
+              //     child: CommonButtonWithBorder(
+              //         onCommonButtonTap: () {
+              //           Navigator.push(
+              //             context,
+              //             MaterialPageRoute(
+              //                 builder: (context) => ComplaintsReceived(
+              //                       parentInquirId: complaintsReceivedDetails
+              //                               ?.inquiryId
+              //                               .toString() ??
+              //                           "",
+              //                     )),
+              //           ).then((value) {
+              //             if (value) {
+              //               setState(() {
+              //                 isLoadingRequired = true;
+              //               });
+              //               loadComplaintsReceivedDetails();
+              //             }
+              //           });
+              //         },
+              //         buttonBorderColor: CustomColors.buttonBackgroundColor,
+              //         buttonColor: CustomColors.whiteColor,
+              //         buttonName: tr("addInquiry"),
+              //         buttonTextColor: CustomColors.buttonBackgroundColor),
+              //   ),
+              // if (complaintsReceivedDetails?.canComplete
+              //         .toString()
+              //         .trim()
+              //         .toLowerCase() ==
+              //     "y")
+              //   Container(
+              //     width: MediaQuery.of(context).size.width,
+              //     color: CustomColors.whiteColor,
+              //     padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
+              //     child: CommonButtonWithBorder(
+              //         onCommonButtonTap: () {
+              //           networkCheckForResolveInquiry();
+              //         },
+              //         buttonBorderColor: CustomColors.buttonBackgroundColor,
+              //         buttonColor: CustomColors.whiteColor,
+              //         buttonName: tr("resolveInquiry"),
+              //         buttonTextColor: CustomColors.buttonBackgroundColor),
+              //   ),
               Container(
                 width: MediaQuery.of(context).size.width,
                 color: CustomColors.whiteColor,
