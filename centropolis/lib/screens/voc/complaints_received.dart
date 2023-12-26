@@ -19,6 +19,7 @@ import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
+import '../../utils/constants.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
 import '../../utils/internet_checking.dart';
@@ -521,6 +522,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
   }
 
   openFilePicker() async {
+    setDataInSharedPreference(ConstantsData.isClickedFilePicker, 'true');
+    debugPrint(
+        "openFilePicker ::: ${getDataFromSharedPreference(ConstantsData.isClickedFilePicker)}");
+
     try {
       FilePickerResult? result = await FilePicker.platform.pickFiles(
         allowMultiple: false,
@@ -590,13 +595,13 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
             //       buttonName: tr("check"));
             // }
             else {
-              if(mounted){
+              if (mounted) {
                 setState(() {
-                fileImage = tempImage;
-                fileName =
-                    fileImage!.path.split('/').last.replaceAll("image_", "");
-                imageFileList!.addAll(selectedImages);
-              });
+                  fileImage = tempImage;
+                  fileName =
+                      fileImage!.path.split('/').last.replaceAll("image_", "");
+                  imageFileList!.addAll(selectedImages);
+                });
               }
             }
           } else {
@@ -614,7 +619,10 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
               buttonName: tr("check"));
         }
       }
+      setDataInSharedPreference(ConstantsData.isClickedFilePicker, 'false');
     } on PlatformException catch (e) {
+      setDataInSharedPreference(ConstantsData.isClickedFilePicker, 'false');
+
       debugPrint("image pick null");
     }
   }
