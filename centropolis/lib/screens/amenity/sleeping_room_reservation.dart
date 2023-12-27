@@ -441,6 +441,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                   language == "en"
                                       ? InkWell(
                                           onTap: () {
+                                            showReservationModal(
+                                                tr(
+                                                    "sleepingRoomReservationRules"),
+                                                tr("sleepingRoomRules")
+                                                    .toString());
                                             //         showGeneralDialog(
                                             // context: context,
                                             // barrierColor: Colors.black12.withOpacity(0.6),
@@ -587,7 +592,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
         ),
         items: usageTimeList
             .map((item) => DropdownMenuItem<String>(
-              //enabled: item.toString().trim() != "18:00",
+                  //enabled: item.toString().trim() != "18:00",
                   value: item,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -597,12 +602,12 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                         padding: const EdgeInsets.only(left: 12, bottom: 9),
                         child: Text(
                           item,
-                          style:  const TextStyle(
+                          style: const TextStyle(
                             // color: item.toString().trim() != "18:00"
                             //   ? CustomColors.blackColor
                             //   : CustomColors.textColor3,
                             color: CustomColors.blackColor,
-                            
+
                             fontSize: 14,
                             fontFamily: 'Regular',
                           ),
@@ -688,7 +693,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
           totalUsageTimeList.isNotEmpty
               ? totalUsageTimeList.first["text"]
               //: "10 Minutes",
-              :"",
+              : "",
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,

@@ -1233,7 +1233,7 @@ class _VisitReservationApplicationState
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr("floor"),
+          tr("visitApplicationFloor"),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
