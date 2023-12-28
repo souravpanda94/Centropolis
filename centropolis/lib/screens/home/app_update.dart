@@ -93,8 +93,8 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                         appClose();
                       } else {
                         //skip
-                        // Navigator.pop(context);
-                        goToHomeScreen();
+                        Navigator.pop(context);
+                        // goToHomeScreen();
                       }
                     },
                     buttonName:
