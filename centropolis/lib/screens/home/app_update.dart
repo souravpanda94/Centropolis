@@ -5,7 +5,9 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
+import 'package:store_redirect/store_redirect.dart';
 
+import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
 
@@ -74,6 +76,7 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                 CommonButton(
                   onCommonButtonTap: () {
                     // update to latest version play store link
+                    appUpdateButtonTap();
                   },
                   buttonColor: CustomColors.buttonBackgroundColor,
                   buttonName: tr("updateNow"),
@@ -86,10 +89,12 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                     onCommonButtonTap: () {
                       if (widget.forceUpdateFlag) {
                         // exit app
-                        closeApp();
+                        // closeApp();
+                        appClose();
                       } else {
                         //skip
-                        Navigator.pop(context);
+                        // Navigator.pop(context);
+                        goToHomeScreen();
                       }
                     },
                     buttonName:
@@ -105,11 +110,38 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
     );
   }
 
-  void closeApp() {
+  // void closeApp() {
+  //   if (Platform.isAndroid) {
+  //     SystemNavigator.pop();
+  //   } else if (Platform.isIOS) {
+  //     FlutterExitApp.exitApp(iosForceExit: true);
+  //   }
+  // }
+
+
+  void appUpdateButtonTap() {
+    StoreRedirect.redirect(
+        androidAppId: "com.centropolis.centropolis",
+        iOSAppId: "6449706077");
+  }
+
+  void appClose() {
     if (Platform.isAndroid) {
       SystemNavigator.pop();
     } else if (Platform.isIOS) {
       FlutterExitApp.exitApp(iosForceExit: true);
     }
   }
+
+  void goToHomeScreen() {
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(
+        builder: (context) => const BottomNavigationScreen(0, 0),
+      ),
+    );
+  }
+
+
+
 }
