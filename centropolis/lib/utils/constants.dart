@@ -163,6 +163,8 @@ class ConstantsData {
   static const filterParam = 'filter_param';
   static const isFirebaseEventsFired = 'true'; // true / false
   static const userType = 'user_type';
+  static const isClickedFilePicker = 'false';
+
   // static const locationVerifiedStatus = 'location_verified_status';
 }
 

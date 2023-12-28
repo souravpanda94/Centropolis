@@ -584,8 +584,9 @@ class _VisitReservationDetailsScreenState
                   if ((accountType == "tenant_manager" ||
                           accountType == "tenant_visitor_employee" ||
                           accountType == "tenant_executive_visitor_employee" ||
+                          accountType == "tenant_conference_visitor_employee" ||
                           accountType ==
-                              "tenant_conference_visitor_employee") &&
+                              "tenant_conference_excutive_visitor_employee") &&
                       ((visitReservationDetailModel?.status ==
                           "request_for_approval")))
                     Container(
@@ -700,7 +701,12 @@ class _VisitReservationDetailsScreenState
                         ],
                       ),
                     ),
-                  if (accountType == "tenant_manager" &&
+                  if ((accountType == "tenant_manager" ||
+                          accountType == "tenant_executive_visitor_employee" ||
+                          accountType == "tenant_conference_visitor_employee" ||
+                          accountType ==
+                              "tenant_conference_excutive_visitor_employee" ||
+                          accountType == "tenant_visitor_employee") &&
                       visitReservationDetailModel?.status == "approved")
                     Container(
                         margin: const EdgeInsets.only(

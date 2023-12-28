@@ -619,7 +619,7 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
   }
 
   @override
-  void didChangeAppLifecycleState(AppLifecycleState state) {
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
     switch (state) {
       case AppLifecycleState.resumed:
         debugPrint("app in resumed");
@@ -631,7 +631,10 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
         break;
       case AppLifecycleState.paused:
         debugPrint("app in paused -- For background");
-        if (checkedSignedIn == "false") {
+        var isFilePickerClicked = await getDataFromSharedPreference(
+            ConstantsData.isClickedFilePicker);
+        debugPrint("isClickedFilePicker ::: $isFilePickerClicked");
+        if (checkedSignedIn == "false" && (isFilePickerClicked==null || isFilePickerClicked == "false")) {
           getDeviceIdAndDeviceType();
           callLogout();
         }
@@ -876,8 +879,6 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     );
   }
 
-
-
   void setAppOpenTime() async {
     String currentTime = getCurrentTime();
     setDataInSharedPreference(ConstantsData.appOpenTime, currentTime);
@@ -897,6 +898,4 @@ class _BottomNavigationScreenState extends State<BottomNavigationScreen>
     }
     return dateAndTime;
   }
-
-
 }

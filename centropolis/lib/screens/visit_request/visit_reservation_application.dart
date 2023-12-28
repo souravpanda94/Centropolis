@@ -23,6 +23,8 @@ import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button_with_border.dart';
 import '../../widgets/common_modal.dart';
 
+enum LanguageEnum { en, ko }
+
 class VisitReservationApplication extends StatefulWidget {
   const VisitReservationApplication({super.key});
 
@@ -66,6 +68,7 @@ class _VisitReservationApplicationState
   String visitedPersonCompanyId = "";
   bool isLoadingRequired = false;
   bool tooltip = false;
+  LanguageEnum _languageEnum = LanguageEnum.ko;
 
   @override
   void initState() {
@@ -605,7 +608,7 @@ class _VisitReservationApplicationState
                                       fontFamily: 'SemiBold',
                                       fontSize: 14,
                                       color: CustomColors.textColor8)),
-                             
+
                               // const Padding(
                               //   padding: EdgeInsets.only(bottom: 6),
                               //   child: Text(" *",
@@ -980,6 +983,28 @@ class _VisitReservationApplicationState
                             ),
                           ),
                           visitFloorDropdownWidget(),
+                          Container(
+                            margin: const EdgeInsets.only(top: 14, bottom: 8),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(tr("requestedQRcodeLanguage"),
+                                    style: const TextStyle(
+                                        fontFamily: 'SemiBold',
+                                        fontSize: 14,
+                                        color: CustomColors.textColor8)),
+                                const Padding(
+                                  padding: EdgeInsets.only(bottom: 6),
+                                  child: Text(" *",
+                                      style: TextStyle(
+                                          fontFamily: 'Regular',
+                                          fontSize: 14,
+                                          color: CustomColors.headingColor)),
+                                ),
+                              ],
+                            ),
+                          ),
+                          qrCodeLanguageOptionWidget()
                         ],
                       ),
                     ),
@@ -1208,7 +1233,7 @@ class _VisitReservationApplicationState
     return DropdownButtonHideUnderline(
       child: DropdownButton2(
         hint: Text(
-          tr("floor"),
+          tr("visitApplicationFloor"),
           style: const TextStyle(
             color: CustomColors.textColorBlack2,
             fontSize: 14,
@@ -1636,7 +1661,8 @@ class _VisitReservationApplicationState
       "building": visitedPersonBuildingKey.toString().trim(), //required
       "floor": currentSelectedFloor ?? "", //required
       "visitor_name": visitorNameController.text.trim(), //required
-      "visitor_company_name": companyNameController.text.toString().trim(), //required
+      "visitor_company_name":
+          companyNameController.text.toString().trim(), //required
       "visitor_email": emailController.text.trim(), //required
       "visitor_mobile": contactController.text.trim(), //required
       "visit_date": visitDate, //required
@@ -1644,7 +1670,8 @@ class _VisitReservationApplicationState
       "visit_purpose": purposeSelectedValue != null &&
               purposeSelectedValue.toString().isNotEmpty
           ? purposeSelectedValue.toString().trim()
-          : visitPurposeList.first["value"].toString().trim() //required
+          : visitPurposeList.first["value"].toString().trim(), //required
+      "language": _languageEnum.name.toString().trim() //required
     };
 
     debugPrint("Visit Reservation Application input===> $body");
@@ -1986,5 +2013,80 @@ class _VisitReservationApplicationState
         isLoading = false;
       });
     });
+  }
+
+  qrCodeLanguageOptionWidget() {
+    return Row(
+      // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: [
+        
+        GestureDetector(
+            onTap: () {
+              setState(() {
+                _languageEnum = LanguageEnum.en;
+              });
+            },
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: const EdgeInsets.only(right: 10),
+                  child: SvgPicture.asset(
+                    _languageEnum == LanguageEnum.en
+                        ? 'assets/images/ic_radio_check.svg'
+                        : 'assets/images/ic_radio_uncheck.svg',
+                    semanticsLabel: 'Back',
+                    width: 20,
+                    height: 20,
+                  ),
+                ),
+                Text(
+                  tr("english"),
+                  style: const TextStyle(
+                    color: CustomColors.textColor4,
+                    fontSize: 14,
+                    fontFamily: 'Medium',
+                  ),
+                ),
+              ],
+            )),
+        const SizedBox(
+          width: 50.0,
+        ),
+        GestureDetector(
+          onTap: () {
+            setState(() {
+              _languageEnum = LanguageEnum.ko;
+            });
+          },
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 10),
+                child: SvgPicture.asset(
+                  _languageEnum == LanguageEnum.ko
+                      ? 'assets/images/ic_radio_check.svg'
+                      : 'assets/images/ic_radio_uncheck.svg',
+                  semanticsLabel: 'Back',
+                  width: 20,
+                  height: 20,
+                ),
+              ),
+              Text(
+                tr("korean"),
+                style: const TextStyle(
+                  color: CustomColors.textColor4,
+                  fontSize: 14,
+                  fontFamily: 'Medium',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
   }
 }
