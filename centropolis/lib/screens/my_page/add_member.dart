@@ -304,11 +304,12 @@ class _AddMemberState extends State<AddMember> {
                           child: SizedBox(
                             height: 46,
                             child: TextField(
-                              
+                              maxLength: 16,
                               controller: idController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
+                                counterText: "",
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,

@@ -88,36 +88,44 @@ bool isValidEmail(String email) {
   bool emailValid = false;
   if (email != "") {
     emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(email);
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~()]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(email);  
   }
   return emailValid;
 }
 
 bool isValidUserId(String userId) {
-  if (userId.isEmpty) {
-    return false;
+  //newly updated validation code
+  bool userIdValid = false;
+  if (userId != "") {
+    userIdValid = RegExp(
+            r"^(?!^[0-9])(?=.[a-z0-9!@#$%^&()._])[a-z0-9!@#$%^&*()._]{4,16}$")
+        .hasMatch(userId);
   }
+  return userIdValid;
+  // if (userId.isEmpty) {
+  //   return false;
+  // }
 
-  if (userId.contains(RegExp(r'[A-Z]')) ||
-      userId.contains(' ') 
-      ||
-      userId.contains(RegExp(r'[,?":{}|<>-]'))
-      // userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))
-      ) {
-    return false;
-  } else {
-    bool hasDigits = userId.contains(RegExp(r'[0-9]'));
-    bool hasLowercase = userId.contains(RegExp(r'[a-z]'));
-    bool hasMinLength = userId.length >= 4;
-    bool hasMaxLength = userId.length <= 16;
-    bool hasMatch = RegExp("[a-z0-9]").hasMatch(userId);
+  // if (userId.contains(RegExp(r'[A-Z]')) ||
+  //     userId.contains(' ') 
+  //     ||
+  //     userId.contains(RegExp(r'[,?":{}|<>-]'))
+  //     // userId.contains(RegExp(r'[!@#$%^&*(),.?":{}|<>_-]'))
+  //     ) {
+  //   return false;
+  // } else {
+  //   bool hasDigits = userId.contains(RegExp(r'[0-9]'));
+  //   bool hasLowercase = userId.contains(RegExp(r'[a-z]'));
+  //   bool hasMinLength = userId.length >= 4;
+  //   bool hasMaxLength = userId.length <= 16;
+  //   bool hasMatch = RegExp("[a-z0-9]").hasMatch(userId);
 
-    return (hasDigits &&
-            hasLowercase & hasMaxLength & hasMinLength &&
-            hasMatch) ||
-        (hasLowercase & hasMaxLength & hasMinLength && hasMatch);
-  }
+  //   return (hasDigits &&
+  //           hasLowercase & hasMaxLength & hasMinLength &&
+  //           hasMatch) ||
+  //       (hasLowercase & hasMaxLength & hasMinLength && hasMatch);
+  // }
 }
 
 bool isValidPassword(String password, [int minLength = 8]) {
