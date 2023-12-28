@@ -441,7 +441,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                   language == "en"
                                       ? InkWell(
                                           onTap: () {
-                                            showReservationModal(
+                                            showPopupModal(
                                                 tr(
                                                     "sleepingRoomReservationRules").toString().capitalizeByWord(),
                                                 tr("sleepingRoomRules")
@@ -497,7 +497,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                             //   return WebViewUiScreen(
                                             //       tr("sleepingRoomReservation"), reservationRulesLink);
                                             // });
-                                            showReservationModal(
+                                            showPopupModal(
                                                 tr(
                                                     "sleepingRoomReservationRules"),
                                                 tr("sleepingRoomRules")
@@ -1432,6 +1432,26 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
             secondButtonName: "",
             onConfirmBtnTap: () {
               Navigator.pop(context);
+              Navigator.pop(context);
+            },
+            onFirstBtnTap: () {},
+            onSecondBtnTap: () {},
+          );
+        });
+  }
+
+  void showPopupModal(title, content) {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (BuildContext context) {
+          return CommonModal(
+            heading: title,
+            description: content,
+            buttonName: tr("check"),
+            firstButtonName: "",
+            secondButtonName: "",
+            onConfirmBtnTap: () {
               Navigator.pop(context);
             },
             onFirstBtnTap: () {},
