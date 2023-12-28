@@ -443,7 +443,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                           onTap: () {
                                             showReservationModal(
                                                 tr(
-                                                    "sleepingRoomReservationRules"),
+                                                    "sleepingRoomReservationRules").toString().capitalizeByWord(),
                                                 tr("sleepingRoomRules")
                                                     .toString());
                                             //         showGeneralDialog(
@@ -497,6 +497,11 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                             //   return WebViewUiScreen(
                                             //       tr("sleepingRoomReservation"), reservationRulesLink);
                                             // });
+                                            showReservationModal(
+                                                tr(
+                                                    "sleepingRoomReservationRules"),
+                                                tr("sleepingRoomRules")
+                                                    .toString());
                                           },
                                           child: Text.rich(
                                             TextSpan(
