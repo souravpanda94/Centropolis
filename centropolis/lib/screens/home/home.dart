@@ -973,7 +973,10 @@ class _HomeScreenState extends State<HomeScreen> {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
-      callLoadFetchAppUpdateDetailsApi();
+      if (getDataFromSharedPreference(ConstantsData.appUpdateStatus) != "skip") {
+        callLoadFetchAppUpdateDetailsApi();
+      }
+
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(

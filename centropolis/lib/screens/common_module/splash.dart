@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../providers/user_provider.dart';
+import '../../utils/constants.dart';
 import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
 import 'login.dart';
@@ -22,6 +23,7 @@ class _SplashScreenState extends State<SplashScreen> {
     super.initState();
     var user = Provider.of<UserProvider>(context, listen: false);
     user.initUserProvider();
+    setDataInSharedPreference(ConstantsData.appUpdateStatus, "");
     startTime();
   }
 

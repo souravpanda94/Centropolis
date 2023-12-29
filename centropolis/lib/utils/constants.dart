@@ -164,6 +164,7 @@ class ConstantsData {
   static const isFirebaseEventsFired = 'true'; // true / false
   static const userType = 'user_type';
   static const isClickedFilePicker = 'false';
+  static const appUpdateStatus = 'app_update_status';
 
   // static const locationVerifiedStatus = 'location_verified_status';
 }

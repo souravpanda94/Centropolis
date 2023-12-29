@@ -7,6 +7,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_exit_app/flutter_exit_app.dart';
 import 'package:store_redirect/store_redirect.dart';
 
+import '../../utils/constants.dart';
+import '../../utils/utils.dart';
 import '../../widgets/bottom_navigation.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/common_button_with_border.dart';
@@ -89,10 +91,10 @@ class _AppUpdateScreenState extends State<AppUpdateScreen> {
                     onCommonButtonTap: () {
                       if (widget.forceUpdateFlag) {
                         // exit app
-                        // closeApp();
                         appClose();
                       } else {
                         //skip
+                        setDataInSharedPreference(ConstantsData.appUpdateStatus, "skip");
                         Navigator.pop(context);
                         // goToHomeScreen();
                       }
