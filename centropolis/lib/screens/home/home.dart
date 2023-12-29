@@ -973,6 +973,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final InternetChecking internetChecking = InternetChecking();
     if (await internetChecking.isInternet()) {
       callLoadPersonalInformationApi();
+      debugPrint("appUpdateStatus ======> ${getDataFromSharedPreference(ConstantsData.appUpdateStatus)}");
       if (getDataFromSharedPreference(ConstantsData.appUpdateStatus) != "skip") {
         callLoadFetchAppUpdateDetailsApi();
       }
