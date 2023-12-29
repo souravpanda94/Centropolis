@@ -19,6 +19,7 @@ import '../../utils/utils.dart';
 import '../../widgets/common_app_bar.dart';
 import '../../widgets/common_button.dart';
 import '../../widgets/rating_modal.dart';
+import 'complaints_received.dart';
 
 class InconvenienceDetails extends StatefulWidget {
   final String inquiryId;
@@ -60,304 +61,195 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
       ratingValue = 0.0;
     }
 
-    return LoadingOverlay(
-      opacity: 0.5,
-      color: CustomColors.textColor4,
-      progressIndicator: const CircularProgressIndicator(
-        color: CustomColors.blackColor,
-      ),
-      isLoading: isLoading,
-      child: Scaffold(
-        backgroundColor: CustomColors.backgroundColor,
-        appBar: PreferredSize(
-          preferredSize: AppBar().preferredSize,
-          child: SafeArea(
-            child: Container(
-              color: CustomColors.whiteColor,
-              child: CommonAppBar(tr("complaintsReceivedTitle"), false, () {
-                //onBackButtonPress(context);
-                Navigator.pop(context, isLoadingRequired);
-              }, () {}),
+    return WillPopScope(
+      onWillPop: () async {
+        Navigator.pop(context, true);
+        return true;
+      },
+      child: LoadingOverlay(
+        opacity: 0.5,
+        color: CustomColors.textColor4,
+        progressIndicator: const CircularProgressIndicator(
+          color: CustomColors.blackColor,
+        ),
+        isLoading: isLoading,
+        child: Scaffold(
+          backgroundColor: CustomColors.backgroundColor,
+          appBar: PreferredSize(
+            preferredSize: AppBar().preferredSize,
+            child: SafeArea(
+              child: Container(
+                color: CustomColors.whiteColor,
+                child: CommonAppBar(tr("complaintsReceivedTitle"), false, () {
+//onBackButtonPress(context);
+                  //Navigator.pop(context, isLoadingRequired);
+                  Navigator.pop(context, true);
+                }, () {}),
+              ),
             ),
           ),
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(tr("applicantInformation"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 16,
-                                  color: CustomColors.textColor8)),
-                        ),
-                        const SizedBox(
-                          width: 20,
-                        ),
-                        if (complaintsReceivedDetails != null &&
-                            complaintsReceivedDetails!.status
-                                .toString()
-                                .isNotEmpty)
-                          Container(
-                            decoration: BoxDecoration(
-                              color: setStatusBackgroundColor(
-                                  complaintsReceivedDetails?.status
-                                          .toString()
-                                          .toLowerCase() ??
-                                      ""),
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            padding: const EdgeInsets.only(
-                                top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
-                            child: Text(
-                              complaintsReceivedDetails?.displayStatus
-                                      .toString() ??
-                                  "",
-                              style: TextStyle(
-                                fontSize: 12,
-                                fontFamily: "SemiBold",
-                                color: setStatusTextColor(
+          body: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(tr("applicantInformation"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 16,
+                                    color: CustomColors.textColor8)),
+                          ),
+                          const SizedBox(
+                            width: 20,
+                          ),
+                          if (complaintsReceivedDetails != null &&
+                              complaintsReceivedDetails!.status
+                                  .toString()
+                                  .isNotEmpty)
+                            Container(
+                              decoration: BoxDecoration(
+                                color: setStatusBackgroundColor(
                                     complaintsReceivedDetails?.status
                                             .toString()
                                             .toLowerCase() ??
                                         ""),
+                                borderRadius: BorderRadius.circular(4),
+                              ),
+                              padding: const EdgeInsets.only(
+                                  top: 5.0,
+                                  bottom: 5.0,
+                                  left: 10.0,
+                                  right: 10.0),
+                              child: Text(
+                                complaintsReceivedDetails?.displayStatus
+                                        .toString() ??
+                                    "",
+                                style: TextStyle(
+                                  fontSize: 12,
+                                  fontFamily: "SemiBold",
+                                  color: setStatusTextColor(
+                                      complaintsReceivedDetails?.status
+                                              .toString()
+                                              .toLowerCase() ??
+                                          ""),
+                                ),
                               ),
                             ),
-                          ),
-                      ],
-                    ),
-                    Container(
-                      margin: const EdgeInsets.only(top: 16),
-                      padding: const EdgeInsets.all(16),
-                      width: MediaQuery.of(context).size.width,
-                      decoration: const BoxDecoration(
-                          color: CustomColors.backgroundColor,
-                          borderRadius: BorderRadius.all(Radius.circular(4))),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(tr("nameLounge"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            complaintsReceivedDetails?.name.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("tenantCompanyLounge"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            complaintsReceivedDetails?.companyName.toString() ??
-                                "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("email"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            complaintsReceivedDetails?.email.toString() ?? "",
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
-                          const SizedBox(
-                            height: 16,
-                          ),
-                          Text(tr("contactNo"),
-                              style: const TextStyle(
-                                  fontFamily: 'SemiBold',
-                                  fontSize: 14,
-                                  color: CustomColors.textColor8)),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Text(
-                            formatNumberStringWithDash(
-                                complaintsReceivedDetails?.contact.toString() ??
-                                    ""),
-                            style: const TextStyle(
-                                fontFamily: 'Regular',
-                                fontSize: 14,
-                                color: CustomColors.textColorBlack2),
-                          ),
                         ],
                       ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("floor"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      complaintsReceivedDetails?.floor
-                              .toString()
-                              .toUpperCase() ??
-                          "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    Text(
-                      tr("typeOfComplaint"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      complaintsReceivedDetails?.type.toString() ?? "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                // margin: complaintsReceivedDetails?.status
-                //             .toString()
-                //             .toLowerCase() ==
-                //         "answered"
-                //     ? null
-                //     : const EdgeInsets.only(bottom: 120),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      complaintsReceivedDetails?.title.toString() ?? "",
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    Text(
-                      complaintsReceivedDetails?.description.toString() ?? "",
-                      style: const TextStyle(
-                          fontFamily: 'Regular',
-                          fontSize: 14,
-                          color: CustomColors.textColor8),
-                    ),
-                    if (complaintsReceivedDetails?.attachment != null &&
-                        complaintsReceivedDetails!.attachment
-                            .toString()
-                            .trim()
-                            .isNotEmpty)
                       Container(
-                        margin: const EdgeInsets.only(top: 8),
+                        margin: const EdgeInsets.only(top: 16),
+                        padding: const EdgeInsets.all(16),
                         width: MediaQuery.of(context).size.width,
-                        child: Image.network(
-                          "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.attachment.toString() ?? ""}",
-                          fit: BoxFit.fill,
-                          height: 194,
+                        decoration: const BoxDecoration(
+                            color: CustomColors.backgroundColor,
+                            borderRadius: BorderRadius.all(Radius.circular(4))),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(tr("nameLounge"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              complaintsReceivedDetails?.name.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(tr("tenantCompanyLounge"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              complaintsReceivedDetails?.companyName
+                                      .toString() ??
+                                  "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(tr("email"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              complaintsReceivedDetails?.email.toString() ?? "",
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                            const SizedBox(
+                              height: 16,
+                            ),
+                            Text(tr("contactNo"),
+                                style: const TextStyle(
+                                    fontFamily: 'SemiBold',
+                                    fontSize: 14,
+                                    color: CustomColors.textColor8)),
+                            const SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              formatNumberStringWithDash(
+                                  complaintsReceivedDetails?.contact
+                                          .toString() ??
+                                      ""),
+                              style: const TextStyle(
+                                  fontFamily: 'Regular',
+                                  fontSize: 14,
+                                  color: CustomColors.textColorBlack2),
+                            ),
+                          ],
                         ),
-                      )
-                  ],
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              if (complaintsReceivedDetails?.status.toString().toLowerCase() ==
-                  "answered")
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
                 Container(
                   color: CustomColors.whiteColor,
                   padding: const EdgeInsets.all(16),
-                  //margin: const EdgeInsets.only(bottom: 150),
                   width: MediaQuery.of(context).size.width,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        tr("inquiryAnswer"),
+                        tr("floor"),
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
@@ -369,17 +261,83 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                         height: 8,
                       ),
                       Text(
-                        complaintsReceivedDetails?.response.toString() ?? "",
+                        complaintsReceivedDetails?.floor
+                                .toString()
+                                .toUpperCase() ??
+                            "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: const TextStyle(
                             fontFamily: 'Regular',
                             fontSize: 14,
                             color: CustomColors.textColor8),
                       ),
                       const SizedBox(
+                        height: 16,
+                      ),
+                      Text(
+                        tr("typeOfComplaint"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
                         height: 8,
                       ),
-                      if (complaintsReceivedDetails?.repliedFilePath != null &&
-                          complaintsReceivedDetails!.repliedFilePath
+                      Text(
+                        complaintsReceivedDetails?.type.toString() ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+// margin: complaintsReceivedDetails?.status
+// .toString()
+// .toLowerCase() ==
+// "answered"
+// ? null
+// : const EdgeInsets.only(bottom: 120),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        complaintsReceivedDetails?.title.toString() ?? "",
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      Text(
+                        complaintsReceivedDetails?.description.toString() ?? "",
+                        style: const TextStyle(
+                            fontFamily: 'Regular',
+                            fontSize: 14,
+                            color: CustomColors.textColor8),
+                      ),
+                      if (complaintsReceivedDetails?.attachment != null &&
+                          complaintsReceivedDetails!.attachment
                               .toString()
                               .trim()
                               .isNotEmpty)
@@ -387,7 +345,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                           margin: const EdgeInsets.only(top: 8),
                           width: MediaQuery.of(context).size.width,
                           child: Image.network(
-                            "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
+                            "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.attachment.toString() ?? ""}",
                             fit: BoxFit.fill,
                             height: 194,
                           ),
@@ -395,196 +353,257 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
                     ],
                   ),
                 ),
-              // if (complaintsReceivedDetails?.repliedFilePath != null &&
-              //     complaintsReceivedDetails!.repliedFilePath
-              //         .toString()
-              //         .trim()
-              //         .isNotEmpty)
-              //   Container(
-              //     color: CustomColors.backgroundColor,
-              //     width: MediaQuery.of(context).size.width,
-              //     height: 8,
-              //   ),
-              // if (complaintsReceivedDetails?.repliedFilePath != null &&
-              //     complaintsReceivedDetails!.repliedFilePath
-              //         .toString()
-              //         .trim()
-              //         .isNotEmpty)
-              //   Container(
-              //     color: CustomColors.whiteColor,
-              //     padding: const EdgeInsets.all(16),
-              //     width: MediaQuery.of(context).size.width,
-              //     child: Column(
-              //       crossAxisAlignment: CrossAxisAlignment.start,
-              //       children: [
-              //         Text(
-              //           tr("inconvenienceRepliedImage"),
-              //           maxLines: 1,
-              //           overflow: TextOverflow.ellipsis,
-              //           style: const TextStyle(
-              //               fontFamily: 'SemiBold',
-              //               fontSize: 16,
-              //               color: CustomColors.textColor8),
-              //         ),
-              //         Container(
-              //           margin: const EdgeInsets.only(top: 8),
-              //           width: MediaQuery.of(context).size.width,
-              //           child: Image.network(
-              //             "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
-              //             fit: BoxFit.fill,
-              //             height: 194,
-              //           ),
-              //         )
-              //       ],
-              //     ),
-              //   ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              Container(
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.all(16),
-                width: MediaQuery.of(context).size.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      tr("inquiryRating"),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: const TextStyle(
-                          fontFamily: 'SemiBold',
-                          fontSize: 16,
-                          color: CustomColors.textColor8),
-                    ),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    IgnorePointer(
-                      child: RatingBar(
-                        itemSize: 32,
-                        wrapAlignment: WrapAlignment.center,
-                        initialRating: ratingValue,
-                        direction: Axis.horizontal,
-                        allowHalfRating: false,
-                        itemCount: 5,
-                        ratingWidget: RatingWidget(
-                          full: Image.asset(
-                            "assets/images/full_star.png",
-                            height: 32,
-                            width: 32,
-                          ),
-                          half: Image.asset(
-                            "assets/images/half_star.png",
-                            height: 32,
-                            width: 32,
-                          ),
-                          empty: Image.asset(
-                            "assets/images/empty_star.png",
-                            height: 32,
-                            width: 32,
-                          ),
-                        ),
-                        itemPadding:
-                            const EdgeInsets.symmetric(horizontal: 4.0),
-                        onRatingUpdate: (double value) {},
-                      ),
-                    ),
-                  ],
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
                 ),
-              ),
-              Container(
-                color: CustomColors.backgroundColor,
-                width: MediaQuery.of(context).size.width,
-                height: 8,
-              ),
-              if (complaintsReceivedDetails?.canRate
-                      .toString()
-                      .trim()
-                      .toLowerCase() ==
-                  "y")
+                if (complaintsReceivedDetails?.status
+                        .toString()
+                        .toLowerCase() ==
+                    "answered")
+                  Container(
+                    color: CustomColors.whiteColor,
+                    padding: const EdgeInsets.all(16),
+//margin: const EdgeInsets.only(bottom: 150),
+                    width: MediaQuery.of(context).size.width,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          tr("inquiryAnswer"),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                              fontFamily: 'SemiBold',
+                              fontSize: 16,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        Text(
+                          complaintsReceivedDetails?.response.toString() ?? "",
+                          style: const TextStyle(
+                              fontFamily: 'Regular',
+                              fontSize: 14,
+                              color: CustomColors.textColor8),
+                        ),
+                        const SizedBox(
+                          height: 8,
+                        ),
+                        if (complaintsReceivedDetails?.repliedFilePath !=
+                                null &&
+                            complaintsReceivedDetails!.repliedFilePath
+                                .toString()
+                                .trim()
+                                .isNotEmpty)
+                          Container(
+                            margin: const EdgeInsets.only(top: 8),
+                            width: MediaQuery.of(context).size.width,
+                            child: Image.network(
+                              "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
+                              fit: BoxFit.fill,
+                              height: 194,
+                            ),
+                          )
+                      ],
+                    ),
+                  ),
+// if (complaintsReceivedDetails?.repliedFilePath != null &&
+// complaintsReceivedDetails!.repliedFilePath
+// .toString()
+// .trim()
+// .isNotEmpty)
+// Container(
+// color: CustomColors.backgroundColor,
+// width: MediaQuery.of(context).size.width,
+// height: 8,
+// ),
+// if (complaintsReceivedDetails?.repliedFilePath != null &&
+// complaintsReceivedDetails!.repliedFilePath
+// .toString()
+// .trim()
+// .isNotEmpty)
+// Container(
+// color: CustomColors.whiteColor,
+// padding: const EdgeInsets.all(16),
+// width: MediaQuery.of(context).size.width,
+// child: Column(
+// crossAxisAlignment: CrossAxisAlignment.start,
+// children: [
+// Text(
+// tr("inconvenienceRepliedImage"),
+// maxLines: 1,
+// overflow: TextOverflow.ellipsis,
+// style: const TextStyle(
+// fontFamily: 'SemiBold',
+// fontSize: 16,
+// color: CustomColors.textColor8),
+// ),
+// Container(
+// margin: const EdgeInsets.only(top: 8),
+// width: MediaQuery.of(context).size.width,
+// child: Image.network(
+// "${ImageLinks.baseUrlForImage}${complaintsReceivedDetails?.repliedFilePath.toString() ?? ""}",
+// fit: BoxFit.fill,
+// height: 194,
+// ),
+// )
+// ],
+// ),
+// ),
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+                Container(
+                  color: CustomColors.whiteColor,
+                  padding: const EdgeInsets.all(16),
+                  width: MediaQuery.of(context).size.width,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        tr("inquiryRating"),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontFamily: 'SemiBold',
+                            fontSize: 16,
+                            color: CustomColors.textColor8),
+                      ),
+                      const SizedBox(
+                        height: 8,
+                      ),
+                      IgnorePointer(
+                        child: RatingBar(
+                          itemSize: 32,
+                          wrapAlignment: WrapAlignment.center,
+                          initialRating: ratingValue,
+                          direction: Axis.horizontal,
+                          allowHalfRating: false,
+                          itemCount: 5,
+                          ratingWidget: RatingWidget(
+                            full: Image.asset(
+                              "assets/images/full_star.png",
+                              height: 32,
+                              width: 32,
+                            ),
+                            half: Image.asset(
+                              "assets/images/half_star.png",
+                              height: 32,
+                              width: 32,
+                            ),
+                            empty: Image.asset(
+                              "assets/images/empty_star.png",
+                              height: 32,
+                              width: 32,
+                            ),
+                          ),
+                          itemPadding:
+                              const EdgeInsets.symmetric(horizontal: 4.0),
+                          onRatingUpdate: (double value) {},
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                Container(
+                  color: CustomColors.backgroundColor,
+                  width: MediaQuery.of(context).size.width,
+                  height: 8,
+                ),
+                if (complaintsReceivedDetails?.canRate
+                        .toString()
+                        .trim()
+                        .toLowerCase() ==
+                    "y")
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.whiteColor,
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: CommonButton(
+                      onCommonButtonTap: () {
+                        showRatingModal();
+                      },
+                      buttonColor: CustomColors.buttonBackgroundColor,
+                      buttonName: tr("rateUs"),
+                      isIconVisible: false,
+                    ),
+                  ),
+                if (complaintsReceivedDetails?.canReply
+                        .toString()
+                        .trim()
+                        .toLowerCase() ==
+                    "y")
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.whiteColor,
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: CommonButtonWithBorder(
+                        onCommonButtonTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => ComplaintsReceived(
+                                      parentInquirId: complaintsReceivedDetails
+                                              ?.inquiryId
+                                              .toString() ??
+                                          "",
+                                    )),
+                          ).then((value) {
+                            if (value) {
+                              setState(() {
+                                isLoadingRequired = true;
+                              });
+                              loadComplaintsReceivedDetails();
+                            }
+                          });
+                        },
+                        buttonBorderColor: CustomColors.buttonBackgroundColor,
+                        buttonColor: CustomColors.whiteColor,
+                        buttonName: tr("addInquiry"),
+                        buttonTextColor: CustomColors.buttonBackgroundColor),
+                  ),
+                if (complaintsReceivedDetails?.canComplete
+                        .toString()
+                        .trim()
+                        .toLowerCase() ==
+                    "y")
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    color: CustomColors.whiteColor,
+                    padding:
+                        const EdgeInsets.only(left: 16, top: 16, right: 16),
+                    child: CommonButtonWithBorder(
+                        onCommonButtonTap: () {
+                          networkCheckForResolveInquiry();
+                        },
+                        buttonBorderColor: CustomColors.buttonBackgroundColor,
+                        buttonColor: CustomColors.whiteColor,
+                        buttonName: tr("resolveInquiry"),
+                        buttonTextColor: CustomColors.buttonBackgroundColor),
+                  ),
                 Container(
                   width: MediaQuery.of(context).size.width,
                   color: CustomColors.whiteColor,
-                  padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-                  child: CommonButton(
-                    onCommonButtonTap: () {
-                      showRatingModal();
-                    },
-                    buttonColor: CustomColors.buttonBackgroundColor,
-                    buttonName: tr("rateUs"),
-                    isIconVisible: false,
-                  ),
-                ),
-              // if (complaintsReceivedDetails?.canReply
-              //         .toString()
-              //         .trim()
-              //         .toLowerCase() ==
-              //     "y")
-              //   Container(
-              //     width: MediaQuery.of(context).size.width,
-              //     color: CustomColors.whiteColor,
-              //     padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-              //     child: CommonButtonWithBorder(
-              //         onCommonButtonTap: () {
-              //           Navigator.push(
-              //             context,
-              //             MaterialPageRoute(
-              //                 builder: (context) => ComplaintsReceived(
-              //                       parentInquirId: complaintsReceivedDetails
-              //                               ?.inquiryId
-              //                               .toString() ??
-              //                           "",
-              //                     )),
-              //           ).then((value) {
-              //             if (value) {
-              //               setState(() {
-              //                 isLoadingRequired = true;
-              //               });
-              //               loadComplaintsReceivedDetails();
-              //             }
-              //           });
-              //         },
-              //         buttonBorderColor: CustomColors.buttonBackgroundColor,
-              //         buttonColor: CustomColors.whiteColor,
-              //         buttonName: tr("addInquiry"),
-              //         buttonTextColor: CustomColors.buttonBackgroundColor),
-              //   ),
-              // if (complaintsReceivedDetails?.canComplete
-              //         .toString()
-              //         .trim()
-              //         .toLowerCase() ==
-              //     "y")
-              //   Container(
-              //     width: MediaQuery.of(context).size.width,
-              //     color: CustomColors.whiteColor,
-              //     padding: const EdgeInsets.only(left: 16, top: 16, right: 16),
-              //     child: CommonButtonWithBorder(
-              //         onCommonButtonTap: () {
-              //           networkCheckForResolveInquiry();
-              //         },
-              //         buttonBorderColor: CustomColors.buttonBackgroundColor,
-              //         buttonColor: CustomColors.whiteColor,
-              //         buttonName: tr("resolveInquiry"),
-              //         buttonTextColor: CustomColors.buttonBackgroundColor),
-              //   ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                color: CustomColors.whiteColor,
-                padding: const EdgeInsets.only(
-                    left: 16, top: 16, right: 16, bottom: 40),
-                child: CommonButtonWithBorder(
-                    onCommonButtonTap: () {
-                      Navigator.pop(context, isLoadingRequired);
-                    },
-                    buttonBorderColor: CustomColors.dividerGreyColor,
-                    buttonColor: CustomColors.whiteColor,
-                    buttonName: tr("toList"),
-                    buttonTextColor: CustomColors.textColor5),
-              )
-            ],
+                  padding: const EdgeInsets.only(
+                      left: 16, top: 16, right: 16, bottom: 40),
+                  child: CommonButtonWithBorder(
+                      onCommonButtonTap: () {
+                        Navigator.pop(context, true);
+                      },
+                      buttonBorderColor: CustomColors.dividerGreyColor,
+                      buttonColor: CustomColors.whiteColor,
+                      buttonName: tr("toList"),
+                      buttonTextColor: CustomColors.textColor5),
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -596,7 +615,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
     if (await internetChecking.isInternet()) {
       callComplaintsReceivedDetailsApi();
     } else {
-      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+//showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
@@ -637,8 +656,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
+// showCustomToast(
+// fToast, context, responseJson['message'].toString(), "");
             showErrorCommonModal(
                 context: context,
                 heading: responseJson['message'].toString(),
@@ -704,7 +723,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
     if (await internetChecking.isInternet()) {
       callSaveComplaintRatingApi(complaintRating);
     } else {
-      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+// showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
@@ -747,8 +766,8 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
+// showCustomToast(
+// fToast, context, responseJson['message'].toString(), "");
             showErrorCommonModal(
                 context: context,
                 heading: responseJson['message'].toString(),
@@ -779,7 +798,7 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
     if (await internetChecking.isInternet()) {
       callResolveInquiryApi();
     } else {
-      // showCustomToast(fToast, context, tr("noInternetConnection"), "");
+// showCustomToast(fToast, context, tr("noInternetConnection"), "");
       showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
@@ -817,14 +836,18 @@ class _InconvenienceDetailsState extends State<InconvenienceDetails> {
               description: "",
               buttonName: tr("check"));
 
-          // setFirebaseEventForInconvenienceRating(
-          //     inconvenienceId: widget.inquiryId.toString().trim(),
-          //     rating: complaintRating.toString().trim());
+// setFirebaseEventForInconvenienceRating(
+// inconvenienceId: widget.inquiryId.toString().trim(),
+// rating: complaintRating.toString().trim());
+
+          setFirebaseEventForInconvenienceResolveInquiry(
+            inconvenienceId: widget.inquiryId.toString().trim(),
+          );
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-            // showCustomToast(
-            //     fToast, context, responseJson['message'].toString(), "");
+// showCustomToast(
+// fToast, context, responseJson['message'].toString(), "");
             showErrorCommonModal(
                 context: context,
                 heading: responseJson['message'].toString(),

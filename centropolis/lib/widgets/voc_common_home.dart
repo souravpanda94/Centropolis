@@ -1,15 +1,24 @@
+import 'dart:convert';
 import 'package:centropolis/screens/voc/light_out_details.dart';
 import 'package:centropolis/utils/custom_colors.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:provider/provider.dart';
+import 'package:http/http.dart' as http;
 
 import '../models/air_conditioning_list_model.dart';
 import '../models/inconvenience_list_model.dart';
 import '../models/light_out_list_model.dart';
+import '../providers/incovenience_list_provider.dart';
+import '../providers/user_provider.dart';
 import '../screens/voc/air_conditioning_details.dart';
 import '../screens/voc/inconvenience_details.dart';
 import '../../utils/utils.dart';
+import '../services/api_service.dart';
+import '../utils/custom_urls.dart';
+import '../utils/internet_checking.dart';
 
 class VocCommonHome extends StatefulWidget {
   final String image;
@@ -39,11 +48,40 @@ class VocCommonHome extends StatefulWidget {
 }
 
 class _VocCommonHomeState extends State<VocCommonHome> {
+  late String language, apiKey, email, mobile, name, companyName;
+  late FToast fToast;
+  int page = 1;
+  final int limit = 3;
+  int totalPages = 3;
+  int totalRecords = 3;
+  bool isFirstLoadRunning = true;
+  List<IncovenienceListModel>? incovenienceListItem;
+  bool isFromDetail = false;
+
+  @override
+  void initState() {
+    super.initState();
+    fToast = FToast();
+    fToast.init(context);
+    language = tr("lang");
+    var user = Provider.of<UserProvider>(context, listen: false);
+    apiKey = user.userData['api_key'].toString();
+    firstTimeLoadInconvenienceList();
+  }
+
   @override
   Widget build(BuildContext context) {
+    debugPrint("isFromDetail ::: $isFromDetail");
+    if (isFromDetail) {
+      incovenienceListItem = Provider.of<InconvenienceListProvider>(context)
+          .getInconvenienceModelList;
+    } else {
+      incovenienceListItem = widget.inconvenienceList;
+    }
+
     return InkWell(
       onTap: () {
-        //onPressed.call();
+//onPressed.call();
       },
       child: SingleChildScrollView(
         child: SizedBox(
@@ -69,7 +107,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                 ),
               ),
               Container(
-                //height: 62,
+//height: 62,
                 margin: const EdgeInsets.only(top: 8, left: 15, right: 15),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -107,9 +145,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                   ],
                 ),
               ),
-              widget.inconvenienceList != null &&
-                      widget.inconvenienceList!.isNotEmpty
-                  ? inconvenienceListWidget()
+              incovenienceListItem != null && incovenienceListItem!.isNotEmpty
+                  ? inconvenienceListWidget(incovenienceListItem)
                   : widget.lightoutList != null &&
                           widget.lightoutList!.isNotEmpty
                       ? lightOutListWidget()
@@ -124,14 +161,14 @@ class _VocCommonHomeState extends State<VocCommonHome> {
     );
   }
 
-  inconvenienceListWidget() {
+  inconvenienceListWidget(List<IncovenienceListModel>? incovenienceListItem) {
     return Container(
       margin: const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 100),
       child: ListView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
           scrollDirection: Axis.vertical,
-          itemCount: widget.inconvenienceList?.length,
+          itemCount: incovenienceListItem?.length,
           itemBuilder: ((context, index) {
             return InkWell(
               onTap: () {
@@ -139,11 +176,18 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => InconvenienceDetails(
-                        inquiryId: widget.inconvenienceList?[index].inquiryId
-                                .toString() ??
-                            ""),
+                        inquiryId:
+                            incovenienceListItem?[index].inquiryId.toString() ??
+                                ""),
                   ),
-                );
+                ).then((value) {
+                  if (value) {
+                    setState(() {
+                      isFromDetail = true;
+                    });
+                    firstTimeLoadInconvenienceList();
+                  }
+                });
               },
               child: Container(
                 decoration: BoxDecoration(
@@ -163,7 +207,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       children: [
                         Flexible(
                           child: Text(
-                            widget.inconvenienceList?[index].title ?? "",
+                            incovenienceListItem?[index].title ?? "",
                             maxLines: 2,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -175,8 +219,9 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         const SizedBox(
                           width: 10,
                         ),
-                        if (widget.inconvenienceList != null &&
-                            widget.inconvenienceList![index].status
+                        if (incovenienceListItem != null &&
+                            incovenienceListItem![index]
+                                .status
                                 .toString()
                                 .isNotEmpty)
                           Container(
@@ -190,8 +235,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             padding: const EdgeInsets.only(
                                 top: 5.0, bottom: 5.0, left: 10.0, right: 10.0),
                             child: Text(
-                              widget.inconvenienceList?[index].displayStatus ??
-                                  "",
+                              incovenienceListItem[index].displayStatus ?? "",
                               style: TextStyle(
                                 fontSize: 12,
                                 fontFamily: "SemiBold",
@@ -211,7 +255,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       child: Row(
                         children: [
                           Text(
-                            widget.inconvenienceList?[index].type ?? "",
+                            incovenienceListItem?[index].type ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -233,8 +277,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             width: 8,
                           ),
                           Text(
-                            widget.inconvenienceList?[index].registeredDate ??
-                                "",
+                            incovenienceListItem?[index].registeredDate ?? "",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
@@ -313,7 +356,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           Flexible(
                             child: Text(
                               widget.lightoutList?[index].description ?? "",
-                              //"Centropolis",
+//"Centropolis",
                               maxLines: 1,
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
@@ -484,7 +527,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                             child: Text(
                               widget.airConditioningList?[index].description ??
                                   "",
-                              //"Centropolis",
+//"Centropolis",
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
@@ -537,7 +580,8 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                           children: [
                             Expanded(
                               child: Text(
-                                widget.airConditioningList?[index].requestedFloors
+                                widget.airConditioningList?[index]
+                                        .requestedFloors
                                         .toString()
                                         .toUpperCase() ??
                                     "",
@@ -597,5 +641,88 @@ class _VocCommonHomeState extends State<VocCommonHome> {
     } else {
       return CustomColors.textColorBlack2;
     }
+  }
+
+  void firstTimeLoadInconvenienceList() {
+    if (mounted) {
+      setState(() {
+        isFirstLoadRunning = true;
+        page = 1;
+      });
+      loadInconvenienceList();
+    }
+  }
+
+  void loadInconvenienceList() async {
+    final InternetChecking internetChecking = InternetChecking();
+    if (await internetChecking.isInternet()) {
+      callInconvenienceListApi();
+    } else {
+//showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
+          context: context,
+          heading: tr("noInternet"),
+          description: tr("connectionFailedDescription"),
+          buttonName: tr("check"));
+    }
+  }
+
+  void callInconvenienceListApi() {
+    Map<String, String> body = {
+      "page": page.toString(),
+      "limit": limit.toString()
+    };
+
+    debugPrint("Inconvenience List input===> $body");
+
+    Future<http.Response> response = WebService().callPostMethodWithRawData(
+        ApiEndPoint.getInconvenienceListUrl, body, language.toString(), apiKey);
+    response.then((response) {
+      if (mounted) {
+        var responseJson = json.decode(response.body);
+
+        debugPrint("server response for Inconvenience List ===> $responseJson");
+
+        if (responseJson != null) {
+          if (response.statusCode == 200 && responseJson['success']) {
+            totalPages = responseJson['total_pages'];
+            totalRecords = responseJson['total_records'];
+            List<IncovenienceListModel> incovenienceList =
+                List<IncovenienceListModel>.from(responseJson['inquiry_data']
+                    .map((x) => IncovenienceListModel.fromJson(x)));
+
+            Provider.of<InconvenienceListProvider>(context, listen: false)
+                .setItem(incovenienceList);
+          } else {
+            if (responseJson['message'] != null) {
+              debugPrint("Server error response ${responseJson['message']}");
+// showCustomToast(
+// fToast, context, responseJson['message'].toString(), "");
+              showErrorCommonModal(
+                  context: context,
+                  heading: responseJson['message'].toString(),
+                  description: "",
+                  buttonName: tr("check"));
+            }
+          }
+          setState(() {
+            isFirstLoadRunning = false;
+          });
+        }
+      }
+    }).catchError((onError) {
+      debugPrint("catchError ================> $onError");
+
+      if (mounted) {
+        showErrorCommonModal(
+            context: context,
+            heading: tr("errorDescription"),
+            description: "",
+            buttonName: tr("check"));
+        setState(() {
+          isFirstLoadRunning = false;
+        });
+      }
+    });
   }
 }
