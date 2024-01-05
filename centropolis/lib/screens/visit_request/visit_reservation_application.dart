@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user_info_model.dart';
@@ -551,14 +552,16 @@ class _VisitReservationApplicationState
                               //   FilteringTextInputFormatter.allow(
                               //       RegExp("[a-zA-Z_\\s-]")),
                               // ],
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
+                              maxLines: 1,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -625,6 +628,8 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: companyNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
@@ -632,7 +637,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -698,6 +703,8 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: emailController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.emailAddress,
@@ -705,7 +712,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -771,6 +778,8 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: contactController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.number,
@@ -780,7 +789,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -858,6 +867,8 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: dateController,
                               readOnly: true,
                               cursorColor: CustomColors.textColorBlack2,
@@ -866,7 +877,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -2019,7 +2030,6 @@ class _VisitReservationApplicationState
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        
         GestureDetector(
             onTap: () {
               setState(() {

@@ -180,7 +180,7 @@ class _InconvenienceHistoryState extends State<InconvenienceHistory> {
                                         child: Text(
                                           incovenienceListItem![index].title ??
                                               "",
-                                          maxLines: 2,
+                                          maxLines: 1,
                                           overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontFamily: 'SemiBold',

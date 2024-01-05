@@ -216,6 +216,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                                   .toString() ??
                                               "",
                                           maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontFamily: 'SemiBold',
                                               fontSize: 14,
@@ -270,7 +271,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                   IntrinsicHeight(
                                     child: Row(
                                       children: [
-                                        Expanded(
+                                        Flexible(
                                           child: Text(
                                             airConditioningListItem?[index]
                                                     .requestedFloors

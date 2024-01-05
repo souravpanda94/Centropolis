@@ -208,7 +208,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                         Flexible(
                           child: Text(
                             incovenienceListItem?[index].title ?? "",
-                            maxLines: 2,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: const TextStyle(
                                 fontFamily: 'SemiBold',
@@ -358,6 +358,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                               widget.lightoutList?[index].description ?? "",
 //"Centropolis",
                               maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
                               style: const TextStyle(
                                   fontFamily: 'SemiBold',
                                   fontSize: 16,
@@ -404,7 +405,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Expanded(
+                            Flexible(
                               child: Text(
                                 widget.lightoutList?[index].requestedFloors
                                         .toString()
@@ -578,7 +579,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Expanded(
+                            Flexible(
                               child: Text(
                                 widget.airConditioningList?[index]
                                         .requestedFloors

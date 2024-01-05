@@ -222,16 +222,22 @@ class _ViewVisitReservationScreenState
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          // dataList[index]["name"],
-                                          visitReservationListItem?[index]
-                                                  .visitorName
-                                                  .toString() ??
-                                              "",
-                                          style: const TextStyle(
-                                              fontSize: 14,
-                                              fontFamily: "SemiBold",
-                                              color: CustomColors.textColor8),
+                                        Flexible(
+                                          child: Text(
+                                            // dataList[index]["name"],
+                                            visitReservationListItem?[index]
+                                                    .visitorName
+                                                    .toString() ??
+                                                "",
+                                                
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                            style: const TextStyle(
+                                              
+                                                fontSize: 14,
+                                                fontFamily: "SemiBold",
+                                                color: CustomColors.textColor8),
+                                          ),
                                         ),
                                         Container(
                                           decoration: BoxDecoration(
@@ -242,6 +248,7 @@ class _ViewVisitReservationScreenState
                                             borderRadius:
                                                 BorderRadius.circular(4),
                                           ),
+                                          margin: const EdgeInsets.only(left: 10),
                                           padding: const EdgeInsets.only(
                                               top: 5,
                                               bottom: 5,
@@ -271,43 +278,49 @@ class _ViewVisitReservationScreenState
                                           mainAxisAlignment:
                                               MainAxisAlignment.spaceBetween,
                                           children: [
-                                            Row(
-                                              children: [
-                                                Text(
-                                                  // dataList[index]["businessType"],
-                                                  visitReservationListItem?[
-                                                              index]
-                                                          .companyName
-                                                           ??
-                                                      "NA",
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: "Regular",
-                                                      color: CustomColors
-                                                          .textColorBlack2),
-                                                ),
-                                                const Text(
-                                                  "  |  ",
-                                                  style: TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: "Regular",
-                                                      color: CustomColors
-                                                          .borderColor),
-                                                ),
-                                                Text(
-                                                  // dataList[index]["type"],
-                                                  visitReservationListItem?[
-                                                              index]
-                                                          .displayVisitPurpose
-                                                          .toString() ??
-                                                      "",
-                                                  style: const TextStyle(
-                                                      fontSize: 14,
-                                                      fontFamily: "Regular",
-                                                      color: CustomColors
-                                                          .textColorBlack2),
-                                                ),
-                                              ],
+                                            Flexible(
+                                              child: Row(
+                                                children: [
+                                                  Flexible(
+                                                    child: Text(
+                                                      // dataList[index]["businessType"],
+                                                      visitReservationListItem?[
+                                                                  index]
+                                                              .companyName
+                                                               ??
+                                                          "NA",
+                                                          overflow: TextOverflow.ellipsis,
+                                                          maxLines: 1,
+                                                      style: const TextStyle(
+                                                          fontSize: 14,
+                                                          fontFamily: "Regular",
+                                                          color: CustomColors
+                                                              .textColorBlack2),
+                                                    ),
+                                                  ),
+                                                  const Text(
+                                                    "  |  ",
+                                                    style: TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: "Regular",
+                                                        color: CustomColors
+                                                            .borderColor),
+                                                  ),
+                                                  Text(
+                                                    // dataList[index]["type"],
+                                                    visitReservationListItem?[
+                                                                index]
+                                                            .displayVisitPurpose
+                                                            .toString() ??
+                                                        "",
+                                                    style: const TextStyle(
+                                                        fontSize: 14,
+                                                        fontFamily: "Regular",
+                                                        color: CustomColors
+                                                            .textColorBlack2),
+                                                  ),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         )),

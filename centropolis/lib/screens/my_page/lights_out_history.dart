@@ -234,7 +234,7 @@ class _LightsOutHistoryState extends State<LightsOutHistory> {
                                   IntrinsicHeight(
                                     child: Row(
                                       children: [
-                                        Expanded(
+                                        Flexible(
                                           child: Text(
                                             lightoutListItem?[index]
                                                     .requestedFloors
