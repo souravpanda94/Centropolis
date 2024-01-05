@@ -229,7 +229,11 @@ class _ViewVisitReservationScreenState
                                                     .visitorName
                                                     .toString() ??
                                                 "",
+                                                
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
                                             style: const TextStyle(
+                                              
                                                 fontSize: 14,
                                                 fontFamily: "SemiBold",
                                                 color: CustomColors.textColor8),
@@ -285,6 +289,8 @@ class _ViewVisitReservationScreenState
                                                               .companyName
                                                                ??
                                                           "NA",
+                                                          overflow: TextOverflow.ellipsis,
+                                                          maxLines: 1,
                                                       style: const TextStyle(
                                                           fontSize: 14,
                                                           fontFamily: "Regular",

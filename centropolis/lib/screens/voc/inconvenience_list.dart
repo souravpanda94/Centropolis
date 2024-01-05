@@ -202,7 +202,7 @@ class _InconvenienceListState extends State<InconvenienceList> {
                                               incovenienceListItem?[index]
                                                       .title ??
                                                   "",
-                                              maxLines: 2,
+                                              maxLines: 1,
                                               overflow: TextOverflow.ellipsis,
                                               style: const TextStyle(
                                                   fontFamily: 'SemiBold',
