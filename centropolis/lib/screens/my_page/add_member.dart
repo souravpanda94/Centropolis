@@ -398,6 +398,7 @@ class _AddMemberState extends State<AddMember> {
                                 RemoveEmojiInputFormatter()
                               ],
                               maxLines: 1,
+                              maxLength: 16,
                         controller: passwordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -405,6 +406,7 @@ class _AddMemberState extends State<AddMember> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
+                           counterText: "",
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
@@ -464,6 +466,7 @@ class _AddMemberState extends State<AddMember> {
                                 RemoveEmojiInputFormatter()
                               ],
                               maxLines: 1,
+                              maxLength: 16,
                         controller: verifyPasswordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -471,6 +474,7 @@ class _AddMemberState extends State<AddMember> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
+                          counterText: "",
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
@@ -534,6 +538,7 @@ class _AddMemberState extends State<AddMember> {
                         keyboardType: TextInputType.emailAddress,
                         maxLines: 1,
                         decoration: InputDecoration(
+                          
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,

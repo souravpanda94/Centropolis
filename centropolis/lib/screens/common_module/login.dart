@@ -139,12 +139,14 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 46,
                     child: TextField(
                       maxLines: 1,
+                      maxLength: 16,
                       inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: passwordController,
                       cursorColor: CustomColors.textColorBlack2,
                       obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
+                        counterText: "",
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
                         filled: true,

@@ -456,6 +456,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 46,
                         child: TextField(
                           maxLines: 1,
+                          maxLength: 16,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: passwordController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -464,6 +465,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           enableSuggestions: false,
                           autocorrect: false,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
@@ -521,6 +523,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 46,
                         child: TextField(
                           maxLines: 1,
+                          maxLength: 16,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: verifyPasswordController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -529,6 +532,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           enableSuggestions: false,
                           autocorrect: false,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
