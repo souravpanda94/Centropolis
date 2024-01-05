@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
@@ -238,6 +239,9 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         // inputFormatters: [
                         //   FilteringTextInputFormatter.allow(
                         //       RegExp("[a-zA-Z_\\s-]")),
@@ -304,6 +308,9 @@ class _AddMemberState extends State<AddMember> {
                           child: SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                               maxLength: 16,
                               controller: idController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -385,6 +392,9 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         controller: passwordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -447,6 +457,9 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         controller: verifyPasswordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -509,6 +522,9 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         controller: emailIDController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.emailAddress,
@@ -568,6 +584,9 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         controller: contactNoController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.number,

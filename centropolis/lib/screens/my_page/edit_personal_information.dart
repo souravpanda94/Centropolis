@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../models/user_info_model.dart';
 import '../../providers/conference_history_details_provider.dart';
 import '../../providers/user_info_provider.dart';
@@ -283,6 +284,7 @@ class _EditPersonalInformationScreenState
                     child: SizedBox(
                       height: 46.0,
                       child: TextField(
+                        inputFormatters: [RemoveEmojiInputFormatter()],
                         cursorColor: CustomColors.blackColor,
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -344,6 +346,7 @@ class _EditPersonalInformationScreenState
                     child: SizedBox(
                       height: 46.0,
                       child: TextField(
+                        inputFormatters: [RemoveEmojiInputFormatter()],
                         cursorColor: CustomColors.blackColor,
                         controller: contactNumberController,
                         keyboardType: TextInputType.phone,
@@ -469,6 +472,7 @@ class _EditPersonalInformationScreenState
           );
         });
   }
+
   void showSuccesModal(String heading) {
     showDialog(
         barrierDismissible: false,
@@ -483,7 +487,6 @@ class _EditPersonalInformationScreenState
             onConfirmBtnTap: () {
               Navigator.pop(context);
               Navigator.pop(context);
-
             },
             onFirstBtnTap: () {},
             onSecondBtnTap: () {},
@@ -496,8 +499,8 @@ class _EditPersonalInformationScreenState
     if (await internetChecking.isInternet()) {
       callEditPersonalInfoApi();
     } else {
-       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      //showCustomToast(fToast, context, tr("noInternetConnection"), "");
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -528,19 +531,19 @@ class _EditPersonalInformationScreenState
       if (responseJson != null) {
         if (response.statusCode == 200 && responseJson['success']) {
           if (responseJson['message'] != null) {
-           showSuccesModal(responseJson['message'].toString());
+            showSuccesModal(responseJson['message'].toString());
           }
           setFirebaseEvents(eventName: "cp_edit_personal_information");
-
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -549,10 +552,11 @@ class _EditPersonalInformationScreenState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -565,7 +569,7 @@ class _EditPersonalInformationScreenState
       callLoadPersonalInformationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -597,13 +601,14 @@ class _EditPersonalInformationScreenState
           setDataField(userInfoModel);
         } else {
           if (responseJson['message'] != null) {
-             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -612,10 +617,11 @@ class _EditPersonalInformationScreenState
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -633,6 +639,4 @@ class _EditPersonalInformationScreenState
     contactNumberController = TextEditingController(
         text: formatNumberStringWithDash(userInfoModel.mobile.toString()));
   }
-
-  
 }

@@ -5,6 +5,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
@@ -107,6 +108,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: SizedBox(
                     height: 46.0,
                     child: TextField(
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       maxLength: 16,
@@ -193,6 +195,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: SizedBox(
                     height: 46.0,
                     child: TextField(
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       keyboardType: TextInputType.visiblePassword,
                       maxLength: 16,
                       obscureText: true,
@@ -279,6 +282,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                   child: SizedBox(
                     height: 46.0,
                     child: TextField(
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       maxLength: 16,
@@ -383,10 +387,10 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       } else {
         //showCustomToast(fToast, context, tr("noInternetConnection"), "");
         showErrorCommonModal(
-          context: context,
-          heading: tr("noInternet"),
-          description: tr("connectionFailedDescription"),
-          buttonName: tr("check"));
+            context: context,
+            heading: tr("noInternet"),
+            description: tr("connectionFailedDescription"),
+            buttonName: tr("check"));
       }
     }
 
@@ -444,13 +448,14 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
           setFirebaseEvents(eventName: "cp_change_password");
         } else {
           if (responseJson['message'] != null) {
-           debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            debugPrint("Server error response ${responseJson['message']}");
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -459,10 +464,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });
@@ -496,7 +502,7 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       callLoadPersonalInformationApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -531,12 +537,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
         } else {
           if (responseJson['message'] != null) {
             debugPrint("Server error response ${responseJson['message']}");
-              // showCustomToast(
-              //     fToast, context, responseJson['message'].toString(), "");
-              showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            // showCustomToast(
+            //     fToast, context, responseJson['message'].toString(), "");
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -545,10 +552,11 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
       });
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-       showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       setState(() {
         isLoading = false;
       });

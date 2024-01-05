@@ -8,6 +8,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user_info_model.dart';
@@ -551,6 +552,7 @@ class _VisitReservationApplicationState
                               //   FilteringTextInputFormatter.allow(
                               //       RegExp("[a-zA-Z_\\s-]")),
                               // ],
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
@@ -625,6 +627,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: companyNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
@@ -698,6 +701,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: emailController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.emailAddress,
@@ -771,6 +775,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: contactController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.number,
@@ -858,6 +863,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: dateController,
                               readOnly: true,
                               cursorColor: CustomColors.textColorBlack2,
@@ -2019,7 +2025,6 @@ class _VisitReservationApplicationState
     return Row(
       // mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
-        
         GestureDetector(
             onTap: () {
               setState(() {

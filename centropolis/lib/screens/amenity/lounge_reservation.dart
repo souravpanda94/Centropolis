@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 import '../../models/user_info_model.dart';
@@ -331,6 +332,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                           readOnly: false,
                           controller: eventPurposeController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -406,6 +410,9 @@ class _LoungeReservationState extends State<LoungeReservation> {
                         height: 46,
                         child: TextField(
                           readOnly: false,
+                          inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                           // inputFormatters: [
                           //   FilteringTextInputFormatter.allow(RegExp("[0-9]"))
                           // ],

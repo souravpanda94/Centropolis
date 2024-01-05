@@ -4,6 +4,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
@@ -76,6 +77,7 @@ class _FindIdScreenState extends State<FindID> {
                 SizedBox(
                   height: 46,
                   child: TextField(
+                    inputFormatters: [RemoveEmojiInputFormatter()],
                     controller: emailIDController,
                     cursorColor: CustomColors.textColorBlack2,
                     keyboardType: TextInputType.emailAddress,
@@ -190,7 +192,7 @@ class _FindIdScreenState extends State<FindID> {
       callFindIdApi();
     } else {
       //showCustomToast(fToast, context, tr("noInternetConnection"), "");
-       showErrorCommonModal(
+      showErrorCommonModal(
           context: context,
           heading: tr("noInternet"),
           description: tr("connectionFailedDescription"),
@@ -229,10 +231,11 @@ class _FindIdScreenState extends State<FindID> {
             debugPrint("Server error response ${responseJson['message']}");
             // showCustomToast(
             //     fToast, context, responseJson['message'].toString(), "");
-             showErrorCommonModal(context: context,
-                  heading :responseJson['message'].toString(),
-                  description: "",
-                  buttonName: tr("check"));
+            showErrorCommonModal(
+                context: context,
+                heading: responseJson['message'].toString(),
+                description: "",
+                buttonName: tr("check"));
           }
         }
       }
@@ -243,10 +246,11 @@ class _FindIdScreenState extends State<FindID> {
       }
     }).catchError((onError) {
       debugPrint("catchError ================> $onError");
-      showErrorCommonModal(context: context,
+      showErrorCommonModal(
+          context: context,
           heading: tr("errorDescription"),
-          description:"",
-          buttonName : tr("check"));
+          description: "",
+          buttonName: tr("check"));
       if (mounted) {
         setState(() {
           isLoading = false;
@@ -258,6 +262,4 @@ class _FindIdScreenState extends State<FindID> {
   void clearDataField() {
     emailIDController.clear();
   }
-
-   
 }

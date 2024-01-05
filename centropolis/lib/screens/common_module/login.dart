@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/constants.dart';
@@ -93,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 46,
                     child: TextField(
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: emailIDController,
                       maxLength: 16,
                       cursorColor: CustomColors.textColorBlack2,
@@ -135,6 +137,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 46,
                     child: TextField(
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: passwordController,
                       cursorColor: CustomColors.textColorBlack2,
                       obscureText: true,
@@ -508,14 +511,14 @@ class _LoginScreenState extends State<LoginScreen> {
           if (responseJson['display_user_type'] != null) {
             displayUserType = responseJson['display_user_type'].toString();
           }
-           if (responseJson['account_type'] != null) {
+          if (responseJson['account_type'] != null) {
             accountType = responseJson['account_type'].toString();
           }
           debugPrint("checkSigned ======> $checkSigned");
 
-          setDataInSharedPreference(ConstantsData.userId,userId);
-          setDataInSharedPreference(ConstantsData.companyId,companyId);
-          setDataInSharedPreference(ConstantsData.userType,accountType);
+          setDataInSharedPreference(ConstantsData.userId, userId);
+          setDataInSharedPreference(ConstantsData.companyId, companyId);
+          setDataInSharedPreference(ConstantsData.userType, accountType);
 
           Map<String, String> loginData = {
             "user_id": userId.trim(),

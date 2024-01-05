@@ -8,6 +8,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
@@ -282,12 +283,12 @@ class _LightOutRequestState extends State<LightOutRequest> {
                                                   tr('applicationFloorHint')))
                                           : Container(
                                               margin: const EdgeInsets.only(
-                                                  left: 15,right: 
-                                                  15),
+                                                  left: 15, right: 15),
                                               child: SingleChildScrollView(
-                                                scrollDirection: Axis.horizontal,
+                                                scrollDirection:
+                                                    Axis.horizontal,
                                                 child: Wrap(
-                                                  runSpacing:3.5,
+                                                  runSpacing: 3.5,
                                                   direction: Axis.vertical,
                                                   children: _selectedFloors
                                                       .map((e) => Chip(
@@ -455,6 +456,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                             ),
                             height: 288,
                             child: TextField(
+                              inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: otherRequestController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.multiline,

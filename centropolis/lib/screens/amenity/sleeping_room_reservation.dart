@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 import '../../models/selected_seat_model.dart';
@@ -242,6 +243,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                           controller: reservationDateController,
                           readOnly: true,
                           cursorColor: CustomColors.textColorBlack2,
