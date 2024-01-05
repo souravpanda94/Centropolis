@@ -15,6 +15,7 @@ import 'package:loading_overlay/loading_overlay.dart';
 import 'package:mime/mime.dart';
 import 'package:provider/provider.dart';
 import 'package:http/http.dart' as http;
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
 import '../../providers/user_provider.dart';
@@ -243,6 +244,8 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: titleController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
@@ -251,7 +254,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -303,6 +306,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         ),
                         height: 258,
                         child: TextField(
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: detailController,
                           maxLength: 500,
                           cursorColor: CustomColors.textColorBlack2,

@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
 
@@ -542,6 +543,9 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                           ),
                           height: 278,
                           child: TextField(
+                            inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                             controller: rentalInfoController,
                             cursorColor: CustomColors.textColorBlack2,
                             keyboardType: TextInputType.multiline,

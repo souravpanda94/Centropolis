@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../providers/user_provider.dart';
 import '../../services/api_service.dart';
 import '../../utils/constants.dart';
@@ -93,6 +94,8 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 46,
                     child: TextField(
+                      maxLines: 1,
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: emailIDController,
                       maxLength: 16,
                       cursorColor: CustomColors.textColorBlack2,
@@ -102,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.all(16),
+                        contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           borderSide: const BorderSide(
@@ -135,15 +138,19 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 46,
                     child: TextField(
+                      maxLines: 1,
+                      maxLength: 16,
+                      inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: passwordController,
                       cursorColor: CustomColors.textColorBlack2,
                       obscureText: true,
                       keyboardType: TextInputType.visiblePassword,
                       decoration: InputDecoration(
+                        counterText: "",
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.all(16),
+                        contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           borderSide: const BorderSide(
@@ -508,14 +515,14 @@ class _LoginScreenState extends State<LoginScreen> {
           if (responseJson['display_user_type'] != null) {
             displayUserType = responseJson['display_user_type'].toString();
           }
-           if (responseJson['account_type'] != null) {
+          if (responseJson['account_type'] != null) {
             accountType = responseJson['account_type'].toString();
           }
           debugPrint("checkSigned ======> $checkSigned");
 
-          setDataInSharedPreference(ConstantsData.userId,userId);
-          setDataInSharedPreference(ConstantsData.companyId,companyId);
-          setDataInSharedPreference(ConstantsData.userType,accountType);
+          setDataInSharedPreference(ConstantsData.userId, userId);
+          setDataInSharedPreference(ConstantsData.companyId, companyId);
+          setDataInSharedPreference(ConstantsData.userType, accountType);
 
           Map<String, String> loginData = {
             "user_id": userId.trim(),

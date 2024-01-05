@@ -10,6 +10,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:provider/provider.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 
 import '../../models/user_info_model.dart';
 import '../../providers/user_info_provider.dart';
@@ -238,10 +239,14 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         // inputFormatters: [
                         //   FilteringTextInputFormatter.allow(
                         //       RegExp("[a-zA-Z_\\s-]")),
                         // ],
+                        maxLines: 1,
                         controller: nameController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -249,7 +254,7 @@ class _AddMemberState extends State<AddMember> {
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -304,6 +309,10 @@ class _AddMemberState extends State<AddMember> {
                           child: SizedBox(
                             height: 46,
                             child: TextField(
+                              inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
+                              maxLines: 1,
                               maxLength: 16,
                               controller: idController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -313,7 +322,7 @@ class _AddMemberState extends State<AddMember> {
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -385,6 +394,11 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
+                              maxLines: 1,
+                              maxLength: 16,
                         controller: passwordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -392,10 +406,11 @@ class _AddMemberState extends State<AddMember> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
+                           counterText: "",
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -447,6 +462,11 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
+                              maxLines: 1,
+                              maxLength: 16,
                         controller: verifyPasswordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -454,10 +474,11 @@ class _AddMemberState extends State<AddMember> {
                         enableSuggestions: false,
                         autocorrect: false,
                         decoration: InputDecoration(
+                          counterText: "",
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -509,14 +530,19 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         controller: emailIDController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.emailAddress,
+                        maxLines: 1,
                         decoration: InputDecoration(
+                          
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -568,16 +594,20 @@ class _AddMemberState extends State<AddMember> {
                     SizedBox(
                       height: 46,
                       child: TextField(
+                        inputFormatters: [
+                                RemoveEmojiInputFormatter()
+                              ],
                         controller: contactNoController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.number,
                         maxLength: 11,
+                        maxLines: 1,
                         decoration: InputDecoration(
                           counterText: '',
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(

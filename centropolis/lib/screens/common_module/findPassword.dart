@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:loading_overlay/loading_overlay.dart';
 import 'package:http/http.dart' as http;
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
@@ -78,7 +79,8 @@ class _FindPasswordState extends State<FindPassword> {
                 SizedBox(
                   height: 46,
                   child: TextField(
-                
+                    maxLines: 1,
+                    inputFormatters: [RemoveEmojiInputFormatter()],
                     controller: idController,
                     maxLength: 16,
                     cursorColor: CustomColors.textColorBlack2,
@@ -88,7 +90,7 @@ class _FindPasswordState extends State<FindPassword> {
                       border: InputBorder.none,
                       fillColor: CustomColors.whiteColor,
                       filled: true,
-                      contentPadding: const EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.only(left: 16,right: 16),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
                         borderSide: const BorderSide(
@@ -142,6 +144,8 @@ class _FindPasswordState extends State<FindPassword> {
                 SizedBox(
                   height: 46,
                   child: TextField(
+                    maxLines: 1,
+                    inputFormatters: [RemoveEmojiInputFormatter()],
                     controller: emailIDController,
                     cursorColor: CustomColors.textColorBlack2,
                     keyboardType: TextInputType.emailAddress,
@@ -149,7 +153,7 @@ class _FindPasswordState extends State<FindPassword> {
                       border: InputBorder.none,
                       fillColor: CustomColors.whiteColor,
                       filled: true,
-                      contentPadding: const EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.only(left: 16,right: 16),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
                         borderSide: const BorderSide(

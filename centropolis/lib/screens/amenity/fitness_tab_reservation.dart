@@ -501,6 +501,9 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 //       SizedBox(
                 //         height: 46,
                 //         child: TextField(
+                //  inputFormatters: [
+                //                RemoveEmojiInputFormatter()
+                //              ],
                 //           controller: seatController,
                 //           readOnly: true,
                 //           cursorColor: CustomColors.textColorBlack2,

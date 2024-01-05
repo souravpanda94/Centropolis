@@ -229,5 +229,5 @@ class ImageLinks {
 class FirebaseAnalyticsServerType {
   //static const serverType = 'dev'; // Development server
    //static const serverType = 'live'; // Live server
-   static const serverType = 'QA'; // QA server
+    static const serverType = 'QA'; // QA server
 }

@@ -10,6 +10,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:http/http.dart' as http;
 import 'package:loading_overlay/loading_overlay.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import '../../services/api_service.dart';
 import '../../utils/custom_colors.dart';
 import '../../utils/custom_urls.dart';
@@ -302,6 +303,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           // inputFormatters: [
                           //    FilteringTextInputFormatter.allow(
                           //           RegExp("[a-zA-Z_\\s-]")),
@@ -313,7 +316,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -369,7 +372,8 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: SizedBox(
                               height: 46,
                               child: TextField(
-                               
+                                maxLines: 1,
+                                inputFormatters: [RemoveEmojiInputFormatter()],
                                 controller: idController,
                                 maxLength: 16,
                                 cursorColor: CustomColors.textColorBlack2,
@@ -379,7 +383,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   border: InputBorder.none,
                                   fillColor: CustomColors.whiteColor,
                                   filled: true,
-                                  contentPadding: const EdgeInsets.all(16),
+                                  contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4),
                                     borderSide: const BorderSide(
@@ -451,6 +455,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
+                          maxLength: 16,
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: passwordController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
@@ -458,10 +465,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           enableSuggestions: false,
                           autocorrect: false,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -514,6 +522,9 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
+                          maxLength: 16,
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: verifyPasswordController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
@@ -521,10 +532,11 @@ class _SignupScreenState extends State<SignupScreen> {
                           enableSuggestions: false,
                           autocorrect: false,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -577,6 +589,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: emailIDController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.emailAddress,
@@ -584,7 +598,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -637,6 +651,8 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
+                          inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: contactNoController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.number,
@@ -646,7 +662,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(

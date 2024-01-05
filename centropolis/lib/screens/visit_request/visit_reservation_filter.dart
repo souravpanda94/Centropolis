@@ -6,6 +6,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:remove_emoji_input_formatter/remove_emoji_input_formatter.dart';
 import 'package:table_calendar/table_calendar.dart';
 
 import '../../utils/custom_colors.dart';
@@ -195,6 +196,8 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
               SizedBox(
                 height: 46,
                 child: TextField(
+                  maxLines: 1,
+                  inputFormatters: [RemoveEmojiInputFormatter()],
                   controller: dateController,
                   cursorColor: CustomColors.textColorBlack2,
                   keyboardType: TextInputType.datetime,
@@ -204,7 +207,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                       border: InputBorder.none,
                       fillColor: CustomColors.whiteColor,
                       filled: true,
-                      contentPadding: const EdgeInsets.all(16),
+                      contentPadding: const EdgeInsets.only(left: 16,right: 16),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(4),
                         borderSide: const BorderSide(
