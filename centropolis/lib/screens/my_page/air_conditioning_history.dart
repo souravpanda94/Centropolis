@@ -270,7 +270,7 @@ class _AirConditioningHistoryState extends State<AirConditioningHistory> {
                                   IntrinsicHeight(
                                     child: Row(
                                       children: [
-                                        Expanded(
+                                        Flexible(
                                           child: Text(
                                             airConditioningListItem?[index]
                                                     .requestedFloors

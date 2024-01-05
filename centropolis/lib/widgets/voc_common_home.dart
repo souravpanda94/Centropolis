@@ -404,7 +404,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Expanded(
+                            Flexible(
                               child: Text(
                                 widget.lightoutList?[index].requestedFloors
                                         .toString()
@@ -578,7 +578,7 @@ class _VocCommonHomeState extends State<VocCommonHome> {
                       IntrinsicHeight(
                         child: Row(
                           children: [
-                            Expanded(
+                            Flexible(
                               child: Text(
                                 widget.airConditioningList?[index]
                                         .requestedFloors

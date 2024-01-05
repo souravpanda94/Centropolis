@@ -294,7 +294,7 @@ class _AirConditioningListState extends State<AirConditioningList> {
                                       IntrinsicHeight(
                                         child: Row(
                                           children: [
-                                            Expanded(
+                                            Flexible(
                                               child: Text(
                                                 airConditioningListItem?[index]
                                                         .requestedFloors
