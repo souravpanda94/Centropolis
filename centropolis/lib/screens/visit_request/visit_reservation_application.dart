@@ -556,11 +556,12 @@ class _VisitReservationApplicationState
                               controller: visitorNameController,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
+                              maxLines: 1,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -627,6 +628,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: companyNameController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -635,7 +637,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -701,6 +703,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: emailController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -709,7 +712,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -775,6 +778,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: contactController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -785,7 +789,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -863,6 +867,7 @@ class _VisitReservationApplicationState
                           SizedBox(
                             height: 46,
                             child: TextField(
+                              maxLines: 1,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: dateController,
                               readOnly: true,
@@ -872,7 +877,7 @@ class _VisitReservationApplicationState
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(

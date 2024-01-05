@@ -243,9 +243,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                       SizedBox(
                         height: 46,
                         child: TextField(
-                          inputFormatters: [
-                                RemoveEmojiInputFormatter()
-                              ],
+                          inputFormatters: [RemoveEmojiInputFormatter()],
+                          maxLines: 1,
                           controller: reservationDateController,
                           readOnly: true,
                           cursorColor: CustomColors.textColorBlack2,
@@ -254,7 +253,8 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding:
+                                const EdgeInsets.only(left: 16, right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -446,8 +446,9 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                                       ? InkWell(
                                           onTap: () {
                                             showPopupModal(
-                                                tr(
-                                                    "sleepingRoomReservationRules").toString().capitalizeByWord(),
+                                                tr("sleepingRoomReservationRules")
+                                                    .toString()
+                                                    .capitalizeByWord(),
                                                 tr("sleepingRoomRules")
                                                     .toString());
                                             //         showGeneralDialog(

@@ -303,6 +303,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           // inputFormatters: [
                           //    FilteringTextInputFormatter.allow(
@@ -315,7 +316,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -371,6 +372,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             child: SizedBox(
                               height: 46,
                               child: TextField(
+                                maxLines: 1,
                                 inputFormatters: [RemoveEmojiInputFormatter()],
                                 controller: idController,
                                 maxLength: 16,
@@ -381,7 +383,7 @@ class _SignupScreenState extends State<SignupScreen> {
                                   border: InputBorder.none,
                                   fillColor: CustomColors.whiteColor,
                                   filled: true,
-                                  contentPadding: const EdgeInsets.all(16),
+                                  contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                   enabledBorder: OutlineInputBorder(
                                     borderRadius: BorderRadius.circular(4),
                                     borderSide: const BorderSide(
@@ -453,6 +455,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: passwordController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -464,7 +467,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -517,6 +520,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: verifyPasswordController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -528,7 +532,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -581,6 +585,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: emailIDController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -589,7 +594,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -642,6 +647,7 @@ class _SignupScreenState extends State<SignupScreen> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: contactNoController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -652,7 +658,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(

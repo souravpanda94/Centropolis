@@ -112,14 +112,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       maxLength: 16,
+                      maxLines: 1,
                       decoration: InputDecoration(
                         counterText: '',
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
+                        contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4.0),
                           borderSide: const BorderSide(
@@ -198,15 +196,13 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       inputFormatters: [RemoveEmojiInputFormatter()],
                       keyboardType: TextInputType.visiblePassword,
                       maxLength: 16,
+                      maxLines: 1,
                       obscureText: true,
                       decoration: InputDecoration(
                         counterText: '',
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
+                        contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4.0),
                           borderSide: const BorderSide(
@@ -286,14 +282,12 @@ class _ChangePasswordScreenState extends State<ChangePasswordScreen> {
                       keyboardType: TextInputType.visiblePassword,
                       obscureText: true,
                       maxLength: 16,
+                      maxLines: 1,
                       decoration: InputDecoration(
                         counterText: '',
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.symmetric(
-                          vertical: 15.0,
-                          horizontal: 15.0,
-                        ),
+                       contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4.0),
                           borderSide: const BorderSide(

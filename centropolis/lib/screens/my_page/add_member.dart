@@ -246,6 +246,7 @@ class _AddMemberState extends State<AddMember> {
                         //   FilteringTextInputFormatter.allow(
                         //       RegExp("[a-zA-Z_\\s-]")),
                         // ],
+                        maxLines: 1,
                         controller: nameController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -253,7 +254,7 @@ class _AddMemberState extends State<AddMember> {
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -311,6 +312,7 @@ class _AddMemberState extends State<AddMember> {
                               inputFormatters: [
                                 RemoveEmojiInputFormatter()
                               ],
+                              maxLines: 1,
                               maxLength: 16,
                               controller: idController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -320,7 +322,7 @@ class _AddMemberState extends State<AddMember> {
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
-                                contentPadding: const EdgeInsets.all(16),
+                                contentPadding: const EdgeInsets.only(left: 16,right: 16),
                                 enabledBorder: OutlineInputBorder(
                                   borderRadius: BorderRadius.circular(4),
                                   borderSide: const BorderSide(
@@ -395,6 +397,7 @@ class _AddMemberState extends State<AddMember> {
                         inputFormatters: [
                                 RemoveEmojiInputFormatter()
                               ],
+                              maxLines: 1,
                         controller: passwordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -405,7 +408,7 @@ class _AddMemberState extends State<AddMember> {
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -460,6 +463,7 @@ class _AddMemberState extends State<AddMember> {
                         inputFormatters: [
                                 RemoveEmojiInputFormatter()
                               ],
+                              maxLines: 1,
                         controller: verifyPasswordController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -470,7 +474,7 @@ class _AddMemberState extends State<AddMember> {
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -528,11 +532,12 @@ class _AddMemberState extends State<AddMember> {
                         controller: emailIDController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.emailAddress,
+                        maxLines: 1,
                         decoration: InputDecoration(
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(
@@ -591,12 +596,13 @@ class _AddMemberState extends State<AddMember> {
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.number,
                         maxLength: 11,
+                        maxLines: 1,
                         decoration: InputDecoration(
                           counterText: '',
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.all(16),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4),
                             borderSide: const BorderSide(

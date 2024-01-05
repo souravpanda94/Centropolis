@@ -244,6 +244,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                       SizedBox(
                         height: 46,
                         child: TextField(
+                          maxLines: 1,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: titleController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -253,7 +254,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(

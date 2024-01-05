@@ -339,11 +339,12 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           controller: eventPurposeController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
+                          maxLines: 1,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(
@@ -416,6 +417,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           // inputFormatters: [
                           //   FilteringTextInputFormatter.allow(RegExp("[0-9]"))
                           // ],
+                          maxLines: 1,
                           controller: numberOfParticipantsController,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.number,
@@ -425,7 +427,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
-                            contentPadding: const EdgeInsets.all(16),
+                            contentPadding: const EdgeInsets.only(left: 16,right: 16),
                             enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(4),
                               borderSide: const BorderSide(

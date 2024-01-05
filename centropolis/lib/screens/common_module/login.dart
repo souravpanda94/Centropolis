@@ -94,6 +94,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 46,
                     child: TextField(
+                      maxLines: 1,
                       inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: emailIDController,
                       maxLength: 16,
@@ -104,7 +105,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.all(16),
+                        contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           borderSide: const BorderSide(
@@ -137,6 +138,7 @@ class _LoginScreenState extends State<LoginScreen> {
                   SizedBox(
                     height: 46,
                     child: TextField(
+                      maxLines: 1,
                       inputFormatters: [RemoveEmojiInputFormatter()],
                       controller: passwordController,
                       cursorColor: CustomColors.textColorBlack2,
@@ -146,7 +148,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         border: InputBorder.none,
                         fillColor: CustomColors.whiteColor,
                         filled: true,
-                        contentPadding: const EdgeInsets.all(16),
+                        contentPadding: const EdgeInsets.only(left: 16,right: 16),
                         enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(4),
                           borderSide: const BorderSide(

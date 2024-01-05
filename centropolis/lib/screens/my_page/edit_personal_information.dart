@@ -284,6 +284,7 @@ class _EditPersonalInformationScreenState
                     child: SizedBox(
                       height: 46.0,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [RemoveEmojiInputFormatter()],
                         cursorColor: CustomColors.blackColor,
                         controller: emailController,
@@ -291,10 +292,7 @@ class _EditPersonalInformationScreenState
                         decoration: InputDecoration(
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0,
-                            horizontal: 15.0,
-                          ),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
@@ -346,6 +344,7 @@ class _EditPersonalInformationScreenState
                     child: SizedBox(
                       height: 46.0,
                       child: TextField(
+                        maxLines: 1,
                         inputFormatters: [RemoveEmojiInputFormatter()],
                         cursorColor: CustomColors.blackColor,
                         controller: contactNumberController,
@@ -355,10 +354,7 @@ class _EditPersonalInformationScreenState
                           counterText: "",
                           fillColor: CustomColors.whiteColor,
                           filled: true,
-                          contentPadding: const EdgeInsets.symmetric(
-                            vertical: 15.0,
-                            horizontal: 15.0,
-                          ),
+                          contentPadding: const EdgeInsets.only(left: 16,right: 16),
                           enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(4.0),
                             borderSide: BorderSide(
