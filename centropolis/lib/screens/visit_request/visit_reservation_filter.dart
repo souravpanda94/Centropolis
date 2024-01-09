@@ -197,6 +197,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                 height: 46,
                 child: TextField(
                   maxLines: 1,
+                  maxLength:100,
                   inputFormatters: [RemoveEmojiInputFormatter()],
                   controller: dateController,
                   cursorColor: CustomColors.textColorBlack2,

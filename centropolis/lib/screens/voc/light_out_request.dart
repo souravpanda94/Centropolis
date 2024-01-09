@@ -461,6 +461,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.multiline,
                               maxLines: 14,
+                              maxLength:500,
                               decoration: InputDecoration(
                                 hintMaxLines: 500,
                                 border: InputBorder.none,

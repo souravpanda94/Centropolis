@@ -247,6 +247,7 @@ class _AddMemberState extends State<AddMember> {
                         //       RegExp("[a-zA-Z_\\s-]")),
                         // ],
                         maxLines: 1,
+                        maxLength:100,
                         controller: nameController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
@@ -533,6 +534,7 @@ class _AddMemberState extends State<AddMember> {
                         inputFormatters: [
                                 RemoveEmojiInputFormatter()
                               ],
+                              maxLength:100,
                         controller: emailIDController,
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.emailAddress,

@@ -78,6 +78,7 @@ class _FindIdScreenState extends State<FindID> {
                   height: 46,
                   child: TextField(
                     maxLines: 1,
+                    maxLength:100,
                     inputFormatters: [RemoveEmojiInputFormatter()],
                     controller: emailIDController,
                     cursorColor: CustomColors.textColorBlack2,

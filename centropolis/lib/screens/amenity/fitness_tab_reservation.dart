@@ -501,6 +501,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 //       SizedBox(
                 //         height: 46,
                 //         child: TextField(
+                  //       maxLength:100,
                 //  inputFormatters: [
                 //                RemoveEmojiInputFormatter()
                 //              ],

@@ -245,6 +245,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         height: 46,
                         child: TextField(
                           maxLines: 1,
+                          maxLength:100,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: titleController,
                           cursorColor: CustomColors.textColorBlack2,
@@ -308,7 +309,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                         child: TextField(
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: detailController,
-                          //maxLength: 500,
+                          maxLength: 500,
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.multiline,
                           maxLines: 14,

@@ -145,6 +145,7 @@ class _FindPasswordState extends State<FindPassword> {
                   height: 46,
                   child: TextField(
                     maxLines: 1,
+                    maxLength:100,
                     inputFormatters: [RemoveEmojiInputFormatter()],
                     controller: emailIDController,
                     cursorColor: CustomColors.textColorBlack2,

@@ -340,6 +340,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
                           maxLines: 1,
+                          maxLength:100,
                           decoration: InputDecoration(
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,

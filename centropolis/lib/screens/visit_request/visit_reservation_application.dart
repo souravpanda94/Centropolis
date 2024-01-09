@@ -557,6 +557,7 @@ class _VisitReservationApplicationState
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
                               maxLines: 1,
+                              maxLength:100,
                               decoration: InputDecoration(
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
@@ -629,6 +630,7 @@ class _VisitReservationApplicationState
                             height: 46,
                             child: TextField(
                               maxLines: 1,
+                              maxLength:100,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: companyNameController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -704,6 +706,7 @@ class _VisitReservationApplicationState
                             height: 46,
                             child: TextField(
                               maxLines: 1,
+                              maxLength:100,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: emailController,
                               cursorColor: CustomColors.textColorBlack2,
@@ -868,6 +871,7 @@ class _VisitReservationApplicationState
                             height: 46,
                             child: TextField(
                               maxLines: 1,
+                              maxLength:100,
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: dateController,
                               readOnly: true,

@@ -245,6 +245,7 @@ class _SleepingRoomReservationState extends State<SleepingRoomReservation> {
                         child: TextField(
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           maxLines: 1,
+                          maxLength:100,
                           controller: reservationDateController,
                           readOnly: true,
                           cursorColor: CustomColors.textColorBlack2,

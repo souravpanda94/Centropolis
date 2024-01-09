@@ -285,6 +285,7 @@ class _EditPersonalInformationScreenState
                       height: 46.0,
                       child: TextField(
                         maxLines: 1,
+                        maxLength:100,
                         inputFormatters: [RemoveEmojiInputFormatter()],
                         cursorColor: CustomColors.blackColor,
                         controller: emailController,

@@ -304,6 +304,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 46,
                         child: TextField(
                           maxLines: 1,
+                          maxLength:100,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           // inputFormatters: [
                           //    FilteringTextInputFormatter.allow(
@@ -590,6 +591,7 @@ class _SignupScreenState extends State<SignupScreen> {
                         height: 46,
                         child: TextField(
                           maxLines: 1,
+                          maxLength:100,
                           inputFormatters: [RemoveEmojiInputFormatter()],
                           controller: emailIDController,
                           cursorColor: CustomColors.textColorBlack2,
