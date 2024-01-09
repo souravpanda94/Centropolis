@@ -586,7 +586,7 @@ class _AirConditioningApplicationState
                             child: TextField(
                               inputFormatters: [RemoveEmojiInputFormatter()],
                               controller: otherRequestController,
-                              maxLength: 500,
+                              //maxLength: 500,
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.multiline,
                               maxLines: 14,

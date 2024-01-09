@@ -550,7 +550,7 @@ class _ConferenceReservationState extends State<ConferenceReservation> {
                             cursorColor: CustomColors.textColorBlack2,
                             keyboardType: TextInputType.multiline,
                             maxLines: 14,
-                            maxLength: 500,
+                            //maxLength: 500,
                             decoration: InputDecoration(
                               counterText: "",
                               hintMaxLines: 5,
