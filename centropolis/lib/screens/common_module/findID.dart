@@ -84,6 +84,7 @@ class _FindIdScreenState extends State<FindID> {
                     cursorColor: CustomColors.textColorBlack2,
                     keyboardType: TextInputType.emailAddress,
                     decoration: InputDecoration(
+                      counterText: "",
                       border: InputBorder.none,
                       fillColor: CustomColors.whiteColor,
                       filled: true,

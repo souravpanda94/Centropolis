@@ -252,6 +252,7 @@ class _AddMemberState extends State<AddMember> {
                         cursorColor: CustomColors.textColorBlack2,
                         keyboardType: TextInputType.text,
                         decoration: InputDecoration(
+                          counterText: "",
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,
@@ -540,7 +541,7 @@ class _AddMemberState extends State<AddMember> {
                         keyboardType: TextInputType.emailAddress,
                         maxLines: 1,
                         decoration: InputDecoration(
-                          
+                          counterText: "",
                           border: InputBorder.none,
                           fillColor: CustomColors.whiteColor,
                           filled: true,

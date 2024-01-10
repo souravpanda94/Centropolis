@@ -342,6 +342,7 @@ class _LoungeReservationState extends State<LoungeReservation> {
                           maxLines: 1,
                           maxLength:100,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,

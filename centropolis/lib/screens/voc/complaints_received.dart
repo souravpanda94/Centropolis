@@ -252,6 +252,7 @@ class _ComplaintsReceivedState extends State<ComplaintsReceived> {
                           keyboardType: TextInputType.text,
                           showCursor: true,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,

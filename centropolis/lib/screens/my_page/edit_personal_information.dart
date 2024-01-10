@@ -291,6 +291,7 @@ class _EditPersonalInformationScreenState
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         decoration: InputDecoration(
+                          counterText: "",
                           fillColor: CustomColors.whiteColor,
                           filled: true,
                           contentPadding: const EdgeInsets.only(left: 16,right: 16),

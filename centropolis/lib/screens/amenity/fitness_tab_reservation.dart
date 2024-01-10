@@ -510,6 +510,7 @@ class _FitnessTabReservationState extends State<FitnessTabReservation> {
                 //           cursorColor: CustomColors.textColorBlack2,
                 //           keyboardType: TextInputType.number,
                 //           decoration: InputDecoration(
+                  //         counterText: "",
                 //             border: InputBorder.none,
                 //             fillColor: CustomColors.whiteColor,
                 //             filled: true,

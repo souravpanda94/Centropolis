@@ -463,6 +463,7 @@ class _LightOutRequestState extends State<LightOutRequest> {
                               maxLines: 14,
                               maxLength:500,
                               decoration: InputDecoration(
+                                counterText: "",
                                 hintMaxLines: 500,
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,

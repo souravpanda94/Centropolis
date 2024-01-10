@@ -205,6 +205,7 @@ class _VisitReservationFilterState extends State<VisitReservationFilter> {
                   readOnly: true,
                   showCursor: false,
                   decoration: InputDecoration(
+                    counterText: "",
                       border: InputBorder.none,
                       fillColor: CustomColors.whiteColor,
                       filled: true,

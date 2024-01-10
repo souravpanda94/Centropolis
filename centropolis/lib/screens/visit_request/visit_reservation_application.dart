@@ -559,6 +559,7 @@ class _VisitReservationApplicationState
                               maxLines: 1,
                               maxLength:100,
                               decoration: InputDecoration(
+                                counterText: "",
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
@@ -636,6 +637,7 @@ class _VisitReservationApplicationState
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
+                                counterText: "",
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
@@ -712,6 +714,7 @@ class _VisitReservationApplicationState
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.emailAddress,
                               decoration: InputDecoration(
+                                counterText: "",
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,
@@ -878,6 +881,7 @@ class _VisitReservationApplicationState
                               cursorColor: CustomColors.textColorBlack2,
                               keyboardType: TextInputType.text,
                               decoration: InputDecoration(
+                                counterText: "",
                                 border: InputBorder.none,
                                 fillColor: CustomColors.whiteColor,
                                 filled: true,

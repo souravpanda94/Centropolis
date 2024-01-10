@@ -314,6 +314,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
@@ -597,6 +598,7 @@ class _SignupScreenState extends State<SignupScreen> {
                           cursorColor: CustomColors.textColorBlack2,
                           keyboardType: TextInputType.emailAddress,
                           decoration: InputDecoration(
+                            counterText: "",
                             border: InputBorder.none,
                             fillColor: CustomColors.whiteColor,
                             filled: true,
