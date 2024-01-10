@@ -87,7 +87,7 @@ class _EmployeeListState extends State<EmployeeList> {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Expanded(
+                Flexible(
                   child: Row(
                     children: [
                       Text(
@@ -519,6 +519,7 @@ class _EmployeeListState extends State<EmployeeList> {
           firstTimeLoadEmployeeList();
         },
         dropdownStyleData: DropdownStyleData(
+          offset: const Offset(100, 0),
           width: 196,
           //maxHeight: 200,
           isOverButton: false,
@@ -544,7 +545,7 @@ class _EmployeeListState extends State<EmployeeList> {
         menuItemStyleData: const MenuItemStyleData(
           overlayColor:
               MaterialStatePropertyAll(CustomColors.dropdownHoverColor),
-          padding: EdgeInsets.only(left: 16, top: 12, bottom: 12, right: 16),
+          padding: EdgeInsets.only(left: 16, top: 8, bottom: 8, right: 16),
         ),
       ),
     );
